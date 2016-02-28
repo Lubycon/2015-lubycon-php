@@ -1,0 +1,99 @@
+<div id="write_tool_box">
+                    <span class="tool_set_com" id="font_prop_com">
+                        <span class="tool_com" id="font_fam_com">
+                            <select class="basic_filter">
+                                <option value="Gulim">Gulim</option>
+                                <option value="Dotum">Dotum</option>
+                            </select>
+                            <span class="tooltip_bt" id="ff_com_tip">Font</span><!--tooltip-->
+                        </span><!--font famaily-->
+                        <span class="tool_com" id="font_size_com">
+                            <select class="basic_filter">
+                                <option value="14pt">14pt</option>
+                                <option value="18pt">18pt</option>
+                                <option value="24pt">24pt</option>
+                                <option value="30pt">30pt</option>
+                                <option value="36pt">36pt</option>
+                                <option value="48pt">48pt</option>
+                                <option value="60pt">60pt</option>
+                                <option value="72pt">72pt</option>
+                            </select>
+                            <span class="tooltip_bt" id="fs_com_tip">Font Size</span><!--tooltip-->
+                        </span><!--font size-->
+                    </span>
+                    <span class="tool_set_com" id="font_deco_com">
+                        <span class="tool_com">
+                            <i class="fa fa-bold"></i>
+                            <span class="tooltip_bt" id="bold_com_tip">Bold</span><!--tooltip-->
+                        </span><!--bold-->
+                        <span class="tool_com">
+                            <i class="fa fa-italic"></i>
+                            <span class="tooltip_bt" id="italic_com_tip">Italic</span><!--tooltip-->
+                        </span><!--italic-->
+                        <span class="tool_com">
+                            <i class="fa fa-underline"></i>
+                            <span class="tooltip_bt" id="underline_com_tip">Underline</span><!--tooltip-->
+                        </span><!--underline-->
+                        <span class="tool_com">
+                            <i class="fa fa-strikethrough"></i>
+                            <span class="tooltip_bt" id="strike_com_tip">Strike</span><!--tooltip-->
+                        </span><!--strike-->
+                    </span>
+                    <span class="tool_set_com" id="text_align_com">
+                        <span class="tool_com">
+                            <i class="fa fa-align-left"></i>
+                            <span class="tooltip_bt" id="left_com_tip">Left</span><!--tooltip-->
+                        </span><!--left-->
+                        <span class="tool_com">
+                            <i class="fa fa-align-center"></i>
+                            <span class="tooltip_bt" id="center_com_tip">Center</span><!--tooltip-->
+                        </span><!--center-->
+                        <span class="tool_com">
+                            <i class="fa fa-align-right"></i>
+                            <span class="tooltip_bt" id="right_com_tip">Right</span><!--tooltip-->
+                        </span><!--right-->
+                    </span>
+                    <span class="tool_set_com" id="font_color_com">
+                        <span class="tool_com">
+                            <i class="fa fa-square"></i>
+                            <span class="tooltip_bt" id="fc_com_tip">Text Color</span><!--tooltip-->
+                        </span><!--color-->
+                        <span class="tool_com">
+                            <i class="fa fa-square"></i>
+                            <span class="tooltip_bt" id="fbg_com_tip">Text Background</span><!--tooltip-->
+                        </span><!--text background-->
+                    </span>
+                    <span class="tool_set_com" id="list_com">
+                        <span class="tool_com">
+                            <i class="fa fa-list-ul"></i>
+                            <span class="tooltip_bt" id="ul_com_tip">Ul</span><!--tooltip-->
+                        </span><!--ul-->
+                        <span class="tool_com">
+                            <i class="fa fa-list-ol"></i>
+                            <span class="tooltip_bt" id="ol_com_tip">Ol</span><!--tooltip-->
+                        </span><!--ol-->
+                    </span>
+                    <span class="tool_set_com" id="table_com">
+                        <span class="tool_com">
+                            <i class="fa fa-table"></i>
+                            <span class="tooltip_bt" id="table_com_tip">Insert Table</span><!--tooltip-->
+                        </span><!--table-->
+                    </span>
+                    <span class="tool_set_com" id="embed_com">
+                        <span class="tool_com">
+                            <i class="fa fa-picture-o"></i>
+                            <span class="tooltip_bt" id="img_com_tip">Embed Image</span><!--tooltip-->
+                        </span><!--insert img-->
+                        <span class="tool_com">
+                            <i class="fa fa-link"></i>
+                            <span class="tooltip_bt" id="link_com_tip">Embed Link</span><!--tooltip-->
+                        </span><!--embed media-->
+                        <span class="tool_com">
+                            <i class="fa fa-unlink"></i>
+                            <span class="tooltip_bt" id="unlink_com_tip">Unlink</span><!--tooltip-->
+                        </span><!--unlink-->
+                    </span>
+                </div><!--write_tool_box_end-->
+                <textarea id="insert_text_window"></textarea><!--insert text window-->
+            
+            <!------------------no plug in editor------------------>

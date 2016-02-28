@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tm:TermDictionary xmlns:tm="http://exerd.com/term-model" version="1.1">
+  <term name="회원정보" description="제일많이 조회하는 기초 회원정보에 대해서 담은 테이블을 의미한다" physicalName="Member" physicalDescription="테이블 설명이다" tag="//@tag.0"/>
+  <term name="가입날짜" description="복합식별자(회원코드) 중 하나로, 회원가입을 한 날짜에 대한 정보를 담고있다" physicalName="sign_date" physicalDescription="INT : 가입날짜를 date관련 데이터형을 쓰지 않은 이유는 코드로써의 식별자를 사용하기 위함이며, 때문에 프로그램에서 timestamp값을 int형 데이터로 전환하여 기록한다" tag="//@tag.0"/>
+  <term name="가입순서" description="복합식별자(회원코드) 중 하나로, 회원가입을 할 때, 동시가입자에게 다른 식별코드를 주기위해 자동증가 속성을 갖는 칼럼이다" physicalName="sign_seq" physicalDescription="INT : 가입날짜와의 데이터 합을 위하여 같은 데이터형을 써 가입날짜+가입순서로써의 복합식별자 역활을 하게 된다" tag="//@tag.0"/>
+  <term name="이메일" description="사이트에서 회원이 로그인할 때 사용하는 identify로서 사용되는 정보이다" physicalName="email" physicalDescription="CHAR(255) 데이터형 VACHAR()는 CHAR()보다 데이터조회가 느리기 때문에 자주 조회하는 데이터의 속도를 빠르게 하기위하여 데이터형 CHAR를 사용하게 되었으며 이메일 관련 도메인의 최대길이는 320자이지만 일반적으로 255자 이상 넘기란 상식적으로 보기어렵기 때문에 255자로 제한을 두었다" tag="//@tag.0"/>
+  <term name="닉네임" description="사이트에서 회원간에 식별할 수 있는 고유 식별자(identify)로 사용되는 정보이다" physicalName="nickname" physicalDescription="CHAR(255) 데이터형 VACHAR()는 CHAR()보다 데이터조회가 느리기 때문에 자주 조회하는 데이터의 속도를 빠르게 하기위하여 데이터형 CHAR를 사용하게 되었다" tag="//@tag.0"/>
+  <term name="비밀번호" description="사이트에서 회원이 로그인할 때, 사용되는 암호(password) 정보 이다" physicalName="password" physicalDescription="CHAR(20) 비밀번호는 최대 20자가 제한이며, 데이터형 VACHAR()는 CHAR()보다 데이터조회가 느리기 때문에 자주 조회하는 데이터의 속도를 빠르게 하기위하여 데이터형 CHAR를 사용하게 되었다" tag="//@tag.0"/>
+  <term name="탈퇴여부" description="사이트에서 회원이 활동 하는 여부를 가리는 데 쓰이는 정보이며, 이 값이 갱신된 뒤로 15일이 지나면 제일 최소한의 history정보만 남기고 데이터는 자동 삭제되는데 쓰이는 식별자이다" physicalName="mem_val" physicalDescription="BOOL 탈퇴여부는 true와 false로만 관리하면 되기에 데이터형 bool값을 사용한다." tag="//@tag.0"/>
+  <term name="기본정보" description="자주 조회되지는 않으며, 삽입되지도 않고, 변경도 잦지 않는 회원 기본정보들을 모아놓은 테이블이다" physicalName="BasicInfo" physicalDescription="테이블설명" tag="//@tag.1"/>
+  <term name="가입날짜" description="회원정보 테이블의 복합 식별자를 외래식별자로 가져온 정보이다" physicalName="sign_date" physicalDescription="INT 외래키식별키 설명생략 -> 회원정보 참조" tag="//@tag.1"/>
+  <term name="가입순서" description="회원정보 테이블의 복합 식별자를 외래식별자로 가져온 정보이다" physicalName="sign_seq" physicalDescription="INT 외래식별키 설명생략 -> 회원정보 참조" tag="//@tag.1"/>
+  <term name="직업코드" description="테이블을 정규화 시켜 직업코드로 간결하게 표시한 데이터이다" physicalName="job_code" physicalDescription="INT 외래식별키 설명생략 -> 직업 참조" tag="//@tag.1"/>
+  <term name="국가코드" description="테이블을 정규화 시켜 국가코드로 간결하게 표시한 데이터이다" physicalName="country_code" physicalDescription="INT 외래키식별자 설명 생략 -> 국가참조" tag="//@tag.1"/>
+  <term name="프로필사진경로" description="프로필 사진의 경로를 지정하는 칼럼이다" physicalName="img_directory" physicalDescription="VARCHAR() 프로필 사진 경로가 자주 변경점이 없을 것으로 판단하여 데이터형 CHAR보다는 VARCHAR()로 설정하였다." tag="//@tag.1"/>
+  <term name="소개글" description="자기소개하는 글을 저장하는 칼럼이다" physicalName="description" physicalDescription="CHAR(160) 자기소개글은 최대 글자 제한이 160자이며, 회원정보에 비하여 조회수는 적겠지만, 그래도 상당한 조회수가 있을 것으로 판단되어 CHAR(160)으로 설정하였다" tag="//@tag.1"/>
+  <term name="언어" description="회원이 사용하는 언어에 대한 정보를 표시하는 칼럼이다" physicalName="lang" physicalDescription="VARCHAR() 언어에 대한 고정코드를 설정하지 않기로 하였기 때문에, 얼마나 긴 문자열이 입력될지 예측이 안되기에 VARCHAR()로 설정하였다" tag="//@tag.1"/>
+  <term name="도시" description="회원이 거주하고있는 도시에 대한 정보를 표시하는 칼럼이다" physicalName="city" physicalDescription="VARCHAR() 도시에 대한 고정코드를 설정하지 않기로 하였기 때문에, 얼마나 긴 문자열이 입력될지 예측이 안되기에 VARCHAR()로 설정하였다" tag="//@tag.1"/>
+  <term name="핸드폰 번호" description="회원의 핸드폰 번호에 대한 정보를 담고있는 칼럼이다" physicalName="phone_num" physicalDescription="CHAR(20) 핸드폰번호에 하이픈(-)이 들어갈 가능성과 해외 핸드폰번호의 길이를 예측할 수 없어서 CHAR(20)으로 고정하였다" tag="//@tag.1"/>
+  <term name="핸드폰번호 공개여부" description="회원의 핸드폰 번호를 공개/비공개 여부에 대한 정보를 담고 있는 칼럼이다" physicalName="PN_access" physicalDescription="BOOL" tag="//@tag.1"/>
+  <term name="팩스번호" description="회원의 팩스번호에 대한 정보를 담고 있는 칼럼이다" physicalName="fax_num" physicalDescription="VARCHAR() 팩스번호에 하이픈(-)이 들어갈 경우를 염두하였으며, 해외의 경우 팩스번호가 얼마나 길지 예측이 어려워 VARCHAR(20)로 선언하였다" tag="//@tag.1"/>
+  <term name="팩스번호 공개여부" description="회원의 팩스 번호를 공개/비공개 여부에 대한 정보를 담고있는 칼럼이다" physicalName="FN_access" physicalDescription="BOOL" tag="//@tag.1"/>
+  <term name="웹사이트" description="회원의 웹사이트에 대한 정보를 담고 있는 칼럼이다" physicalName="website" physicalDescription="VARCHAR() 웹사이트의 길이는 더 길어질수 있기에 VARCHAR()로 설정하였다" tag="//@tag.1"/>
+  <term name="웹사이트 공개여부" description="회원의 웹사이트 공개/비공개 여부에 대한 정보를 담고있는 칼럼이다" physicalName="WS_access" physicalDescription="BOOL" tag="//@tag.1"/>
+  <term name="직업" description="직업코드에 관련된 테이블" physicalName="Job" physicalDescription="테이블 설명" tag="//@tag.2"/>
+  <term name="직업코드" description="해당 직업명에 대한 직업 코드를 나타낸다" physicalName="job_code" physicalDescription="INT" tag="//@tag.2"/>
+  <term name="직업명" description="해당 코드에 대한 직업명을 나타낸다" physicalName="job_name" physicalDescription="VARCHAR()" tag="//@tag.2"/>
+  <term name="디자이너" description="직업 테이블에서 더 세부적인 직업코드에 대한 정보를 담고 있는 테이블이며 앞으로 변경 가능성이 있다." physicalDescription="테이블 관련 설명" tag="//@tag.3"/>
+  <term name="직업코드" description="외래 식별자에 대한 설명 생략 -> 직업 테이블 참조" physicalName="job_code" physicalDescription="INT" tag="//@tag.3"/>
+  <term name="분류된 코드" description="세부 직업에 관련된 코드이며 해당되는 세부직업명과 1:1대치된다" physicalName="code_detail" physicalDescription="INT 식별자로 사용되기에 데이터형 INT 사용" tag="//@tag.3"/>
+  <term name="세부직업" description="세부 직업명에 관련된 정보이며 분류된 코드와 1:1대치된다" physicalName="job_name_detail" physicalDescription="VARCHAR() 세부직업명을 나눌 때, 얼마나 긴 직업명이 나올지 예측하기 어려워 VARCHAR() 선언" tag="//@tag.3"/>
+  <term name="국가" description="국가코드에 관련된 정보를 담고 있는 테이블이다" physicalName="Country" physicalDescription="테이블 설명" tag="//@tag.4"/>
+  <term name="국가코드" description="국가명에 1:1 대치되는 정보이며 식별자로 사용된다." physicalName="country_code" physicalDescription="INT 식별자로 사용하기 위하여 INT사용" tag="//@tag.4"/>
+  <term name="국가명" description="국가코드와 1:1로 대치되는 정보이며 국가코드에 대한 정보를 담고있다." physicalName="country_name" physicalDescription="VARCHAR() 국가명이 얼마나 긴지 예측하기 어렵기에." tag="//@tag.4"/>
+  <term name="국제 전화번호" description="해당 국가에 대한 국제 전화번호에 대한 정보를 담고있다." physicalName="country_num" physicalDescription="CHAR(20) 국제전화번호는 최대길이가 4자이지만 도메인을 맞추기 위하여 20자를 사용하였다" tag="//@tag.4"/>
+  <term name="로그기록" description="회원접속에 관련된 로그기록이 되는 테이블이다" physicalName="" physicalDescription="테이블설명" tag="//@tag.5"/>
+  <term name="가입날짜" description="외래식별자로 설명 생략 -> 회원정보 참조" physicalName="sign_date" physicalDescription="INT" tag="//@tag.5"/>
+  <term name="가입순서" description="외래식별자로 설명 생략 -> 회원정보 참조" physicalName="mem_code" physicalDescription="INT" tag="//@tag.5"/>
+  <term name="IP" description="회원이 로그인을 시도할 경우, 해당하는 ip가 로그정보에 기록된다. 그에대한 정보를 담은 칼럼" physicalName="ip" physicalDescription="CHAR(71) ipv6로 기록하는 정보이기에 콜론을 포함하여 기본적으로 총 71자로 기록된다" tag="//@tag.5"/>
+  <term name="접속날짜" description="회원이 로그인을 시도한 경우, 그 날짜를 기록하는 칼럼이다" physicalName="access_date" physicalDescription="TIMESTAMP 로그인을 시도한 년,월,일,시,분,초 를 기록한다" tag="//@tag.5"/>
+  <term name="로그인 성공 여부" description="회원이 로그인을 시도한 경우, 로그인 성공 여부에 대한 정보를 기록하는 칼럼이다" physicalName="access_success" physicalDescription="BOOL 로그인 성공 여부를 true, false로 기록한다" tag="//@tag.5"/>
+  <term name="북마크" description="회원이 즐겨찾기 한 페이지에 대한 정보를 담은 테이블이다" physicalName="Book_Mark" physicalDescription="테이블 설명" tag="//@tag.6"/>
+  <term name="가입순서" description="외래식별자로 설명생략 -> 회원정보 참조" physicalName="sign_seq" physicalDescription="INT" tag="//@tag.6"/>
+  <term name="가입날짜" description="외래식별자로 설명생략 -> 회원정보 참조" physicalName="sign_date" physicalDescription="INT" tag="//@tag.6"/>
+  <term name="URL 경로" description="사용자가 즐겨찾기한 사이트의 링크 정보를 담고있는 칼럼이다" physicalName="url" physicalDescription="VARCHAR() url링크는 얼마든지 길어질수 있기에 VARCHAR()를 사용" tag="//@tag.6"/>
+  <term name="팔로워" description="사용자를 팔로우 한 회원정보를 담고있는 테이블이다" physicalName="follower" physicalDescription="테이블 설명" tag="//@tag.7"/>
+  <term name="가입순서" description="외래식별자로 설명생략 -> 회원정보 참조" physicalName="mem_code" physicalDescription="INT" tag="//@tag.7"/>
+  <term name="가입날짜" description="외래식별자로 설명생략 -> 회원정보 참조" physicalName="sign_date" physicalDescription="INT" tag="//@tag.7"/>
+  <term name="팔로워 회원코드" description="사용자를 팔로우 한 회원들의 식별자를 저장하는 칼럼이다" physicalName="follower_code" physicalDescription="INT" tag="//@tag.7"/>
+  <term name="팔로잉" description="사용자가 팔로우한 회원들에 대한 식별자를 담고있는 테이블이다" physicalName="following" physicalDescription="테이블 설명" tag="//@tag.8"/>
+  <term name="가입순서" description="외래식별자로 설명생략 -> 회원정보 참조" physicalName="mem_code" physicalDescription="INT" tag="//@tag.8"/>
+  <term name="가입날짜" description="외래식별자로 설명생략 -> 회원정보 참조" physicalName="sign_date" physicalDescription="INT" tag="//@tag.8"/>
+  <term name="팔로우한 회원코드" description="사용자가 팔로우한 회원들에 대한 식별자정보를 담고있는 칼럼이다" physicalName="following" physicalDescription="INT" tag="//@tag.8"/>
+  <tag name="회원정보"/>
+  <tag name="기본정보"/>
+  <tag name="직업"/>
+  <tag name="디자이너"/>
+  <tag name="국가"/>
+  <tag name="로그기록"/>
+  <tag name="북마크"/>
+  <tag name="팔로워"/>
+  <tag name="팔로잉"/>
+</tm:TermDictionary>

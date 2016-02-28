@@ -1,0 +1,286 @@
+﻿@charset "utf-8";
+
+.sod_select.custom.custom{
+    width: 100%;
+    max-width: 300px;
+    margin-top: 10px;
+}
+.sod_select.custom .sod_list_wrapper{
+    width: 100%;
+    max-width: 300px;
+}
+
+.lubySelector{
+    float: left;
+    
+}
+
+#confirm_alert {
+    width: 400px;
+    height: 200px;
+}
+
+#account_setting_form{
+    margin: 45px;
+}
+
+#account_section{
+    width: 100%;
+    text-align: left;
+}
+    .setting_card{
+        width:100%;
+        background: #ffffff;
+        margin-bottom:20px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .setting_card .setting_title{
+        width:100%;
+        margin-bottom:30px;
+        font-size: 22px;
+        font-weight: 200;
+        color: #444444;
+    }
+        .setting_card label{
+            display: block;
+            margin-top: 20px;
+            color:#444444;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        .setting_card input{
+            width: 100%;
+            max-width: 300px;
+            height: 40px;
+            border:1px solid #aaa;
+            border-radius: 3px;
+            margin-top: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+            .setting_card input:focus{
+                border:1px solid #48cfad;
+                box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
+            }
+        .setting_card .fa-times{
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            background: #ec6446;
+            color: #ffffff;
+            border-radius: 50%;
+            text-align: center;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+        .setting_card .fa-check{
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            background: #48cfad;
+            color: #ffffff;
+            border-radius: 50%;
+            text-align: center;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+    .form_check{
+        color:#ea4126;
+        font-size: 12px !important;
+        margin-left: 140px;
+        margin-top: -16px;
+        margin-bottom:0px !important;
+        display:none;
+        height: 16px;
+        line-height: 13px;
+    }
+
+    .setting_card #change_pass{
+        display: inline-block;
+        min-width: 110px;
+        background: transparent;
+        border: 1px solid #444444;
+        border-radius: 50px;
+        color: #444444;
+        font-size: 14px;
+        text-align: center;
+        margin-left:75px;
+        padding: 10px;
+        cursor:pointer;
+        font-weight: 200;
+    }
+        .setting_card #change_pass:hover{
+            color: #48cfad;
+            border: 1px solid #48cfad
+        }
+
+    #lang_plus{
+        cursor: pointer;
+        width: 100%;
+        max-width: 300px;
+        background: transparent;
+        display: block;
+        text-align: center;
+        margin-top: 5px;
+    }
+        #lang_plus:hover{
+            background: #fcfcfc;
+        }
+    #lang_plus i{
+        font-size:23px;
+        color:#48cfad;
+    }
+    .lang_minus{
+        cursor: pointer;
+        width: 100%;
+        max-width: 300px;
+        background: transparent;
+        display: block;
+        text-align: center;
+        margin-top: 5px;
+    }
+        .lang_minus:hover{
+            background: #fcfcfc;
+        }
+    .lang_minus i{
+        font-size:23px;
+        color:#aaaaaa;
+    }
+    #delete_desc{
+        font-size:16px;
+        color:#ea4126;
+    }
+    #confirm_bt {
+        border:none;
+        display: inline-block;
+        background:#ec6446;
+        color:#fff;
+        border-radius: 5px;
+        padding: 10px 16px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+        font-weight: 200;
+        cursor:pointer;
+    }
+    #basic_desc{
+        width: 100%;
+        max-width: 300px;
+        height: 250px;
+        max-width:300px;
+        min-height:29px;
+        margin-bottom:10px;
+        border-radius: 3px;
+        border:1px solid #999;
+        resize:none;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        #basic_desc:focus{
+            border:1px solid #48cfad;
+            box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
+        }
+    #basic_desc_label{
+        vertical-align:top;
+    }
+    .public_option{
+        position:relative;
+    }
+    .fa-lock{
+        position:absolute;
+        z-index:1;
+        top:20px;
+        left:10px;
+        color:#888888;
+    }
+
+    .public_option .sod_select.custom.custom{
+        width:130px;
+        background:#fff;
+    }
+
+    .public_option .sod_select.custom .sod_label{
+        padding-right:0px;
+    }
+    .public_option .sod_select.custom .sod_list_wrapper{
+        width:130px;
+        box-shadow:none;
+        z-index:2;
+    }
+    .public_option  .sod_select.custom.focus{
+        box-shadow:none;
+    }
+#croppic_account{
+    display: block;
+}
+#cropContainerHeaderButton{
+    display: inline-block;
+    min-width: 110px;
+    background: transparent;
+    border: 1px solid #444444;
+    border-radius: 50px;
+    color: #444444;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 24px;
+    padding: 10px;
+    cursor:pointer;
+    font-weight: 200;
+}
+
+#file_hide {
+    visibility:hidden;
+    width:1px;
+}
+#file_bt {
+    width: 130px;
+    height: 30px;
+    background: #48cfad;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 14px;
+    margin-left: 75px;
+    padding: 9px 26px;
+    cursor: pointer;
+    font-weight: 200;
+}
+#file_text{
+    color:#464646;
+    cursor:default;
+}
+    #file_text:focus{
+        border:1px solid #999999;
+        box-shadow: none;
+    }
+
+#img_preview{
+    margin-left:130px;
+    margin-bottom:15px;
+    display:block;
+    overflow:hidden;
+}
+#submit_bt{
+    width:210px;
+    height:45px;
+    display: block;
+    background:#48cfad;
+    border:none;
+    border-radius:2px;
+    color:#fff;
+    margin: 0px auto;
+    margin-top:55px;
+    margin-bottom:15px;
+    font-size: 20px;
+    font-weight: 200;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.3);
+    cursor:pointer;
+}
+    #submit_bt:hover{
+        opacity: 0.8;
+    }

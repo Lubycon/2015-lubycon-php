@@ -1,0 +1,160 @@
+﻿@charset "utf-8";
+
+#navsel{
+    display:none;
+}
+
+
+#user_view{
+    position: relative;
+    width:100%;
+    top:0px;
+    margin-top: -4px;
+}
+    #user_box_total
+    {
+        width:100%;
+        min-width:1200px;
+        display:block;
+        position:relative;
+        margin:0px auto;
+        text-align: center;
+        cursor: default;
+        overflow-y: hidden;
+    }
+
+.con_main{
+    padding-right: 0px;
+    padding-left: 310px;
+}
+    #bestCreator{
+        display: block;
+        width: 100%;
+        max-width: 1220px;
+        margin: 20px auto;
+        float: none;
+        background: #444444;
+    }
+        #bestCreator .creator_pic{
+            
+        }
+        #bestCreator .creator_name a{
+            color: #fafafa;
+        }
+            #bestCreator .creator_name a:hover{
+                color: #48cfad;
+            }
+        #bestCreator .creator_job{
+            color: #fafafa;
+        }
+        #bestCreator .creator_location{
+            color: #fafafa;
+        }
+            #bestCreator .creator_location i{
+                color: #fafafa;
+            }
+        #bestCreator .usercontent{
+            
+        }
+        #bestCreator .usercontent img{
+            max-width: 300px;
+        }
+.con_aside{
+    border-right: 1px solid #222222;
+    border-left: 0px;    
+}
+    #myinfo_setting{
+        color: #aaaaaa;
+        font-size: 22px;
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+        #myinfo_menu_list{
+            width: 150px;
+            top: 20px;
+            left: 20px;
+            position: absolute;
+            border-radius: 5px;
+            z-index: 1;
+            border: 1px solid #aaaaaa;
+            background: rgba(255,255,255,0.9);
+            display: none;  
+        }
+        #myinfo_menu_list ul{
+            line-height: 35px;
+        }
+            #myinfo_menu_list ul li{
+                text-align: center;
+                color: #aaaaaa;
+                font-weight: 200;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            #myinfo_menu_list ul li:hover{
+                background: rgba(200,200,200,0.5);
+            }
+                #myinfo_menu_list ul li i{
+                    display: inline-block;
+                    color: #444444;
+                    float: left;
+                    margin-top: 8px;
+                    margin-left: 7px;
+                    font-size: 17px;
+                }
+                #myinfo_menu_list ul li a{
+                    color: #444444;
+                }
+
+    #user_view_aside #myinfo_main{
+        width: 100%;
+        text-align: left;
+        padding: 5px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        #myinfo_main figure{
+            margin: 0px auto;
+            border-radius: 50%;
+            overflow:hidden;
+        }
+        #myinfo_main figure img{
+            width:100%;
+        }
+        #myinfo_main h4{
+            height:30px;
+            color:#eeeeee;
+            text-align: center;
+        }
+    #user_view_aside #myinfo_sub{
+        display: block;
+        width: 220px;
+        margin: 0px auto;
+        margin-top: 10px;
+        
+    }
+        #myinfo_sub .myinfo_wrap{
+            display: block;
+            text-align: center;
+            margin: 5px 0px;
+            position: relative;
+        }
+            .myinfo_wrap i{
+                color: #eeeeee;
+                display: inline-block;
+                float: left;
+            }
+            .myinfo_wrap .myinfo_name{
+                color: #eeeeee;
+                font-weight: 200;
+                display: inline-block !important;
+            }
+                #job_name{
+                    font-weight: 200;
+                    color: #eeeeee;
+                }
+
+/* main section end */

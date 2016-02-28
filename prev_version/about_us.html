@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="subject" content="Lubycon" />
+    <meta name="description" content="free sources" />
+    <meta name="author" content="Daniel ZEPOT" />
+    <meta name="robots" content="index" />
+    <meta name="copyright" content="copyrights 2015 ZEPOT" />
+    <meta name="keywords" content="font ,vector, 3D design, community, designers, engineer, 3D printer, Illustration, Lubycon" />
+
+    <title>LUBYCON</title>
+    <link rel="shortcut icon" href="CH/img/logo/lubycon.ico" />  <!-- favicon -->
+    <!--<link href="http://fonts.googleapis.com/css?family=Exo+2:400" rel="stylesheet" type="text/css" />-->
+    <link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css' />	<!--google web font-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" /> <!--icon font-->
+
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />  <!-- web normalize -->
+    <link href="css/layout/common.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
+
+
+    <link href="css/selectordie.css" rel="stylesheet" type="text/css">  <!-- select box css -->
+
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
+    <script type="text/javascript" src="js/jquery.flexslider.js"></script> <!-- main slider js -->
+
+    <script type="text/javascript" src="js/selectordie.min.js"></script>    <!-- select box js -->
+    <script type="text/javascript" src="js/selectordie.demo.js"></script>   <!-- select box js -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+
+
+</head>
+<body id="bodyer" ondragstart="return false" onselectstart="return false">
+    <header id="main_header">
+        <h1><a href="index.html"><img src="CH/img/logo/lubycon_logo.svg" width="176" height="40" alt="main_logo" /></a></h1>
+        <nav id="main_gnb">
+            <ul id="gnb">
+                <li class="bigsub">
+                    Contnets
+                    <ul class="sub">
+                        <li>
+                            <a href="#"><i class="fa fa-font fa-1x"></i><p>Font</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-square fa-1x"></i><p>Vector</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-cube fa-1x"></i><p>3D</p></a>
+                        </li>
+                    </ul>	<!--end Contents menu-->
+                </li>
+                <li class="menu_bar"></li>
+                <li class="bigsub">
+                    Community
+                    <ul class="sub">
+                        <li>
+                            <a href="#"><i class="fa fa-comments-o fa-1x"></i><p>Board</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-star fa-1x"></i><p class="long_text">Designers Page</p></a>
+                        </li>
+                    </ul>	<!--end Community menu-->
+                </li>
+                <li class="menu_bar"></li>
+                <li class="bigsub">
+                    Company
+                    <ul class="sub">
+                        <li>
+                            <a href="#"><i class="fa fa-building fa-1x"></i><p>About us</p></a>
+                        </li>
+                    </ul>	<!--end Company menu-->
+                </li>
+            </ul> <!-- end gnb ul -->
+        </nav>	<!--end main_gnb-->
+        <div id="signin_bt">
+            <div id="signin">
+                <span class="partition">|</span>
+                <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
+                <p class="signin">SIGN IN</p>
+            </div>  <!-- end signin -->
+            <div id="login_box">
+                <div id="login_input">
+                    <label>E-mail</label>
+                    <input type="text" id="login_id" />
+                    <label>Password</label>
+                    <input type="password" id="login_pass" />
+                </div>  <!-- end login_input div -->
+                <div id="login_submit">
+                    <input type="submit" id="login_facebook" value=""><i class="fa fa-facebook-square"></i>
+                    <input type="submit" id="login_google" value="" /><i class="fa fa-google-plus"></i>
+                </div>     <!-- end login_submit div -->
+                <p id="creat_acc">Create An Account</p>
+                <p id="forgot_pass">Forgot your password?</p>
+                <p class="up_triangle"></p>
+            </div>  <!-- end login_box div -->
+        </div>  <!-- end signin_bt div -->
+        <div id="lang_select_bt">
+            <ul>
+                <li class="lang_selected">KOR</li>
+                <ul class="lang_list">
+                    <li>KOR</li>
+                    <li>CHN</li>
+                    <li>ENG</li>
+                    <li>FRN</li>
+                    <li>JPN</li>
+                    <li>POR</li>
+                </ul>	<!-- end lang_list -->
+            </ul>	<!-- end lang_all -->
+        </div>	<!-- end lang_select_bt -->
+    </header>	<!--end main_header-->
+
+    <div id="main_search_bar">
+        <input type="text" id="main_search_text" value="Enter the Keyword" />
+
+        <button id="main_search_btn" class="out">
+            <i class="fa fa-caret-left"></i>
+            <i class="fa fa-search"></i>
+        </button>
+
+        <div id="select_box">
+            |
+            <select class="basic">
+                <option value="All">All</option>
+                <option value="Contents">Contents</option>
+                <option value="Desinger">Desinger</option>
+                <option value="Community">Community</option>
+            </select>
+        </div>
+        <!-- end select_box -->
+    </div>	 <!--end main_searsh_bar-->
+
+    <figure id="main_figure">
+        <h2>ABOUT US</h2>
+    </figure>	<!-- end main_figure -->
+
+    <link href="css/about_us.css" rel="stylesheet" type="text/css" />  <!-- account_setting page css -->
+
+    
+
+    <!--contents-->   
+    <article id="descript_lubycon">
+        <p>
+            Welcome to Lubycon <font color="#48cfad">!</font><br />
+            Lubycon is a playground for all creative minds.<br />
+            Through Lubycon, anyone can create, share and gain access to unique designs that inspire the World.<br />
+            Lubycon respect all designer, engineer, developer, artists and their works
+        </p>
+    </article>
+
+    <div id="icons">
+        <ul>
+            <li id="icon1"><!--design icon-->
+                <p class="icon_title">DESIGN</p>
+                <p class="icon_descript">
+                    All unique individuals are<br />
+                    naturally born with the joy<br />
+                    for creative process. Show<br />
+                    us your creation and tell<br />
+                    us about your creative mind!
+                </p>
+            </li>
+            <li id="icon2"><!--share icon-->
+                <p class="icon_title">SHARE</p>
+                <p class="icon_descript">
+                    Discover other similar minds<br />
+                    that connect to you and<br />
+                    inspire other artists!<br />
+                    Connect your creativity with<br />
+                    the World
+                </p>
+            </li>
+            <li id="icon3"><!--community icon-->
+                <p class="icon_title">COMMUNITY</p>
+                <p class="icon_descript">
+                    Make new friends through<br />
+                    your design! The community<br />
+                    exists to help and give you<br />
+                    access to new information.
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <div id="employees">
+        <div id="ceo">
+            <p class="emp_name">Paul Neal HMK</p>
+            <p class="emp_position">C.E.O</p>
+        </div>
+        <ul>
+            <li class="employee">
+                <p class="emp_name">SsaRu</p>
+                <p class="emp_position">Engineer</p>
+            </li>
+            <li class="employee">
+                <p class="emp_name">Daniel Zepot</p>
+                <p class="emp_position">Engineer</p>
+            </li>
+            <li class="employee">
+                <p class="emp_name">Dart</p>
+                <p class="emp_position">Designer</p>
+            </li>
+            <li class="employee">
+                <p class="emp_name">Simon Joseph</p>
+                <p class="emp_position">Designer</p>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+
+    <div id="contact_body">
+        <article id="contact_title">Contact Us
+            <p>
+                If you have any questions<br />
+                please feel free to contact us at
+                <a id="mailadress" href="mailto:contact@lubycon.com"><font color="#48cfad">contact@lubycon.com</font></a>
+            </p>
+        </article>
+
+
+        <a href="mailto:contact@lubycon.com" target="_blank">
+            <button type="button" id="mailbtn">
+                <i class="fa fa-envelope-o">
+                </i>
+            </button>
+        </a>
+    </div>
+
+
+
+
+    <footer id="footer"></footer>
+</body>
+
+
+</html>

@@ -1,0 +1,248 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lubycon_php", "Lubycon_php", "{0776844A-08DE-4742-A0B4-6CEC4EF8BE00}"
+	ProjectSection(SolutionItems) = preProject
+		index.php = index.php
+		index_body.php = index_body.php
+		login_check.php = login_check.php
+		login_page.php = login_page.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "php", "php", "{DAEE0839-5F41-492F-95AB-58A345B7C2AE}"
+	ProjectSection(SolutionItems) = preProject
+		..\contents_data\contents_data.php = ..\contents_data\contents_data.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "account", "account", "{EB38E6BD-6829-4E8C-8594-BEEC354919CB}"
+	ProjectSection(SolutionItems) = preProject
+		php\account\create_account.php = php\account\create_account.php
+		php\account\forgot_password.php = php\account\forgot_password.php
+		php\ajax\infinite_scroll_ajax.php = php\ajax\infinite_scroll_ajax.php
+		php\account\mail_for_resist.php = php\account\mail_for_resist.php
+		php\account\overlap_check.php = php\account\overlap_check.php
+		php\account\registration.php = php\account\registration.php
+		php\account\session_check.php = php\account\session_check.php
+		php\account\success_account.php = php\account\success_account.php
+		php\account\waiting_for_resisting.php = php\account\waiting_for_resisting.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "community", "community", "{21B889A6-ABE9-4229-90DE-654198AA2D3E}"
+	ProjectSection(SolutionItems) = preProject
+		php\community\community_page.php = php\community\community_page.php
+		php\community\community_view.php = php\community\community_view.php
+		php\community\community_write.php = php\community\community_write.php
+		php\community\test.php = php\community\test.php
+		php\community\wysiwygs.php = php\community\wysiwygs.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "company", "company", "{2444400F-89DF-48F0-B2FC-DA811A7CF73C}"
+	ProjectSection(SolutionItems) = preProject
+		php\company\about_us.php = php\company\about_us.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "contents", "contents", "{CFB3191C-27E6-431F-9AC4-056BEBA97233}"
+	ProjectSection(SolutionItems) = preProject
+		php\contents\contents_page.php = php\contents\contents_page.php
+		php\contents\contents_view.php = php\contents\contents_view.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "designers_page", "designers_page", "{0F23BE5D-2D0E-490F-ADA1-70CBEDCECAF8}"
+	ProjectSection(SolutionItems) = preProject
+		php\designers_page\designers_page.php = php\designers_page\designers_page.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "editor", "editor", "{3FC22545-B208-4275-8530-090F43F8CDD4}"
+	ProjectSection(SolutionItems) = preProject
+		php\editor\editor.php = php\editor\editor.php
+		php\editor\editor_setting.php = php\editor\editor_setting.php
+		php\editor\editor_thumbnail.php = php\editor\editor_thumbnail.php
+		php\editor\imageUpload.php = php\editor\imageUpload.php
+		php\editor\test.php = php\editor\test.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "personal_page", "personal_page", "{5528D5D6-2249-4D2D-917F-4B4987AE93D2}"
+	ProjectSection(SolutionItems) = preProject
+		php\personal_page\account_setting.php = php\personal_page\account_setting.php
+		php\personal_page\bookmark.php = php\personal_page\bookmark.php
+		php\personal_page\dashboard.php = php\personal_page\dashboard.php
+		php\personal_page\followers.php = php\personal_page\followers.php
+		php\personal_page\insight.php = php\personal_page\insight.php
+		php\personal_page\message.php = php\personal_page\message.php
+		php\personal_page\my_contents.php = php\personal_page\my_contents.php
+		php\personal_page\my_forums.php = php\personal_page\my_forums.php
+		php\personal_page\personal_page.php = php\personal_page\personal_page.php
+		php\personal_page\subnav.php = php\personal_page\subnav.php
+		php\personal_page\test.php = php\personal_page\test.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{89F53E10-E9B7-495E-82C7-F2122711B934}"
+	ProjectSection(SolutionItems) = preProject
+		css\about_us.css = css\about_us.css
+		css\account_setting.css = css\account_setting.css
+		css\artists_page.css = css\artists_page.css
+		css\bootstrap.min.css = css\bootstrap.min.css
+		css\chosen.css = css\chosen.css
+		css\chosen_prism.css = css\chosen_prism.css
+		css\community.css = css\community.css
+		css\community_view.css = css\community_view.css
+		css\community_write.css = css\community_write.css
+		css\contents_page.css = css\contents_page.css
+		css\contents_view.css = css\contents_view.css
+		css\create_account.css = css\create_account.css
+		css\croppic.css = css\croppic.css
+		css\editor.css = css\editor.css
+		css\find_password.css = css\find_password.css
+		css\flexslider.css = css\flexslider.css
+		css\followers.css = css\followers.css
+		css\index.css = css\index.css
+		css\insight.css = css\insight.css
+		css\login_page.css = css\login_page.css
+		css\message.css = css\message.css
+		css\normalize.css = css\normalize.css
+		css\personal_page.css = css\personal_page.css
+		css\selectordie.css = css\selectordie.css
+		css\slider.css = css\slider.css
+		css\spectrum.css = css\spectrum.css
+		css\success_account.css = css\success_account.css
+		css\summernote.css = css\summernote.css
+		css\user_ranking.css = css\user_ranking.css
+		css\waiting_for_resisting.css = css\waiting_for_resisting.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{F4657569-6E1C-48D8-8BE1-96250A2CB5CA}"
+	ProjectSection(SolutionItems) = preProject
+		js\aboutus.js = js\aboutus.js
+		js\account.js = js\account.js
+		js\account_setting.js = js\account_setting.js
+		js\ajax.js = js\ajax.js
+		js\bootstrap.min.js = js\bootstrap.min.js
+		js\call_comments.js = js\call_comments.js
+		js\chosen.jquery.js = js\chosen.jquery.js
+		js\chosen.prism.js = js\chosen.prism.js
+		js\community.js = js\community.js
+		js\community_infinite_scroll.js = js\community_infinite_scroll.js
+		js\croppic.min.js = js\croppic.min.js
+		js\d3.min.js = js\d3.min.js
+		js\dashboard.js = js\dashboard.js
+		js\editor.js = js\editor.js
+		js\index.js = js\index.js
+		js\infinite_scroll.js = js\infinite_scroll.js
+		js\insight.js = js\insight.js
+		js\jquery-1.11.3.min.js = js\jquery-1.11.3.min.js
+		js\jquery-2.1.3.min.js = js\jquery-2.1.3.min.js
+		js\jquery-ui.min.js = js\jquery-ui.min.js
+		js\jquery.cycle.all.js = js\jquery.cycle.all.js
+		js\jquery.form.min.js = js\jquery.form.min.js
+		js\jquery.js = js\jquery.js
+		js\jquery.mousewheel.min.js = js\jquery.mousewheel.min.js
+		js\login_page.js = js\login_page.js
+		js\luby_ui.js = js\luby_ui.js
+		js\resizeObject.js = js\resizeObject.js
+		js\selectordie.demo.js = js\selectordie.demo.js
+		js\selectordie.min.js = js\selectordie.min.js
+		js\slider.js = js\slider.js
+		js\spectrum.js = js\spectrum.js
+		js\success_account.js = js\success_account.js
+		js\summernote.js = js\summernote.js
+		js\summernote.min.js = js\summernote.min.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "contents_page", "contents_page", "{7328460A-3607-460C-8C81-56CB4C1DF3A8}"
+	ProjectSection(SolutionItems) = preProject
+		css\contents_page\main_page.css = css\contents_page\main_page.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{79EDE1A8-A22F-45A4-8EBB-14D24588F03D}"
+	ProjectSection(SolutionItems) = preProject
+		css\layout\animate.css = css\layout\animate.css
+		css\layout\common.css = css\layout\common.css
+		css\layout\media.css = css\layout\media.css
+		css\layout\normalize.css = css\layout\normalize.css
+		css\layout\selectordie.css = css\layout\selectordie.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{95A2715A-1E5C-45E2-A385-A4B1032CE2F9}"
+	ProjectSection(SolutionItems) = preProject
+		php\layout\comment.php = php\layout\comment.php
+		php\layout\community_card.php = php\layout\community_card.php
+		php\layout\content_card.php = php\layout\content_card.php
+		php\layout\creator_card.php = php\layout\creator_card.php
+		php\layout\follower_card.php = php\layout\follower_card.php
+		php\layout\index_forum.php = php\layout\index_forum.php
+		php\layout\main_board.php = php\layout\main_board.php
+		php\layout\mb_contents_card.php = php\layout\mb_contents_card.php
+		php\layout\personal_menu.php = php\layout\personal_menu.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ajax", "ajax", "{A5A8174F-E088-43E5-BDAE-1CF2E3FCFFAE}"
+	ProjectSection(SolutionItems) = preProject
+		php\ajax\call_comments_ajax.php = php\ajax\call_comments_ajax.php
+		php\ajax\community_infinite_scroll.php = php\ajax\community_infinite_scroll.php
+		php\ajax\create_account_popup.php = php\ajax\create_account_popup.php
+		php\ajax\editor_ajax.php = php\ajax\editor_ajax.php
+		php\ajax\editor_fileupload.php = php\ajax\editor_fileupload.php
+		php\ajax\editor_thumbupload.php = php\ajax\editor_thumbupload.php
+		php\ajax\infinite_scroll_ajax.php = php\ajax\infinite_scroll_ajax.php
+		php\ajax\login_check.php = php\ajax\login_check.php
+		php\ajax\subnav_check.php = php\ajax\subnav_check.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{47A72F42-267F-46A1-83F9-784BC9FB8B66}"
+	ProjectSection(SolutionItems) = preProject
+		php\database\database_class.php = php\database\database_class.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artists_page", "artists_page", "{15C9771D-A4D8-4999-BB4D-670E36973F1D}"
+	ProjectSection(SolutionItems) = preProject
+		php\artists_page\artists_page.php = php\artists_page\artists_page.php
+		php\artists_page\user_ranking.php = php\artists_page\user_ranking.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chart", "chart", "{4A844A4F-BD40-4012-B242-753595699D6D}"
+	ProjectSection(SolutionItems) = preProject
+		js\chart\amcharts.js = js\chart\amcharts.js
+		js\chart\lubytheme.js = js\chart\lubytheme.js
+		js\chart\serial.js = js\chart\serial.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "creators_page", "creators_page", "{B5BAB6CF-31EF-4F58-AB26-627D58D8B67D}"
+	ProjectSection(SolutionItems) = preProject
+		php\creators_page\creators.php = php\creators_page\creators.php
+		php\creators_page\user_ranking.php = php\creators_page\user_ranking.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img_crop", "img_crop", "{B28D56C0-BF45-4F8E-9C8D-F8B33B2A7D60}"
+	ProjectSection(SolutionItems) = preProject
+		php\img_crop\img_crop_to_file.php = php\img_crop\img_crop_to_file.php
+		php\img_crop\img_save_to_file.php = php\img_crop\img_save_to_file.php
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DAEE0839-5F41-492F-95AB-58A345B7C2AE} = {0776844A-08DE-4742-A0B4-6CEC4EF8BE00}
+		{EB38E6BD-6829-4E8C-8594-BEEC354919CB} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{21B889A6-ABE9-4229-90DE-654198AA2D3E} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{2444400F-89DF-48F0-B2FC-DA811A7CF73C} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{CFB3191C-27E6-431F-9AC4-056BEBA97233} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{0F23BE5D-2D0E-490F-ADA1-70CBEDCECAF8} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{3FC22545-B208-4275-8530-090F43F8CDD4} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{5528D5D6-2249-4D2D-917F-4B4987AE93D2} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{89F53E10-E9B7-495E-82C7-F2122711B934} = {0776844A-08DE-4742-A0B4-6CEC4EF8BE00}
+		{F4657569-6E1C-48D8-8BE1-96250A2CB5CA} = {0776844A-08DE-4742-A0B4-6CEC4EF8BE00}
+		{7328460A-3607-460C-8C81-56CB4C1DF3A8} = {89F53E10-E9B7-495E-82C7-F2122711B934}
+		{79EDE1A8-A22F-45A4-8EBB-14D24588F03D} = {89F53E10-E9B7-495E-82C7-F2122711B934}
+		{95A2715A-1E5C-45E2-A385-A4B1032CE2F9} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{A5A8174F-E088-43E5-BDAE-1CF2E3FCFFAE} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{47A72F42-267F-46A1-83F9-784BC9FB8B66} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{15C9771D-A4D8-4999-BB4D-670E36973F1D} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{4A844A4F-BD40-4012-B242-753595699D6D} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
+		{B5BAB6CF-31EF-4F58-AB26-627D58D8B67D} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{B28D56C0-BF45-4F8E-9C8D-F8B33B2A7D60} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+	EndGlobalSection
+EndGlobal

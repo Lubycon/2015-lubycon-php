@@ -1,0 +1,94 @@
+﻿@charset "utf-8";
+
+body {
+    background: #282828;
+}
+#contents_box {
+    padding-bottom: 0px;
+}
+#insight_box {
+    width:100%;
+    position: relative;
+}
+.chart_wrap {
+    position: relative;
+    background: #282828; 
+    text-align: left;
+    padding: 40px 10px 50px 10px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    .chart_title {
+        position: relative;
+        top: 0;
+        right: 0;
+        display: inline-block;
+        text-align: center;
+        border-radius: 5px;
+        padding: 3px 10px;
+        margin: 20px;
+        cursor: pointer;
+    }
+    .chart_title:hover {
+        background: rgba(255,255,255,0.3);
+    }
+        .chart_title #chart_icon {
+            color: #48cfad;
+            margin-right: 10px;
+            font-size: 22px;
+        }
+        .chart_title #chart_name {
+            color: #ffffff;
+            font-weight: 200;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .chart_title #toggle_arrow {
+            color: #ffffff;
+            font-size: 17px;
+        }
+
+    #chart_selector {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 108px;
+        left: 30px;
+        width: 130px;
+        padding: 4px;
+        border-radius: 5px;
+        background: rgba(255,255,255,0.8);
+        font-size: 15px;
+    }
+        .chart_list {
+            border-radius: 5px;
+            padding: 5px;
+            color: #444444;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        .chart_list:hover {
+            background: rgba(150,150,150,0.6);
+            cursor: pointer;
+        }
+            .chart_list i {
+                margin-right: 10px;
+            }
+    .chartboxes {
+        height: 100% !important;
+    }
+    #chartdiv1 {
+        display: block;
+    }
+    #chartdiv2 {
+        display: none;
+    }
+    #chartdiv3 {
+        display: none;
+    }
+    #chartdiv4 {
+        display: none;
+    }
+/* main section end */

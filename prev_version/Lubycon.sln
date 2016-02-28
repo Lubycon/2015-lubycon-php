@@ -1,0 +1,94 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSS", "CSS", "{907447AC-43CE-4558-BAEC-9B6396A6B542}"
+	ProjectSection(SolutionItems) = preProject
+		css\about_us.css = css\about_us.css
+		css\account_setting.css = css\account_setting.css
+		css\community.css = css\community.css
+		css\community_view.css = css\community_view.css
+		css\contents_page.css = css\contents_page.css
+		css\contents_page2.css = css\contents_page2.css
+		css\create_account(check_duplicate_id).css = css\create_account(check_duplicate_id).css
+		css\create_account.css = css\create_account.css
+		css\designers_page.css = css\designers_page.css
+		css\editer.css = css\editer.css
+		css\find_password.css = css\find_password.css
+		css\flexslider.css = css\flexslider.css
+		css\index.css = css\index.css
+		css\insight.css = css\insight.css
+		css\message.css = css\message.css
+		css\normalize.css = css\normalize.css
+		css\personal_page.css = css\personal_page.css
+		css\selectordie.css = css\selectordie.css
+		css\slider.css = css\slider.css
+		css\success_account.css = css\success_account.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lubycon", "Lubycon", "{5D39FE98-3500-497F-9B52-7C3D3C52E03D}"
+	ProjectSection(SolutionItems) = preProject
+		about_us.html = about_us.html
+		account_setting.html = account_setting.html
+		community.html = community.html
+		community_view.html = community_view.html
+		contents_page.html = contents_page.html
+		contents_view.html = contents_view.html
+		create_account(check_duplicate_id).html = create_account(check_duplicate_id).html
+		create_account.html = create_account.html
+		designers_page.html = designers_page.html
+		editer_1.html = editer_1.html
+		find_password.html = find_password.html
+		index.html = index.html
+		insight.html = insight.html
+		message.html = message.html
+		personal_page.html = personal_page.html
+		success_account.html = success_account.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main_page", "Main_page", "{9ADD3AEB-AF46-4EFE-B532-183714F15170}"
+	ProjectSection(SolutionItems) = preProject
+		css\main_page\flexslider.css = css\main_page\flexslider.css
+		css\main_page\main_page.css = css\main_page\main_page.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layout", "Layout", "{D9BE0561-0E6B-4203-BA4F-FDA940354278}"
+	ProjectSection(SolutionItems) = preProject
+		css\layout\common.css = css\layout\common.css
+		css\layout\normalize.css = css\layout\normalize.css
+		css\layout\selectordie.css = css\layout\selectordie.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contents_page", "Contents_page", "{696DFE7F-A90B-4E72-AD72-97A5143BBC87}"
+	ProjectSection(SolutionItems) = preProject
+		css\contents_page\main_page.css = css\contents_page\main_page.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JS", "JS", "{1E319400-173E-4675-AFE6-CE7D4D024D87}"
+	ProjectSection(SolutionItems) = preProject
+		js\account_setting.js = js\account_setting.js
+		js\community.js = js\community.js
+		js\index.js = js\index.js
+		js\insight_graph.js = js\insight_graph.js
+		js\jquery-1.11.3.min.js = js\jquery-1.11.3.min.js
+		js\jquery-2.1.3.min.js = js\jquery-2.1.3.min.js
+		js\jquery.cycle.all.js = js\jquery.cycle.all.js
+		js\jquery.flexslider.js = js\jquery.flexslider.js
+		js\selectordie.demo.js = js\selectordie.demo.js
+		js\selectordie.min.js = js\selectordie.min.js
+		js\slider.js = js\slider.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{907447AC-43CE-4558-BAEC-9B6396A6B542} = {5D39FE98-3500-497F-9B52-7C3D3C52E03D}
+		{9ADD3AEB-AF46-4EFE-B532-183714F15170} = {907447AC-43CE-4558-BAEC-9B6396A6B542}
+		{D9BE0561-0E6B-4203-BA4F-FDA940354278} = {907447AC-43CE-4558-BAEC-9B6396A6B542}
+		{696DFE7F-A90B-4E72-AD72-97A5143BBC87} = {907447AC-43CE-4558-BAEC-9B6396A6B542}
+		{1E319400-173E-4675-AFE6-CE7D4D024D87} = {5D39FE98-3500-497F-9B52-7C3D3C52E03D}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,626 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="subject" content="Lubycon" />
+    <meta name="description" content="free sources" />
+    <meta name="author" content="Daniel ZEPOT" />
+    <meta name="robots" content="index" />
+    <meta name="copyright" content="copyrights 2015 ZEPOT" />
+    <meta name="keywords" content="font ,vector, 3D design, community, designers, engineer, 3D printer, Illustration, Lubycon" />
+
+    <title>LUBYCON</title>
+    <link rel="shortcut icon" href="CH/img/logo/lubycon.ico" />  <!-- favicon -->
+    <!--<link href="http://fonts.googleapis.com/css?family=Exo+2:400" rel="stylesheet" type="text/css" />-->
+    <link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css' />	<!--google web font-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" /> <!--icon font-->
+
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />  <!-- web normalize -->
+    <link href="css/layout/common.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
+    
+    
+    <link href="css/selectordie.css" rel="stylesheet" type="text/css">  <!-- select box css -->
+
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
+
+    <script type="text/javascript" src="js/slider.js"></script> <!-- main slider js -->
+
+    <script type="text/javascript" src="js/selectordie.min.js"></script>    <!-- select box js -->
+    <script type="text/javascript" src="js/selectordie.demo.js"></script>   <!-- select box js -->
+
+    <script>
+    jQuery(document).ready(function ($) {
+
+        var _SlideshowTransitions = [
+        //Fade
+        { $Duration: 1200, $Opacity: 2 }
+        ];
+
+        var options = {
+            $AutoPlay: false,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+            $AutoPlaySteps: 1,                                  //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
+            $AutoPlayInterval: 3000,                            //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+            $PauseOnHover: 1,                               //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+            $ArrowKeyNavigation: true,   			            //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
+            $SlideDuration: 500,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+            //$SlideWidth: 600,                                 //[Optional] Width of every slide in pixels, default value is width of 'slides' container
+            //$SlideHeight: 300,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
+            $SlideSpacing: 0, 					                //[Optional] Space between each slide in pixels, default value is 0
+            $DisplayPieces: 1,                                  //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
+            $ParkingPosition: 0,
+            $DragOrientation: 0, //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
+
+            $BulletNavigatorOptions: {                                //[Optional] Options to specify and enable navigator or not
+                $Class: $JssorBulletNavigator$,                       //[Required] Class to create navigator instance
+                $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                $AutoCenter: 1,                                 //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                $Steps: 1,                                      //[Optional] Steps to go for each navigation request, default value is 1
+                $Lanes: 1,                                      //[Optional] Specify lanes to arrange items, default value is 1
+                $SpacingX: 10,                                   //[Optional] Horizontal space between each item in pixel, default value is 0
+                $SpacingY: 10,                                   //[Optional] Vertical space between each item in pixel, default value is 0
+                $Orientation: 1                                 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
+            },
+            $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
+                $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+                $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
+            }
+        };
+
+        var jssor_slider1 = new $JssorSlider$("contents_view_slider", options);
+
+        //responsive code begin
+        //you can remove responsive code if you don't want the slider scales while window resizes
+        function ScaleSlider() {
+            var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
+            if (parentWidth)
+                jssor_slider1.$ScaleWidth(Math.min(parentWidth, 610));
+            else
+                window.setTimeout(ScaleSlider, 30);
+        }
+        ScaleSlider();
+
+        $(window).bind("load", ScaleSlider);
+        $(window).bind("resize", ScaleSlider);
+        $(window).bind("orientationchange", ScaleSlider);
+        //responsive code end
+    });
+    </script>
+
+
+
+</head>
+<body id="bodyer" ondragstart="return false" onselectstart="return false">
+    <header id="main_header">
+        <h1><a href="index.html"><img src="CH/img/logo/lubycon_logo.svg" width="176" height="40" alt="main_logo" /></a></h1>
+        <nav id="main_gnb">
+            <ul id="gnb">
+                <li class="bigsub">
+                    Contnets
+                    <ul class="sub">
+                        <li>
+                            <a href="#"><i class="fa fa-font fa-1x"></i><p>Font</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-square fa-1x"></i><p>Vector</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-cube fa-1x"></i><p>3D</p></a>
+                        </li>
+                    </ul>	<!--end Contents menu-->
+                </li>
+                <li class="menu_bar"></li>
+                <li class="bigsub">
+                    Community
+                    <ul class="sub">
+                        <li>
+                            <a href="#"><i class="fa fa-comments-o fa-1x"></i><p>Board</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-star fa-1x"></i><p class="long_text">Designers Page</p></a>
+                        </li>
+                    </ul>	<!--end Community menu-->
+                </li>
+                <li class="menu_bar"></li>
+                <li class="bigsub">
+                    Company
+                    <ul class="sub">
+                        <li>
+                            <a href="#"><i class="fa fa-building fa-1x"></i><p>About us</p></a>
+                        </li>
+                    </ul>	<!--end Company menu-->
+                </li>
+            </ul> <!-- end gnb ul -->
+        </nav>	<!--end main_gnb-->
+        <div id="signin_bt">
+            <div id="signin">
+                <span class="partition">|</span>
+                <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
+                <p class="signin">SIGN IN</p>
+            </div>  <!-- end signin -->
+                <div id="login_box">
+                    <div id="login_input">
+                        <label>E-mail</label>
+                        <input type="text" id="login_id" />
+                        <label>Password</label>
+                        <input type="password" id="login_pass" />
+                    </div>  <!-- end login_input div -->
+                    <div id="login_submit">
+                        <input type="submit" id="login_facebook" value=""><i class="fa fa-facebook-square"></i>
+                        <input type="submit" id="login_google" value="" /><i class="fa fa-google-plus"></i>
+                    </div>     <!-- end login_submit div -->
+                    <p id="creat_acc">Create An Account</p> 
+                    <p id="forgot_pass">Forgot your password?</p>  
+                    <p class="up_triangle"></p>            
+                </div>  <!-- end login_box div -->
+        </div>  <!-- end signin_bt div -->
+        <div id="lang_select_bt">
+            <ul>
+                <li class="lang_selected">KOR</li>
+                <ul class="lang_list">
+                    <li>KOR</li>
+                    <li>CHN</li>
+                    <li>ENG</li>
+                    <li>FRN</li>
+                    <li>JPN</li>
+                    <li>POR</li>
+                </ul>	<!-- end lang_list -->
+            </ul>	<!-- end lang_all -->
+        </div>	<!-- end lang_select_bt -->
+    </header>	<!--end main_header-->
+
+    <div id="main_search_bar">
+        <input type="text" id="main_search_text" value="Enter the Keyword" />
+
+        <button id="main_search_btn" class="out">
+            <i class="fa fa-caret-left"></i>
+            <i class="fa fa-search"></i>
+        </button>
+
+        <div id="select_box">|
+            <select class="basic">
+                <option value="All">All</option>
+                <option value="Contents">Contents</option>
+                <option value="Desinger">Desinger</option>
+                <option value="Community">Community</option>
+            </select>
+        </div>
+        <!-- end select_box -->
+    </div>	 <!--end main_searsh_bar-->
+
+    <figure id="main_figure">
+        <h2>ALL CONTENTS</h2>
+    </figure>	<!-- end main_figure -->
+
+    <link href="css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+    <section id="contents">
+        <section id="navsel">
+            <nav id="lnb_nav">
+                <ul>
+                    <li class="selected_nav">All</li>
+                    <li>Font</li>
+                    <li>Vector</li>
+                    <li>3D</li>
+                </ul>
+            </nav>  <!-- end lnb nav -->
+            
+            <div class="search_option">
+                <i class="fa fa-usd"></i>
+                <select class="basic_filter">
+                    <option value="Price">Price</option>
+                    <option value="100% Free">100% Free</option>
+                    <option value="Free for personal use">Free for personal use</option>
+                    <option value="Not Free">Not Free</option>
+                </select>
+            </div>  <!-- end select box -->
+            <div class="search_option">
+                <i class="fa fa-filter"></i>
+                <select class="basic_filter">
+                    <option value="Featured">Featured</option>
+                    <option value="Recent">Recent</option>
+                    <option value="Most Like">Most Like</option>
+                    <option value="Most Download">Most Download</option>
+                    <option value="Most Coment">Most Coment</option>
+                </select>
+
+            </div>  <!-- end select box -->
+        </section>  <!-- end section -->
+
+        <section id="category">
+            <div id="cate_bt">
+                <h3>CATEGORY</h3>
+                <p id="down_arrow"><i class="fa fa-angle-down"></i></p>
+            </div>
+            <div id="open_cate">
+                <div id="open_cate_inner">
+                    <ul>
+                        <li>All</li>
+                        <li>Hollyday</li>
+                        <li>Animal</li>
+                        <li>Car</li>
+                        <li>Box</li>
+                        <li>Nature</li>
+                        <li>Mecanic</li>
+                        <li>Phone</li>
+                        <li>Bottle</li>
+                        <li>Calinder</li>
+                        <li>Book</li>
+                        <li>Simbol / Sign</li>
+                    </ul>
+                </div>  <!-- end open cate inner -->
+            </div>  <!-- end open cate -->
+        </section>  <!-- end category -->
+        <section id="contents_box">
+            <ul>
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider2/9.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                    <div id="contents_overlay">
+                        <ul>
+                            <li>
+                                <i class="fa fa-eye"></i>
+                                <span id="contents_view">124</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-comments-o"></i>
+                                <span id="contents_comments">124</span>
+                            </li>
+                            <li id="contents_like_li">
+                                <i id="bookmark_bt" class="fa fa-star"></i>
+                                <span id="contents_like">124</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>  <!-- end contents Card --></li><!--1-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider1/5.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--2-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider2/3.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--3-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider2/1.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--4-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider1/6.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--5-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider2/4.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--6-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider1/1.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--7-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider2/7.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--8-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider1/7.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--9-->
+                <li><div class="contents_card">
+                    <div class="contents_pic">
+                        <img src="ch/img/slider/slider2/2.png" width="285" height="215" />
+                    </div>  <!-- end contents pic -->
+                    <div class="contents_disc">
+                        <div class="contents_sub">
+                            <h4>Holly shit</h4>
+                            <h5>Free</h5>
+                        </div>
+                        <img src="ch/img/designer_img.png" />
+                        <span class="by">by</span><span class="name">Daniel Zepp</span>
+                        <i id="bookmark_bt" class="fa fa-star"></i>
+                    </div>  <!-- end contents disc -->
+                </div>  <!-- end contents Card --></li><!--10-->
+            </ul>
+        </section>  <!-- end contents box -->
+        <nav>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </nav>
+    </section>  <!-- end contents section -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <link href="css/contents_page2.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+    
+    <div class="dark_overlay"></div>
+    <div id="pop_up">
+        <section class="contents_view">
+            <header>
+                <h3>Manner maketh man</h3>
+                <h4>Free</h4>
+                <div id="bookmark">
+                    <i id="bookmark_inner_bt" class="fa fa-star"></i>
+                </div>
+            </header>
+            <section id="con_left">
+                <div class="contents_img">
+                   <iframe name="webgl" src="../webgl/file_viewer/viewer.html" width="630" height="630" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="margin-bottom:-5px">
+                   </iframe>
+                </div>
+
+
+                <section id="contens_slide">
+                    <div id="contents_view_slider">
+                        <div class="slides" u="slides">
+                            <div>
+                                <ul>
+                                    <li><img src="ch/img/slider/slider1/1.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/2.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/3.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/4.png" alt="썸네일04"></li>
+                                    <li><img src="ch/img/slider/slider1/5.png" alt="썸네일05"></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><img src="ch/img/slider/slider1/1.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/2.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/3.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/4.png" alt="썸네일04"></li>
+                                    <li><img src="ch/img/slider/slider1/5.png" alt="썸네일05"></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><img src="ch/img/slider/slider1/1.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/2.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/3.png" alt="썸네일02"></li>
+                                    <li><img src="ch/img/slider/slider1/4.png" alt="썸네일04"></li>
+                                    <li><img src="ch/img/slider/slider1/5.png" alt="썸네일05"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span u="arrowleft" class="slider_arrow_left">
+                            <i class="fa fa-angle-left"></i>
+                        </span>
+                        <span u="arrowright" class="slider_arrow_right">
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                    </div>  <!-- end contents slider-->
+                    <article id="comment_box">
+                        <p id="comment_count">12 Comments</p>
+                        <textarea id="comment_text">You Must Sign in First</textarea>
+                        <button id="comment_bt"><i class="fa fa-comments"></i></button>
+                        <div id="comment_list">
+                            <div class="comment_div">
+                                <figure class="comment_pic">
+                                    <img src="ch/img/designer_img.png">
+                                </figure>
+                                <h4>Pretty Woman</h4>
+                                <p class="comment_contents">what the funk? kkk nice pic zepp</p>
+                                <p class="comment_time">5 minute ago</p>
+                            </div>
+                            <div class="comment_div">
+                                <figure class="comment_pic">
+                                    <img src="ch/img/designer_img.png">
+                                </figure>
+                                <h4>ABC MART</h4>
+                                <p class="comment_contents">i love vans daniel thanx upload photo</p>
+                                <p class="comment_time">10 minute ago</p>
+                            </div>
+                            <div class="comment_div">
+                                <figure class="comment_pic">
+                                    <img src="ch/img/designer_img.png">
+                                </figure>
+                                <h4>idiot ZEPOT</h4>
+                                <p class="comment_contents">what the fucking shoes ruber smell?? piss off</p>
+                                <p class="comment_time">13 minute ago</p>
+                            </div>
+                            <div class="comment_div">
+                                <figure class="comment_pic">
+                                    <img src="ch/img/designer_img.png">
+                                </figure>
+                                <h4>Genius DART</h4>
+                                <p class="comment_contents">what the fucking shoes ruber smell?? piss off</p>
+                                <p class="comment_time">13 minute ago</p>
+                            </div>
+                            <div class="comment_div">
+                                <figure class="comment_pic">
+                                    <img src="ch/img/designer_img.png">
+                                </figure>
+                                <h4>idiot ZEPOT</h4>
+                                <p class="comment_contents">what the fucking shoes ruber smell?? piss off</p>
+                                <p class="comment_time">13 minute ago</p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+        </section>
+
+
+
+
+
+        <aside class="con_right">
+            <p id="designer_tap">Information</p>
+
+            <div class="designer_info">
+                <figure>
+                    <img src="ch/img/designer_img.png">
+                </figure>
+                <h4>Daniel ZEPP</h4>
+                <h5><i class="fa fa-home"></i>Seoul, South Korea</h5>
+            </div>
+            <button id="designer_chat"><i class="fa fa-envelope-o"></i>Message</button>
+            <button id="follow_designer"><i class="fa fa-user-plus"></i>Follow</button>
+            <button id="content_down"><i class="fa fa-download"></i></button>
+            <div id="file_info">
+                <header id="info_header">File info<i class="fa fa-angle-down" id="info_toggle"></i></header>
+                <section id="files">
+                    <article id="file_name"><i class="fa fa-circle-o"></i><p><i class="fa fa-folder"></i>Lorem ipsum.zip</p></article>
+                    <ul>
+                        <li><i class="fa fa-file"></i>ipsum.psd</li>
+                        <li><i class="fa fa-file"></i>ipsum.ai</li>
+                        <li><i class="fa fa-file"></i>ipsum.html</li>
+                        <li><i class="fa fa-file"></i>ipsum.css</li>
+                        <li><i class="fa fa-circle"></i><i class="fa fa-file"></i>ipsum.js</li>
+                </section>
+                <footer id="storage"><p>1.2 MB</p></footer>
+            </div>
+
+            <button id="con_like_bt"><i class="fa fa-heart"></i></button>
+            <p id="con_like_score">1232</p>
+            <article id="file_disc">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </article>
+            <div id="contents_score">
+                <ul>
+                    <li><i class="fa fa-eye"></i></li>
+                    <li>Views</li>
+                    <li class="contents_view_score">29312</li>
+                </ul>
+                <ul>
+                    <li><i class="fa fa-download"></i></li>
+                    <li>downloads</li>
+                    <li class="contents_view_score">1234</li>
+                </ul>
+            </div>
+
+            <button class="share_sns share_face">
+                <i class="fa fa-facebook"></i>Sharing on Facebook
+            </button>
+            <button class="share_sns share_twit">
+                <i class="fa fa-twitter"></i>Sharing on twitter
+            </button>
+            
+            <ul id="contents_tag">
+                <li><span>shoes</span><i class="fa fa-times"></i></li>
+                <li><span>vansM</span><i class="fa fa-times"></i></li>
+                <li><span>flower</span><i class="fa fa-times"></i></li>
+                <li><span>red</span><i class="fa fa-times"></i></li>
+                <li><span>love</span><i class="fa fa-times"></i></li>
+            </ul>
+        </aside>
+    </div>
+    
+    
+    <footer id="footer"></footer>   <!--end footer-->
+</body>
+
+
+</html>

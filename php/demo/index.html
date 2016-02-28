@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>AJAX 실시간 중복체크</title>
+</head>
+<body>
+<input type="text" name="id" id="id" />
+<input type="button" value="요청" id="ajax_request"/>
+<div id="loadtext">ready</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><!-- 최신버전 제이쿼리 -->
+<script type="text/javascript">
+    $("#ajax_request").click(function(){
+        $.ajax({
+        type: "POST",
+        url: "index.php", //이페이지에서 중복체크를 한다
+        cache: false,
+        success: function(data){
+            $("#loadtext").html(data); //해당 내용을 보여준다
+        }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+diff a/plugin/wysiwygs/wysiwygs.html b/plugin/wysiwygs/wysiwygs.html	(rejected hunks)
+@@ -1,4 +0,4 @@
+-<!DOCTYPE html>
++﻿<!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">

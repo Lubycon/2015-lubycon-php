@@ -1,0 +1,225 @@
+﻿@charset "utf-8";
+#navsel{
+    margin-top: 50px;
+}
+.con_aside {
+        left: 0;
+    }
+.con_main {
+    padding-right: 0px;
+    padding-left: 310px;
+}
+
+
+#contents{
+    position:relative;
+    background: #f0f0f0;
+}
+
+#post_subject_area{
+    position:absolute;
+    width:100%;
+    background:#222;
+}
+
+
+#post_subject {
+    font-size: 22px;
+    color: #fff;
+    font-weight: 200;
+    text-align: center;
+}
+.post_subject_name {
+
+}
+.written_date {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin-left: 5px;
+}
+    #post_info{
+        
+    }
+        #post_info li {
+            margin-left:15px;
+            color:#777777;
+        }
+        .count_icon{
+            margin-right: 12px;
+            color:#777777;
+        }
+        #like_icon {
+            color: #48cfad;
+        }
+        #view_icon {
+            color: #ffffff;
+        }
+
+#post_box {
+    width: 100%;
+    margin: 0px auto;
+    position:relative;
+    background: #f0f0f0;
+}
+#post_banner {
+    top: 0px;
+    right: 0px;
+    text-align:center;
+    overflow:hidden;
+}
+
+    #post_banner #author_main{
+        width: 100%;
+        text-align: left;
+        padding: 5px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        #author_main figure{
+            margin: 0px auto;
+            border-radius: 50%;
+            overflow:hidden;
+        }
+        #author_main figure img{
+            width:100%;
+        }
+        #author_main h4{
+            height:30px;
+            color:#eeeeee;
+            text-align: center;
+        }
+    #post_banner #author_sub{
+        margin: 0px auto;
+        margin-top: 10px;
+        width:220px;
+    }
+        #author_sub .author_wrap{
+            display: block;
+            position: relative;
+            text-align: center;
+            margin:5px 0px;
+        }
+            .author_wrap i{
+                color: #eeeeee;
+                display: inline-block;
+                float: left;
+            }
+            .author_wrap .author_name{
+                font-weight: 200;
+                color: #eeeeee;
+                display: inline-block !important;
+            }
+                #job_name{
+                    font-weight: 200;
+                    color: #eeeeee;
+                }
+
+    #my_page_bt{
+        width: 220px;
+        height: 45px;
+        margin-top: 20px;
+        border: 1px solid #ffffff;
+        border-radius: 80px;
+        background: transparent;
+        font-weight: 200;
+        color: #ffffff;
+    }
+
+#post_contents {
+    position: relative;
+    padding: 20px;
+    background: #ffffff;
+    text-align: left;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    #post_contents p {
+        font-size:18px;
+        font-weight: 200;
+    }
+    #post_contents #like_bt{
+        cursor: pointer;
+        text-align: center;
+        margin-top: 60px;
+    }
+        #post_contents #like_bt i{
+            color: #dddddd;
+            font-size: 50px;
+        }
+
+
+#share_box {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+    #share_box .share_bt {
+        width: 50%;
+        height: 40px;
+        display: inline-block;
+        line-height: 40px;
+        text-align: center;
+        border: none;
+        margin: 0px -2px 0px -2px;
+    }
+    #share_box i {
+        color: #fff;
+    }
+
+    #share_box #share_face {
+        background: #3b5998;
+    }
+
+        #share_box #share_face i {
+            font-size: 20px;
+        }
+
+    #share_box #share_google {
+        background: #ec6446;
+        vertical-align: top;
+    }
+
+        #share_box #share_google i {
+            font-size: 20px;
+        }
+
+  
+#post_edit_box {
+    display: block;
+    text-align: right;
+    margin-top: 50px;
+}
+    #post_edit_box .post_edit_bt {
+        width: 109px;
+        height: 35px;
+        border: none;
+        border-radius: 100px;
+        margin-left: 10px;
+        color: #ffffff;
+        letter-spacing: 0.5px;
+        font-weight: 200;
+        font-size: 15px;
+        background: #555555;
+    }
+        #post_edit_box .post_edit_bt i {
+            margin-right: 5px;
+        } 
+
+
+#comment_box{
+    position: relative;
+    margin-bottom: 3px;
+}
+#comment_box #comment_writer{
+    text-align: center;
+}
+
+#main_board{
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+    z-index: 3;
+}

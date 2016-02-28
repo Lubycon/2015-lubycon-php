@@ -1,0 +1,463 @@
+@charset "utf-8";
+/* CSS Document */
+/****************************css reset start***********************************************************/
+body{
+	background: #282828;
+}
+body,h1,h2,h3,h4,h5,h6,div,p,ul,ol,dl,li,dt,dd,address,figure, nav, section, header, footer{
+	margin: 0px;
+	padding: 0px;
+	color: #000;
+	font-size: 1em;
+	font-weight: 400;
+	line-height: 0px;
+	font-style: normal;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+li
+{
+	list-style: none;
+}
+img
+{
+	border-style: none;
+}
+a
+{
+	text-decoration: none;
+	color: #000;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+form
+{
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+/*********************************************css reset end*********************************************/
+
+.dark_overlay {
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    display: none;
+    cursor: pointer;
+}
+
+#intro_wrap {
+
+}
+	#logo_lubycon {
+		margin: 0px auto;
+		width: 290px;
+		height: 100px;
+		overflow: hidden;
+		background: url(../ch/img/logo/lubycon_logo.svg) no-repeat;
+		background-size: 300px;
+	}
+
+#login_box {
+    position: relative;
+    width: 400px;
+    margin: 0px auto;
+    padding: 20px;
+    background: #282828;
+    z-index: 1;
+    overflow: hidden;
+    cursor: default;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+#main_login{
+    text-align: center;
+}
+
+#login_input {
+    width: 330px;
+    position: relative;
+    border: 1px solid #1e1e1e;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+
+#login_id, #login_pass {
+    width: 100%;
+    height: 45px;
+    color: #dddddd;
+    font-weight: 200;
+    background: #222222;
+    border: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+	#login_id {
+		border-bottom: 1px solid #1e1e1e;
+	}
+
+#login_input > #email_icon, #pass_icon {
+    position: absolute;
+    color: #dddddd;
+    left: 13px;
+    margin-top: 12px;
+    font-size: 17px;
+}
+
+#login_lubycon{
+    width: 330px;
+    height: 48px;
+    line-height: 48px;
+    
+    margin: 0px auto;
+    margin-top: 25px;
+    border-radius: 50px;
+    border: 1px solid #dddddd;
+    
+    background: none;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 200;
+    
+    cursor: pointer;
+}
+	#login_lubycon i{
+		margin-top: 14px;
+	}
+#login_lubycon:hover {
+    border: 1px solid #87ead1;
+    color: #84ead1;
+}
+
+#login_submit {
+    position: relative;
+    width: 330px;
+    margin: 0px auto;
+    overflow: hidden;
+    text-align: right;
+    margin-top: 45px;
+    margin-bottom: 15px;
+}
+    #loginWith_title {
+        height: 25px;
+        line-height: 25px;
+        padding-bottom: 2px;
+        margin-bottom: 10px; 
+        color: #777777;
+        border-bottom: 1px solid #777777;
+        font-weight: 200;
+        text-align: left;
+    }
+    #login_box #login_facebook, #login_google {
+        width: 159px;
+        height: 38px;
+        line-height: 38px;
+        border: none;
+        margin: 0px 2px;
+        padding: 0px;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+        border-radius: 50px;
+    }
+
+    #login_box #login_facebook {
+        color: #ffffff;
+        background: none;
+        border: 1px solid #ffffff;
+        vertical-align: top;
+    }
+        #login_box #login_facebook span{
+            font-weight: 200;
+        }
+
+    #login_box #login_google {
+        color: #ffffff;
+        background: none;
+        border: 1px solid #ffffff;
+    }
+        #login_box #login_google span{
+            font-weight: 200;
+        }
+
+
+#login_box .fa-facebook, #login_box .fa-google-plus {
+    color: #fff;
+    font-size: 20px;
+    line-height: 39px;
+    margin-left: 15px;
+    text-align: center;
+    float: left;
+}
+
+#login_box .fa-facebook {
+    top: 4px;
+    left: 25px;
+}
+#login_box .fa-google-plus {
+
+}
+
+
+
+
+#forgot_pass {
+	width: 330px;
+    height: 22px;
+    line-height: 22px;
+    color: #777777;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 2px;
+    cursor: pointer;
+    text-align: right;
+    margin: 0px auto;
+}
+
+    #forgot_pass:hover {
+        opacity: 0.7;
+        text-decoration: underline;
+    }
+
+
+#create_acc {
+    width: 330px;
+    height: 40px;
+    line-height: 40px;
+    
+    margin: 0px auto;
+    border-radius: 2px;
+    
+    background: #555555;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.2);
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 200;
+    
+    cursor: pointer;
+}
+
+
+/**********************************************************************************************create account pop*/
+#create_account_area {
+    width: 410px;
+    background: #fff;
+    z-index: 6;
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    margin-left: -205px;
+    margin-top: -250px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: block;
+}
+
+    #create_account_area #account_title {
+        width: 100%;
+        height: 60px;
+        line-height: 20px;
+        background: none;
+        text-align: left;
+        color: #444444;
+        font-size: 23px;
+        padding: 20px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    #create_account_area #modal_close_bt {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 17px;
+        right: 20px;
+        cursor: pointer;
+    }
+        #create_account_area #modal_close_bt i{
+            color: #444444;
+            font-size: 25px;
+            background: transparent;
+            border-radius: 0;
+            margin-top: 0;
+            margin-left: 0;
+        }
+        #create_account_area #modal_close_bt i:hover{
+            color: #48cfad;
+        }
+
+    #create_account_area #account_box {
+        width: 100%;
+    }
+    #account_idpass{
+        text-align: center;
+    }/*form*/   
+    #account_inputs{
+        text-align: left;
+        padding: 20px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        background: #eeeeee;
+    }
+    .account_input_wrap{
+        margin: 20px 0px;
+    }
+        .account_input_wrap label {
+            display: inline-block;
+            width: 130px;
+            text-align: left;
+            color: #444;
+            font-size: 15px;
+            line-height: 30px;
+        }
+        .account_input_wrap input {
+            width: 190px;
+            height: 35px;
+            border: none;
+            border-radius: 5px;
+            padding: 0px 10px;;
+        }
+            .account_input_wrap input:focus {
+                border:1px solid #48cfad;
+                box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
+            }
+
+        .location_option_ca {
+            display: inline-block;
+        }
+            .location_option_ca #custom {
+                width: 214px;
+                box-shadow: none;
+                margin-left: -3px;
+            }
+                .location_option_ca #custom .sod_list_wrapper {
+                    width: 214px;
+                }
+
+.form_check {
+    color: #ec6446;
+    font-size: 12px;
+    margin-left: 140px;
+    margin-top: -16px;
+    display: none;
+    height: 16px;
+    line-height: 50px;
+}
+#account_documents{
+    
+}
+#document_desc{
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #444444;
+}
+
+.document_wrap {
+    text-align: left;
+    font-size: 14px;
+    color: #444444;
+    display: block;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    .document {
+        
+    }
+    .check_zone {
+        position:relative;
+        height:30px;
+    }
+        .check_zone p {
+            color: #444444;
+            font-weight: 400;
+            font-size: 16px;
+            display: inline-block;
+            height:30px;
+        }
+            .check_zone a {
+                color: #48cfad;
+                font-weight: 400;
+                font-size: 16px;
+                text-decoration: underline;
+                }
+            }
+                .check_zone a:hover{
+                    opacity: 0.7;
+                }    
+        .check_zone .document_check_box {
+            margin-right: 15px;
+        }
+#create_account_area #account_box .email_resive {
+    margin-right: 15px;
+}
+#create_account_area #account_box #account_email_sendcheck {
+    color: #444444;
+    text-align: left;
+    padding-left: 20px;
+    line-height: 25px;
+}
+
+#create_account_area #account_box #account_idpass .account_submit {
+    width: 210px;
+    height: 45px;
+    margin: 20px;
+    padding: 0px;
+    border: none;
+    background: #cccccc;
+    border-radius: 100px;
+    /*background:#47bf7e; apply */
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+}
+    #account_idpass .account_submit:hover{
+        opacity: 0.7;
+    }
+
+#create_account_area #checkIcon {
+    color: #fff;
+}
+/* check incons */
+#create_account_area .fa-check {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-top: 6px;
+    margin-left: 11px;
+    line-height: 25px;
+    vertical-align: middle;
+    text-align: center;
+    background: #48cfad;
+    color: #fff;
+}
+
+#create_account_area .fa-times {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    line-height: 25px;
+    vertical-align: middle;
+    margin-top: 6px;
+    margin-left: 11px;
+    text-align: center;
+    background: #ec6446;
+    color: #fff;
+}

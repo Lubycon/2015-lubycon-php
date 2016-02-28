@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <title>croppic</title>
+    <!-- Custom styles for this template -->
+    <link href="assets/css/croppic.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="assets/js/croppic.min.js"></script>
+</head>
+<body>
+    <div id="cropContainerMinimal"></div>
+
+    <script>
+        var croppicContaineroutputMinimal = {
+            uploadUrl: 'img_save_to_file.php',
+            cropUrl: 'img_crop_to_file.php',
+            modal: false,
+            doubleZoomControls: false,
+            rotateControls: false,
+            loaderHtml: '<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+            onBeforeImgUpload: function () { console.log('onBeforeImgUpload') },
+            onAfterImgUpload: function () { console.log('onAfterImgUpload') },
+            onImgDrag: function () { console.log('onImgDrag') },
+            onImgZoom: function () { console.log('onImgZoom') },
+            onBeforeImgCrop: function () { console.log('onBeforeImgCrop') },
+            onAfterImgCrop: function () { console.log('onAfterImgCrop') },
+            onReset: function () { console.log('onReset') },
+            onError: function (errormessage) { console.log('onError:' + errormessage) }
+        }
+        var cropContaineroutput = new Croppic('cropContainerMinimal', croppicContaineroutputMinimal);
+    </script>
+</body>
+</html>

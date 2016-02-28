@@ -1,0 +1,421 @@
+﻿@charset "utf-8";
+/*CSS RESET*/
+
+/*main header end*/
+/* main section start */
+
+#main_figure {
+    background: url(../CH/img/main_Img.png) 0% 47% no-repeat;
+    background-size:100%;
+    width: 100%;
+    height: 350px;
+    text-align: center;
+}
+
+    #main_figure h2 {
+        padding-top: 100px;
+        color: #fff;
+        font-size: 43px;
+        font-weight:200;
+        letter-spacing: 1px;
+    }
+
+    #main_figure button {
+        border: 1px solid #fff;
+        width: 150px;
+        height: 45px;
+        background: none;
+        border-radius: 3px;
+        color: #fff;
+        font-size: 18px;
+        letter-spacing: 4px;
+        margin-top: 50px;
+        font-weight: 200;
+    }
+   
+/* main section end */
+
+/* slide section */
+#slide_section {
+    height: 500px;
+    margin: 0px auto;
+    position: relative;
+}
+
+
+#slide_section #slide_lnb input {
+    display: none;
+}
+
+    #slide_lnb {
+        margin: 0px auto;
+        width: 573px;
+        height: 70px;
+        position: relative;
+    }
+
+    .la_bt {
+        width: 190px;
+        height: 40px;
+        line-height: 40px;
+        display: block;
+        float: left;
+        text-align: center;
+        font-weight: 200;
+        margin-top: 15px;
+        border-radius: 2px;
+        color: #fff;
+        margin-left: 1px;
+        background: #999999; /* Old browsers */
+        background: -moz-linear-gradient(top, #999999 0%, #828282 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#999999), color-stop(100%,#828282)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #999999 0%,#828282 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #999999 0%,#828282 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #999999 0%,#828282 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #999999 0%,#828282 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999999', endColorstr='#828282',GradientType=0 ); /* IE6-9 */
+    }
+
+    .out {
+        background: #999999; /* Old browsers */
+        background: -moz-linear-gradient(top, #999999 0%, #828282 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#999999), color-stop(100%,#828282)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #999999 0%,#828282 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #999999 0%,#828282 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #999999 0%,#828282 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #999999 0%,#828282 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999999', endColorstr='#828282',GradientType=0 ); /* IE6-9 */
+    }
+
+    .over {
+        background: #acacac; /* Old browsers */
+        background: -moz-linear-gradient(top, #acacac 0%, #999999 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#acacac), color-stop(100%,#999999)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #acacac 0%,#999999 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #acacac 0%,#999999 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #acacac 0%,#999999 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #acacac 0%,#999999 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#acacac', endColorstr='#999999',GradientType=0 ); /* IE6-9 */
+    }
+
+    .clicked {
+        background: #48cfad;
+    }
+
+    .down_triangle {
+        position: absolute;
+        z-index: 2;
+        border-color: #48cfad transparent transparent transparent;
+        border-style: solid;
+        border-width: 6px 10px 0px 10px;
+        height: 0px;
+        width: 0px;
+        top: 55px;
+        left: 87px;
+    }
+
+
+    .seemore_bt {
+        display: block;
+        margin: 0px auto;
+        width: 150px;
+        height: 30px;
+        line-height: 30px;
+        background: #fff;
+        border-radius: 2px;
+        color: #2E82FF;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+        .seemore_bt:hover {
+            color: #fff;
+            background: #ec6446;
+        }
+/* slide section end */
+
+/* designers section */
+#designer_month
+{
+    width: 100%;
+    margin-bottom:140px;
+}
+    #designer_title
+    {
+        width: 100%;
+        height: 100px;
+        line-height: 100px;
+        margin-top: 80px;
+        font-size:36px;
+        font-weight: 200;
+        text-align:center;
+    }
+
+    #designer_body
+    {
+        width: 100%;
+        height: 270px;
+        position: relative;
+        background: #ebebeb;
+    }
+
+
+
+    #designer_inbody
+    {
+        width: 1260px;
+        height: 270px;
+        margin:0px auto;
+    }
+        #designer_photo
+        {
+            width: 280px;
+            position: relative;
+            top:-53px;
+            margin-left: 20px;
+            float: left;
+        }
+
+            #photo_frame {
+                width: 187px;
+                height: 217px;
+                background: url(../CH/img/designer_of_the_month/frame.png) no-repeat;
+                position: absolute;
+                z-index: 2;
+                left: 50%;
+                margin-left:-91px;
+            }
+
+
+            #photo_body {
+                position:absolute;
+                top:50px;
+            }
+
+            #designer_photo ul
+            {
+                position:relative;
+                width:124px;
+                height: 110px;
+                margin:0px auto;
+                padding-top:213px;
+                z-index:2;
+            }
+                #designer_name
+                {
+                    height:50px;
+                    font-size:36px;
+                    color:#fff;
+                    text-align: center;
+                    text-shadow: 0px 3px 3px #000;
+                }
+                #designer_job
+                {
+                    height:35px;
+                    font-size:21px;
+                    color: #fff;
+                    text-align: center;
+                    font-weight: 200;
+                }
+                #designer_location
+                {
+                    height: 14px;
+                    font-size:14px;
+                    color: #fff;
+                    text-align: center;
+                    font-weight: 200;
+                }
+                    #designer_location i
+                    {
+                        margin-right: 5px;
+                    }
+
+
+        #designer_body p
+        {
+            font-size: 18px;
+            font-weight: 200;
+            position: relative;
+            float: left;
+            top: 80px;
+            margin-left: 80px;
+        }
+
+        #interview
+        {
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            top: 215px;
+            
+            border-radius:3px;
+            background:#48cfad;
+            
+            font-size:17px;
+            font-weight: 200;
+            color:#fff;
+            text-align: center;
+            
+            position:relative;
+            overflow:hidden;
+            cursor:pointer;
+        }
+            #interview i
+            {
+                width: 35px;
+                height: 100%;
+                line-height: 40px;
+                background:#37bc9b;
+                font-size: 30px;
+                float:right;
+            }
+
+            #interview:hover
+            {
+                opacity:0.7;
+            }
+/* designers section */
+
+/* main board */
+
+#community_pre
+{
+    width: 100%;
+}
+    #community_pre ul
+    {
+        padding:0px 50px 50px 50px;
+    }
+
+        .forum_card
+        {
+            margin-top: 35px;
+        }
+
+.f_card_body
+{
+    position:relative;
+
+    width: 1200px;
+    height: 180px;
+    margin: 0px auto;
+
+    border: 1px solid #888888;
+    border-top: 5px solid #48cfad;
+    border-radius:3px;
+
+    overflow: hidden;
+}
+
+.f_card_body:hover
+{
+    text-decoration: underline;
+    opacity:0.8;
+}
+    .side_bar
+    {
+        width:5px;
+        height:71%;
+        float:left;
+
+        border-right: 2px solid #48cfad;
+        margin: 32px 20px 15px 15px;
+
+        text-align:right;
+    }
+        .side_bar i
+        {
+            font-size:13px;
+            color:#48cfad;
+            margin-right:-6.5px;
+
+            vertical-align: top;
+            margin-top:-4px;
+        }
+
+
+    .f_card_header
+    {
+        width: 1153px;
+        float:left;
+        margin-top: 5px;
+    }
+        .f_card_title
+        {
+            width:933px;
+            height:40px;
+            line-height: 40px;
+            margin-top:5px;
+
+            color:#333333;
+            font-size:30px;
+            float: left;
+        }
+
+        .f_card_counters
+        {
+            width:200px;
+            height: 40px;
+            line-height: 40px;
+            padding-right:10px;
+            padding-left:10px;
+            float:right;
+        }
+            .forum_like
+            {
+                float: right;
+                color:#818181;
+                margin-right:30px;
+            }
+                .forum_like i
+                {
+                    font-size:20px;
+                    color:#818181;
+                    margin-right: 15px;
+                }
+            .forum_comment
+            {
+                float: right;
+                color:#818181;
+            }
+                .forum_comment i
+                {
+                    font-size:20px;
+                    color:#818181;
+                    margin-right: 15px;
+                }
+        .f_card_content
+        {
+            width:1143px;
+            height: 120px;
+            padding:15px 15px 5px 0px;
+            margin-left:43px;
+            margin-top:40px;
+        }
+
+            .f_card_content p
+            {
+                
+                width:1143px;
+                height:120px;
+                font-size:18px;
+                font-weight: 200;
+                color:#666666;
+
+                display:-webkit-box;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                -webkit-line-clamp: 5;
+                -webkit-box-orient: vertical;
+                word-wrap:break-word;
+            }
+
+
+/* main board */
+
+#footer {
+    width: 100%;
+    height: 200px;
+    background: #222;
+    margin-top: 80px;
+}

@@ -1,0 +1,116 @@
+@charset "utf-8";
+/* CSS Document */
+/****************************css reset start***********************************************************/
+body
+{
+	background: #fff;
+	min-width: 1200px;
+}
+body,h1,h2,h3,h4,h5,h6,div,p,ul,ol,dl,li,dt,dd,address,figure, nav, section, header, footer
+{
+	margin: 0px;
+	padding: 0px;
+	color: #000;
+	font-size: 1em;
+	font-weight: 400;
+	line-height: 0px;
+	font-style: normal;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+li
+{
+	list-style: none;
+}
+img
+{
+	border-style: none;
+}
+a
+{
+	text-decoration: none;
+	color: #000;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+form
+{
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+/*********************************************css reset end*********************************************/
+
+#thanks
+{
+	width: 100%;
+	text-align: center;
+	margin-top: 170px;
+	font-size: 50px;
+	opacity:0;
+}
+	#thanks p
+	{
+		color: #444444;
+	}
+
+#thanks2
+{
+	width: 100%;
+	text-align: center;
+	margin-top: 100px;
+	font-size: 50px;
+	opacity:0;
+}
+	#thanks2 p
+	{
+		color: #444444;
+	}
+
+#circle
+{
+	width: 80px;
+	height: 80px;
+	margin:0px auto;
+	margin-top: 80px;
+	opacity: 0;
+	position:relative;
+}
+	#cir_body
+	{
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		position:absolute;
+	}
+	#circle i
+	{
+		color: #ffffff;
+		font-size: 35px;
+		z-index: 2;
+		position:absolute;
+		left:50%;
+		top:50%;
+		margin-left:-18px;
+		margin-top:-18px;
+	}
+
+
+#timer
+{
+	width: 156px;
+	height: 10px;
+	margin: 0px auto;
+	margin-top: 40px;
+}
+	#timer ul
+	{
+		width: 156px;
+	}
+	.timer_rect
+	{
+		width: 50px;
+		height: 10px;
+		background: #b1b1b1;
+		border: 1px solid #ffffff;
+		border-radius: 3px;
+		float:left;
+		display: inline-block;
+	}

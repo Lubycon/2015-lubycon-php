@@ -1,0 +1,42 @@
+﻿@charset "utf-8";
+
+
+#forum_option_box {
+    width: 1200px;
+    height: 65px;
+    margin: 0px auto;
+}
+
+#write_bt {
+    width: 65px;
+    height: 65px;
+    line-height: 73px;
+    border-radius: 50%;
+    background: #48cfad;
+    text-align: center;
+    cursor:pointer;
+    position: fixed;
+    z-index: 6;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+}
+    #write_bt i {
+        color: #ffffff;
+        font-size: 24px;
+    }
+.write_bt_background {
+    width: 65px;
+    height: 65px;
+    line-height: 73px;
+    border-radius: 50%;
+    background: #48cfad;
+    text-align: center;
+    cursor:pointer;
+    position: fixed;
+    z-index: 5;
+}
+#main_wrap{
+    background: #f0f0f0;
+}
+
+/*main header end*/
+/* main section end */
