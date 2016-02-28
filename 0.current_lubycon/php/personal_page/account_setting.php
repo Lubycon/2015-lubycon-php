@@ -17,8 +17,7 @@
             <p class="setting_title">Account Setting</p>
                 <label>E-mail</label><input type="text" value="loremIpsum@lubycon.com" disabled />
                 <div class="public_option">
-                    <i class="fa fa-lock"></i>
-                    <select class="basic_filter" name="email_public">
+                    <select class="privacyFilter" name="email_public">
                         <option value="Public">Public</option>
                         <option value="Followers">Followers</option>
                         <option value="Private">Private</option>
@@ -64,37 +63,30 @@
                     <input type="hidden" id="myOutputId" name="croppicurl">
                 <label>Occupation / Job</label>
                 <div class="job_option">
-                    <select class="basic_filter" name="job">
-                        <option value="artist">Artist</option>
-                        <option value="creator">Creator</option>
-                        <option value="designer">Designer</option>
-                        <option value="engineer">Engineer</option>
-                        <option value="student">Student</option>
-                        <option value="other">Other</option>
+                    <select class="jobFilter" name="job">
+                        <option data-value="artist">Artist</option>
+                        <option data-value="creator">Creator</option>
+                        <option data-value="designer">Designer</option>
+                        <option data-value="engineer">Engineer</option>
+                        <option data-value="student">Student</option>
+                        <option data-value="other">Other</option>
                     </select>
                 </div>
 
                 <label>Location</label>
                 <div class="location_option">
-                    <select class="basic_filter" name="location">
+                    <select class="locationFilter" name="location">
                          <?php
                                 $database->query = "SELECT * FROM luby_country";
                                 $database->DBQuestion();
                                 while($row = mysqli_fetch_array($database->result)){
-                                     echo ("<option value = ".$row['country_code'].">".$row['country_name']."</option>");
+                                     echo ("<option data-value = ".$row['country_code'].">".$row['country_name']."</option>");
                                 }
                            ?>
                     </select>
                 </div>
                 <input type="text" id="location_text" name="location_text" />
                 <label>Language</label>
-                <div id="lang_option_id" class="language_option">
-                    <select class="basic_filter" name="lang_ability[]">
-                        <option value="Beginer">Beginner</option>
-                        <option value="Advanced">Advanced</option>
-                        <option value="Fluent">Fluent</option>
-                    </select>
-                </div>
                 <input type="text" id="lang_input_id" class="language_text" name="language[]" />
                 <div id="clone_div"></div>
                 <div id="lang_plus">
@@ -109,50 +101,33 @@
             <p class="setting_title">History Setting</p>
             <div class="history_cell">
                 <div class="history_data">
-                    <div class="lubySelector hidden-mb-ib" data="history_year">
-                        <span class="global_icon"><i class="fa fa-filter"></i></span>
-                        <span class="lubySelector_selected history_year_changer">2016</span>
-                        <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
-                        <ul class="lubySelector_list">
-                        <?php
-                            for( $i=2016 ; $i > 1939 ; $i-- )
-                            {
-                                echo '<li data-value='.$i.'>'.$i.'</li>';
-                            }
-                        ?>
-                        </ul>
-                    </div>
-
-                    <div class="lubySelector hidden-mb-ib" data="history_month">
-                        <span class="global_icon"><i class="fa fa-filter"></i></span>
-                        <span class="lubySelector_selected history_month_changer">January</span>
-                        <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
-                        <ul class="lubySelector_list">
-                            <li data-value="1">January</li>
-                            <li data-value="2">February</li>
-                            <li data-value="3">March</li>
-                            <li data-value="4">April</li>
-                            <li data-value="5">May</li>
-                            <li data-value="6">June</li>
-                            <li data-value="7">July</li>
-                            <li data-value="8">August</li>
-                            <li data-value="9">September</li>
-                            <li data-value="10">October</li>
-                            <li data-value="11">November</li>
-                            <li data-value="12">December</li>
-                        </ul>
-                    </div>
-
-                    <div class="lubySelector hidden-mb-ib" data="history_kind">
-                        <span class="global_icon"><i class="fa fa-filter"></i></span>
-                        <span class="lubySelector_selected history_kind_changer">Work Expierence</span>
-                        <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
-                        <ul class="lubySelector_list">
-                            <li data-value="work_expierence">Work Experience</li>
-                            <li data-value="studied">Education</li>
-                            <li data-value="contest_prized">Awards</li>
-                        </ul>
-                    </div>
+                    <select class="accountFilter">
+                    <?php
+                        for( $i=2016 ; $i > 1939 ; $i-- )
+                        {
+                            echo '<option data-value='.$i.'>'.$i.'</option>';
+                        }
+                    ?>
+                    </select>               
+                    <select class="accountFilter">
+                        <option data-value="1">January</option>
+                        <option data-value="2">February</option>
+                        <option data-value="3">March</option>
+                        <option data-value="4">April</option>
+                        <option data-value="5">May</option>
+                        <option data-value="6">June</option>
+                        <option data-value="7">July</option>
+                        <option data-value="8">August</option>
+                        <option data-value="9">September</option>
+                        <option data-value="10">October</option>
+                        <option data-value="11">November</option>
+                        <option data-value="12">December</option>
+                    </select>
+                    <select class="accountFilter">
+                        <option data-value="work_expierence">Work Experience</option>
+                        <option data-value="studied">Education</option>
+                        <option data-value="contest_prized">Awards</option>
+                    </select>
 
                     <input class="history_text" type="text" name="history_text[]"/>
 
@@ -170,8 +145,7 @@
             <p class="setting_title">Contact Info</p>
                 <label>Mobile</label><input type="text" name="mobile_number"/>
                 <div class="public_option">
-                    <i class="fa fa-lock"></i>
-                    <select class="basic_filter" name="mobile_public">
+                    <select class="privacyFilter" name="email_public">
                         <option value="Public">Public</option>
                         <option value="Followers">Followers</option>
                         <option value="Private">Private</option>
@@ -181,8 +155,7 @@
                 
                 <label>FAX</label><input type="text" name="fax_number"/>
                 <div class="public_option">
-                    <i class="fa fa-lock"></i>
-                    <select class="basic_filter" name="fax_public">
+                    <select class="privacyFilter" name="email_public">
                         <option value="Public">Public</option>
                         <option value="Followers">Followers</option>
                         <option value="Private">Private</option>
@@ -192,8 +165,7 @@
                 
                 <label>Website</label><input type="text" name="website_url"/>
                 <div class="public_option">
-                    <i class="fa fa-lock"></i>
-                    <select class="basic_filter" name="website_public">
+                    <select class="privacyFilter" name="email_public">
                         <option value="Public">Public</option>
                         <option value="Followers">Followers</option>
                         <option value="Private">Private</option>

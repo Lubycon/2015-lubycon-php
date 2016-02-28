@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link href="common.css" rel="stylesheet" type="text/css" />  <!-- common css -->
+	<script type="text/javascript" src="jquery-1.11.3.min.js"></script> <!-- jquery library -->
+	<title>Document</title>
+</head>
+<body>
+	<select id="test">
+		<option>21th century</option>
+		<option>3D objects</option>
+		<option>As</option>
+		<option>Apple</option>
+		<option>Bed</option>
+		<option>Battle</option>
+		<option>Back</option>
+		<option>Day</option>
+		<option>Delight</option>
+		<option>Evan</option>
+		<option>Engineer</option>
+		<option>Fuck</option>
+		<option>Feel</option>
+		<option>Gain</option>
+		<option>Gay</option>
+		<option>Height</option>
+		<option>Help</option>
+		<option>Hello</option>
+		<option>Lost</option>
+		<option>Luxury</option>
+		<option>Sex</option>
+		<option>Superr</option>
+		<option>Test</option>
+		<option>Taste</option>
+		<option>Zoo</option>
+		<option>Zebra</option>
+	</select>
+	<select id="test2">
+		<option>designer2</option>
+		<option>engineer2</option>
+		<option>student2</option>
+		<option>marketer2</option>
+		<option>artist2</option>
+		<option>creator2</option>
+	</select>
+	<select id="test3">
+		<option>Designer3</option>
+		<option>Engineer3</option>
+		<option>Student3</option>
+		<option>Marketer3</option>
+		<option>Artist3</option>
+		<option>Creator3</option>
+	</select>
+	<select id="test4">
+		<option>designer4</option>
+		<option>engineer4</option>
+		<option>student4</option>
+		<option>marketer4</option>
+		<option>artist4</option>
+		<option>creator4</option>
+	</select>
+	<script type="text/javascript" src="selectordie.js"></script>
+	<script type="text/javascript" src="jquery.lubySelector.js"></script>
+	<script>
+		$("#test").lubySelector({
+			searchBar: true,
+			optGroup: true
+		});
+		$("#test2").lubySelector({
+			width: 500,
+			theme: "ghost",
+			icon: "fa fa-bars"
+		});
+	</script>
+</body>
+</html>

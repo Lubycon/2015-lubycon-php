@@ -1,10 +1,62 @@
 //This file is only one separate classification codes associated with the UI of the Lubycon.
+//0.lubySelector
 //1. sticky
 //2. hover action
 //3. tooltip box action
 //4. alert action
-//5. selector
-//6. mb-panel_menu
+//5. mb-panel_menu
+/////////////////////////////////////////////////////////
+//      lubySelector start
+/////////////////////////////////////////////////////////
+$(document).ready(function(){
+    if($(".nav_guide").length!=0){
+        var navGuide = $(".nav_guide"),
+        preferFilter = navGuide.find(".preferFilter"),
+        copyrightFilter = navGuide.find(".copyrightFilter"),
+        languageFilter = navGuide.find(".languageFilter")
+        locationFilter = navGuide.find(".locationFilter"),
+        jobFilter = navGuide.find(".jobFilter"),
+        userFilter = navGuide.find(".userFilter"),
+        categoryFilter = navGuide.find(".categoryFilter"),
+
+        preferFilter.lubySelector();
+        copyrightFilter.lubySelector({
+            icon: "fa fa-copyright",
+        });
+        languageFilter.lubySelector({
+            icon: "fa fa-globe"
+        });
+        locationFilter.lubySelector({
+            icon: "fa fa-globe"
+        });
+        jobFilter.lubySelector({
+            icon: "fa fa-suitcase"
+        });
+        userFilter.lubySelector({
+            icon: "fa fa-user"
+        });
+        categoryFilter.lubySelector({
+            id:"categoryFilter",
+            width: 300,
+            float: "left",
+            icon: "fa fa-bars",
+            searchBar: true,
+            optGroup: true
+        });
+    }
+    else{
+        return;
+    }
+    var searchFilter = $("body").find(".searchFilter");
+    searchFilter.lubySelector({
+        width: 100,
+        theme: "transparent",
+        icon: ""
+    });
+});
+/////////////////////////////////////////////////////////
+//      lubySelector end
+/////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      sticky start
 /////////////////////////////////////////////////////////
@@ -238,132 +290,7 @@ function hideAlert(){
 /////////////////////////////////////////////////////////
 //      lubyAlert end
 /////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      lubySelectbox action start
-/////////////////////////////////////////////////////////
-/*
-<div data="name" class="lubySelector"> //.....................................class: lubySelector
-    <span class="global_icon"><i class="fa fa-usd"></i></span> // class: global_icon(It was used font-awesome)
-    <span class="lubySelector_selected">All</span> //.............class: lubySelector_selected
-    <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span> //class: lubySelector_arrow
-    <ul class="lubySelector_list"> //.............................class: lubySelector_list
-        <li class="selected_li">All</li> //.......................class: selected_li
-        <li>Free</li>
-        <li>Free for personal</li>
-        <li>Paid</li>
-    </ul>
-</div>
-*/
 
-$(function(){
-    $(".lubySelector").each(function(){
-        var selectList = $(this).find($(".lubySelector_list")),
-            innerList = selectList.find("li"),
-            selectArrow = $(this).find($(".lubySelector_arrow"));
-        hideAnywhere($(this),selectList,selectArrow);
-        $(this).on("click touchend",function(event){
-            event = event || window.event
-            eventHandler(event,$(this));
-            lubySelector.start(event,$(this),selectList,selectArrow);
-        });
-        innerList.on("click touchend",function (event){
-            lubySelector.listClick(event,$(event.target));
-        });
-    });
-    function keyUse(lubySelector){
-        $(document).on('keydown', function(event) {
-            var keyCode = event.keyCode ? event.keyCode : event.which;
-            if(keyCode == 65){
-                lubySelector.scrollTop(0);
-            }
-        });  
-    };
-});
-var lubySelector = {
-    start : function(event,selector,list,arrow){
-        if(!dragging){
-            if(selector.hasClass("open")){
-                selector.removeClass("open");              
-                this.CloseAction(selector,list,arrow);
-            }
-            else{
-                selector.addClass("open");  
-                this.OpenAction(selector,list,arrow);
-            }
-        }
-        else if(dragging){
-            return;
-        }
-        this.makeOriginalBox(selector);
-        this.listClick(event,selector)    
-    },
-    OpenAction : function(selector,list,arrow){
-        if(windowWidth > 1024){
-            arrow.children("i").attr("class","fa fa-caret-down");
-            list.fadeIn(300);
-            arrow.children("i").attr("class","fa fa-caret-up");
-            return;
-        }
-        else{
-            selector.next(".original_box").show().trigger("focus");
-        }
-    },
-    CloseAction : function(selector,list,arrow){
-        if(windowWidth > 1024){
-            list.fadeOut(300);
-            arrow.children("i").attr("class","fa fa-caret-down");
-            return;
-        }
-        else{
-            selector.next(".original_box").hide().trigger("blur");
-        }
-    },
-    makeOriginalBox :  function(selector){
-        var option_list = [];
-        selector.find(".global_icon").addClass("hidden-mb-ib");
-        selector.find(".lubySelector_list li").each(function(){
-            option_list.push($(this).text().replace(/ /gi, ''));  
-        });
-        selector.after("<select class='original_box' name='" + selector.attr('data') + "[]'>");
-        for(i in option_list){
-            selector.next(".original_box").append("<option value="+option_list[i]+">"+option_list[i]+"</option>");
-        };
-        $(".original_box").hide();
-        $(".original_box").change(function(){
-            var lubySelectbox = $(this).prev(".lubySelector").find(".lubySelector_selected");
-            var original_value = $(this).val();
-            lubySelectbox.text(original_value.toString());
-            $(this).hide();
-            $(this).prev(".lubySelector").removeClass("open");   
-        });
-    },
-    listClick : function(event,selector){
-        var selected_v = selector.text(),
-        selected_option = selector.text().replace(/ /gi, '');
-        selector.parent().siblings(".lubySelector_selected").text(selected_v);
-        selector.parents(".lubySelector").next(".original_box").val(selected_option);
-        selector.siblings("li").removeClass();
-        selector.addClass("selected_li");
-    }
-};
-function hideAnywhere(selector,object,arrow){
-    selector.mouseleave(function(){
-        $(document).click(function (event) {
-            event = event || window.event//for IE
-            if (!$(event.target).hasClass($(this).attr("class"))) {
-                object.stop().fadeOut(300);
-                selector.removeClass("open");
-                arrow.children("i").attr("class","fa fa-caret-down");
-            }
-            else{
-                return true;
-            }
-        });
-    });
-};
-/////////////////////////////////////////////////////////
-//      lubySelectbox action end
-/////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      mobile menu action start
 /////////////////////////////////////////////////////////

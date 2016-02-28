@@ -41,6 +41,7 @@ session_start();
     <script type="text/javascript" src="js/selectordie.min.js"></script> <!-- selector decoration js -->
     <script type="text/javascript" src="js/selectordie.demo.js"></script> <!-- selector decoration js -->
     <script type="text/javascript" src="js/slider.js"></script><!--slider plugin-->
+    <script type="text/javascript" src="js/jquery.lubySelector.js"></script>
     <script type="text/javascript" src="js/resizeObject.js"></script>
     <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
     <script type="text/javascript" src="js/luby_ui.js"></script><!-- ui file js -->
@@ -357,14 +358,21 @@ session_start();
         </button>
 
         <div id="select_box">|
-            <select class="basic">
-                <option value="All">All</option>
-                <option value="Contents">Contents</option>
-                <option value="Creatorr">Creator</option>
-                <option value="Community">Community</option>
+            <select class="searchFilter">
+                <option data-value="All">All</option>
+                <option data-value="Contents">Contents</option>
+                <option data-value="Creatorr">Creator</option>
+                <option data-value="Community">Community</option>
             </select>
-            <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
         </div>
+        <script>
+            var searchFilter = $("body").find(".searchFilter");
+            searchFilter.lubySelector({
+                width: 130,
+                theme: "transparent",
+                icon: ""
+            });
+        </script>
         <!-- end select_box -->
     </div>
     <!---------------- search bar end ---------------->

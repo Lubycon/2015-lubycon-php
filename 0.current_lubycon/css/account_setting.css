@@ -1,17 +1,7 @@
 ﻿@charset "utf-8";
 
-.sod_select.custom.custom{
-    width: 100%;
-    max-width: 300px;
-    margin-top: 10px;
-}
-.sod_select.custom .sod_list_wrapper{
-    width: 100%;
-    max-width: 300px;
-}
-
 .lubySelector{
-    float: left;
+    margin: 0;
     
 }
 
@@ -51,7 +41,7 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
-        .setting_card input{
+        .setting_card > input{
             width: 100%;
             max-width: 300px;
             height: 40px;
@@ -63,7 +53,7 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
-            .setting_card input:focus{
+            .setting_card > input:focus{
                 border:1px solid #48cfad;
                 box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
             }

@@ -30,6 +30,7 @@
 
     <section class="nav_guide">
         <div class="subnav_box">
+            <select class="categoryFilter">
             <?php
                 $current_url = $_GET["3"];//change to db query later
                 switch($current_url){
@@ -38,39 +39,27 @@
                     case "3d" : include_once("php/sub_nav/categories/category_3d.php"); break;
                 }
             ?>
-            <div class="lubySelector hidden-mb-ib" data="featured_sort">
-                <span class="global_icon"><i class="fa fa-filter"></i></span>
-                <span class="lubySelector_selected">Featured</span>
-                <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
-                <ul class="lubySelector_list">
-                    <li class="selected_li">Featured</li>
-                    <li>Recent</li>
-                    <li>Most Like</li>
-                    <li>Most Download</li>
-                    <li>Most Comment</li>
-                </ul>
-            </div>
-
-            <div class="lubySelector hidden-mb-ib" data="licence_sort">
-                <span class="global_icon"><i class="fa fa-copyright"></i></span>
-                <span class="lubySelector_selected">All License</span>
-                <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
-                <ul class="lubySelector_list">
-                    <li class="selected_li">All License</li>
-                    <li>Free</li>
-                    <li>Non-Commercial</li>
-                    <li>Non-Derivative</li>
-                </ul>
-            </div>
-
+            </select>
+            <select class="preferFilter hidden-mb-ib">
+                <option>Featured</option>
+                <option>Recent</option>
+                <option>Most Like</option>
+                <option>Most Download</option>
+                <option>Most Comment</option>
+            </select>
+            <select class="copyrightFilter hidden-mb-ib">
+                <option>All License</option>
+                <option>Free</option>
+                <option>Non-Commercial</option>
+                <option>Non-Derivative</option>
+            </select>
             <div id="sub_search_bar">
                 <div class="select_box">
-                    <select class="basic">
+                    <select class="searchFilter">
                         <option value="Title">Title</option>
-                        <option value="Designer">Creator</option>
+                        <option value="Creator">Creator</option>
                         <option value="Tag">Tag</option>
                     </select>
-                    <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
                 </div>
                 <input type="text" id="sub_search_text" value="Enter the Keyword" />
                 <button id="sub_search_btn">

@@ -32,38 +32,28 @@
     </section>
     <section class="nav_guide">
         <div class="subnav_box"> 
-            <div class="lubySelector hidden-mb-ib">
-                <span class="global_icon"><i class="fa fa-filter"></i></span>
-                <span class="lubySelector_selected">Featured</span>
-                <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
-                <ul class="lubySelector_list">
-                    <li class="selected_li">Featured</li>
-                    <li>Recent</li>
-                    <li>Most Like</li>
-                    <li>Most Download</li>
-                    <li>Most Comment</li>
-                </ul>
-            </div>
-            <div class="lubySelector mb-lubySelector">
-                <span class="global_icon"><i class="fa fa-globe"></i></span>
-                <span class="lubySelector_selected">All Language</span>
-                <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
-                <ul class="lubySelector_list">
-                    <li class="selected_li">All Language</li>
-                    <li>English</li>
-                    <li>Korean</li>
-                    <li>Japanese</li>
-                    <li>Chinese</li>
-                    <li>French</li>
-                </ul>
-            </div>
+            <select class="preferFilter hidden-mb-ib">
+                <option>Featured</option>
+                <option>Recent</option>
+                <option>Most Like</option>
+                <option>Most Download</option>
+                <option>Most Comment</option>
+            </select>
+            <select class="languageFilter hidden-mb-ib">
+                <option>All Language</option>
+                <option>English</option>
+                <option>Korean</option>
+                <option>Japanese</option>
+                <option>Chinese</option>
+                <option>French</option>
+            </select>
             <div id="sub_search_bar">
                 <div class="select_box">
-                    <select class="basic">
+                    <select class="searchFilter">
                         <option value="Title">Title</option>
-                        <option value="Writer">Creator</option>
+                        <option value="Creator">Creator</option>
                     </select>
-                <span class="lubySelector_arrow"><i class="fa fa-caret-down"></i></span>
+                <span class="ls_arrow"><i class="fa fa-caret-down"></i></span>
                 </div>
                 <input type="text" id="sub_search_text" value="Enter the Keyword" />
                 <button id="sub_search_btn">
