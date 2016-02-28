@@ -8,7 +8,7 @@ Also If you want to use this repository, Essentially you must add the "Lubycon_W
 
 
 ## Allowed file extensions ##
-you can be allowed to upload files only that are written on list below to this repository.
+You can be allowed to upload files only that are written on list below to this repository.
 ###Web files 
 * .html
 * .css
