@@ -1,5 +1,5 @@
 <?php
-    include_once './php/account/session_check.php';
+    //include_once './php/account/session_check.php';
 ?>
 <link href="css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="css/editor.css" rel="stylesheet" type="text/css" />
