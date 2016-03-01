@@ -2,7 +2,7 @@
 /*
 *	!!! THIS IS JUST AN EXAMPLE !!!, PLEASE USE ImageMagick or some other quality image processing libraries
 */
-    $imagePath = "../../../contents_data/temp/"; //edit only this path
+    $imagePath = "../../../../Lubycon_Contents/contents/temp/"; //edit only this path
 
 	$allowedExts = array("gif", "jpeg", "jpg", "png", "GIF", "JPEG", "JPG", "PNG");
 	$temp = explode(".", $_FILES["img"]["name"]);

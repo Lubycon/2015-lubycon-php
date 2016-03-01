@@ -2,7 +2,8 @@
     echo "<br/>-------------zip file upload--------------<br/><br/>";
     $set_date = date("YmdHis");
     $con_cate = $_POST['contents_cate_name'];
-    $uploaddir = '../../../contents_data/' . $con_cate . "/" . $set_date . "/" ;
+    $user_name = 'daniel_zepp';
+    $uploaddir = '../../../../Lubycon_Contents/contents/' . $con_cate . "/" . $user_name . $set_date . "/" ;
     $upload_basename = basename($_FILES['upload_file']['name']);
     $uploadfile = $uploaddir . $upload_basename;
 
@@ -27,21 +28,39 @@
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
-    $cropurl = $_POST['croppicurl'];
+    $oldfile = $_POST['croppicurl']; // temp file
+    $newfile = $uploaddir.'profile.jpg'; // copyed file
 
-    echo "croppic url : " . $cropurl;
+    if(file_exists($oldfile)) {
+        if(!copy($oldfile, $newfile)) {
+            echo "file";
+        } else if(file_exists($newfile)) {
+            echo $newfile . "<br/>";
+        }
+    }
+
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
     
     echo "<br/><br/>-------------contents image--------------<br/>";
     $contens_image = $_POST['contents_image'];
+    $contens_image_temp_url = '../../../../Lubycon_Contents/contents/temp/';
     if($contens_image) 
     {
         echo "<br/>user upload image = <br/>";
         for($i=0 ; $i< count($contens_image); $i++)
         {
-            echo "../contents_data/temp/".$contens_image[$i] . "<br/>";
+             $oldfile = $contens_image_temp_url.$contens_image[$i]; // temp file
+             $newfile = $uploaddir.$contens_image[$i]; // copyed file
+
+             if(file_exists($oldfile)) {
+                  if(!copy($oldfile, $newfile)) {
+                        echo "file";
+                  } else if(file_exists($newfile)) {
+                        echo $uploaddir.$contens_image[$i] . "<br/>";
+                  }
+             } 
         };
     };
     echo "<br/><br/>-------------contents image--------------<br/>";
