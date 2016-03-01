@@ -23,7 +23,6 @@ function up_call_contents() {
 };
 */
 function down_call_contents() {
-    $("#contents_box > ul").append('<p class="progressbar"><i class="fa fa-spinner fa-pulse"></i></p>');
     $.ajax
     ({
         type: "POST",
@@ -32,7 +31,6 @@ function down_call_contents() {
         cache: false,
         success: function (data) {
             $("#contents_box > ul:nth-child(1)").append(data);
-            $(".progressbar").remove();
             ajax_eventing = false;
         }
     })

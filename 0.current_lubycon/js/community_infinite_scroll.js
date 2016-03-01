@@ -26,7 +26,6 @@ function up_call_contents() {
 */
 function down_call_contents() {
     var post_number = $(".table_list_wrap .table_list:last-child .table_number").text();
-    $(".table_list_wrap").append('<p class="progressbar"><i class="fa fa-spinner fa-pulse"></i></p>');
     $.ajax
     ({
         type: "POST",

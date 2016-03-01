@@ -34,9 +34,9 @@
             <?php
                 $current_url = $_GET["3"];//change to db query later
                 switch($current_url){
-                    case "artwork" : include_once("php/sub_nav/categories/category_artwork.php"); break;
-                    case "vector" : include_once("php/sub_nav/categories/category_vector.php"); break;
-                    case "3d" : include_once("php/sub_nav/categories/category_3d.php"); break;
+                    case "artwork" : include_once("./php/sub_nav/categories/category_artwork.php"); break;
+                    case "vector" : include_once("./php/sub_nav/categories/category_vector.php"); break;
+                    case "3d" : include_once("./php/sub_nav/categories/category_3d.php"); break;
                 }
             ?>
             </select>
