@@ -46,13 +46,13 @@ $(function(){
                 <p class="mb-contents_count"><?=$artwork_count?>&nbsp;Contents</p>
             </div>
             <div class="mb-big_content">
-                <img src="../contents_data/artworkjpg/thumb/5.jpg" alt="best_img">
+                <img src="../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/5.jpg" alt="best_img">
             </div>
             <div class="mb-contents_contents">
                 <?php
                     for( $i=1 ; $i<=4 ; $i++ ){
                         echo '<div class="mb-contents">
-                                <img src="../contents_data/artworkjpg/thumb/'.$i.'.jpg" alt="artwork_thumbnail'.$i.'">
+                                <img src="../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/'.$i.'.jpg" alt="artwork_thumbnail'.$i.'">
                               </div>';
                     };
                 ?>   
@@ -68,13 +68,13 @@ $(function(){
                 <p class="mb-contents_count"><?=$vector_count?>&nbsp;Contents</p>
             </div>
             <div class="mb-big_content">
-                <img src="../contents_data/vectorjpg/thumb/7.jpg" alt="best_img">
+                <img src="../../Lubycon_Contents/contents/vector/vectorjpg/thumb/7.jpg" alt="best_img">
             </div>
             <div class="mb-contents_contents">
                 <?php
                     for( $i=1 ; $i<=4 ; $i++ ){
                         echo '<div class="mb-contents">
-                                <img src="../contents_data/vectorjpg/thumb/'.$i.'.jpg" alt="vector_thumbnail'.$i.'">
+                                <img src="../../Lubycon_Contents/contents/vector/vectorjpg/thumb/'.$i.'.jpg" alt="vector_thumbnail'.$i.'">
                               </div>';
                     };
                 ?>   
@@ -90,13 +90,13 @@ $(function(){
                 <p class="mb-contents_count"><?=$threeD_count?>&nbsp;Contents</p>
             </div>
             <div class="mb-big_content">
-                <img src="../contents_data/3djpg/thumb/5.jpg" alt="best_img">
+                <img src="../../Lubycon_Contents/contents/3d/3djpg/thumb/5.jpg" alt="best_img">
             </div>
             <div class="mb-contents_contents">
                 <?php
                     for( $i=1 ; $i<=4 ; $i++ ){
                         echo '<div class="mb-contents">
-                                <img src="../contents_data/3djpg/thumb/'.$i.'.jpg" alt="3d_thumbnail'.$i.'">
+                                <img src="../../Lubycon_Contents/contents/3d/3djpg/thumb/'.$i.'.jpg" alt="3d_thumbnail'.$i.'">
                               </div>';
                     };
                 ?>   
@@ -205,7 +205,7 @@ $(function(){
                                     default : echo ""; break;
                                 };
                                 echo '&4='.$v.'">
-                                <img src="../contents_data/'.$kind.'jpg/thumb/'.$v.'.jpg" alt="thumbnail_photo_'.$k.'">
+                                <img src="../../Lubycon_Contents/contents/'.$kind.'/'.$kind.'jpg/thumb/'.$v.'.jpg" alt="thumbnail_photo_'.$v.'">
                                 </a>
                               </li>';
                         $v++;

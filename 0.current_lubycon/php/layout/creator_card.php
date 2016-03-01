@@ -1,21 +1,20 @@
 <li class="creator_card_in">
     <?php
-        @include('../contents_data/contents_data.php');
+        @include('../../Lubycon_Contents/contents/contents_data.php');
         $number = $_GET["number"];
         $contents_num1 = $number;
         $contents_num2 = $number + 1;
         $contents_num3 = $number + 3;
-
-        $user_img_url = "../contents_data/3djpg/profile/".$number.".jpg";
+        $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/".$number.".jpg";
         $user_location_img = "./ch/img/flag_icons/United-States-Of-America.png";
         $usercity = "Los Santos";
         $usercountry = "United States";
         $username = $threed_author;
         $userjob = $jobarray[$number];
         $contents_count = rand(3, 150);
-        $user_content1 = "../contents_data/artworkjpg/thumb/".$contents_num1.".jpg";
-        $user_content2 = "../contents_data/artworkjpg/thumb/".$contents_num2.".jpg";
-        $user_content3 = "../contents_data/artworkjpg/thumb/".$contents_num3.".jpg";
+        $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num1.".jpg";
+        $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num2.".jpg";
+        $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num3.".jpg";
     ?><!--you should change to mySQL later-->
     <div class="creators_card">
         <div class="creator_menu">
