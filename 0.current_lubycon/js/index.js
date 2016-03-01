@@ -276,15 +276,15 @@ $(function(){
                 url = "";
                 switch(id){
                     case "mb-artwork_bt" : 
-                        url = 'http://' + hostURL + '/0.current_lubycon/index.php?1=contents&2=contents_page&3=artwork';
+                        url = 'http://' + hostURL + '/Lubycon_Website/0.current_lubycon/index.php?1=contents&2=contents_page&3=artwork';
                         location.href = url;
                     break;
                     case "mb-vector_bt" :
-                        url = 'http://' + hostURL + '/0.current_lubycon/index.php?1=contents&2=contents_page&3=vector';
+                        url = 'http://' + hostURL + '/Lubycon_Website/0.current_lubycon/index.php?1=contents&2=contents_page&3=vector';
                         location.href = url;
                     break;
                     case "mb-3d_bt" :
-                        url = 'http://' + hostURL + '/0.current_lubycon/index.php?1=contents&2=contents_page&3=3d';
+                        url = 'http://' + hostURL + '/Lubycon_Website/0.current_lubycon/index.php?1=contents&2=contents_page&3=3d';
                         location.href = url;
                     break;
                     default: return; break;
@@ -578,7 +578,7 @@ $(function () {
     $("#subnav li").click(function (){       
         var id = $(this).attr('id');
         var hostURL = location.host;
-        location.href = 'http://' + hostURL + '/0.current_lubycon/index.php?1=personal_page&2=personal_page&3=' + id;
+        location.href = 'http://' + hostURL + '/Lubycon_Website/0.current_lubycon/index.php?1=personal_page&2=personal_page&3=' + id;
     });
 });
 /////////////////////////////////////////////////////////

@@ -1,12 +1,12 @@
 <script type="text/javascript" src="js/call_comments.js"></script> <!-- account file js -->
 
 <?php
-include('../contents_data/contents_data.php');
+include('../../Lubycon_Contents/contents/contents_data.php');
 
 $number = $_GET["4"];
 $current_url = $_GET["3"];
-$contents_img_url = "../contents_data/".$current_url."jpg/".$number.".jpg";
-$user_img_url = "../contents_data/".$current_url."jpg/profile/".$number.".jpg";
+$contents_img_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/".$number.".jpg";
+$user_img_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/profile/".$number.".jpg";
 $category0 = ucwords($current_url);
 $category1 = "Category1";
 $category2 = "Category2";

@@ -53,7 +53,7 @@
         <section class="con_wrap">
             <div id="user_view_aside" class="con_aside">
                 <?php 
-                    $user_img_url = "../contents_data/3djpg/profile/32.jpg";
+                    $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/32.jpg";
                     $username = "Kim dongkyu";
                     $userjob = "Designer";
                     $usercity = "Seoul";
@@ -95,16 +95,16 @@
             </div><!--end con_aside-->
             <div id="user_view_main" class="con_main">
                 <?php
-                    $user_img_url = "../contents_data/3djpg/profile/15.jpg";
+                    $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/15.jpg";
                     $user_location_img = "./ch/img/flag_icons/United-States-Of-America.png";
                     $usercity = "Los Santos";
                     $usercountry = "United States";
                     $username = "Ssaru";
                     $userjob = "Gangster";
                     $contents_count = rand(3, 150);
-                    $user_content1 = "../contents_data/artworkjpg/thumb/20.jpg";
-                    $user_content2 = "../contents_data/artworkjpg/thumb/34.jpg";
-                    $user_content3 = "../contents_data/artworkjpg/thumb/50.jpg";
+                    $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/20.jpg";
+                    $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/34.jpg";
+                    $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/50.jpg";
                 ?><!--you should change to mySQL later-->
                 <div id="bestCreator" class="creators_card">
                     <div class="creator_menu">

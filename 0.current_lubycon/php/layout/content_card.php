@@ -3,8 +3,8 @@
         $number = $_GET["number"];
         $current_url = $third_param;
 
-        @include('../contents_data/contents_data.php');
-        @include('../../../contents_data/contents_data.php');
+        @include('../../Lubycon_Contents/contents/contents_data.php');
+        @include('../../../../Lubycon_Contents/contents/contents_data.php');
 
         switch($current_url)
         {
@@ -15,8 +15,8 @@
         };
 
         $price = "Free";
-        $contents_thumb_url = "../contents_data/".$current_url."jpg/thumb/".$number.".jpg";
-        $user_img_url = "../contents_data/".$current_url."jpg/profile/".$number.".jpg";
+        $contents_thumb_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/thumb/".$number.".jpg";
+        $user_img_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/profile/".$number.".jpg";
         $like_num = rand(1, 30);
         $view_num = rand(1, 400);
         $comment_num = rand(0, 10);
