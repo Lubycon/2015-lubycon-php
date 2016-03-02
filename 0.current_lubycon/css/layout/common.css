@@ -82,7 +82,10 @@ body{
 
 /*----------------------------------------------------------scroll bar end*/
 /* main header start */
-#luby-logo{
+#logoImg{
+    margin-right: -5px;
+}
+#logoText{
     margin-right: 10px;
 }
 /* popup end */

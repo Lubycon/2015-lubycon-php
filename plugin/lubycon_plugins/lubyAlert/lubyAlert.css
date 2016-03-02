@@ -1,0 +1,156 @@
+﻿@charset "utf-8";
+/*CSS RESET*/
+body {
+    width: 100%;
+    position: relative;
+    background: #fff;
+    display: block;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: none; /*hold font-size in moblie*/
+    text-align: center;
+}
+
+article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    display: block;
+}
+
+body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    font-family: 'Source Sans Pro';
+    /*font-size: 1em;*/
+    font-weight: 400;
+    outline: 0;
+}
+*:focus
+{
+    outline: 0;
+}
+
+.lubyAlert{
+    position: fixed;
+    background: rgba(0,0,0,0.8);
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px;
+    z-index: 1000;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.lubyAlert > .lubyWrapper{
+    width: 100%;
+    display: inline-block;
+    margin-top: 28px;
+}
+    .lubyWrapper > .lubyAlertIcon{
+        color: #ffffff;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+    .lubyWrapper > .lubyAlertText{
+        width: 100%;
+        color: #ffffff;
+        font-size: 30px;
+        font-weight: 200;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .lubyWrapper > .lubyAlertInput{
+        width: 98%;
+        height: 40px;
+        margin-top: 20px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        color: #444444;
+        font-weight: 200;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        .lubyWrapper > .lubyAlertInput:focus{
+            border:1px solid #48cfad;
+            box-shadow: 0px 0px 7px rgba(81, 203, 238, 1);
+        }
+    .lubyWrapper > .lubyButton{
+        display: inline-block;
+        width: 120px;
+        height: 40px;
+        line-height: 42px;
+        color: #ffffff;
+        font-weight: 200;
+        border-radius: 5px;
+        margin: 5px;
+        margin-top: 25px;
+        cursor: pointer;
+    }
+        .lubyWrapper > .lubyButton:hover{
+            opacity: 0.7;
+        }
+        .lubyWrapper > .lubyOk{
+            color: #48cfad;
+        }
+        .lubyWrapper > .lubyCancel{
+            color: #ec6446;
+        }
+
+
+#wrapper{
+    display: inline-block;
+    margin-top: 100px;
+}
+
+#wrapper > .alertKey{
+    width: 150px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+#wrapper > .alertKey:hover{
+    opacity: 0.6;
+}
+#test1{
+    background: #48cfad;
+}
+#test2{
+    background: #ffbe54;
+}
+#test3{
+    background: #488ccb;
+}
+#test4{
+    background: #444444;
+}
+#test5{
+    background: #ec6446;
+}
+#test6{
+    background: #a76862;
+}

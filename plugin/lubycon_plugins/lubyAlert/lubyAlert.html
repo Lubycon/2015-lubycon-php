@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="animate.css" type="text/css" />
+	<link rel="stylesheet" href="lubyAlert.css" type="text/css" />  <!-- common css -->
+	<script type="text/javascript" src="jquery-1.11.3.min.js"></script> <!-- jquery library -->
+	<title>Document</title>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="alertKey" id="test1">Bookmark</div>
+		<div class="alertKey" id="test2">Like</div>
+		<div class="alertKey" id="test3">Success</div>
+		<div class="alertKey" id="test4">Confirm</div>
+		<div class="alertKey" id="test5">Prompt</div>
+		<div class="alertKey" id="test6">Custom</div>
+		<script type="text/javascript" src="jquery.lubyAlert.js"></script>
+		<script>
+			$("#test1").lubyAlert({
+				kind: "bookmark"
+			});
+			$("#test2").lubyAlert({
+				kind: "like"
+			});
+			$("#test3").lubyAlert({
+				kind: "success"
+			});
+			$("#test4").lubyAlert({
+				width: 400,
+				kind: "confirm",
+				customText: "Are you sure?"
+
+			});
+			$("#test5").lubyAlert({
+				width: 500,
+				height: "auto",
+				kind: "prompt",
+				customText: "Please Write Your Name"
+			});
+			$("#test6").lubyAlert({
+				customText: "What's up!",
+				customIcon: "fa fa-user",
+				customAnimation: "rotateIn animated"
+			});
+		</script>
+	</div>
+</body>
+</html>
