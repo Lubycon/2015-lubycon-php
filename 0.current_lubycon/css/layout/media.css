@@ -420,7 +420,7 @@
                     display: block;
                     float: none;
                 }
-                .contents_desc #bookmark_bt {
+                .contents_desc .bookmark_bt {
                     font-size: 30px;
                 }
             .creator_desc {
@@ -507,24 +507,21 @@
         width: 100%;
         padding: 30px;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
+            font-size: 45px;
+            margin: 0px 10px;
         }
-            #floating_bt #bookmark_inner_bt{
-                font-size: 45px;
-                margin: 0px 10px;
-            }
-        #floating_bt #like_bt{
+        #floating_bt .like_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
+            font-size: 45px;
+            margin: 0px 10px;
         }
-            #floating_bt #like_bt i{
-                font-size: 45px;
-                margin: 0px 10px;
-            }
+
     #cc_total_wrap{
 
     }
@@ -1006,21 +1003,18 @@
         z-index: 1;
         overflow: hidden;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
+            font-size: 26px;
+            margin-left: 4px;
         }
-            #floating_bt #bookmark_inner_bt{
-                font-size: 26px;
-                margin-left: 4px;
-            }
+
         #floating_bt #like_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
-        }
-        #floating_bt #like_bt i{
             font-size: 20px;
         }
     #cc_total_wrap{

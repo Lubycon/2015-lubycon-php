@@ -9,9 +9,8 @@
 </ul>
 <!-- tempelate script -->
 <script>
-    $(document).ready(function()
-    {
-        $(".lubyAlert_bt").css("color","#FFBE54");
-    });
+$(document).ready(function(){
+    $(".bookmark_bt").addClass("toggle");
+})
 </script>
 <!-- tempelate script -->

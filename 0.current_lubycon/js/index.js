@@ -130,18 +130,6 @@ function LanguageValue(lang){
 //      change language end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//      before sign in child event start
-/////////////////////////////////////////////////////////
-
-function signOutEvent(){
-    $("#after_signin").hide();
-    $("#signin_bt").show();
-    $("#addcontent_bt").hide();
-};
-/////////////////////////////////////////////////////////
-//      before sign in child event end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 //      after signin child hover show and hide start
 /////////////////////////////////////////////////////////
 $(function() //after signin child hover show and hide
@@ -163,13 +151,24 @@ $(function() //after signin child hover show and hide
         } 
 	});
 
-	$('#sign_out').click(function () // sign out
-	{
-	    $("#after_signin").hide();
-	    $("#signin_bt").show();
-	    $("#addcontent_bt").hide();
+	$('#sign_out').click(function (){
+	    signOutEvent();
 	});
 });
+function signOutEvent(){
+    var signinBt = $("<div/>",{
+        "id": "signin_bt",
+        "class": "hidden-mb-b"
+    }).insertBefore("#lang_select_bt"),
+    signinWrap = $("<div/>",{"id":"signin"}).appendTo(signinBt),
+    link = $("<a/>",{"href":"./login_page.php"}).appendTo(signinWrap),
+    iconWrap = $("<p/>",{"class":"signicon"}).appendTo(link),
+    icon = $("<i/>",{"class":"fa fa-unlock-alt fa-lg"}).appndTo(iconWrap),
+    text = $("<p/>",{"class":"signin","text":"SIGN IN"}).appendTo();
+
+    $("#after_signin").remove();
+    $("#addcontent_bt").remove();
+};
 /////////////////////////////////////////////////////////
 //      after signin child hover show and hide end
 /////////////////////////////////////////////////////////

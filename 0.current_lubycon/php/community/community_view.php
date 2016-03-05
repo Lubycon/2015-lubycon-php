@@ -99,9 +99,9 @@
                 <p>
                     <?=$post_content?>
                 </p>
-                <div id="like_bt" class="alertKey" data="like"><i class="fa fa-heart"></i></div>
+                <i id="like_bt" class="like_bt alertKey fa fa-heart" data="like"></i>
                 <div id="post_edit_box">
-                    <button class="post_edit_bt animate_opacity"><i class="fa fa-trash"></i>Delete</button>
+                    <button id="delete_bt" class="alertKey post_edit_bt animate_opacity"><i class="fa fa-trash"></i>Delete</button>
                     <button class="post_edit_bt animate_opacity"><i class="fa fa-repeat"></i>Modified</button>
                 </div>
             </article>  <!-- end post_contents -->

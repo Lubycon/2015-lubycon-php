@@ -318,7 +318,7 @@ session_start();
             if(isset($_COOKIE)){
                 //echo '<script>console.log("if 1-1");</script>';
                 if(isset($_COOKIE['login'])){
-                    echo ('<script>$("#signin_bt").hide();$("#after_signin,#addcontent_bt").show();</script>');
+                    echo ('<script>$("#signin_bt").remove();$("#after_signin,#addcontent_bt").show();</script>');
                 }
             }
         ?>

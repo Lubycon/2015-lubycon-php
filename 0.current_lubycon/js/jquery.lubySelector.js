@@ -1,8 +1,8 @@
 /* ===========================================================
  *
  *  Name:          lubySelector.min.js
- *  Updated:       2016-02-23
- *  Version:       0.1.0
+ *  Updated:       2016-02-28
+ *  Version:       0.1.1
  *  Created by:    DART, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co

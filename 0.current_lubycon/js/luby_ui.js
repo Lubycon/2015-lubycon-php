@@ -1,9 +1,9 @@
 //This file is only one separate classification codes associated with the UI of the Lubycon.
-//0.lubySelector
-//1. sticky
-//2. hover action
-//3. tooltip box action
-//4. alert action
+//0. lubySelector
+//1. lubyAlert
+//2. sticky
+//3. hover action
+//4. tooltip box action
 //5. mb-panel_menu
 /////////////////////////////////////////////////////////
 //      lubySelector start
@@ -56,6 +56,28 @@ $(document).ready(function(){
 });
 /////////////////////////////////////////////////////////
 //      lubySelector end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      lubyAlert start
+///////////////////////////////////////////////////////// 
+$(document).ready(function(){
+    $(".bookmark_bt").lubyAlert({
+        kind: "bookmark",
+        toggle: true
+    });
+    $(".like_bt").lubyAlert({
+        kind: "like",
+        toggle: true
+    });
+    $("#delete_bt").lubyAlert({
+        width: 430,
+        height: 180,
+        kind: "confirm",
+        customText: "Are you sure?"
+    });
+});
+/////////////////////////////////////////////////////////
+//      lubyAlert end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      sticky start
@@ -212,36 +234,6 @@ $(function(){
 /////////////////////////////////////////////////////////
 //      toottip_end
 /////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      lubyAlert start
-///////////////////////////////////////////////////////// 
-$(document).ready(function(){
-    $("#bookmark_bt").lubyAlert({
-        kind: "bookmark",
-        toggle: true
-    });
-    $("#like_bt").lubyAlert({
-        kind: "like"
-    });
-    $("#delete_bt").lubyAlert({
-        width: 430,
-        height: 180,
-        kind: "confirm",
-        customText: "Are you sure?"
-    })
-    function toggleAlert(selector){
-        var $this = selector;
-        if($this.hasClass("alertKey")){
-            $this.removeClass("alertKey");
-        }else{
-            $this.addClass("alertKey");
-        }
-    }
-});
-/////////////////////////////////////////////////////////
-//      lubyAlert end
-/////////////////////////////////////////////////////////
-
 /////////////////////////////////////////////////////////
 //      mobile menu action start
 /////////////////////////////////////////////////////////

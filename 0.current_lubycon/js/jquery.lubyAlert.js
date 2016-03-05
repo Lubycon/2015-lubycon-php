@@ -1,8 +1,8 @@
 /* ===========================================================
  *
- *  Name:          lubySelector.min.js
- *  Updated:       2016-02-23
- *  Version:       0.1.0
+ *  Name:          lubyAlert.min.js
+ *  Updated:       2016-03-02
+ *  Version:       0.1.1
  *  Created by:    DART, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co
@@ -12,7 +12,6 @@
 (function($){
 	$.fn.lubyAlert = function(option){
         var defaults = { 
-            id: "",
             width: 170,
             height: 170,
             kind: "custom",//bookmark,like,success,cancel,confirm,prompt,custom
@@ -21,16 +20,19 @@
             customIcon: "",//font awesome
             customText: "",
             customAnimation: "",
-            callback: $.nothing
+            toggle: false
         },
         d = {},
         pac = {
             create: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
-                    if (!$(this).hasClass("alertKey")) return;
-                    else {       
-                        var $this = $(this);
-                        $this.on("click touchend",pac.init);
+                    if (!$(this).hasClass("alertKey")) $.error("lubyAlert : There is no lubyAlert object");
+                    else {      
+                        console.log("lubyAlert"); 
+                        var $this = $(this),
+                        toggleSetup = d.toggle ? 
+                        $this.on("click touchend", pac.toggleOn) && $this.on("click touchend", pac.init): 
+                        $this.on("click touchend", pac.init);
                     }
                 })
             },
@@ -47,7 +49,6 @@
                 objectX = ((d.width*0.5)*-1),
                 alertBody = $("<div/>",{
                     "class" : "lubyAlert " + d.kind,
-                    "id" : d.id
                 }).css({
                     "width":d.width,
                     "height":d.height,
@@ -80,27 +81,43 @@
                 switch(kind){
                     case "bookmark" :
                         icon.addClass("fa fa-star bounce animated");
-                        text.text("Thanks");
+                        text.text("Saved :)");
                     break;
                     case "like" :
                         icon.addClass("fa fa-heart bounceIn animated");
-                        text.text("Thanks");
+                        text.text("Liked :)");
                     break;
                     case "success" :
                         icon.addClass("fa fa-check-circle rotateIn animated");
-                        text.text("Succeed");
+                        text.text("Completed");
                     break;
                     case "cancel" :
                         icon.addClass("fa fa-times tada animated");
-                        text.text("Canceled")
+                        text.text("Cancelled")
                     break;
                     default : return; break;
                 }
             },
             okCallBack: function(){
-                var $this = $(this).parents(".lubyAlert");
+                var $this = $(this).parents(".lubyAlert"),
+                windowHeight = $(window).height(),
+                objectY = ((windowHeight*0.5) - (170*0.5)),
+                objectX = ((170*0.5)*-1),
+                alertBody = $("<div/>",{
+                    "class" : "lubyAlert success",
+                }).css({
+                    "width": 170,
+                    "height": 170,
+                    "top": objectY,
+                    "left": "50%",
+                    "margin-left": objectX
+                }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
+                    pac.destroyAlert(alertBody,"success");
+                }),
+                alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
+                alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-check-circle rotateIn animated"}).appendTo(alertInner),
+                alertText = $("<p/>",{"class":"lubyAlertText","html":"Completed"}).appendTo(alertInner)
                 pac.destroyAlert($this);
-                console.log("OK");
             },
             cancelCallBack: function(){
                 var $this = $(this).parents(".lubyAlert");
@@ -124,6 +141,19 @@
                     },500);
                     console.log("destroyAlert");
                 } 
+            },
+            toggleOn: function() {
+                var $this = $(this);
+                if(!$this.hasClass("toggle")){
+                    $this.addClass("toggle");
+                    $this.off("click touchend", pac.init);
+                    console.log("toggleOn");
+                }
+                else{
+                    $this.removeClass("toggle");
+                    $this.on("click touchend", pac.init);
+                    console.log("toggleOff");
+                }
             }
         },
         start = {
