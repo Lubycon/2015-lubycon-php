@@ -214,79 +214,30 @@ $(function(){
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      lubyAlert start
-/////////////////////////////////////////////////////////   
-$(window).on("load",function(){
-    setTimeout(function(){
-        $(".lubyAlert_bt").each(function(){
-            var toggle_count = 0;
-            $(this).on("click touchend", function (event){
-                if(!dragging){
-                    eventHandler(event, $(this));
-                    toggle_count = showAlert($(this),toggle_count);
-                }
-                else if(dragging){
-                    return;
-                } 
-            });//click end
-        });//each end
-    },1);//setTimeout end  
-});//window load end
-function showAlert(selector,arg){
-    var thisData = selector.attr("data");
-    var alertObject = $(document).find("#"+thisData+"Alert");
-    switch(arg){
-        case 0:
-            switch(thisData){
-                case "bookmark" :
-                    selector.css("color","#ffbe54");
-                    selector.find("i").css('color', '#ffbe54');
-                    arg = 1;
-                    console.log("this is star");
-                break;
-                case "like" :
-                    selector.find("i").css('color', '#48cfad');
-                    arg = 1;
-                    console.log("this is heart");
-                break;
-                case "confirm" :
-                    arg = arg;
-                    $(".dark_overlay").fadeIn(200);
-                    console.log("this is confirm");
-                break;
-                case "success" :
-                    arg = 1;
-                    console.log("this is success");
-                break;
-                default: return false; break;
-            }
-            alertObject.stop().fadeIn(700,function(event){ 
-                if(alertObject.attr("id") != "confirmAlert"){
-                    hideAlert();
-                    console.log(arg);
-                }
-                else if(alertObject.attr("id") === "confirmAlert"){
-
-                }
-            });
-            return arg;
-        break;
-        case 1:
-            selector.css("color","#cccccc");
-            selector.find("i").css('color', '#cccccc');
-            arg = 0;
-            console.log(arg);
-            return arg;
-        break;
-        default: return false; break;
-    }//switch end
-}
-function hideAlert(){
-    setTimeout(function(){
-        $(".lubyAlert").fadeOut(700,function(){
-            return;
-        });
-    },500)
-};
+///////////////////////////////////////////////////////// 
+$(document).ready(function(){
+    $("#bookmark_bt").lubyAlert({
+        kind: "bookmark",
+        toggle: true
+    });
+    $("#like_bt").lubyAlert({
+        kind: "like"
+    });
+    $("#delete_bt").lubyAlert({
+        width: 430,
+        height: 180,
+        kind: "confirm",
+        customText: "Are you sure?"
+    })
+    function toggleAlert(selector){
+        var $this = selector;
+        if($this.hasClass("alertKey")){
+            $this.removeClass("alertKey");
+        }else{
+            $this.addClass("alertKey");
+        }
+    }
+});
 /////////////////////////////////////////////////////////
 //      lubyAlert end
 /////////////////////////////////////////////////////////

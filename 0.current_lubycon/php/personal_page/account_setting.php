@@ -177,7 +177,7 @@
         <section id="delete_account_section" class="setting_card">
             <p class="setting_title">Delete Account</p>
                 <p id="delete_desc">Deleting your account will delete all of your content and remove all data associated with it.</p>
-                <span id="confirm_bt" class="lubyAlert_bt" data="confirm">I want delete my account</span>
+                <span id="delete_bt" class="alertKey" data="delete">I want delete my account</span>
         </section>
         <input type="submit" value="Submit" id="submit_bt" />
     </section>
