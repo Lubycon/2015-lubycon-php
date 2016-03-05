@@ -30,12 +30,12 @@
                     <div class="account_input_wrap">
                          <label>Location</label>
                          <div class="location_option_ca">
-                              <select class="basic_filter" name="country_code">
+                              <select class="locationFilter" name="country_code">
                                    <?php
                                         $database->query = "SELECT * FROM luby_country";
                                         $database->DBQuestion();
                                         while($row = mysqli_fetch_array($database->result)){
-                                             echo ("<option value = ".$row['country_code'].">".$row['country_name']."</option>");
+                                             echo ("<option data-value = ".$row['country_code'].">".$row['country_name']."</option>");
                                         }
                                    ?>
                               </select>

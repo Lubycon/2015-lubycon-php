@@ -334,16 +334,9 @@ form
             }
 
         .location_option_ca {
+            width: 100%;
             display: inline-block;
         }
-            .location_option_ca #custom {
-                width: 214px;
-                box-shadow: none;
-                margin-left: -3px;
-            }
-                .location_option_ca #custom .sod_list_wrapper {
-                    width: 214px;
-                }
 
 .form_check {
     color: #ec6446;

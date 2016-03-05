@@ -15,14 +15,15 @@
     <link rel="shortcut icon" href="./ch/img/logo/lubycon.ico" />  <!-- favicon -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
     <link href="css/layout/normalize.css" rel="stylesheet" type="text/css" />  <!-- web normalize -->
-    <link href="css/selectordie.css" rel="stylesheet" type="text/css" /> <!-- selector decoration css -->
     <link href="css/layout/animate.css" rel="stylesheet" type="text/css" /><!--animation for objects-->
+    <link href="css/layout/common.css" rel="stylesheet" type="text/css" />  <!-- common css -->
     <link href="css/login_page.css" rel="stylesheet" type="text/css" /> 
     <link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
 
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script> <!-- jquery library -->
     <script type="text/javascript" src="js/selectordie.min.js"></script> <!-- selector decoration js -->
     <script type="text/javascript" src="js/selectordie.demo.js"></script> <!-- selector decoration js -->
+    <script type="text/javascript" src="js/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/login_page.js"></script> <!--login_page interation js-->
     <script type="text/javascript" src="js/account.js"></script> <!-- account file js -->
 </head>

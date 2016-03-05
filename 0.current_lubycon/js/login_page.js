@@ -54,6 +54,13 @@ $(function () { //create account bt popup event start
                     $('.dark_overlay').stop().fadeOut(500);
                      $('#create_account_area').stop().fadeOut(500).remove();
                 });
+                $(".locationFilter").lubySelector({
+                    width: "100%",
+                    theme: "white",
+                    "float": "none",
+                    searchBar: true,
+                    "icon": "fa fa-globe"
+                });
             }
         });
     });
