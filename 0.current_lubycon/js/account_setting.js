@@ -104,7 +104,7 @@ $(document).on("click touchend", "#history_minus", function (event) //clone lang
     }
     history_stack--;
 });
-$(".lubySelector li").on("click", function ()
+$(".history_data .accountFilter").on("change", function ()
 {
     //console.log($(this).parents('.lubySelector').next().val());
     var history_array = [];
@@ -114,12 +114,12 @@ $(".lubySelector li").on("click", function ()
         history_array.push(
             {
                 'index':  index,
-                'year':  $(this).children('select:nth-of-type(1)').val(),
-                'month': $(this).children('select:nth-of-type(2)').val(),
-                'kind':  $(this).children('select:nth-of-type(3)').val(),
+                'year': $(this).find('.accountFilter:eq(0)').val(),
+                'month': $(this).find('.accountFilter:eq(1)').val(),
+                'kind': $(this).find('.accountFilter:eq(2)').val(),
                 'text': $(this).find('.history_text').val()
             });
-        //console.log(history_array[index]);
+        console.log(history_array[index]);
     });
 
     aftersort = history_array.sort(CompareForSort);
@@ -138,20 +138,19 @@ $(".lubySelector li").on("click", function ()
     }
 
     $('.history_cell .history_data').each(function (index) {
-        $(this).children('select:nth-of-type(1)').val(aftersort[index].year); //hidden selecter value change
-        $(this).find('.history_year_changer').text(aftersort[index].year); //luby ui lubySelector_selected.span text change
+        $(this).find('.accountFilter:eq(0)').val(aftersort[index].year); //hidden selecter value change
+        $(this).find('.ls_Label:eq(0)').text(aftersort[index].year); //luby ui lubySelector_selected.span text change
 
-        $(this).children('select:nth-of-type(2)').val(aftersort[index].month);
-        $(this).find('.history_month_changer').text(aftersort[index].month);
+        $(this).find('.accountFilter:eq(1)').val(aftersort[index].month);
+        $(this).find('.ls_Label:eq(1)').text(aftersort[index].month);
 
-        $(this).children('select:nth-of-type(3)').val(aftersort[index].kind);
-        $(this).find('.history_kind_changer').text(aftersort[index].kind);
+        $(this).find('.accountFilter:eq(2)').val(aftersort[index].kind);
+        $(this).find('.ls_Label:eq(2)').text(aftersort[index].kind);
 
         $(this).children('.history_text').val(aftersort[index].text);
-        //$(this).find('.history_year').val(aftersort[index].year).attr('selected', 'selected');
-        //$(this).find('.history_month').val(aftersort[index].month).attr('selected', 'selected');
-        //$(this).find('.history_kind').val(aftersort[index].kind).attr('selected', 'selected');
-        //$(this).find('.history_text').val(aftersort[index].text);
+
+
+        console.log(aftersort[index].year);
     });
 });
 ////////////////////////////delete button interaction start
