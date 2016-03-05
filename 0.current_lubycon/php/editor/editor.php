@@ -1,5 +1,10 @@
 <?php
-    //include_once './php/account/session_check.php';
+    if(isset($_COOKIE)){
+        if(isset($_COOKIE['login'])){
+        }else if(!isset($_COOKIE['login'])){
+            echo('<script>location.href="login_page.php"</script>');
+        }
+    }
 ?>
 <link href="css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="css/editor.css" rel="stylesheet" type="text/css" />

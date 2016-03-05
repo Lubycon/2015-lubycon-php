@@ -3,7 +3,7 @@ session_start();
     if(isset($_COOKIE)){
         if(isset($_COOKIE['login'])){
             $info = unserialize($_COOKIE['login']);
-            setcookie('login', serialize($info), time()+500000000);
+            setcookie('login', serialize($info), time()+5000000);
         }else if(!isset($_COOKIE['login'])){
             session_destroy();
         }
