@@ -159,11 +159,11 @@
                 !$this.hasClass("selected")?
                     $this.addClass("selected").siblings().removeClass("selected") 
                     && $label.text(selectedValue) 
-                    && $selectbox.val(selectedValue)
+                    && $selectbox.val(selectedValue).trigger("change")
                     && $wrap.removeClass("open")
                     && $optionWrap.fadeOut(300) :
                     "";
-                    console.log($selectbox.val());
+                    //console.log($selectbox.val());
                 //console.log("optionClick"); console.log("select value is '" + $selectbox.val() + "'"); 
             },
             changeOption: function(selector) {
@@ -172,10 +172,10 @@
                 option = $this.find("option").val(),
                 list = $this.prev(".ls_optionWrap").find(".ls_option"),
                 listValue = list.data("value");
-                list.each(function(){
+                /*list.each(function(){
                     var $this = $(this);
-                    (listValue == option) ? $this.addClass("selected") : $this.removeClass("selected");//어제 여기까지 짬(문제점 : 전부다 false로 감)
-                });
+                    (listValue == option) ? $this.addClass("selected") : $this.removeClass("selected");
+                });*/
                 //console.log("changeOption");
             },
             searchEvent: function(selector) {
