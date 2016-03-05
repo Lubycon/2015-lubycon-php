@@ -107,10 +107,10 @@ switch($current_url){
                         };
                     ?>
                     <div id="floating_bt">
-                        <div id="bookmark_bt" class="lubyAlert_bt" data="bookmark">
+                        <div id="bookmark_bt" data="bookmark">
                             <i id="bookmark_inner_bt" class="fa fa-star"></i>
                         </div>
-                        <div id="like_bt" class="like_bt lubyAlert_bt" data="like">
+                        <div id="like_bt" class="like_bt alertKey" data="like">
                             <i class="fa fa-heart"></i>
                         </div>
                     </div>

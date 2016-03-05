@@ -559,12 +559,6 @@ $(function () {
                     //$('#bodyer').hide().append(data).fadeIn(300); //해당 내용을 보여준다
                     $('#contents_box').html('');
                     $('#contents_box').append(data);
-                    $(".basic_filter").selectOrDie
-                    ({
-                        customClass: "custom",
-                        customID: "custom",
-                        size: 5
-                    });
                     if ($('document').find(".subnav_li")) {
                         var urltxt = "#" + third_param.toString();
                         $(".subnav_li").attr("class", "subnav_li");

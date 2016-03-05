@@ -38,10 +38,9 @@ session_start();
     <link href="css/slider.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="js/selectordie.min.js"></script> <!-- selector decoration js -->
-    <script type="text/javascript" src="js/selectordie.demo.js"></script> <!-- selector decoration js -->
     <script type="text/javascript" src="js/slider.js"></script><!--slider plugin-->
-    <script type="text/javascript" src="js/jquery.lubySelector.js"></script>
+    <script type="text/javascript" src="js/jquery.lubySelector.js"></script><!--lubySelector-->
+    <script type="text/javascript" src="js/jquery.lubyAlert.js"></script><!--lubyAlert-->
     <script type="text/javascript" src="js/resizeObject.js"></script>
     <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
     <script type="text/javascript" src="js/luby_ui.js"></script><!-- ui file js -->
@@ -120,29 +119,6 @@ session_start();
         </ul>
     </aside>
     <!-- popup start -->
-    <!-----------------------------------------------------alert boxes-------------------------------------------------->
-    <div class="lubyAlert" id="successAlert">
-        <i id="suc_icon" class="fa fa-check-circle rotateIn animated"></i>
-        <p>Success!</p>
-    </div><!--succese box-->
-    <div class="lubyAlert" id="failAlert">
-        <i id="fail_icon" class="fa fa-times tada animated"></i>
-        <p>Failed!</p>
-    </div><!--fail box-->
-    <div class="lubyAlert" id="bookmarkAlert">
-        <i id="star_icon" class="fa fa-star bounce animated"></i>
-        <p>It's marked!</p>
-    </div><!--bookmark box-->
-    <div class="lubyAlert" id="likeAlert">
-        <i id="like_icon" class="fa fa-heart bounceIn animated"></i>
-        <p>Like :)</p>
-    </div>
-    <div class="lubyAlert" id="confirmAlert">
-        <p class="confirm_text">Are you sure?</p>
-        <button class="index_confirm_bt">Confirm</button>
-        <button class="index_cancel_bt">Cancel</button>
-    </div><!--confirm box-->
-    <!-----------------------------------------------------alert boxes-------------------------------------------------->
     <div class="editor_popup fadeInDown animated">
         <p>Which content will you upload?</p>
         <ul>
