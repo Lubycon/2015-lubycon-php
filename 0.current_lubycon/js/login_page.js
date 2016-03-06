@@ -43,12 +43,6 @@ $(function () { //create account bt popup event start
             cache: false,
             success: function (data) {
                 $('#bodyer').hide().append(data).fadeIn(500); //해당 내용을 보여준다
-                $(".basic_filter").selectOrDie
-                ({
-                    customClass: "custom",
-                    customID: "custom",
-                    size: 5
-                });
                 $('.dark_overlay').fadeIn(500);
                 $("#modal_close_bt").on("click",function(){
                     $('.dark_overlay').stop().fadeOut(500);

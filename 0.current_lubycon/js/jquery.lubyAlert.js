@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          lubyAlert.min.js
- *  Updated:       2016-03-02
+ *  Updated:       2016-03-06
  *  Version:       0.1.1
  *  Created by:    DART, Lubycon.co
  *
@@ -66,7 +66,7 @@
                 cancelBt = $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}),
                 
                 alertInput = d.kind=="prompt" ? 
-                $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).focus() 
+                $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).on("keydown",pac.keyEvent).focus() 
                 && okBt.appendTo(alertInner).on("click",pac.okCallBack) && cancelBt.appendTo(alertInner).on("click",pac.cancelCallBack) : "",
                 
                 alertConfirm = d.kind=="confirm" ?
@@ -104,7 +104,7 @@
                 objectY = ((windowHeight*0.5) - (170*0.5)),
                 objectX = ((170*0.5)*-1),
                 alertBody = $("<div/>",{
-                    "class" : "lubyAlert success",
+                    "class" : "lubyAlert success"
                 }).css({
                     "width": 170,
                     "height": 170,
@@ -116,11 +116,29 @@
                 }),
                 alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-check-circle rotateIn animated"}).appendTo(alertInner),
-                alertText = $("<p/>",{"class":"lubyAlertText","html":"Completed"}).appendTo(alertInner)
+                alertText = $("<p/>",{"class":"lubyAlertText","html":"Completed"}).appendTo(alertInner);
                 pac.destroyAlert($this);
+                console.log("OK");
             },
             cancelCallBack: function(){
-                var $this = $(this).parents(".lubyAlert");
+                var $this = $(this).parents(".lubyAlert"),
+                windowHeight = $(window).height(),
+                objectY = ((windowHeight*0.5) - (170*0.5)),
+                objectX = ((170*0.5)*-1),
+                alertBody = $("<div/>",{
+                    "class" : "lubyAlert cancel"
+                }).css({
+                    "width": 170,
+                    "height": 170,
+                    "top": objectY,
+                    "left": "50%",
+                    "margin-left": objectX
+                }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
+                    pac.destroyAlert(alertBody,"cancel");
+                }),
+                alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
+                alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-times tada animated"}).appendTo(alertInner),
+                alertText = $("<p/>",{"class":"lubyAlertText","html":"Cancelled"}).appendTo(alertInner);
                 pac.destroyAlert($this);
                 console.log("CANCEL");
             },
@@ -154,6 +172,17 @@
                     $this.on("click touchend", pac.init);
                     console.log("toggleOff");
                 }
+            },
+            keyEvent: function() {
+                var $this = $(this),
+                okBt = $this.siblings(".lubyOk"),
+                cancelBt = $this.siblings(".lubyCancel");
+                if(event.which == 13) {
+                    if($this.val()==""){ cancelBt.click(); }
+                    else{ okBt.click(); }
+                }
+                else{ return; }
+                console.log("keyEvent");
             }
         },
         start = {

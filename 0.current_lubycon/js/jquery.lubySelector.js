@@ -109,7 +109,7 @@
                 $searchBar = $this.find(".ls_input");
                 $this.hasClass("disabled") ? pac.boxBlur($this) : 
                 (pac.boxBlur($(".lubySelector.focused").not($this)), 
-                    $this.addClass("focused"), $searchBar.addClass("focused"),
+                    $this.addClass("focused"), $searchBar.addClass("focused"), 
                     $("html").on("click.boxBlur", function () {
                         pac.boxBlur($this);
                         //console.log("boxFocus_inner");
@@ -199,14 +199,14 @@
                 switch($this.attr("theme")){
                     case "black" : return; break;
                     case "white" : 
-                        $this.css({"background":"#ffffff", "border":"1px solid #aaaaaa", "color":"#aaaaaa"});
-                        $arrow.css("color","#aaaaaa");
-                        $icon.css("color","#aaaaaa");
+                        $this.css({"background":"#ffffff", "border":"1px solid #aaaaaa", "color":"#444444"});
+                        $arrow.css("color","#444444");
+                        $icon.css("color","#444444");
                         $list.css({"background":"#ffffff","border":"1px solid #aaaaaa"});
-                        $listInner.css({"background":"#ffffff", "color":"#aaaaaa"});
-                        $searchBar.css("border","1px solid #aaaaaa");
-                        $input.css("color","#aaaaaa");
-                        $searchIcon.css("color","#aaaaaa");
+                        $listInner.css({"background":"#ffffff", "color":"#444444"});
+                        $searchBar.css("border","1px solid #444444");
+                        $input.css("color","#444444");
+                        $searchIcon.css("color","#444444");
                     break;
                     case "ghost" : 
                         $this.css({"background":"transparent", "border":"1px solid #ffffff", "color":"#ffffff"});
