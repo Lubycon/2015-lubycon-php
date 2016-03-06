@@ -19,20 +19,27 @@ $(document).ready(function(){
         userFilter = navGuide.find(".userFilter"),
         categoryFilter = navGuide.find(".categoryFilter"),
 
-        preferFilter.lubySelector();
+        preferFilter.lubySelector({
+            id: "preferFilter"
+        });
         copyrightFilter.lubySelector({
-            icon: "fa fa-copyright",
+            id: "copyrightFilter",
+            icon: "fa fa-copyright"
         });
         languageFilter.lubySelector({
+            id: "languageFilter",
             icon: "fa fa-globe"
         });
         locationFilter.lubySelector({
+            id: "locationFilter",
             icon: "fa fa-globe"
         });
         jobFilter.lubySelector({
+            id: "jobFilter",
             icon: "fa fa-suitcase"
         });
         userFilter.lubySelector({
+            id: "userFilter",
             icon: "fa fa-user"
         });
         categoryFilter.lubySelector({

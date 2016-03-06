@@ -40,14 +40,14 @@
                 }
             ?>
             </select>
-            <select class="preferFilter hidden-mb-ib">
+            <select class="preferFilter">
                 <option>Featured</option>
                 <option>Recent</option>
                 <option>Most Like</option>
                 <option>Most Download</option>
                 <option>Most Comment</option>
             </select>
-            <select class="copyrightFilter hidden-mb-ib">
+            <select class="copyrightFilter">
                 <option>All License</option>
                 <option>Free</option>
                 <option>Non-Commercial</option>

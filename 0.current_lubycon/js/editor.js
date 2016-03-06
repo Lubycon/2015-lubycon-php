@@ -178,7 +178,7 @@ $(function(){
             var checked_data = checked_databox.push($(this).val());
             var cc_url_sub = checked_databox.join("-");
             console.log(cc_url_sub);
-            var cc_url = "http://creativecommons.org/licenses/" + cc_url_sub + "/4.0";
+            var cc_url = "http://creativecommons.org/licenses/" + cc_url_sub + "/4.0";//send to DB
             $("#cc_desc_link").attr("href", cc_url);
         });
     })

@@ -19,20 +19,7 @@
         width: 100%;
     }
     #footer {
-        display: none;
-    }
-    .lubyAlert .index_confirm_bt{
-        margin-top: 30px;
-    }
-    .lubyAlert .index_confirm_bt{
-        display: block;
-        margin: 0px auto;
-        margin-top: 20px;
-    }
-    .lubyAlert .index_cancel_bt{
-        display: block;
-        margin: 0px auto;
-        margin-top: 20px;
+        
     }
     #main_search_bar{
         display: none;
@@ -321,15 +308,18 @@
         margin-top: 46px;
         height: auto;
     }
-        .nav_guide .lubySelector {
-            width: 100% !important;
-            height: 48px !important;
-            line-height: 48px;
-            margin: 0px !important;
-            background: #222222;
-            border-radius: 0px !important;
-            float: left !important;
-            box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.8) !important;
+        .nav_guide .subnav_box {
+            padding: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        .nav_guide .subnav_box .lubySelector {
+            width: 80% !important;
+            margin: 3px auto !important;
+            float: none !important;
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.8) !important;
         }
     .con_wrap{
         background: #eeeeee;
@@ -772,9 +762,17 @@
         display: block;
         position:relative;
     }
+    /*------------login--------------*/
+    #login_box{
+        width: 100%;
+    }
+    #create_account_area{
+        width: 100%;
+        top: 0 !important;
+    }
 }
-/*------------------------------------------------mobile end-------*/
-/*---------------------------------------------desktop start-------*/
+/*--------------------------------------------------------------------mobile end-------*/
+/*-----------------------------------------------------------------desktop start-------*/
 @media screen and (min-width: 1025px){
     .visible-mb{
         display: none !important;
@@ -785,16 +783,6 @@
     .hidden-mb-b{
         display: block;
     }
-    .lubyAlert .confirm_text{
-        margin-top: 45px;
-    }
-    .lubyAlert .index_confirm_bt{
-        margin-top: 60px;
-    }
-    .lubyAlert .index_cancel_bt{
-        margin-top: 60px;
-    }
-
     #main_header{
         height: 50px;
     }
@@ -1219,6 +1207,19 @@
     .public_option{
         display: inline-block;
         margin-left: 67px;
+    }
+    /*-------------login------------*/
+    #loginWrap{
+        left: 50%;
+        margin-left: -200px;
+    }
+    #login_box{
+        width: 400px;
+    }
+    #create_account_area{
+        width: 410px;
+        left: 50%;
+        margin-left: -205px;
     }
 }
 /*------desktop end-------*/

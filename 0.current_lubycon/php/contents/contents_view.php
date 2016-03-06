@@ -80,10 +80,6 @@ switch($current_url){
                             <i class="fa fa-twitter-square"></i>
                             <p>Share to Twitter</p>
                         </li>
-                        <li class="share_list" id="shareLink" data="success">
-                            <i class="fa fa-link"></i>
-                            <p>Copy to link</p>
-                        </li>
                     </ul>
                 </div>
             </div>

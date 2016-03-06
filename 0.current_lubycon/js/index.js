@@ -205,53 +205,41 @@ $(function () { //add contents button start
 //      main search bar input reset start
 /////////////////////////////////////////////////////////
 $(function () { //search box click value reset start
-    var search_box = $('#main_search_text');
-    var search_box2 = $('#sub_search_text');
-    var search_bt = $('#main_search_btn');
-    var search_bt2 = $('#sub_search_btn');
+    var search_box = $('#main_search_text'),
+    search_box2 = $('#sub_search_text'),
+    search_bt = $('#main_search_btn'),
+    search_bt2 = $('#sub_search_btn');
 
+    //
     search_box.on('keypress', function(event) {
-        console.log("keypress_true");
-        if(event.which == 13) {// 13 == enter key@ascii
-            console.log("if true");
+        if(event.which == 13) {
             search_bt.click();
-        };//if end
-    });//keypress end
-
-    search_bt.click(function(){
-        console.log("clicked");
-    });
-
-    search_box.focus(function(){
-        if (search_box.val() == 'Enter the Keyword') {
+            console.log("Searching....")
+        }
+    }).focus(function(){
+        if (search_box.val() == 'Enter The Keyword') {
             search_box.val('');
         }
-    });
-    search_box.blur(function(){
+    }).blur(function(){
         if (search_box.val() == '') {
-            search_box.val('Enter the Keyword');
+            search_box.val('Enter The Keyword');
         }
     });
 
     search_box2.on('keypress', function(e) {
         console.log("keypress_true");
-        if(e.which == 13) {// 13 == enter key@ascii
+        if(e.which == 13) {
             console.log("if true");
             search_bt.click();
-        };//if end
-    });//keypress end
-
-    search_bt2.click(function(){
+        };
+    }).click(function(){
         console.log("clicked");
-    });
-
-    search_box2.focus(function(){
+    }).focus(function(){
         if(search_box2.val()=='Enter the Keyword'){
             search_box2.val('')
             $("#sub_search_bar").stop().animate({width:350},200);
         }
-    });
-    search_box2.blur(function(){
+    }).blur(function(){
         if(search_box2.val()==''){
             search_box2.val('Enter the Keyword');
             $("#sub_search_bar").stop().animate({width:295},200);

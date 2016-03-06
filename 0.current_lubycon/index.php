@@ -379,7 +379,7 @@ session_start();
     ?>
     <footer id="footer" class="footer">
         <span id="luby_copyright"><i class="fa fa-copyright"></i>Lubycon 2016</span>
-        <span id="about_lubycon">
+        <span id="about_lubycon" class="hidden-mb-ib">
             <span id="about_us_foot"><a href="./index.php?1=company&2=about_us">About us</a></span>
             <span id="contact_us_foot"><a href="mailto:contact@lubycon.com" target="_blank">Contact us</a></span>
         </span>
@@ -391,7 +391,7 @@ session_start();
             <a href="#"><i class="fa fa-pinterest-square"></i></a>
             <a href="#"><i class="fa fa-tumblr-square"></i></a>
         </span>
-        <span id="luby_policies">
+        <span id="luby_policies" class="hidden-mb-ib">
             <span id="termsOfService_foot"><a href="./index.php?1=company&2=terms_of_service" class="document">Terms of service</a></span>
             <span id="privatePolicy_foot"><a href="./index.php?1=company&2=private_policy" class="document">Private policy</a></span>
         </span>

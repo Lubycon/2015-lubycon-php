@@ -513,6 +513,7 @@ body{
 #main_search_bar > #select_box{
     display: inline-block;
     color: #ffffff;
+    float: right;
 }
 
 #main_search_bar .lubySelector{
@@ -1904,12 +1905,12 @@ body{
         margin-top: -4px !important;
     }
 
-.ls_Label {
+.lubySelector .ls_Label {
     font-weight: 200;
     font-size: 14px;
 }
 
-.ls_arrow{
+.lubySelector .ls_arrow{
     width: 10px;
     height: 30px;
     line-height: 30px;
@@ -1920,7 +1921,7 @@ body{
     top: 4px;
 }
 
-.ls_search{
+.lubySelector .ls_search{
     display: inline-block;
     position: relative;
     width: 100%;
@@ -1928,7 +1929,7 @@ body{
     border: 1px solid #ffffff;
     border-radius: 5px;
 }
-    .ls_search .ls_input{
+    .lubySelector .ls_search .ls_input{
         position: absolute;
         left: 0;
         width: 100%;
@@ -1947,7 +1948,7 @@ body{
         overflow: hidden;
     }
 
-    .ls_search .fa-search{
+    .lubySelector .ls_search .fa-search{
         font-size: 14px;
         color: #ffffff;
         position: absolute;
@@ -1956,7 +1957,7 @@ body{
         cursor: default;
     }
 
-.ls_optionWrap {
+.lubySelector .ls_optionWrap {
     width: 100%;
     
     text-align: center;
@@ -1976,7 +1977,7 @@ body{
     -moz-box-sizing: border-box;
 }
 
-    .ls_option {
+    .lubySelector .ls_option {
         width: 100%;
         display: block;
         background: #333333;
