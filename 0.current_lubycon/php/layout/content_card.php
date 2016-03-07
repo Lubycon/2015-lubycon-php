@@ -50,7 +50,7 @@
                     <span class="name"><?=$username[$number]?></span>
                 </a>
             </span>
-            <i id="bookmark_bt" class="alertKey fa fa-star" data="bookmark"></i>
+            <i id="bookmark_bt" class="bookmark_bt alertKey fa fa-star" data="bookmark"></i>
         </div>
         <!-- end contents desc -->
         <div class="contents_overlay load_view">

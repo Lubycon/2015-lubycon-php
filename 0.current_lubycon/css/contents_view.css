@@ -62,34 +62,27 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             top:0px;
             border: none;
             display: inline-block;
             text-align: center;
             vertical-align: top;
             z-index: 1;
+            vertical-align:middle;
+            cursor:pointer;
         }
-            #floating_bt #bookmark_inner_bt{
-                vertical-align:middle;
-                color:#cccccc;
-                cursor:pointer;
-            }
 
-        #floating_bt #like_bt{
+        #floating_bt .like_bt{
             border:none;
             display:inline-block;
             border-radius: 0px !important;
-            
             text-align:center;
             margin:0px auto;
             z-index: 1;
+            vertical-align:middle;
             cursor: pointer;
-
         }
-            #like_bt i {
-                vertical-align:middle;
-            }
 
     .contents_view .contents_img{
         width: 100%;

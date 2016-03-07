@@ -13,6 +13,7 @@ body,h1,h2,h3,h4,h5,h6,div,p,ul,ol,dl,li,dt,dd,address,figure, nav, section, hea
 	line-height: 0px;
 	font-style: normal;
 	font-family: 'Source Sans Pro', sans-serif;
+    position: relative;
 }
 li
 {
@@ -58,10 +59,11 @@ form
 		background: url(../ch/img/logo/lubycon_logo.svg) no-repeat;
 		background-size: 300px;
 	}
-
+#loginWrap {
+    position: fixed;
+}
 #login_box {
     position: relative;
-    width: 400px;
     margin: 0px auto;
     padding: 20px;
     background: #282828;
@@ -249,14 +251,9 @@ form
 
 /**********************************************************************************************create account pop*/
 #create_account_area {
-    width: 410px;
     background: #fff;
     z-index: 6;
     position: absolute;
-    top: 37%;
-    left: 50%;
-    margin-left: -205px;
-    margin-top: -250px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -328,22 +325,15 @@ form
             border-radius: 5px;
             padding: 0px 10px;;
         }
-            .account_input_wrap input:focus {
+            .account_input_wrap > input:focus {
                 border:1px solid #48cfad;
                 box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
             }
 
         .location_option_ca {
+            width: 100%;
             display: inline-block;
         }
-            .location_option_ca #custom {
-                width: 214px;
-                box-shadow: none;
-                margin-left: -3px;
-            }
-                .location_option_ca #custom .sod_list_wrapper {
-                    width: 214px;
-                }
 
 .form_check {
     color: #ec6446;
@@ -381,13 +371,13 @@ form
     .check_zone {
         position:relative;
         height:30px;
+        line-height: 30px;
     }
         .check_zone p {
             color: #444444;
             font-weight: 400;
             font-size: 16px;
             display: inline-block;
-            height:30px;
         }
             .check_zone a {
                 color: #48cfad;

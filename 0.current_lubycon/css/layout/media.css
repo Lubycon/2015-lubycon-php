@@ -19,20 +19,7 @@
         width: 100%;
     }
     #footer {
-        display: none;
-    }
-    .lubyAlert .index_confirm_bt{
-        margin-top: 30px;
-    }
-    .lubyAlert .index_confirm_bt{
-        display: block;
-        margin: 0px auto;
-        margin-top: 20px;
-    }
-    .lubyAlert .index_cancel_bt{
-        display: block;
-        margin: 0px auto;
-        margin-top: 20px;
+        
     }
     #main_search_bar{
         display: none;
@@ -321,39 +308,18 @@
         margin-top: 46px;
         height: auto;
     }
-        .nav_guide .mb-lubySelector {
-            width: 100% !important;
-            height: 48px !important;
-            margin: 0px !important;
-            background: #222222;
-            border-radius: 0px !important;
-            float: left !important;
-            box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.8) !important;
+        .nav_guide .subnav_box {
+            padding: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
         }
-             .mb-lubySelector .lubySelector_selected{
-                position: absolute;
-                width: 115px;
-                margin: 0px;
-                top: 8px;
-                right: 50%;
-                margin-right: -57px;
-                text-align: center;
-                font-size: 20px;
-                font-weight: 400;
-             }
-             .mb-lubySelector .lubySelector_arrow{
-                position: absolute;
-                top: 10px;
-                right: 10px;
-             }
-                .mb-lubySelector .lubySelector_list {
-                    width: 100%;
-                    top: 46px;
-                    border-radius: 0px;
-                }
-        .original_box {
-            position: absolute;
-            left: -1000px;
+        .nav_guide .subnav_box .lubySelector {
+            width: 80% !important;
+            margin: 3px auto !important;
+            float: none !important;
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.8) !important;
         }
     .con_wrap{
         background: #eeeeee;
@@ -420,7 +386,7 @@
                     display: block;
                     float: none;
                 }
-                .contents_desc #bookmark_bt {
+                .contents_desc .bookmark_bt {
                     font-size: 30px;
                 }
             .creator_desc {
@@ -507,24 +473,21 @@
         width: 100%;
         padding: 30px;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
+            font-size: 45px;
+            margin: 0px 10px;
         }
-            #floating_bt #bookmark_inner_bt{
-                font-size: 45px;
-                margin: 0px 10px;
-            }
-        #floating_bt #like_bt{
+        #floating_bt .like_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
+            font-size: 45px;
+            margin: 0px 10px;
         }
-            #floating_bt #like_bt i{
-                font-size: 45px;
-                margin: 0px 10px;
-            }
+
     #cc_total_wrap{
 
     }
@@ -799,9 +762,17 @@
         display: block;
         position:relative;
     }
+    /*------------login--------------*/
+    #login_box{
+        width: 100%;
+    }
+    #create_account_area{
+        width: 100%;
+        top: 0 !important;
+    }
 }
-/*------------------------------------------------mobile end-------*/
-/*---------------------------------------------desktop start-------*/
+/*--------------------------------------------------------------------mobile end-------*/
+/*-----------------------------------------------------------------desktop start-------*/
 @media screen and (min-width: 1025px){
     .visible-mb{
         display: none !important;
@@ -812,16 +783,6 @@
     .hidden-mb-b{
         display: block;
     }
-    .lubyAlert .confirm_text{
-        margin-top: 45px;
-    }
-    .lubyAlert .index_confirm_bt{
-        margin-top: 60px;
-    }
-    .lubyAlert .index_cancel_bt{
-        margin-top: 60px;
-    }
-
     #main_header{
         height: 50px;
     }
@@ -861,19 +822,6 @@
     .nav_guide {
         margin-top: 0px;
     }
-        .nav_guide #category_bt {
-            width: 237px;
-            margin-left:10px;
-            float: left;
-        }
-            #category_bt .lubySelector_selected{
-                position: relative;
-                font-size: 17px;
-             }
-             #category_list {
-                min-width: 226px;
-                max-height: 300px;
-             }
     .con_wrap{
         
     }
@@ -1006,21 +954,18 @@
         z-index: 1;
         overflow: hidden;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
+            font-size: 26px;
+            margin-left: 4px;
         }
-            #floating_bt #bookmark_inner_bt{
-                font-size: 26px;
-                margin-left: 4px;
-            }
+
         #floating_bt #like_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
-        }
-        #floating_bt #like_bt i{
             font-size: 20px;
         }
     #cc_total_wrap{
@@ -1262,6 +1207,19 @@
     .public_option{
         display: inline-block;
         margin-left: 67px;
+    }
+    /*-------------login------------*/
+    #loginWrap{
+        left: 50%;
+        margin-left: -200px;
+    }
+    #login_box{
+        width: 400px;
+    }
+    #create_account_area{
+        width: 410px;
+        left: 50%;
+        margin-left: -205px;
     }
 }
 /*------desktop end-------*/

@@ -150,7 +150,7 @@ session_start();
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1>
             <a href="./index.php">
-                <svg version="1.1" id="logoImg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="35px" height="35px" viewBox="0 0 2000 2000" enable-background="new 31.824 0 119.987 40" xml:space="preserve">
+                <svg version="1.1" id="logoImg" class="hidden-mb-ib" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="35px" height="35px" viewBox="0 0 2000 2000" enable-background="new 31.824 0 119.987 40" xml:space="preserve">
                 <path fill="#ffffff" d="M1658.1,614.1l-560.1-442c-6.4-5.1-15.1-6-22.5-2.4c-7.3,3.6-12,11-12,19.1v90.1L928.4,172.1
                     c-7.7-6.1-18.7-6.1-26.4,0L341.9,614.9c-0.2,0.2-0.4,0.4-0.6,0.5c-0.3,0.2-0.5,0.4-0.8,0.7c-0.5,0.4-0.9,0.9-1.3,1.3
                     c-0.2,0.2-0.4,0.4-0.6,0.6c-0.6,0.7-1.1,1.4-1.6,2.2c0,0.1-0.1,0.2-0.1,0.2c-0.4,0.7-0.8,1.4-1.1,2.1c-0.1,0.3-0.2,0.5-0.3,0.8
@@ -318,7 +318,7 @@ session_start();
             if(isset($_COOKIE)){
                 //echo '<script>console.log("if 1-1");</script>';
                 if(isset($_COOKIE['login'])){
-                    echo ('<script>$("#signin_bt").hide();$("#after_signin,#addcontent_bt").show();</script>');
+                    echo ('<script>$("#signin_bt").remove();$("#after_signin,#addcontent_bt").show();</script>');
                 }
             }
         ?>
@@ -379,7 +379,7 @@ session_start();
     ?>
     <footer id="footer" class="footer">
         <span id="luby_copyright"><i class="fa fa-copyright"></i>Lubycon 2016</span>
-        <span id="about_lubycon">
+        <span id="about_lubycon" class="hidden-mb-ib">
             <span id="about_us_foot"><a href="./index.php?1=company&2=about_us">About us</a></span>
             <span id="contact_us_foot"><a href="mailto:contact@lubycon.com" target="_blank">Contact us</a></span>
         </span>
@@ -391,7 +391,7 @@ session_start();
             <a href="#"><i class="fa fa-pinterest-square"></i></a>
             <a href="#"><i class="fa fa-tumblr-square"></i></a>
         </span>
-        <span id="luby_policies">
+        <span id="luby_policies" class="hidden-mb-ib">
             <span id="termsOfService_foot"><a href="./index.php?1=company&2=terms_of_service" class="document">Terms of service</a></span>
             <span id="privatePolicy_foot"><a href="./index.php?1=company&2=private_policy" class="document">Private policy</a></span>
         </span>

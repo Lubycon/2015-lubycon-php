@@ -80,10 +80,6 @@ switch($current_url){
                             <i class="fa fa-twitter-square"></i>
                             <p>Share to Twitter</p>
                         </li>
-                        <li class="share_list" id="shareLink" data="success">
-                            <i class="fa fa-link"></i>
-                            <p>Copy to link</p>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -107,12 +103,8 @@ switch($current_url){
                         };
                     ?>
                     <div id="floating_bt">
-                        <div id="bookmark_bt" data="bookmark">
-                            <i id="bookmark_inner_bt" class="fa fa-star"></i>
-                        </div>
-                        <div id="like_bt" class="like_bt alertKey" data="like">
-                            <i class="fa fa-heart"></i>
-                        </div>
+                        <i id="bookmark_bt" class="bookmark_bt alertKey fa fa-star bookmark" data="bookmark"></i>
+                        <i id="like_bt" class="like_bt alertKey fa fa-heart" data="like"></i>
                     </div>
                     <div id="cc_total_wrap" class="visible-mb">
                         <div id="cc_wrap">
