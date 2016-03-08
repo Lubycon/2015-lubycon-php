@@ -30,8 +30,7 @@
             <div class="contents_sub">
                 <?php 
                     echo "<a class='contents_link' href='./index.php?1=contents&2=contents_view&3=";
-                    switch($current_url)
-                    {
+                    switch($current_url){
                         case "artwork" : echo "artwork"; break;
                         case "vector" : echo "vector"; break;
                         case "3d" : echo "3d"; break;
@@ -56,8 +55,7 @@
         <div class="contents_overlay load_view">
                 <?php 
                     echo "<a class='contents_link' href='./index.php?1=contents&2=contents_view&3=";
-                    switch($current_url)
-                    {
+                    switch($current_url){
                         case "artwork" : echo "artwork"; break;
                         case "vector" : echo "vector"; break;
                         case "3d" : echo "3d"; break;

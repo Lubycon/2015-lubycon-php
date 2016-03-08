@@ -87,12 +87,21 @@
                 </div>
                 <input type="text" id="location_text" name="location_text" />
                 <label>Language</label>
-                <input type="text" id="lang_input_id" class="language_text" name="language[]" />
+                <div class="langWrap">
+                    <input type="text" id="lang_input_id" class="language_text" name="language[]" />
+                    <div class="lang_option">
+                        <select class="langFilter0">
+                            <option value="Beginer">Beginer</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Fluent">Fluent</option>
+                        </select>
+                    </div>  
+                </div>
                 <div id="clone_div"></div>
-                <div id="lang_plus">
+                <div id="lang_plus" class="optControl">
                     <i class="fa fa-plus"></i>
                 </div>
-                <div id="lang_minus_id" class="lang_minus">
+                <div id="lang_minus" class="optControl">
                     <i class="fa fa-minus"></i>
                 </div>
                 <label id="basic_desc_label">Description</label><textarea id="basic_desc" maxlength="1000" name="desc"></textarea><br />
@@ -133,10 +142,10 @@
 
                 </div>
             </div>
-            <div id="history_plus">
+            <div id="history_plus" class="optControl">
                 <i class="fa fa-plus"></i>
             </div>
-            <div id="history_minus">
+            <div id="history_minus" class="optControl">
                 <i class="fa fa-minus"></i>
             </div>
         </section>

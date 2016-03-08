@@ -4,7 +4,7 @@ $(function (){ //account setting script
         if($('#now_pass_id').attr('disabled'))
         {
             $('#now_pass_id , #pass_id ,#re_pass_id').removeAttr('disabled');
-            $('#change_pass').text('Not change Password');
+            $('#change_pass').text('Cancel');
         }else
         {
             $('#now_pass_id , #pass_id ,#re_pass_id').attr('disabled', 'disabled');
@@ -14,7 +14,7 @@ $(function (){ //account setting script
         }
     });
 
-    var i = 1;
+    
     $(document).ready(function (){
         $("#lang_minus_id").hide();
         $(".privacyFilter").lubySelector({
@@ -36,23 +36,23 @@ $(function (){ //account setting script
             searchBar: true,
             "icon": "fa fa-globe"
         });
-        $(".langFilter").lubySelector({
-            width: 300,
+        $(".langFilter0").lubySelector({
+            width: 150,
             theme: "white",
             "float":"none"
         });
     });
-    $(document).on("click touchend", "#lang_plus", function (event) //clone language div and change id
-    {
+    var i = 1;
+    $(document).on("click touchend", "#lang_plus", function (event){
         eventHandler(event, $(this));
         if (i < 4) {
-            var lang_div = '<div id="lang_clone' + i + '"><div id="lang_option_' + i + '" class="language_option"><select class="langFilter" name="lang_ability[]"><option value="Beginer">Beginer</option><option value="Advanced">Advanced</option><option value="Fluent">Fluent</option><option value="Native">Native</option></select></div><input id="lang_input_' + i + '" class="language_text" name="language[]" type="text"></div>';
+            var lang_div = '<div class="langWrap"><div class="lang_section" id="lang_clone' + i + '"><input id="lang_input_' + i + '" class="language_text" name="language[]" type="text"><div id="lang_option_' + i + '" class="lang_option"><select class="langFilter' + i + '" name="lang_ability[]"><option value="Beginer">Beginer</option><option value="Advanced">Advanced</option><option value="Fluent">Fluent</option></select></div></div></div>';
             $("#clone_div").append(lang_div);
-            $(".langFilter").lubySelector({
+            $(".langFilter"+i).lubySelector({
                 theme:"white",
                 "float":"none"
             });
-            $("#lang_minus_id").show();
+            $("#lang_minus").show();
             i++; //int plus
 
             if (i == 4) {
@@ -61,13 +61,13 @@ $(function (){ //account setting script
         }
     });
 
-    $(document).on("click touchend", ".lang_minus", function (event) {
+    $(document).on("click touchend", "#lang_minus", function (event) {
         eventHandler(event, $(this));
         $("#lang_plus").show();
         $("#clone_div > div:last-child").remove();
         i--; //int minus
         if( i == 1 ){
-            $("#lang_minus_id").hide();
+            $("#lang_minus").hide();
         }
         // clone div remove
     });

@@ -101,7 +101,9 @@
                     $usercountry = "United States";
                     $username = "Ssaru";
                     $userjob = "Gangster";
-                    $contents_count = rand(3, 150);
+                    $randCount = rand(1200,1500);
+                    $contents_count = $randCount <= 1000 ? $randCount : ((string)$randCount/1000);
+                    //if contents_count is bigger than 1000, it will devide 1000 and has "k"
                     $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/20.jpg";
                     $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/34.jpg";
                     $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/50.jpg";
@@ -153,9 +155,6 @@
                 </div>
                 <ul id="creator_card_wrap">
                 <?php
-                    $bestCreator_img_url = "../contents_data/3djpg/profile/60.jpg";
-                    $bestCreator_location_img = "./ch/img/flag_icons/United-States-Of-America.png";
-                    $bestCreator_contents_num = rand(3, 150);
                     for($i=0;$i<60;$i++){
                         $_GET["number"] = $i;
                         include('php/layout/creator_card.php');

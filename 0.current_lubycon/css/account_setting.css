@@ -10,10 +10,6 @@
     height: 200px;
 }
 
-#account_setting_form{
-    margin: 45px;
-}
-
 #account_section{
     width: 100%;
     text-align: left;
@@ -41,9 +37,8 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
-        .setting_card > input{
+        .setting_card input{
             width: 100%;
-            max-width: 300px;
             height: 40px;
             border:1px solid #aaa;
             border-radius: 3px;
@@ -53,7 +48,7 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
-            .setting_card > input:focus{
+            .setting_card input:focus{
                 border:1px solid #48cfad;
                 box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
             }
@@ -89,6 +84,16 @@
         height: 16px;
         line-height: 13px;
     }
+    .optControl{
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+        cursor: pointer;
+        padding: 5px 0px;
+    }
+        .optControl:hover{
+            background: #f5f5f5 !important;
+        }
 
     .setting_card #change_pass{
         display: inline-block;
@@ -99,7 +104,6 @@
         color: #444444;
         font-size: 14px;
         text-align: center;
-        margin-left:75px;
         padding: 10px;
         cursor:pointer;
         font-weight: 200;
@@ -108,39 +112,32 @@
             color: #48cfad;
             border: 1px solid #48cfad
         }
+    .langWrap{
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .language_text {
+        margin-right: 5px;
+    }
 
     #lang_plus{
-        cursor: pointer;
-        width: 100%;
-        max-width: 300px;
         background: transparent;
         display: block;
-        text-align: center;
-        margin-top: 5px;
     }
-        #lang_plus:hover{
-            background: #fcfcfc;
+        #lang_plus i{
+            font-size:23px;
+            color:#48cfad;
         }
-    #lang_plus i{
-        font-size:23px;
-        color:#48cfad;
-    }
-    .lang_minus{
-        cursor: pointer;
-        width: 100%;
-        max-width: 300px;
+    #lang_minus{
         background: transparent;
-        display: block;
-        text-align: center;
-        margin-top: 5px;
+        display: none;
     }
-        .lang_minus:hover{
-            background: #fcfcfc;
+        #lang_minus i{
+            font-size:23px;
+            color:#aaaaaa;
         }
-    .lang_minus i{
-        font-size:23px;
-        color:#aaaaaa;
-    }
+
     #delete_desc{
         font-size:16px;
         color:#ea4126;
@@ -247,6 +244,37 @@
     #file_text:focus{
         border:1px solid #999999;
         box-shadow: none;
+    }
+
+.history_data .history_text {
+    height: 37px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 10px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    .history_data .history_text:focus {
+        border: 1px solid #48cfad;
+        box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
+
+    }
+#history_plus {
+    background: transparent;
+    display: block;
+}
+    #history_plus i{
+        font-size:23px;
+        color:#48cfad;
+    }
+#history_minus{
+    background: transparent;
+    display: block;
+}
+    #history_minus i {
+        font-size: 23px;
+        color: #aaaaaa;
     }
 
 #img_preview{
