@@ -7,16 +7,37 @@
     $upload_basename = basename($_FILES['upload_file']['name']);
     $uploadfile = $uploaddir . $upload_basename;
 
-    if( mkdir($uploaddir,0070) )
+    // 데이터베이스에 입력하기 위한 기본 변수
+
+    // about zip file
+    $zip_name;
+    $zip_category;
+    $zip_date;
+    $zip_path;
+
+    // about contents_image
+    $contents_image_path;
+
+    // category
+    $contents_tag;
+    $contents_category
+
+    if( mkdir($uploaddir,0777) )
     {
         //echo "directory is making<br/>";
         if (move_uploaded_file($_FILES['upload_file']['tmp_name'], $uploadfile)) 
         {
-            //echo "zip file upload succece<br/>";
-            echo "file name : " . $upload_basename . "<br/>";
-            echo "contents category : " . $con_cate . "<br/>";
-            echo "upload date : " . $set_date . " (year-month-day-hour-minite-second)<br/>";
-            echo "upload path : localhost/contensts_data/". $con_cate . "/" . $set_date . "/" . $upload_basename;
+            // allocate variable
+            $zip_name = $upload_basename;
+            $zip_category = $con_cate;
+            $zip_date = $set_date;
+            $zip_path = "localhost/contensts_data/".$con_cate."/".$set_date."/".$upload_basename;
+            
+            //echo "zip file upload succece<br/>";              // 알집파일<첨부파일 관련>
+            echo "file name : " . $upload_basename . "<br/>"; // 파일 이름
+            echo "contents category : " . $con_cate . "<br/>"; // 콘텐츠 디렉토리
+            echo "upload date : " . $set_date . " (year-month-day-hour-minite-second)<br/>";// 올린날짜
+            echo "upload path : localhost/contensts_data/". $con_cate . "/" . $set_date . "/" . $upload_basename;// 업로드 경로 upload_basename;
         } else {
             print "zip file upload failed<br/>";
         }
@@ -58,7 +79,8 @@
                   if(!copy($oldfile, $newfile)) {
                         echo "file";
                   } else if(file_exists($newfile)) {
-                        echo $uploaddir.$contens_image[$i] . "<br/>";
+                        $contents_image_path = $uploaddir.$contens_image[$i];
+                        echo $uploaddir.$contens_image[$i] . "<br/>"; // 컨텐츠 이미지 디렉토리
                   }
              } 
         };
@@ -69,7 +91,7 @@
     
     echo "<br/>-------------contents subject name--------------<br/><br/>";
 
-    echo "contents_subject = " . $_POST['contents_subject'];
+    echo "contents_subject = " . $_POST['contents_subject'];리 // 집파일 이
     
     echo "<br/><br/>-------------contents subject name--------------<br/>";
     /*if($con_article)
@@ -91,7 +113,7 @@
         echo "<br/>user selectd categories = ";
         for($i=0 ; $i< count($sel_cate); $i++)
         {
-            echo $sel_cate[$i] . " ";
+            echo $sel_cate[$i] . " ";// 유저 셀렉트 카테고리
         };
     };
     echo "<br/><br/>-------------user seleced categories--------------<br/>";
@@ -102,7 +124,7 @@
         echo "<br/>user selectd tags = ";
         for($j=0 ; $j< count($sel_tag); $j++)
         {
-            echo $sel_tag[$j] . " ";
+            echo $sel_tag[$j] . " "; // 유저 입력 태그
         };
     };
     
@@ -116,7 +138,7 @@
 
     echo "<br/>-------------text editor html--------------<br/><br/>";
     
-    echo htmlspecialchars($_POST['text_editor']);
+    echo htmlspecialchars($_POST['text_editor']); // html내용
     
     echo "<br/><br/>-------------text editor html--------------<br/>";
 
