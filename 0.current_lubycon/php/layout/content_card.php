@@ -6,20 +6,21 @@
         @include('../../Lubycon_Contents/contents/contents_data.php');
         @include('../../../../Lubycon_Contents/contents/contents_data.php');
 
-        switch($current_url)
-        {
+        switch($current_url){
             case "artwork" : $current_url = "artwork"; $contents_name = $artwork_subject; $username = $artwork_author;  break;
             case "vector" : $current_url = "vector"; $contents_name = $vector_subject; $username = $vector_author; break;
             case "3d" : $current_url = "3d"; $contents_name = $threed_subject; $username = $threed_author; break;
             default : $current_url = "artwork"; $contents_name = $artwork_subject;$username = $artwork_author; break;
         };
-
         $price = "Free";
         $contents_thumb_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/thumb/".$number.".jpg";
         $user_img_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/profile/".$number.".jpg";
-        $like_num = rand(1, 30);
-        $view_num = rand(1, 400);
-        $comment_num = rand(0, 10);
+        $randCount = rand(400,5000);
+        $randCount1 = rand(400,1200);
+        $randCount2= rand(400,1200);
+        $viewCount = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
+        $commentCount = $randCount1 < 1000 ? $randCount1 : (string)(round((double)($randCount1/1000),1))."K";
+        $likeCount = $randCount2 < 1000 ? $randCount2 : (string)(round((double)($randCount2/1000),1))."K";
     ?><!--you should change to mySQL later-->
     <div class="contents_card">
         <div class="contents_pic">
@@ -67,15 +68,15 @@
                 <ul>
                     <li>
                         <i class="fa fa-eye"></i>
-                        <span class="contents_view_count"><?=$view_num?></span>
+                        <span class="contents_view_count"><?=$viewCount?></span>
                     </li>
                     <li>
                         <i class="fa fa-comment-o"></i>
-                        <span class="contents_comments"><?=$comment_num?></span>
+                        <span class="contents_comments"><?=$commentCount?></span>
                     </li>
                     <li class="contents_like_li">
                         <i class="fa fa-heart"></i>
-                        <span class="contents_like"><?=$like_num?></span>
+                        <span class="contents_like"><?=$likeCount?></span>
                     </li>
                 </ul>
             </a>

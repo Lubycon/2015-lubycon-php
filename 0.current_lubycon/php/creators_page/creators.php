@@ -101,9 +101,8 @@
                     $usercountry = "United States";
                     $username = "Ssaru";
                     $userjob = "Gangster";
-                    $randCount = rand(1200,1500);
-                    $contents_count = $randCount <= 1000 ? $randCount : ((string)$randCount/1000);
-                    //if contents_count is bigger than 1000, it will devide 1000 and has "k"
+                    $randCount = rand(200,1500);
+                    $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
                     $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/20.jpg";
                     $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/34.jpg";
                     $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/50.jpg";

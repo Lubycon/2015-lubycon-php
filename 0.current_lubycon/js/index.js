@@ -132,43 +132,36 @@ function LanguageValue(lang){
 /////////////////////////////////////////////////////////
 //      after signin child hover show and hide start
 /////////////////////////////////////////////////////////
-$(function() //after signin child hover show and hide
-{
-    var toggle_count = 0;
-	$('#after_signin').click(function (){
-        switch(toggle_count){
-            case 0 : 
-                $('#after_signin > ul').stop().fadeIn(200);
-                toggle_count = 1;
-            break;
-            case 1 : 
-                $('#after_signin > ul').stop().fadeOut(200);
-                toggle_count = 0;
-            break;
-            default: 
-                return false;
-            break;
+$(function(){
+    var $personalMenu = $("#after_signin"),
+    $menuList = $personalMenu.find("ul");
+	$personalMenu.click(function (){
+        var $this = $(this);
+        if($this.hasClass("opened")){
+            $this.removeClass("opened");
+            $menuList.stop().fadeOut(200);
+            $("html").off("click");
+        }
+        else{
+            $this.addClass("opened");
+            $menuList.stop().fadeIn(200);
+            $("html").on("click", function (event) {
+                var $this = $(event.target);
+                $this.hideAnywhere($this,$personalMenu,$menuList);
+            });
+        }
+	});
+    $.fn.hideAnywhere = function(selector,target,list){
+        var $this = selector,
+        $button = target,
+        $list = list,
+        bool = $this.is("#user_id") || $this.is("#display_user") || $this.is("#accountImg");
+        if(bool==false){
+            $button.removeClass("opened");
+            $list.fadeOut(200);
         } 
-	});
-
-	$('#sign_out').click(function (){
-	    signOutEvent();
-	});
+    };
 });
-function signOutEvent(){
-    var signinBt = $("<div/>",{
-        "id": "signin_bt",
-        "class": "hidden-mb-b"
-    }).insertBefore("#lang_select_bt"),
-    signinWrap = $("<div/>",{"id":"signin"}).appendTo(signinBt),
-    link = $("<a/>",{"href":"./login_page.php"}).appendTo(signinWrap),
-    iconWrap = $("<p/>",{"class":"signicon"}).appendTo(link),
-    icon = $("<i/>",{"class":"fa fa-unlock-alt fa-lg"}).appndTo(iconWrap),
-    text = $("<p/>",{"class":"signin","text":"SIGN IN"}).appendTo();
-
-    $("#after_signin").remove();
-    $("#addcontent_bt").remove();
-};
 /////////////////////////////////////////////////////////
 //      after signin child hover show and hide end
 /////////////////////////////////////////////////////////
@@ -193,9 +186,6 @@ $(function () { //add contents button start
         $('.dark_overlay').stop().fadeOut(200);
         $('.editor_popup').stop().fadeOut(200);
         $('#embed_popup').stop().fadeOut(150);
-        if(windowWidth < 1025){
-            $("#main_search_bar").fadeOut(150);
-        }
     });
 });
 /////////////////////////////////////////////////////////

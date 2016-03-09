@@ -10,10 +10,8 @@
         $usercity = "Los Santos";
         $usercountry = "United States";
         $username = $threed_author;
-        $userjob = $jobarray[$number];
-        //$randCount = rand(30, 1500);
-        //$contents_count = ($randCount <= 1000) ? $randCount : ($randCount/1000).round($content_count,);
-        $contents_count = rand(30, 1500);
+        $randCount = rand(200,1500);
+        $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
         $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num1.".jpg";
         $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num2.".jpg";
         $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num3.".jpg";

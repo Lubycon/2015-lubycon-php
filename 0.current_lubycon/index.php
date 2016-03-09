@@ -294,7 +294,7 @@ session_start();
 
         <!-- after sign in -->
         <div id="after_signin" class="hidden-mb-b">
-                <figure><img src="./ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
+                <figure id="accountImg"><img src="./ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
                 <div id="display_user">
                     <span id="user_id">Admin_User</span>
                     <i class="fa fa-angle-down"></i>

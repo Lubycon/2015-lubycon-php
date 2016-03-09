@@ -53,7 +53,6 @@
                         <option value="Title">Title</option>
                         <option value="Creator">Creator</option>
                     </select>
-                <span class="ls_arrow"><i class="fa fa-caret-down"></i></span>
                 </div>
                 <input type="text" id="sub_search_text" value="Enter the Keyword" />
                 <button id="sub_search_btn">
