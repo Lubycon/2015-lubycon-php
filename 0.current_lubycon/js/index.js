@@ -320,21 +320,17 @@ $(function()  //slider change
 /////////////////////////////////////////////////////////
 //      index page triple bt event start
 /////////////////////////////////////////////////////////
-$(function()	// triple bt on event
-{
-	$('.la_bt').on(
-	{
-		mouseenter : function()
-		{
+$(function(){
+	$('.la_bt').on({
+		mouseenter : function(){
 			$('.la_bt').removeClass('over');
 			$(this).addClass('over');
 		},
-		mouseleave: function () {
+		mouseleave: function (){
 		    $('.la_bt').removeClass('over');
 		    $(this).addClass('out');
 		},
-		click: function ()
-		{
+		click: function (){
 		    $('.la_bt').removeClass('clicked');
 		    $(this).addClass('clicked');
 		}
@@ -687,50 +683,31 @@ $(function(){
 $(function(){
     if($(".creators_card").length != 0){
         $(".creator_menu").each(function(){
-            var toggle_count = 0;
-            $(this).click(function (event){
+            var $this = $(this);
+            $this.click(function (event){
                 event = event || window.event//for IE
-                switch(toggle_count){
-                    case 0:
-                    $(this).children(".creator_menu_list").stop().fadeIn(200);
-                    toggle_count = 1;
-                    //console.log(toggle_count);
-                    break;
-                case 1:
-                    $(this).children(".creator_menu_list").stop().fadeOut(200);
-                    toggle_count = 0;
-                    //console.log(toggle_count);
-                    break;
-                }//switch end
-            });//click end
-            $(this).mouseleave(function(){
+                if($this.hasClass("opened")){
+                    $this.removeClass("opened");
+                    $this.children(".creator_menu_list").stop().fadeOut(200);
+                }
+                else{
+                    $this.addClass("opened");
+                    $this.children(".creator_menu_list").stop().fadeIn(200);
+                }
+            }).mouseleave(function(){
                 $(document).click(function (event) {
                     event = event || window.event//for IE
                     if (!$(event.target).hasClass("creator_menu_icon")) {
-                        //console.log($(event.target).attr("class"));
-                        $(this).find($(".creator_menu_list")).stop().fadeOut(200);
-                        toggle_count = 0;
-                        //console.log(toggle_count);
-                        return;
-                    }//if end
+                        $this.removeClass("opened");
+                        $this.find($(".creator_menu_list")).stop().fadeOut(200);
+                    }
                     else{
                         return;
-                    }//else end
-                });//click end
-            });//mouseleave end
+                    }
+                });
+            });
         });//each end
     };//if end
 });
 
 /*----------------------------creator card menu toggle end--------------------------*/
-/*-----------------------------footer sticky start----------------------------------*/
-/*$(window).scroll(function() {
-    if ($(window).scrollTop() <= $(document).height() - $(window).height()){//footer height 180px
-        $("#footer").attr("class","relative_foot");
-    }
-    else{
-        $("#footer").attr("class","fixed_foot fadeIn animated");
-        $("#footer").css("top","50px");         
-    };
-});*/
-/*-----------------------------footer sticky end----------------------------------*/

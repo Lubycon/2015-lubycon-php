@@ -1,8 +1,8 @@
 /* ===========================================================
  *
  *  Name:          lubyAlert.min.js
- *  Updated:       2016-03-06
- *  Version:       0.1.1
+ *  Updated:       2016-03-09
+ *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co
@@ -15,7 +15,7 @@
             width: 170,
             height: 170,
             kind: "custom",//bookmark,like,success,cancel,confirm,prompt,custom
-            inSpeed: 700,
+            inSpeed: 500,
             outSpeed: 700,
             customIcon: "",//font awesome
             customText: "",
@@ -28,7 +28,6 @@
                 return d = $.extend({}, defaults, option), this.each(function () {
                     if (!$(this).hasClass("alertKey")) $.error("lubyAlert : There is no lubyAlert object");
                     else {      
-                        console.log("lubyAlert"); 
                         var $this = $(this),
                         toggleSetup = d.toggle ? 
                         $this.on("click touchend", pac.toggleOn) && $this.on("click touchend", pac.init): 
@@ -67,7 +66,7 @@
                 
                 alertInput = d.kind=="prompt" ? 
                 $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).on("keydown",pac.keyEvent).focus() 
-                && okBt.appendTo(alertInner).on("click",pac.okCallBack) && cancelBt.appendTo(alertInner).on("click",pac.cancelCallBack) : "",
+                && okBt.appendTo(alertInner).on("click",pac.okCallBack) && cancelBt.appendTo(alertInner).on("click",pac.cancelCallBack) : alertInner.focus(),
                 
                 alertConfirm = d.kind=="confirm" ?
                 okBt.appendTo(alertInner).on("click",pac.okCallBack)
@@ -149,11 +148,11 @@
                     return;
                 }
                 else if(kind==null){
-                    $this.fadeOut(d.outSpeed,function(){$this.remove();});
+                    $this.blur().fadeOut(d.outSpeed,function(){$this.remove();});
                 }
                 else{ 
                     setTimeout(function(){ 
-                        $this.fadeOut(d.outSpeed,function(){
+                        $this.blur().fadeOut(d.outSpeed,function(){
                             $this.remove();
                         })
                     },500);
@@ -175,11 +174,15 @@
             },
             keyEvent: function() {
                 var $this = $(this),
+                kind = d.kind,
                 okBt = $this.siblings(".lubyOk"),
                 cancelBt = $this.siblings(".lubyCancel");
                 if(event.which == 13) {
                     if($this.val()==""){ cancelBt.click(); }
                     else{ okBt.click(); }
+                }
+                else if(event.which==27) {
+                    cancelBt.click();
                 }
                 else{ return; }
                 console.log("keyEvent");

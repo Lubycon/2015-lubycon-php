@@ -153,23 +153,6 @@ $(".history_data .accountFilter").on("change", function ()
         console.log(aftersort[index].year);
     });
 });
-////////////////////////////delete button interaction start
-$(function(){
-    ////////cancel bt start/////////////////////////////////
-    $('.dark_overlay, .index_cancel_bt').on("click touchend",function (){
-        eventHandler(event,$(this));
-        $('.dark_overlay').stop().fadeOut(200);
-        $('#confirm_btAlert').stop().fadeOut(200);
-    });
-    $(".index_confirm_bt").on("click touchend",function(){
-        eventHandler(event,$(this));
-        $("#confirmAlert").css("display","none");
-        $("#successAlert").css("display","inline-block");
-        $("#successAlert").attr("class","lubyAlert zoomIn animated");
-        setTimeout("removeAlert()",1500);
-    })
-    //////////cancel bt end/////////////////////////////////
-});
 function eventHandler(event, selector) {//
     event.stopPropagation();
     event.preventDefault();
@@ -177,9 +160,5 @@ function eventHandler(event, selector) {//
         selector.off('click');
     }
 };
-function removeAlert(){
-    $("#successAlert").fadeOut(500);
-    $(".dark_overlay").fadeOut(500);
-}
 
 ////////////////////////////delete button interaction end

@@ -2,7 +2,7 @@
  *
  *  Name:          lubySelector.min.js
  *  Updated:       2016-02-28
- *  Version:       0.1.1
+ *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co
@@ -202,7 +202,7 @@
                         $this.css({"background":"#ffffff", "border":"1px solid #aaaaaa", "color":"#444444"});
                         $arrow.css("color","#444444");
                         $icon.css("color","#444444");
-                        $list.css({"background":"#ffffff","border":"1px solid #aaaaaa"});
+                        $list.css({"background":"#ffffff","border":"1px solid #aaaaaa","box-shadow":"0px 2px 6px 0px rgba(0,0,0,0.3)"});
                         $listInner.css({"background":"#ffffff", "color":"#444444"});
                         $searchBar.css("border","1px solid #444444");
                         $input.css("color","#444444");
