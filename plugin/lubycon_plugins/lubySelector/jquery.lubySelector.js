@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          lubySelector.min.js
- *  Updated:       2016-02-23
+ *  Updated:       2016-02-28
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -17,7 +17,7 @@
             maxHeight: 250,
             float: "right",
             icon: "fa fa-filter",
-            theme: "black",//white, ghost
+            theme: "black",//white, ghost, transparent
             optGroup: false,//알파벳 헤더 기능
             searchBar: false,//true시 셀렉박스리스트 맨 위에 서치바 생성
             callback: $.nothing
@@ -65,6 +65,7 @@
                         });
                         $(".guide").remove();
                         pac.optionGroup($this);
+                        pac.changeTheme($wrapper);
                     }
                 })
             },
@@ -108,7 +109,7 @@
                 $searchBar = $this.find(".ls_input");
                 $this.hasClass("disabled") ? pac.boxBlur($this) : 
                 (pac.boxBlur($(".lubySelector.focused").not($this)), 
-                    $this.addClass("focused"), $searchBar.addClass("focused"),
+                    $this.addClass("focused"), $searchBar.addClass("focused"), 
                     $("html").on("click.boxBlur", function () {
                         pac.boxBlur($this);
                         //console.log("boxFocus_inner");
@@ -158,10 +159,11 @@
                 !$this.hasClass("selected")?
                     $this.addClass("selected").siblings().removeClass("selected") 
                     && $label.text(selectedValue) 
-                    && $selectbox.val(selectedValue)
+                    && $selectbox.val(selectedValue).trigger("change")
                     && $wrap.removeClass("open")
                     && $optionWrap.fadeOut(300) :
                     "";
+                    //console.log($selectbox.val());
                 //console.log("optionClick"); console.log("select value is '" + $selectbox.val() + "'"); 
             },
             changeOption: function(selector) {
@@ -170,10 +172,10 @@
                 option = $this.find("option").val(),
                 list = $this.prev(".ls_optionWrap").find(".ls_option"),
                 listValue = list.data("value");
-                list.each(function(){
+                /*list.each(function(){
                     var $this = $(this);
-                    (listValue == option) ? $this.addClass("selected") : $this.removeClass("selected");//어제 여기까지 짬(문제점 : 전부다 false로 감)
-                });
+                    (listValue == option) ? $this.addClass("selected") : $this.removeClass("selected");
+                });*/
                 //console.log("changeOption");
             },
             searchEvent: function(selector) {
@@ -184,6 +186,45 @@
                 $filter = $this.parent().siblings(".ls_option[title*='"+$textValue+"']"),
                 $test = $textValue!="" ? ($options.hide() && $filter.show() && $optgroups.hide()) : ($options.show() && $optgroups.show());
                 //console.log("searchEvent");     
+            },
+            changeTheme: function(selector){
+                var $this = selector,
+                $list = $this.find(".ls_optionWrap"),
+                $listInner = $list.find(".ls_option"),
+                $arrow = $this.find(".ls_arrow"),
+                $icon = $this.find(".global_icon"),
+                $searchBar = $this.find(".ls_search"),
+                $input = $searchBar.find(".ls_input"),
+                $searchIcon = $searchBar.find("i");
+                switch($this.attr("theme")){
+                    case "black" : return; break;
+                    case "white" : 
+                        $this.css({"background":"#ffffff", "border":"1px solid #aaaaaa", "color":"#444444"});
+                        $arrow.css("color","#444444");
+                        $icon.css("color","#444444");
+                        $list.css({"background":"#ffffff","border":"1px solid #aaaaaa","box-shadow":"0px 2px 6px 0px rgba(0,0,0,0.3)"});
+                        $listInner.css({"background":"#ffffff", "color":"#444444"});
+                        $searchBar.css("border","1px solid #444444");
+                        $input.css("color","#444444");
+                        $searchIcon.css("color","#444444");
+                    break;
+                    case "ghost" : 
+                        $this.css({"background":"transparent", "border":"1px solid #ffffff", "color":"#ffffff"});
+                        $arrow.css("color","#ffffff");
+                        $icon.css("color","#ffffff");
+                        $list.css("background","rgba(0,0,0,0.85)");
+                        $listInner.css("background","transparent");
+                    break;
+                    case "transparent" :
+                        $this.css({"background":"transparent","border":"none"});
+                        $arrow.css("color","#ffffff");
+                        $icon.css("color","#ffffff");
+                        $list.css("background","rgba(0,0,0,0.85)");
+                        $listInner.css("background","transparent");
+                    break;
+                    default: return; break;
+                }
+                
             }
         },
         start = {

@@ -8,8 +8,7 @@ $view_num = 0;
 $content_date = "00.00.00";//yy.mm.dd
 $current_url = $third_param;
 
-switch($current_url)
-{
+switch($current_url){
 case "forum" : $current_url = "forum"; break;
 case "tutorial" : $current_url = "tutorial";  break;
 case "qna" : $current_url = "qna";  break;

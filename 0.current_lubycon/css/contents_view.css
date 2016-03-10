@@ -313,6 +313,9 @@
             cursor: pointer;
             text-align: right;
         }
+        #view_descript.opened {
+            color: #48cfad !important;
+        }
         #view_descript:hover {
             color: #48cfad;
             text-decoration: underline;

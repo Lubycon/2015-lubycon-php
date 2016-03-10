@@ -12,6 +12,7 @@
     <section class="aboutus_section" id="aboutus_main">
         <figure id="aboutus_figure"></figure>
         <article id="descript_lubycon">
+            <img id="lubyLogo" src="./ch/img/logo/Lubycon_Logo_Title.svg" />
             <p class="descript_subject">Welcome to Lubycon !</p>
             <p class="descript_article">
                 Lubycon is a playground for all creative minds.<br />

@@ -87,19 +87,13 @@ body{
     display: none;
     position: fixed;
     z-index: 99999999;
-    left:50%;
     text-align: center;
-    width: 60px;
-    height: 60px;
-    margin-left:-30px !important;
-    line-height: 60px;
-    margin: 0px auto;
-    border-radius: 7px;
+    width: 100%;
+    height: 100%;
     color: #eeeeee;
     font-size: 40px;
-    background: #444444;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.8);
-    }
+    background: rgba(0,0,0,0.8);
+}
 
 .dark_overlay {
     background: rgba(0,0,0,0.8);
@@ -190,25 +184,17 @@ body{
                 margin-bottom: 20px;
             }
 
-.editor_popup_cancel {
+.closeButton {
     position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 30px;
-    height: 30px;
-    line-height: 29px;
-    background: #444444;
+    top: 7px;
+    right: 8px;
+    width: 15px;
+    height: 15px;
+    background: #ec6446;
     border: none;
     border-radius: 50%;
-    vertical-align: middle;
-    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.8);
 }
-    .editor_popup_cancel i {
-        color: #ffffff;
-        font-size: 20px;
-        -webkit-text-stroke:1px #777777;
-    }
-    .editor_popup_cancel:hover {
+    .closeButton:hover {
         opacity: 0.8;
     }
 
@@ -265,7 +251,7 @@ body{
     position: absolute;
     top: 50px;
     width: 100%;
-    padding: 5px;
+    padding: 10px 0px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.5);
@@ -292,7 +278,6 @@ body{
         background: #444444;
         width: 100%;
         height: 30px;
-        border-radius: 5px;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -308,6 +293,7 @@ body{
     color: #fff;
     float: left;
     font-weight: 200;
+    font-size: 15px;
     margin:0px !important;
 }
 
@@ -369,31 +355,30 @@ body{
     display:none;
 }
 
-    #after_signin figure {
-        border-radius: 50%;
-        overflow: hidden;
-        margin-top: 8.5px;
-        margin-left: 10px;
+    #after_signin > #display_user{
         float: left;
     }
-
-        #after_signin figure img {
-
+        #after_signin > #display_user > figure {
+            border-radius: 50%;
+            overflow: hidden;
+            margin-top: 8.5px;
+            margin-left: 10px;
+            float: left;
         }
-    #display_user{
-        float: left;
-    }
-        #user_id {
+        #after_signin > #display_user > #user_id {
             color: #ffffff;
             height: 50px;
             line-height: 50px;
             margin: 0px 10px;
         }
 
-        #display_user i {
+        #after_signin > #display_user > i {
             color: #777777;
             font-size: 23px;
             vertical-align: middle;
+        }
+        .opened > #display_user > i {
+            color: #ffffff !important;
         }
         #display_user a{
             display:inline-block;
@@ -418,16 +403,24 @@ body{
             font-size: 30px;
             z-index: 4;
         }
+        .userMenuGroup:first-of-type{
+            border-bottom: 1px solid #3a3a3a;
+        }
         #after_signin ul li {
             height: 30px;
             line-height: 30px;
             background: none;
-            margin: 5px;
-            padding-left: 10px;
-            border-radius: 5px;
+            padding-left: 15px;
+            margin: 2px 0px;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
+        }
+        #after_signin ul li:first-of-type{
+            margin-top: 10px;
+        }
+        #after_signin ul li:last-child{
+            margin-bottom: 10px;
         }
             #after_signin ul li:hover {
                 background: #48cfad;
@@ -436,6 +429,7 @@ body{
             #after_signin ul li a {
                 color: #fff;
                 font-weight: 200;
+                font-size: 15px;
                 display: block;
             }
             #after_signin ul li i {
@@ -1362,6 +1356,8 @@ body{
                 display: inline-block;
                 width: 30%;
                 margin: 0px 1%;
+                border-radius: 3px;
+                overflow: hidden;
                 cursor: pointer;
             }
                 .usercontent img{
@@ -1417,6 +1413,7 @@ body{
     }
         .table_list{
             width: 100%;
+            position: relative;
             border-bottom: 1px solid #dddddd;
             background: #ffffff;
         }
@@ -1592,9 +1589,6 @@ body{
         }
         .share_bt i:hover{
             color: #ffbe54;
-        }
-        .share_bt i:active{
-            color: #48cfad;
         }
     .sharing_bt_box{
         position: absolute;
@@ -1886,7 +1880,7 @@ body{
     cursor: pointer;
     border: 1px solid #111111;
     border-radius: 5px;
-    box-shadow : inset 0 -1px 2px rgba(0,0,0,.05), 0 0 5px rgba(0,0,0,.1);
+    box-shadow : 0px 0px 7px 0px rgba(0,0,0,0.05);
 }
 .lubySelector > select{
     display: none !important;

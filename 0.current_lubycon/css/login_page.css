@@ -53,10 +53,10 @@ form
 }
 	#logo_lubycon {
 		margin: 0px auto;
-		width: 290px;
+		width: 300px;
 		height: 100px;
 		overflow: hidden;
-		background: url(../ch/img/logo/lubycon_logo.svg) no-repeat;
+		background: url(../ch/img/logo/Lubycon_Logo_Title.svg) no-repeat;
 		background-size: 300px;
 	}
 #loginWrap {

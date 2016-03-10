@@ -20,17 +20,18 @@ $(function(){
 //      loading icon start
 /////////////////////////////////////////////////////////
 $(function(){
-    var $loading = $('#loading_icon').hide();
-    $("#loading_icon").css
-    ({
-        "margin-top": ((windowHeight / 2) - ($("loading_icon").height()) - 50).toString() + "px"
-    });
+    var $loading = $("<div/>",{"id":"loading_icon"}),
+    $icon = $("<i/>",{"class":"fa fa-spinner fa-spin"}),
+    objectY = (windowHeight*0.5) - 40;
     $(document)
       .ajaxStart(function() {
-        $loading.show();
+        $loading.prependTo("body").show(),
+        $icon.css("margin-top",objectY).appendTo($loading);
       })
       .ajaxStop(function() {
-        $loading.hide();
+        $loading.fadeOut(200,function(){
+            $loading.remove();
+        });
       });
 });
 
@@ -168,23 +169,25 @@ $(function(){
 /////////////////////////////////////////////////////////
 //      add contents bt popup event start
 /////////////////////////////////////////////////////////
-
 $(function () { //add contents button start
+    var $editorWindow = $(".editor_popup"),
+    $contents = $editorWindow.find("li"),
+    $background = $(".dark_overlay");
     $('#addcontent_bt').click(function () {
-        $('.dark_overlay').stop().fadeIn(100);
-        $('.editor_popup').css("display","block");
-        $('.editor_popup').attr("class","editor_popup fadeInDown animated");
+       $background.stop().fadeIn(100);
+        $editorWindow.css("display","block").attr("class","editor_popup fadeInDown animated");
     });
 
-    $('.editor_popup > ul > li').hover(function () {
+    $contents.hover(function () {
         $(this).children('a').children('i').css({ "color": "#fff", "background": "#48cfad" })
     }, function () {
         $(this).children('a').children('i').css({ "color": "#383838", "background": "#fff" })
     });
 
-    $('.editor_popup_cancel , .dark_overlay , .cancel_bt').click(function () {
-        $('.dark_overlay').stop().fadeOut(200);
-        $('.editor_popup').stop().fadeOut(200);
+    $('.closeButton , .dark_overlay , .cancel_bt').click(function () {
+        $editorWindow.attr("class","editor_popup fadeOutUp animated")
+        setTimeout(function(){$editorWindow.hide();},500);
+        $background.stop().fadeOut(200);
         $('#embed_popup').stop().fadeOut(150);
     });
 });
@@ -467,20 +470,31 @@ function file_info_slideup() {
 //      contents view descript box toggle start
 /////////////////////////////////////////////////////////
 $(function(){
-    var descriptToggle = 0;
-    $("#view_descript").click(function(){
-        switch(descriptToggle){
-            case 0 :
-                $(this).next("#descript_box").fadeIn(300);
-                descriptToggle = 1;
-            break;
-            case 1 :
-                $(this).next("#descript_box").fadeOut(300);
-                descriptToggle = 0;
-            break;
-            default : return; break;
-        }//switch end
-    });//click end
+    var $button = $("#view_descript"),
+    $object = $button.next("#descript_box");
+    $button.click(function(){
+        var $this = $(this);
+        if($button.hasClass("opened")){
+            $object.stop().fadeOut(200);
+            $button.removeClass("opened");
+        }
+        else{
+            $object.stop().fadeIn(200);
+            $button.addClass("opened");
+        }
+    }).mouseleave(function(){
+        var $this = $(this);
+        $(document).click(function (event) {
+            event = event || window.event//for IE
+            var hide = ($(event.target).attr("id") != ("view_descript" || "descript_box"));
+            if (hide){
+                $this.removeClass("opened");
+                $object.stop().fadeOut(200);
+                return;
+            }
+            else{ return; }
+        });
+    })
 });
 /////////////////////////////////////////////////////////
 //      contents view descript box toggle end
@@ -646,64 +660,58 @@ $(function(){
 /*--------------------my info setting in creator_page toggle start------------*/
 $(function(){
     if($("#myinfo_setting").length != 0){
-        var my_toggle_count = 0;
-        $("#myinfo_setting").click(function(){
-            switch(my_toggle_count){
-                case 0:
-                $("#myinfo_menu_list").fadeIn(200);
-                my_toggle_count = 1;
-                //console.log(my_toggle_count);
-                break;
-            case 1:
-                $("#myinfo_menu_list").fadeOut(200);
-                my_toggle_count = 0;
-                //console.log(my_toggle_count);
-                break;
-            }//switch end
-        });//click end
-        $("#myinfo_setting").mouseleave(function(){
+        var $button = $("#myinfo_setting"),
+        $menu = $button.next("#myinfo_menu_list");
+        $button.click(function(){
+            var $this = $(this);
+            if($this.hasClass("opened")){
+                $menu.stop().fadeOut(200);
+                $this.removeClass("opened");
+            }
+            else{
+                $this.addClass("opened");
+                $menu.stop().fadeIn(200);
+                console.log(true);
+            }
+        }).mouseleave(function(){
+            var $this = $(this);
             $(document).click(function (event) {
                 event = event || window.event//for IE
                 if ($(event.target).attr("id") != "myinfo_setting") {
-                    //console.log($(event.target).attr("id"));
-                    $(this).find($("#myinfo_menu_list")).stop().fadeOut(200);
-                    my_toggle_count = 0;
-                    //console.log(my_toggle_count);
+                    $menu.stop().fadeOut(200);
+                    $this.removeClass("opened");
                     return;
-                }//if end
-                else{
-                    return;
-                }//else end
-            });//click end
-        });//mouseleave end
-    };//if end
+                }
+                else{ return; }
+            });
+        });
+    };
 });
 /*--------------------my info setting in creator_page toggle end----------------------*/
 /*----------------------------creator card menu toggle start--------------------------*/
 $(function(){
     if($(".creators_card").length != 0){
         $(".creator_menu").each(function(){
-            var $this = $(this);
+            var $this = $(this),
+            $menu = $this.children(".creator_menu_list");
             $this.click(function (event){
                 event = event || window.event//for IE
                 if($this.hasClass("opened")){
                     $this.removeClass("opened");
-                    $this.children(".creator_menu_list").stop().fadeOut(200);
+                    $menu.stop().fadeOut(200);
                 }
                 else{
                     $this.addClass("opened");
-                    $this.children(".creator_menu_list").stop().fadeIn(200);
+                    $menu.stop().fadeIn(200);
                 }
             }).mouseleave(function(){
                 $(document).click(function (event) {
                     event = event || window.event//for IE
                     if (!$(event.target).hasClass("creator_menu_icon")) {
                         $this.removeClass("opened");
-                        $this.find($(".creator_menu_list")).stop().fadeOut(200);
+                        $menu.stop().fadeOut(200);
                     }
-                    else{
-                        return;
-                    }
+                    else{ return; }
                 });
             });
         });//each end

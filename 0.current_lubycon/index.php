@@ -53,9 +53,6 @@ session_start();
     <![endif]-->
 </head>
 <body id="bodyer">
-<div id="loading_icon">
-    <i class="fa fa-spinner fa-spin"></i>
-</div>
 <div id="wrapper"> 
     <div class="dark_overlay"></div>
     <div id="cancel_layer"></div>
@@ -141,7 +138,7 @@ session_start();
                 </a>
             </li>
         </ul>
-        <button class="editor_popup_cancel"><i class="fa fa-times"></i></button>
+        <button class="closeButton"></button>
     </div>
     <!-- popup end -->
     <!---------------- common parts start ---------------->
@@ -150,7 +147,7 @@ session_start();
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1>
             <a href="./index.php">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1813.8 368.3" width="150px" height="40px" style="enable-background:new 0 0 1813.8 368.3;" xml:space="preserve">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1813.8 368.3" width="130px" height="40px" style="enable-background:new 0 0 1813.8 368.3;" xml:space="preserve">
                 <style type="text/css">
                     .st0{fill:#FFFFFF;}
                 </style>
@@ -301,35 +298,39 @@ session_start();
         <!-- before sign in -->
 
         <!-- after sign in -->
-        <div id="after_signin" class="hidden-mb-b">
-                <figure id="accountImg"><img src="./ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
+        <div id="after_signin" class="hidden-mb-b">   
                 <div id="display_user">
+                    <figure id="accountImg"><img src="./ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
                     <span id="user_id">Admin_User</span>
                     <i class="fa fa-angle-down"></i>
                 </div>  
             <ul>
                 <i class="fa fa-caret-up"></i>
-                <li><a href="./index.php?1=personal_page&2=personal_page&3=dashboard">
-                    <i class="fa fa-tachometer fa-1x"></i>Dashboard
-                </a></li>
-                <li><a href="./index.php?1=personal_page&2=personal_page&3=my_contents">
-                    <i class="fa fa-picture-o fa-1x"></i>My Contents
-                </a></li>
-                <li><a href="./index.php?1=personal_page&2=personal_page&3=insight">
-                    <i class="fa fa-line-chart fa-1x"></i>Insight
-                </a></li>
-                <li><a href="./index.php?1=personal_page&2=personal_page&3=bookmark">
-                    <i class="fa fa-star fa-1x"></i>Bookmarks
-                </a></li>
-                <li><a href="./index.php?1=personal_page&2=personal_page&3=account_setting">
-                    <i class="fa fa-gear fa-1x"></i>Account Setting
-                </a></li>
-                <li style="display:none;"><a href="./index.php?1=personal_page&2=personal_page&3=message">
-                    <i class="fa fa-envelope fa-1x"></i>Message
-                </a></li>
-                <li id="sign_out"><a href="./logout.php">
-                    <i class="fa fa-power-off fa-1x"></i>Sign Out
-                </a></li>
+                <div class="userMenuGroup">
+                    <li><a href="./index.php?1=personal_page&2=personal_page&3=dashboard">
+                        <i class="fa fa-tachometer fa-1x"></i>Dashboard
+                    </a></li>
+                    <li><a href="./index.php?1=personal_page&2=personal_page&3=my_contents">
+                        <i class="fa fa-picture-o fa-1x"></i>My Contents
+                    </a></li>
+                    <li><a href="./index.php?1=personal_page&2=personal_page&3=insight">
+                        <i class="fa fa-line-chart fa-1x"></i>Insight
+                    </a></li>
+                    <li><a href="./index.php?1=personal_page&2=personal_page&3=bookmark">
+                        <i class="fa fa-star fa-1x"></i>Bookmarks
+                    </a></li>
+                </div>
+                <div class="userMenuGroup">
+                    <li><a href="./index.php?1=personal_page&2=personal_page&3=account_setting">
+                        <i class="fa fa-gear fa-1x"></i>Account Setting
+                    </a></li>
+                    <li style="display:none;"><a href="./index.php?1=personal_page&2=personal_page&3=message">
+                        <i class="fa fa-envelope fa-1x"></i>Message
+                    </a></li>
+                    <li id="sign_out"><a href="./logout.php">
+                        <i class="fa fa-power-off fa-1x"></i>Sign Out
+                    </a></li>
+                </div>
             </ul>
         </div>
         <!-- end after sign in -->
