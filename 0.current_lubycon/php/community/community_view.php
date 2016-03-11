@@ -92,7 +92,7 @@
                     <p class="author_name" id="language_name"><?=$language1?>, <?=$language2?></p>
                 </article>
             </div>
-            <button id="my_page_bt">VIEW MORE</button>
+            <div class="my_page_bt animate_width">VIEW MORE</div>
         </div><!--end con_aside-->
         <section id="post_section" class="con_main">
             <article id="post_contents">

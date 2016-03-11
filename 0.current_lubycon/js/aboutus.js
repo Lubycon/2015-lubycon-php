@@ -54,16 +54,8 @@ function moveNav(data){
 function detectNav(data){
     var datavalue = data.toString(),
         object = ".nav_circle[data="+datavalue+"]";
-    $(".nav_circle").css({
-        "width" : "10px",
-        "height" : "10px",
-        "background" : "#dddddd"
-    })
-    $(object).css({
-        "width" : "12px",
-        "height" : "12px",
-        "background" : "#48cfad"
-    });
+    $(".nav_circle").removeClass("selected");
+    $(object).addClass("selected");
 };
 
 $(document).on('mouseenter','.contactus_mailbt', function (){

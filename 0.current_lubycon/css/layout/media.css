@@ -21,6 +21,11 @@
     #footer {
         
     }
+    #gotop_bt{
+        position: fixed;
+        bottom: 20px;
+        right: 10px; 
+    }
     #main_search_bar{
         display: none;
         position: fixed;
@@ -829,6 +834,10 @@
     #main_header{
         height: 50px;
     }
+    #gotop_bt{
+        position: relative;
+        margin: 0px auto;
+    }
     #main_search_bar{
         display: none;
         position: absolute;
@@ -1098,19 +1107,22 @@
             margin-top: 20px;
             font-size: 26px;
         }
-    #my_page_bt{
+    .my_page_bt{
         width: 220px;
         height: 45px;
+        line-height: 45px;
+        margin: 0px auto;
         margin-top: 20px;
         border: 1px solid #ffffff;
         border-radius: 80px;
         background: transparent;
         font-weight: 200;
         color: #ffffff;
+        cursor: pointer;
     }
-        #my_page_bt:hover{
-            border: 1px solid #87ead1;
-            color: #87ead1;
+        .my_page_bt:hover{
+            border-color: #48cfad;
+            color: #48cfad;
         }
     .tab_item table{
         min-width: 1200px;

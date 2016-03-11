@@ -32,6 +32,11 @@
     #aboutus_nav .nav_circle:hover{
         background: #48cfad;
     }
+        #aboutus_nav .nav_circle.selected{
+            width: 12px;
+            height: 12px;
+            background: #48cfad;
+        }
 
 #aboutus_main{
     position: relative;

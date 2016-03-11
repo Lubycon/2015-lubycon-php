@@ -119,9 +119,6 @@ body{
 
 #gotop_bt{
     display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 10px;
     width: 65px;
     height: 65px;
     border-radius: 50%;

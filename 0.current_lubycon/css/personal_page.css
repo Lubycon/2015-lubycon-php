@@ -196,6 +196,7 @@
 }
 #creator_month_body{
     height:250px;
+    display: none;
 }
 #dash_creator_infobox {
     width:35%;

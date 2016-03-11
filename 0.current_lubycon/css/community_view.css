@@ -115,17 +115,6 @@
                     color: #eeeeee;
                 }
 
-    #my_page_bt{
-        width: 220px;
-        height: 45px;
-        margin-top: 20px;
-        border: 1px solid #ffffff;
-        border-radius: 80px;
-        background: transparent;
-        font-weight: 200;
-        color: #ffffff;
-    }
-
 #post_contents {
     position: relative;
     padding: 20px;

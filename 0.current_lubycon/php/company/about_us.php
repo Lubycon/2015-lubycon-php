@@ -4,7 +4,7 @@
 <div id="aboutus_body">
     <div id="aboutus_nav" class="hidden-mb-b">
         <ul>
-            <li class="nav_circle" data="aboutus_main"></li>
+            <li class="nav_circle selected" data="aboutus_main"></li>
             <li class="nav_circle" data="focus_section"></li>
             <li class="nav_circle" data="contactus_section"></li>
         </ul>

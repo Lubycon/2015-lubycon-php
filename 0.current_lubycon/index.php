@@ -42,8 +42,8 @@ session_start();
     <script type="text/javascript" src="js/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/jquery.lubyAlert.js"></script><!--lubyAlert-->
     <script type="text/javascript" src="js/resizeObject.js"></script>
-    <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
     <script type="text/javascript" src="js/luby_ui.js"></script><!-- ui file js -->
+    <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
     <script type="text/javascript" src="js/account.js"></script> <!-- account file js -->
     
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"><!--responsive design enable-->
@@ -56,7 +56,6 @@ session_start();
 <div id="wrapper"> 
     <div class="dark_overlay"></div>
     <div id="cancel_layer"></div>
-    <div id="gotop_bt"><i class="fa fa-angle-up"></i></div>
     <aside id="mb-menu_panel" class="visible-mb"><!--mobile panel menu-->
         <header id="mb-user_section">
             <div id="mb-signin">
@@ -401,6 +400,7 @@ session_start();
             include_once("index_body.php");
         }
     ?>
+    <div id="gotop_bt"><i class="fa fa-angle-up"></i></div>
     <footer id="footer" class="footer">
         <span id="luby_copyright"><i class="fa fa-copyright"></i>Lubycon 2016</span>
         <span id="about_lubycon" class="hidden-mb-ib">

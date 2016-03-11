@@ -148,20 +148,14 @@ $(function(){
             $menuList.stop().fadeIn(200);
             $("html").on("click", function (event) {
                 var $this = $(event.target);
-                $this.hideAnywhere($this,$personalMenu,$menuList);
+                $this.hideAnywhere($this,$personalMenu,$menuList,{
+                    a:"#user_id",
+                    b:"#display_user",
+                    c:"#accountImg"
+                });
             });
         }
 	});
-    $.fn.hideAnywhere = function(selector,target,list){
-        var $this = selector,
-        $button = target,
-        $list = list,
-        bool = $this.is("#user_id") || $this.is("#display_user") || $this.is("#accountImg");
-        if(bool==false){
-            $button.removeClass("opened");
-            $list.fadeOut(200);
-        } 
-    };
 });
 /////////////////////////////////////////////////////////
 //      after signin child hover show and hide end
@@ -481,19 +475,14 @@ $(function(){
         else{
             $object.stop().fadeIn(200);
             $button.addClass("opened");
+            $("html").on("click", function (event) {
+                var $this = $(event.target);
+                $this.hideAnywhere($this,$button,$object,{
+                    a:"#view_descript",
+                    b:"#descript_box"
+                });
+            });
         }
-    }).mouseleave(function(){
-        var $this = $(this);
-        $(document).click(function (event) {
-            event = event || window.event//for IE
-            var hide = ($(event.target).attr("id") != ("view_descript" || "descript_box"));
-            if (hide){
-                $this.removeClass("opened");
-                $object.stop().fadeOut(200);
-                return;
-            }
-            else{ return; }
-        });
     })
 });
 /////////////////////////////////////////////////////////
@@ -671,51 +660,43 @@ $(function(){
             else{
                 $this.addClass("opened");
                 $menu.stop().fadeIn(200);
-                console.log(true);
-            }
-        }).mouseleave(function(){
-            var $this = $(this);
-            $(document).click(function (event) {
-                event = event || window.event//for IE
-                if ($(event.target).attr("id") != "myinfo_setting") {
-                    $menu.stop().fadeOut(200);
-                    $this.removeClass("opened");
-                    return;
-                }
-                else{ return; }
-            });
+                $("html").on("click", function (event) {
+                    var $this = $(event.target);
+                    $this.hideAnywhere($this,$button,$menu,{
+                        a:"#myinfo_setting"
+                    });
+                });
+            };
         });
     };
 });
 /*--------------------my info setting in creator_page toggle end----------------------*/
 /*----------------------------creator card menu toggle start--------------------------*/
 $(function(){
-    if($(".creators_card").length != 0){
-        $(".creator_menu").each(function(){
-            var $this = $(this),
-            $menu = $this.children(".creator_menu_list");
-            $this.click(function (event){
-                event = event || window.event//for IE
-                if($this.hasClass("opened")){
-                    $this.removeClass("opened");
-                    $menu.stop().fadeOut(200);
-                }
-                else{
-                    $this.addClass("opened");
-                    $menu.stop().fadeIn(200);
-                }
-            }).mouseleave(function(){
-                $(document).click(function (event) {
-                    event = event || window.event//for IE
-                    if (!$(event.target).hasClass("creator_menu_icon")) {
-                        $this.removeClass("opened");
-                        $menu.stop().fadeOut(200);
-                    }
-                    else{ return; }
+    $(".creator_menu").each(function(){
+        var $this = $(this),
+        $button = $(".creator_menu"),
+        $menu = $this.children(".creator_menu_list");
+        $this.click(function (event){
+            event = event || window.event//for IE
+            if($this.hasClass("opened")){
+                $this.removeClass("opened");
+                $menu.stop().fadeOut(200);
+                console.log("a");
+            }
+            else{
+                console.log("b");
+                $this.addClass("opened");
+                $menu.stop().fadeIn(200);
+                $("html").on("click", function (event) {
+                    var $this = $(event.target);
+                    $this.hideAnywhere($this,$button,$menu,{
+                        a:".creator_menu_icon"
+                    });
                 });
-            });
-        });//each end
-    };//if end
+            }
+        });
+    });
 });
 
 /*----------------------------creator card menu toggle end--------------------------*/

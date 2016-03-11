@@ -90,7 +90,9 @@
                         <p class="myinfo_name" id="language_name"><?=$language1?>, <?=$language2?></p>
                     </article>
                 </div>
-                <a href="./index.php?1=personal_page&2=personal_page&3=dashboard"><button id="my_page_bt">My Page</button></a>
+                <a href="./index.php?1=personal_page&2=personal_page&3=dashboard">
+                    <div class="my_page_bt animate_width">My Page</div>
+                </a>
             </div><!--end con_aside-->
             <div id="user_view_main" class="con_main">
                 <?php

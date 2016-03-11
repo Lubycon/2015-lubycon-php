@@ -108,12 +108,12 @@
         </section>
         <section id="history_setting_section" class="setting_card">
             <p class="setting_title">History Setting</p>
+            <i class="fa fa-refresh refresh"></i>
             <div class="history_cell">
                 <div class="history_data">
                     <select class="accountFilter">
                     <?php
-                        for( $i=2016 ; $i > 1939 ; $i-- )
-                        {
+                        for( $i=2016 ; $i > 1939 ; $i-- ){
                             echo '<option data-value='.$i.'>'.$i.'</option>';
                         }
                     ?>

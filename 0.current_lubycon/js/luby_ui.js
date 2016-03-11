@@ -5,6 +5,7 @@
 //3. hover action
 //4. tooltip box action
 //5. mb-panel_menu
+//6. hideAnywhere
 /////////////////////////////////////////////////////////
 //      lubySelector start
 /////////////////////////////////////////////////////////
@@ -208,9 +209,9 @@ $(function(){
 });//scale animation end
 $(function(){
     $('.animate_width').hover(function (e){
-        $(this).stop().animate({ width: "+=3", right: "-=1.5"}, 150);
+        $(this).stop().animate({ width: "+=4", right: "-=2"}, 150);
     }, function(){
-        $(this).stop().animate({ width: "-=3", right: "+=1.5"},150);
+        $(this).stop().animate({ width: "-=4", right: "+=2"},150);
     })
 })
 $(function(){
@@ -366,9 +367,11 @@ $(window).on("load resize",function(){
 //      visible goToTheTop button start
 /////////////////////////////////////////////////////////
 $(window).on("load resize", function(){
-    if((windowWidth < 1025) && ($("#gotop_bt").length != 0)){
+    var host = hostURL = location.host,
+    page = document.location.href == ("http://"+host+"/Lubycon_Website/0.current_lubycon/index.php");
+    if($("#gotop_bt").length != 0 && page){
         var goTopBt = $(document).find("#gotop_bt");
-        $(document).on("touchmove", function (event){
+        $(document).on("touchmove scroll", function (event){
             if($(document).scrollTop() > 500){
                 goTopBt.stop().show();
                 return;
@@ -428,4 +431,32 @@ $(document).ready(function(){
 });
 /////////////////////////////////////////////////////////
 //      share toggle button end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      hideAnywhere start
+/////////////////////////////////////////////////////////
+$.fn.hideAnywhere = function(selector,button,list,target){
+    this.each(function(){
+        var $this = selector,//event.target
+        $button = button,
+        $list = list,
+        defaults = {
+            a:"",
+            b:"",
+            c:"",
+            d:"",
+            e:"",
+            f:""
+        },
+        d = $.extend({}, defaults, target),
+        bool = $this.is(d.a)||$this.is(d.b)||$this.is(d.c)||$this.is(d.d)||$this.is(d.e)||$this.is(d.f);
+        if(bool==false){
+            $button.removeClass("opened");
+            $list.fadeOut(200);
+        } 
+        return this;
+    }); 
+};
+/////////////////////////////////////////////////////////
+//      hideAnywhere start
 /////////////////////////////////////////////////////////

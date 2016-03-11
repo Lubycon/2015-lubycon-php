@@ -222,9 +222,10 @@ body{
         display: inline-block;
     }
     #tnail_header {
-        color: #eeeeee;
+        color: #cccccc;
+        font-size: 15px;
+        text-align: left;
         margin-bottom: 10px;
-        font-weight: 200;
     }
     #tnail_preview {
         position:relative;

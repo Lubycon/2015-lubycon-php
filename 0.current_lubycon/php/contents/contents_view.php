@@ -167,7 +167,7 @@ switch($current_url){
                             <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                         </span>
                     </div>
-                    <button id="content_down" class="hidden-mb-b"><i class="fa fa-download"></i></button>
+                    <div id="content_down" class="hidden-mb-b animate_width"><i class="fa fa-download"></i></div>
                     <div id="file_info">
                         <header id="info_header">File info<i class="fa fa-angle-down" id="info_toggle"></i></header>
                         <section id="files">
