@@ -3,39 +3,70 @@
     $set_date = date("YmdHis");
     $con_cate = $_POST['contents_cate_name'];
     $user_name = 'daniel_zepp';
-    $uploaddir = '../../../../Lubycon_Contents/contents/' . $con_cate . "/" . $user_name . $set_date . "/" ;
-    $upload_basename = basename($_FILES['upload_file']['name']);
-    $uploadfile = $uploaddir . $upload_basename;
+    
+    $upload_dir= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ;
+    $blacklist = array('jpg','jpeg','png','psd','gif','bmp','pdd','tif','raw','ai','esp','svg','svgz','iff','fpx','frm','pcx','pct','pic','pxr','sct','tga','vda','icb','vst','alz','zip','rar','jar','7z','hwp','txt','doc','xls','xlsx','docx','pptx','pdf','ppt','me');  
+    $limit_size = '3000000'; // byte
 
-    if( mkdir($uploaddir,0070) )
+    if(1) //서브밋한거라면
     {
-        //echo "directory is making<br/>";
-        if (move_uploaded_file($_FILES['upload_file']['tmp_name'], $uploadfile)) 
+        for($i=0; $i<count($_FILES['upload_file']['name']); $i++) 
         {
-            //echo "zip file upload succece<br/>";
-            echo "file name : " . $upload_basename . "<br/>";
-            echo "contents category : " . $con_cate . "<br/>";
-            echo "upload date : " . $set_date . " (year-month-day-hour-minite-second)<br/>";
-            echo "upload path : localhost/contensts_data/". $con_cate . "/" . $set_date . "/" . $upload_basename;
-        } else {
-            print "zip file upload failed<br/>";
+            $filename = $_FILES['upload_file']['name'][$i]; // 오리지날 파일이름
+            $ext = substr(strrchr($filename, '.'), 1); // 확장자 추출
+            if ( !in_array($ext, $blacklist) )  // 확장자 검사
+            {
+                echo $filename.' not allow<br/>';
+                return false;
+            }
+            $filesize_array[$i] = $_FILES['upload_file']['size'][$i]; // 각 파일사이즈 크기 배열에 푸시
         }
-    }else
+        if( !array_sum($filesize_array) >= $limit_size ) // 파일크기 검사
+        {
+            echo array_sum($filesize_array) . 'beyond limite size';
+            return false;
+        }
+        else
+        {
+            if( mkdir( $upload_dir , 0777) ) // 디렉토리 생성
+            {
+                foreach ($_FILES["upload_file"]["error"] as $key => $error)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
+                {
+                    if ($error == UPLOAD_ERR_OK) //이상없다면
+                    {
+                        $tmp_name = $_FILES["upload_file"]["tmp_name"][$key];
+                        $name = $_FILES["upload_file"]["name"][$key];
+                        move_uploaded_file($tmp_name, "temp/$name"); // 파일 이동
+                        $filepath_array[$key] = "temp/$name"; // 최종 업로드된 경로
+                    }
+                }
+            }
+        }
+    }
+
+    require_once "../class/zipfile.php"; // 클래스파일 리콰이어
+    $zipper = new Zipper; //지퍼생성
+    $zipper->add($filepath_array); //파일추가
+    $zipper->store($upload_dir.$user_name.'_luby.zip'); //저장될 zip파일 경로
+    echo $upload_dir.$user_name.'_luby.zip';
+
+    foreach ($_FILES["upload_file"]["error"] as $key => $error)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
     {
-        echo "make directory fail";
-    };
+        unlink( $filepath_array[$key] ); //임시파일 제거
+    }
+
     echo "<br/><br/>-------------zip file upload--------------<br/>";
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
     $oldfile = $_POST['croppicurl']; // temp file
-    $newfile = $uploaddir.'profile.jpg'; // copyed file
+    $newfile = $upload_dir.'profile.jpg'; // copyed file
 
     if(file_exists($oldfile)) {
         if(!copy($oldfile, $newfile)) {
             echo "file";
         } else if(file_exists($newfile)) {
-            echo $newfile . "<br/>";
+            echo '<br/>' . $newfile . "<br/>"; //uploaded file path
         }
     }
 
@@ -52,13 +83,13 @@
         for($i=0 ; $i< count($contens_image); $i++)
         {
              $oldfile = $contens_image_temp_url.$contens_image[$i]; // temp file
-             $newfile = $uploaddir.$contens_image[$i]; // copyed file
+             $newfile = $upload_dir.$contens_image[$i]; // copyed file
 
              if(file_exists($oldfile)) {
                   if(!copy($oldfile, $newfile)) {
                         echo "file";
                   } else if(file_exists($newfile)) {
-                        echo $uploaddir.$contens_image[$i] . "<br/>";
+                        echo $upload_dir.$contens_image[$i] . "<br/>"; //uploaded file path
                   }
              } 
         };
@@ -72,6 +103,7 @@
     echo "contents_subject = " . $_POST['contents_subject'];
     
     echo "<br/><br/>-------------contents subject name--------------<br/>";
+
     /*if($con_article)
     {
         for($k=0 ; $k< count($con_article); $k++)
@@ -82,9 +114,10 @@
     };*/
     
     // it's for multiple select box
+
     $sel_cate = $_POST['user_selected_category'];
     $sel_tag = $_POST['user_selected_tag'];
-    //
+
     echo "<br/><br/>-------------user seleced categories--------------<br/>";
     if($sel_cate) 
     {
