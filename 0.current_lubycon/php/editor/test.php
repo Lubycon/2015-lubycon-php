@@ -3,60 +3,70 @@
     $set_date = date("YmdHis");
     $con_cate = $_POST['contents_cate_name'];
     $user_name = 'daniel_zepp';
-    $uploaddir = '../../../../Lubycon_Contents/contents/' . $con_cate . "/" . $user_name . $set_date . "/" ;
-    $upload_basename = basename($_FILES['upload_file']['name']);
-    $uploadfile = $uploaddir . $upload_basename;
+    
+    $upload_dir= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ;
+    $blacklist = array('jpg','jpeg','png','psd','gif','bmp','pdd','tif','raw','ai','esp','svg','svgz','iff','fpx','frm','pcx','pct','pic','pxr','sct','tga','vda','icb','vst','alz','zip','rar','jar','7z','hwp','txt','doc','xls','xlsx','docx','pptx','pdf','ppt','me');  
+    $limit_size = '3000000'; // byte
 
-    // ë°ì´í„°ë² ì´ìŠ¤ì— ì…ë ¥í•˜ê¸° ìœ„í•œ ê¸°ë³¸ ë³€ìˆ˜
-
-    // about zip file
-    $zip_name;
-    $zip_category;
-    $zip_date;
-    $zip_path;
-
-    // about contents_image
-    $contents_image_path;
-
-    // category
-    $contents_tag;
-    $contents_category
-
-    if( mkdir($uploaddir,0777) )
+    if(1) //¼­ºê¹ÔÇÑ°Å¶ó¸é
     {
-        //echo "directory is making<br/>";
-        if (move_uploaded_file($_FILES['upload_file']['tmp_name'], $uploadfile)) 
+        for($i=0; $i<count($_FILES['upload_file']['name']); $i++) 
         {
-            // allocate variable
-            $zip_name = $upload_basename;
-            $zip_category = $con_cate;
-            $zip_date = $set_date;
-            $zip_path = "localhost/contensts_data/".$con_cate."/".$set_date."/".$upload_basename;
-            
-            //echo "zip file upload succece<br/>";              // ì•Œì§‘íŒŒì¼<ì²¨ë¶€íŒŒì¼ ê´€ë ¨>
-            echo "file name : " . $upload_basename . "<br/>"; // íŒŒì¼ ì´ë¦„
-            echo "contents category : " . $con_cate . "<br/>"; // ì½˜í…ì¸  ë””ë ‰í† ë¦¬
-            echo "upload date : " . $set_date . " (year-month-day-hour-minite-second)<br/>";// ì˜¬ë¦°ë‚ ì§œ
-            echo "upload path : localhost/contensts_data/". $con_cate . "/" . $set_date . "/" . $upload_basename;// ì—…ë¡œë“œ ê²½ë¡œ upload_basename;
-        } else {
-            print "zip file upload failed<br/>";
+            $filename = $_FILES['upload_file']['name'][$i]; // ¿À¸®Áö³¯ ÆÄÀÏÀÌ¸§
+            $ext = substr(strrchr($filename, '.'), 1); // È®ÀåÀÚ ÃßÃâ
+            if ( !in_array($ext, $blacklist) )  // È®ÀåÀÚ °Ë»ç
+            {
+                echo $filename.' not allow<br/>';
+                return false;
+            }
+            $filesize_array[$i] = $_FILES['upload_file']['size'][$i]; // °¢ ÆÄÀÏ»çÀÌÁî Å©±â ¹è¿­¿¡ Çª½Ã
         }
-    }else
+        if( !array_sum($filesize_array) >= $limit_size ) // ÆÄÀÏÅ©±â °Ë»ç
+        {
+            echo array_sum($filesize_array) . 'beyond limite size';
+            return false;
+        }
+        else
+        {
+            if( mkdir( $upload_dir , 0777) ) // µğ·ºÅä¸® »ı¼º
+            {
+                foreach ($_FILES["upload_file"]["error"] as $key => $error)  // ÆÄÀÏ °¹¼ö¸¸Å­ foreach ÇÏ¸ç ¿¡·¯ »óÅÂ¸Ş¼¼Áö 
+                {
+                    if ($error == UPLOAD_ERR_OK) //ÀÌ»ó¾ø´Ù¸é
+                    {
+                        $tmp_name = $_FILES["upload_file"]["tmp_name"][$key];
+                        $name = $_FILES["upload_file"]["name"][$key];
+                        move_uploaded_file($tmp_name, "temp/$name"); // ÆÄÀÏ ÀÌµ¿
+                        $filepath_array[$key] = "temp/$name"; // ÃÖÁ¾ ¾÷·ÎµåµÈ °æ·Î
+                    }
+                }
+            }
+        }
+    }
+
+    require_once "../class/zipfile.php"; // Å¬·¡½ºÆÄÀÏ ¸®ÄâÀÌ¾î
+    $zipper = new Zipper; //ÁöÆÛ»ı¼º
+    $zipper->add($filepath_array); //ÆÄÀÏÃß°¡
+    $zipper->store($upload_dir.$user_name.'_luby.zip'); //ÀúÀåµÉ zipÆÄÀÏ °æ·Î
+    echo $upload_dir.$user_name.'_luby.zip';
+
+    foreach ($_FILES["upload_file"]["error"] as $key => $error)  // ÆÄÀÏ °¹¼ö¸¸Å­ foreach ÇÏ¸ç ¿¡·¯ »óÅÂ¸Ş¼¼Áö 
     {
-        echo "make directory fail";
-    };
+        unlink( $filepath_array[$key] ); //ÀÓ½ÃÆÄÀÏ Á¦°Å
+    }
+
     echo "<br/><br/>-------------zip file upload--------------<br/>";
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
     $oldfile = $_POST['croppicurl']; // temp file
-    $newfile = $uploaddir.'profile.jpg'; // copyed file
+    $newfile = $upload_dir.'profile.jpg'; // copyed file
 
     if(file_exists($oldfile)) {
         if(!copy($oldfile, $newfile)) {
             echo "file";
         } else if(file_exists($newfile)) {
-            echo $newfile . "<br/>";
+            echo '<br/>' . $newfile . "<br/>"; //uploaded file path
         }
     }
 
@@ -73,14 +83,13 @@
         for($i=0 ; $i< count($contens_image); $i++)
         {
              $oldfile = $contens_image_temp_url.$contens_image[$i]; // temp file
-             $newfile = $uploaddir.$contens_image[$i]; // copyed file
+             $newfile = $upload_dir.$contens_image[$i]; // copyed file
 
              if(file_exists($oldfile)) {
                   if(!copy($oldfile, $newfile)) {
                         echo "file";
                   } else if(file_exists($newfile)) {
-                        $contents_image_path = $uploaddir.$contens_image[$i];
-                        echo $uploaddir.$contens_image[$i] . "<br/>"; // ì»¨í…ì¸  ì´ë¯¸ì§€ ë””ë ‰í† ë¦¬
+                        echo $upload_dir.$contens_image[$i] . "<br/>"; //uploaded file path
                   }
              } 
         };
@@ -91,9 +100,10 @@
     
     echo "<br/>-------------contents subject name--------------<br/><br/>";
 
-    echo "contents_subject = " . $_POST['contents_subject'];ë¦¬ // ì§‘íŒŒì¼ ì´
+    echo "contents_subject = " . $_POST['contents_subject'];
     
     echo "<br/><br/>-------------contents subject name--------------<br/>";
+
     /*if($con_article)
     {
         for($k=0 ; $k< count($con_article); $k++)
@@ -104,16 +114,17 @@
     };*/
     
     // it's for multiple select box
+
     $sel_cate = $_POST['user_selected_category'];
     $sel_tag = $_POST['user_selected_tag'];
-    //
+
     echo "<br/><br/>-------------user seleced categories--------------<br/>";
     if($sel_cate) 
     {
         echo "<br/>user selectd categories = ";
         for($i=0 ; $i< count($sel_cate); $i++)
         {
-            echo $sel_cate[$i] . " ";// ìœ ì € ì…€ë ‰íŠ¸ ì¹´í…Œê³ ë¦¬
+            echo $sel_cate[$i] . " ";
         };
     };
     echo "<br/><br/>-------------user seleced categories--------------<br/>";
@@ -124,7 +135,7 @@
         echo "<br/>user selectd tags = ";
         for($j=0 ; $j< count($sel_tag); $j++)
         {
-            echo $sel_tag[$j] . " "; // ìœ ì € ì…ë ¥ íƒœê·¸
+            echo $sel_tag[$j] . " ";
         };
     };
     
@@ -138,7 +149,7 @@
 
     echo "<br/>-------------text editor html--------------<br/><br/>";
     
-    echo htmlspecialchars($_POST['text_editor']); // htmlë‚´ìš©
+    echo htmlspecialchars($_POST['text_editor']);
     
     echo "<br/><br/>-------------text editor html--------------<br/>";
 
