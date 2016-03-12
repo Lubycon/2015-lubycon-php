@@ -1,12 +1,16 @@
+
 var windowHeight = $(window).height();
+
 
 $(document).ready(function(){
 	$("#bodyer").fadeIn(500);
-    var loginboxHeight = $("#login_box").height();
-    $("#login_box").css("margin-top",verticalAlign(windowHeight,loginboxHeight));
+    var loginboxHeight = $("#loginWrap").height();
+    $("#loginWrap").css("top",verticalAlign(windowHeight,loginboxHeight,30));
 });
-function verticalAlign(windowHeight,objectHeight){
-    return ((windowHeight*0.5) - (objectHeight*0.5) - 20).toString() + "px";
+
+function verticalAlign(windowHeight,objectHeight,value){
+    var objectY = (((windowHeight*0.5) - (objectHeight*0.5)) - value).toString() + "px";
+    return objectY;
 };
 /////////////////////////////////////////////////////////
 //      sign in ajax start
@@ -42,18 +46,20 @@ $(function () { //create account bt popup event start
             //data: "id=" + id,//test.asp에 id 값을 보낸다
             cache: false,
             success: function (data) {
-                $('#bodyer').hide().append(data).fadeIn(500); //해당 내용을 보여준다
-                $(".basic_filter").selectOrDie
-                ({
-                    customClass: "custom",
-                    customID: "custom",
-                    size: 5
-                });
+                $('#bodyer').hide().prepend(data).fadeIn(500); //해당 내용을 보여준다
                 $('.dark_overlay').fadeIn(500);
                 $("#modal_close_bt").on("click",function(){
                     $('.dark_overlay').stop().fadeOut(500);
                      $('#create_account_area').stop().fadeOut(500).remove();
                 });
+                $(".locationFilter").lubySelector({
+                    width: "100%",
+                    theme: "white",
+                    "float": "none",
+                    searchBar: true,
+                    "icon": "fa fa-globe"
+                });
+                $("#create_account_area").css("top",verticalAlign(windowHeight,$("#create_account_area").height(),0));
             }
         });
     });

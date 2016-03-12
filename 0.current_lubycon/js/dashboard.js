@@ -8,30 +8,23 @@ function eventHandler(event, selector) {//
 };
 
 /*----------------------------toggle section button start------------------------------*/
-$(".toggle_info").each(function(){
-    var toggle_count = 1;
-    $(this).on("click touchend",function (event){
-        eventHandler(event,$(this));
-        event = event || window.event//for IE
-        switch(toggle_count){
-            case 0:
-            $(this).parent().next(".dash_body").stop().slideDown(300).css("min-height","150px");
-            $(this).attr("class","fa fa-angle-up toggle_info");
-            toggle_count = 1;
-        break;
-        case 1:
-            $(this).parent().next(".dash_body").css("min-height","0px").stop().slideUp(300);
-            $(this).attr("class","fa fa-angle-down toggle_info");
-            toggle_count = 0;
-        break;
-        }//switch end
-    });//click end
-});//each end
+$(".toggle_info").on("click touchend",function (){
+    eventHandler(event,$(this));
+    var $this = $(this),
+    $body = $this.parent().next(".dash_body");
+    if($this.hasClass("opened")){
+        $this.attr("class","fa fa-angle-down toggle_info");
+        $this.removeClass("opened");
+        $body.css("min-height","0px").stop().slideUp(300);
+    }else{
+        $this.attr("class","fa fa-angle-up toggle_info");
+        $this.addClass("opened");
+        $body.stop().slideDown(300,function(){
+            $body.css("min-height","150px");
+        });
+    }
+});//click end
 /*----------------------------toggle section button end------------------------------*/
-
-
-
-
 /*----------------------------time card in dashboard page start------------------------*/
 function localTime() {
     var localtime = new Date();

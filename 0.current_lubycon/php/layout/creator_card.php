@@ -4,14 +4,14 @@
         $number = $_GET["number"];
         $contents_num1 = $number;
         $contents_num2 = $number + 1;
-        $contents_num3 = $number + 3;
+        $contents_num3 = $number + 2;
         $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/".$number.".jpg";
         $user_location_img = "./ch/img/flag_icons/United-States-Of-America.png";
         $usercity = "Los Santos";
         $usercountry = "United States";
         $username = $threed_author;
-        $userjob = $jobarray[$number];
-        $contents_count = rand(3, 150);
+        $randCount = rand(200,1500);
+        $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
         $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num1.".jpg";
         $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num2.".jpg";
         $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/".$contents_num3.".jpg";
@@ -50,13 +50,46 @@
         <div class="creator_bot_info">
             <ul>
                 <li class="usercontent">
+                <?php 
+                    echo "<a class='contents_link' href='./index.php?1=contents&2=contents_view&3=";
+                    switch($current_url){
+                        case "artwork" : echo "artwork"; break;
+                        case "vector" : echo "vector"; break;
+                        case "3d" : echo "3d"; break;
+                        default : echo "artwork"; break;
+                    };
+                    echo "&4=".$number."'>";  
+                ?>
                     <img src="<?=$user_content1?>" alt="user_content"/>
+                <?php echo "</a>"; ?>
                 </li>
                 <li class="usercontent">
+                <?php 
+                    echo "<a class='contents_link' href='./index.php?1=contents&2=contents_view&3=";
+                    switch($current_url){
+                        case "artwork" : echo "artwork"; break;
+                        case "vector" : echo "vector"; break;
+                        case "3d" : echo "3d"; break;
+                        default : echo "artwork"; break;
+                    };
+                    echo "&4=".$number."'>";  
+                ?>
                     <img src="<?=$user_content2?>" alt="user_content"/>
+                <?php echo "</a>" ;?>
                 </li>
                 <li class="usercontent">
+                <?php 
+                    echo "<a class='contents_link' href='./index.php?1=contents&2=contents_view&3=";
+                    switch($current_url){
+                        case "artwork" : echo "artwork"; break;
+                        case "vector" : echo "vector"; break;
+                        case "3d" : echo "3d"; break;
+                        default : echo "artwork"; break;
+                    };
+                    echo "&4=".$number."'>";  
+                ?>
                     <img src="<?=$user_content3?>" alt="user_content"/>
+                <?php echo "</a>" ;?>
                 </li>
             </ul>
         </div>

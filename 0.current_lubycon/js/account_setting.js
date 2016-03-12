@@ -1,12 +1,10 @@
 
 $(function (){ //account setting script
     $('#change_pass').click(function (){ //change pass remove attr
-        if($('#now_pass_id').attr('disabled'))
-        {
+        if($('#now_pass_id').attr('disabled')){
             $('#now_pass_id , #pass_id ,#re_pass_id').removeAttr('disabled');
-            $('#change_pass').text('Not change Password');
-        }else
-        {
+            $('#change_pass').text('Cancel');
+        }else{
             $('#now_pass_id , #pass_id ,#re_pass_id').attr('disabled', 'disabled');
             $('#change_pass').text('change Password');
             $('#now_pass_id , #pass_id ,#re_pass_id').val('').next().removeClass();
@@ -14,7 +12,7 @@ $(function (){ //account setting script
         }
     });
 
-    var i = 1;
+    
     $(document).ready(function (){
         $("#lang_minus_id").hide();
         $(".privacyFilter").lubySelector({
@@ -36,23 +34,23 @@ $(function (){ //account setting script
             searchBar: true,
             "icon": "fa fa-globe"
         });
-        $(".langFilter").lubySelector({
-            width: 300,
+        $(".langFilter0").lubySelector({
+            width: 150,
             theme: "white",
             "float":"none"
         });
     });
-    $(document).on("click touchend", "#lang_plus", function (event) //clone language div and change id
-    {
+    var i = 1;
+    $(document).on("click touchend", "#lang_plus", function (event){
         eventHandler(event, $(this));
         if (i < 4) {
-            var lang_div = '<div id="lang_clone' + i + '"><div id="lang_option_' + i + '" class="language_option"><select class="langFilter" name="lang_ability[]"><option value="Beginer">Beginer</option><option value="Advanced">Advanced</option><option value="Fluent">Fluent</option><option value="Native">Native</option></select></div><input id="lang_input_' + i + '" class="language_text" name="language[]" type="text"></div>';
+            var lang_div = '<div class="langWrap"><div class="lang_section" id="lang_clone' + i + '"><input id="lang_input_' + i + '" class="language_text" name="language[]" type="text"><div id="lang_option_' + i + '" class="lang_option"><select class="langFilter' + i + '" name="lang_ability[]"><option value="Beginer">Beginer</option><option value="Advanced">Advanced</option><option value="Fluent">Fluent</option></select></div></div></div>';
             $("#clone_div").append(lang_div);
-            $(".langFilter").lubySelector({
+            $(".langFilter"+i).lubySelector({
                 theme:"white",
                 "float":"none"
             });
-            $("#lang_minus_id").show();
+            $("#lang_minus").show();
             i++; //int plus
 
             if (i == 4) {
@@ -61,13 +59,13 @@ $(function (){ //account setting script
         }
     });
 
-    $(document).on("click touchend", ".lang_minus", function (event) {
+    $(document).on("click touchend", "#lang_minus", function (event) {
         eventHandler(event, $(this));
         $("#lang_plus").show();
         $("#clone_div > div:last-child").remove();
         i--; //int minus
         if( i == 1 ){
-            $("#lang_minus_id").hide();
+            $("#lang_minus").hide();
         }
         // clone div remove
     });
@@ -75,8 +73,7 @@ $(function (){ //account setting script
 });
 
 var history_stack = 1;
-$(document).ready(function ()
-{
+$(document).ready(function (){
     $(".accountFilter").lubySelector({
         maxHeight:200,
         float: "none",
@@ -84,19 +81,16 @@ $(document).ready(function ()
     });
     $("#history_minus").hide();
 })
-$(document).on("click touchend", "#history_plus", function (event) //clone language div and change id
-{
+$(document).on("click touchend", "#history_plus", function (event) {//clone language div and change id
     eventHandler(event, $(this));
     $(".history_cell .history_data:first-child").clone(true).appendTo(".history_cell");
     $(".history_cell .history_data:last-child").children('.history_text').val("");
     $("#history_minus").show();
     history_stack++;
 });
-$(document).on("click touchend", "#history_minus", function (event) //clone language div and change id
-{
+$(document).on("click touchend", "#history_minus", function (event) { //clone language div and change id
     eventHandler(event, $(this));
-    if (history_stack == 2)
-    {
+    if (history_stack == 2){
         $(".history_cell .history_data:last-child").remove();
         $("#history_minus").hide();
     } else if (history_stack > 1) {
@@ -104,39 +98,33 @@ $(document).on("click touchend", "#history_minus", function (event) //clone lang
     }
     history_stack--;
 });
-$(".history_data .accountFilter").on("change", function ()
-{
-    //console.log($(this).parents('.lubySelector').next().val());
+$(".refresh").on("click touchend",function(event){
+    eventHandler(event,$(this));
     var history_array = [];
-
-
     $('.history_cell .history_data').each(function (index) {
-        history_array.push(
-            {
-                'index':  index,
-                'year': $(this).find('.accountFilter:eq(0)').val(),
-                'month': $(this).find('.accountFilter:eq(1)').val(),
-                'kind': $(this).find('.accountFilter:eq(2)').val(),
-                'text': $(this).find('.history_text').val()
-            });
+        history_array.push({
+            'index':  index,
+            'year': $(this).find('.accountFilter:eq(0)').val(),
+            'month': $(this).find('.accountFilter:eq(1)').val(),
+            'kind': $(this).find('.accountFilter:eq(2)').val(),
+            'text': $(this).find('.history_text').val()
+        });
         console.log(history_array[index]);
     });
-
     aftersort = history_array.sort(CompareForSort);
     function CompareForSort(first, second) {
         if (first.year == second.year) // sort by year
             if (first.month < second.month) { // if same value year, sort by month
                 return -1; //bigger than second month
-            } else
-            {
+            } else{
                 return 1; //bigger than first month
             }
         if (first.year < second.year) 
             return -1; // bigger than second year
-        else 
+        else {
             return 1; // bigger than first year
+        }
     }
-
     $('.history_cell .history_data').each(function (index) {
         $(this).find('.accountFilter:eq(0)').val(aftersort[index].year); //hidden selecter value change
         $(this).find('.ls_Label:eq(0)').text(aftersort[index].year); //luby ui lubySelector_selected.span text change
@@ -152,24 +140,7 @@ $(".history_data .accountFilter").on("change", function ()
 
         console.log(aftersort[index].year);
     });
-});
-////////////////////////////delete button interaction start
-$(function(){
-    ////////cancel bt start/////////////////////////////////
-    $('.dark_overlay, .index_cancel_bt').on("click touchend",function (){
-        eventHandler(event,$(this));
-        $('.dark_overlay').stop().fadeOut(200);
-        $('#confirm_btAlert').stop().fadeOut(200);
-    });
-    $(".index_confirm_bt").on("click touchend",function(){
-        eventHandler(event,$(this));
-        $("#confirmAlert").css("display","none");
-        $("#successAlert").css("display","inline-block");
-        $("#successAlert").attr("class","lubyAlert zoomIn animated");
-        setTimeout("removeAlert()",1500);
-    })
-    //////////cancel bt end/////////////////////////////////
-});
+})
 function eventHandler(event, selector) {//
     event.stopPropagation();
     event.preventDefault();
@@ -177,9 +148,5 @@ function eventHandler(event, selector) {//
         selector.off('click');
     }
 };
-function removeAlert(){
-    $("#successAlert").fadeOut(500);
-    $(".dark_overlay").fadeOut(500);
-}
 
 ////////////////////////////delete button interaction end

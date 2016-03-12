@@ -51,49 +51,46 @@
     .la_bt {
         width: 190px;
         height: 40px;
-        line-height: 40px;
+        line-height: 37px;
         display: block;
         float: left;
         text-align: center;
         font-weight: 200;
         margin-top: 15px;
-        border-radius: 2px;
-        color: #fff;
-        margin-left: 1px;
-        background: #999999; /* Old browsers */
-        background: -moz-linear-gradient(top, #999999 0%, #828282 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#999999), color-stop(100%,#828282)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #999999 0%,#828282 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, #999999 0%,#828282 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, #999999 0%,#828282 100%); /* IE10+ */
-        background: linear-gradient(to bottom, #999999 0%,#828282 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999999', endColorstr='#828282',GradientType=0 ); /* IE6-9 */
+        color: #444444;
+        background: transparent;
+        border: 2px solid #444444;
+        box-sizing: border-box;
+        cursor: pointer;
     }
+        .la_bt:first-child{
+            border-right: none;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+        .la_bt:nth-child(2){
+            border-right: none;
+            border-left: none;
+        }
+        .la_bt:last-child{
+            border-left: none;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
 
     .out {
-        background: #999999; /* Old browsers */
-        background: -moz-linear-gradient(top, #999999 0%, #828282 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#999999), color-stop(100%,#828282)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #999999 0%,#828282 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, #999999 0%,#828282 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, #999999 0%,#828282 100%); /* IE10+ */
-        background: linear-gradient(to bottom, #999999 0%,#828282 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999999', endColorstr='#828282',GradientType=0 ); /* IE6-9 */
+        border-color: #444444;
     }
 
     .over {
-        background: #acacac; /* Old browsers */
-        background: -moz-linear-gradient(top, #acacac 0%, #999999 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#acacac), color-stop(100%,#999999)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #acacac 0%,#999999 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, #acacac 0%,#999999 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, #acacac 0%,#999999 100%); /* IE10+ */
-        background: linear-gradient(to bottom, #acacac 0%,#999999 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#acacac', endColorstr='#999999',GradientType=0 ); /* IE6-9 */
+        border-color: #aaaaaa;
+        color: #aaaaaa;
     }
 
     .clicked {
-        background: #48cfad;
+        border-color: #48cfad;
+        color: #48cfad;
+        font-weight: 400;
     }
 
     .seemore_bt {
@@ -174,7 +171,7 @@
         width: 100%;
         max-width: 1000px;
         height: 300px;
-        background: url(../../contents_data/vectorjpg/12.jpg) no-repeat 50% 46%;
+        background: url(../../../Lubycon_Contents/contents/vector/vectorjpg/12.jpg) no-repeat 50% 46%;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -267,11 +264,9 @@
 }
     .viewmore_bt a{
         font-size: 17px;
-        font-weight: 200;
         color: #444444;
     }
-    .viewmore_bt:hover
-    {
+    .viewmore_bt:hover{
         opacity:0.7;
     }
 /* creators section */

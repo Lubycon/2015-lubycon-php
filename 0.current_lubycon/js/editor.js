@@ -76,7 +76,6 @@ $(function () {
 //      show cc_selector start
 /////////////////////////////////////////////////////////
 $(function(){
-    var toggle_count = 0;
     $(document).on('click','#modify_cc', function(){
         switch(toggle_count){
             case 0:
@@ -101,16 +100,18 @@ $(function(){
     cc_checked();
     $("input:radio[name='cc_info']").click(function (event){
         event = event || window.event;
-        switch(event.target.id){
-            case "cc_radio" :
-                $("#cc_checkboxes").stop().slideDown(400);
-                cc_check_detector();
-                cc_checked();
-            break;
-            case "cp_radio" :
-                $("#cc_checkboxes").stop().slideUp(400);
-                $(".cc_icon").hide();
-            break;
+        var $id = event.target.id;
+        if($id == "cc_radio"){
+            $("#cc_checkboxes").stop().slideDown(400);
+            cc_check_detector();
+            cc_checked();
+        }
+        else if($id == "cp_radio"){
+            $("#cc_checkboxes").stop().slideUp(400);
+            $(".cc_icon").hide();
+        }
+        else{
+            return;
         }
     });  
 });
@@ -178,7 +179,7 @@ $(function(){
             var checked_data = checked_databox.push($(this).val());
             var cc_url_sub = checked_databox.join("-");
             console.log(cc_url_sub);
-            var cc_url = "http://creativecommons.org/licenses/" + cc_url_sub + "/4.0";
+            var cc_url = "http://creativecommons.org/licenses/" + cc_url_sub + "/4.0";//send to DB
             $("#cc_desc_link").attr("href", cc_url);
         });
     })

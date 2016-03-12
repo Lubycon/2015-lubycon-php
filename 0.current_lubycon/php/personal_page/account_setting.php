@@ -87,24 +87,33 @@
                 </div>
                 <input type="text" id="location_text" name="location_text" />
                 <label>Language</label>
-                <input type="text" id="lang_input_id" class="language_text" name="language[]" />
+                <div class="langWrap">
+                    <input type="text" id="lang_input_id" class="language_text" name="language[]" />
+                    <div class="lang_option">
+                        <select class="langFilter0">
+                            <option value="Beginer">Beginer</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Fluent">Fluent</option>
+                        </select>
+                    </div>  
+                </div>
                 <div id="clone_div"></div>
-                <div id="lang_plus">
+                <div id="lang_plus" class="optControl">
                     <i class="fa fa-plus"></i>
                 </div>
-                <div id="lang_minus_id" class="lang_minus">
+                <div id="lang_minus" class="optControl">
                     <i class="fa fa-minus"></i>
                 </div>
                 <label id="basic_desc_label">Description</label><textarea id="basic_desc" maxlength="1000" name="desc"></textarea><br />
         </section>
         <section id="history_setting_section" class="setting_card">
             <p class="setting_title">History Setting</p>
+            <i class="fa fa-refresh refresh"></i>
             <div class="history_cell">
                 <div class="history_data">
                     <select class="accountFilter">
                     <?php
-                        for( $i=2016 ; $i > 1939 ; $i-- )
-                        {
+                        for( $i=2016 ; $i > 1939 ; $i-- ){
                             echo '<option data-value='.$i.'>'.$i.'</option>';
                         }
                     ?>
@@ -133,10 +142,10 @@
 
                 </div>
             </div>
-            <div id="history_plus">
+            <div id="history_plus" class="optControl">
                 <i class="fa fa-plus"></i>
             </div>
-            <div id="history_minus">
+            <div id="history_minus" class="optControl">
                 <i class="fa fa-minus"></i>
             </div>
         </section>
@@ -177,7 +186,7 @@
         <section id="delete_account_section" class="setting_card">
             <p class="setting_title">Delete Account</p>
                 <p id="delete_desc">Deleting your account will delete all of your content and remove all data associated with it.</p>
-                <span id="confirm_bt" class="lubyAlert_bt" data="confirm">I want delete my account</span>
+                <span id="delete_bt" class="alertKey" data="delete">I want delete my account</span>
         </section>
         <input type="submit" value="Submit" id="submit_bt" />
     </section>

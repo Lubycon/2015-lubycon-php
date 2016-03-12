@@ -40,7 +40,6 @@
                     <option value="Name">Name</option>
                     <option value="Country">Country</option>
                 </select>
-                <span class="ls_arrow"><i class="fa fa-caret-down"></i></span>
             </div>
             <input type="text" id="sub_search_text" value="Enter the Keyword" />
             <button id="sub_search_btn">
@@ -91,7 +90,9 @@
                         <p class="myinfo_name" id="language_name"><?=$language1?>, <?=$language2?></p>
                     </article>
                 </div>
-                <a href="./index.php?1=personal_page&2=personal_page&3=dashboard"><button id="my_page_bt">My Page</button></a>
+                <a href="./index.php?1=personal_page&2=personal_page&3=dashboard">
+                    <div class="my_page_bt animate_width">My Page</div>
+                </a>
             </div><!--end con_aside-->
             <div id="user_view_main" class="con_main">
                 <?php
@@ -101,7 +102,8 @@
                     $usercountry = "United States";
                     $username = "Ssaru";
                     $userjob = "Gangster";
-                    $contents_count = rand(3, 150);
+                    $randCount = rand(200,1500);
+                    $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
                     $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/20.jpg";
                     $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/34.jpg";
                     $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/50.jpg";
@@ -153,9 +155,6 @@
                 </div>
                 <ul id="creator_card_wrap">
                 <?php
-                    $bestCreator_img_url = "../contents_data/3djpg/profile/60.jpg";
-                    $bestCreator_location_img = "./ch/img/flag_icons/United-States-Of-America.png";
-                    $bestCreator_contents_num = rand(3, 150);
                     for($i=0;$i<60;$i++){
                         $_GET["number"] = $i;
                         include('php/layout/creator_card.php');

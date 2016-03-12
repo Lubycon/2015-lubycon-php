@@ -26,7 +26,7 @@
         <li class="dash_section" id="creator_month">
             <div class="dash_header">
                 <h4>CREATOR OF THE MONTH</h4>
-                <i class="fa fa-angle-up toggle_info"></i>
+                <i class="fa fa-angle-down toggle_info"></i>
             </div>
             <div class="dash_body" id="creator_month_body">
                 <div class="dash_body_sector" id="dash_creator_infobox">
@@ -57,7 +57,7 @@
         <li class="dash_section" id="basic_information">
             <div class="dash_header">
                 <h4>BASIC INFORMATION</h4>
-                <i class="fa fa-angle-up toggle_info"></i>
+                <i class="fa fa-angle-up toggle_info opened"></i>
             </div>
             <div class="dash_body">
                 <div class="dash_body_sector" id="userjob">
@@ -81,7 +81,7 @@
         <li class="dash_section" id="history">
             <div class="dash_header">
                 <h4>HISTORY</h4>
-                <i class="fa fa-angle-up toggle_info"></i>
+                <i class="fa fa-angle-up toggle_info opened"></i>
             </div>
             <div class="dash_body">
                 <ul class="history_wrap">
@@ -130,7 +130,7 @@
         <li class="dash_section" id="insight">
             <div class="dash_header">
                 <h4>INSIGHT</h4>
-                <i class="fa fa-angle-up toggle_info"></i>
+                <i class="fa fa-angle-up toggle_info opened"></i>
             </div>
             <div class="dash_body">
                 <div id="total_counts">
@@ -176,7 +176,7 @@
         <li class="dash_section" id="contact">
             <div class="dash_header">
                 <h4>CONTACT</h4>
-                <i class="fa fa-angle-up toggle_info"></i>
+                <i class="fa fa-angle-up toggle_info opened"></i>
             </div>
             <div class="dash_body">
                 <div class="dash_body_sector x2" id="useremail">

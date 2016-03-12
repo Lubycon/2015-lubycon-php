@@ -33,6 +33,6 @@
         <div class="forum_card_section">
             <p><?=$card_content?></p>
         </div>
-        <div class="viewmore_bt animate_opacity">VIEW MORE</div>
+        <div class="viewmore_bt animate_width">VIEW MORE</div>
     </div>
 </li>

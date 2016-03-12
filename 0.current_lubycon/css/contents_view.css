@@ -62,34 +62,27 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             top:0px;
             border: none;
             display: inline-block;
             text-align: center;
             vertical-align: top;
             z-index: 1;
+            vertical-align:middle;
+            cursor:pointer;
         }
-            #floating_bt #bookmark_inner_bt{
-                vertical-align:middle;
-                color:#cccccc;
-                cursor:pointer;
-            }
 
-        #floating_bt #like_bt{
+        #floating_bt .like_bt{
             border:none;
             display:inline-block;
             border-radius: 0px !important;
-            
             text-align:center;
             margin:0px auto;
             z-index: 1;
+            vertical-align:middle;
             cursor: pointer;
-
         }
-            #like_bt i {
-                vertical-align:middle;
-            }
 
     .contents_view .contents_img{
         width: 100%;
@@ -165,20 +158,19 @@
     #content_down {
         width:110px;
         height:55px;
+        line-height: 55px;
         margin: 20px auto;
-        background:#48cfad;
-        border:none;
+        background: transparent;
+        border: 2px solid #48cfad;
         border-radius: 30px;
-        box-shadow:0px 2px 2px 0px rgba(0,0,0,0.3);
+        cursor: pointer;
     }
 
         #content_down i {
-            color: #FFF;
+            color: #48cfad;
             font-size: 34px;
             vertical-align: middle;
             margin-top: 1px;
-            -webkit-text-stroke: 1px #48cfad;
-
         }
     #content_down:hover {
         opacity: 0.8;
@@ -319,6 +311,9 @@
             font-weight: 200;
             cursor: pointer;
             text-align: right;
+        }
+        #view_descript.opened {
+            color: #48cfad !important;
         }
         #view_descript:hover {
             color: #48cfad;

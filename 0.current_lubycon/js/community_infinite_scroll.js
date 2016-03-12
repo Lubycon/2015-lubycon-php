@@ -25,13 +25,21 @@ function up_call_contents() {
 };
 */
 function down_call_contents() {
-    var post_number = $(".table_list_wrap .table_list:last-child .table_number").text();
-    $.ajax
-    ({
+    var post_number = $(".table_list_wrap .table_list:last-child .table_number").text(),
+    lastRead = $(".table_list:last-child"),
+    marker = $("<span/>",{"class":"readMarker"}),
+    icon = $("<i/>",{"class":"fa fa-caret-right"}),
+    text = $("<span/>",{"html":"You red here"});
+    $.ajax({
         type: "POST",
         url: "php/ajax/community_infinite_scroll.php", //이페이지에서 중복체크를 한다
         data: 'post_number=' + post_number + '&third_param=' + third_param,//test.asp에 id 값을 보낸다
         cache: false,
+        beforeSend: function(data) {
+            if(marker.length!=0){ $(".readMarker").remove(); console.log(true);}
+            marker.prependTo(lastRead);
+            icon.appendTo(marker);
+        },
         success: function (data) {
             $(".table_list_wrap").append(data);
             $(".progressbar").remove();

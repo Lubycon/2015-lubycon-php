@@ -92,16 +92,16 @@
                     <p class="author_name" id="language_name"><?=$language1?>, <?=$language2?></p>
                 </article>
             </div>
-            <button id="my_page_bt">VIEW MORE</button>
+            <div class="my_page_bt animate_width">VIEW MORE</div>
         </div><!--end con_aside-->
         <section id="post_section" class="con_main">
             <article id="post_contents">
                 <p>
                     <?=$post_content?>
                 </p>
-                <div id="like_bt" class="lubyAlert_bt" data="like"><i class="fa fa-heart"></i></div>
+                <i id="like_bt" class="like_bt alertKey fa fa-heart" data="like"></i>
                 <div id="post_edit_box">
-                    <button class="post_edit_bt animate_opacity"><i class="fa fa-trash"></i>Delete</button>
+                    <button id="delete_bt" class="alertKey post_edit_bt animate_opacity"><i class="fa fa-trash"></i>Delete</button>
                     <button class="post_edit_bt animate_opacity"><i class="fa fa-repeat"></i>Modified</button>
                 </div>
             </article>  <!-- end post_contents -->

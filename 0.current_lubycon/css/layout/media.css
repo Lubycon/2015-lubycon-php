@@ -19,20 +19,12 @@
         width: 100%;
     }
     #footer {
-        display: none;
+        
     }
-    .lubyAlert .index_confirm_bt{
-        margin-top: 30px;
-    }
-    .lubyAlert .index_confirm_bt{
-        display: block;
-        margin: 0px auto;
-        margin-top: 20px;
-    }
-    .lubyAlert .index_cancel_bt{
-        display: block;
-        margin: 0px auto;
-        margin-top: 20px;
+    #gotop_bt{
+        position: fixed;
+        bottom: 20px;
+        right: 10px; 
     }
     #main_search_bar{
         display: none;
@@ -321,39 +313,18 @@
         margin-top: 46px;
         height: auto;
     }
-        .nav_guide .mb-lubySelector {
-            width: 100% !important;
-            height: 48px !important;
-            margin: 0px !important;
-            background: #222222;
-            border-radius: 0px !important;
-            float: left !important;
-            box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.8) !important;
+        .nav_guide .subnav_box {
+            padding: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
         }
-             .mb-lubySelector .lubySelector_selected{
-                position: absolute;
-                width: 115px;
-                margin: 0px;
-                top: 8px;
-                right: 50%;
-                margin-right: -57px;
-                text-align: center;
-                font-size: 20px;
-                font-weight: 400;
-             }
-             .mb-lubySelector .lubySelector_arrow{
-                position: absolute;
-                top: 10px;
-                right: 10px;
-             }
-                .mb-lubySelector .lubySelector_list {
-                    width: 100%;
-                    top: 46px;
-                    border-radius: 0px;
-                }
-        .original_box {
-            position: absolute;
-            left: -1000px;
+        .nav_guide .subnav_box .lubySelector {
+            width: 80% !important;
+            margin: 3px auto !important;
+            float: none !important;
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.8) !important;
         }
     .con_wrap{
         background: #eeeeee;
@@ -420,7 +391,7 @@
                     display: block;
                     float: none;
                 }
-                .contents_desc #bookmark_bt {
+                .contents_desc .bookmark_bt {
                     font-size: 30px;
                 }
             .creator_desc {
@@ -437,7 +408,7 @@
 
 
         #bestCreator{
-
+            margin-bottom: 0 !important;
         }
             #bestCreator .creator_pic{
                 width: 80px;
@@ -507,24 +478,21 @@
         width: 100%;
         padding: 30px;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
+            font-size: 45px;
+            margin: 0px 10px;
         }
-            #floating_bt #bookmark_inner_bt{
-                font-size: 45px;
-                margin: 0px 10px;
-            }
-        #floating_bt #like_bt{
+        #floating_bt .like_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
+            font-size: 45px;
+            margin: 0px 10px;
         }
-            #floating_bt #like_bt i{
-                font-size: 45px;
-                margin: 0px 10px;
-            }
+
     #cc_total_wrap{
 
     }
@@ -799,9 +767,60 @@
         display: block;
         position:relative;
     }
+    #account_setting_form{
+        margin: 20px;
+    }
+        #basic_info_section .lubySelector {
+            width: 100% !important;
+            margin: 10px auto;
+        }
+        .public_option .lubySelector {
+            width: 100% !important;
+        }
+        .langWrap{
+            background: #dddddd;
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0px;
+        }
+            .lang_option{
+                display: block;
+            }
+        .history_data {
+            background: #dddddd;
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0px;
+        }
+            .history_data .lubySelector {
+                width: 100% !important;
+                margin: 5px auto;
+            }
+            .history_data > .history_text {
+                width: 100% !important;
+                margin-top: 5px;
+                margin: 5px auto;
+            }
+        .setting_card > input {
+
+        }
+        .setting_card #change_pass{
+            width: 100%;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+    /*------------login--------------*/
+    #login_box{
+        width: 100%;
+    }
+    #create_account_area{
+        width: 100%;
+        top: 0 !important;
+    }
 }
-/*------------------------------------------------mobile end-------*/
-/*---------------------------------------------desktop start-------*/
+/*--------------------------------------------------------------------mobile end-------*/
+/*-----------------------------------------------------------------desktop start-------*/
 @media screen and (min-width: 1025px){
     .visible-mb{
         display: none !important;
@@ -812,18 +831,12 @@
     .hidden-mb-b{
         display: block;
     }
-    .lubyAlert .confirm_text{
-        margin-top: 45px;
-    }
-    .lubyAlert .index_confirm_bt{
-        margin-top: 60px;
-    }
-    .lubyAlert .index_cancel_bt{
-        margin-top: 60px;
-    }
-
     #main_header{
         height: 50px;
+    }
+    #gotop_bt{
+        position: relative;
+        margin: 0px auto;
     }
     #main_search_bar{
         display: none;
@@ -861,19 +874,6 @@
     .nav_guide {
         margin-top: 0px;
     }
-        .nav_guide #category_bt {
-            width: 237px;
-            margin-left:10px;
-            float: left;
-        }
-            #category_bt .lubySelector_selected{
-                position: relative;
-                font-size: 17px;
-             }
-             #category_list {
-                min-width: 226px;
-                max-height: 300px;
-             }
     .con_wrap{
         
     }
@@ -1006,21 +1006,18 @@
         z-index: 1;
         overflow: hidden;
     }
-        #floating_bt #bookmark_bt{
+        #floating_bt .bookmark_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
+            font-size: 26px;
+            margin-left: 4px;
         }
-            #floating_bt #bookmark_inner_bt{
-                font-size: 26px;
-                margin-left: 4px;
-            }
+
         #floating_bt #like_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
-        }
-        #floating_bt #like_bt i{
             font-size: 20px;
         }
     #cc_total_wrap{
@@ -1110,19 +1107,22 @@
             margin-top: 20px;
             font-size: 26px;
         }
-    #my_page_bt{
+    .my_page_bt{
         width: 220px;
         height: 45px;
+        line-height: 45px;
+        margin: 0px auto;
         margin-top: 20px;
         border: 1px solid #ffffff;
         border-radius: 80px;
         background: transparent;
         font-weight: 200;
         color: #ffffff;
+        cursor: pointer;
     }
-        #my_page_bt:hover{
-            border: 1px solid #87ead1;
-            color: #87ead1;
+        .my_page_bt:hover{
+            border-color: #48cfad;
+            color: #48cfad;
         }
     .tab_item table{
         min-width: 1200px;
@@ -1257,11 +1257,39 @@
 
         }
         .setting_card input{
-            width: 300px;
+            max-width: 300px;
         }
     .public_option{
         display: inline-block;
         margin-left: 67px;
+    }
+    #account_setting_form{
+        margin: 45px;
+    }
+        .setting_card #change_pass{
+            margin-left: 75px;
+        }
+    .lang_option{
+        display: inline-block;
+    }
+    .history_data {
+        background: #ffffff;
+    }
+        .history_data > .history_text {
+            margin-top: 10px;
+        }
+    /*-------------login------------*/
+    #loginWrap{
+        left: 50%;
+        margin-left: -200px;
+    }
+    #login_box{
+        width: 400px;
+    }
+    #create_account_area{
+        width: 410px;
+        left: 50%;
+        margin-left: -205px;
     }
 }
 /*------desktop end-------*/

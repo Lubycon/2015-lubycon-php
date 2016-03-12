@@ -20,17 +20,18 @@ $(function(){
 //      loading icon start
 /////////////////////////////////////////////////////////
 $(function(){
-    var $loading = $('#loading_icon').hide();
-    $("#loading_icon").css
-    ({
-        "margin-top": ((windowHeight / 2) - ($("loading_icon").height()) - 50).toString() + "px"
-    });
+    var $loading = $("<div/>",{"id":"loading_icon"}),
+    $icon = $("<i/>",{"class":"fa fa-spinner fa-spin"}),
+    objectY = (windowHeight*0.5) - 40;
     $(document)
       .ajaxStart(function() {
-        $loading.show();
+        $loading.prependTo("body").show(),
+        $icon.css("margin-top",objectY).appendTo($loading);
       })
       .ajaxStop(function() {
-        $loading.hide();
+        $loading.fadeOut(200,function(){
+            $loading.remove();
+        });
       });
 });
 
@@ -130,44 +131,30 @@ function LanguageValue(lang){
 //      change language end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//      before sign in child event start
-/////////////////////////////////////////////////////////
-
-function signOutEvent(){
-    $("#after_signin").hide();
-    $("#signin_bt").show();
-    $("#addcontent_bt").hide();
-};
-/////////////////////////////////////////////////////////
-//      before sign in child event end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 //      after signin child hover show and hide start
 /////////////////////////////////////////////////////////
-$(function() //after signin child hover show and hide
-{
-    var toggle_count = 0;
-	$('#after_signin').click(function (){
-        switch(toggle_count){
-            case 0 : 
-                $('#after_signin > ul').stop().fadeIn(200);
-                toggle_count = 1;
-            break;
-            case 1 : 
-                $('#after_signin > ul').stop().fadeOut(200);
-                toggle_count = 0;
-            break;
-            default: 
-                return false;
-            break;
-        } 
-	});
-
-	$('#sign_out').click(function () // sign out
-	{
-	    $("#after_signin").hide();
-	    $("#signin_bt").show();
-	    $("#addcontent_bt").hide();
+$(function(){
+    var $personalMenu = $("#after_signin"),
+    $menuList = $personalMenu.find("ul");
+	$personalMenu.click(function (){
+        var $this = $(this);
+        if($this.hasClass("opened")){
+            $this.removeClass("opened");
+            $menuList.stop().fadeOut(200);
+            $("html").off("click");
+        }
+        else{
+            $this.addClass("opened");
+            $menuList.stop().fadeIn(200);
+            $("html").on("click", function (event) {
+                var $this = $(event.target);
+                $this.hideAnywhere($this,$personalMenu,$menuList,{
+                    a:"#user_id",
+                    b:"#display_user",
+                    c:"#accountImg"
+                });
+            });
+        }
 	});
 });
 /////////////////////////////////////////////////////////
@@ -176,27 +163,26 @@ $(function() //after signin child hover show and hide
 /////////////////////////////////////////////////////////
 //      add contents bt popup event start
 /////////////////////////////////////////////////////////
-
 $(function () { //add contents button start
+    var $editorWindow = $(".editor_popup"),
+    $contents = $editorWindow.find("li"),
+    $background = $(".dark_overlay");
     $('#addcontent_bt').click(function () {
-        $('.dark_overlay').stop().fadeIn(100);
-        $('.editor_popup').css("display","block");
-        $('.editor_popup').attr("class","editor_popup fadeInDown animated");
+       $background.stop().fadeIn(100);
+        $editorWindow.css("display","block").attr("class","editor_popup fadeInDown animated");
     });
 
-    $('.editor_popup > ul > li').hover(function () {
+    $contents.hover(function () {
         $(this).children('a').children('i').css({ "color": "#fff", "background": "#48cfad" })
     }, function () {
         $(this).children('a').children('i').css({ "color": "#383838", "background": "#fff" })
     });
 
-    $('.editor_popup_cancel , .dark_overlay , .cancel_bt').click(function () {
-        $('.dark_overlay').stop().fadeOut(200);
-        $('.editor_popup').stop().fadeOut(200);
+    $('.closeButton , .dark_overlay , .cancel_bt').click(function () {
+        $editorWindow.attr("class","editor_popup fadeOutUp animated")
+        setTimeout(function(){$editorWindow.hide();},500);
+        $background.stop().fadeOut(200);
         $('#embed_popup').stop().fadeOut(150);
-        if(windowWidth < 1025){
-            $("#main_search_bar").fadeOut(150);
-        }
     });
 });
 /////////////////////////////////////////////////////////
@@ -206,53 +192,41 @@ $(function () { //add contents button start
 //      main search bar input reset start
 /////////////////////////////////////////////////////////
 $(function () { //search box click value reset start
-    var search_box = $('#main_search_text');
-    var search_box2 = $('#sub_search_text');
-    var search_bt = $('#main_search_btn');
-    var search_bt2 = $('#sub_search_btn');
+    var search_box = $('#main_search_text'),
+    search_box2 = $('#sub_search_text'),
+    search_bt = $('#main_search_btn'),
+    search_bt2 = $('#sub_search_btn');
 
+    //
     search_box.on('keypress', function(event) {
-        console.log("keypress_true");
-        if(event.which == 13) {// 13 == enter key@ascii
-            console.log("if true");
+        if(event.which == 13) {
             search_bt.click();
-        };//if end
-    });//keypress end
-
-    search_bt.click(function(){
-        console.log("clicked");
-    });
-
-    search_box.focus(function(){
-        if (search_box.val() == 'Enter the Keyword') {
+            console.log("Searching....")
+        }
+    }).focus(function(){
+        if (search_box.val() == 'Enter The Keyword') {
             search_box.val('');
         }
-    });
-    search_box.blur(function(){
+    }).blur(function(){
         if (search_box.val() == '') {
-            search_box.val('Enter the Keyword');
+            search_box.val('Enter The Keyword');
         }
     });
 
     search_box2.on('keypress', function(e) {
         console.log("keypress_true");
-        if(e.which == 13) {// 13 == enter key@ascii
+        if(e.which == 13) {
             console.log("if true");
             search_bt.click();
-        };//if end
-    });//keypress end
-
-    search_bt2.click(function(){
+        };
+    }).click(function(){
         console.log("clicked");
-    });
-
-    search_box2.focus(function(){
+    }).focus(function(){
         if(search_box2.val()=='Enter the Keyword'){
             search_box2.val('')
             $("#sub_search_bar").stop().animate({width:350},200);
         }
-    });
-    search_box2.blur(function(){
+    }).blur(function(){
         if(search_box2.val()==''){
             search_box2.val('Enter the Keyword');
             $("#sub_search_bar").stop().animate({width:295},200);
@@ -343,21 +317,17 @@ $(function()  //slider change
 /////////////////////////////////////////////////////////
 //      index page triple bt event start
 /////////////////////////////////////////////////////////
-$(function()	// triple bt on event
-{
-	$('.la_bt').on(
-	{
-		mouseenter : function()
-		{
+$(function(){
+	$('.la_bt').on({
+		mouseenter : function(){
 			$('.la_bt').removeClass('over');
 			$(this).addClass('over');
 		},
-		mouseleave: function () {
+		mouseleave: function (){
 		    $('.la_bt').removeClass('over');
 		    $(this).addClass('out');
 		},
-		click: function ()
-		{
+		click: function (){
 		    $('.la_bt').removeClass('clicked');
 		    $(this).addClass('clicked');
 		}
@@ -494,20 +464,26 @@ function file_info_slideup() {
 //      contents view descript box toggle start
 /////////////////////////////////////////////////////////
 $(function(){
-    var descriptToggle = 0;
-    $("#view_descript").click(function(){
-        switch(descriptToggle){
-            case 0 :
-                $(this).next("#descript_box").fadeIn(300);
-                descriptToggle = 1;
-            break;
-            case 1 :
-                $(this).next("#descript_box").fadeOut(300);
-                descriptToggle = 0;
-            break;
-            default : return; break;
-        }//switch end
-    });//click end
+    var $button = $("#view_descript"),
+    $object = $button.next("#descript_box");
+    $button.click(function(){
+        var $this = $(this);
+        if($button.hasClass("opened")){
+            $object.stop().fadeOut(200);
+            $button.removeClass("opened");
+        }
+        else{
+            $object.stop().fadeIn(200);
+            $button.addClass("opened");
+            $("html").on("click", function (event) {
+                var $this = $(event.target);
+                $this.hideAnywhere($this,$button,$object,{
+                    a:"#view_descript",
+                    b:"#descript_box"
+                });
+            });
+        }
+    })
 });
 /////////////////////////////////////////////////////////
 //      contents view descript box toggle end
@@ -559,12 +535,6 @@ $(function () {
                     //$('#bodyer').hide().append(data).fadeIn(300); //해당 내용을 보여준다
                     $('#contents_box').html('');
                     $('#contents_box').append(data);
-                    $(".basic_filter").selectOrDie
-                    ({
-                        customClass: "custom",
-                        customID: "custom",
-                        size: 5
-                    });
                     if ($('document').find(".subnav_li")) {
                         var urltxt = "#" + third_param.toString();
                         $(".subnav_li").attr("class", "subnav_li");
@@ -679,87 +649,54 @@ $(function(){
 /*--------------------my info setting in creator_page toggle start------------*/
 $(function(){
     if($("#myinfo_setting").length != 0){
-        var my_toggle_count = 0;
-        $("#myinfo_setting").click(function(){
-            switch(my_toggle_count){
-                case 0:
-                $("#myinfo_menu_list").fadeIn(200);
-                my_toggle_count = 1;
-                //console.log(my_toggle_count);
-                break;
-            case 1:
-                $("#myinfo_menu_list").fadeOut(200);
-                my_toggle_count = 0;
-                //console.log(my_toggle_count);
-                break;
-            }//switch end
-        });//click end
-        $("#myinfo_setting").mouseleave(function(){
-            $(document).click(function (event) {
-                event = event || window.event//for IE
-                if ($(event.target).attr("id") != "myinfo_setting") {
-                    //console.log($(event.target).attr("id"));
-                    $(this).find($("#myinfo_menu_list")).stop().fadeOut(200);
-                    my_toggle_count = 0;
-                    //console.log(my_toggle_count);
-                    return;
-                }//if end
-                else{
-                    return;
-                }//else end
-            });//click end
-        });//mouseleave end
-    };//if end
+        var $button = $("#myinfo_setting"),
+        $menu = $button.next("#myinfo_menu_list");
+        $button.click(function(){
+            var $this = $(this);
+            if($this.hasClass("opened")){
+                $menu.stop().fadeOut(200);
+                $this.removeClass("opened");
+            }
+            else{
+                $this.addClass("opened");
+                $menu.stop().fadeIn(200);
+                $("html").on("click", function (event) {
+                    var $this = $(event.target);
+                    $this.hideAnywhere($this,$button,$menu,{
+                        a:"#myinfo_setting"
+                    });
+                });
+            };
+        });
+    };
 });
 /*--------------------my info setting in creator_page toggle end----------------------*/
 /*----------------------------creator card menu toggle start--------------------------*/
 $(function(){
-    if($(".creators_card").length != 0){
-        $(".creator_menu").each(function(){
-            var toggle_count = 0;
-            $(this).click(function (event){
-                event = event || window.event//for IE
-                switch(toggle_count){
-                    case 0:
-                    $(this).children(".creator_menu_list").stop().fadeIn(200);
-                    toggle_count = 1;
-                    //console.log(toggle_count);
-                    break;
-                case 1:
-                    $(this).children(".creator_menu_list").stop().fadeOut(200);
-                    toggle_count = 0;
-                    //console.log(toggle_count);
-                    break;
-                }//switch end
-            });//click end
-            $(this).mouseleave(function(){
-                $(document).click(function (event) {
-                    event = event || window.event//for IE
-                    if (!$(event.target).hasClass("creator_menu_icon")) {
-                        //console.log($(event.target).attr("class"));
-                        $(this).find($(".creator_menu_list")).stop().fadeOut(200);
-                        toggle_count = 0;
-                        //console.log(toggle_count);
-                        return;
-                    }//if end
-                    else{
-                        return;
-                    }//else end
-                });//click end
-            });//mouseleave end
-        });//each end
-    };//if end
+    $(".creator_menu").each(function(){
+        var $this = $(this),
+        $button = $(".creator_menu"),
+        $menu = $this.children(".creator_menu_list");
+        $this.click(function (event){
+            event = event || window.event//for IE
+            if($this.hasClass("opened")){
+                $this.removeClass("opened");
+                $menu.stop().fadeOut(200);
+                console.log("a");
+            }
+            else{
+                console.log("b");
+                $this.addClass("opened");
+                $menu.stop().fadeIn(200);
+                $("html").on("click", function (event) {
+                    var $this = $(event.target);
+                    $this.hideAnywhere($this,$button,$menu,{
+                        a:".creator_menu_icon"
+                    });
+                });
+            }
+        });
+    });
 });
 
 /*----------------------------creator card menu toggle end--------------------------*/
-/*-----------------------------footer sticky start----------------------------------*/
-/*$(window).scroll(function() {
-    if ($(window).scrollTop() <= $(document).height() - $(window).height()){//footer height 180px
-        $("#footer").attr("class","relative_foot");
-    }
-    else{
-        $("#footer").attr("class","fixed_foot fadeIn animated");
-        $("#footer").css("top","50px");         
-    };
-});*/
-/*-----------------------------footer sticky end----------------------------------*/

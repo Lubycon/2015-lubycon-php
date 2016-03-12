@@ -1,10 +1,11 @@
 //This file is only one separate classification codes associated with the UI of the Lubycon.
-//0.lubySelector
-//1. sticky
-//2. hover action
-//3. tooltip box action
-//4. alert action
+//0. lubySelector
+//1. lubyAlert
+//2. sticky
+//3. hover action
+//4. tooltip box action
 //5. mb-panel_menu
+//6. hideAnywhere
 /////////////////////////////////////////////////////////
 //      lubySelector start
 /////////////////////////////////////////////////////////
@@ -19,20 +20,27 @@ $(document).ready(function(){
         userFilter = navGuide.find(".userFilter"),
         categoryFilter = navGuide.find(".categoryFilter"),
 
-        preferFilter.lubySelector();
+        preferFilter.lubySelector({
+            id: "preferFilter"
+        });
         copyrightFilter.lubySelector({
-            icon: "fa fa-copyright",
+            id: "copyrightFilter",
+            icon: "fa fa-copyright"
         });
         languageFilter.lubySelector({
+            id: "languageFilter",
             icon: "fa fa-globe"
         });
         locationFilter.lubySelector({
+            id: "locationFilter",
             icon: "fa fa-globe"
         });
         jobFilter.lubySelector({
+            id: "jobFilter",
             icon: "fa fa-suitcase"
         });
         userFilter.lubySelector({
+            id: "userFilter",
             icon: "fa fa-user"
         });
         categoryFilter.lubySelector({
@@ -56,6 +64,28 @@ $(document).ready(function(){
 });
 /////////////////////////////////////////////////////////
 //      lubySelector end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      lubyAlert start
+///////////////////////////////////////////////////////// 
+$(document).ready(function(){
+    $(".bookmark_bt").lubyAlert({
+        kind: "bookmark",
+        toggle: true
+    });
+    $(".like_bt").lubyAlert({
+        kind: "like",
+        toggle: true
+    });
+    $("#delete_bt").lubyAlert({
+        width: 430,
+        height: 180,
+        kind: "confirm",
+        customText: "Are you sure?"
+    });
+});
+/////////////////////////////////////////////////////////
+//      lubyAlert end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      sticky start
@@ -179,9 +209,9 @@ $(function(){
 });//scale animation end
 $(function(){
     $('.animate_width').hover(function (e){
-        $(this).stop().animate({ width: "+=3", right: "-=1.5"}, 150);
+        $(this).stop().animate({ width: "+=4", right: "-=2"}, 150);
     }, function(){
-        $(this).stop().animate({ width: "-=3", right: "+=1.5"},150);
+        $(this).stop().animate({ width: "-=4", right: "+=2"},150);
     })
 })
 $(function(){
@@ -212,85 +242,6 @@ $(function(){
 /////////////////////////////////////////////////////////
 //      toottip_end
 /////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      lubyAlert start
-/////////////////////////////////////////////////////////   
-$(window).on("load",function(){
-    setTimeout(function(){
-        $(".lubyAlert_bt").each(function(){
-            var toggle_count = 0;
-            $(this).on("click touchend", function (event){
-                if(!dragging){
-                    eventHandler(event, $(this));
-                    toggle_count = showAlert($(this),toggle_count);
-                }
-                else if(dragging){
-                    return;
-                } 
-            });//click end
-        });//each end
-    },1);//setTimeout end  
-});//window load end
-function showAlert(selector,arg){
-    var thisData = selector.attr("data");
-    var alertObject = $(document).find("#"+thisData+"Alert");
-    switch(arg){
-        case 0:
-            switch(thisData){
-                case "bookmark" :
-                    selector.css("color","#ffbe54");
-                    selector.find("i").css('color', '#ffbe54');
-                    arg = 1;
-                    console.log("this is star");
-                break;
-                case "like" :
-                    selector.find("i").css('color', '#48cfad');
-                    arg = 1;
-                    console.log("this is heart");
-                break;
-                case "confirm" :
-                    arg = arg;
-                    $(".dark_overlay").fadeIn(200);
-                    console.log("this is confirm");
-                break;
-                case "success" :
-                    arg = 1;
-                    console.log("this is success");
-                break;
-                default: return false; break;
-            }
-            alertObject.stop().fadeIn(700,function(event){ 
-                if(alertObject.attr("id") != "confirmAlert"){
-                    hideAlert();
-                    console.log(arg);
-                }
-                else if(alertObject.attr("id") === "confirmAlert"){
-
-                }
-            });
-            return arg;
-        break;
-        case 1:
-            selector.css("color","#cccccc");
-            selector.find("i").css('color', '#cccccc');
-            arg = 0;
-            console.log(arg);
-            return arg;
-        break;
-        default: return false; break;
-    }//switch end
-}
-function hideAlert(){
-    setTimeout(function(){
-        $(".lubyAlert").fadeOut(700,function(){
-            return;
-        });
-    },500)
-};
-/////////////////////////////////////////////////////////
-//      lubyAlert end
-/////////////////////////////////////////////////////////
-
 /////////////////////////////////////////////////////////
 //      mobile menu action start
 /////////////////////////////////////////////////////////
@@ -416,9 +367,11 @@ $(window).on("load resize",function(){
 //      visible goToTheTop button start
 /////////////////////////////////////////////////////////
 $(window).on("load resize", function(){
-    if((windowWidth < 1025) && ($("#gotop_bt").length != 0)){
+    var host = hostURL = location.host,
+    page = document.location.href == ("http://"+host+"/Lubycon_Website/0.current_lubycon/index.php");
+    if($("#gotop_bt").length != 0 && page){
         var goTopBt = $(document).find("#gotop_bt");
-        $(document).on("touchmove", function (event){
+        $(document).on("touchmove scroll", function (event){
             if($(document).scrollTop() > 500){
                 goTopBt.stop().show();
                 return;
@@ -478,4 +431,32 @@ $(document).ready(function(){
 });
 /////////////////////////////////////////////////////////
 //      share toggle button end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      hideAnywhere start
+/////////////////////////////////////////////////////////
+$.fn.hideAnywhere = function(selector,button,list,target){
+    this.each(function(){
+        var $this = selector,//event.target
+        $button = button,
+        $list = list,
+        defaults = {
+            a:"",
+            b:"",
+            c:"",
+            d:"",
+            e:"",
+            f:""
+        },
+        d = $.extend({}, defaults, target),
+        bool = $this.is(d.a)||$this.is(d.b)||$this.is(d.c)||$this.is(d.d)||$this.is(d.e)||$this.is(d.f);
+        if(bool==false){
+            $button.removeClass("opened");
+            $list.fadeOut(200);
+        } 
+        return this;
+    }); 
+};
+/////////////////////////////////////////////////////////
+//      hideAnywhere start
 /////////////////////////////////////////////////////////

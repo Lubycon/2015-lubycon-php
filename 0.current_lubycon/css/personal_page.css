@@ -196,6 +196,7 @@
 }
 #creator_month_body{
     height:250px;
+    display: none;
 }
 #dash_creator_infobox {
     width:35%;
@@ -215,7 +216,7 @@
         width: 100%;
         max-width: 1000px;
         height: 300px;
-        background: url(../../contents_data/vectorjpg/12.jpg) no-repeat 50% 46%;
+        background: url(../../../Lubycon_Contents/contents/vector/vectorjpg/12.jpg) no-repeat 50% 46%;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
