@@ -26,7 +26,7 @@ $(function(){
 <link href="css/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
 <div id="index_figure_wrap" class="main_figure_wrap hidden-mb-b">
     <figure id="index_figure">
-        <h2>Connect Your Creativity With The World<br>Cheer Up Guys. We can do it!</h2>
+        <h2>Connect Your Creativity With The World</h2>
     </figure>
 </div>
 <!-- end main_figure -->
