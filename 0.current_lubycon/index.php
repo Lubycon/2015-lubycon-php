@@ -140,8 +140,6 @@ session_start();
         <button class="closeButton"></button>
     </div>
     <!-- popup end -->
-    <!---------------- common parts start ---------------->
-    <!---------------- header start ---------------->
     <header id="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1>

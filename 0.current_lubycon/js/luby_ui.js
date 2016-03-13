@@ -101,10 +101,12 @@ $(document).ready(function(){
 
     headerHeight = $mainHeader.length==0 ? 0 : $mainHeader.outerHeight(true),
     figureHeight = $figure.length==0 ? 0 : $figure.outerHeight(true) - headerHeight,
-    navselHeight = $navsel.length==0 ? 0 : $navsel.outerHeight(true),
+    navselHeight = $navsel.length==0 ? 0 : $navsel.height(),
     stickyStart = figureHeight + navselHeight,
-    objectY = $navsel.length==0 ? $navGuide.outerHeight() : $navGuide.outerHeight();
+    objectY = $navGuide.length==0 ? 0 : $navGuide.outerHeight(true);
     console.log(stickyStart);
+    console.log("figure:"+figureHeight);
+    console.log("navsel:"+navselHeight);
     console.log(objectY)
     lubySticky(stickyStart,objectY);
 })
@@ -115,27 +117,36 @@ function lubySticky(start,objectY){
     $aside = $object.find(".con_aside");
     $document.on("scroll",function(){
         var scrollTop = $(document).scrollTop();
-        navGuideSticky(start,scrollTop,$navGuide,$object,$aside,objectY);
-        console.log(scrollTop);
-    })
+        navGuideSticky(
+            start,//sticky start value
+            scrollTop,//document.scrollTop
+            $navGuide,//object
+            $object,//object
+            $aside,//object
+            objectY//object.marginTop,top
+        );
+    });
 }
 function navGuideSticky(start,scrollTop,nav,object,aside,objectY){
     if(start <= scrollTop){
         nav.addClass("stickyHeader").css({
             "position":"fixed",
-            "top": 50
+            "margin-top": 50,
+            "top": 0
         });
         object.addClass("stickyObject").css({
-            "top": objectY
-        })
+            "top": objectY,
+        });
+        objectY = $("#contents_aside").length==0 ? objectY+50 : objectY;
         aside.addClass("stickyAside").css({
             "position":"fixed",
-            "top": objectY*2
-        })
+            "top": objectY,
+        });
     }
     else{
         nav.removeClass("stickyHeader").css({
             "position":"relative",
+            "margin-top": 0,
             "top": 0
         });
         object.removeClass("stickyObject").css({
@@ -143,7 +154,8 @@ function navGuideSticky(start,scrollTop,nav,object,aside,objectY){
         });
         aside.removeClass("stickyAside").css({
             "position":"absolute",
-            "top": 0
+            "top": 0,
+            "margin-top": 0
         })
     }
 }
