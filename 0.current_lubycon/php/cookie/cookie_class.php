@@ -56,10 +56,6 @@ Class Cookie{
 			return NULL;
 		}
 	}
-
-	
-
-	
 }
 
 ?>
