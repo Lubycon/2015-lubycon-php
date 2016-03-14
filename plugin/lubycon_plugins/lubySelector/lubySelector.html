@@ -64,14 +64,26 @@
 	<script type="text/javascript" src="jquery.lubySelector.js"></script>
 	<script>
 		$("#test").lubySelector({
+			width: 300,
 			searchBar: true,
-			optGroup: true
+			optGroup: true,
+			"float":"none"
 		});
 		$("#test2").lubySelector({
-			width: 500,
 			theme: "ghost",
-			icon: "fa fa-bars"
+			icon: "fa fa-bars",
+			"float":"none"
 		});
+		$("#test3").lubySelector({
+			theme: "white",
+			icon: "fa fa-user",
+			"float": "none"
+		});
+		$("#test4").lubySelector({
+			theme: "transparent",
+			float: "none",
+			icon: "fa fa-search"
+		})
 	</script>
 </body>
 </html>

@@ -20,7 +20,8 @@
             customIcon: "",//font awesome
             customText: "",
             customAnimation: "",
-            toggle: false
+            toggle: false,
+            callback: null
         },
         d = {},
         pac = {
@@ -155,6 +156,7 @@
                     setTimeout(function(){ 
                         $this.blur().fadeOut(d.outSpeed,function(){
                             $this.remove();
+                            d.callback();
                         })
                     },500);
                     console.log("destroyAlert");

@@ -5,24 +5,12 @@
 }
 
 
-#user_view{
+.con_wrap{
     position: relative;
     width:100%;
     top:0px;
     margin-top: -4px;
 }
-    #user_box_total
-    {
-        width:100%;
-        min-width:1200px;
-        display:block;
-        position:relative;
-        margin:0px auto;
-        text-align: center;
-        cursor: default;
-        overflow-y: hidden;
-    }
-
 .con_main{
     padding-right: 0px;
     padding-left: 310px;

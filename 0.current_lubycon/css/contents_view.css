@@ -55,8 +55,9 @@
     vertical-align: top;
     padding-right: 310px;
     margin-bottom: -40px;
+    background: #222222;
+    box-shadow: inset 0px 0px 1000px 0px #000;
 }
-
     #floating_bt{
         box-sizing: border-box;
         -webkit-box-sizing: border-box;

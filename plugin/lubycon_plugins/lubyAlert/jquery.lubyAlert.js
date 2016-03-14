@@ -20,7 +20,8 @@
             customIcon: "",//font awesome
             customText: "",
             customAnimation: "",
-            toggle: false
+            toggle: false,
+            callback: null
         },
         d = {},
         pac = {
@@ -66,7 +67,8 @@
                 
                 alertInput = d.kind=="prompt" ? 
                 $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).on("keydown",pac.keyEvent).focus() 
-                && okBt.appendTo(alertInner).on("click",pac.okCallBack) && cancelBt.appendTo(alertInner).on("click",pac.cancelCallBack) : alertInner.focus(),
+                && okBt.appendTo(alertInner).on("click",pac.okCallBack) 
+                && cancelBt.appendTo(alertInner).on("click",pac.cancelCallBack) : alertInner.focus(),
                 
                 alertConfirm = d.kind=="confirm" ?
                 okBt.appendTo(alertInner).on("click",pac.okCallBack)
@@ -154,6 +156,7 @@
                     setTimeout(function(){ 
                         $this.blur().fadeOut(d.outSpeed,function(){
                             $this.remove();
+                            d.callback();
                         })
                     },500);
                     console.log("destroyAlert");
@@ -175,8 +178,8 @@
             keyEvent: function() {
                 var $this = $(this),
                 kind = d.kind,
-                okBt = $this.siblings(".lubyOk"),
-                cancelBt = $this.siblings(".lubyCancel");
+                okBt = $this.parents(".lubyAlert").find(".lubyOk"),
+                cancelBt = $this.parents(".lubyAlert").find(".lubyCancel");
                 if(event.which == 13) {
                     if($this.val()==""){ cancelBt.click(); }
                     else{ okBt.click(); }

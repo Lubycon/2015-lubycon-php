@@ -53,7 +53,7 @@ function running() {
 	THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
 	var loader = new THREE.OBJMTLLoader();
-	loader.load( 'model/male02.obj', 'model/male02_dds.mtl', function ( object ) {
+	loader.load( './model/male02.obj', './model/male02_dds.mtl', function ( object ) {
 		object.position.y = -80;
 		object.rotation.y = 0.5;
 		scene.add( object );

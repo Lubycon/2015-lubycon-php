@@ -20,7 +20,7 @@
             theme: "black",//white, ghost, transparent
             optGroup: false,//알파벳 헤더 기능
             searchBar: false,//true시 셀렉박스리스트 맨 위에 서치바 생성
-            callback: $.nothing
+            callback: null
         },
         d = {},
         pac = {
@@ -102,7 +102,6 @@
                     $options.fadeIn(300) && $this.addClass("open") && $selectbox.show().trigger("focus") :
                     $options.fadeOut(300) && $this.removeClass("open") && $selectbox.hide().trigger("blur");
                 $this.focusin(); $searchBar.focus();
-                //console.log("boxClick");
             },
             boxFocus: function() {
                 var $this = $(this),
@@ -112,10 +111,8 @@
                     $this.addClass("focused"), $searchBar.addClass("focused"), 
                     $("html").on("click.boxBlur", function () {
                         pac.boxBlur($this);
-                        //console.log("boxFocus_inner");
                     })
                 );
-                //console.log("boxFocus");
             },
             boxBlur: function(selector) {
                 if ($("body").find(selector).length!=0) { 
@@ -163,8 +160,7 @@
                     && $wrap.removeClass("open")
                     && $optionWrap.fadeOut(300) :
                     "";
-                    //console.log($selectbox.val());
-                //console.log("optionClick"); console.log("select value is '" + $selectbox.val() + "'"); 
+                d.callback();
             },
             changeOption: function(selector) {
                 var $this = $(this),
@@ -172,11 +168,6 @@
                 option = $this.find("option").val(),
                 list = $this.prev(".ls_optionWrap").find(".ls_option"),
                 listValue = list.data("value");
-                /*list.each(function(){
-                    var $this = $(this);
-                    (listValue == option) ? $this.addClass("selected") : $this.removeClass("selected");
-                });*/
-                //console.log("changeOption");
             },
             searchEvent: function(selector) {
                 var $this = $(this),
@@ -184,8 +175,7 @@
                 $options = $this.parent().siblings(".ls_option"),
                 $optgroups = $this.parent().siblings(".optGroup"),
                 $filter = $this.parent().siblings(".ls_option[title*='"+$textValue+"']"),
-                $test = $textValue!="" ? ($options.hide() && $filter.show() && $optgroups.hide()) : ($options.show() && $optgroups.show());
-                //console.log("searchEvent");     
+                $test = $textValue!="" ? ($options.hide() && $filter.show() && $optgroups.hide()) : ($options.show() && $optgroups.show());    
             },
             changeTheme: function(selector){
                 var $this = selector,
@@ -230,7 +220,7 @@
         start = {
             test: function () {
                 return this.each(function () {
-                    console.log("tested");
+                    console.log("test");
                 })
             }
         }

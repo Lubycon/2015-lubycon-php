@@ -140,8 +140,6 @@ session_start();
         <button class="closeButton"></button>
     </div>
     <!-- popup end -->
-    <!---------------- common parts start ---------------->
-    <!---------------- header start ---------------->
     <header id="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1>
@@ -402,7 +400,7 @@ session_start();
     ?>
     <div id="gotop_bt"><i class="fa fa-angle-up"></i></div>
     <footer id="footer" class="footer">
-        <span id="luby_copyright"><i class="fa fa-copyright"></i>Lubycon 2016</span>
+        <span id="luby_copyright"><i class="fa fa-copyright"></i>2016 Lubycon</span>
         <span id="about_lubycon" class="hidden-mb-ib">
             <span id="about_us_foot"><a href="./index.php?1=company&2=about_us">About us</a></span>
             <span id="contact_us_foot"><a href="mailto:contact@lubycon.com" target="_blank">Contact us</a></span>
