@@ -217,7 +217,7 @@
                 
             }
         },
-        test = {
+        start = {
             test: function () {
                 return this.each(function () {
                     console.log("test");
