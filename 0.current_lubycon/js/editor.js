@@ -212,6 +212,44 @@ $(function () {
     $('#editor_upload_file').click(function () { //upload file window open
         $('#upload_file_input').click();
     });
+
+
+$('#upload_file_input').on('change', function ()
+{
+    var $this = $(this).attr('id');
+    var $size_setting = 3000000;
+    var $white_list = ['jpg', 'jpeg', 'png', 'psd', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst', 'alz', 'zip', 'rar', 'jar', '7z', 'hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
+
+    files_check($this, $size_setting, $white_list)
+
+});
+function files_check($this, $size_setting, $white_list)
+{
+    var max_total_size = $size_setting; // setted limite size
+    var total_size = 0; // default value
+    for (var i = 0; i < this.files.length; i++) { total_size += this.files[i].size << 0; } //total size sum
+    var ext = $('#upload_file_input').val().split('.').pop().toLowerCase(); //slice ext
+
+    if ($($this).val() != "") // isn't blank?
+    {
+        if ($.inArray(ext, $white_list) !== -1) // check ext
+        {
+            if (total_size <= max_total_size) {
+                alert('done');
+                return;
+            } else // over limite size
+            {
+                alert('big pie');
+                return;
+            }
+        }
+        else // block don't macthed with white list
+        {
+            alert('blocked ext');
+            return;
+        }
+    }
+}
 /////////////////////////////////////////////////////////
 //      editor nav end
 /////////////////////////////////////////////////////////
