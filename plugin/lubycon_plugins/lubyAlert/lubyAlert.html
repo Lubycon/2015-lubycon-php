@@ -19,8 +19,12 @@
 		<script type="text/javascript" src="jquery.lubyAlert.js"></script>
 		<script>
 			$("#test1").lubyAlert({
-				kind: "bookmark"
+				kind: "bookmark",
+				callback: function(){
+					console.log(true);
+				}
 			});
+
 			$("#test2").lubyAlert({
 				kind: "like"
 			});

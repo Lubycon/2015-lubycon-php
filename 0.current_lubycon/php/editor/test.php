@@ -6,7 +6,11 @@
     
     $upload_dir= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ;
     $blacklist = array('jpg','jpeg','png','psd','gif','bmp','pdd','tif','raw','ai','esp','svg','svgz','iff','fpx','frm','pcx','pct','pic','pxr','sct','tga','vda','icb','vst','alz','zip','rar','jar','7z','hwp','txt','doc','xls','xlsx','docx','pptx','pdf','ppt','me');  
-    $limit_size = '3000000'; // byte
+    $limit_size = '30000'; // byte
+
+    /*
+        if you want modified limite size, change in php '$limit_size' in html'hidden MAX_FILE_SIZE' in server side php.ini file
+    */
 
     if(1) //서브밋한거라면
     {

@@ -58,6 +58,7 @@
             </div>
             <span class="tooltip_bt" id="file_tooltip">Upload file to server<br/>(allow only zip file)</span><!--tooltip for upload-->
             <input type="file" id="upload_file_input" name="upload_file[]" multiple/>
+            <input type="hidden" name="MAX_FILE_SIZE" value="300" />
         </section>
         <section class="tab_section" id="thumbnail_tab_section">
             <?php   
