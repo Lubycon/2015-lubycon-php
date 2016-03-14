@@ -10,11 +10,34 @@
 	<script type="text/javascript" src="jquery.lubyPictool.js"></script> 
 </head>
 <body>
-	<div id="test" class="lubyPictoolKey">
-		
-	</div>
+	<div id="test" class="lubyPictoolKey"></div>
+	<input id="drag" type=range min=0 max=100 /><input id="dragval" type="text" value="50" />
+	<div id="toggleBt">Toggle</div>
 	<script>
 		$("#test").lubyPictool();
+
+		//slider
+		var isDragging = false;
+		$("#drag").mousedown(function(){
+			isDragging = true;
+			$(this).addClass("dragging");
+		}).mouseup(function(){
+			isDragging = false;
+			$(this).removeClass("dragging");
+		}).mousemove(function (event){
+			if(isDragging){
+				$(this).next("#dragval").val($(this).val());
+			}
+		}).hide();
+
+		//toggle
+		$("#toggleBt").on("click",function(){
+			if($(this).hasClass("selected")){
+				$(this).removeClass("selected");
+			}else{
+				$(this).addClass("selected");
+			}
+		}).hide();
 	</script>
 </body>
 </html>
