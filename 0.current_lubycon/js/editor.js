@@ -214,28 +214,54 @@ $(function () {
     });
 
 
-$('#upload_file_input').on('change', function ()
-{
-    var $this = $(this).attr('id');
-    var $size_setting = 3000000;
-    var $white_list = ['jpg', 'jpeg', 'png', 'psd', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst', 'alz', 'zip', 'rar', 'jar', '7z', 'hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
+    $('.upload_check').on('change', function ()
+    {
+        var $this = '#' + $(this).attr('id');
+        var files = this.files;
+        var $size_setting = $(this).attr('max-file-size') * 1024 * 1024; //mb
+        var $zip_compress = $(this).attr('zip-comprees');
 
-    files_check($this, $size_setting, $white_list)
+        var $white_list_media = ['jpg', 'jpeg', 'png', 'psd', 'pdf', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst', 'alz', 'zip', 'rar', 'jar', '7z', 'hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
+        var $white_list_img = ['jpg', 'jpeg', 'png', 'psd', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst'];
+        var $white_list_zip = ['alz', 'zip', 'rar', 'jar', '7z'];
+        var $white_list_txt = ['hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
+        var $white_list_all = 'all';
 
+        switch ( $($this).attr('data-type') ) // set white list
+        {
+            case 'media': $white_list = $white_list_media; break;
+            case 'img': $white_list = $white_list_img; break;
+            case 'zip': $white_list = $white_list_zip; break;
+            case 'txt': $white_list = $white_list_txt; break;
+            case 'all': $white_list = $white_list_all; break;
+            default: $white_list = $white_list_all; break;
+        }
+        files_check($this, files, $size_setting, $white_list, $zip_compress);
+        // html example : <input type="file" / class="upload_check" data-type="all" max-file-size="300000" zip-comprees="true" /  name="upload_file[]" multiple/>
 });
-function files_check($this, $size_setting, $white_list)
+function files_check($this, files, $size_setting, $white_list, $zip_compress)
 {
     var max_total_size = $size_setting; // setted limite size
     var total_size = 0; // default value
-    for (var i = 0; i < this.files.length; i++) { total_size += this.files[i].size << 0; } //total size sum
-    var ext = $('#upload_file_input').val().split('.').pop().toLowerCase(); //slice ext
+    for (var i = 0; i < files.length; i++) { total_size += files[i].size << 0; } //total size sum
+    var ext = $($this).val().split('.').pop().toLowerCase(); //slice ext
+    var submit_allow = false;
+    var zip_radio = false;
 
     if ($($this).val() != "") // isn't blank?
     {
-        if ($.inArray(ext, $white_list) !== -1) // check ext
+        if ($.inArray(ext, $white_list) !== -1 || $white_list == 'all') // check ext
         {
-            if (total_size <= max_total_size) {
-                alert('done');
+            if (total_size <= max_total_size) { // size check
+                if ($zip_compress == 'true') // zip or not
+                {
+                    zip_radio = true; // done and zip
+                    submit_allow = true;
+                    alert('do zip');
+                    return;
+                }
+                submit_allow = true; // done and not zip 
+                alert('dont zip');
                 return;
             } else // over limite size
             {
