@@ -4,6 +4,8 @@
 
 class Session{
 	protected $session_id;
+	protected $user_id;
+	protected $user_nick;
 
 	public function __construct(){
 		if(!isset($_SESSION)){
@@ -20,11 +22,6 @@ class Session{
 		isset($this->session_id)?return true : return false;
 	}
 
-	public function set_session_id($id){
-		$this->session_id = session_id($id);
-		isset($this->session_id)?return true : return false;
-	}
-
 	public function get_session_id(){
 		return $this->session_id;
 	}
@@ -33,19 +30,13 @@ class Session{
 		isset($_SESSION($session_name))?return true : return false;
 	}
 
-	public function create_session(){
-
+	public function create_session($id, $nick){
+		$_SESSION['user_id'] = $user_id =$id;
+		$_SESSION['user_nick'] = $user_nick =$nick;
 	}
 
+	public function destroy_session(){
+		session_destroy();
+	}
 }
-
-session_start();
-# Create Session
-
-if(isset($_COOKIE['login'])){
-        $info = unserialize($_COOKIE['login']);
-        setcookie('login', serialize($info), time()+5);
-    }else{
-        session_destroy();
-    }
 ?>
