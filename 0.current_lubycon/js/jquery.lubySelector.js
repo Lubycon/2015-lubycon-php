@@ -1,4 +1,4 @@
-/* ===========================================================
+﻿/* ===========================================================
  *
  *  Name:          lubySelector.min.js
  *  Updated:       2016-02-28
@@ -217,7 +217,7 @@
                 
             }
         },
-        test = {
+        start = {
             test: function () {
                 return this.each(function () {
                     console.log("test");
