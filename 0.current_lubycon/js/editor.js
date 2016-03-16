@@ -227,8 +227,7 @@ $(function () {
         var $white_list_txt = ['hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
         var $white_list_all = 'all';
 
-        switch ( $($this).attr('data-type') ) // set white list
-        {
+        switch ( $($this).attr('data-type') ){
             case 'media': $white_list = $white_list_media; break;
             case 'img': $white_list = $white_list_img; break;
             case 'zip': $white_list = $white_list_zip; break;
@@ -263,7 +262,7 @@ function files_check($this, files, $size_setting, $white_list, $zip_compress)
                 submit_allow = true; // done and not zip 
                 alert('dont zip');
                 return;
-            } else // over limite size
+            } else // over limit size
             {
                 alert('big pie');
                 return;

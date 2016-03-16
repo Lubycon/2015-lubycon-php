@@ -106,14 +106,14 @@
                         }).append($("<i/>",{"class" : icons.plus}))
                         .append($("<p/>",{"html" : "Click Here or Drag and Drop your file on here"}))
                         .appendTo($objBody)
-                        .on("click",headerTool.imgUpload),
+                        .on("click",headerTool.imgUpTrigger),
                         //in header bt
                         $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
                             "html" : "File"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",headerTool.fileUpload),
+                        .appendTo($headerBtWrap).on("click",headerTool.imgUpTrigger),
                         $savebtn = $("<div/>",{
                             "class" : "header-btn savepc",
                             "html" : "Save"
@@ -152,9 +152,9 @@
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
                             "class":"imgUploader lubypic-hidden",
-                            "name":"fileUploader",
+                            "name":"imgUploader",
                             "type":"file"
-                        }).insertAfter($header);
+                        }).insertAfter($header).on("change", upload.imgUpload);
 
                         pac.databind();//data binding
                     }
@@ -186,13 +186,39 @@
                 console.log("placeHolder is clicked");
             }
         },
+        upload ={
+            imgUpload: function(event){
+                var $this = $(this),
+                canvas = $(document).find(".editing-canvas"),
+                target = canvas.find(".obj-body"),
+                footer = canvas.find(".obj-footer"),
+                placeHolder = target.find(".placeHolder"),
+                objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img"}).appendTo(target),
+                devider = $("<div/>",{"class" : "canvas-obj canvas-devider"});
+                index = $(document).find(".object-img").size(),
+                object = event.target.files;
+
+                if(placeHolder.length!=0) placeHolder.remove();
+
+                $.each(object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        var img = $("<img/>",{ "src":event.target.result}).appendTo(objectWrap);
+                    };
+                });
+                $this.val(null);
+                devider.insertAfter(objectWrap);
+                objectWrap.attr("data-index",index);
+            }
+        },
         headerTool = {
-            fileUpload: function(){
+            fileUpTrigger: function(){
                 var $this = $(this),
                 inputFile = $(document).find(".fileUploader");
                 inputFile.click();
             },
-            imgUpload: function(){
+            imgUpTrigger: function(){
                 var $this = $(this),
                 inputFile = $(document).find(".imgUploader");
                 inputFile.click();
