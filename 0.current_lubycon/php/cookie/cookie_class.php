@@ -12,8 +12,8 @@ Class Cookie{
 		$this->cTIME = $timeout;
 		$this->cPATH = $path;
 
-		$tname = $this->cNAME . "_lubycon"; // 이름 끝에는 _lubycon이라는 아이덴티티
-
+		$tname = $this->cNAME; 
+		
 		if(!isset($_COOKIE[$tname])){ // 해당 쿠키이름이 없을 때, 빈 배열로 쿠기 생성
 			$CookieArray = array();
 			$this->WriteCookie($CookieArray);
