@@ -137,12 +137,67 @@ a {
         -moz-box-sizing: border-box;
     }
     .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content{
+        position: relative;
         margin: 0 7%;
     } 
         .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > img{
             width: 100%;
             vertical-align: middle;
         }
+        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn {
+            position: absolute;
+            display: inline-block;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            line-height: 45px;
+            background: #48cfad;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+            text-align: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            cursor: pointer;
+        }
+            .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > i {
+                color: #ffffff;
+                font-size: 22px;
+            }
+            .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu {
+                position: relative;
+                top: -14px;
+                right: -20px;
+                width: 140px;
+                height: auto;
+                line-height: 20px;
+                background: #444444;
+                border: 1px solid #222222;
+                border-radius: 3px;
+                box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+            }
+               .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list {
+                    width: 100%;
+                    color: #aaaaaa;
+                    font-size: 15px;
+                    font-weight: 200;
+                    text-align: left;
+                    padding: 8px;
+                    border-bottom: 1px solid #333333;
+                    box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+               }
+               .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list[data-value="delete"]{
+                    color: #ec6446;
+               }
+               .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list:hover {
+                    color: #ffffff;
+               }
     .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-devider{
         height: 50px;
     }
@@ -155,7 +210,7 @@ a {
         background: #eeeeee;
         cursor: pointer;
         color: #aaaaaa;
-        padding-top: 170px;
+        padding-top: 190px;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;

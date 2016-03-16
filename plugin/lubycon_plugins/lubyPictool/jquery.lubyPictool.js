@@ -36,6 +36,7 @@
             slider: "fa fa-sliders",
             tag: "fa fa-tag",
             plus: "fa fa-plus",
+            pencil: "fa fa-pencil",
             times: "fa fa-times",
             alignCenter: "fa fa-align-center",
             alignLeft: "fa fa-align-left",
@@ -103,17 +104,19 @@
 
                         $placeHolder = $("<div/>",{
                             "class" : "canvas-obj canvas-content placeHolder",
+                            "data-value" : "newImgUpload"
                         }).append($("<i/>",{"class" : icons.plus}))
                         .append($("<p/>",{"html" : "Click Here or Drag and Drop your file on here"}))
                         .appendTo($objBody)
-                        .on("click",headerTool.imgUpTrigger),
+                        .on("click",upload.imgUpTrigger),
                         //in header bt
                         $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "File"
+                            "html" : "File",
+                            "data-value" : "newImgUpload"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",headerTool.imgUpTrigger),
+                        .appendTo($headerBtWrap).on("click",upload.imgUpTrigger),
                         $savebtn = $("<div/>",{
                             "class" : "header-btn savepc",
                             "html" : "Save"
@@ -154,7 +157,7 @@
                             "class":"imgUploader lubypic-hidden",
                             "name":"imgUploader",
                             "type":"file"
-                        }).insertAfter($header).on("change", upload.imgUpload);
+                        }).insertAfter($header);
 
                         pac.databind();//data binding
                     }
@@ -184,35 +187,38 @@
             placeHolder: function(){
                 var $this = $(this);
                 console.log("placeHolder is clicked");
+            },
+            objMenu: function(selector){
+                var $object = selector,
+                $objectMenu = $("<div/>",{"class" : "obj-menu-btn"}).appendTo($object).hide(),
+                $objectMenuIcon = $("<i/>",{"class" : icons.pencil}).appendTo($objectMenu),
+                $menuWrap = $("<ul/>",{"class" : "obj-menu"}).appendTo($objectMenu).hide(),
+                $replace = $("<li/>",{
+                    "class" : "obj-menu-list",
+                    "html" : "Replace",
+                    "data-value" : "replace"
+                }).on("click",upload.imgUpTrigger).appendTo($menuWrap),
+                $Copy = $("<li/>",{
+                    "class" : "obj-menu-list",
+                    "html" : "Copy",
+                    "data-value": "copy"
+                }).appendTo($menuWrap),
+                $delete = $("<li/>",{
+                    "class" : "obj-menu-list",
+                    "html" : "Delete",
+                    "data-value" : "delete"
+                }).appendTo($menuWrap).on("click",canvasTool.deleteObj);
+                $object.hover(
+                    function(){ $objectMenu.show(); },
+                    function(){ $objectMenu.hide(); }
+                );
+                $objectMenu.hover(
+                    function(){ $menuWrap.show(); },
+                    function(){ $menuWrap.hide(); }
+                );
             }
         },
-        upload ={
-            imgUpload: function(event){
-                var $this = $(this),
-                canvas = $(document).find(".editing-canvas"),
-                target = canvas.find(".obj-body"),
-                footer = canvas.find(".obj-footer"),
-                placeHolder = target.find(".placeHolder"),
-                objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img"}).appendTo(target),
-                devider = $("<div/>",{"class" : "canvas-obj canvas-devider"});
-                index = $(document).find(".object-img").size(),
-                object = event.target.files;
-
-                if(placeHolder.length!=0) placeHolder.remove();
-
-                $.each(object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        var img = $("<img/>",{ "src":event.target.result}).appendTo(objectWrap);
-                    };
-                });
-                $this.val(null);
-                devider.insertAfter(objectWrap);
-                objectWrap.attr("data-index",index);
-            }
-        },
-        headerTool = {
+        upload = {
             fileUpTrigger: function(){
                 var $this = $(this),
                 inputFile = $(document).find(".fileUploader");
@@ -220,12 +226,76 @@
             },
             imgUpTrigger: function(){
                 var $this = $(this),
-                inputFile = $(document).find(".imgUploader");
+                inputFile = $(document).find(".imgUploader"),
+                dataValue = $this.data("value");
                 inputFile.click();
+
+                if(dataValue == "newImgUpload") inputFile.off("change").on("change",upload.imgUpload);
+                else if(dataValue == "replace"){
+                    inputFile.off("change").on("change",upload.imgReplace);
+                    $this.addClass("uploading");
+                }  
+                else $.error("This button can't upload to lubyPictool");
             },
+            imgUpload: function(event){
+                var $this = $(this),
+                $canvas = $(document).find(".editing-canvas"),
+                $target = $canvas.find(".obj-body"),
+                $footer = $canvas.find(".obj-footer"),
+                $placeHolder = $target.find(".placeHolder"),
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img"}).appendTo($target),
+                $devider = $("<div/>",{"class" : "canvas-obj canvas-devider"}),
+                index = $(document).find(".object-img").size(),
+                $object = event.target.files;
+
+                if($placeHolder.length!=0) $placeHolder.hide();
+
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        var img = $("<img/>",{ "src":event.target.result}).appendTo($objectWrap);
+                    };
+                });
+                $this.val(null);
+                $devider.insertAfter($objectWrap);
+                $objectWrap.attr("data-index",index);
+                pac.objMenu($objectWrap);
+                console.log("The new image is uploaded");
+            },
+            imgReplace: function(event){
+                var $this = $(this),
+                $button = $(document).find(".uploading")
+                $target = $button.parents(".obj-menu-btn").siblings("img"),
+                $object = event.target.files;
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        $target.attr("src",event.target.result);
+                        $button.removeClass("uploading");
+                    };
+                });
+                $this.val(null);
+                console.log("this image is replaced");
+            }
+        },
+        headerTool = {
             downToPc: function(){
                 var $this = $(this);
-                console.log("download to pc");
+                console.log("Download to pc");
+            }
+        },
+        canvasTool = {
+            deleteObj: function(){
+                var $this = $(this),
+                images = $(document).find(".object-img").size(),
+                $target = $this.parents(".object-img"),
+                $devider = $target.next(".canvas-devider"),
+                $placeHolder = $(document).find(".placeHolder");
+                $target.remove();
+                $devider.remove();
+                if(images == 1) $placeHolder.show();
             }
         },
         tool = {
