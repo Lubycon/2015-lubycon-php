@@ -17,8 +17,8 @@
             fileUpload: true,
             imageUpload: true,
             toolbar: {
-                a: true,
-                b: true
+                textTool: true,
+                colorTool: true
             }
         },
         icons = {
@@ -35,6 +35,7 @@
             sort: "fa fa-sort-amount-desc",
             slider: "fa fa-sliders",
             tag: "fa fa-tag",
+            font: "fa fa-font",
             plus: "fa fa-plus",
             pencil: "fa fa-pencil",
             times: "fa fa-times",
@@ -142,11 +143,19 @@
                             "data-value" : "setting"
                         }).prepend($("<i/>",{"class":icons.setting}))
                         .appendTo($progressWrap).on("click",pac.currentProg),
+
                         //in toolbar
-                        $btnA = d.toolbar.a ? $("<div/>",{"class" : "btn"}).append($("<i/>",{"class":icons.crop}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",tool.btnA) : "";
-                        $btnB = d.toolbar.b ? $("<div/>",{"class" : "btn"}).append($("<i/>",{"class":icons.slider}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",tool.btnB) : "",
+                        $textTool = d.toolbar.textTool ? $("<div/>",{
+                            "class" : "btn",
+                            "data-value" : "textTool"
+                        }).append($("<i/>",{"class":icons.font}))
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "";
+                        $colorTool = d.toolbar.colorTool ? $("<div/>",{
+                            "class" : "btn",
+                            "data-value" : "colorTool"
+                        }).append($("<i/>",{"class":icons.slider}))
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
+
                         //input files
                         $inputFile = $("<input/>",{
                             "class":"fileUploader lubypic-hidden",
@@ -158,7 +167,7 @@
                             "name":"imgUploader",
                             "type":"file"
                         }).insertAfter($header);
-
+                        $(".btn").each(pac.toolbox);
                         pac.databind();//data binding
                     }
                 })
@@ -187,6 +196,17 @@
             placeHolder: function(){
                 var $this = $(this);
                 console.log("placeHolder is clicked");
+            },
+            toolbox: function(){
+                var $this = $(this),
+                $aside = $this.parents(".lubypic-aside"),
+                value = $this.data("value"),
+                toolboxWrap = $("<div/>",{
+                    "class" : "toolbox-wrap",
+                    "data-value" : value,
+                    "id" : value + "-toolbox",
+                    "html" : value
+                }).height(d.height).appendTo($aside).hide();
             },
             objMenu: function(selector){
                 var $object = selector,
@@ -298,18 +318,17 @@
                 if(images == 1) $placeHolder.show();
             }
         },
-        tool = {
-            btnA: function(){
-                var $this = $(this);
-                if($this.hasClass("selected")){
-                    console.log("btnA");
+        toolbar = {
+            toolbarToggle: function(){
+                var $this = $(this),
+                value = $this.data("value"),
+                toolBoxes = $(document).find(".toolbox-wrap"),
+                toolBox = $(".toolbox-wrap[data-value=" + value + "]");
+                if($this.hasClass("selected")) {
+                    toolBoxes.hide();
+                    toolBox.show();
                 }
-            },
-            btnB: function(){
-                var $this = $(this);
-                if($this.hasClass("selected")){
-                    console.log("btnB");
-                }
+                else toolBox.hide();
             }
         },
         start = {
