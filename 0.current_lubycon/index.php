@@ -37,7 +37,7 @@ session_start();
     <link href="css/layout/animate.css" rel="stylesheet" type="text/css" /><!--animation for objects-->
     <link href="css/slider.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/jquery-2.2.1.js"></script> <!-- jquery library -->
     <script type="text/javascript" src="js/slider.js"></script><!--slider plugin-->
     <script type="text/javascript" src="js/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/jquery.lubyAlert.js"></script><!--lubyAlert-->

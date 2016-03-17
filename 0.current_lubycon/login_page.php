@@ -22,7 +22,7 @@
     <link href="css/login_page.css" rel="stylesheet" type="text/css" /> 
     <link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
 
-    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/jquery-2.2.1.js"></script> <!-- jquery library -->
     <script type="text/javascript" src="js/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/jquery.lubyAlert.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/luby_ui.js"></script>
