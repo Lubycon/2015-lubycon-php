@@ -30,7 +30,7 @@
                         buttonX = defaultVal,
 
                         $sliderWrap = $("<div/>",{ "class" : "slider-wrapper" }).width(objWidth)
-                        .insertBefore($this).append($this).on("mousedown",drag.dragable).on("change",".sliderKey",drag.change),
+                        .insertBefore($this).append($this).on("mousedown",drag.dragable),
                         $sliderBar = $("<span/>",{
                             "class" : "slider-bar",
                             "data-value" : defaultVal,
@@ -41,7 +41,12 @@
 
                         $sliderBt = $("<div/>",{
                             "class" : "slider-bt"
-                        }).css("left",buttonX+"%").appendTo($sliderWrap);
+                        }).css("left",buttonX+"%").appendTo($sliderWrap),
+                        textBox = $("<input/>",{
+                            "type" : "text",
+                            "class" : "slider-text",
+                            "value" : defaultVal
+                        }).appendTo($sliderWrap).on("change",drag.textBox);
                     }
                 })
             }
@@ -49,18 +54,24 @@
         drag = {
             dragable: function(){
                 var $this = $(this), 
-                $bt = $this.find(".slider-bt");
+                $bt = $this.find(".slider-bt"),
+                $bar = $this.find(".slider-bar"),
+                isDragging = true;
                 $bt.addClass("dragging");
                 $this
                 .on("mousemove",function(event){
-                    drag.dragAction(event.pageX,$this,$bt);
+                    var target = $(event.target);
+                    if(isDragging && (!target.is(".slider-text"))) drag.dragAction(event.pageX,$this,$bt);
+                    else $this.off("mousemove");
                 })
                 .on("mouseleave",function(){
                     $this.off("mousemove");
+                    isDragging = false;
                     $this.removeClass("dragging");
                 })
-                .on("mouseup","*",function(){ 
+                .on("mouseup","*",function(){
                     $this.off("mousemove");
+                    isDragging = false;
                     $bt.removeClass("dragging"); 
                 });
             },
@@ -70,6 +81,7 @@
                 $input = $this.find(".sliderKey"),
                 $bar = $this.find(".slider-bar"),
                 $area = $this.find(".slider-bar > .slider-area"),
+                $text = $this.find(".slider-text"),
                 width = $this.width(),
                 mouseX = mouseX - $this.offset().left, objX;
 
@@ -80,12 +92,34 @@
                 var ratio = width/objX,
                 value = Math.floor($input.attr("max")/ratio);
 
-                d.callback(value);
                 $bt.css({ "left" : objX });
-                $area.css({ "right" : width-objX});
-                $bar.data("val",value);
+                $area.css({ "right" : width - objX});
+                $bar.data("value",value);
                 $input.val(value);
-                console.log(value);
+
+                $text.val(value);
+                $text.trigger("change");
+
+            },
+            textBox: function(){
+                var $this = $(this),
+                $slider = $this.siblings(".sliderKey"),
+                $bar = $this.siblings(".slider-bar"),
+                $area = $bar.find(".slider-area"),
+                $bt = $this.siblings(".slider-bt"),
+                
+                value = parseInt($this.val()) || 0;
+                if(value > 100) value = 100;
+                else if(value < 0) value = 0;
+
+                var ratio = 100 - value + "%",
+                btX = value + "%";
+
+                $area.css({ "right":ratio });
+                $bt.css({"left" : btX});
+
+                $this.val(value);
+                d.callback(value,$this);
             }
         },
         start = {
