@@ -48,7 +48,7 @@ a {
 
 .slider-wrapper {
     position: relative;
-    display: inline-block;
+    display: block;
     height: 20px;
     background: transparent;
     box-sizing: border-box;
@@ -101,6 +101,7 @@ a {
         box-shadow: inset 0px 0px 100px 0px rgba(0,0,0,0.5);
         text-align: center;
         font-size: 12px;
+        font-weight: 200;
         color: #eeeeee;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -120,6 +121,9 @@ a {
     margin: 0;
     margin-top: 20px;
 }
+    #test1 {
+        font-size: 20px;
+    }
 
 
 

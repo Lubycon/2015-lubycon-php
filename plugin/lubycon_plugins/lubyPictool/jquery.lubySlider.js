@@ -12,6 +12,7 @@
 (function($){
     $.fn.slider = function(option){
         var defaults = { 
+            textbox : false,
             callback: null
         },
         d = {},
@@ -42,11 +43,12 @@
                         $sliderBt = $("<div/>",{
                             "class" : "slider-bt"
                         }).css("left",buttonX+"%").appendTo($sliderWrap),
-                        textBox = $("<input/>",{
+                        textBox = d.textbox ? 
+                        $("<input/>",{
                             "type" : "text",
                             "class" : "slider-text",
                             "value" : defaultVal
-                        }).appendTo($sliderWrap).on("change",drag.textBox);
+                        }).appendTo($sliderWrap).on("change",drag.textBox) : "";
                     }
                 })
             }
@@ -92,6 +94,7 @@
                 var ratio = width/objX,
                 value = Math.floor($input.attr("max")/ratio);
 
+                d.callback(value,$this);
                 $bt.css({ "left" : objX });
                 $area.css({ "right" : width - objX});
                 $bar.data("value",value);
@@ -107,19 +110,13 @@
                 $bar = $this.siblings(".slider-bar"),
                 $area = $bar.find(".slider-area"),
                 $bt = $this.siblings(".slider-bt"),
-                
-                value = parseInt($this.val()) || 0;
-                if(value > 100) value = 100;
-                else if(value < 0) value = 0;
-
-                var ratio = 100 - value + "%",
+                value = $this.val(),
+                ratio = 100 - value + "%";
                 btX = value + "%";
 
                 $area.css({ "right":ratio });
                 $bt.css({"left" : btX});
-
-                $this.val(value);
-                d.callback(value,$this);
+                console.log(value);
             }
         },
         start = {

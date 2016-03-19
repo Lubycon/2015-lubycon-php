@@ -73,10 +73,12 @@ a {
         left: 0;
         top: 0;
         width: 50px;
+        height: 100%;
         padding-top: 70px;
         background: #333333;
         z-index: 100;
         box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+        border-right: 1px solid #222222;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -89,9 +91,10 @@ a {
         padding: 20px;
         padding-top: 70px;
         width: 250px;
+        height: 100%;
         background: #383838;
         z-index: 90;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+        box-shadow: 7px 0px 10px -4px rgba(0,0,0,0.6);
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -101,11 +104,13 @@ a {
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
+            margin: 15px auto;
         }
             .toolbox-inner > .toolbox-label {
                 font-size: 15px;
                 color: #dddddd;
                 font-weight: 200;
+                margin-bottom: 5px;
             }
             .toolbox-inner input[type="range"] {
                 width: 150px;
@@ -341,19 +346,6 @@ a {
     width: 100%;
     margin: 0px auto;
 }
-
-#dragval{
-    display: none;
+.slider-wrapper{
+    width: 160px !important;
 }
-#toggleBt {
-    display: none;
-    width: 80px;
-    height: 30px;
-    background: #aaaaaa;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-}
-    #toggleBt.selected {
-        background: #48cfad;
-    }

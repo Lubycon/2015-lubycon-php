@@ -37,6 +37,7 @@
             tag: "fa fa-tag",
             font: "fa fa-font",
             plus: "fa fa-plus",
+            paint: "fa fa-paint-brush",
             pencil: "fa fa-pencil",
             times: "fa fa-times",
             alignCenter: "fa fa-align-center",
@@ -94,7 +95,7 @@
                         $wrapper = $("<div/>",{"class" : "lubypic-wrapper"}).appendTo($this),
                         $header = $("<div/>",{"class" : "lubypic-header"}).appendTo($wrapper),
                         $body = $("<div/>",{"class" : "lubypic-body"}).appendTo($wrapper),
-                        $aside = $("<div/>",{"class" : "lubypic-aside"}).height(d.height).appendTo($body),
+                        $aside = $("<div/>",{"class" : "lubypic-aside"}).appendTo($body),
                         $editingBack = $("<div/>",{"class" : "editing-background"}).appendTo($body),
                         //canvas
                         $editingArea = $("<div/>",{"class" : "editing-area"}).appendTo($body),
@@ -207,7 +208,7 @@
                     "class" : "toolbox-wrap",
                     "data-value" : value,
                     "id" : value + "-toolbox"
-                }).height(d.height).appendTo($aside).hide();
+                }).appendTo($aside).hide();
             },
             objMenu: function(selector){
                 var $object = selector,
@@ -317,6 +318,10 @@
                 $target.remove();
                 $devider.remove();
                 if(images == 1) $placeHolder.show();
+            },
+            addObj: function(){
+                var canvas = $(document).find(".editing-canvas");
+
             }
         },
         toolbar = {
@@ -333,9 +338,17 @@
             },
             textTool: function(){
                 var $this = $(document).find("#textTool-toolbox"),
-                $fontSize = $("<div/>",{"class" : "toolbox-inner", "id" : "fontSize-tool"}).appendTo($this),
-                $label = $("<div/>",{ "class":"toolbox-label", "html" : "Font-Size" }).appendTo($fontSize),
-                $input = $("<input/>",{
+                
+                $fontSize = $("<div/>",{ //font size start
+                    "class" : "toolbox-inner", 
+                    "id" : "fontSize-tool", 
+                    "data-value" : "font-size"
+                }).appendTo($this),
+                $fsLabel = $("<div>",{
+                    "class" : "toolbox-label",
+                    "html" : "Font Size"
+                }).appendTo($fontSize),
+                $sizeInput = $("<input/>",{ //input
                     "type" : "range",
                     "class" : "sliderKey",
                     "value" : 12,
@@ -343,9 +356,27 @@
                     "max" : 100
                 }).appendTo($fontSize).slider({ 
                     textbox:true ,
-                    callback: function(val,selector){
-                        console.log(val);
-                    }
+                    callback: toolbar.textFn.fontSize
+                }),
+                
+                $fontColor = $("<div/>",{ //font color start
+                    "class" : "toolbox-inner", 
+                    "id" : "fontColor-tool",
+                    "data-value" : "font-color"
+                }).appendTo($this),
+                $fcLabel = $("<div>",{
+                    "class" : "toolbox-label",
+                    "html" : "Font Color"
+                }).appendTo($fontColor),
+                $colorInput = $("<input/>",{ //input
+                    "type" : "text",
+                    "class" : "fontColorKey"
+                }).appendTo($fontColor).spectrum({
+                    color: "#ffffff",
+                    showInput: true,
+                    showAlpha: true,
+                    showInitial: true,
+                    preferredFormat: "hex3"
                 });
             },
             textFn: {

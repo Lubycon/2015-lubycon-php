@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link href="lubySlider.css" rel="stylesheet" type="text/css" />
+	<link href="spectrum.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="jquery-1.12.2.js"></script>
+	<script type="text/javascript" src="jquery.lubySlider.js"></script>
+	<script type="text/javascript" src="spectrum.js"></script>
+</head>
+<body>
+	<input id="sliderTest" class="sliderKey" type="range" value="20" min="10" max="100"/>
+	<input id="colorTest" type="text" />
+	<p id="text1">Lorem ipsum vaiwpe applet</p>
+	<script>
+		$("#sliderTest").slider({
+			textbox: true,
+			callback: function(val,selector){
+				var $this = selector,
+				value = val,
+				text = $(document).find("#text1");
+				console.log(val);
+				text.css("font-size",value);
+			}
+		});
+		$("#colorTest").spectrum({
+			color: "#ffffff",
+			showInput: true,
+			showAlpha: true,
+			showInitial: true,
+			preferredFormat: "hex3"
+		});
+	</script>
+</body>
+</html>
