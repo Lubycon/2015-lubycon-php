@@ -3,32 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>test</title>
-	<link href="">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<link href="lubyPictool.css" rel="stylesheet" type="text/css" />  <!-- common css -->
-	<script type="text/javascript" src="jquery-1.11.3.min.js"></script> <!-- jquery library -->
+	<link href="lubySlider.css" rel="stylesheet" type="text/css" />
+	<link href="lubyPictool.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="jquery-1.12.2.js"></script> <!-- jquery library -->
+	<script type="text/javascript" src="jquery.lubySlider.js"></script>
 	<script type="text/javascript" src="jquery.lubyPictool.js"></script> 
 </head>
 <body>
 	<div id="test" class="lubyPictoolKey"></div>
-	<input id="drag" type=range min=0 max=100 /><input id="dragval" type="text" value="50" />
-	<div id="toggleBt">Toggle</div>
 	<script>
 		$("#test").lubyPictool();
-
-		//slider
-		var isDragging = false;
-		$("#drag").mousedown(function(){
-			isDragging = true;
-			$(this).addClass("dragging");
-		}).mouseup(function(){
-			isDragging = false;
-			$(this).removeClass("dragging");
-		}).mousemove(function (event){
-			if(isDragging){
-				$(this).next("#dragval").val($(this).val());
-			}
-		}).hide();
 	</script>
 </body>
 </html>

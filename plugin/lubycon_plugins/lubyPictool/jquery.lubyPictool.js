@@ -17,8 +17,8 @@
             fileUpload: true,
             imageUpload: true,
             toolbar: {
-                a: true,
-                b: true
+                textTool: true,
+                colorTool: true
             }
         },
         icons = {
@@ -35,7 +35,9 @@
             sort: "fa fa-sort-amount-desc",
             slider: "fa fa-sliders",
             tag: "fa fa-tag",
+            font: "fa fa-font",
             plus: "fa fa-plus",
+            pencil: "fa fa-pencil",
             times: "fa fa-times",
             alignCenter: "fa fa-align-center",
             alignLeft: "fa fa-align-left",
@@ -52,7 +54,7 @@
             upload: "fa fa-cloud-upload",
             download: "fa fa-inbox"
         },
-        keyCode = {
+        keyCode = { //ascii
             a: 65,
             b: 66,
             c: 67,
@@ -103,17 +105,19 @@
 
                         $placeHolder = $("<div/>",{
                             "class" : "canvas-obj canvas-content placeHolder",
+                            "data-value" : "newImgUpload"
                         }).append($("<i/>",{"class" : icons.plus}))
                         .append($("<p/>",{"html" : "Click Here or Drag and Drop your file on here"}))
                         .appendTo($objBody)
-                        .on("click",headerTool.imgUpload),
+                        .on("click",upload.imgUpTrigger),
                         //in header bt
                         $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "File"
+                            "html" : "File",
+                            "data-value" : "newImgUpload"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",headerTool.fileUpload),
+                        .appendTo($headerBtWrap).on("click",upload.imgUpTrigger),
                         $savebtn = $("<div/>",{
                             "class" : "header-btn savepc",
                             "html" : "Save"
@@ -139,11 +143,19 @@
                             "data-value" : "setting"
                         }).prepend($("<i/>",{"class":icons.setting}))
                         .appendTo($progressWrap).on("click",pac.currentProg),
+
                         //in toolbar
-                        $btnA = d.toolbar.a ? $("<div/>",{"class" : "btn"}).append($("<i/>",{"class":icons.crop}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",tool.btnA) : "";
-                        $btnB = d.toolbar.b ? $("<div/>",{"class" : "btn"}).append($("<i/>",{"class":icons.slider}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",tool.btnB) : "",
+                        $textTool = d.toolbar.textTool ? $("<div/>",{
+                            "class" : "btn",
+                            "data-value" : "textTool"
+                        }).append($("<i/>",{"class":icons.font}))
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "";
+                        $colorTool = d.toolbar.colorTool ? $("<div/>",{
+                            "class" : "btn",
+                            "data-value" : "colorTool"
+                        }).append($("<i/>",{"class":icons.slider}))
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
+
                         //input files
                         $inputFile = $("<input/>",{
                             "class":"fileUploader lubypic-hidden",
@@ -152,16 +164,18 @@
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
                             "class":"imgUploader lubypic-hidden",
-                            "name":"fileUploader",
+                            "name":"imgUploader",
                             "type":"file"
                         }).insertAfter($header);
-
+                        $(".btn").each(pac.toolbox);
                         pac.databind();//data binding
                     }
                 })
             },
             databind: function(){
-                console.log("databind");
+                //toolbar data bind start
+                toolbar.textTool();
+                //toolbar data bind end
             },
             toggle: function(){
                 var $this = $(this),
@@ -184,35 +198,168 @@
             placeHolder: function(){
                 var $this = $(this);
                 console.log("placeHolder is clicked");
+            },
+            toolbox: function(){
+                var $this = $(this),
+                $aside = $this.parents(".lubypic-aside"),
+                value = $this.data("value"),
+                toolboxWrap = $("<div/>",{
+                    "class" : "toolbox-wrap",
+                    "data-value" : value,
+                    "id" : value + "-toolbox"
+                }).height(d.height).appendTo($aside).hide();
+            },
+            objMenu: function(selector){
+                var $object = selector,
+                $objectMenu = $("<div/>",{"class" : "obj-menu-btn"}).appendTo($object).hide(),
+                $objectMenuIcon = $("<i/>",{"class" : icons.pencil}).appendTo($objectMenu),
+                $menuWrap = $("<ul/>",{"class" : "obj-menu"}).appendTo($objectMenu).hide(),
+                $replace = $("<li/>",{
+                    "class" : "obj-menu-list",
+                    "html" : "Replace",
+                    "data-value" : "replace"
+                }).on("click",upload.imgUpTrigger).appendTo($menuWrap),
+                $Copy = $("<li/>",{
+                    "class" : "obj-menu-list",
+                    "html" : "Copy",
+                    "data-value": "copy"
+                }).appendTo($menuWrap),
+                $delete = $("<li/>",{
+                    "class" : "obj-menu-list",
+                    "html" : "Delete",
+                    "data-value" : "delete"
+                }).appendTo($menuWrap).on("click",canvasTool.deleteObj);
+                $object.hover(
+                    function(){ $objectMenu.show(); },
+                    function(){ $objectMenu.hide(); }
+                );
+                $objectMenu.hover(
+                    function(){ $menuWrap.show(); },
+                    function(){ $menuWrap.hide(); }
+                );
             }
         },
-        headerTool = {
-            fileUpload: function(){
+        upload = {
+            fileUpTrigger: function(){
                 var $this = $(this),
                 inputFile = $(document).find(".fileUploader");
                 inputFile.click();
             },
-            imgUpload: function(){
+            imgUpTrigger: function(){
                 var $this = $(this),
-                inputFile = $(document).find(".imgUploader");
+                inputFile = $(document).find(".imgUploader"),
+                dataValue = $this.data("value");
                 inputFile.click();
+
+                if(dataValue == "newImgUpload") inputFile.off("change").on("change",upload.imgUpload);
+                else if(dataValue == "replace"){
+                    inputFile.off("change").on("change",upload.imgReplace);
+                    $this.addClass("uploading");
+                }  
+                else $.error("This button can't upload to lubyPictool");
             },
-            downToPc: function(){
-                var $this = $(this);
-                console.log("download to pc");
+            imgUpload: function(event){
+                var $this = $(this),
+                $canvas = $(document).find(".editing-canvas"),
+                $target = $canvas.find(".obj-body"),
+                $footer = $canvas.find(".obj-footer"),
+                $placeHolder = $target.find(".placeHolder"),
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img"}).appendTo($target),
+                $devider = $("<div/>",{"class" : "canvas-obj canvas-devider"}),
+                index = $(document).find(".object-img").size(),
+                $object = event.target.files;
+
+                if($placeHolder.length!=0) $placeHolder.hide();
+
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        var img = $("<img/>",{ "src":event.target.result}).appendTo($objectWrap);
+                    };
+                });
+                $this.val(null);
+                $devider.insertAfter($objectWrap);
+                $objectWrap.attr("data-index",index);
+                pac.objMenu($objectWrap);
+                console.log("The new image is uploaded");
+            },
+            imgReplace: function(event){
+                var $this = $(this),
+                $button = $(document).find(".uploading")
+                $target = $button.parents(".obj-menu-btn").siblings("img"),
+                $object = event.target.files;
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        $target.attr("src",event.target.result);
+                        $button.removeClass("uploading");
+                    };
+                });
+                $this.val(null);
+                console.log("this image is replaced");
             }
         },
-        tool = {
-            btnA: function(){
+        headerTool = {
+            downToPc: function(){
                 var $this = $(this);
-                if($this.hasClass("selected")){
-                    console.log("btnA");
+                console.log("Download to pc");
+            }
+        },
+        canvasTool = {
+            deleteObj: function(){
+                var $this = $(this),
+                images = $(document).find(".object-img").size(),
+                $target = $this.parents(".object-img"),
+                $devider = $target.next(".canvas-devider"),
+                $placeHolder = $(document).find(".placeHolder");
+                $target.remove();
+                $devider.remove();
+                if(images == 1) $placeHolder.show();
+            }
+        },
+        toolbar = {
+            toolbarToggle: function(){
+                var $this = $(this),
+                value = $this.data("value"),
+                toolBoxes = $(document).find(".toolbox-wrap"),
+                toolBox = $(".toolbox-wrap[data-value=" + value + "]");
+                if($this.hasClass("selected")) {
+                    toolBoxes.hide();
+                    toolBox.show();
                 }
+                else toolBox.hide();
             },
-            btnB: function(){
-                var $this = $(this);
-                if($this.hasClass("selected")){
-                    console.log("btnB");
+            textTool: function(){
+                var $this = $(document).find("#textTool-toolbox"),
+                $fontSize = $("<div/>",{"class" : "toolbox-inner", "id" : "fontSize-tool"}).appendTo($this),
+                $label = $("<div/>",{ "class":"toolbox-label", "html" : "Font-Size" }).appendTo($fontSize),
+                $input = $("<input/>",{
+                    "type" : "range",
+                    "class" : "sliderKey",
+                    "value" : 12,
+                    "min" : 0,
+                    "max" : 100
+                }).appendTo($fontSize).slider({ 
+                    textbox:true ,
+                    callback: function(val,selector){
+                        console.log(val);
+                    }
+                });
+            },
+            textFn: {
+                fontSize: function(){
+
+                },
+                fontColor: function(){
+
+                },
+                fontFamily: function(){
+
+                },
+                fontDeco: function(){
+
                 }
             }
         },

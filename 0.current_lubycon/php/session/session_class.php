@@ -15,6 +15,12 @@ class Session{
 
 	public function init_session(){
 		session_start();
+
+		# set php.ini
+		# set session expire time maximum 1440(if do not anything)
+		# set session lifetime 0(if exit browser delete session)
+		ini_set("session.gc_maxlifetime", 1440);
+		ini_set("session.cookie_lifetime", 0);
 	}
 
 	public function set_session_id(){
