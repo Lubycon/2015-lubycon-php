@@ -61,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "editor", "editor", "{3FC225
 		php\editor\editor_thumbnail.php = php\editor\editor_thumbnail.php
 		php\editor\imageUpload.php = php\editor\imageUpload.php
 		php\editor\test.php = php\editor\test.php
+		php\editor\upload.php = php\editor\upload.php
+		php\editor\uploadclasstest.php = php\editor\uploadclasstest.php
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "personal_page", "personal_page", "{5528D5D6-2249-4D2D-917F-4B4987AE93D2}"
@@ -222,6 +224,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img_crop", "img_crop", "{B2
 		php\img_crop\img_save_to_file.php = php\img_crop\img_save_to_file.php
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "class", "class", "{95D8E7D4-DFA3-4DD2-B9C7-E03AEB7EA262}"
+	ProjectSection(SolutionItems) = preProject
+		php\class\upload_class.php = php\class\upload_class.php
+		php\class\zipfile.php = php\class\zipfile.php
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -246,5 +254,6 @@ Global
 		{4A844A4F-BD40-4012-B242-753595699D6D} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{B5BAB6CF-31EF-4F58-AB26-627D58D8B67D} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{B28D56C0-BF45-4F8E-9C8D-F8B33B2A7D60} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{95D8E7D4-DFA3-4DD2-B9C7-E03AEB7EA262} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 	EndGlobalSection
 EndGlobal
