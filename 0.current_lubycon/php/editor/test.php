@@ -5,11 +5,11 @@
     $user_name = 'daniel_zepp';
     
     $upload_dir= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ;
-    $blacklist = array('jpg','jpeg','png','psd','gif','bmp','pdd','tif','raw','ai','esp','svg','svgz','iff','fpx','frm','pcx','pct','pic','pxr','sct','tga','vda','icb','vst','alz','zip','rar','jar','7z','hwp','txt','doc','xls','xlsx','docx','pptx','pdf','ppt','me');  
-    $limit_size = '30000'; // byte
+    $whitelist = array('jpg','jpeg','png','psd','gif','bmp','pdd','tif','raw','ai','esp','svg','svgz','iff','fpx','frm','pcx','pct','pic','pxr','sct','tga','vda','icb','vst','alz','zip','rar','jar','7z','hwp','txt','doc','xls','xlsx','docx','pptx','pdf','ppt','me');  
+    $limit_size = 3 * 1024 * 1024; // byte
 
     /*
-        if you want modified limite size, change in php '$limit_size' in html'hidden MAX_FILE_SIZE' in server side php.ini file
+        if you want modified limite size, change in this php '$limit_size' in editor.js '$size_setting' and in server side php.ini setting
     */
 
     if(1) //서브밋한거라면
@@ -18,7 +18,7 @@
         {
             $filename = $_FILES['upload_file']['name'][$i]; // 오리지날 파일이름
             $ext = substr(strrchr($filename, '.'), 1); // 확장자 추출
-            if ( !in_array($ext, $blacklist) )  // 확장자 검사
+            if ( !in_array($ext, $whitelist) )  // 확장자 검사
             {
                 echo $filename.' not allow<br/>';
                 return false;

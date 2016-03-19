@@ -57,7 +57,8 @@
                 <i class="fa fa-cloud-upload"></i>Upload File
             </div>
             <span class="tooltip_bt" id="file_tooltip">Upload file to server<br/>(allow only zip file)</span><!--tooltip for upload-->
-            <input type="file" id="upload_file_input" class="upload_check" data-type="media" max-file-size="1" zip-comprees="true" name="upload_file[]" multiple/>
+            <input type="file" id="upload_file_input" class="upload_check" data-type="media" data-maxfilesize="1" data-zipcomprees="true" name="upload_file[]" multiple/>
+            <div id="fileinfo_wrap"><ul id="fileinfo_ul"></ul></div>
         </section>
         <section class="tab_section" id="thumbnail_tab_section">
             <?php   
