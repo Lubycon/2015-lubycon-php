@@ -7,7 +7,7 @@ License: MIT
 
 .sp-container {
     position:absolute;
-    top:0;
+    top: 198px !important;
     left:0;
     display:inline-block;
     *display: inline;
