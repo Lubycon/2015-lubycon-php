@@ -1,7 +1,7 @@
 <?php
     echo "<hr/>-------------zip file upload--------------<hr/><br/>";
     $set_date = date("YmdHis");
-    $con_cate = 'artwork';
+    $con_cate = $_POST['contents_cate_name'];
     $user_name = 'daniel_zepp'; // from db
 
     $files = $_FILES['upload_file']; // input name
@@ -17,10 +17,10 @@
     */
     require_once "../class/upload_class.php";
     $uploader = new upload;
-    $uploader->validate_size($files,$limit_size);
-    $uploader->validate_ext($files,$whitelist);
-    $uploader->filemovetotemp($files,$zip_compress,$upload_path);
-    $uploader->finalsave($files,$zip_compress,$upload_path,$upload_path.$user_name.'_luby.zip');
+    $uploader->validate_size($files,$limit_size); // files , admin setting limit size
+    $uploader->validate_ext($files,$whitelist); // files , admin setting suppot ext
+    $uploader->filemovetotemp($files,$zip_compress,$upload_path); // files , admin setting zip compress , save path
+    $uploader->finalsave($files,$zip_compress,$upload_path,$upload_path.$user_name.'_luby.zip'); // // files , admin setting zip compress , save path , save file name
 
     echo "<hr/><br/>-------------zip file upload--------------<hr/>";
 
