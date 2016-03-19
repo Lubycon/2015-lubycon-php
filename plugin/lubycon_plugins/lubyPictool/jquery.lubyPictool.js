@@ -54,7 +54,7 @@
             upload: "fa fa-cloud-upload",
             download: "fa fa-inbox"
         },
-        keyCode = {
+        keyCode = { //ascii
             a: 65,
             b: 66,
             c: 67,
@@ -173,7 +173,9 @@
                 })
             },
             databind: function(){
-                console.log("databind");
+                //toolbar data bind start
+                toolbar.textTool();
+                //toolbar data bind end
             },
             toggle: function(){
                 var $this = $(this),
@@ -204,8 +206,7 @@
                 toolboxWrap = $("<div/>",{
                     "class" : "toolbox-wrap",
                     "data-value" : value,
-                    "id" : value + "-toolbox",
-                    "html" : value
+                    "id" : value + "-toolbox"
                 }).height(d.height).appendTo($aside).hide();
             },
             objMenu: function(selector){
@@ -329,6 +330,37 @@
                     toolBox.show();
                 }
                 else toolBox.hide();
+            },
+            textTool: function(){
+                var $this = $(document).find("#textTool-toolbox"),
+                $fontSize = $("<div/>",{"class" : "toolbox-inner", "id" : "fontSize-tool"}).appendTo($this),
+                $label = $("<div/>",{ "class":"toolbox-label", "html" : "Font-Size" }).appendTo($fontSize),
+                $input = $("<input/>",{
+                    "type" : "range",
+                    "class" : "sliderKey",
+                    "value" : 12,
+                    "min" : 0,
+                    "max" : 100
+                }).appendTo($fontSize).slider({ 
+                    textbox:true ,
+                    callback: function(val,selector){
+                        console.log(val);
+                    }
+                });
+            },
+            textFn: {
+                fontSize: function(){
+
+                },
+                fontColor: function(){
+
+                },
+                fontFamily: function(){
+
+                },
+                fontDeco: function(){
+
+                }
             }
         },
         start = {
