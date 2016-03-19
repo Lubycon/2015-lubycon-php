@@ -278,6 +278,7 @@ $(function () {
 
     function fileinfo_maker(files, total_size)
     {
+        $("#fileinfo_ul").html('');
         for (var i = 0; i < files.length; i++) // 정보를 담은 배열생성
         {
             $("#fileinfo_ul").append('<li>file name : ' + String(files[i].name) + '<br/>file size : ' + String(files[i].size) + ' byte</li>');
