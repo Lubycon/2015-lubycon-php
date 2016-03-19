@@ -3,24 +3,21 @@
     $set_date = date("YmdHis");
     $con_cate = $_POST['contents_cate_name'];
     $user_name = 'daniel_zepp'; // from db
-
     $files = $_FILES['upload_file']; // input name
-    
-    $upload_path= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ; // uploaded path
-    $whitelist = 'media'; //you cans choice 'media','txt','img','zip' ,'all' 
+    $upload_path= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ; // realative uploaded path
+    $whitelist = 'media'; //you cans choice 'media','txt','img','zip' ,'all' all is so dangurus
     $limit_size = 3 * 1024 * 1024; // byte
-
     $zip_compress = true;
-
     /*
         if you want modified limite size, change in this php '$limit_size' in editor.js '$size_setting' and in server side php.ini setting
     */
+
     require_once "../class/upload_class.php";
     $uploader = new upload;
     $uploader->validate_size($files,$limit_size); // files , admin setting limit size
     $uploader->validate_ext($files,$whitelist); // files , admin setting suppot ext
-    $uploader->filemovetotemp($files,$zip_compress,$upload_path); // files , admin setting zip compress , save path
-    $uploader->finalsave($files,$zip_compress,$upload_path,$upload_path.$user_name.'_luby.zip'); // // files , admin setting zip compress , save path , save file name
+    $uploader->file_move($files,$zip_compress,$upload_path); // files , admin setting zip compress , save path
+    $uploader->zipfile($files,$zip_compress,$upload_path,$upload_path.$user_name.'_luby.zip'); // // files , admin setting zip compress , save path , save file name
 
     echo "<hr/><br/>-------------zip file upload--------------<hr/>";
 

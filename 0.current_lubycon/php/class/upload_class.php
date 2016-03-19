@@ -74,7 +74,7 @@ class upload
         }
     }
 
-    public function filemovetotemp($files,$zip_compress,$upload_path)
+    public function file_move($files,$zip_compress,$upload_path)
     {
         if( is_dir( $this->_temp_path ) ? chmod($this->_temp_path,0777) : mkdir($this->_temp_path,0777) ) // 디렉토리 생성
         {
@@ -85,8 +85,8 @@ class upload
                 {
                     $tmp_name = $files["tmp_name"][$key];
                     $name = iconv("UTF-8","EUC-KR",$files['name'][$key]);
-                    move_uploaded_file($tmp_name, "temp/$name"); // 파일 이동
-                    $this->_filepath_array[$key] = "temp/$name"; // 임시 업로드된 경로
+                    move_uploaded_file($tmp_name, $this->_temp_path.$name); // 파일 이동
+                    $this->_filepath_array[$key] = $this->_temp_path.$name; // 임시 업로드된 경로
                     $this->_filename_array[$key] = $name; // 파일 이름 배열
                     
                     echo "move to uploaded file temp folder<br/>";
@@ -105,7 +105,7 @@ class upload
         }
     }
 
-    public function finalsave($files,$zip_compress, $upload_path = null , $upload_zip)
+    public function zipfile($files,$zip_compress, $upload_path = null , $upload_zip)
     {
         if($zip_compress) // zip
         {
