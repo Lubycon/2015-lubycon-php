@@ -1,65 +1,28 @@
 <?php
-    echo "<br/>-------------zip file upload--------------<br/><br/>";
+    echo "<hr/>-------------zip file upload--------------<hr/><br/>";
     $set_date = date("YmdHis");
-    $con_cate = $_POST['contents_cate_name'];
-    $user_name = 'daniel_zepp';
+    $con_cate = 'artwork';
+    $user_name = 'daniel_zepp'; // from db
+
+    $files = $_FILES['upload_file']; // input name
     
-    $upload_dir= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ;
-    $whitelist = array('jpg','jpeg','png','psd','gif','bmp','pdd','tif','raw','ai','esp','svg','svgz','iff','fpx','frm','pcx','pct','pic','pxr','sct','tga','vda','icb','vst','alz','zip','rar','jar','7z','hwp','txt','doc','xls','xlsx','docx','pptx','pdf','ppt','me');  
+    $upload_path= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ; // uploaded path
+    $whitelist = 'media'; //you cans choice 'media','txt','img','zip' ,'all' 
     $limit_size = 3 * 1024 * 1024; // byte
+
+    $zip_compress = true;
 
     /*
         if you want modified limite size, change in this php '$limit_size' in editor.js '$size_setting' and in server side php.ini setting
     */
+    require_once "../class/upload_class.php";
+    $uploader = new upload;
+    $uploader->validate_size($files,$limit_size);
+    $uploader->validate_ext($files,$whitelist);
+    $uploader->filemovetotemp($files,$zip_compress,$upload_path);
+    $uploader->finalsave($files,$zip_compress,$upload_path,$upload_path.$user_name.'_luby.zip');
 
-    if(1) //서브밋한거라면
-    {
-        for($i=0; $i<count($_FILES['upload_file']['name']); $i++) 
-        {
-            $filename = $_FILES['upload_file']['name'][$i]; // 오리지날 파일이름
-            $ext = substr(strrchr($filename, '.'), 1); // 확장자 추출
-            if ( !in_array($ext, $whitelist) )  // 확장자 검사
-            {
-                echo $filename.' not allow<br/>';
-                return false;
-            }
-            $filesize_array[$i] = $_FILES['upload_file']['size'][$i]; // 각 파일사이즈 크기 배열에 푸시
-        }
-        if( !array_sum($filesize_array) >= $limit_size ) // 파일크기 검사
-        {
-            echo array_sum($filesize_array) . 'beyond limite size';
-            return false;
-        }
-        else
-        {
-            if( mkdir( $upload_dir , 0777) ) // 디렉토리 생성
-            {
-                foreach ($_FILES["upload_file"]["error"] as $key => $error)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
-                {
-                    if ($error == UPLOAD_ERR_OK) //이상없다면
-                    {
-                        $tmp_name = $_FILES["upload_file"]["tmp_name"][$key];
-                        $name = $_FILES["upload_file"]["name"][$key];
-                        move_uploaded_file($tmp_name, "temp/$name"); // 파일 이동
-                        $filepath_array[$key] = "temp/$name"; // 최종 업로드된 경로
-                    }
-                }
-            }
-        }
-    }
-
-    require_once "../class/zipfile.php"; // 클래스파일 리콰이어
-    $zipper = new Zipper; //지퍼생성
-    $zipper->add($filepath_array); //파일추가
-    $zipper->store($upload_dir.$user_name.'_luby.zip'); //저장될 zip파일 경로
-    echo $upload_dir.$user_name.'_luby.zip';
-
-    foreach ($_FILES["upload_file"]["error"] as $key => $error)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
-    {
-        unlink( $filepath_array[$key] ); //임시파일 제거
-    }
-
-    echo "<br/><br/>-------------zip file upload--------------<br/>";
+    echo "<hr/><br/>-------------zip file upload--------------<hr/>";
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
