@@ -1,13 +1,12 @@
 <?php
 class upload
 {
-    private $_files = array();
-    private $_temp_path = './temp/';
-    private $_files_ext;
+    private $_temp_path = '../../../../Lubycon_Contents/contents/temp/';
     private $_filesize_array = array();
     private $_filepath_array = array();
     private $_filename_array = array();
     private $_zip;
+    private $_profile_name = 'profile.';
 
     private $_white_list_media = ['jpg', 'jpeg', 'png', 'psd', 'pdf', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst', 'alz', 'zip', 'rar', 'jar', '7z', 'hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
     private $_white_list_img = ['jpg', 'jpeg', 'png', 'psd', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst'];
@@ -74,35 +73,109 @@ class upload
         }
     }
 
-    public function file_move($files,$zip_compress,$upload_path)
+    public function file_move($files,$upload_path,$zip_compress)
     {
-        if( is_dir( $this->_temp_path ) ? chmod($this->_temp_path,0777) : mkdir($this->_temp_path,0777) ) // 디렉토리 생성
-        {
-           mkdir($upload_path,0777); // 저장할 폴더 생성
-           foreach ($files["error"] as $key => $error)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
-           {
-                if ( $error == UPLOAD_ERR_OK && $zip_compress ) // 압축 하려면 임시폴더
-                {
-                    $tmp_name = $files["tmp_name"][$key];
-                    $name = iconv("UTF-8","EUC-KR",$files['name'][$key]);
-                    move_uploaded_file($tmp_name, $this->_temp_path.$name); // 파일 이동
-                    $this->_filepath_array[$key] = $this->_temp_path.$name; // 임시 업로드된 경로
-                    $this->_filename_array[$key] = $name; // 파일 이름 배열
+        //if( is_dir( $this->_temp_path ) ? chmod($this->_temp_path,0777) : mkdir($this->_temp_path,0777) ) // make temp dir
+        //{
+        //   if( is_dir($upload_path) ? chmod($upload_path,0777) : mkdir($upload_path,0777) )// make save dir
+        //   { 
+        //       foreach ($files["error"] as $key => $error)  // for each as files (key is error code)
+        //       {    
+        //            $tmp_name = $files["tmp_name"][$key]; // uploaded temp name validate 
+        //            $name = iconv("UTF-8","EUC-KR",$files['name'][$key]); // uploaded file name validate
+        //            if ( $error == UPLOAD_ERR_OK && $zip_compress ) // check well upload and compress or not
+        //            {
+        //                move_uploaded_file($tmp_name, $this->_temp_path.$name); // move to temp folder
+        //                $this->_filepath_array[$key] = $this->_temp_path.$name; // push array temp file path
+        //                $this->_filename_array[$key] = $name; // push array only filename
                     
-                    echo "move to uploaded file temp folder<br/>";
+        //                echo "move to uploaded file temp folder<br/>";
 
-                }else if( $error == UPLOAD_ERR_OK && !$zip_compress ) // 아니면 바로 전송
-                {
-                    $tmp_name = $files["tmp_name"][$key];
-                    $name = iconv("UTF-8","EUC-KR",$files['name'][$key]);
-                    move_uploaded_file($tmp_name, $upload_path.$name); // 파일 이동
-                    $filepath_array[$key] = $upload_path.$name; // 최종 업로드된 경로
+        //            }else if( $error == UPLOAD_ERR_OK && !$zip_compress ) // not compress and move files
+        //            {
+        //                move_uploaded_file($tmp_name, $upload_path.$name); // move file to save place
+        //                $filepath_array[$key] = $upload_path.$name; // final uploaded file name
                     
-                    echo "succece upload<br/>";
+        //                echo "succece upload<br/>";
+        //            }
+        //        }
+        //    }
+        //    echo "<hr/>";
+        //}
+
+        if( is_dir($upload_path) ? chmod($upload_path,0777) : mkdir($upload_path,0777) ) // make final save dir
+        {
+            if( @is_uploaded_file($files['tmp_name'][0])) // check is uploaded file or ajax file
+            {
+               foreach ($files["error"] as $key => $error)  // for each as files (key is error code)
+               {    
+                    echo '1';
+                    $tmp_name = $files["tmp_name"][$key]; // uploaded temp name validate 
+                    $name = iconv("UTF-8","EUC-KR",$files['name'][$key]); // uploaded file name validate
+
+                    if ( $error == UPLOAD_ERR_OK && $zip_compress ) // check well upload and compress or not
+                    {
+                        move_uploaded_file($tmp_name, $this->_temp_path.$name); // move to temp folder
+                        $this->_filepath_array[$key] = $this->_temp_path.$name; // push array temp file path
+                        $this->_filename_array[$key] = $name; // push array only filename
+                    
+                        echo "move to uploaded file temp folder, ready to zip<br/>";
+
+                    }else if( $error == UPLOAD_ERR_OK && !$zip_compress ) // not compress and move files
+                    {
+                        move_uploaded_file($tmp_name, $upload_path.$name); // move file to save place
+                        $this->_filepath_array[$key] = $upload_path.$name; // final uploaded file name
+                    
+                        echo "succece upload<br/>";
+                    }else
+                    {
+                        die('something was wrong... check the logic');
+                    }
+                }
+                print_r($this->_filepath_array); // move uploaded files path
+                return;
+            }else // maybe ajax
+            {
+                if(is_array($files))  //lots of files
+                {
+                    for($i=0 ; $i< count($files); $i++)
+                    {
+                        $modName = basename($files[$i]); //파일명 추출
+                        $oldfile = $this->_temp_path.$modName; // temp file
+                        $newfile = $upload_path.$modName; // 
+
+                        if(file_exists($oldfile)) {
+                             if(!copy($oldfile, $newfile)) {
+                                   echo "fail";
+                             } else if(file_exists($newfile)) {
+                                   unlink($oldfile);
+                                   echo $newfile . "<br/>"; //uploaded file path
+                             }
+                        } 
+                    };
+                }else // only profile img
+                {
+                    $modName = basename($files); //파일명 추출
+                    $ext = substr(strrchr($modName, '.'), 1); // 확장자 추출
+                    $oldfile = $this->_temp_path.$modName; // temp file
+                    $newfile = $upload_path.$this->_profile_name.$ext; // copyed file
+
+                    if(file_exists($oldfile)) 
+                    {
+                        if(!copy($oldfile, $newfile)) 
+                        {
+                            echo "fail";
+                        } else if(file_exists($newfile)) 
+                        {
+                            unlink($oldfile);
+                            echo $newfile . "<br/>"; //uploaded file path
+                        }
+                    }
                 }
             }
-            echo "<hr/>";
         }
+
+
     }
 
     public function zipfile($files,$zip_compress, $upload_path = null , $upload_zip)
@@ -127,7 +200,7 @@ class upload
                     }
                     $this->_zip->close();
 
-                    foreach ($files["error"] as $key => $error)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
+                    foreach ($files["name"] as $key => $name)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
                     {
                         unlink( $this->_filepath_array[$key] ); //임시파일 제거
                     }
@@ -136,45 +209,8 @@ class upload
             }
         }else // not zip
         {
-            echo 'do not zip just save';
+            echo '<br/>do not zip just save';
         }
     }
 }
 ?>
-
-
-<!-- if(1) //서브밋한거라면
-    {
-        for($i=0; $i<count($_FILES['upload_file']['name']); $i++) 
-        {
-            $filename = $_FILES['upload_file']['name'][$i]; // 오리지날 파일이름
-            $ext = substr(strrchr($filename, '.'), 1); // 확장자 추출
-            if ( !in_array($ext, $whitelist) )  // 확장자 검사
-            {
-                echo $filename.' not allow<br/>';
-                return false;
-            }
-            $filesize_array[$i] = $_FILES['upload_file']['size'][$i]; // 각 파일사이즈 크기 배열에 푸시
-        }
-        if( !array_sum($filesize_array) >= $limit_size ) // 파일크기 검사
-        {
-            echo array_sum($filesize_array) . 'beyond limite size';
-            return false;
-        }
-        else
-        {
-            if( mkdir( $upload_dir , 0777) ) // 디렉토리 생성
-            {
-                foreach ($_FILES["upload_file"]["error"] as $key => $error)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
-                {
-                    if ($error == UPLOAD_ERR_OK) //이상없다면
-                    {
-                        $tmp_name = $_FILES["upload_file"]["tmp_name"][$key];
-                        $name = $_FILES["upload_file"]["name"][$key];
-                        move_uploaded_file($tmp_name, "temp/$name"); // 파일 이동
-                        $filepath_array[$key] = "temp/$name"; // 최종 업로드된 경로
-                    }
-                }
-            }
-        }
-    } -->

@@ -7,7 +7,7 @@
     $upload_path= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ; // realative uploaded path
     $whitelist = 'media'; //you cans choice 'media','txt','img','zip' ,'all' all is so dangurus
     $limit_size = 3 * 1024 * 1024; // byte
-    $zip_compress = true;
+    $fileupload_zip_compress = true;
     /*
         if you want modified limite size, change in this php '$limit_size' in editor.js '$size_setting' and in server side php.ini setting
     */
@@ -16,48 +16,28 @@
     $uploader = new upload;
     $uploader->validate_size($files,$limit_size); // files , admin setting limit size
     $uploader->validate_ext($files,$whitelist); // files , admin setting suppot ext
-    $uploader->file_move($files,$zip_compress,$upload_path); // files , admin setting zip compress , save path
-    $uploader->zipfile($files,$zip_compress,$upload_path,$upload_path.$user_name.'_luby.zip'); // // files , admin setting zip compress , save path , save file name
+    $uploader->file_move($files,$upload_path,$fileupload_zip_compress); // files , admin setting zip compress , save path
+    $uploader->zipfile($files,$fileupload_zip_compress,$upload_path,$upload_path.$user_name.'_luby.zip'); // // files , admin setting zip compress , save path , save file name
 
     echo "<hr/><br/>-------------zip file upload--------------<hr/>";
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
-    $oldfile = $_POST['croppicurl']; // temp file
-    $newfile = $upload_dir.'profile.jpg'; // copyed file
-
-    if(file_exists($oldfile)) {
-        if(!copy($oldfile, $newfile)) {
-            echo "file";
-        } else if(file_exists($newfile)) {
-            echo '<br/>' . $newfile . "<br/>"; //uploaded file path
-        }
-    }
+    $croppic_url = $_POST['croppicurl']; // temp file
+    $croppic_zip_compress = false;
+    $uploader->file_move($croppic_url,$upload_path,$croppic_zip_compress);
 
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
     
     echo "<br/><br/>-------------contents image--------------<br/>";
-    $contens_image = $_POST['contents_image'];
-    $contens_image_temp_url = '../../../../Lubycon_Contents/contents/temp/';
-    if($contens_image) 
-    {
-        echo "<br/>user upload image = <br/>";
-        for($i=0 ; $i< count($contens_image); $i++)
-        {
-             $oldfile = $contens_image_temp_url.$contens_image[$i]; // temp file
-             $newfile = $upload_dir.$contens_image[$i]; // copyed file
+    
+    $conimg_url = $_POST['contents_image']; // temp file
+    $conimg_zip_compress = false;
+    $uploader->file_move($conimg_url,$upload_path,$conimg_zip_compress);
 
-             if(file_exists($oldfile)) {
-                  if(!copy($oldfile, $newfile)) {
-                        echo "file";
-                  } else if(file_exists($newfile)) {
-                        echo $upload_dir.$contens_image[$i] . "<br/>"; //uploaded file path
-                  }
-             } 
-        };
-    };
+
     echo "<br/><br/>-------------contents image--------------<br/>";
 
 
