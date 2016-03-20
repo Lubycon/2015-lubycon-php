@@ -159,7 +159,6 @@ a {
 }
 .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj:hover {
     border: 1px solid #48cfad;
-    /*box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);*/
 }
     .lubypic-body > .editing-area > .editing-canvas > .canvas-obj.obj-header {
         height: 45px;

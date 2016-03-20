@@ -250,33 +250,29 @@
                 var $this = $(this),
                 inputFile = $(document).find(".imgUploader"),
                 dataValue = $this.data("value");
-                inputFile.click();
-
-                if(dataValue == "newImgUpload") inputFile.off("change").on("change",upload.imgUpload);
-                else if(dataValue == "replace"){
+                
+                if(dataValue == "replace"){
                     inputFile.off("change").on("change",upload.imgReplace);
                     $this.addClass("uploading");
                 }
-                else if(dataValue == "insertImg"){
-                    inputFile.off("change").on("change",upload.insertImg);
+                else{
+                    inputFile.off("change").on("change",upload.imgUpload);
                     $this.addClass("uploading");
-                } 
-                else $.error("This button can't upload to lubyPictool");
+                };
+                inputFile.trigger("click");
+                console.log("Trigger On");
             },
             fileUpload: function(){
                 //do nothing
             },
             imgUpload: function(event){
-                var $this = $(this),
+                var $this = $(".uploading"),
                 $canvas = $(document).find(".editing-canvas"),
-                $target = $canvas.find(".obj-body"),
-                $footer = $canvas.find(".obj-footer"),
-                $placeHolder = $target.find(".placeHolder"),
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img"}).appendTo($target),
-                $deviderWrap = $("<div/>",{"class" : "canvas-obj canvas-devider-wrap"}),
-                $devider = $("<div/>",{"class" : "canvas-devider"}).appendTo($deviderWrap),
-                index = $(document).find(".object-img").size(),
-                contentSize = $(document).find(".canvas-content").size() > 2,
+                $header = $(".obj-header"),
+                $body = $(".obj-body"),
+                $footer = $(".obj-footer"),
+                $placeHolder = $body.find(".placeHolder"),
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img"}),
                 $object = event.target.files;
 
                 if($placeHolder.length!=0) $placeHolder.hide();
@@ -285,17 +281,15 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
-                        var img = $("<img/>",{ "src":event.target.result}).appendTo($objectWrap);
+                        var img = $("<img/>",{ "src":event.target.result});
+                        upload.insertPosition($this,$objectWrap,img);   
                     };
                 });
-                $this.val(null);
-
-                if(contentSize) $deviderWrap.insertBefore($objectWrap);
-                $objectWrap.attr("data-index",index);
+                
                 pac.objMenu($objectWrap);
-                canvasTool.addObjBt($objectWrap);
+                $(".uploading").removeClass("uploading") // init target object
+                $this.val(null); // init input value
                 console.log("The new image is uploaded");
-                console.log($this);
             },
             imgReplace: function(event){
                 var $this = $(this),
@@ -313,10 +307,30 @@
                 $this.val(null);
                 console.log("this image is replaced");
             },
-            insertImg: function(event){
-                $this = $(this),
-                $button = $(document).find(".uploading");
-                $button.removeClass("uploading");
+            insertPosition: function(selector,wrap,object){
+                var $this = selector,
+                $placeHolder = $(document).find(".placeHolder"),
+                $body = $(".obj-body"),
+                $deviderWrap = $("<div/>",{"class" : "canvas-obj canvas-devider-wrap"}),
+                $devider = $("<div/>",{"class" : "canvas-devider"}).appendTo($deviderWrap),
+                contentSize = $(document).find(".canvas-content").size() > 1;
+
+                if($this.parents().is(".obj-header")) {
+                    wrap.insertAfter($placeHolder).append(object);
+                    if(contentSize) $deviderWrap.clone().insertAfter(wrap);
+                    console.log(1);
+                }
+                else if($this.parents().is(".canvas-devider-wrap")) {
+                    wrap.insertBefore($this.parents(".canvas-devider-wrap")).append(object);
+                    if(contentSize) $deviderWrap.clone().insertBefore(wrap);
+                    console.log(2);
+                }
+                else {
+                    wrap.appendTo($body).append(object);
+                    if(contentSize) $deviderWrap.clone().insertBefore(wrap);
+                    console.log(3);
+                }
+                canvasTool.addObjBt();
             }
         },
         headerTool = {
@@ -337,23 +351,25 @@
                 if(images == 1) $placeHolder.show();
             },
             addObjBt: function(selector){
-                var $this = selector, //obj-wrap
-                $wrapper = $("<div/>",{ "class" : "canvas-uploader-wrap" }),
+                var $wrapper = $("<div/>",{ "class" : "canvas-uploader-wrap" }),
                 $insertBt = $("<div/>",{ "class" : "canvas-uploader-bt"}).appendTo($wrapper).hide(),
                 $text = $("<span/>",{ "class" : "canvas-uploader-text", "html" : "Insert Content:"}).appendTo($insertBt),
                 $imgBt = $("<i/>",{ "class" : icons.upload, "data-value" : "insertImg"}).appendTo($insertBt),
                 $textBt = $("<i/>",{ "class" : icons.font}).appendTo($insertBt),
                 $embed = $("<i/>",{ "class" : icons.code}).appendTo($insertBt),
 
-                $target = $this.prev(".canvas-devider-wrap"),
+                $target = $(document).find(".canvas-devider-wrap"),
                 $header = $(document).find(".obj-header"),
                 $footer = $(document).find(".obj-footer"),
                 contents = $(document).find(".object-img").size();
                 
                 if(contents > 1) {
+                    $target.children(".canvas-uploader-wrap").remove();
                     $wrapper.clone().appendTo($target);
                 }
-                else {
+                else{
+                    $header.children(".canvas-uploader-wrap").remove();
+                    $footer.children(".canvas-uploader-wrap").remove();
                     $wrapper.clone().appendTo($header);
                     $wrapper.clone().appendTo($footer);
                 }
@@ -361,7 +377,7 @@
                     function(){ $(this).find(".canvas-uploader-bt").stop().fadeIn(200); },
                     function(){ $(this).find(".canvas-uploader-bt").stop().fadeOut(200); }
                 );
-                $(".canvas-uploader-bt").find(".fa-cloud-upload").on("click",upload.imgUpTrigger);
+                $(".canvas-uploader-bt").find(".fa-cloud-upload").off("click").on("click",upload.imgUpTrigger);
             }
         },
         toolbar = {
