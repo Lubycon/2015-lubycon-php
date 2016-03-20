@@ -12,7 +12,6 @@
 (function($){
     $.fn.slider = function(option){
         var defaults = { 
-            textbox : false,
             callback: null
         },
         d = {},
@@ -21,7 +20,6 @@
                 return d = $.extend({}, defaults, option), this.each(function () {
                     if (!$(this).hasClass("sliderKey")) $.error("The key for slider is not exist");
                     else {
-                        console.log("slider is loaded");//function start
                         var $this = $(this).hide(),
                         objWidth = $this.width(),
                         defaultVal = $this.val(),
@@ -38,17 +36,16 @@
                         }).appendTo($sliderWrap),
                         $sliderArea = $("<span/>",{
                             "class" : "slider-area"
-                        }).width(objWidth).css("right",areaX+"%").appendTo($sliderBar),
+                        }).width(objWidth*1.5).css("right",areaX+"%").appendTo($sliderBar),
 
                         $sliderBt = $("<div/>",{
                             "class" : "slider-bt"
                         }).css("left",buttonX+"%").appendTo($sliderWrap),
-                        textBox = d.textbox ? 
-                        $("<input/>",{
+                        textBox = $("<input/>",{
                             "type" : "text",
                             "class" : "slider-text",
                             "value" : defaultVal
-                        }).appendTo($sliderWrap).on("change",drag.textBox) : "";
+                        }).appendTo($sliderWrap).on("change",drag.textBox);
                     }
                 })
             }
@@ -94,7 +91,7 @@
                 var ratio = width/objX,
                 value = Math.floor($input.attr("max")/ratio);
 
-                d.callback(value,$this);
+                //d.callback(value,$this);
                 $bt.css({ "left" : objX });
                 $area.css({ "right" : width - objX});
                 $bar.data("value",value);
@@ -102,7 +99,6 @@
 
                 $text.val(value);
                 $text.trigger("change");
-
             },
             textBox: function(){
                 var $this = $(this),
@@ -110,12 +106,14 @@
                 $bar = $this.siblings(".slider-bar"),
                 $area = $bar.find(".slider-area"),
                 $bt = $this.siblings(".slider-bt"),
-                value = $this.val(),
+                value = isNaN($this.val()) ? 0 : $this.val(),
                 ratio = 100 - value + "%";
                 btX = value + "%";
-
+                
+                $this.val(value);
                 $area.css({ "right":ratio });
                 $bt.css({"left" : btX});
+                d.callback(value,$this);
                 console.log(value);
             }
         },

@@ -45,7 +45,7 @@
             alignRight: "fa fa-align-right",
             bold: "fa fa-bold",
             italic: "fa fa-italic",
-            underline: "fa fa-underlien",
+            underline: "fa fa-underline",
             strike: "fa fa-strikethrough",
             arrowUp: "fa fa-caret-up",
             arrowDown: "fa fa-caret-down",
@@ -187,6 +187,11 @@
                     $this.addClass("selected");
                 }
             },
+            dbToggle: function(){
+                var $this = $(this);
+                if($this.hasClass("selected")) $this.removeClass("selected");
+                else $this.addClass("selected");
+            },
             currentProg: function(){
                 var $this = $(this),
                 $btns = $(".prog");
@@ -307,6 +312,15 @@
                 $this.val(null);
                 console.log("this image is replaced");
             },
+            textUpload: function(event){
+                var $this = $(this),
+                $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text"})
+                .on("focusin",toolbar.textFn.focusAction),
+                $input = $("<input/>",{"type" : "text", "class" : "canvas-input"});
+                upload.insertPosition($this,$textWrap,$input);
+                pac.objMenu($textWrap);
+                console.log("text area is added");
+            },
             insertPosition: function(selector,wrap,object){
                 var $this = selector,
                 $placeHolder = $(document).find(".placeHolder"),
@@ -318,17 +332,14 @@
                 if($this.parents().is(".obj-header")) {
                     wrap.insertAfter($placeHolder).append(object);
                     if(contentSize) $deviderWrap.clone().insertAfter(wrap);
-                    console.log(1);
                 }
                 else if($this.parents().is(".canvas-devider-wrap")) {
                     wrap.insertBefore($this.parents(".canvas-devider-wrap")).append(object);
                     if(contentSize) $deviderWrap.clone().insertBefore(wrap);
-                    console.log(2);
                 }
                 else {
                     wrap.appendTo($body).append(object);
                     if(contentSize) $deviderWrap.clone().insertBefore(wrap);
-                    console.log(3);
                 }
                 canvasTool.addObjBt();
             }
@@ -349,6 +360,7 @@
                 $target.remove();
                 $devider.remove();
                 if(images == 1) $placeHolder.show();
+                console.log("image was deleted");
             },
             addObjBt: function(selector){
                 var $wrapper = $("<div/>",{ "class" : "canvas-uploader-wrap" }),
@@ -361,9 +373,9 @@
                 $target = $(document).find(".canvas-devider-wrap"),
                 $header = $(document).find(".obj-header"),
                 $footer = $(document).find(".obj-footer"),
-                contents = $(document).find(".object-img").size();
+                contents = $(document).find(".canvas-content").size();
                 
-                if(contents > 1) {
+                if(contents > 2) {
                     $target.children(".canvas-uploader-wrap").remove();
                     $wrapper.clone().appendTo($target);
                 }
@@ -378,6 +390,8 @@
                     function(){ $(this).find(".canvas-uploader-bt").stop().fadeOut(200); }
                 );
                 $(".canvas-uploader-bt").find(".fa-cloud-upload").off("click").on("click",upload.imgUpTrigger);
+                $(".canvas-uploader-bt").find(".fa-font").off("click").on("click",upload.textUpload);
+                console.log("add object button is added to canvas");
             }
         },
         toolbar = {
@@ -395,7 +409,7 @@
             textTool: function(){
                 var $this = $(document).find("#textTool-toolbox"),
                 
-                $fontSize = $("<div/>",{ //font size start
+                $fontSize = $("<div/>",{ ///////////////////////font size start
                     "class" : "toolbox-inner", 
                     "id" : "fontSize-tool", 
                     "data-value" : "font-size"
@@ -407,15 +421,14 @@
                 $sizeInput = $("<input/>",{ //input
                     "type" : "range",
                     "class" : "sliderKey",
-                    "value" : 12,
+                    "value" : 20,
                     "min" : 0,
                     "max" : 100
                 }).appendTo($fontSize).slider({ 
-                    textbox:true ,
                     callback: toolbar.textFn.fontSize
                 }),
                 
-                $fontColor = $("<div/>",{ //font color start
+                $fontColor = $("<div/>",{ ////////////////////font color start
                     "class" : "toolbox-inner", 
                     "id" : "fontColor-tool",
                     "data-value" : "font-color"
@@ -432,20 +445,92 @@
                     showInput: true,
                     showAlpha: true,
                     showInitial: true,
-                    preferredFormat: "hex3"
+                    preferredFormat: "hex3",
+                    showPalette: true,
+                    palette: [],
+                    showSelectionPalette: true, // true by default
+                    selectionPalette: [],
+                    move: toolbar.textFn.fontColor,
+                    change: toolbar.textFn.fontColor
                 });
+
+                $fontDeco = $("<div/>",{//////////////////// font deco
+                    "class" : "toolbox-inner",
+                    "id" : "fontDeco-tool",
+                    "data-value" : "font-deco"
+                }).appendTo($this),
+                $fdLabel = $("<div/>",{
+                    "class" : "toolbox-label",
+                    "html" : "Font Decorations"
+                }).appendTo($fontDeco),
+                $btWrap = $("<ul/>",{ "class" : "toolbox-btns" }).appendTo($fontDeco),
+                $boldBt = $("<div/>",{ "class" : "btn", "data-value" : "bold" }).append($("<i/>",{"class" : icons.bold}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
+                $italicBt = $("<div/>",{ "class" : "btn", "data-value" : "italic" }).append($("<i/>",{"class" : icons.italic}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
+                $underBt = $("<div/>",{ "class" : "btn", "data-value" : "underline" }).append($("<i/>",{"class" : icons.underline}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
+                $strikeBt = $("<div/>",{ "class" : "btn", "data-value" : "strike" }).append($("<i/>",{"class" : icons.strike}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap);
             },
             textFn: {
-                fontSize: function(){
-
+                focusAction: function(){
+                    var $this = $(this);
+                    $("html").on("click",toolbar.textFn.blurAction);
+                    if($(".focused").size() == 1) $(".focused").removeClass("focused");
+                    $this.addClass("focused");
+                    console.log("focusin text");
                 },
-                fontColor: function(){
-
+                blurAction: function(event){
+                    var $this = $(".focused"),
+                    $target = $(event.target),
+                    input = $target.is(".canvas-input"),
+                    aside = $target.parents().is(".lubypic-aside");
+                    if(aside || input) {
+                        console.log("This is aside or input");
+                    }
+                    else {
+                        $this.removeClass("focused");
+                        $("html").off("click");
+                        console.log("This is not aside or input");
+                    }
+                },
+                fontSize: function(val,selector){
+                    var $this = selector,
+                    $target = $(document).find(".focused > input");
+                    $target.css("font-size", val + "px");
+                },
+                fontColor: function(color){
+                    var color = color.toHexString(),
+                    $target = $(document).find(".focused > input");
+                    $target.css("color", color);
                 },
                 fontFamily: function(){
 
                 },
                 fontDeco: function(){
+                    var $this = $(this),
+                    $target = $(document).find(".focused > input"),
+                    selected = $this.hasClass("selected"),
+                    value = $this.data("value");
+                    if(selected){
+                        switch(value){
+                            case "bold" : $target.css("font-weight","600"); break;
+                            case "italic" : $target.css("font-style","italic"); break;
+                            case "underline" : $target.css("text-decoration","underline"); break;
+                            case "strike" : break;
+                            default : return; break;
+                        }
+                    }
+                    else{
+                        switch(value){
+                            case "bold" : $target.css("font-weight","400"); break;
+                            case "italic" : $target.css("font-style","normal"); break;
+                            case "underline" : $target.css("text-decoration","none"); break;
+                            case "strike" : break;
+                            default : return; break;
+                        }
+                    }
 
                 }
             }

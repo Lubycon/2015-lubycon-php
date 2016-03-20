@@ -317,7 +317,10 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 
 /* Palettes */
 .sp-palette-container {
-    border-right: solid 1px #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
 .sp-palette-only .sp-palette-container {
@@ -422,6 +425,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 }
 
 .sp-container {
+    width: 210px;
     padding-bottom:0;
 }
 
