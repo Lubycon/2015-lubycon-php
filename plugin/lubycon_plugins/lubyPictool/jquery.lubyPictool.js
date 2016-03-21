@@ -217,10 +217,12 @@
             },
             objMenu: function(selector){
                 var $object = selector,
+                text = $object.is(".object-text"),
                 $objectMenu = $("<div/>",{"class" : "obj-menu-btn"}).appendTo($object).hide(),
                 $objectMenuIcon = $("<i/>",{"class" : icons.pencil}).appendTo($objectMenu),
                 $menuWrap = $("<ul/>",{"class" : "obj-menu"}).appendTo($objectMenu).hide(),
-                $replace = $("<li/>",{
+                $replace = text ? "" : 
+                $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Replace",
                     "data-value" : "replace"
@@ -316,7 +318,7 @@
                 var $this = $(this),
                 $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text"})
                 .on("focusin",toolbar.textFn.focusAction),
-                $input = $("<input/>",{"type" : "text", "class" : "canvas-input"});
+                $input = $("<p/>",{"class" : "canvas-input", "contenteditable" : "true"});
                 upload.insertPosition($this,$textWrap,$input);
                 pac.objMenu($textWrap);
                 console.log("text area is added");
@@ -353,13 +355,19 @@
         canvasTool = {
             deleteObj: function(){
                 var $this = $(this),
-                images = $(document).find(".object-img").size(),
-                $target = $this.parents(".object-img"),
-                $devider = $target.prev(".canvas-devider"),
+                objects = $(document).find(".canvas-content").size(),
+                $target = $this.parents(".canvas-content"),
                 $placeHolder = $(document).find(".placeHolder");
-                $target.remove();
-                $devider.remove();
-                if(images == 1) $placeHolder.show();
+
+                if($target.index() == 1) {
+                	$target.next(".canvas-devider-wrap").remove();
+                	$target.remove();
+                }
+                else {
+                	$target.prev(".canvas-devider-wrap").remove();
+                	$target.remove();
+                }
+                if(objects == 2) $placeHolder.show();
                 console.log("image was deleted");
             },
             addObjBt: function(selector){
@@ -484,7 +492,8 @@
                 blurAction: function(event){
                     var $this = $(".focused"),
                     $target = $(event.target),
-                    input = $target.is(".canvas-input"),
+        			inputChild = $(".canvas-input").children(),
+                    input = $target.is(".canvas-input") || $target.is(inputChild),
                     aside = $target.parents().is(".lubypic-aside");
                     if(aside || input) {
                         console.log("This is aside or input");
@@ -497,12 +506,12 @@
                 },
                 fontSize: function(val,selector){
                     var $this = selector,
-                    $target = $(document).find(".focused > input");
+                    $target = $(document).find(".focused > .canvas-input");
                     $target.css("font-size", val + "px");
                 },
                 fontColor: function(color){
                     var color = color.toHexString(),
-                    $target = $(document).find(".focused > input");
+                    $target = $(document).find(".focused > .canvas-input");
                     $target.css("color", color);
                 },
                 fontFamily: function(){
@@ -510,24 +519,45 @@
                 },
                 fontDeco: function(){
                     var $this = $(this),
-                    $target = $(document).find(".focused > input"),
+                    $target = $(document).find(".focused > .canvas-input"),
+                    bold = $("<b/>"),
+                    italic = $("<em/>"),
+                    underline = $("<u/>"),
+                    strike = $("<strike/>"),
                     selected = $this.hasClass("selected"),
                     value = $this.data("value");
                     if(selected){
                         switch(value){
-                            case "bold" : $target.css("font-weight","600"); break;
-                            case "italic" : $target.css("font-style","italic"); break;
-                            case "underline" : $target.css("text-decoration","underline"); break;
-                            case "strike" : break;
+                            case "bold" : $target.wrapInner(bold); break;
+                            case "italic" : $target.wrapInner(italic); break;
+                            case "underline" : $target.wrapInner(underline); break;
+                            case "strike" : $target.wrapInner(strike); break;
                             default : return; break;
                         }
                     }
                     else{
+                    	var bold = $target.find("b"),
+                    	italic = $target.find("em"),
+                    	underline = $target.find("u"),
+                    	strike = $target.find("strike"),
+                    	boldText = $target.find("b").children()[0],
+                    	italText = $target.find("em").children()[0],
+                    	underText = $target.find("u").children()[0],
+                    	strikeText = $target.find("strike").children()[0];
+                    	console.log("bold--------------------------");
+                    	console.log(boldText);
+                    	console.log("ital--------------------------");
+                    	console.log(italText);
+                    	console.log("under--------------------------");
+                    	console.log(underText);
+                    	console.log("str--------------------------");
+                    	console.log(strikeText);
+
                         switch(value){
-                            case "bold" : $target.css("font-weight","400"); break;
-                            case "italic" : $target.css("font-style","normal"); break;
-                            case "underline" : $target.css("text-decoration","none"); break;
-                            case "strike" : break;
+                            case "bold" : bold.parent().html(boldText); bold.remove(); break;
+                            case "italic" : italic.parent().html(italText); italic.remove(); break;
+                            case "underline" : underline.parent().html(underText); bold.remove(); break;
+                            case "strike" : strike.parent().html(strikeText); strike.remove(); break;
                             default : return; break;
                         }
                     }

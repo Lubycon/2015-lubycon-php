@@ -127,7 +127,7 @@
         return start[option] ? 
         start[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
         "object" != typeof option && option ? 
-            ($.error('No such method "' + option + '" for the lubyPictool instance'), void 0) : 
+            ($.error('No such method "' + option + '" for the lubySlider instance'), void 0) : 
             slider.init.apply(this, arguments);
 };
 })(jQuery);

@@ -22,6 +22,13 @@ body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, 
     color: #000;
 }
 
+b{
+    font-weight: 600;
+}
+b > *{
+    font-weight: 600;
+}
+
 li {
     list-style: none;
 }
@@ -251,9 +258,8 @@ a {
         .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.object-text.focused{
             border: 1px dashed #48cfad;
         }
-        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > input[type="text"]{
+        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .canvas-input{
             width: 100%;
-            min-height: 50px;
             border: none;
             vertical-align: middle;
             text-align: center;
@@ -261,6 +267,9 @@ a {
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
+        }
+        .object-text> .obj-menu-btn{
+            top: -8px !important;
         }
         .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn {
             position: absolute;
