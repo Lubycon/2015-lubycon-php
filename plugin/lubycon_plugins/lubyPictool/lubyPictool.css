@@ -59,6 +59,73 @@ a {
 .lubypic-hidden {
     display: none;
 }
+.modal {
+    position: fixed;
+    display: inline-block;
+    top: 0;
+    left: 50%;
+    z-index: 10000;
+    min-width: 450px;
+    min-height: 100px;
+    padding: 5px;
+    background: #444444;
+    border-radius: 5px;
+    box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
+}
+    .modal-bt {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        padding: 5px;
+        border-radius: 3px;
+        font-weight: 200;
+        text-align: center;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        cursor: pointer;
+    }
+    .modal-bt:hover {
+        opacity: 0.8;
+    }
+        .modal-okbt {
+            background: #48cfad;
+            color: #ffffff;
+        }
+        .modal-cancelbt {
+            color: #ec6446;
+        }
+    .modal.embed-window > .embed-wrapper{
+        position: relative;
+        padding: 10px;
+    }
+        .modal.embed-window > .embed-wrapper > .embed-title {
+            color: #eeeeee;
+            font-size: 20px;
+            font-weight: 200;
+        }
+        .modal.embed-window > .embed-wrapper > .embed-input {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            padding: 5px;
+            color: #444444;
+            font-size: 17px;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            resize: none;
+        }
+            .modal.embed-window > .embed-wrapper > .embed-input:focus {
+                border: 1px solid #48cfad;
+                box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
+            }
+        .modal.embed-window > .embed-wrapper > .embed-bt-wrapper {
+            margin-top: 20px;
+            text-align: center;
+        }
 .lubypic-wrapper{
     position: relative;
     width: 100%;
@@ -282,7 +349,7 @@ a {
             line-height: 45px;
             background: #48cfad;
             border-radius: 50%;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+            box-shadow: 0px 0px 10px -2px rgba(0,0,0,0.5);
             text-align: center;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -295,8 +362,8 @@ a {
             }
             .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu {
                 position: relative;
-                top: -14px;
-                right: -20px;
+                top: -23px;
+                right: -18px;
                 width: 140px;
                 height: auto;
                 line-height: 20px;

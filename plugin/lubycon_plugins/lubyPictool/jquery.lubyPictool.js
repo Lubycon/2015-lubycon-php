@@ -168,8 +168,31 @@
                             "name":"imgUploader",
                             "type":"file"
                         }).insertAfter($header);
-                        $(".btn").each(pac.toolbox);
+                        $(".btn").each(pac.toolbox),
+
+                        //modal windows
+                        $modal = $("<div/>",{"class" : "modal"}),
+
+                        $embedWindow = $modal.clone().addClass("embed-window").appendTo($this).hide(), //embed window
+                        $embedWrap = $("<div/>",{ "class" : "embed-wrapper" }).appendTo($embedWindow),
+                        $embedTitle = $("<div/>",{
+                            "class" : "embed-title",
+                            "html" : "Embed Media"
+                        }).appendTo($embedWrap),
+                        $embedInput = $("<textarea/>",{ "class" : "embed-input" }).appendTo($embedWrap),
+                        $embedBtWrap = $("<div/>",{ "class" : "embed-bt-wrapper" }).appendTo($embedWrap),       
+                        $embedCancel = $("<div/>",{
+                            "class" : "modal-bt modal-cancelbt",
+                            "html" : "Cancel"
+                        }).on("click",modalTool.cancel).appendTo($embedBtWrap),
+                        $embedOk = $("<div/>",{
+                            "class" : "modal-bt modal-okbt",
+                            "id" : "embed-okbt",
+                            "html" : "Embed"
+                        }).on("click",modalTool.confirm).appendTo($embedBtWrap);
+
                         pac.databind();//data binding
+                        pac.modalAlign($(".modal"));
                     }
                 })
             },
@@ -217,11 +240,11 @@
             },
             objMenu: function(selector){
                 var $object = selector,
-                text = $object.is(".object-text"),
+                img = !$object.is(".object-img"),
                 $objectMenu = $("<div/>",{"class" : "obj-menu-btn"}).appendTo($object).hide(),
                 $objectMenuIcon = $("<i/>",{"class" : icons.pencil}).appendTo($objectMenu),
                 $menuWrap = $("<ul/>",{"class" : "obj-menu"}).appendTo($objectMenu).hide(),
-                $replace = text ? "" : 
+                $replace = img ? "" : 
                 $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Replace",
@@ -245,6 +268,17 @@
                     function(){ $menuWrap.show(); },
                     function(){ $menuWrap.hide(); }
                 );
+            },
+            modalAlign: function(selector){
+                $this = selector,
+                width = $this.outerWidth(true),
+                height = $this.outerHeight(true),
+                windowWidth = $(window).width(),
+                windowHeight = $(window).height(),
+                hrAlign = (width/2)*-1,
+                vtAlign = windowHeight/2 - height/2;
+
+                $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px" });
             }
         },
         upload = {
@@ -328,6 +362,18 @@
                 upload.insertPosition($this,$textWrap,$input);
                 pac.objMenu($textWrap);
                 console.log("text area is added");
+            },
+            embedUpload: function(val){
+                var $this = $(this),
+                $body = $(".obj-body"),
+                $placeHolder = $body.find("placeHolder"),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-embed", "data-index" : ""}),
+                $media = val;
+
+                if($placeHolder.length!=0) $placeHolder.hide();
+                upload.insertPosition($this,$mediaWrap,$media);
+                pac.objMenu($mediaWrap);
+                console.log("meida link is added");
             }, 
             setIndex: function(){
             	var $contents = $(document).find(".canvas-content");
@@ -348,17 +394,48 @@
                 if($this.parents().is(".obj-header")) {
                     wrap.insertAfter($placeHolder).append(object);
                     if(contentSize) $deviderWrap.clone().insertAfter(wrap);
+                    console.log(0);
                 }
                 else if($this.parents().is(".canvas-devider-wrap")) {
                     wrap.insertBefore($this.parents(".canvas-devider-wrap")).append(object);
                     if(contentSize) $deviderWrap.clone().insertBefore(wrap);
+                    console.log(1);
                 }
                 else {
                     wrap.appendTo($body).append(object);
                     if(contentSize) $deviderWrap.clone().insertBefore(wrap);
+                    console.log(2);
                 }
                 canvasTool.addObjBt();
                 upload.setIndex();
+            }
+        },
+        modalTool = {
+            modalShow: function(){
+                $this = $(this),
+                data = $this.data("value");
+                $target = $(document).find("."+data);
+                $target.fadeIn(200);
+            },
+            confirm: function(){
+                var $this = $(this),
+                $window = $this.parents(".modal"),
+                $input = $this.parent().siblings("textarea"),
+                value = $input.val() || 0;
+                if(value != 0) {
+                    upload.embedUpload(value);
+                    $input.val(null); 
+                    $window.stop().fadeOut(200);
+                }
+                else alert("There is no text");
+            },
+            cancel: function(){
+                var $this = $(this),
+                $window = $this.parents(".modal"),
+                $input = $this.parent().siblings("textarea");
+                $input.val(null);
+                $window.stop().fadeOut(200);
+                console.log($window);
             }
         },
         headerTool = {
@@ -374,7 +451,6 @@
                 $target = $this.parents(".canvas-content"),
                 $placeHolder = $(document).find(".placeHolder"),
                 $ObjBts = $(document).find(".canvas-uploader-wrap");
-                //$addObjBts = $(document).find(".canvas-uploader-wrap");
 
                 if($target.index() == 1) {
                 	$target.next(".canvas-devider-wrap").remove();
@@ -393,8 +469,8 @@
                 $insertBt = $("<div/>",{ "class" : "canvas-uploader-bt"}).appendTo($wrapper).hide(),
                 $text = $("<span/>",{ "class" : "canvas-uploader-text", "html" : "Insert Content:"}).appendTo($insertBt),
                 $imgBt = $("<i/>",{ "class" : icons.upload, "data-value" : "insertImg"}).appendTo($insertBt),
-                $textBt = $("<i/>",{ "class" : icons.font}).appendTo($insertBt),
-                $embed = $("<i/>",{ "class" : icons.code}).appendTo($insertBt),
+                $textBt = $("<i/>",{ "class" : icons.font, "data-value" : "inserText"}).appendTo($insertBt),
+                $embed = $("<i/>",{ "class" : icons.code, "data-value" : "embed-window"}).appendTo($insertBt),
 
                 $target = $(document).find(".canvas-devider-wrap"),
                 $header = $(document).find(".obj-header"),
@@ -417,6 +493,7 @@
                 );
                 $(".canvas-uploader-bt").find(".fa-cloud-upload").off("click").on("click",upload.imgUpTrigger);
                 $(".canvas-uploader-bt").find(".fa-font").off("click").on("click",upload.textUpload);
+                $(".canvas-uploader-bt").find(".fa-code").off("click").on("click",modalTool.modalShow);
                 console.log("add object button is added to canvas");
             }
         },
@@ -509,7 +586,6 @@
                     $fontColorTool = $("#fontColor-tool"),
                     $fontDecoTool = $("#fontDeco-tool");                    
 
-                    $("html").on("click",toolbar.textFn.blurAction);
                     if($(".focused").size() == 1) $(".focused").removeClass("focused");
                     $this.addClass("focused");
 
@@ -528,14 +604,16 @@
                     $strikebt = $this.find("strike").length > 0 ? 
                     	$fontDecoTool.find(".strikebt").addClass("selected") : 
                     	$fontDecoTool.find(".strikebt").removeClass("selected");
+
+                    $("html").on("click",toolbar.textFn.blurAction);
                     console.log("focusin text");
                 },
                 blurAction: function(event){
                     var $this = $(".focused"),
                     $target = $(event.target),
                     $fontDecoTool = $("#fontDeco-tool"),
-        			inputChild = $(".canvas-input").children(),
-                    input = $target.is(".canvas-input") || $target.is(inputChild),
+        			inputChild = $target.is("b") || $target.is("em") || $target.is("u") || $target.is("strike"),
+                    input = $target.is(".canvas-input") || inputChild,
                     aside = $target.parents().is(".lubypic-aside");
                     if(aside || input) {
                         console.log("This is aside or input");
