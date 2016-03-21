@@ -75,34 +75,6 @@ class upload
 
     public function file_move($files,$upload_path,$zip_compress)
     {
-        //if( is_dir( $this->_temp_path ) ? chmod($this->_temp_path,0777) : mkdir($this->_temp_path,0777) ) // make temp dir
-        //{
-        //   if( is_dir($upload_path) ? chmod($upload_path,0777) : mkdir($upload_path,0777) )// make save dir
-        //   { 
-        //       foreach ($files["error"] as $key => $error)  // for each as files (key is error code)
-        //       {    
-        //            $tmp_name = $files["tmp_name"][$key]; // uploaded temp name validate 
-        //            $name = iconv("UTF-8","EUC-KR",$files['name'][$key]); // uploaded file name validate
-        //            if ( $error == UPLOAD_ERR_OK && $zip_compress ) // check well upload and compress or not
-        //            {
-        //                move_uploaded_file($tmp_name, $this->_temp_path.$name); // move to temp folder
-        //                $this->_filepath_array[$key] = $this->_temp_path.$name; // push array temp file path
-        //                $this->_filename_array[$key] = $name; // push array only filename
-                    
-        //                echo "move to uploaded file temp folder<br/>";
-
-        //            }else if( $error == UPLOAD_ERR_OK && !$zip_compress ) // not compress and move files
-        //            {
-        //                move_uploaded_file($tmp_name, $upload_path.$name); // move file to save place
-        //                $filepath_array[$key] = $upload_path.$name; // final uploaded file name
-                    
-        //                echo "succece upload<br/>";
-        //            }
-        //        }
-        //    }
-        //    echo "<hr/>";
-        //}
-
         if( is_dir($upload_path) ? chmod($upload_path,0777) : mkdir($upload_path,0777) ) // make final save dir
         {
             if( @is_uploaded_file($files['tmp_name'][0])) // check is uploaded file or ajax file

@@ -10,9 +10,15 @@ echo "<br/>changed password = " . $_POST['pass'];
 
 echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
-$cropurl = $_POST['croppicurl'];
+$upload_path= '../../../../Lubycon_Contents/contents/temp/' ; // realative uploaded path
+require_once "../class/upload_class.php";
+$uploader = new upload;
+$croppic_url = $_POST['croppicurl']; // temp file
+$croppic_zip_compress = false;
+$uploader->file_move($croppic_url,$upload_path,$croppic_zip_compress);
 
-echo "croppic url : " . $cropurl;
+
+
 
 echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
