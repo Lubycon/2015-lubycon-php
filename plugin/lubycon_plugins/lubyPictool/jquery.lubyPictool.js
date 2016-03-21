@@ -279,7 +279,8 @@
                 $body = $(".obj-body"),
                 $footer = $(".obj-footer"),
                 $placeHolder = $body.find(".placeHolder"),
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img"}),
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : ""}),
+                $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
 
                 if($placeHolder.length!=0) $placeHolder.hide();
@@ -289,19 +290,20 @@
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
                         var img = $("<img/>",{ "src":event.target.result});
-                        upload.insertPosition($this,$objectWrap,img);   
+                        upload.insertPosition($this,$objectWrap,img);
+                        $(".uploading").removeClass("uploading") // init target object  
+                        $inputFile.val(null); // init input value
                     };
-                });
-                
+                });  
                 pac.objMenu($objectWrap);
-                $(".uploading").removeClass("uploading") // init target object
-                $this.val(null); // init input value
+                         
                 console.log("The new image is uploaded");
             },
             imgReplace: function(event){
                 var $this = $(this),
                 $button = $(document).find(".uploading"),
                 $target = $button.parents(".obj-menu-btn").siblings("img"),
+                $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
                 $.each($object, function(i,file){
                     var reader = new FileReader();
@@ -309,19 +311,31 @@
                     reader.onload = function(event){
                         $target.attr("src",event.target.result);
                         $button.removeClass("uploading");
+                        $inputFile.val(null);
                     };
                 });
-                $this.val(null);
                 console.log("this image is replaced");
             },
             textUpload: function(event){
                 var $this = $(this),
-                $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text"})
+                $body = $(".obj-body"),
+                $placeHolder = $body.find(".placeHolder"),
+                $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text", "data-index" : ""})
                 .on("focusin",toolbar.textFn.focusAction),
                 $input = $("<p/>",{"class" : "canvas-input", "contenteditable" : "true"});
+
+                if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$textWrap,$input);
                 pac.objMenu($textWrap);
                 console.log("text area is added");
+            }, 
+            setIndex: function(){
+            	var $contents = $(document).find(".canvas-content");
+            	$contents.each(function(){
+            		var $this = $(this),
+            		index = $this.index(".canvas-content");
+            		if(!$this.is(".placeHolder")) $this.attr("data-index",index);
+            	});
             },
             insertPosition: function(selector,wrap,object){
                 var $this = selector,
@@ -344,6 +358,7 @@
                     if(contentSize) $deviderWrap.clone().insertBefore(wrap);
                 }
                 canvasTool.addObjBt();
+                upload.setIndex();
             }
         },
         headerTool = {
@@ -357,7 +372,9 @@
                 var $this = $(this),
                 objects = $(document).find(".canvas-content").size(),
                 $target = $this.parents(".canvas-content"),
-                $placeHolder = $(document).find(".placeHolder");
+                $placeHolder = $(document).find(".placeHolder"),
+                $ObjBts = $(document).find(".canvas-uploader-wrap");
+                //$addObjBts = $(document).find(".canvas-uploader-wrap");
 
                 if($target.index() == 1) {
                 	$target.next(".canvas-devider-wrap").remove();
@@ -367,7 +384,8 @@
                 	$target.prev(".canvas-devider-wrap").remove();
                 	$target.remove();
                 }
-                if(objects == 2) $placeHolder.show();
+                if(objects == 2) $placeHolder.show() && $ObjBts.remove();
+                upload.setIndex();
                 console.log("image was deleted");
             },
             addObjBt: function(selector){
@@ -447,7 +465,7 @@
                 }).appendTo($fontColor),
                 $colorInput = $("<input/>",{ //input
                     "type" : "text",
-                    "class" : "fontColorKey"
+                    "id" : "fontColorKey"
                 }).appendTo($fontColor).spectrum({
                     color: "#ffffff",
                     showInput: true,
@@ -472,26 +490,50 @@
                     "html" : "Font Decorations"
                 }).appendTo($fontDeco),
                 $btWrap = $("<ul/>",{ "class" : "toolbox-btns" }).appendTo($fontDeco),
-                $boldBt = $("<div/>",{ "class" : "btn", "data-value" : "bold" }).append($("<i/>",{"class" : icons.bold}))
+                $boldBt = $("<div/>",{ "class" : "btn boldbt", "data-value" : "bold" }).append($("<i/>",{"class" : icons.bold}))
                 .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
-                $italicBt = $("<div/>",{ "class" : "btn", "data-value" : "italic" }).append($("<i/>",{"class" : icons.italic}))
+                $italicBt = $("<div/>",{ "class" : "btn italbt", "data-value" : "italic" }).append($("<i/>",{"class" : icons.italic}))
                 .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
-                $underBt = $("<div/>",{ "class" : "btn", "data-value" : "underline" }).append($("<i/>",{"class" : icons.underline}))
+                $underBt = $("<div/>",{ "class" : "btn underbt", "data-value" : "underline" }).append($("<i/>",{"class" : icons.underline}))
                 .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
-                $strikeBt = $("<div/>",{ "class" : "btn", "data-value" : "strike" }).append($("<i/>",{"class" : icons.strike}))
+                $strikeBt = $("<div/>",{ "class" : "btn strikebt", "data-value" : "strike" }).append($("<i/>",{"class" : icons.strike}))
                 .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap);
             },
             textFn: {
                 focusAction: function(){
-                    var $this = $(this);
+                    var $this = $(this),
+                    $textInput = $(this).find(".canvas-input"),
+                    fontSize = parseInt($textInput.css("font-size")),
+                    fontColor = $textInput.css("color"),
+                    $fontSizeTool = $("#fontSize-tool"),
+                    $fontColorTool = $("#fontColor-tool"),
+                    $fontDecoTool = $("#fontDeco-tool");                    
+
                     $("html").on("click",toolbar.textFn.blurAction);
                     if($(".focused").size() == 1) $(".focused").removeClass("focused");
                     $this.addClass("focused");
+
+                    var //data reset
+                    $changeSize = $fontSizeTool.find(".slider-text").val(fontSize).trigger("change"),
+                    $changeColor = $("#fontColorKey").spectrum("set", fontColor);
+                    $boldbt = $this.find("b").length > 0 ? 
+                    	$fontDecoTool.find(".boldbt").addClass("selected") : 
+                    	$fontDecoTool.find(".boldbt").removeClass("selected"),
+                    $italbt = $this.find("em").length > 0 ? 
+                    	$fontDecoTool.find(".italbt").addClass("selected") : 
+                    	$fontDecoTool.find(".italbt").removeClass("selected"),
+                    $underbt = $this.find("u").length > 0 ? 
+                    	$fontDecoTool.find(".underbt").addClass("selected") : 
+                    	$fontDecoTool.find(".underbt").removeClass("selected"),
+                    $strikebt = $this.find("strike").length > 0 ? 
+                    	$fontDecoTool.find(".strikebt").addClass("selected") : 
+                    	$fontDecoTool.find(".strikebt").removeClass("selected");
                     console.log("focusin text");
                 },
                 blurAction: function(event){
                     var $this = $(".focused"),
                     $target = $(event.target),
+                    $fontDecoTool = $("#fontDeco-tool"),
         			inputChild = $(".canvas-input").children(),
                     input = $target.is(".canvas-input") || $target.is(inputChild),
                     aside = $target.parents().is(".lubypic-aside");
@@ -500,6 +542,7 @@
                     }
                     else {
                         $this.removeClass("focused");
+                        $fontDecoTool.find(".btn").removeClass("selected");
                         $("html").off("click");
                         console.log("This is not aside or input");
                     }
@@ -540,10 +583,10 @@
                     	italic = $target.find("em"),
                     	underline = $target.find("u"),
                     	strike = $target.find("strike"),
-                    	boldText = $target.find("b").children()[0],
-                    	italText = $target.find("em").children()[0],
-                    	underText = $target.find("u").children()[0],
-                    	strikeText = $target.find("strike").children()[0];
+                    	boldText = $target.find("b").children()[0] || $target.find("b").text(),
+                    	italText = $target.find("em").children()[0] || $target.find("em").text(),
+                    	underText = $target.find("u").children()[0] || $target.find("u").text(),
+                    	strikeText = $target.find("strike").children()[0] || $target.find("strike").text();
                     	console.log("bold--------------------------");
                     	console.log(boldText);
                     	console.log("ital--------------------------");
@@ -556,7 +599,7 @@
                         switch(value){
                             case "bold" : bold.parent().html(boldText); bold.remove(); break;
                             case "italic" : italic.parent().html(italText); italic.remove(); break;
-                            case "underline" : underline.parent().html(underText); bold.remove(); break;
+                            case "underline" : underline.parent().html(underText); underline.remove(); break;
                             case "strike" : strike.parent().html(strikeText); strike.remove(); break;
                             default : return; break;
                         }

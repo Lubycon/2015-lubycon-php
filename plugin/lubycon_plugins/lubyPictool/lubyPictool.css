@@ -260,6 +260,7 @@ a {
         }
         .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .canvas-input{
             width: 100%;
+            min-height: 25px;
             border: none;
             vertical-align: middle;
             text-align: center;
