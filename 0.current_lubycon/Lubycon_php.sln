@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "account", "account", "{EB38
 		php\account\registration.php = php\account\registration.php
 		php\account\session_check.php = php\account\session_check.php
 		php\account\success_account.php = php\account\success_account.php
+		php\account\test.php = php\account\test.php
 		php\account\waiting_for_resisting.php = php\account\waiting_for_resisting.php
 	EndProjectSection
 EndProject
@@ -226,8 +227,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img_crop", "img_crop", "{B2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "class", "class", "{95D8E7D4-DFA3-4DD2-B9C7-E03AEB7EA262}"
 	ProjectSection(SolutionItems) = preProject
+		php\class\regex_class.php = php\class\regex_class.php
 		php\class\upload_class.php = php\class\upload_class.php
-		php\class\zipfile.php = php\class\zipfile.php
 	EndProjectSection
 EndProject
 Global
