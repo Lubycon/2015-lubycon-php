@@ -218,14 +218,6 @@
                         $thumbimg = $("<img/>", { 
                             "class" : "thumb-origin-img",
                             "src" : "#"
-                        }).cropper({
-                            aspectRatio: 250/215,
-                            autoCropArea: 0.4,
-                            viewMode: 3,
-                            responsive: true,
-                            zoomable: false,
-                            preview: "#preview",
-                            dragMode: "crop"
                         }).appendTo($thumbEditWrap).hide(),
                         $thumbBtWrap = $("<div/>",{ "class" : "thumb-bt-wrapper modal-bt-wrapper" }).appendTo($thumbWrap),
                         $thumbCancel = $("<div/>",{
@@ -237,7 +229,7 @@
                             "id" : "Thumb-okbt",
                             "html" : "Next",
                             "data-value" : "setting"
-                        }).on("click",pac.currentProg).appendTo($thumbBtWrap),
+                        }).on("click",pac.currentProg).on("click",thumbTool.croped).appendTo($thumbBtWrap),
 
                         //setting windows
                         $settingWindow = $modal.clone().addClass("setting-window").appendTo($this).hide(),
@@ -247,8 +239,7 @@
                             "html" : "Content Setting"
                         }).appendTo($settingWrap),
 
-                        pac.databind();//data binding
-                        pac.modalAlign($(".modal"));
+                        pac.databind();//data binding    
                     }
                 })
             },
@@ -256,6 +247,9 @@
                 //toolbar data bind start
                 toolbar.textTool();
                 //toolbar data bind end
+                $(".modal").each(function(){
+                    pac.modalAlign($(this));
+                });
             },
             toggle: function(){
                 var $this = $(this),
@@ -285,6 +279,7 @@
                 if(data == "edit") $modals.fadeOut(200);
                 else {
                     $modals.hide();
+                    pac.modalAlign($target);
                     $target.fadeIn(200);
                 }
             },
@@ -334,15 +329,19 @@
                 );
             },
             modalAlign: function(selector){
-                $this = selector,
-                width = $this.outerWidth(true),
-                height = $this.outerHeight(true),
-                windowWidth = $(window).width(),
-                windowHeight = $(window).height(),
-                hrAlign = (width/2)*-1,
-                vtAlign = (windowHeight/2 - height/2) - 100;
-
-                $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px" });
+                $(window).load(function(){
+                    $this = selector,
+                    width = $this.width(),
+                    height = $this.height(),
+                    windowWidth = $(window).width(),
+                    windowHeight = $(window).height(),
+                    hrAlign = (width/2)*-1,
+                    vtAlign = (windowHeight/2 - height/2);
+                    console.log($this);
+                    console.log(width);console.log(height);
+                    console.log($(".thumbnail-window").width());
+                    $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px" });
+                });   
             },
             keyEvent: function(event){
                 $this = $(this),
@@ -354,7 +353,13 @@
             }
         },
         thumbTool = {
-
+            croped: function(event){
+                var $this = $(this),
+                $object = $(".thumb-origin-img").cropper("getCroppedCanvas"),
+                dataURL = $object.toDataURL();
+                console.log($object);
+                console.log(dataURL);
+            }
         },
         upload = {
             fileUpTrigger: function(){
@@ -373,6 +378,9 @@
                     if($uploading.length!=0) $uploading.removeClass(".uploading");
                     $this.addClass("uploading");
                 }
+                else if(dataValue == "thumbnail"){
+                    $inputFile.off("change").on("change",upload.thumbUpload);
+                }
                 else{
                     $inputFile.off("change").on("change",upload.imgUpload);
                     if($uploading.length!=0) $uploading.removeClass(".uploading");
@@ -380,6 +388,38 @@
                 };
                 $inputFile.trigger("click");
                 console.log("Trigger On");
+            },
+            thumbUpload: function(event){
+                var $this = $(".thumb-editor-wrapper"),
+                $inputFile = $(this),
+                $placeHolder = $this.find(".thumb-placeHolder"),
+                $target = $this.find(".thumb-origin-img"),
+                $previewer = $this.siblings(".thumb-preview-wrapper"),
+                $object = event.target.files;
+
+                $placeHolder.hide();
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        var img = $(".thumb-origin-img").attr("src", event.target.result)
+                        .cropper({
+                            minContainerWidth: 420,
+                            minContainerHeight: 300,
+                            aspectRatio: 250/215,
+                            autoCropArea: 0.6,
+                            viewMode: 3,
+                            responsive: true,
+                            zoomable: false,
+                            preview: ".thumb-preview-wrapper",
+                            dragMode: "crop"
+                        }).show();
+                        $inputFile.val(null);
+                    }
+                });
+                setTimeout(function(){
+                    pac.modalAlign($(".thumbnail-window"));
+                },200);
             },
             fileUpload: function(){
                 //do nothing
@@ -502,6 +542,7 @@
                 if($uploading.length!=0) $uploading.removeClass(".uploading");
 
                 $this.addClass("uploading");
+                pac.modalAlign($target);
             },
             confirm: function(){
                 var $this = $(this),

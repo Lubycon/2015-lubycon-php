@@ -53,8 +53,10 @@
 			dragMode: "crop"
 		});
 		$("#testBt").on("click",function(){
-			var image = $("#test").cropper("getCroppedCanvas");
+			var $object = $("#test").cropper("getCroppedCanvas"),
+            dataURL = $object.toDataURL("image/png");
 			$("#result").html(image);
+			console.log(dataValue);
 		})
 	</script>
 </body>
