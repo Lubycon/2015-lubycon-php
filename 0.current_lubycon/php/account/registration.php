@@ -18,25 +18,25 @@
 	// password encryption -> using bycrypt
 	$hash = password_hash($pass, PASSWORD_DEFAULT);
 
+
+    
+    require_once "../class/regex_class.php";
+    $regex_vali = new regex_validate;
+
 	//regular expression
-	$mail_vali = "/^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/";	// email validation check
-	$pass_vali[0] = "/[^0-9]/";
-	$pass_vali[1] = "/[`;',.\/~!@\#$%<>^&*\()\-=+_\¡¯]/";
-	$nick_vali = "/^[A-Za-z0-9+]*$/";	//only english & number
+	//$mail_vali = "/^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/";	// email validation check
+	//$pass_vali[0] = "/[^0-9]/";
+	//$pass_vali[1] = "/[`;',.\/~!@\#$%<>^&*\()\-=+_\¡¯]/";
+	//$nick_vali = "/^[A-Za-z0-9+]*$/";	//only english & number
 
 	//confirm password
-	$nomali_pass = strtolower($pass);	//string nomalization -> to lower
-	$nomali_repass = strtolower($repass);
-	$confirm_pass = ($nomali_pass == $nomali_repass) && preg_match($pass_vali[0], $pass) &&((int)strlen($pass)) > 7 && ((int)strlen($pass) < 21 && !($pass == ' '));	//length & pass same check
+	$confirm_pass = ($regex_vali->pass_check($pass) && $regex_vali->sametext_check($pass,$repass)); // insert 2 value 1:pass 2:repass
 
 	//confirm email
-	$mail_length = strlen($email);	//length email (deny null & space)
-	$confirm_email = $mail_length > 0 && !($email == ' ') && preg_match($mail_vali, $email);
+	$confirm_email = $regex_vali->email_check($email);
 
 	//confirm nickname
-	$nick_length = ((int)strlen($nick));
-
-	$confirm_nick = $nick_length > 0 && $nick_length < 17 && !($nick == ' ') && preg_match($nick_vali, $nick);
+	$confirm_nick = $regex_vali->nickname_check($nick);
 
 	//email validation check
 	if($confirm_email){	//check to length & validation
@@ -140,7 +140,7 @@
 		}
 	}
 	else{
-		echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.";
+		echo "registration fail back to the website.";
 		sleep(5);
 		echo("<script>history.back();</script>");
 		exit;

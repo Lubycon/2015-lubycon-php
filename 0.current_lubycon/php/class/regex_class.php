@@ -6,12 +6,14 @@ class regex_validate
     private $_alnum = '/[^a-zA-Z0-9]/';
     private $_space = '/\s/';
     private $_repeat_word = '/(.)\1\1/'; // repeat 3
+    private $_abuse_array = ['bitch','fuck'];
 
     public function email_check($value)
     {
         if( preg_match($this->_email_vali, $value) )
         {
             echo 'email / done<br/>';
+            return true;
         }else
         {
             die( 'email / wrong email<br/>' );
@@ -28,7 +30,7 @@ class regex_validate
             die( 'password / you can only alphabet and number' );
         }else if( strlen($value) < 7 || strlen($value) > 21)
         {
-            die('password / you must write 8~20 strlen password<br/>') ;
+            die( 'password / you must write 8~20 strlen password<br/>') ;
         }else if( preg_match($this->_space,$value))
         {
             die( 'password / you can not use space<br/>');
@@ -41,6 +43,7 @@ class regex_validate
         }else
         {
             echo 'password / done</br>';
+            return true;
         };
 
     }
@@ -53,17 +56,31 @@ class regex_validate
         }else
         {
             echo 'sametext / done<br/>';
+            return true;
         };
     }
 
     public function nickname_check($value)
     {
-        if( !preg_match($this->_alnum,$value))
+        if( preg_match("/".implode("|",$this->_abuse_array)."/si", $value) > 0 )
         {
-            die( 'nickname / wrong! you need one of alphabet or number<br/>' );
+            die ( 'nickname / sorry.. abuse name<br/>' );
+        }else if( preg_match($this->_alnum,$value))
+        {
+            die( 'nickname / you can only alphabet and number<br/>' );
+        }else if( strlen($value) < 3 || strlen($value) > 15)
+        {
+            die( 'nickname / you must write 3~15 strlen nickname<br/>') ;
+        }else if( strpos($value,'null') !== false )
+        {
+            die( 'nickname / you can not null word<br/>');
+        }else if( preg_match($this->_space,$value))
+        {
+            die( 'nickname / you can not use space<br/>');
         }else
         {
-            echo 'nickname / done';
+            echo 'nickname / done<br/>';
+            return true;
         };
     }
 }
