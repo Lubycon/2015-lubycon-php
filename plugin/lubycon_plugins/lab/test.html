@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -55,8 +55,8 @@
 		$("#testBt").on("click",function(){
 			var $object = $("#test").cropper("getCroppedCanvas"),
             dataURL = $object.toDataURL("image/png");
-			$("#result").html(image);
-			console.log(dataValue);
+			$("#result").html($object);
+
 		})
 	</script>
 </body>
