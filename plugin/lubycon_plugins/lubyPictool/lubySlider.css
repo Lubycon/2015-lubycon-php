@@ -38,7 +38,7 @@
         border-radius: 50%;
         background: #666666;
         box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.5);
-        cursor: pointer;
+        cursor: ew-resize;
     }
         .slider-bt:hover {
             background: #888888;

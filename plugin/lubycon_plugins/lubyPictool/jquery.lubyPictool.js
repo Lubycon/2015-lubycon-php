@@ -81,7 +81,8 @@
             w: 87,
             x: 88,
             y: 89,
-            z: 90
+            z: 90,
+            enter: 13
         },
         d = {},
         pac = {
@@ -174,12 +175,20 @@
                         $modal = $("<div/>",{"class" : "modal"}),
 
                         $embedWindow = $modal.clone().addClass("embed-window").appendTo($this).hide(), //embed window
-                        $embedWrap = $("<div/>",{ "class" : "embed-wrapper" }).appendTo($embedWindow),
+                        $embedWrap = $("<div/>",{ "class" : "embed-wrapper modal-wrapper" }).appendTo($embedWindow),
                         $embedTitle = $("<div/>",{
-                            "class" : "embed-title",
+                            "class" : "embed-title modal-title",
                             "html" : "Embed Media"
                         }).appendTo($embedWrap),
                         $embedInput = $("<textarea/>",{ "class" : "embed-input" }).appendTo($embedWrap),
+                        $embedHelp = $("<p/>",{ 
+                            "class" : "embed-help",
+                            "html" : "What can I embed?"
+                        }).on("click",pac.dbToggle).on("click",modalTool.embedHelp).appendTo($embedWrap),
+                        $embedError = $("<p/>",{ 
+                            "class" : "embed-error",
+                            "html" : "Please insert iframe tag only."
+                        }).appendTo($embedWrap).hide(),
                         $embedBtWrap = $("<div/>",{ "class" : "embed-bt-wrapper" }).appendTo($embedWrap),       
                         $embedCancel = $("<div/>",{
                             "class" : "modal-bt modal-cancelbt",
@@ -190,6 +199,22 @@
                             "id" : "embed-okbt",
                             "html" : "Embed"
                         }).on("click",modalTool.confirm).appendTo($embedBtWrap);
+
+                        //thumbnail windows
+                        $thumbWindow = $modal.clone().addClass("thumbnail-window").appendTo($this).hide(),
+                        $thumbWrap = $("<div/>",{ "class" : "thumb-wrapper modal-wrapper" }).appendTo($thumbWindow),
+                        $thumbTitle = $("<div/>",{
+                            "class" : "thumb-title modal-title",
+                            "html" : "Edit Thumbnail Image"
+                        }).appendTo($thumbWrap),
+                        
+                        //setting windows
+                        $settingWindow = $modal.clone().addClass("setting-window").appendTo($this).hide(),
+                        $settingWrap = $("<div/>",{ "class" : "thumb-wrapper modal-wrapper" }).appendTo($settingWindow),
+                        $settingTitle = $("<div/>",{
+                            "class" : "setting-title modal-title",
+                            "html" : "Content Setting"
+                        }).appendTo($settingWrap),
 
                         pac.databind();//data binding
                         pac.modalAlign($(".modal"));
@@ -217,11 +242,18 @@
             },
             currentProg: function(){
                 var $this = $(this),
-                $btns = $(".prog");
+                $modals = $(document).find(".modal"),
+                $btns = $(".prog"),
+                data = $(this).data("value"),
+                $target = $("." + data + "-window");
                 if(!$this.hasClass("selected")) {
                     $btns.removeClass("current-prog");
                     $this.addClass("current-prog");
-                    console.log($this.data("value"));
+                }
+                if(data == "edit") $modals.fadeOut(200);
+                else {
+                    $modals.hide();
+                    $target.fadeIn(200);
                 }
             },
             placeHolder: function(){
@@ -279,6 +311,14 @@
                 vtAlign = windowHeight/2 - height/2;
 
                 $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px" });
+            },
+            keyEvent: function(event){
+                $this = $(this),
+                $confirm = $this.parent().find(".modal-okbt"),
+                inKeyCode = event.which;
+                switch(inKeyCode){
+                   case keyCode.enter : $confirm.trigger("click"); break;
+                }
             }
         },
         upload = {
@@ -289,18 +329,21 @@
             },
             imgUpTrigger: function(){
                 var $this = $(this),
-                inputFile = $(document).find(".imgUploader"),
-                dataValue = $this.data("value");
+                $inputFile = $(document).find(".imgUploader"),
+                dataValue = $this.data("value"),
+                $uploading = $(document).find(".uploading");
                 
                 if(dataValue == "replace"){
-                    inputFile.off("change").on("change",upload.imgReplace);
+                    $inputFile.off("change").on("change",upload.imgReplace);
+                    if($uploading.length!=0) $uploading.removeClass(".uploading");
                     $this.addClass("uploading");
                 }
                 else{
-                    inputFile.off("change").on("change",upload.imgUpload);
+                    $inputFile.off("change").on("change",upload.imgUpload);
+                    if($uploading.length!=0) $uploading.removeClass(".uploading");
                     $this.addClass("uploading");
                 };
-                inputFile.trigger("click");
+                $inputFile.trigger("click");
                 console.log("Trigger On");
             },
             fileUpload: function(){
@@ -364,7 +407,7 @@
                 console.log("text area is added");
             },
             embedUpload: function(val){
-                var $this = $(this),
+                var $this = $(".uploading"),
                 $body = $(".obj-body"),
                 $placeHolder = $body.find("placeHolder"),
                 $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-embed", "data-index" : ""}),
@@ -372,6 +415,7 @@
 
                 if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$mediaWrap,$media);
+                $this.removeClass(".uploading");
                 pac.objMenu($mediaWrap);
                 console.log("meida link is added");
             }, 
@@ -413,21 +457,37 @@
         modalTool = {
             modalShow: function(){
                 $this = $(this),
-                data = $this.data("value");
-                $target = $(document).find("."+data);
+                data = $this.data("value"),
+                $uploading = $(document).find(".uploading"),
+                $target = $(document).find("."+data),
+                $input = $target.find("textarea");
                 $target.fadeIn(200);
+                $input.focus().on("keydown",pac.keyEvent);
+                if($uploading.length!=0) $uploading.removeClass(".uploading");
+
+                $this.addClass("uploading");
             },
             confirm: function(){
                 var $this = $(this),
                 $window = $this.parents(".modal"),
                 $input = $this.parent().siblings("textarea"),
+                $errorMsg = $this.parent().siblings(".embed-error"),
                 value = $input.val() || 0;
-                if(value != 0) {
+                valTest = value.indexOf("</iframe>") == -1;
+                if(value != 0 && !valTest) {
                     upload.embedUpload(value);
                     $input.val(null); 
                     $window.stop().fadeOut(200);
                 }
-                else alert("There is no text");
+                else {
+                    $input.addClass("error").on("blur",function(){
+                        $input.removeClass("error");
+                    });
+                    $errorMsg.fadeIn(200)
+                    setTimeout(function(){
+                        $errorMsg.fadeOut(200);
+                    },1500);
+                }
             },
             cancel: function(){
                 var $this = $(this),
@@ -436,6 +496,12 @@
                 $input.val(null);
                 $window.stop().fadeOut(200);
                 console.log($window);
+            },
+            embedHelp: function(){
+                var $this = $(this),
+                selected = $this.hasClass("selected");
+                if(selected) $this.text("Embeds from: Vimeo, YouTube, Adobe TV, Adobe Voice, Blip.tv, Dailymotion, SoundCloud, Mixcloud, Bandcamp, Scribd, Google Maps, Wufoo, SlideShare, Giphy, Prezi, Sketchfab, Issuu, Vine, Spotify").hide().stop().fadeIn(300);
+                else $this.text("What can I embed?").hide().stop().fadeIn(300);
             }
         },
         headerTool = {
