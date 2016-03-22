@@ -134,7 +134,7 @@
                         }).prepend($("<i/>",{"class":icons.edit}))
                         .appendTo($progressWrap).on("click",pac.currentProg),
                         $thumbProgress = $("<div/>",{
-                            "class" : "header-btn thumb prog",
+                            "class" : "header-btn thumbnail prog",
                             "html" : "THUMBNAIL",
                             "data-value" : "thumbnail"
                         }).prepend($("<i/>",{"class":icons.image}))
@@ -189,7 +189,7 @@
                             "class" : "embed-error",
                             "html" : "Please insert iframe tag only."
                         }).appendTo($embedWrap).hide(),
-                        $embedBtWrap = $("<div/>",{ "class" : "embed-bt-wrapper" }).appendTo($embedWrap),       
+                        $embedBtWrap = $("<div/>",{ "class" : "embed-bt-wrapper modal-bt-wrapper" }).appendTo($embedWrap),       
                         $embedCancel = $("<div/>",{
                             "class" : "modal-bt modal-cancelbt",
                             "html" : "Cancel"
@@ -198,7 +198,7 @@
                             "class" : "modal-bt modal-okbt",
                             "id" : "embed-okbt",
                             "html" : "Embed"
-                        }).on("click",modalTool.confirm).appendTo($embedBtWrap);
+                        }).on("click",modalTool.confirm).appendTo($embedBtWrap),
 
                         //thumbnail windows
                         $thumbWindow = $modal.clone().addClass("thumbnail-window").appendTo($this).hide(),
@@ -207,7 +207,38 @@
                             "class" : "thumb-title modal-title",
                             "html" : "Edit Thumbnail Image"
                         }).appendTo($thumbWrap),
-                        
+                        $thumbInnerWrap = $("<div/>",{ "class" : "thumb-inner-wrapper" }).appendTo($thumbWrap),
+                        $thumbPreview = $("<div/>",{ "class" : "thumb-preview-wrapper" }).appendTo($thumbInnerWrap),
+                        $thumbEditWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($thumbInnerWrap),
+                        $thumbPlaceHolder = $("<div/>", { 
+                            "class" : "thumb-placeHolder",
+                            "html" : "Click and upload your thumbnail Image",
+                            "data-value" : "thumbnail"
+                        }).on("click",upload.imgUpTrigger).appendTo($thumbEditWrap),
+                        $thumbimg = $("<img/>", { 
+                            "class" : "thumb-origin-img",
+                            "src" : "#"
+                        }).cropper({
+                            aspectRatio: 250/215,
+                            autoCropArea: 0.4,
+                            viewMode: 3,
+                            responsive: true,
+                            zoomable: false,
+                            preview: "#preview",
+                            dragMode: "crop"
+                        }).appendTo($thumbEditWrap).hide(),
+                        $thumbBtWrap = $("<div/>",{ "class" : "thumb-bt-wrapper modal-bt-wrapper" }).appendTo($thumbWrap),
+                        $thumbCancel = $("<div/>",{
+                            "class" : "modal-bt modal-cancelbt",
+                            "html" : "Cancel"
+                        }).on("click",modalTool.cancel).appendTo($thumbBtWrap),
+                        $thumbOk = $("<div/>",{
+                            "class" : "modal-bt modal-okbt",
+                            "id" : "Thumb-okbt",
+                            "html" : "Next",
+                            "data-value" : "setting"
+                        }).on("click",pac.currentProg).appendTo($thumbBtWrap),
+
                         //setting windows
                         $settingWindow = $modal.clone().addClass("setting-window").appendTo($this).hide(),
                         $settingWrap = $("<div/>",{ "class" : "thumb-wrapper modal-wrapper" }).appendTo($settingWindow),
@@ -245,10 +276,11 @@
                 $modals = $(document).find(".modal"),
                 $btns = $(".prog"),
                 data = $(this).data("value"),
+                $progress = $("." + data);
                 $target = $("." + data + "-window");
                 if(!$this.hasClass("selected")) {
                     $btns.removeClass("current-prog");
-                    $this.addClass("current-prog");
+                    $progress.addClass("current-prog");
                 }
                 if(data == "edit") $modals.fadeOut(200);
                 else {
@@ -308,7 +340,7 @@
                 windowWidth = $(window).width(),
                 windowHeight = $(window).height(),
                 hrAlign = (width/2)*-1,
-                vtAlign = windowHeight/2 - height/2;
+                vtAlign = (windowHeight/2 - height/2) - 100;
 
                 $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px" });
             },
@@ -320,6 +352,9 @@
                    case keyCode.enter : $confirm.trigger("click"); break;
                 }
             }
+        },
+        thumbTool = {
+
         },
         upload = {
             fileUpTrigger: function(){
@@ -461,6 +496,7 @@
                 $uploading = $(document).find(".uploading"),
                 $target = $(document).find("."+data),
                 $input = $target.find("textarea");
+                console.log($target);
                 $target.fadeIn(200);
                 $input.focus().on("keydown",pac.keyEvent);
                 if($uploading.length!=0) $uploading.removeClass(".uploading");

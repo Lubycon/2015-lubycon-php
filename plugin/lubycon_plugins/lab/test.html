@@ -4,34 +4,58 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<link href="lubySlider.css" rel="stylesheet" type="text/css" />
-	<link href="spectrum.css" rel="stylesheet" type="text/css" />
+	<link href="cropper.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="jquery-1.12.2.js"></script>
-	<script type="text/javascript" src="jquery.lubySlider.js"></script>
-	<script type="text/javascript" src="spectrum.js"></script>
+	<script type="text/javascript" src="cropper.js"></script>
+	<style>
+		img {
+			width: 100%;
+		}
+		#testWrap {
+			width: 500px;
+			display: inline-block;
+		}
+		#preview {
+			display: inline-block;
+			width: 200px;
+			height: 200px;
+			background: #aaaaaa;
+			overflow: hidden;
+		}
+		#testBt {
+			border: none;
+			width: 100px;
+			height: 40px;
+			background: #48cfad;
+			color: #ffffff;
+			cursor: pointer;
+		}
+			#testBt:hover{
+				opacity: 0.7;
+			}
+	</style>
 </head>
 <body>
-	<input id="sliderTest" class="sliderKey" type="range" value="20" min="10" max="100"/>
-	<input id="colorTest" type="text" />
-	<p id="text1" contenteditable="true">Lorem ipsum vaiwpe applet</p>
+	<div id="testWrap">
+		<img id="test" src="lubycon_wallpaper2.png" />
+	</div>
+	<div id="preview" width="200" height="200"></div>
+	<button id="testBt" data-method="getCroppedCanvas">crop</button>
+	<div id="result"></div>
 	<script>
-		$("#sliderTest").slider({
-			textbox: true,
-			callback: function(val,selector){
-				var $this = selector,
-				value = val,
-				text = $(document).find("#text1");
-				console.log(val);
-				text.css("font-size",value);
-			}
+		$("#test").cropper({
+			aspectRatio: 250/215,
+			autoCropArea: 0.4,
+			viewMode: 3,
+			responsive: true,
+			zoomable: false,
+			preview: "#preview",
+			dragMode: "crop"
 		});
-		$("#colorTest").spectrum({
-			color: "#ffffff",
-			showInput: true,
-			showAlpha: true,
-			showInitial: true,
-			preferredFormat: "hex3"
-		});
+		$("#testBt").on("click",function(){
+			var image = $("#test").cropper("getCroppedCanvas");
+			$("#result").html(image);
+		})
 	</script>
 </body>
 </html>

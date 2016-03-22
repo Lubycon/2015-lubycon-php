@@ -81,29 +81,33 @@ a {
         font-size: 20px;
         font-weight: 200;
     }
-    .modal-bt {
-        display: inline-block;
-        width: 100px;
-        height: 30px;
-        padding: 5px;
-        border-radius: 3px;
-        font-weight: 200;
+    .modal-bt-wrapper {
         text-align: center;
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        cursor: pointer;
+        margin-top: 20px;
     }
-    .modal-bt:hover {
-        opacity: 0.8;
-    }
-        .modal-okbt {
-            background: #48cfad;
-            color: #ffffff;
+        .modal-bt {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            padding: 5px;
+            border-radius: 3px;
+            font-weight: 200;
+            text-align: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            cursor: pointer;
         }
-        .modal-cancelbt {
-            color: #ec6446;
+        .modal-bt:hover {
+            opacity: 0.8;
         }
+            .modal-okbt {
+                background: #48cfad;
+                color: #ffffff;
+            }
+            .modal-cancelbt {
+                color: #ec6446;
+            }
     .modal.embed-window > .embed-wrapper{
         width: 450px;
     }
@@ -157,6 +161,41 @@ a {
             margin-top: 20px;
             text-align: center;
         }
+.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper {
+    width: 100%;
+    margin-top: 20px;
+}
+.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-preview-wrapper {
+    display: inline-block;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    padding: 10px 20px 10px 10px;
+    border-right: 1px solid #333333;
+    margin-right: 20px;
+}
+.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    width: 250px;
+}
+    .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder {
+        width: 100%;
+        height: 100px;
+        line-height: 100px;
+        background : #aaaaaa;
+        color: #444444;
+        font-size: 12px;
+        text-align: center;
+        cursor: pointer;
+    }
+        .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder:hover {
+            opacity: 0.8;
+        }
+    .modal.thumbnail-window > .thumb-wrapper > .thumb-editor-wrapper img {
+        width: 100%;
+    }
 .lubypic-wrapper{
     position: relative;
     width: 100%;
