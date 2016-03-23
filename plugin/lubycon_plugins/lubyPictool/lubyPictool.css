@@ -225,7 +225,7 @@ a {
         font-weight: 200;
         margin-bottom: 10px;
     }
-    .setting-inner-wrapper input {
+    .setting-inner-wrapper .setting-input {
         width: 280px;
         padding: 5px 10px;
         background: #222222;
@@ -235,12 +235,24 @@ a {
         border: none;
         border-radius: 3px;
         box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.7);
-
     }
+        .setting-inner-wrapper .setting-input > * {
+            color: #eeeeee;
+            font-weight: 200;
+            font-size: 14px;
+        }
+        .setting-input > input {
+            width: 70px;
+            background: transparent;
+            color: #eeeeee;
+            font-weight: 200;
+            font-size: 14px;
+            border: none;
+        }
     .modal.setting-window > .setting-wrapper > .setting-inner-wrapper > .setting-inner-left {
         display: inline-block;
         width: 50%;
-        height: 100px;
+        min-height: 100px;
         padding: 0px 15px;
         border-right: 1px solid #333333;
         box-sizing: border-box;
@@ -251,13 +263,35 @@ a {
     .modal.setting-window > .setting-wrapper > .setting-inner-wrapper > .setting-inner-right {
         display: inline-block;
         width: 50%;
-        height: 100px;
+        min-height: 100px;
         padding: 0px 15px;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-
+        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper {
+            margin: 10px 0px;
+        }
+    .hashTag-input-wrap .hashtag-wrapper {
+        display: inline-block;
+        text-align: left;
+    }  
+    .hashTag-input-wrap .hashtag-wrapper > .hashtag-list {
+        display: inline-block;
+        max-width: 80px;
+        height: 16px;
+        color: #eeeeee;
+        font-size: 13px;
+        font-weight: 200;
+        padding: 3px 20px 3px 5px;
+        margin-right: 4px;
+        border-radius: 3px;
+        border: 1px solid #111111;
+        background: #222222;
+        box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+        word-wrap: break-word;
+        overflow: hidden;
+    }
 
 .lubypic-wrapper{
     position: relative;

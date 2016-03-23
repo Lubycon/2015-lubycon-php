@@ -70,22 +70,22 @@
         /* size of bullet elment */
         width: 15px;
         height: 6px;
-        background: #d1d1d1;
+        background: #999;
         overflow: hidden;
         cursor: pointer;
         border-radius: 10px;
     }
 
         #slide_section  .slider_pager div:hover, #slide_section  .slider_pager .av:hover {
-            background: #999;
+            background: #d1d1d1;
         }
 
     #slide_section  .slider_pager .av {
-        background: #737373;
+        background: #48cfad;
     }
 
     #slide_section  .slider_pager .dn, #slide_section  .slider_pager .dn:hover {
-        background: #999;
+        background: #d1d1d1;
     }
 /* slider pager*/
 

@@ -236,7 +236,7 @@
             <!-- multi select box css -->
             <!-- multi select box js -->
             <script src="js/chosen.jquery.js" type="text/javascript"></script>
-            <script src="js/chosen.prism.js" type="text/javascript"></script>
+            <!--<script src="js/chosen.prism.js" type="text/javascript"></script>-->
             <script type="text/javascript">
                 var config = {
                     '.chosen-select': {},

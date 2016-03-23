@@ -83,7 +83,8 @@
             x: 88,
             y: 89,
             z: 90,
-            enter: 13
+            enter: 13,
+            space: 32
         },
         d = {},
         pac = {
@@ -248,14 +249,40 @@
                         $settingInnerLeft= $("<div/>",{ "class" : "setting-inner-left" }).appendTo($settingInnerWrap),
                         $settingInnerRight = $("<div/>",{ "class" : "setting-inner-right" }).appendTo($settingInnerWrap),
                         
-                        $settingInputLabel = $("<div/>", { "class" : "setting-input-wrapper"}),
+                        $settingInputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
                         $settingLabel = $("<p/>",{ "class" : "setting-input-label"}),
                         $settingInput = $("<input>", { "class" : "setting-input", "type" : "text" }),
+                        $settingSelect = $("<select>", { "class" : "setting-select" }),
+                        $settingOption = $("<option/>",{"class" : "select-option"})
 
-                        $contentName = $settingInputLabel.clone()
+                        $contentName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Content Name"))
                         .append($settingInput.clone()).appendTo($settingInnerLeft),
 
+                        $categoryName = $settingInputWrap.clone()
+                        .append($settingLabel.clone().html("Categories"))
+                        .append($settingSelect.clone().addClass("chosen-select category").attr({
+                            "data-placeholder" : "Choose your contents categories",
+                            "multiple" : "",
+                            "tabindex" : "8",
+                        })).appendTo($settingInnerLeft),
+                        $chosenOptions = ["Apple","Banana","Caramel","Diamond","Element","Fedex","Glory","Hive","Iframe","Jelly","Key","Lion","Mom","Nurse"],
+                        insertOption = function(){
+                            var categoryBox = $(document).find(".chosen-select.category");
+                            for(i in $chosenOptions){
+                                var option = $settingOption.clone().html($chosenOptions[i]).attr("data-index",i);
+                                option.appendTo(categoryBox);
+                            }
+                            categoryBox.chosen({ 
+                                max_selected_options: 3
+                            });
+                        }(),
+
+                        $hashtagName = $settingInputWrap.clone()
+                        .append($settingLabel.clone().html("Hash Tag"))
+                        .append($("<div/>",{ "class" : "hashTag-input-wrap setting-input" })).appendTo($settingInnerLeft),
+                        $hashTagInput = $("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalTool.detectTag).appendTo(".hashTag-input-wrap"),
+                        
                         $settingBtWrap = $("<div/>",{ "class" : "setting-bt-wrapper modal-bt-wrapper" }).appendTo($settingWrap),
                         $settingCancel = $("<div/>",{
                             "class" : "modal-bt modal-cancelbt",
@@ -268,7 +295,7 @@
                             "data-value" : "submit",
                             "disabled" : "disabled"
                         }).on("click",pac.currentProg).on("click",modalTool.submit).appendTo($settingBtWrap);
-
+                        //left : {hastag,  decription}, right : {project team,creative commons}
                         pac.databind();//data binding    
                     }
                 })
@@ -607,6 +634,23 @@
                     console.log(dataURL);
                 }
                 else $.error("There is no Image");                
+            },
+            detectTag: function(event){
+                var $this = $(this),
+                $wrapper = $this.parent(".hashTag-input-wrap"),
+                $tagWrap = $("<ul/>",{ "class" : "hashtag-wrapper"}),
+                $tag = $("<li/>",{ "class" : "hashtag-list" }),
+                inKeyCode= event.which,
+                value = $this.val(),
+                endCommand = inKeyCode == keyCode.enter || inKeyCode == keyCode.space,
+                wrapperExist = $this.prev("ul").length == 0;
+                if(endCommand){
+                    if(value.indexOf("#") != -1){
+                        if(wrapperExist) $tagWrap.prependTo($wrapper);
+                        $tag.html(value).appendTo(".hashtag-wrapper");
+                        $this.val(null);
+                    }
+                }
             },
             submit: function(event){
                 var $this = $(this);
