@@ -62,8 +62,8 @@ a {
 .modal {
     position: fixed;
     display: inline-block;
-    top: 0;
-    left: 50%;
+    top: 40px;
+    left: 40px;
     z-index: 10000;
     min-width: 450px;
     min-height: 100px;
@@ -161,7 +161,9 @@ a {
             margin-top: 20px;
             text-align: center;
         }
+
 .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper {
+    position: relative;
     width: 100%;
     margin-top: 20px;
 }
@@ -175,6 +177,21 @@ a {
     margin-right: 20px;
     overflow: hidden;
 }
+.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-img-change {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    color: #eeeeee;
+    font-size: 14px;
+    font-weight: 200;
+    cursor: pointer;
+}
+    .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-img-change > .fa-refresh {
+        margin-right: 5px;
+    }
+    .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-img-change:hover {
+        text-decoration: underline;
+    }
 .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper {
     display: inline-block;
     position: relative;
@@ -184,8 +201,8 @@ a {
 }
     .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder {
         width: 100%;
-        height: 100px;
-        line-height: 100px;
+        height: 270px;
+        line-height: 270px;
         background : #aaaaaa;
         color: #444444;
         font-size: 12px;
@@ -198,6 +215,50 @@ a {
     .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper img.thumb-origin-img {
         width: 100%;
     }
+.modal.setting-window > .setting-wrapper > .setting-inner-wrapper {
+    width: 700px;
+    margin-top: 20px;
+}
+    .setting-inner-wrapper .setting-input-label {
+        font-size: 14px;
+        color: #eeeeee;
+        font-weight: 200;
+        margin-bottom: 10px;
+    }
+    .setting-inner-wrapper input {
+        width: 280px;
+        padding: 5px 10px;
+        background: #222222;
+        color: #eeeeee;
+        font-weight: 200;
+        font-size: 14px;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.7);
+
+    }
+    .modal.setting-window > .setting-wrapper > .setting-inner-wrapper > .setting-inner-left {
+        display: inline-block;
+        width: 50%;
+        height: 100px;
+        padding: 0px 15px;
+        border-right: 1px solid #333333;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        vertical-align: top;
+    }
+    .modal.setting-window > .setting-wrapper > .setting-inner-wrapper > .setting-inner-right {
+        display: inline-block;
+        width: 50%;
+        height: 100px;
+        padding: 0px 15px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+
+
 .lubypic-wrapper{
     position: relative;
     width: 100%;
@@ -241,7 +302,7 @@ a {
         padding-top: 70px;
         width: 250px;
         height: 100%;
-        background: #383838;
+        background: #282828;
         z-index: 90;
         box-shadow: 7px 0px 10px -4px rgba(0,0,0,0.6);
         box-sizing: border-box;
@@ -505,6 +566,7 @@ a {
     .current-prog {
         color: #ffffff !important;
         border-bottom: 3px solid #48cfad;
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
     }
         .current-prog > i {
             color: #ffffff !important;
@@ -560,6 +622,7 @@ a {
         background: #222222 !important;
         box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.5) !important;
         color: #ffffff !important;
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
     }
     .btn:hover{
         background: #444444;

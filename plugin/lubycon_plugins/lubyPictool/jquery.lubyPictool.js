@@ -51,6 +51,7 @@
             arrowDown: "fa fa-caret-down",
             arrowLeft: "fa fa-caret-left",
             arrowRight: "fa fa-caret-right",
+            refresh: "fa fa-refresh",
 
             upload: "fa fa-cloud-upload",
             download: "fa fa-inbox"
@@ -198,10 +199,10 @@
                             "class" : "modal-bt modal-okbt",
                             "id" : "embed-okbt",
                             "html" : "Embed"
-                        }).on("click",modalTool.confirm).appendTo($embedBtWrap),
+                        }).on("click",modalTool.embed).appendTo($embedBtWrap),
 
                         //thumbnail windows
-                        $thumbWindow = $modal.clone().addClass("thumbnail-window").appendTo($this).hide(),
+                        $thumbWindow = $modal.clone().addClass("thumbnail-window prog").appendTo($this).hide(),
                         $thumbWrap = $("<div/>",{ "class" : "thumb-wrapper modal-wrapper" }).appendTo($thumbWindow),
                         $thumbTitle = $("<div/>",{
                             "class" : "thumb-title modal-title",
@@ -229,15 +230,44 @@
                             "id" : "Thumb-okbt",
                             "html" : "Next",
                             "data-value" : "setting"
-                        }).on("click",pac.currentProg).on("click",thumbTool.croped).appendTo($thumbBtWrap),
+                        }).on("click",pac.currentProg).on("click",modalTool.cropped).appendTo($thumbBtWrap),
+                        $changeThumb = $("<span/>",{
+                            "class" : "thumb-img-change",
+                            "html" : "<i class='fa " + icons.refresh + "'></i>Change Image",
+                            "data-value" : "thumb-replace"
+                        }).on("click",upload.imgUpTrigger).appendTo($thumbInnerWrap).hide();
 
                         //setting windows
-                        $settingWindow = $modal.clone().addClass("setting-window").appendTo($this).hide(),
-                        $settingWrap = $("<div/>",{ "class" : "thumb-wrapper modal-wrapper" }).appendTo($settingWindow),
+                        $settingWindow = $modal.clone().addClass("setting-window prog").appendTo($this).hide(),
+                        $settingWrap = $("<div/>",{ "class" : "setting-wrapper modal-wrapper" }).appendTo($settingWindow),
                         $settingTitle = $("<div/>",{
                             "class" : "setting-title modal-title",
                             "html" : "Content Setting"
                         }).appendTo($settingWrap),
+                        $settingInnerWrap = $("<div/>",{ "class" : "setting-inner-wrapper" }).appendTo($settingWrap),
+                        $settingInnerLeft= $("<div/>",{ "class" : "setting-inner-left" }).appendTo($settingInnerWrap),
+                        $settingInnerRight = $("<div/>",{ "class" : "setting-inner-right" }).appendTo($settingInnerWrap),
+                        
+                        $settingInputLabel = $("<div/>", { "class" : "setting-input-wrapper"}),
+                        $settingLabel = $("<p/>",{ "class" : "setting-input-label"}),
+                        $settingInput = $("<input>", { "class" : "setting-input", "type" : "text" }),
+
+                        $contentName = $settingInputLabel.clone()
+                        .append($settingLabel.clone().html("Content Name"))
+                        .append($settingInput.clone()).appendTo($settingInnerLeft),
+
+                        $settingBtWrap = $("<div/>",{ "class" : "setting-bt-wrapper modal-bt-wrapper" }).appendTo($settingWrap),
+                        $settingCancel = $("<div/>",{
+                            "class" : "modal-bt modal-cancelbt",
+                            "html" : "Cancel"
+                        }).on("click",modalTool.cancel).appendTo($settingBtWrap),
+                        $settingOk = $("<div/>",{
+                            "class" : "modal-bt modal-okbt",
+                            "id" : "Thumb-okbt",
+                            "html" : "Submit",
+                            "data-value" : "submit",
+                            "disabled" : "disabled"
+                        }).on("click",pac.currentProg).on("click",modalTool.submit).appendTo($settingBtWrap);
 
                         pac.databind();//data binding    
                     }
@@ -336,11 +366,11 @@
                     windowWidth = $(window).width(),
                     windowHeight = $(window).height(),
                     hrAlign = (width/2)*-1,
-                    vtAlign = (windowHeight/2 - height/2);
-                    console.log($this);
-                    console.log(width);console.log(height);
-                    console.log($(".thumbnail-window").width());
-                    $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px" });
+                    vtAlign = (windowHeight/2 - height/2) - 30;
+                    //console.log($this);
+                    //console.log(width);console.log(height);
+                    //console.log($(".thumbnail-window").width());
+                    $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
                 });   
             },
             keyEvent: function(event){
@@ -352,15 +382,6 @@
                 }
             }
         },
-        thumbTool = {
-            croped: function(event){
-                var $this = $(this),
-                $object = $(".thumb-origin-img").cropper("getCroppedCanvas"),
-                dataURL = $object.toDataURL();
-                console.log($object);
-                console.log(dataURL);
-            }
-        },
         upload = {
             fileUpTrigger: function(){
                 var $this = $(this),
@@ -369,6 +390,7 @@
             },
             imgUpTrigger: function(){
                 var $this = $(this),
+                $document = $("body"),
                 $inputFile = $(document).find(".imgUploader"),
                 dataValue = $this.data("value"),
                 $uploading = $(document).find(".uploading");
@@ -381,12 +403,15 @@
                 else if(dataValue == "thumbnail"){
                     $inputFile.off("change").on("change",upload.thumbUpload);
                 }
+                else if(dataValue == "thumb-replace"){
+                    $inputFile.off("change").on("change",upload.thumbReplace);
+                }
                 else{
                     $inputFile.off("change").on("change",upload.imgUpload);
                     if($uploading.length!=0) $uploading.removeClass(".uploading");
                     $this.addClass("uploading");
                 };
-                $inputFile.trigger("click");
+                $inputFile.trigger("click")
                 console.log("Trigger On");
             },
             thumbUpload: function(event){
@@ -395,7 +420,8 @@
                 $placeHolder = $this.find(".thumb-placeHolder"),
                 $target = $this.find(".thumb-origin-img"),
                 $previewer = $this.siblings(".thumb-preview-wrapper"),
-                $object = event.target.files;
+                $object = event.target.files,
+                $changeThumb = $(document).find(".thumb-img-change");
 
                 $placeHolder.hide();
                 $.each($object, function(i,file){
@@ -415,11 +441,16 @@
                             dragMode: "crop"
                         }).show();
                         $inputFile.val(null);
+                        $changeThumb.show();
                     }
                 });
                 setTimeout(function(){
                     pac.modalAlign($(".thumbnail-window"));
                 },200);
+            },
+            thumbReplace: function(){
+                var $this = $(this);
+                console.log("thumbnail is replaced");
             },
             fileUpload: function(){
                 //do nothing
@@ -544,7 +575,7 @@
                 $this.addClass("uploading");
                 pac.modalAlign($target);
             },
-            confirm: function(){
+            embed: function(){
                 var $this = $(this),
                 $window = $this.parents(".modal"),
                 $input = $this.parent().siblings("textarea"),
@@ -566,13 +597,34 @@
                     },1500);
                 }
             },
+            cropped: function(event){
+                var $originImg = $(".thumb-origin-img");
+                if($originImg.attr("src") != "#") {
+                    var $this = $(this),
+                    $object = $originImg.cropper("getCroppedCanvas"),
+                    dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
+                    console.log($object);
+                    console.log(dataURL);
+                }
+                else $.error("There is no Image");                
+            },
+            submit: function(event){
+                var $this = $(this);
+                alert("submit!");
+            },
             cancel: function(){
                 var $this = $(this),
                 $window = $this.parents(".modal"),
-                $input = $this.parent().siblings("textarea");
+                $input = $this.parent().siblings("textarea"),
+                $btns = ".header-btn",
+                $currentProg = $(document).find(".current-prog"),
+                data = $currentProg.data("value");
+
                 $input.val(null);
                 $window.stop().fadeOut(200);
-                console.log($window);
+                if($window.hasClass("prog")){
+                    $currentProg.prev($btns).trigger("click");
+                }
             },
             embedHelp: function(){
                 var $this = $(this),
