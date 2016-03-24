@@ -226,7 +226,7 @@ a {
         margin-bottom: 10px;
     }
     .setting-inner-wrapper .setting-input {
-        width: 280px;
+        width: 300px;
         padding: 5px 10px;
         background: #222222;
         color: #eeeeee;
@@ -235,6 +235,23 @@ a {
         border: none;
         border-radius: 3px;
         box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.7);
+    }
+    .setting-inner-wrapper .setting-input.cc-inner-wrapper {
+        text-align: center;
+        padding: 10px;
+    }
+    .setting-inner-wrapper textarea {
+        width: 300px;
+        height: 130px;
+        padding: 5px 10px;
+        background: #222222;
+        color: #eeeeee;
+        font-weight: 200;
+        font-size: 14px;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.7);
+        resize: none;
     }
         .setting-inner-wrapper .setting-input > * {
             color: #eeeeee;
@@ -272,6 +289,31 @@ a {
         .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper {
             margin: 10px 0px;
         }
+        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt {
+            color: #eeeeee;
+            font-size: 13px;
+            font-weight: 200;
+            cursor: pointer;
+            text-align: right;
+            margin-top: 8px;
+        }
+            .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt > i {
+                margin-right: 5px;
+            }
+            .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt:hover {
+                text-decoration: underline;
+            }
+        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-inner-right .cc-list-wrapper {
+            margin-top: 5px;
+        }
+        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-inner-right .cc-list {
+            width: 35px;
+            display: inline-block;
+            margin: 0px 8px;
+        }
+            .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-inner-right .cc-list > img {
+                width: 100%;
+            }
     .hashTag-input-wrap .hashtag-wrapper {
         display: inline-block;
         text-align: left;

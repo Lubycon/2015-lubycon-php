@@ -23,7 +23,14 @@
         },
         icons = {
             basic: "fa fa-filter",
-            cc: "fa fa-creative-commons",
+
+            ccIcon: "fa fa-creative-commons",
+            ccImg: "img/cc_w.png",
+            by: "img/by_w.png",
+            nc: "img/nc_w.png",
+            nd: "img/nd_w.png",
+            share: "img/share_w.png",
+
             charge: "fa fa-credit-card",
             usd: "fa fa-usd",
             crop: "fa fa-crop",
@@ -250,6 +257,7 @@
                         $settingInnerRight = $("<div/>",{ "class" : "setting-inner-right" }).appendTo($settingInnerWrap),
                         
                         $settingInputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
+                        $settingInputInner = $("<div/>",{ "class" : "setting-input" }),
                         $settingLabel = $("<p/>",{ "class" : "setting-input-label"}),
                         $settingInput = $("<input>", { "class" : "setting-input", "type" : "text" }),
                         $settingSelect = $("<select>", { "class" : "setting-select" }),
@@ -280,8 +288,35 @@
 
                         $hashtagName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Hash Tag"))
-                        .append($("<div/>",{ "class" : "hashTag-input-wrap setting-input" })).appendTo($settingInnerLeft),
+                        .append($settingInputInner.clone().addClass("hashTag-input-wrap")).appendTo($settingInnerLeft),
                         $hashTagInput = $("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalTool.detectTag).appendTo(".hashTag-input-wrap"),
+
+                        $descriptName = $settingInputWrap.clone()
+                        .append($settingLabel.clone().html("Description"))
+                        .append($("<textarea/>",{ "class" : "descript-input" })).appendTo($settingInnerLeft),
+
+                        $ccName = $settingInputWrap.clone()
+                        .append($settingLabel.clone().html("Creative Commons"))
+                        .append($settingInputInner.clone().addClass("cc-inner-wrapper"))
+                        .append($("<p/>",{ 
+                            "class" : "cc-setting-bt", 
+                            "html" : "<i class='fa " + icons.refresh + "'></i>Change your license" 
+                        }).on("click",pac.dbToggle)).on("click",modalTool.detectCC)
+                        .appendTo($settingInnerRight),
+                        $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper"}),
+                        $getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "#" }).append($ccIconWrap).appendTo(".cc-inner-wrapper"), //LINK
+                        
+                        ccIconDefault = function(){
+                            var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
+                            $target = $(document).find(".cc-list-wrapper"),
+                            $img = $("<img/>",{ "src" : "#" }),
+                            $cc = ccIconLi.clone().attr("data-value","cc").append($img.clone().attr("src",icons.ccImg)).appendTo(".cc-list-wrapper"),
+                            $by = ccIconLi.clone().attr("data-value","by").append($img.clone().attr("src",icons.by)).appendTo(".cc-list-wrapper"),
+                            $nc = ccIconLi.clone().attr("data-value","nc").append($img.clone().attr("src",icons.nc)).appendTo(".cc-list-wrapper"),
+                            $nd = ccIconLi.clone().attr("data-value","nd").append($img.clone().attr("src",icons.nd)).appendTo(".cc-list-wrapper"),
+                            $share = ccIconLi.clone().attr("data-value","share").append($img.clone().attr("src",icons.share)).appendTo(".cc-list-wrapper").hide();
+                        }(),
+
                         
                         $settingBtWrap = $("<div/>",{ "class" : "setting-bt-wrapper modal-bt-wrapper" }).appendTo($settingWrap),
                         $settingCancel = $("<div/>",{
@@ -295,7 +330,11 @@
                             "data-value" : "submit",
                             "disabled" : "disabled"
                         }).on("click",pac.currentProg).on("click",modalTool.submit).appendTo($settingBtWrap);
-                        //left : {hastag,  decription}, right : {project team,creative commons}
+
+                        
+
+
+                        // right : {project team,creative commons}
                         pac.databind();//data binding    
                     }
                 })
@@ -394,9 +433,6 @@
                     windowHeight = $(window).height(),
                     hrAlign = (width/2)*-1,
                     vtAlign = (windowHeight/2 - height/2) - 30;
-                    //console.log($this);
-                    //console.log(width);console.log(height);
-                    //console.log($(".thumbnail-window").width());
                     $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
                 });   
             },
@@ -477,6 +513,18 @@
             },
             thumbReplace: function(){
                 var $this = $(this);
+                $inputFile = $(document).find(".imgUploader"),
+                $object = event.target.files,
+                $cropper = $(document).find(".thumb-origin-img");
+
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(evnet){
+                        $cropper.cropper("replace",event.target.result);
+                        $inputFile.val(null);
+                    }
+                });
                 console.log("thumbnail is replaced");
             },
             fileUpload: function(){
@@ -645,11 +693,17 @@
                 endCommand = inKeyCode == keyCode.enter || inKeyCode == keyCode.space,
                 wrapperExist = $this.prev("ul").length == 0;
                 if(endCommand){
-                    if(value.indexOf("#") != -1){
+                    if(value.indexOf("#") >= 0){
                         if(wrapperExist) $tagWrap.prependTo($wrapper);
                         $tag.html(value).appendTo(".hashtag-wrapper");
                         $this.val(null);
                     }
+                }
+            },
+            detectCC: function(event){
+                var $this = $(this).find(".cc-setting-bt"); //cc bt
+                if($this.hasClass("selected")){
+                    //nothing
                 }
             },
             submit: function(event){
