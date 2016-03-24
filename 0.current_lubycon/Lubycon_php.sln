@@ -188,6 +188,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ajax", "ajax", "{A5A8174F-E
 		php\ajax\community_infinite_scroll.php = php\ajax\community_infinite_scroll.php
 		php\ajax\create_account_popup.php = php\ajax\create_account_popup.php
 		php\ajax\editor_ajax.php = php\ajax\editor_ajax.php
+		php\ajax\editor_ajax_upload_test.php = php\ajax\editor_ajax_upload_test.php
 		php\ajax\editor_fileupload.php = php\ajax\editor_fileupload.php
 		php\ajax\editor_thumbupload.php = php\ajax\editor_thumbupload.php
 		php\ajax\infinite_scroll_ajax.php = php\ajax\infinite_scroll_ajax.php

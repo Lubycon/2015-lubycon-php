@@ -513,3 +513,23 @@ $(document).ready(function () {
 //      editor editor toobar end
 /////////////////////////////////////////////////////////
 /*----------------------------editor end----------------------------*/
+
+$(function(){
+    $("#ajax_upload").click(function()
+    {
+        var formData = $("#editor_form").serialize();
+        console.log(formData);
+
+        $.ajax(
+        {
+            type: "POST",
+            url: "./php/ajax/editor_ajax_upload_test.php", //이페이지에서 중복체크를 한다
+            data: 'data=' + $('#ajax_upload').val(),
+            cache: false,
+            success: function (data) 
+            {
+                console.log(data);
+            }
+        });
+    });
+});

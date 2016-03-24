@@ -679,7 +679,17 @@
                     $object = $originImg.cropper("getCroppedCanvas"),
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
                     console.log($object);
-                    console.log(dataURL);
+                    console.log(dataURL); // for ajax
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax_upload.php", //이페이지에서 중복체크를 한다
+                        data: 'data=' + dataURL,//test.asp에 id 값을 보낸다
+                        cache: false,
+                        success: function (data) {
+                            //console.log(data);
+                        }
+                    })
                 }
                 else $.error("There is no Image");                
             },
