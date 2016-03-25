@@ -238,6 +238,7 @@ a {
     }
     .setting-inner-wrapper .setting-input.cc-inner-wrapper {
         text-align: center;
+        height: 44px;
         padding: 10px;
     }
     .setting-inner-wrapper textarea {
@@ -257,9 +258,10 @@ a {
             color: #eeeeee;
             font-weight: 200;
             font-size: 14px;
+            vertical-align: middle;
         }
         .setting-input > input {
-            width: 70px;
+            width: 100px;
             background: transparent;
             color: #eeeeee;
             font-weight: 200;
@@ -319,6 +321,7 @@ a {
         text-align: left;
     }  
     .hashTag-input-wrap .hashtag-wrapper > .hashtag-list {
+        position: relative;
         display: inline-block;
         max-width: 80px;
         height: 16px;
@@ -333,13 +336,26 @@ a {
         box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
         word-wrap: break-word;
         overflow: hidden;
+        cursor: default;
     }
+        .hashTag-input-wrap .hashtag-wrapper > .hashtag-list > i {
+            position: absolute;
+            top: 6px;
+            right: 5px;
+            color: #cccccc;
+            font-size: 12px;
+            margin-left: 6px;
+            cursor: pointer;
+        }
     .modal.cc-setting-wrapper {
+        width: 580px;
         padding: 15px;
     }
     .modal.cc-setting-wrapper > .cc-setting-inner-wrapper {
         padding: 0px;
         border: 1px solid #222222;
+        border-radius: 5px;
+        overflow: hidden;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;

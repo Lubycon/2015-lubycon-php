@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          lubyPictool.min.js
- *  Updated:       2016-03-13
+ *  Updated:       2016-03-25
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -91,7 +91,8 @@
             y: 89,
             z: 90,
             enter: 13,
-            space: 32
+            space: 32,
+            delete: 8
         },
         d = {},
         pac = {
@@ -304,7 +305,8 @@
                         }).on("click",pac.dbToggle)).on("click",modalTool.showCCsetting)
                         .appendTo($settingInnerRight),
                         $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper"}),
-                        $getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "#" }).append($ccIconWrap).appendTo(".cc-inner-wrapper"), //LINK
+                        $getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "http://creativecommons.org/licenses/by-nc-nd/4.0", "target" : "_blank" })
+                        .append($ccIconWrap).appendTo(".cc-inner-wrapper"), //LINK
                         
                         ccIconDefault = function(){
                             var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
@@ -314,7 +316,7 @@
                             $by = ccIconLi.clone().attr("data-value","by").append($img.clone().attr("src",icons.by)).appendTo(".cc-list-wrapper"),
                             $nc = ccIconLi.clone().attr("data-value","nc").append($img.clone().attr("src",icons.nc)).appendTo(".cc-list-wrapper"),
                             $nd = ccIconLi.clone().attr("data-value","nd").append($img.clone().attr("src",icons.nd)).appendTo(".cc-list-wrapper"),
-                            $share = ccIconLi.clone().attr("data-value","share").append($img.clone().attr("src",icons.share)).appendTo(".cc-list-wrapper").hide();
+                            $share = ccIconLi.clone().attr("data-value","sa").append($img.clone().attr("src",icons.share)).appendTo(".cc-list-wrapper").hide();
                         }(),
 
                         
@@ -331,10 +333,7 @@
                             "disabled" : "disabled"
                         }).on("click",pac.currentProg).on("click",modalTool.submit).appendTo($settingBtWrap);
 
-                        
-
-
-                        // right : {project team,creative commons}
+                        // right : {project team}
                         pac.databind();//data binding    
                     }
                 })
@@ -425,16 +424,15 @@
                 );
             },
             modalAlign: function(selector){
-                $(window).load(function(){
-                    $this = selector,
-                    width = $this.width(),
-                    height = $this.height(),
-                    windowWidth = $(window).width(),
-                    windowHeight = $(window).height(),
-                    hrAlign = (width/2)*-1,
-                    vtAlign = (windowHeight/2 - height/2) - 30;
-                    $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
-                });   
+                $this = selector,
+                width = $this.width(),
+                height = $this.height(),
+                windowWidth = $(window).width(),
+                windowHeight = $(window).height(),
+                hrAlign = (width/2)*-1,
+                vtAlign = (windowHeight/2 - height/2) - 30;
+                $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
+                console.log("modalAlign : "); console.log($this[0]); 
             },
             keyEvent: function(event){
                 $this = $(this),
@@ -525,6 +523,9 @@
                         $inputFile.val(null);
                     }
                 });
+                setTimeout(function(){
+                    pac.modalAlign($(".thumbnail-window"));
+                },200);
                 console.log("thumbnail is replaced");
             },
             fileUpload: function(){
@@ -701,14 +702,23 @@
                 inKeyCode= event.which,
                 value = $this.val(),
                 endCommand = inKeyCode == keyCode.enter || inKeyCode == keyCode.space,
+                deleteCommand = inKeyCode == keyCode.delete,
                 wrapperExist = $this.prev("ul").length == 0;
                 if(endCommand){
                     if(value.indexOf("#") >= 0){
                         if(wrapperExist) $tagWrap.prependTo($wrapper);
-                        $tag.html(value).appendTo(".hashtag-wrapper");
+                        $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalTool.deleteTag).appendTo(".hashtag-wrapper");
                         $this.val(null);
                     }
                 }
+                else if(deleteCommand){
+                    $(".hashtag-list:last-child").remove();
+                }
+            },
+            deleteTag: function(event){
+                $this = $(this);
+                $this.remove();
+                console.log("tag is deleted");
             },
             showCCsetting: function(event){
                 var $this = $(this).find(".cc-setting-bt"),
@@ -733,7 +743,7 @@
                         var makeCC = $ccSettingWrap.append($ccSettingInner).appendTo($(".lubyPictoolKey")),
                         useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
-                        .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")),
+                        .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")).hide().stop().fadeIn(400),
                         listWrap = $cclistWrap.appendTo($(".useCC")),
                         addlist = function(){
                             $ccBY = $cclist.clone()
@@ -756,35 +766,52 @@
                         withoutCC = $ccSection.clone().addClass("withoutCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",false).attr("data-value","withoutCC"))
                         .append($ccTitle.clone().html("NO USAGE WITHOUT OWNER’S PERMISSION"))).appendTo($(".cc-setting-inner-wrapper"));
+
                         $(".license-selector").on("change",modalTool.useCC);
-                        $(".cc-checkbox").on("change",modalTool.enableCC);
+                        $(".cc-checkbox").on("change",modalTool.displayCC).on("change",modalTool.makelinkCC);
+                        pac.modalAlign($(".cc-setting-wrapper"));
                     }//create cc
-                    else $(".cc-setting-wrapper").show();
+                    else $(".cc-setting-wrapper").fadeIn(400);
                 }
                 else{
-                    $(".cc-setting-wrapper").hide();
+                    $(".cc-setting-wrapper").fadeOut(400);
                 }
             },
             useCC: function(){
                 $this = $(this),
                 data = $this.data("value"),
                 $target = $(document).find(".cc-checklist-wrapper");
-                if(data == "useCC") $target.slideDown(200);
-                else if(data == "withoutCC") $target.slideUp(200);
+                if(data == "useCC") {
+                    $target.slideDown(400);
+                    $(".cc-list-link").show();
+                }
+                else if(data == "withoutCC"){
+                    $target.slideUp(400);
+                    $(".cc-list-link").hide();
+                } 
                 console.log("useCC");
             },
-            enableCC: function(){
+            displayCC: function(){
+                $this = $(this),
+                selected = $this.prop("checked"),
+                data = $this.data("value"),
+                $target = $(".cc-list[data-value='" + data + "']");
+                if(data == "nd" || data == "sa"){
+                    console.log("select only one");
+                }
+                if(!selected) $target.stop().fadeOut(400);
+                else $target.stop().fadeIn(400);
+            },
+            makelinkCC: function(){
                 var link = [],
-                checked = $("input:checkbox[name='cc-check']:checked");
-                console.log(data);
+                checked = $(".cc-checkbox[name='cc-check']:checked");
                 checked.each(function(){
                     var data = $(this).data("value"),
-                    link = link.push(data),
+                    addData = link.push(data),
                     checkedData = link.join("-"),
-                    cc_url = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
-                    //$("#cc_desc_link").attr("href", cc_url);
-                });
-                console.log(checkedData);
+                    ccUrl = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
+                    $(".cc-list-link").attr("href", ccUrl);
+                });   
             },
             submit: function(event){
                 var $this = $(this);
