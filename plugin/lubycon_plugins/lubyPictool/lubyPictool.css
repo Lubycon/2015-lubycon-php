@@ -334,6 +334,46 @@ a {
         word-wrap: break-word;
         overflow: hidden;
     }
+    .modal.cc-setting-wrapper {
+        padding: 15px;
+    }
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper {
+        padding: 0px;
+        border: 1px solid #222222;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-title-wrapper {
+        padding: 10px;
+        background: #666666;
+    }
+        .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-title-wrapper > input[type="radio"] {
+            margin-top: 6px;
+            margin-right: 12px;
+            vertical-align: top;
+        }
+        .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-title-wrapper > .cc-title {
+            color: #eeeeee;
+            font-size: 20px;
+            font-weight: 200;
+        }
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper {
+        padding: 10px;
+        background: #333333;
+        box-shadow: inset 0px 0px 200px 0px rgba(0,0,0,0.7);
+    }
+        .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper > .cc-checklist {
+            margin: 10px 0px;
+        }
+        .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper > .cc-checklist > .cc-checkbox {
+            margin-right: 12px;
+        }
+        .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper > .cc-checklist > .cc-desc {
+            color: #eeeeee;
+            font-size: 14px;
+            font-weight: 200;
+        }
 
 .lubypic-wrapper{
     position: relative;

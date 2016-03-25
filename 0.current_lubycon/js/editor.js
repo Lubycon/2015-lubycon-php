@@ -75,6 +75,7 @@ $(function () {
 /////////////////////////////////////////////////////////
 //      show cc_selector start
 /////////////////////////////////////////////////////////
+var toggle_count = 0;
 $(function () {
     $(document).on('click', '#modify_cc', function () {
         switch (toggle_count) {

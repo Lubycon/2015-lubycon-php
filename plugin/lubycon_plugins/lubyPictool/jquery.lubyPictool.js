@@ -301,7 +301,7 @@
                         .append($("<p/>",{ 
                             "class" : "cc-setting-bt", 
                             "html" : "<i class='fa " + icons.refresh + "'></i>Change your license" 
-                        }).on("click",pac.dbToggle)).on("click",modalTool.detectCC)
+                        }).on("click",pac.dbToggle)).on("click",modalTool.showCCsetting)
                         .appendTo($settingInnerRight),
                         $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper"}),
                         $getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "#" }).append($ccIconWrap).appendTo(".cc-inner-wrapper"), //LINK
@@ -683,8 +683,8 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "ajax_upload.php", //¿Ã∆‰¿Ã¡ˆø°º≠ ¡ﬂ∫π√º≈©∏¶ «—¥Ÿ
-                        data: 'data=' + dataURL,//test.aspø° id ∞™¿ª ∫∏≥Ω¥Ÿ
+                        url: "ajax_upload.php", //√Ä√å√Ü√§√Ä√å√Å√∂¬ø¬°¬º¬≠ √Å√ü¬∫¬π√É¬º√Ö¬©¬∏¬¶ √á√ë¬¥√ô
+                        data: 'data=' + dataURL,//test.asp¬ø¬° id ¬∞¬™√Ä¬ª ¬∫¬∏¬≥¬Ω¬¥√ô
                         cache: false,
                         success: function (data) {
                             //console.log(data);
@@ -710,11 +710,81 @@
                     }
                 }
             },
-            detectCC: function(event){
-                var $this = $(this).find(".cc-setting-bt"); //cc bt
-                if($this.hasClass("selected")){
-                    //nothing
+            showCCsetting: function(event){
+                var $this = $(this).find(".cc-setting-bt"),
+                $ccSettingWrap = $("<div/>",{ "class" : "modal cc-setting-wrapper" }),
+                $ccSettingInner = $("<div/>",{ "class" : "modal-wrapper cc-setting-inner-wrapper"}),
+                $ccSection = $("<div/>",{ "class" : "cc-section" }),
+                $ccTitleWrap = $("<div/>",{ "class" : "cc-title-wrapper" }),
+                $ccRadio = $("<input/>",{"type" : "radio", "class" : "license-selector", "name" : "cc-info", "data-value": "" }),
+                $ccTitle = $("<span/>",{ "class" : "cc-title"}),
+
+                $cclistWrap = $("<ul/>",{ "class" : "cc-checklist-wrapper" }),
+                $cclist = $("<li>",{ "class" : "cc-checklist"}),
+                $ccCheckBox = $("<input/>",{ "type" : "checkbox", "class" : "cc-checkbox", "data-value" : ""}),
+                $ccCheckDesc = $("<span/>",{ "class" : "cc-desc" }),
+                $learnMore = $("<a/>",{ "class" : "goto-cc", "href" : "#", "target" : "_blank"});
+
+                selected = $this.hasClass("selected"), //bool
+                notExist = $(document).find(".cc-setting-wrapper").length == 0; //bool
+
+                if(selected){
+                    if(notExist) {
+                        var makeCC = $ccSettingWrap.append($ccSettingInner).appendTo($(".lubyPictoolKey")),
+                        useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
+                        .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
+                        .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")),
+                        listWrap = $cclistWrap.appendTo($(".useCC")),
+                        addlist = function(){
+                            $ccBY = $cclist.clone()
+                            .append($ccCheckBox.clone().attr({"data-value":"by","name":"cc-check"}).prop({"disabled" : true,"checked" : true}))
+                            .append($ccCheckDesc.clone().html("Free to share and adapt with appropriate credit"))
+                            .appendTo($(".cc-checklist-wrapper")),
+                            $ccNC = $cclist.clone()
+                            .append($ccCheckBox.clone().attr({"data-value":"nc","name":"cc-check"}).prop({"disabled" : false,"checked" : true}))
+                            .append($ccCheckDesc.clone().html("Not allowed for commercial purpose"))
+                            .appendTo($(".cc-checklist-wrapper")),
+                            $ccND = $cclist.clone()
+                            .append($ccCheckBox.clone().attr({"data-value":"nd","name":"cc-check"}).prop({"disabled" : false,"checked" : true}))
+                            .append($ccCheckDesc.clone().html("You may not distribute the modified material"))
+                            .appendTo($(".cc-checklist-wrapper")),
+                            $ccShare = $cclist.clone()
+                            .append($ccCheckBox.clone().attr({"data-value":"sa","name":"cc-check"}).prop({"disabled" : false,"checked" : false}))
+                            .append($ccCheckDesc.clone().html("Free to share including the modified material under the same license as original"))
+                            .appendTo($(".cc-checklist-wrapper"));
+                        }(),
+                        withoutCC = $ccSection.clone().addClass("withoutCC").append($ccTitleWrap.clone()
+                        .append($ccRadio.clone().prop("checked",false).attr("data-value","withoutCC"))
+                        .append($ccTitle.clone().html("NO USAGE WITHOUT OWNER‚ÄôS PERMISSION"))).appendTo($(".cc-setting-inner-wrapper"));
+                        $(".license-selector").on("change",modalTool.useCC);
+                        $(".cc-checkbox").on("change",modalTool.enableCC);
+                    }//create cc
+                    else $(".cc-setting-wrapper").show();
                 }
+                else{
+                    $(".cc-setting-wrapper").hide();
+                }
+            },
+            useCC: function(){
+                $this = $(this),
+                data = $this.data("value"),
+                $target = $(document).find(".cc-checklist-wrapper");
+                if(data == "useCC") $target.slideDown(200);
+                else if(data == "withoutCC") $target.slideUp(200);
+                console.log("useCC");
+            },
+            enableCC: function(){
+                var link = [],
+                checked = $("input:checkbox[name='cc-check']:checked");
+                console.log(data);
+                checked.each(function(){
+                    var data = $(this).data("value"),
+                    link = link.push(data),
+                    checkedData = link.join("-"),
+                    cc_url = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
+                    //$("#cc_desc_link").attr("href", cc_url);
+                });
+                console.log(checkedData);
             },
             submit: function(event){
                 var $this = $(this);
