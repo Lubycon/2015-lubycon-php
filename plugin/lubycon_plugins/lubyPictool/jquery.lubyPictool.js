@@ -182,9 +182,10 @@
                         $(".btn").each(pac.toolbox),
 
                         //modal windows
-                        $modal = $("<div/>",{"class" : "modal"}),
+                        $modal = $("<div/>",{ "class" : "modal" }),
+                        $modalClose = $("<div/>",{ "class" : "modal-closebt" }).on("click",modalTool.cancel),
 
-                        $embedWindow = $modal.clone().addClass("embed-window").appendTo($this).hide(), //embed window
+                        $embedWindow = $modal.clone().addClass("embed-window").append($modalClose.clone(true)).appendTo($this).hide(), //embed window
                         $embedWrap = $("<div/>",{ "class" : "embed-wrapper modal-wrapper" }).appendTo($embedWindow),
                         $embedTitle = $("<div/>",{
                             "class" : "embed-title modal-title",
@@ -211,7 +212,7 @@
                         }).on("click",modalTool.embed).appendTo($embedBtWrap),
 
                         //thumbnail windows
-                        $thumbWindow = $modal.clone().addClass("thumbnail-window prog").appendTo($this).hide(),
+                        $thumbWindow = $modal.clone().addClass("thumbnail-window prog").append($modalClose.clone(true)).appendTo($this).hide(),
                         $thumbWrap = $("<div/>",{ "class" : "thumb-wrapper modal-wrapper" }).appendTo($thumbWindow),
                         $thumbTitle = $("<div/>",{
                             "class" : "thumb-title modal-title",
@@ -247,7 +248,7 @@
                         }).on("click",upload.imgUpTrigger).appendTo($thumbInnerWrap).hide();
 
                         //setting windows
-                        $settingWindow = $modal.clone().addClass("setting-window prog").appendTo($this).hide(),
+                        $settingWindow = $modal.clone().addClass("setting-window prog").append($modalClose.clone(true)).appendTo($this).hide(),
                         $settingWrap = $("<div/>",{ "class" : "setting-wrapper modal-wrapper" }).appendTo($settingWindow),
                         $settingTitle = $("<div/>",{
                             "class" : "setting-title modal-title",
@@ -740,7 +741,7 @@
 
                 if(selected){
                     if(notExist) {
-                        var makeCC = $ccSettingWrap.append($ccSettingInner).appendTo($(".lubyPictoolKey")),
+                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".lubyPictoolKey")),
                         useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
                         .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")).hide().stop().fadeIn(400),
@@ -830,6 +831,7 @@
                 if($window.hasClass("prog")){
                     $currentProg.prev($btns).trigger("click");
                 }
+                console.log("cancel");
             },
             embedHelp: function(){
                 var $this = $(this),

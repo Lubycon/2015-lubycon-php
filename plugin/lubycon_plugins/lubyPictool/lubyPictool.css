@@ -72,6 +72,20 @@ a {
     box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
     box-sizing: border-box;
 }
+    .modal-closebt {
+        position: absolute;
+        top: 9px;
+        right: 8px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #ec6446;
+        cursor: pointer;
+        z-index: 11000;
+    }
+        .modal-closebt:hover {
+            background: #eb907b;
+        }
     .modal-wrapper {
         position: relative;
         padding: 15px;
@@ -198,6 +212,7 @@ a {
     vertical-align: top;
     max-width: 420px;
     min-width: 420px;
+    max-height: 500px;
 }
     .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder {
         width: 100%;
@@ -350,6 +365,7 @@ a {
     .modal.cc-setting-wrapper {
         width: 580px;
         padding: 15px;
+        padding-top: 32px;
     }
     .modal.cc-setting-wrapper > .cc-setting-inner-wrapper {
         padding: 0px;
