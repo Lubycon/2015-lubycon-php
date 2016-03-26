@@ -518,14 +518,12 @@ $(document).ready(function () {
 $(function(){
     $("#ajax_upload").click(function()
     {
-        var formData = $("#editor_form").serialize();
-        console.log(formData);
-
         $.ajax(
         {
             type: "POST",
             url: "./php/ajax/editor_ajax_upload_test.php", //이페이지에서 중복체크를 한다
-            data: 'data=' + $('#ajax_upload').val(),
+            dataType: 'text',
+            data: 'data=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAykAAAGwAgMAAADQ8sJbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMUExURZJyALueF+DFK//lPcR6sacAAAP9SURBVHja7doxbhtHFAbgRwmWChWq3ESFjqAjZI/gInbh3EApdATxCEFg38AprABJn2Z1BB6BRVy4c8EEkiHupDBJcVe77pbQI77tuAsQ+2Fm3vtnyCh7c90GCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLC8v+WhbnpdkXy/y4fN0Xy+1h+Zfl+Vlmx+XLHq39vbGUUuZ7ZJnVLM/RcpvOshx84+l1NsvD4BtX6Sx3F0NPIp/ldOBBk9ByOLSQElqGvvghfky39uNiCJnQctL/4Es+yzImA3Esn6WJgUk2y2cpVRz1t/2ElmnEVb8xn2UW/QMTCS2LiDjrqwkJLQ8RMan7buezlCoijuqe4UpomUUfZh758lgpdxER8eKvJ8KEljKNiIh4fdW5mdFy/83yom6X5JSW8qmKmLztluScltLc3PQsopyW/g5aZ7L89/1CncpyV3+3tpVMloezwUeRzdL05LCmXpexSSpLqZ4OzG+bMpbMMn2yDftwsk5jcZDLMu+m/Q+rpnKbz7KImGxnyndrQBURh7ksy4iYXK4/fX4Vcb65H8e5LKWKiHh5+Ucpf3/8KTb9cZHRMov2dbzZiMXQeeaztSw6loutHc1pMkvTpky2754ns5RfW5bz7V3zRTZLa5Ktm808IsY7hhnN0lRblrPWAcB1NstqDFrDslpEdTrL1uq/as270aLliHvkf9aUo3bTOUhoKa/aM2wVBsaLY2Navlbt07FvFXm8tj/qOUzzPiZv6m41OE1p6cubI7bKHVpWU2y89rJDyzo61/ktTTtmpras283hHljW+ewkv+WuE/8zW6YxehnbleVxO1OyWx53MwfpLZvMPObS343l/smBTFrL/dZ+uU5q+fRLKaWUz1uUMZfLqJZlvLn58+b99onMaVZLqaJ7Xae1zLuUSUlrWXYtZ3ktnZPYkafYyJb73l8ukvaX9sBcpba0VsxRSW3ZSmJ9fyRNlmEeZ9nPJbulebei/FDSW0r5PSJiMvqo7CYnNx9fX9ZlPyy7ulhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhY0lv+B15rHoz8Ho8qAAAAAElFTkSuQmCC',
             cache: false,
             success: function (data) 
             {

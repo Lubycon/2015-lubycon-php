@@ -1,34 +1,27 @@
 <?php
     $base64_string = $_POST['data'];
-    $output_file = '../../../../Lubycon_Contents/contents/temp/';
+    $temp_path = '../../../../Lubycon_Contents/contents/temp/';
     $user_name = 'daniel_zepp'; //from db
-    $file_name = 'thumb';
+    $upload_path = $temp_path.$user_name.'/';
+    $file_name = 'thumb.jpg';
+
+	$img = str_replace('data:image/jpeg;base64,', '', $base64_string);
+	$img = str_replace(' ', '+', $img);
+	$img_data = base64_decode($img);
+
     $data = explode(',', $base64_string);
+    $string_length = strlen($base64_string);
 
-    echo $base64_string;
-
+    $limit_size = 100 * 1024; // kb
 
     if( $data[0] !== 'data:image/jpeg;base64')
     {
         echo 'it is not image file';
-    }else
+    }else if ( $string_length  >= $limit_size )
     {
-        echo( getimagesizefromstring($base64_string));
-    }
-
-
-    //base64_to_jpeg($base64_string, $output_file);
-
-    function base64_to_jpeg($base64_string, $output_file) 
+        echo 'file size over limit';
+    }else if ( is_dir($upload_path) ? chmod($upload_path,0777) : mkdir($upload_path,0777) )
     {
-    $ifp = fopen($output_file, "wb"); 
-
-    $data = explode(',', $base64_string);
-
-    fwrite($ifp, base64_decode($data[1])); 
-    fclose($ifp); 
-
-    return $output_file; 
+        file_put_contents($upload_path.$file_name, $img_data);
     }
-
 ?>
