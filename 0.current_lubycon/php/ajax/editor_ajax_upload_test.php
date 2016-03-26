@@ -1,27 +1,14 @@
 <?php
     $base64_string = $_POST['data'];
-    $temp_path = '../../../../Lubycon_Contents/contents/temp/';
+    $temp_path = '../../../../Lubycon_Contents/contents/temp/'; //temp path
     $user_name = 'daniel_zepp'; //from db
-    $upload_path = $temp_path.$user_name.'/';
-    $file_name = 'thumb.jpg';
+    $upload_path = $temp_path.$user_name.'/'; // setting upload path after temp
+    $file_name = 'thumb.jpg'; //file name
 
-	$img = str_replace('data:image/jpeg;base64,', '', $base64_string);
-	$img = str_replace(' ', '+', $img);
-	$img_data = base64_decode($img);
+    $limit_size = 100*1024; // kb
 
-    $data = explode(',', $base64_string);
-    $string_length = strlen($base64_string);
-
-    $limit_size = 100 * 1024; // kb
-
-    if( $data[0] !== 'data:image/jpeg;base64')
-    {
-        echo 'it is not image file';
-    }else if ( $string_length  >= $limit_size )
-    {
-        echo 'file size over limit';
-    }else if ( is_dir($upload_path) ? chmod($upload_path,0777) : mkdir($upload_path,0777) )
-    {
-        file_put_contents($upload_path.$file_name, $img_data);
-    }
+    require_once "../class/ajax_upload_class.php";
+    
+    $ajax_uploader = new ajax_upload($base64_string);
+    $ajax_uploader->base64_convert_image($limit_size , $upload_path , $file_name);
 ?>
