@@ -1198,20 +1198,53 @@
                 }).appendTo($gridWrap),
                 $gridInnerWrap = $("<div/>",{ "class" : "toolbox-inner" }).appendTo($gridWrap),
                 $editWindow = $("<div/>",{ "class" : "grid-edit-window"}).appendTo($gridInnerWrap),
-                $btnWrap = $("<ul/>",{ "class" : "grid-btns" }).appendTo($gridInnerWrap),
-                $btn = $("<li/>",{ "class" : "grid-btn" }),
+                $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
+                $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",pac.toggle).on("click",toolbar.gridFn.makeGrid),
                 
-                $btn1 = $btn.clone().attr("data-value","1-1v").appendTo($btnWrap),
-                $btn2 = $btn.clone().attr("data-value","1-2v").appendTo($btnWrap),
-                $btn3 = $btn.clone().attr("data-value","2-1v").appendTo($btnWrap),
-                $btn4 = $btn.clone().attr("data-value","1-2h").appendTo($btnWrap),
-                $btn5 = $btn.clone().attr("data-value","2-1h").appendTo($btnWrap),
-                $btn6 = $btn.clone().attr("data-value","2-2").appendTo($btnWrap);
-
+                $btn1 = $btn.clone(true).addClass("selected").attr("data-value","n-1-1").appendTo($btnWrap),
+                $btn2 = $btn.clone(true).attr("data-value","v-1-2").appendTo($btnWrap),
+                $btn3 = $btn.clone(true).attr("data-value","v-2-1").appendTo($btnWrap),
+                $btn4 = $btn.clone(true).attr("data-value","h-1-2").appendTo($btnWrap),
+                $btn5 = $btn.clone(true).attr("data-value","h-2-1").appendTo($btnWrap),
+                $btn6 = $btn.clone(true).attr("data-value","n-2-2").appendTo($btnWrap);
 
             },
             gridFn: {
+                makeGrid: function(){
+                    var $this = $(this),
+                    $editWindow = $(".grid-edit-window"),
+                    selected = $this.hasClass("selected"),
+                    value = $this.data("value"),
+                    valueArray = value.split("-"),
+                    direction = valueArray[0],
+                    firstArea = valueArray[1],
+                    secondArea = valueArray[2],
+                    $gridWrapper = $("<div/>",{ "class" : "grid-inner-wrapper" }),
+                    $devider = $("<div/>",{ "class" : "grid-devider" }),
+                    $imgWrapper = $("<div/>",{ "class" : "grid-img-wrapper"}),
+                    $placeHolder = $("<div/>",{ "class" : "placeHolder"}),
 
+                    n11 = $gridWrapper.clone()
+                    .append($devider.clone().addClass("vertical"))
+                    .append($devider.clone().addClass("vertical")),
+
+                    v = $gridWrapper.clone()
+                    .append($devider.clone().addClass("vertical"))
+                    .append($devider.clone().addClass("vertical")),
+
+                    h = $gridWrapper.clone()
+                    .append($devider.clone().addClass("horizental"))
+                    .append($devider.clone().addClass("horizental")),
+
+                    n22 = $gridWrapper.clone();
+
+                    if(selected) {
+                        h.appendTo($editWindow);
+                        console.log("direction : " + direction);
+                        console.log("firstArea : " + firstArea);
+                        console.log("secondArea : " + secondArea);
+                    }  
+                }
             },
             selectTool: function(){
                 console.log("select tool");
