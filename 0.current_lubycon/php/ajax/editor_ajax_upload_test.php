@@ -1,34 +1,14 @@
 <?php
     $base64_string = $_POST['data'];
-    $output_file = '../../../../Lubycon_Contents/contents/temp/';
+    $temp_path = '../../../../Lubycon_Contents/contents/temp/'; //temp path
     $user_name = 'daniel_zepp'; //from db
-    $file_name = 'thumb';
-    $data = explode(',', $base64_string);
+    $upload_path = $temp_path.$user_name.'/'; // setting upload path after temp
+    $file_name = 'thumb.jpg'; //file name
 
-    echo $base64_string;
+    $limit_size = 100*1024; // kb
 
-
-    if( $data[0] !== 'data:image/jpeg;base64')
-    {
-        echo 'it is not image file';
-    }else
-    {
-        echo( getimagesizefromstring($base64_string));
-    }
-
-
-    //base64_to_jpeg($base64_string, $output_file);
-
-    function base64_to_jpeg($base64_string, $output_file) 
-    {
-    $ifp = fopen($output_file, "wb"); 
-
-    $data = explode(',', $base64_string);
-
-    fwrite($ifp, base64_decode($data[1])); 
-    fclose($ifp); 
-
-    return $output_file; 
-    }
-
+    require_once "../class/ajax_upload_class.php";
+    
+    $ajax_uploader = new ajax_upload($base64_string);
+    $ajax_uploader->base64_convert_image($limit_size , $upload_path , $file_name);
 ?>

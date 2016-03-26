@@ -228,6 +228,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img_crop", "img_crop", "{B2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "class", "class", "{95D8E7D4-DFA3-4DD2-B9C7-E03AEB7EA262}"
 	ProjectSection(SolutionItems) = preProject
+		php\class\ajax_upload_class.php = php\class\ajax_upload_class.php
 		php\class\regex_class.php = php\class\regex_class.php
 		php\class\upload_class.php = php\class\upload_class.php
 	EndProjectSection
