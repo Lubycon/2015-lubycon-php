@@ -18,7 +18,9 @@
             imageUpload: true,
             toolbar: {
                 textTool: true,
-                colorTool: true
+                colorTool: true,
+                gridTool: true,
+                selectTool: true
             }
         },
         icons = {
@@ -47,6 +49,7 @@
             paint: "fa fa-paint-brush",
             pencil: "fa fa-pencil",
             times: "fa fa-times",
+            alignJustify: "fa fa-align-justify",
             alignCenter: "fa fa-align-center",
             alignLeft: "fa fa-align-left",
             alignRight: "fa fa-align-right",
@@ -59,6 +62,8 @@
             arrowLeft: "fa fa-caret-left",
             arrowRight: "fa fa-caret-right",
             refresh: "fa fa-refresh",
+            grid: "fa fa-th-large",
+            layer: "fa fa-object-ungroup",
 
             upload: "fa fa-cloud-upload",
             download: "fa fa-inbox"
@@ -161,11 +166,21 @@
                             "class" : "btn",
                             "data-value" : "textTool"
                         }).append($("<i/>",{"class":icons.font}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "";
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
                         $colorTool = d.toolbar.colorTool ? $("<div/>",{
                             "class" : "btn",
                             "data-value" : "colorTool"
-                        }).append($("<i/>",{"class":icons.slider}))
+                        }).append($("<i/>",{"class":icons.paint}))
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
+                        $gridTool = d.toolbar.gridTool ? $("<div/>",{
+                            "class" : "btn",
+                            "data-value" : "gridTool"
+                        }).append($("<i/>",{"class":icons.grid}))
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
+                        $selectTool = d.toolbar.selectTool ? $("<div/>",{
+                            "class" : "btn",
+                            "data-value" : "selectTool"
+                        }).append($("<i/>",{"class":icons.layer}))
                         .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
 
                         //input files
@@ -342,6 +357,9 @@
             databind: function(){
                 //toolbar data bind start
                 toolbar.textTool();
+                toolbar.colorTool();
+                toolbar.gridTool();
+                toolbar.selectTool();
                 //toolbar data bind end
                 $(".modal").each(function(){
                     pac.modalAlign($(this));
@@ -349,7 +367,7 @@
             },
             toggle: function(){
                 var $this = $(this),
-                $btns = $(".btn");
+                $btns = $this.siblings(".btn");
                 if($this.hasClass("selected")) $this.removeClass("selected");
                 else {
                     $btns.removeClass("selected");
@@ -387,11 +405,12 @@
                 var $this = $(this),
                 $aside = $this.parents(".lubypic-aside"),
                 value = $this.data("value"),
-                toolboxWrap = $("<div/>",{
+                $toolboxWrap = $("<div/>",{
                     "class" : "toolbox-wrap",
                     "data-value" : value,
                     "id" : value + "-toolbox"
                 }).appendTo($aside).hide();
+                if(value == "gridTool") $toolboxWrap.addClass("modal");
             },
             objMenu: function(selector){
                 var $object = selector,
@@ -407,8 +426,8 @@
                 }).on("click",upload.imgUpTrigger).appendTo($menuWrap),
                 $Copy = $("<li/>",{
                     "class" : "obj-menu-list",
-                    "html" : "Copy",
-                    "data-value": "copy"
+                    "html" : "Select",
+                    "data-value": "select"
                 }).appendTo($menuWrap),
                 $delete = $("<li/>",{
                     "class" : "obj-menu-list",
@@ -433,7 +452,7 @@
                 hrAlign = (width/2)*-1,
                 vtAlign = (windowHeight/2 - height/2) - 30;
                 $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
-                console.log("modalAlign : "); console.log($this[0]); 
+                //console.log("modalAlign : "); console.log($this[0]); 
             },
             keyEvent: function(event){
                 $this = $(this),
@@ -510,7 +529,7 @@
                     pac.modalAlign($(".thumbnail-window"));
                 },200);
             },
-            thumbReplace: function(){
+            thumbReplace: function(event){
                 var $this = $(this);
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files,
@@ -519,9 +538,11 @@
                 $.each($object, function(i,file){
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
-                    reader.onload = function(evnet){
-                        $cropper.cropper("replace",event.target.result);
+                    reader.onload = function(event){
+                        console.log(event.target.result);
+                        $cropper.cropper("replace",event.target.result),false;
                         $inputFile.val(null);
+
                     }
                 });
                 setTimeout(function(){
@@ -678,7 +699,7 @@
                 var $originImg = $(".thumb-origin-img");
                 if($originImg.attr("src") != "#") {
                     var $this = $(this),
-                    $object = $originImg.cropper("getCroppedCanvas"),
+                    $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}),
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
                     console.log($object);
                     console.log(dataURL); // for ajax
@@ -760,7 +781,7 @@
                             .append($ccCheckDesc.clone().html("You may not distribute the modified material"))
                             .appendTo($(".cc-checklist-wrapper")),
                             $ccShare = $cclist.clone()
-                            .append($ccCheckBox.clone().attr({"data-value":"sa","name":"cc-check"}).prop({"disabled" : false,"checked" : false}))
+                            .append($ccCheckBox.clone().attr({"data-value":"sa","name":"cc-check"}).prop({"disabled" : true,"checked" : false}))
                             .append($ccCheckDesc.clone().html("Free to share including the modified material under the same license as original"))
                             .appendTo($(".cc-checklist-wrapper"));
                         }(),
@@ -797,11 +818,19 @@
                 selected = $this.prop("checked"),
                 data = $this.data("value"),
                 $target = $(".cc-list[data-value='" + data + "']");
-                if(data == "nd" || data == "sa"){
-                    console.log("select only one");
-                }
+                if(data == "nd" || data == "sa") modalTool.ccNDSA();
                 if(!selected) $target.stop().fadeOut(400);
                 else $target.stop().fadeIn(400);
+            },
+            ccNDSA: function(){
+                $nd = $(".cc-checkbox[data-value='nd']"),
+                $sa = $(".cc-checkbox[data-value='sa']");
+
+                if($nd.prop("checked")) $sa.prop("disabled",true);
+                else if($nd.prop("checked") == false) $sa.prop("disabled", false);
+
+                if($sa.prop("checked")) $nd.prop("disabled",true);
+                else if($sa.prop("checked") == false) $nd.prop("disabled", false);
             },
             makelinkCC: function(){
                 var link = [],
@@ -842,7 +871,20 @@
         },
         headerTool = {
             downToPc: function(){
-                var $this = $(this);
+                var $this = $(this), //download button
+                $canvas = $(document).find(".editing-canvas");
+                $("*").removeClass("focused");
+                html2canvas($canvas, {
+                    onrendered: function(canvas) {
+                        var dataURL = canvas.toDataURL("image/jpeg"), //export to jpeg
+                        $anchor = $("<a/>",{
+                            "href" : dataURL,
+                            "download" : "img-lubycon.jpg"
+                        }).appendTo("body");
+                        $anchor[0].click();
+                        $anchor.remove();
+                    }
+                });
                 console.log("Download to pc");
             }
         },
@@ -906,8 +948,8 @@
                 toolBoxes = $(document).find(".toolbox-wrap"),
                 toolBox = $(".toolbox-wrap[data-value=" + value + "]");
                 if($this.hasClass("selected")) {
-                    toolBoxes.hide();
-                    toolBox.show();
+                    toolBoxes.fadeOut(200);
+                    toolBox.fadeIn(200);
                 }
                 else toolBox.hide();
             },
@@ -957,7 +999,10 @@
                     selectionPalette: [],
                     move: toolbar.textFn.fontColor,
                     change: toolbar.textFn.fontColor
-                });
+                }),
+
+                $btWrap = $("<ul/>",{ "class" : "toolbox-btns" }),
+                $btn = $("<div/>",{ "class" : "btn" }),
 
                 $fontDeco = $("<div/>",{//////////////////// font deco
                     "class" : "toolbox-inner",
@@ -968,15 +1013,34 @@
                     "class" : "toolbox-label",
                     "html" : "Font Decorations"
                 }).appendTo($fontDeco),
-                $btWrap = $("<ul/>",{ "class" : "toolbox-btns" }).appendTo($fontDeco),
-                $boldBt = $("<div/>",{ "class" : "btn boldbt", "data-value" : "bold" }).append($("<i/>",{"class" : icons.bold}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
-                $italicBt = $("<div/>",{ "class" : "btn italbt", "data-value" : "italic" }).append($("<i/>",{"class" : icons.italic}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
-                $underBt = $("<div/>",{ "class" : "btn underbt", "data-value" : "underline" }).append($("<i/>",{"class" : icons.underline}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap),
-                $strikeBt = $("<div/>",{ "class" : "btn strikebt", "data-value" : "strike" }).append($("<i/>",{"class" : icons.strike}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($btWrap);
+                $decobtns = $btWrap.clone().appendTo($fontDeco),
+                $boldBt = $btn.clone().addClass("boldbt").attr("data-value","bold").append($("<i/>",{"class" : icons.bold}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                $italicBt = $btn.clone().addClass("italicbt").attr("data-value","italic").append($("<i/>",{"class" : icons.italic}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                $underBt = $btn.clone().addClass("underbt").attr("data-value","underline").append($("<i/>",{"class" : icons.underline}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                $strikeBt = $btn.clone().addClass("strikebt").attr("data-value","strike").append($("<i/>",{"class" : icons.strike}))
+                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+
+                $fontAlign = $("<div/>",{
+                    "class" : "toolbox-inner",
+                    "id" : "fontAlign-tool",
+                    "data-value" : "font-align"
+                }).appendTo($this),
+                $faLabel = $("<div/>",{
+                    "class" : "toolbox-label",
+                    "html" : "Align"
+                }).appendTo($fontAlign),
+                $alignbtns = $btWrap.clone().appendTo($fontAlign),
+                $alignLeft = $btn.clone().addClass("align-left-bt").attr("data-value","left").append($("<i/>",{"class" : icons.alignLeft}))
+                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                $alignCenter = $btn.clone().addClass("align-center-bt").attr("data-value","center").append($("<i/>",{"class" : icons.alignCenter}))
+                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                $alignRight = $btn.clone().addClass("align-right-bt").attr("data-value","right").append($("<i/>",{"class" : icons.alignRight}))
+                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                $alignRight = $btn.clone().addClass("align-justify-bt").attr("data-value","justify").append($("<i/>",{"class" : icons.alignJustify}))
+                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns);
             },
             textFn: {
                 focusAction: function(){
@@ -986,14 +1050,15 @@
                     fontColor = $textInput.css("color"),
                     $fontSizeTool = $("#fontSize-tool"),
                     $fontColorTool = $("#fontColor-tool"),
-                    $fontDecoTool = $("#fontDeco-tool");                    
+                    $fontDecoTool = $("#fontDeco-tool"),
+                    $fontAlignTool = $("#fontAlign-tool");                    
 
                     if($(".focused").size() == 1) $(".focused").removeClass("focused");
                     $this.addClass("focused");
 
                     var //data reset
                     $changeSize = $fontSizeTool.find(".slider-text").val(fontSize).trigger("change"),
-                    $changeColor = $("#fontColorKey").spectrum("set", fontColor);
+                    $changeColor = $("#fontColorKey").spectrum("set", fontColor),
                     $boldbt = $this.find("b").length > 0 ? 
                     	$fontDecoTool.find(".boldbt").addClass("selected") : 
                     	$fontDecoTool.find(".boldbt").removeClass("selected"),
@@ -1005,7 +1070,9 @@
                     	$fontDecoTool.find(".underbt").removeClass("selected"),
                     $strikebt = $this.find("strike").length > 0 ? 
                     	$fontDecoTool.find(".strikebt").addClass("selected") : 
-                    	$fontDecoTool.find(".strikebt").removeClass("selected");
+                    	$fontDecoTool.find(".strikebt").removeClass("selected"),
+                    $alignInit = $fontAlignTool.find(".btn").removeClass("selected"),
+                    $fontAlign = $fontAlignTool.find(".btn[data-value='" + $textInput.css("text-align") + "']").addClass("selected");
 
                     $("html").on("click",toolbar.textFn.blurAction);
                     console.log("focusin text");
@@ -1014,6 +1081,7 @@
                     var $this = $(".focused"),
                     $target = $(event.target),
                     $fontDecoTool = $("#fontDeco-tool"),
+                    $fontAlignTool = $("#fontAlign-tool"),
         			inputChild = $target.is("b") || $target.is("em") || $target.is("u") || $target.is("strike"),
                     input = $target.is(".canvas-input") || inputChild,
                     aside = $target.parents().is(".lubypic-aside");
@@ -1023,6 +1091,7 @@
                     else {
                         $this.removeClass("focused");
                         $fontDecoTool.find(".btn").removeClass("selected");
+                        $fontAlignTool.find(".btn").removeClass("selected");
                         $("html").off("click");
                         console.log("This is not aside or input");
                     }
@@ -1067,15 +1136,6 @@
                     	italText = $target.find("em").children()[0] || $target.find("em").text(),
                     	underText = $target.find("u").children()[0] || $target.find("u").text(),
                     	strikeText = $target.find("strike").children()[0] || $target.find("strike").text();
-                    	console.log("bold--------------------------");
-                    	console.log(boldText);
-                    	console.log("ital--------------------------");
-                    	console.log(italText);
-                    	console.log("under--------------------------");
-                    	console.log(underText);
-                    	console.log("str--------------------------");
-                    	console.log(strikeText);
-
                         switch(value){
                             case "bold" : bold.parent().html(boldText); bold.remove(); break;
                             case "italic" : italic.parent().html(italText); italic.remove(); break;
@@ -1084,8 +1144,80 @@
                             default : return; break;
                         }
                     }
-
+                },
+                fontAlign: function(){
+                    var $this = $(this),
+                    $target = $(document).find(".focused > .canvas-input"),
+                    selected = $this.hasClass("selected"),
+                    value = $this.data("value");
+                    $target.css("text-align",value);
                 }
+            },
+            colorTool: function(){
+                var $this = $(document).find("#colorTool-toolbox"),
+
+                $bgColor = $("<div/>",{
+                    "class" : "toolbox-inner", 
+                    "id" : "bgColor-tool",
+                    "data-value" : "bg-color"
+                }).appendTo($this),
+                $colorLabel = $("<div>",{
+                    "class" : "toolbox-label",
+                    "html" : "Background Color"
+                }).appendTo($bgColor),
+                $colorInput = $("<input/>",{ //input
+                    "type" : "text",
+                    "id" : "bgColorKey"
+                }).appendTo($bgColor).spectrum({
+                    color: "#ffffff",
+                    showInput: true,
+                    showAlpha: true,
+                    showInitial: true,
+                    preferredFormat: "hex3",
+                    showPalette: true,
+                    palette: [],
+                    showSelectionPalette: true, // true by default
+                    selectionPalette: [],
+                    move: toolbar.colorFn.bgColor,
+                    change: toolbar.colorFn.bgColor
+                });
+            },
+            colorFn: {
+                bgColor: function(color){
+                    var color = color.toHexString(),
+                    $target = $(document).find(".editing-canvas");
+                    $target.css("background", color);
+                }
+            },
+            gridTool: function(){
+                var $this = $(document).find("#gridTool-toolbox"),
+                $gridWrap = $("<div/>",{ "class" : "grid-wrapper modal-wrapper" }).appendTo($this),
+                $gridTitle = $("<div/>",{
+                    "class" : "grid-title modal-title",
+                    "html" : "Making a Frame"
+                }).appendTo($gridWrap),
+                $gridInnerWrap = $("<div/>",{ "class" : "toolbox-inner" }).appendTo($gridWrap),
+                $editWindow = $("<div/>",{ "class" : "grid-edit-window"}).appendTo($gridInnerWrap),
+                $btnWrap = $("<ul/>",{ "class" : "grid-btns" }).appendTo($gridInnerWrap),
+                $btn = $("<li/>",{ "class" : "grid-btn" }),
+                
+                $btn1 = $btn.clone().attr("data-value","1-1v").appendTo($btnWrap),
+                $btn2 = $btn.clone().attr("data-value","1-2v").appendTo($btnWrap),
+                $btn3 = $btn.clone().attr("data-value","2-1v").appendTo($btnWrap),
+                $btn4 = $btn.clone().attr("data-value","1-2h").appendTo($btnWrap),
+                $btn5 = $btn.clone().attr("data-value","2-1h").appendTo($btnWrap),
+                $btn6 = $btn.clone().attr("data-value","2-2").appendTo($btnWrap);
+
+
+            },
+            gridFn: {
+
+            },
+            selectTool: function(){
+                console.log("select tool");
+            },
+            selectFn: {
+
             }
         },
         start = {

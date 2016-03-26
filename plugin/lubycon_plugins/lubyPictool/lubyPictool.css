@@ -71,6 +71,8 @@ a {
     border-radius: 5px;
     box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
     .modal-closebt {
         position: absolute;
@@ -448,8 +450,8 @@ a {
         left: 50px;
         padding: 20px;
         padding-top: 70px;
-        width: 250px;
-        height: 100%;
+        min-width: 250px;
+        min-height: 100%;
         background: #282828;
         z-index: 90;
         box-shadow: 7px 0px 10px -4px rgba(0,0,0,0.6);
@@ -457,13 +459,40 @@ a {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .lubypic-body > .lubypic-aside > .toolbox-wrap > .toolbox-inner {
+    .lubypic-body > .lubypic-aside > .toolbox-wrap.modal {
+        position: fixed;
+        display: inline-block;
+        top: 40px;
+        left: 40px;
+        padding: 0;
+        z-index: 10000;
+        min-width: 450px;
+        min-height: 300px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        .lubypic-body > .lubypic-aside > .toolbox-wrap.modal > .toolbox-inner {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .lubypic-body > .lubypic-aside > .toolbox-wrap.modal > .modal-wrapper > .toolbox-inner {
             width: 100%;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             margin: 15px auto;
         }
+            .lubypic-body > .lubypic-aside > .toolbox-wrap.modal > .modal-wrapper > .toolbox-inner > .grid-edit-window {
+                width: 100%;
+                height: 200px;
+                border-radius: 5px;
+                background: #222222;
+                box-shadow: inset 0px 0px 60px 0px rgba(0,0,0,0.7);
+            }
             .toolbox-inner > .toolbox-label {
                 font-size: 15px;
                 color: #dddddd;

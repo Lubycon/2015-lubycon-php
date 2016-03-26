@@ -2101,7 +2101,7 @@
      * @param {String} url
      * @param {Boolean} onlyColorChanged (optional)
      */
-    replace: function (url, onlyColorChanged) {
+    replace: function (url, onlyColorChanged, evnet) {
       if (!this.isDisabled && url) {
         if (this.isImg) {
           this.$element.attr('src', url);
