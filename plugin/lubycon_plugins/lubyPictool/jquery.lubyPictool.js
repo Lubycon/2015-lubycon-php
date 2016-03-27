@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          lubyPictool.min.js
- *  Updated:       2016-03-25
+ *  Updated:       2016-03-27
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -393,6 +393,7 @@
                 if(data == "edit") $modals.fadeOut(200);
                 else {
                     $modals.hide();
+                    $(".btn.selected").removeClass("selected");
                     pac.modalAlign($target);
                     $target.fadeIn(200);
                 }
@@ -476,24 +477,86 @@
                 dataValue = $this.data("value"),
                 $uploading = $(document).find(".uploading");
                 
-                if(dataValue == "replace"){
-                    $inputFile.off("change").on("change",upload.imgReplace);
-                    if($uploading.length!=0) $uploading.removeClass(".uploading");
-                    $this.addClass("uploading");
+                switch(dataValue){
+                    case "replace" : 
+                        $inputFile.off("change").on("change",upload.imgReplace);
+                        if($uploading.length!=0) $uploading.removeClass(".uploading");
+                        $this.addClass("uploading");
+                    break;
+                    case "thumbnail" : $inputFile.off("change").on("change",upload.thumbUpload); break;
+                    case "thumb-replace" : $inputFile.off("change").on("change",upload.thumbReplace); break;
+                    case "grid" : 
+                        $inputFile.off("change").on("change",upload.gridUpload);
+                        if($uploading.length!=0) $uploading.removeClass(".uploading");
+                        $this.addClass("uploading"); 
+                    break;
+                    case "grid-replace" : 
+                        $inputFile.off("change").on("change",upload.gridReplace);
+                        if($uploading.length!=0) $uploading.removeClass(".uploading");
+                        $this.addClass("uploading"); 
+                    break;
+                    default :
+                        $inputFile.off("change").on("change",upload.imgUpload);
+                        if($uploading.length!=0) $uploading.removeClass(".uploading");
+                        $this.addClass("uploading");
+                    break;
                 }
-                else if(dataValue == "thumbnail"){
-                    $inputFile.off("change").on("change",upload.thumbUpload);
-                }
-                else if(dataValue == "thumb-replace"){
-                    $inputFile.off("change").on("change",upload.thumbReplace);
-                }
-                else{
-                    $inputFile.off("change").on("change",upload.imgUpload);
-                    if($uploading.length!=0) $uploading.removeClass(".uploading");
-                    $this.addClass("uploading");
-                };
                 $inputFile.trigger("click")
                 console.log("Trigger On");
+            },
+            gridUpload: function(event){
+                var $this = $(".uploading"),
+                $inputFile = $(this),
+                $target = $this.parent(".grid-img-wrapper"),
+                $object = event.target.files,
+                cropBoxWidth = $target.width(),
+                cropBoxHeight = $target.height();
+
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        var img = $("<img/>").attr("src", event.target.result).appendTo($target)
+                        .cropper({
+                            minContainerWidth: cropBoxWidth,
+                            minContainerHeight: cropBoxHeight,
+                            minCanvasWidth: cropBoxWidth,
+                            minCanvasHeight: cropBoxHeight,
+                            autoCropArea: 1,
+                            viewMode: 3,
+                            modal: false,
+                            center: false,
+                            guides: false,
+                            background: false,
+                            highlight: false,
+                            cropBoxMovable: false,
+                            cropBoxResizable: false,
+                            zoomOnTouch: false,
+                            toggleDragModeOnDblclick: false,
+                            dragMode: "move"
+                        }); 
+                        $inputFile.val(null);
+                        $this.attr("data-value","grid-replace").hide();
+                        $(".uploading").removeClass("uploading");
+                    }
+                });
+                console.log("grid upload");
+            },
+            gridReplace: function(event){
+                var $this = $(".uploading");
+                $inputFile = $(document).find(".imgUploader"),
+                $object = event.target.files,
+                $cropper = $this.siblings("img");
+
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        console.log(event.target.result);
+                        $cropper.cropper("replace",event.target.result),false;
+                        $inputFile.val(null);
+                    }
+                });
             },
             thumbUpload: function(event){
                 var $this = $(".thumb-editor-wrapper"),
@@ -542,7 +605,6 @@
                         console.log(event.target.result);
                         $cropper.cropper("replace",event.target.result),false;
                         $inputFile.val(null);
-
                     }
                 });
                 setTimeout(function(){
@@ -672,6 +734,30 @@
 
                 $this.addClass("uploading");
                 pac.modalAlign($target);
+            },
+            addGrid: function(){
+                var $this = $(this),
+                $window = $this.parents(".modal"),
+                $grid = $window.find(".grid-edit-window"),
+                $dummy =$grid.clone().appendTo("body"),
+                $canvas = $(document).find(".obj-body"),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : ""}),
+                $placeHolder = $(document).find(".canvas-content.placeHolder");
+
+                html2canvas($dummy, {
+                    onrendered: function(canvas) {
+                        var dataURL = canvas.toDataURL("image/jpeg"),
+                        $media = $("<img/>", { "src" : dataURL }).appendTo($canvas);
+                        upload.insertPosition($this,$mediaWrap,$media);
+                        $grid.empty();
+                        $dummy.remove();
+                    }
+                });
+                if($placeHolder.length!=0) $placeHolder.hide();
+                $window.fadeOut(200);
+                $(".btn.selected").removeClass("selected");
+                pac.objMenu($mediaWrap);
+                console.log("grid is added");
             },
             embed: function(){
                 var $this = $(this),
@@ -851,15 +937,15 @@
                 var $this = $(this),
                 $window = $this.parents(".modal"),
                 $input = $this.parent().siblings("textarea"),
+                $grid = $window.find(".grid-edit-window"),
                 $btns = ".header-btn",
                 $currentProg = $(document).find(".current-prog"),
                 data = $currentProg.data("value");
 
                 $input.val(null);
                 $window.stop().fadeOut(200);
-                if($window.hasClass("prog")){
-                    $currentProg.prev($btns).trigger("click");
-                }
+                if($window.hasClass("prog")) $currentProg.prev($btns).trigger("click");
+                else if($window.attr("id") == "gridTool-toolbox") $grid.empty(), $(".btn.selected").removeClass("selected"); 
                 console.log("cancel");
             },
             embedHelp: function(){
@@ -951,7 +1037,7 @@
                     toolBoxes.fadeOut(200);
                     toolBox.fadeIn(200);
                 }
-                else toolBox.hide();
+                else toolBox.fadeOut(200);
             },
             textTool: function(){
                 var $this = $(document).find("#textTool-toolbox"),
@@ -1092,9 +1178,11 @@
                         $this.removeClass("focused");
                         $fontDecoTool.find(".btn").removeClass("selected");
                         $fontAlignTool.find(".btn").removeClass("selected");
+                        //if($this.children(".canvas-input").text() == "") $this.remove();
                         $("html").off("click");
                         console.log("This is not aside or input");
                     }
+
                 },
                 fontSize: function(val,selector){
                     var $this = selector,
@@ -1197,17 +1285,35 @@
                     "html" : "Making a Frame"
                 }).appendTo($gridWrap),
                 $gridInnerWrap = $("<div/>",{ "class" : "toolbox-inner" }).appendTo($gridWrap),
-                $editWindow = $("<div/>",{ "class" : "grid-edit-window"}).appendTo($gridInnerWrap),
+                $editWindow = $("<div/>",{ "class" : "grid-edit-window" }).appendTo($gridInnerWrap),
                 $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
                 $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",pac.toggle).on("click",toolbar.gridFn.makeGrid),
-                
-                $btn1 = $btn.clone(true).addClass("selected").attr("data-value","n-1-1").appendTo($btnWrap),
-                $btn2 = $btn.clone(true).attr("data-value","v-1-2").appendTo($btnWrap),
-                $btn3 = $btn.clone(true).attr("data-value","v-2-1").appendTo($btnWrap),
-                $btn4 = $btn.clone(true).attr("data-value","h-1-2").appendTo($btnWrap),
-                $btn5 = $btn.clone(true).attr("data-value","h-2-1").appendTo($btnWrap),
-                $btn6 = $btn.clone(true).attr("data-value","n-2-2").appendTo($btnWrap);
+                $modalClose = $("<div/>",{ "class" : "modal-closebt" }).on("click",modalTool.cancel).appendTo($gridWrap),
+                $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
+                $gridCancel = $("<div/>",{
+                    "class" : "modal-bt modal-cancelbt",
+                    "html" : "Cancel"
+                }).on("click",modalTool.cancel).appendTo($gridBtWrap),
+                $gridOk = $("<div/>",{
+                    "class" : "modal-bt modal-okbt",
+                    "id" : "grid-okbt",
+                    "html" : "Insert",
+                }).on("click",modalTool.addGrid).appendTo($gridBtWrap),
 
+                $btnIcon = $("<img/>"),
+                $btn1 = $btn.clone(true).attr("data-value","n-1-1")
+                .append($btnIcon.clone().attr("src","img/grid_icons/1.png")).appendTo($btnWrap),
+                $btn2 = $btn.clone(true).attr("data-value","v-1-2")
+                .append($btnIcon.clone().attr("src","img/grid_icons/2.png")).appendTo($btnWrap),
+                $btn3 = $btn.clone(true).attr("data-value","v-2-1")
+                .append($btnIcon.clone().attr("src","img/grid_icons/3.png")).appendTo($btnWrap),
+                $btn4 = $btn.clone(true).attr("data-value","h-1-2")
+                .append($btnIcon.clone().attr("src","img/grid_icons/4.png")).appendTo($btnWrap),
+                $btn5 = $btn.clone(true).attr("data-value","h-2-1")
+                .append($btnIcon.clone().attr("src","img/grid_icons/5.png")).appendTo($btnWrap),
+                $btn6 = $btn.clone(true).attr("data-value","n-2-2")
+                .append($btnIcon.clone().attr("src","img/grid_icons/6.png")).appendTo($btnWrap);
+                pac.modalAlign($this);
             },
             gridFn: {
                 makeGrid: function(){
@@ -1217,33 +1323,83 @@
                     value = $this.data("value"),
                     valueArray = value.split("-"),
                     direction = valueArray[0],
-                    firstArea = valueArray[1],
-                    secondArea = valueArray[2],
-                    $gridWrapper = $("<div/>",{ "class" : "grid-inner-wrapper" }),
-                    $devider = $("<div/>",{ "class" : "grid-devider" }),
-                    $imgWrapper = $("<div/>",{ "class" : "grid-img-wrapper"}),
-                    $placeHolder = $("<div/>",{ "class" : "placeHolder"}),
-
-                    n11 = $gridWrapper.clone()
-                    .append($devider.clone().addClass("vertical"))
-                    .append($devider.clone().addClass("vertical")),
-
-                    v = $gridWrapper.clone()
-                    .append($devider.clone().addClass("vertical"))
-                    .append($devider.clone().addClass("vertical")),
-
-                    h = $gridWrapper.clone()
-                    .append($devider.clone().addClass("horizental"))
-                    .append($devider.clone().addClass("horizental")),
-
-                    n22 = $gridWrapper.clone();
-
+                    firstArea = parseInt(valueArray[1]),
+                    secondArea = parseInt(valueArray[2]);
+                   
                     if(selected) {
-                        h.appendTo($editWindow);
-                        console.log("direction : " + direction);
-                        console.log("firstArea : " + firstArea);
-                        console.log("secondArea : " + secondArea);
+                        var gridObj = toolbar.gridFn.gridType(direction,firstArea,secondArea),
+                        init = $(document).find(".grid-inner-wrapper").length != 0 ? $(".grid-inner-wrapper").remove() : "";
+                        gridObj.appendTo($editWindow);
+                    }
+                    else if(!selected) {
+                        $editWindow.find(".grid-inner-wrapper").remove();
                     }  
+                },
+                gridType: function(d,f,s){
+                    var $gridWrapper = $("<div/>",{ "class" : "grid-inner-wrapper" }),
+                    $devider = $("<div/>",{ "class" : "grid-devider" });
+                    console.log(d,f,s);
+                    //direction
+                    $gridWrapper.clone();
+                    if(d == "v" || d == "n"){
+                        var $obj = $gridWrapper.append($devider.clone().addClass("vertical left"))
+                        .append($devider.clone().addClass("vertical right"));
+                        toolbar.gridFn.devideGrid($obj,d,f,s);
+                        console.log("d : " + d);
+                    }
+                    else if(d == "h"){
+                        var $obj = $gridWrapper.append($devider.clone().addClass("horizental top"))
+                        .append($devider.clone().addClass("horizental bottom"));
+                        toolbar.gridFn.devideGrid($obj,d,f,s);
+                        console.log("d : " + d);
+                    }
+                    else $.error("There is no grid element");   
+
+                    toolbar.gridFn.gridIndex();
+                    console.log($gridWrapper[0]);
+                    return $gridWrapper;
+                },
+                devideGrid: function($obj,d,f,s){
+                    $imgWrapper = $("<div/>",{ "class" : "grid-img-wrapper"}),
+                    $placeHolder = $("<div/>",{ 
+                        "class" : "grid-placeHolder",
+                        "html" : "<i class='" + icons.upload + "'></i>Click and upload",
+                        "data-value" : "grid"
+                    }).on("click",upload.imgUpTrigger),
+                    $devider1 = $obj.find(".grid-devider").eq(0),
+                    devider1Class = $devider1.hasClass("left"),
+                    $devider2 = $obj.find(".grid-devider").eq(1),
+                    devider2Class = $devider2.hasClass("right");
+                    if(f == 1){
+                        var $imgObj = $devider1.append($imgWrapper.clone().append($placeHolder.clone(true)));
+                        console.log("devider1 : " + f);
+                    }
+                    else if(f == 2){
+                        var $imgObj = devider1Class ? 
+                        $devider1.append($imgWrapper.clone().addClass("top").append($placeHolder.clone(true)))
+                        .append($imgWrapper.clone().addClass("bottom").append($placeHolder.clone(true))) :
+                        $devider1.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
+                        .append($imgWrapper.clone().addClass("right").append($placeHolder.clone(true)));
+                        console.log("devider1 : " + f);
+                        console.log(devider1Class);
+                    }
+                    
+                    if(s == 1){
+                        var $imgObj = $devider2.append($imgWrapper.clone().append($placeHolder.clone(true)));
+                        console.log("devider2 : " + s);
+                    }
+                    else if(s == 2){
+                        var $imgObj = devider2Class ? 
+                        $devider2.append($imgWrapper.clone().addClass("top").append($placeHolder.clone(true)))
+                        .append($imgWrapper.clone().addClass("bottom").append($placeHolder.clone(true))) :
+                        $devider2.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
+                        .append($imgWrapper.clone().addClass("right").append($placeHolder.clone(true)));
+                        console.log("devider2 : " + s);
+                        console.log(devider1Class);
+                    }
+                },
+                gridIndex: function(){
+                    console.log("index is added to imgs");
                 }
             },
             selectTool: function(){
