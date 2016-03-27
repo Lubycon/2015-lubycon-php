@@ -2,6 +2,8 @@
 class upload
 {
     private $_temp_path = '../../../../Lubycon_Contents/contents/temp/';
+    private $_user_name = 'daniel_zepp'; //from db
+
     private $_filesize_array = array();
     private $_filepath_array = array();
     private $_filename_array = array();
@@ -14,11 +16,24 @@ class upload
     private $_white_list_txt = ['hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
     private $_white_list_all = ['all'];
 
+    private $_ajax_type;
+    private $_ajax_limit_size;
+    private $_ajax_white_list;
+    private $_ajax_ext = [];
+    
+    private $_thumb_size = 100;
+    private $_contents_size = 1000;
 
-    public function __construct()
-    {
-        $this->_zip = new ZipArchive;
-    }
+    private $_thumb_type = 'thumb';
+    private $_contents_type = 'contents';
+
+    private $_thumb_white_list = ['data:image/jpeg;base64'];
+    private $_contents_white_list = ['data:image/jpeg;base64','data:image/gif;base64'];
+
+    private $_img;
+    private $_img_data;
+    private $_data;
+    private $_string_length;
 
     public function validate_size($files,$limit_size)
     {
@@ -154,6 +169,8 @@ class upload
     {
         if($zip_compress) // zip
         {
+            $this->_zip = new ZipArchive;
+
             if( count($this->_filepath_array) && $upload_zip )
             {
                 foreach( $this->_filepath_array as $index => $file )
@@ -182,6 +199,73 @@ class upload
         }else // not zip
         {
             echo '<br/>do not zip just save';
+        }
+    }
+    
+
+    public function ajax_check_type($post_type)
+    {
+        switch($post_type)
+        {
+            case 'thumb': 
+                $this->_ajax_type = $this->_thumb_type; 
+                $this->_ajax_limit_size = $this->_thumb_size;
+                $this->_ajax_white_list = $this->_thumb_white_list;
+                break;
+            case 'contents': 
+                $this->_ajax_type = $this->_contents_type; 
+                $this->_ajax_limit_size = $this->_contents_size;
+                $this->_ajax_white_list = $this->_contents_white_list;
+                break;
+        }
+    }
+
+    public function ajax_validate_ext($post_data64)
+    {
+        foreach($post_data64 as $key => $value) 
+        {
+            $this->_data = explode(',', $post_data64[$key]);
+
+            if( !in_array($this->_data[0] , $this->_ajax_white_list ))
+            {
+                die( 'it is not allow image file');
+            }else if( $this->_data[0] == 'data:image/gif;base64' ? $this->_ajax_ext[$key] = '.gif' : $this->_ajax_ext[$key] = '.jpg')
+            {
+                echo 'ext validate done';
+            }
+        }
+    }
+
+    public function ajax_validate_size($post_data64)
+    {
+        foreach($post_data64 as $key => $value) 
+        {
+            $this->_string_length = strlen($post_data64[$key]);
+
+            if( $this->_string_length >= $this->_ajax_limit_size * 1024 )
+            {
+                die( 'it is over limit size');
+            }else
+            {
+                echo 'size validate done';
+            }
+        }
+    }
+
+    public function ajax_saveto_temp($post_data64)
+    {
+        foreach($post_data64 as $key => $value) 
+        {
+	        $this->_img = str_replace($this->_ajax_ext, '', $post_data64[$key]);
+	        $this->_img = str_replace(' ', '+', $this->_img);
+	        $this->_img_data = base64_decode($this->_img);
+            
+            is_dir($this->_temp_path.$this->_ajax_type) ? chmod($this->_temp_path.$this->_ajax_type,0777) : mkdir($this->_temp_path.$this->_ajax_type,0777);
+
+            if ( is_dir($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name) ? chmod($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name,0777) : mkdir($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name,0777) )
+            {
+                file_put_contents($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name.'/'.$this->_ajax_type.$this->_ajax_ext[$key], $this->_img_data);
+            }
         }
     }
 }
