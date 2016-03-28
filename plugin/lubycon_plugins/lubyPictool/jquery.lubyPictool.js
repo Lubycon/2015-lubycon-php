@@ -20,7 +20,8 @@
                 textTool: true,
                 colorTool: true,
                 gridTool: true,
-                selectTool: true
+                marginTool : true,
+                sortTool: true
             }
         },
         icons = {
@@ -41,7 +42,8 @@
             code: "fa fa-code",
             setting: "fa fa-cog",
             image: "fa fa-image",
-            sort: "fa fa-sort-amount-desc",
+            sorts: "fa fa-sort-amount-desc",
+            margin: "fa fa-sort",
             slider: "fa fa-sliders",
             tag: "fa fa-tag",
             font: "fa fa-font",
@@ -177,10 +179,15 @@
                             "data-value" : "gridTool"
                         }).append($("<i/>",{"class":icons.grid}))
                         .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
-                        $selectTool = d.toolbar.selectTool ? $("<div/>",{
+                        $marginTool = d.toolbar.marginTool ? $("<div/>",{
                             "class" : "btn",
-                            "data-value" : "selectTool"
-                        }).append($("<i/>",{"class":icons.layer}))
+                            "data-value" : "marginTool"
+                        }).append($("<i/>",{"class":icons.margin}))
+                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
+                        $sortTool = d.toolbar.sortTool ? $("<div/>",{
+                            "class" : "btn",
+                            "data-value" : "sortTool"
+                        }).append($("<i/>",{"class":icons.sorts}))
                         .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
 
                         //input files
@@ -359,11 +366,12 @@
                 toolbar.textTool();
                 toolbar.colorTool();
                 toolbar.gridTool();
-                toolbar.selectTool();
+                toolbar.marginTool();
+                toolbar.sortTool();
                 //toolbar data bind end
-                $(".modal").each(function(){
-                    pac.modalAlign($(this));
-                });
+                $(window).on("load resize",function(){
+                    $(".modal").each(function(){ pac.modalAlign($(this)); });
+                })
             },
             toggle: function(){
                 var $this = $(this),
@@ -425,7 +433,7 @@
                     "html" : "Replace",
                     "data-value" : "replace"
                 }).on("click",upload.imgUpTrigger).appendTo($menuWrap),
-                $Copy = $("<li/>",{
+                $select = $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Select",
                     "data-value": "select"
@@ -451,7 +459,7 @@
                 windowWidth = $(window).width(),
                 windowHeight = $(window).height(),
                 hrAlign = (width/2)*-1,
-                vtAlign = (windowHeight/2 - height/2) - 30;
+                vtAlign = (windowHeight/2 - height/2) - 50;
                 $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
                 //console.log("modalAlign : "); console.log($this[0]); 
             },
@@ -501,7 +509,7 @@
                         $this.addClass("uploading");
                     break;
                 }
-                $inputFile.trigger("click")
+                $inputFile.trigger("click");
                 console.log("Trigger On");
             },
             gridUpload: function(event){
@@ -538,6 +546,7 @@
                         $inputFile.val(null);
                         $this.attr("data-value","grid-replace").hide();
                         $(".uploading").removeClass("uploading");
+                        toolbar.sortFn.refresh();
                     }
                 });
                 console.log("grid upload");
@@ -639,7 +648,7 @@
                     };
                 });  
                 pac.objMenu($objectWrap);
-                         
+                   
                 console.log("The new image is uploaded");
             },
             imgReplace: function(event){
@@ -683,7 +692,7 @@
                 upload.insertPosition($this,$mediaWrap,$media);
                 $this.removeClass(".uploading");
                 pac.objMenu($mediaWrap);
-                console.log("meida link is added");
+                console.log("media link is added");
             }, 
             setIndex: function(){
             	var $contents = $(document).find(".canvas-content");
@@ -699,25 +708,27 @@
                 $body = $(".obj-body"),
                 $deviderWrap = $("<div/>",{"class" : "canvas-obj canvas-devider-wrap"}),
                 $devider = $("<div/>",{"class" : "canvas-devider"}).appendTo($deviderWrap),
+                dvHeight = $("#devider-tool").find("input[type='text']").val(),
                 contentSize = $(document).find(".canvas-content").size() > 1;
 
                 if($this.parents().is(".obj-header")) {
                     wrap.insertAfter($placeHolder).append(object);
-                    if(contentSize) $deviderWrap.clone().insertAfter(wrap);
-                    console.log(0);
+                    if(contentSize) $deviderWrap.clone().height(dvHeight).insertAfter(wrap);
+                    //console.log(0);
                 }
                 else if($this.parents().is(".canvas-devider-wrap")) {
                     wrap.insertBefore($this.parents(".canvas-devider-wrap")).append(object);
-                    if(contentSize) $deviderWrap.clone().insertBefore(wrap);
-                    console.log(1);
+                    if(contentSize) $deviderWrap.clone().height(dvHeight).insertBefore(wrap);
+                    //console.log(1);
                 }
                 else {
                     wrap.appendTo($body).append(object);
-                    if(contentSize) $deviderWrap.clone().insertBefore(wrap);
-                    console.log(2);
+                    if(contentSize) $deviderWrap.clone().height(dvHeight).insertBefore(wrap);
+                    //console.log(2);
                 }
                 canvasTool.addObjBt();
                 upload.setIndex();
+                toolbar.sortFn.refresh();
             }
         },
         modalTool = {
@@ -739,7 +750,9 @@
                 var $this = $(this),
                 $window = $this.parents(".modal"),
                 $grid = $window.find(".grid-edit-window"),
-                $dummy =$grid.clone().appendTo("body"),
+                width = $grid.width(),
+                height = $grid.height()
+                $dummy =$grid.clone().appendTo("body").width(width*3).height(height*3),
                 $canvas = $(document).find(".obj-body"),
                 $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : ""}),
                 $placeHolder = $(document).find(".canvas-content.placeHolder");
@@ -992,6 +1005,7 @@
                 }
                 if(objects == 2) $placeHolder.show() && $ObjBts.remove();
                 upload.setIndex();
+                toolbar.sortFn.refresh();
                 console.log("image was deleted");
             },
             addObjBt: function(selector){
@@ -1327,9 +1341,10 @@
                     secondArea = parseInt(valueArray[2]);
                    
                     if(selected) {
-                        var gridObj = toolbar.gridFn.gridType(direction,firstArea,secondArea),
+                        var $gridObj = toolbar.gridFn.gridType(direction,firstArea,secondArea),
                         init = $(document).find(".grid-inner-wrapper").length != 0 ? $(".grid-inner-wrapper").remove() : "";
-                        gridObj.appendTo($editWindow);
+                        $gridObj.appendTo($editWindow);
+                        toolbar.gridFn.gridIndex($gridObj);
                     }
                     else if(!selected) {
                         $editWindow.find(".grid-inner-wrapper").remove();
@@ -1355,15 +1370,13 @@
                     }
                     else $.error("There is no grid element");   
 
-                    toolbar.gridFn.gridIndex();
-                    console.log($gridWrapper[0]);
                     return $gridWrapper;
                 },
                 devideGrid: function($obj,d,f,s){
                     $imgWrapper = $("<div/>",{ "class" : "grid-img-wrapper"}),
                     $placeHolder = $("<div/>",{ 
                         "class" : "grid-placeHolder",
-                        "html" : "<i class='" + icons.upload + "'></i>Click and upload",
+                        "html" : "<i class='" + icons.plus + "'></i>Click and upload",
                         "data-value" : "grid"
                     }).on("click",upload.imgUpTrigger),
                     $devider1 = $obj.find(".grid-devider").eq(0),
@@ -1381,7 +1394,6 @@
                         $devider1.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
                         .append($imgWrapper.clone().addClass("right").append($placeHolder.clone(true)));
                         console.log("devider1 : " + f);
-                        console.log(devider1Class);
                     }
                     
                     if(s == 1){
@@ -1395,18 +1407,123 @@
                         $devider2.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
                         .append($imgWrapper.clone().addClass("right").append($placeHolder.clone(true)));
                         console.log("devider2 : " + s);
-                        console.log(devider1Class);
                     }
                 },
-                gridIndex: function(){
-                    console.log("index is added to imgs");
+                gridIndex: function(selector){
+                    $this = selector;
+                    $cell = $(document).find(".grid-img-wrapper");
+                    console.log($cell);
+                    $cell.each(function(){
+                        var $this = $(this),
+                        index = $this.index();
+                        console.log(index);
+                        if(!$this.is(".placeHolder")) $this.attr("data-index",index);
+                    });
                 }
             },
-            selectTool: function(){
-                console.log("select tool");
+            marginTool: function(){
+                var $this = $(document).find("#marginTool-toolbox"),
+                
+                $headerMargin = $("<div/>",{
+                    "class" : "toolbox-inner", 
+                    "id" : "header-tool", 
+                    "data-value" : "header"
+                }).appendTo($this),
+                $headerLabel = $("<div>",{
+                    "class" : "toolbox-label",
+                    "html" : "Header"
+                }).appendTo($headerMargin),
+                $headerInput = $("<input/>",{ //input
+                    "type" : "range",
+                    "class" : "sliderKey",
+                    "value" : 45,
+                    "min" : 0,
+                    "max" : 100
+                }).appendTo($headerMargin).slider({ 
+                    callback: toolbar.marginFn.headerMargin
+                }),
+                $footerMargin = $("<div/>",{
+                    "class" : "toolbox-inner", 
+                    "id" : "footer-tool", 
+                    "data-value" : "footer"
+                }).appendTo($this),
+                $footerLabel = $("<div>",{
+                    "class" : "toolbox-label",
+                    "html" : "Footer"
+                }).appendTo($footerMargin),
+                $footerInput = $("<input/>",{ //input
+                    "type" : "range",
+                    "class" : "sliderKey",
+                    "value" : 45,
+                    "min" : 0,
+                    "max" : 100
+                }).appendTo($footerMargin).slider({ 
+                    callback: toolbar.marginFn.footerMargin
+                }),
+                $deviderMargin = $("<div/>",{ ///////////////////////font size start
+                    "class" : "toolbox-inner", 
+                    "id" : "devider-tool", 
+                    "data-value" : "devider"
+                }).appendTo($this),
+                $dvLabel = $("<div>",{
+                    "class" : "toolbox-label",
+                    "html" : "Contents Spacing"
+                }).appendTo($deviderMargin),
+                $deviderInput = $("<input/>",{ //input
+                    "type" : "range",
+                    "class" : "sliderKey",
+                    "value" : 50,
+                    "min" : 0,
+                    "max" : 100
+                }).appendTo($deviderMargin).slider({ 
+                    callback: toolbar.marginFn.deviderMargin
+                })
             },
-            selectFn: {
+            marginFn: {
+                headerMargin: function(val,selector){
+                    $this = selector,
+                    $target = $(document).find(".obj-header");
+                    $target.height(val);
+                },
+                footerMargin: function(val,selector){
+                    $this = selector,
+                    $target = $(document).find(".obj-footer");
+                    $target.height(val);
+                },
+                deviderMargin: function(val,selector){
+                    $this = selector,
+                    $target = $(document).find(".canvas-devider-wrap");
+                    $target.height(val);
+                }
+            },
+            sortTool: function(){
+                var $this = $(document).find("#sortTool-toolbox"),
 
+                $sortWrap = $("<div/>",{
+                    "class" : "toolbox-inner", 
+                    "id" : "sort-tool", 
+                    "data-value" : "sort"
+                }).appendTo($this),
+                $sortLabel = $("<div>",{
+                    "class" : "toolbox-label",
+                    "html" : "Sort"
+                }).appendTo($sortWrap),
+                $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap);
+                toolbar.sortFn.refresh();
+            },
+            sortFn: {
+                refresh: function(){
+                    /*$sortul = $(".sort-ul"),
+                    $sortli = $("<li>",{ "class" : "sort-li" }),
+                    objArray = $(document).find(".canvas-content");
+                    console.log(objArray);
+                    $sortul.empty();
+                    for(var i = 1; i < objArray.length; i++ ){
+                        var $obj = $(objArray[i]);
+                        $sortli.clone().append($obj.clone()).appendTo($sortul);
+                    }
+                    console.log("sort refresh");*/
+                }
             }
         },
         start = {

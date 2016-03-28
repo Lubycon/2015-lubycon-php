@@ -476,6 +476,9 @@ a {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
+        .lubypic-body > .lubypic-aside > .toolbox-wrap > .toolbox-inner {
+            margin-bottom: 20px;
+        }
         .lubypic-body > .lubypic-aside > .toolbox-wrap.modal > .toolbox-inner {
             position: relative;
             width: 100%;
@@ -550,18 +553,6 @@ a {
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
-        .grid-devider:first-child {
-            background: #48cfad;
-        }
-        .grid-devider:nth-child(2) {
-            background: #488ccb;
-        }
-        .grid-devider:nth-child(3) {
-            background: #ec6446;
-        }
-        .grid-devider:last-child {
-            background: #ffbe54;
-        }
             .grid-devider > .grid-img-wrapper {
                 display: inline-block;
                 width: 100%;
@@ -580,11 +571,14 @@ a {
                 height: 100%;
                 color: #eeeeee;
                 font-weight: 200;
-                font-size: 14px;
+                font-size: 17px;
                 background: rgba(0,0,0,0.7);
                 cursor: pointer;
                 text-align: center;
             }
+                .grid-placeHolder:hover {
+                    opacity: 0.6;
+                }
                 .grid-placeHolder > i {
                     margin-right: 15px;
                 }
@@ -596,6 +590,33 @@ a {
             width: 50% !important;
             vertical-align: top;
         }
+
+    .sort-ul {
+        width: 100%;
+        min-height: 200px;
+        max-height: 800px;
+        margin-top: 20px;
+        padding: 20px;
+        background: #222222;
+        box-shadow: inset 0px 0px 30px 0px rgba(0,0,0,0.6);
+        overflow-x : hidden;
+        overflow-y : scroll;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .sort-ul > .sort-li {
+        position: relative;
+        width: 100%;
+        border: 1px solid #ffffff;
+    }
+        .sort-li > .canvas-content {
+            width: 100%;
+        }
+            .sort-li > .canvas-content > img {
+                width: 50px;
+                height: 50px;
+            }
 
     .lubypic-body > .editing-background{
         position: fixed;
@@ -787,6 +808,7 @@ a {
     }
     .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-devider-wrap > .canvas-devider{
         position: absolute;
+        width: 100%;
         height: 100%;
     }
     .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.placeHolder {
