@@ -50,6 +50,7 @@
             plus: "fa fa-plus",
             paint: "fa fa-paint-brush",
             pencil: "fa fa-pencil",
+            picture: "fa fa-picture-o",
             times: "fa fa-times",
             alignJustify: "fa fa-align-justify",
             alignCenter: "fa fa-align-center",
@@ -631,7 +632,7 @@
                 $body = $(".obj-body"),
                 $footer = $(".obj-footer"),
                 $placeHolder = $body.find(".placeHolder"),
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : ""}),
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "image"}),
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
 
@@ -672,7 +673,7 @@
                 var $this = $(this),
                 $body = $(".obj-body"),
                 $placeHolder = $body.find(".placeHolder"),
-                $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text", "data-index" : ""})
+                $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text", "data-index" : "", "data-value" : "text"})
                 .on("focusin",toolbar.textFn.focusAction),
                 $input = $("<p/>",{"class" : "canvas-input", "contenteditable" : "true"});
 
@@ -685,7 +686,7 @@
                 var $this = $(".uploading"),
                 $body = $(".obj-body"),
                 $placeHolder = $body.find("placeHolder"),
-                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-embed", "data-index" : ""}),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-embed", "data-index" : "", "data-value" : "embed"}),
                 $media = val;
 
                 if($placeHolder.length!=0) $placeHolder.hide();
@@ -1510,19 +1511,40 @@
                 }).appendTo($sortWrap),
                 $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap);
                 toolbar.sortFn.refresh();
+                $sortul.sortable({
+                    change: toolbar.sortFn.sortable
+                });
+                $this.disableSelection();
             },
             sortFn: {
                 refresh: function(){
-                    /*$sortul = $(".sort-ul"),
-                    $sortli = $("<li>",{ "class" : "sort-li" }),
-                    objArray = $(document).find(".canvas-content");
-                    console.log(objArray);
+                    $sortul = $(".sort-ul"),
+                    $sortli = $("<li>",{ "class" : "sort-li" }).on("mousedown",toolbar.sortFn.sortable),
+                    objs = $(document).find(".canvas-content");
                     $sortul.empty();
-                    for(var i = 1; i < objArray.length; i++ ){
-                        var $obj = $(objArray[i]);
-                        $sortli.clone().append($obj.clone()).appendTo($sortul);
-                    }
-                    console.log("sort refresh");*/
+                    objs.each(function(){
+                        var $this = $(this);
+                        if(!$this.hasClass("placeHolder")){
+                            $dummy = $this.clone().removeClass("canvas-obj canvas-content").addClass("sort-obj"),
+                            objType = $this.data("value"),
+                            $wrapper = $sortli.clone(true).append($dummy);
+                            $wrapper.appendTo($sortul);
+                            $(".sort-ul .obj-menu-btn").remove();
+                        }
+                    });
+                    console.log("sort refresh");
+                },
+                objType: function(val, selector){
+                    var icon = $("<i/>");
+                    console.log(val);
+                    console.log(selector);
+                    if(val == "image") icon.clone().addClass(icons.picture).appendTo(selector);
+                    else if(val == "text") icon.clone().addClass(icons.font).appendTo(selector);
+                    else if(val == "embed") icon.clone().addClass(icons.code).appendTo(selector);
+                    else return false;
+                },
+                sortable: function(event){
+                    console.log("index is changed!");
                 }
             }
         },
