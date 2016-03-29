@@ -65,7 +65,6 @@
                 })
                 .on("mouseleave",function(){
                     $this.off("mousemove");
-                    isDragging = false;
                     $this.removeClass("dragging");
                 })
                 .on("mouseup","*",function(){

@@ -20,16 +20,15 @@
 	<script type="text/javascript" src="js/html2canvas.js"></script>
 	<script type="text/javascript" src="js/resizeObject.js"></script>
 	<script type="text/javascript" src="jquery.lubyPictool.js"></script> 
-
-    <script>
-    </script>
-
-
 </head>
 <body>
 	<div id="test" class="lubyPictoolKey"></div>
 	<script>
-		$("#test").lubyPictool();
+		$("#test").lubyPictool({
+			submit: function(){
+				alert("submit");
+			}
+		});
 	</script>
 </body>
 </html>

@@ -22,7 +22,8 @@
                 gridTool: true,
                 marginTool : true,
                 sortTool: true
-            }
+            },
+            submit: $.noop()
         },
         icons = {
             basic: "fa fa-filter",
@@ -355,7 +356,7 @@
                             "html" : "Submit",
                             "data-value" : "submit",
                             "disabled" : "disabled"
-                        }).on("click",pac.currentProg).on("click",modalTool.submit).appendTo($settingBtWrap);
+                        }).on("click",pac.currentProg).on("click",d.submit).appendTo($settingBtWrap);
 
                         // right : {project team}
                         pac.databind();//data binding    
@@ -419,7 +420,7 @@
                     "class" : "toolbox-wrap",
                     "data-value" : value,
                     "id" : value + "-toolbox"
-                }).appendTo($aside).hide();
+                }).draggable().appendTo($aside).hide();
                 if(value == "gridTool") $toolboxWrap.addClass("modal");
             },
             objMenu: function(selector){
@@ -940,10 +941,6 @@
                     ccUrl = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
                     $(".cc-list-link").attr("href", ccUrl);
                 });   
-            },
-            submit: function(event){
-                var $this = $(this);
-                alert("submit!");
             },
             cancel: function(){
                 var $this = $(this),
