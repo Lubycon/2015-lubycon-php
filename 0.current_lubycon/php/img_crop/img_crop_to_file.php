@@ -38,7 +38,7 @@ switch(strtolower($what['mime']))
         $img_r = imagecreatefromjpeg($imgUrl);
 		$source_image = imagecreatefromjpeg($imgUrl);
 		error_log("jpg");
-		$type = '.jpeg';
+		$type = '.jpg';
         break;
     case 'image/gif':
         $img_r = imagecreatefromgif($imgUrl);
@@ -80,11 +80,11 @@ if(!is_writable(dirname($output_filename))){
 	// finally output png image
 	//imagepng($final_image, $output_filename.$type, $png_quality);
     imagejpeg($final_image, $output_filename.$type, $jpeg_quality); 
-
+    unlink($imgUrl); //delete temp img
 
 	$response = Array(
 	    "status" => 'success',
-        "url" => $output_filename.$type 
+        "url" => $output_filename.$type
     );
 }
 print json_encode($response);

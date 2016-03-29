@@ -265,21 +265,6 @@ session_start();
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>
-                <li class="menu_bar"></li>
-                <li class="bigsub">
-                    Company
-                    <ul class="sub">
-                        <li>
-                            <a href="./index.php?1=company&2=about_us"><i class="fa fa-building fa-1x"></i><p>About us</p></a>
-                        </li>
-                        <li>
-                            <a href="./index.php?1=company&2=terms_of_service"><i class="fa fa-book"></i><p>TOS</p></a>
-                        </li>
-                        <li>
-                            <a href="./index.php?1=company&2=private_policy"><i class="fa fa-book"></i><p>PP</p></a>
-                        </li>
-                    </ul>	<!--end Company menu-->
-                </li>
             </ul> <!-- end gnb ul -->
         </nav>	<!--end main_gnb-->
 

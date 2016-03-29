@@ -31,6 +31,7 @@
     $uploaded_file_size;
 
 ?>
+
 <form id="editor_form" enctype="multipart/form-data" method="post" action="./php/editor/test.php">
 <input type="hidden" name="contents_cate_name" value="<?=$contents_cate?>" />
 <section id="editor_inbody">
@@ -236,7 +237,7 @@
             <!-- multi select box css -->
             <!-- multi select box js -->
             <script src="js/chosen.jquery.js" type="text/javascript"></script>
-            <script src="js/chosen.prism.js" type="text/javascript"></script>
+            <!--<script src="js/chosen.prism.js" type="text/javascript"></script>-->
             <script type="text/javascript">
                 var config = {
                     '.chosen-select': {},
@@ -308,6 +309,7 @@
                     <p id="file_info_filesize"><?=$uploaded_file_size?></p>
                 </footer>
             </div>
+            <div style="width:100px; height:100px; background:#fff; color:#000; position:fixed; top:0;" id="ajax_upload">ajax test</div>
             <input type="submit" class="final_upload_bt" id="upload_final" value="SUBMIT ALL" onsubmit="return postForm()"/>
         </div>
     </aside><!--editor_aside end-->

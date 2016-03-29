@@ -215,7 +215,7 @@ body{
 #main_gnb {
     position: relative;
     margin: 0px auto;
-    width: 400px;
+    width: 310px;
 }
 
 .bigsub {
@@ -227,10 +227,11 @@ body{
     line-height: 50px;
     float: left;
     text-align: center;
-    font-weight: 400;
+    font-weight: 200;
 }
     .bigsub .bigsub_link{
         color: #fff;
+        font-weight: 200;
     }
 
 .menu_bar {
@@ -314,7 +315,8 @@ body{
     float: right;
     margin-right: 10px;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 200;
     opacity: 1;
     display:none;
 }
@@ -542,17 +544,6 @@ body{
         color: #ffffff;
         font-size: 17px;
     }
-
-.out {
-    background: #999999; /* Old browsers */
-    background: -moz-linear-gradient(top, #999999 0%, #828282 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#999999), color-stop(100%,#828282)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #999999 0%,#828282 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #999999 0%,#828282 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #999999 0%,#828282 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #999999 0%,#828282 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999999', endColorstr='#828282',GradientType=0 ); /* IE6-9 */
-}
 /*main header end*/
 
 /* any page layouts */
@@ -564,7 +555,7 @@ body{
 }
 #index_figure_wrap {
     width: 100%;
-    height: 450px;
+    height: 250px;
     margin-top: 50px;
 }
 #main_figure,#index_figure {
@@ -575,7 +566,7 @@ body{
     position: relative;
 }
 #index_figure {
-    height: 450px;
+    height: 250px;
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.5);
 }
 #main_figure {
@@ -594,9 +585,9 @@ body{
         z-index: 2;
     }
     #index_figure h2 {
-        padding-top: 137px;
+        padding-top: 60px;
         color: #fff;
-        font-size: 46px;
+        font-size: 43px;
         font-weight: 200;
         letter-spacing: 0.2px;
     }
@@ -1972,7 +1963,7 @@ body{
     border-radius: 3px;
     background: #333333;
     margin-top: 2px;
-    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.8);
     padding: 5px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -1983,7 +1974,7 @@ body{
         width: 100%;
         display: block;
         background: #333333;
-        color:#fff;
+        color:#aaaaaa;
         height: 30px;
         line-height: 30px;
         font-size: 14px;
@@ -1994,12 +1985,12 @@ body{
         overflow: hidden;
     }
         .ls_option a {
-        color: #fff;   
+        color: #999999;   
         font-weight: 200;
     }
 
         .ls_option:hover {
-            opacity: 0.5;
+            color: #ffffff;
         }
         .ls_option.selected {
             font-weight: 600 !important;

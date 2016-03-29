@@ -1,12 +1,15 @@
 <?php
 	require_once '../database/database_class.php';
+    require_once "../class/regex_class.php";
+
+    $regex_vali = new regex_validate;
 
 	$db = new Database();
 	$db->askQuery();
 
 	// password encryption -> using bycrypt
 	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-
+    
 	//regular expression
 	$mail_vali = "/^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/";	
 	// email validation check
@@ -15,13 +18,13 @@
 	$nick_vali = "/^[A-Za-z0-9+]*$/";	//only english & number
 
 	//confirm password
-	$confirm_pass = (strtolower($_POST['pass']) == strtolower($_POST['repass'])) && preg_match($pass_vali[0], $_POST['pass']) &&((int)strlen($_POST['pass'])) > 7 && ((int)strlen($_POST['pass']) < 21 && !($_POST['pass'] == ' '));	//length & pass same check
+	$confirm_pass = ($regex_vali->pass_check($_POST['pass']) && $regex_vali->sametext_check($_POST['pass'],$_POST['repass'])); // insert 2 value 1:pass 2:repass
 
 	//confirm email
-	$confirm_email = strlen($_POST['email']) > 0 && !($_POST['email'] == ' ') && preg_match($mail_vali, $_POST['email']);
+	$confirm_email = $regex_vali->email_check($_POST['email']);
 
 	//confirm nickname
-	$confirm_nick = ((int)strlen($_POST['nick'])) > 0 && ((int)strlen($_POST['nick'])) < 17 && !($_POST['nick'] == ' ') && preg_match($nick_vali, $_POST['nick']);
+	$confirm_nick = $regex_vali->nickname_check($_POST['nick']);
 
 	//email validation check
 	($confirm_email==true)?$email_validation = true : $email_validation = false;
@@ -92,12 +95,12 @@
 
 			$db->disconnectDb();
 			//redirecting
-			//echo('<script>document.location.href="./waiting_for_resisting.php"</script>');  
+			echo('<script>document.location.href="./waiting_for_resisting.php"</script>');  
 			exit;
 		}
 	}
 	else{
-		echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.";
+		echo "registration fail back to the website.";
 		sleep(5);
 		echo("<script>history.back();</script>");
 		exit;

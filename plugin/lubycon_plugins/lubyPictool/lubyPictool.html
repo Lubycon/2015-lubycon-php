@@ -1,19 +1,34 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>test</title>
+	<title>lubyPictool-prototype</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<link href="lubySlider.css" rel="stylesheet" type="text/css" />
-	<link href="lubyPictool.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="jquery-1.12.2.js"></script> <!-- jquery library -->
-	<script type="text/javascript" src="jquery.lubySlider.js"></script>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source Sans Pro:200,400,600" type="text/css" />
+	<link href="css/lubySlider.css" rel="stylesheet" type="text/css" />
+	<link href="css/spectrum.css" rel="stylesheet" type="text/css" />
+	<link href="css/cropper.css" rel="stylesheet" type="text/css" />
+	<link href="css/chosen.css" rel="stylesheet" type="text/css" />
+	<link href="css/lubyPictool.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="js/jquery-1.12.2.js"></script> <!-- jquery library -->
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.lubySlider.js"></script>
+	<script type="text/javascript" src="js/spectrum.js"></script>
+	<script type="text/javascript" src="js/cropper.js"></script>
+	<script type="text/javascript" src="js/chosen.jquery.js"></script>
+	<script type="text/javascript" src="js/html2canvas.js"></script>
+	<script type="text/javascript" src="js/resizeObject.js"></script>
 	<script type="text/javascript" src="jquery.lubyPictool.js"></script> 
 </head>
 <body>
 	<div id="test" class="lubyPictoolKey"></div>
 	<script>
-		$("#test").lubyPictool();
+		$("#test").lubyPictool({
+			submit: function(){
+				alert("submit");
+			}
+		});
 	</script>
 </body>
 </html>
