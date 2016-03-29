@@ -424,11 +424,11 @@
             },
             objMenu: function(selector){
                 var $object = selector,
-                img = !$object.is(".object-img"),
+                notimg = !$object.is(".object-img"),
                 $objectMenu = $("<div/>",{"class" : "obj-menu-btn"}).appendTo($object).hide(),
                 $objectMenuIcon = $("<i/>",{"class" : icons.pencil}).appendTo($objectMenu),
                 $menuWrap = $("<ul/>",{"class" : "obj-menu"}).appendTo($objectMenu).hide(),
-                $replace = img ? "" : 
+                $replace = notimg ? "" : 
                 $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Replace",
@@ -665,6 +665,7 @@
                         $target.attr("src",event.target.result);
                         $button.removeClass("uploading");
                         $inputFile.val(null);
+                        toolbar.sortFn.refresh();
                     };
                 });
                 console.log("this image is replaced");
@@ -715,17 +716,14 @@
                 if($this.parents().is(".obj-header")) {
                     wrap.insertAfter($placeHolder).append(object);
                     if(contentSize) $deviderWrap.clone().height(dvHeight).insertAfter(wrap);
-                    //console.log(0);
                 }
                 else if($this.parents().is(".canvas-devider-wrap")) {
                     wrap.insertBefore($this.parents(".canvas-devider-wrap")).append(object);
                     if(contentSize) $deviderWrap.clone().height(dvHeight).insertBefore(wrap);
-                    //console.log(1);
                 }
                 else {
                     wrap.appendTo($body).append(object);
                     if(contentSize) $deviderWrap.clone().height(dvHeight).insertBefore(wrap);
-                    //console.log(2);
                 }
                 canvasTool.addObjBt();
                 upload.setIndex();
@@ -753,19 +751,19 @@
                 $grid = $window.find(".grid-edit-window"),
                 width = $grid.width(),
                 height = $grid.height()
-                $dummy =$grid.clone().appendTo("body").width(width*3).height(height*3),
+                $dummy = $grid.clone(),
                 $canvas = $(document).find(".obj-body"),
-                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : ""}),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "image"}),
                 $placeHolder = $(document).find(".canvas-content.placeHolder");
-
+                $dummy.appendTo("body");
                 html2canvas($dummy, {
                     onrendered: function(canvas) {
                         var dataURL = canvas.toDataURL("image/jpeg"),
                         $media = $("<img/>", { "src" : dataURL }).appendTo($canvas);
                         upload.insertPosition($this,$mediaWrap,$media);
                         $grid.empty();
-                        $dummy.remove();
-                    }
+                    },
+                    allowTaint: true
                 });
                 if($placeHolder.length!=0) $placeHolder.hide();
                 $window.fadeOut(200);
@@ -1197,7 +1195,7 @@
                         $("html").off("click");
                         console.log("This is not aside or input");
                     }
-
+                    toolbar.sortFn.refresh();
                 },
                 fontSize: function(val,selector){
                     var $this = selector,
@@ -1509,17 +1507,16 @@
                     "class" : "toolbox-label",
                     "html" : "Sort"
                 }).appendTo($sortWrap),
-                $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap);
+                $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap),
+                $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable).appendTo($sortWrap);
                 toolbar.sortFn.refresh();
-                $sortul.sortable({
-                    change: toolbar.sortFn.sortable
-                });
+                $sortul.sortable();
                 $this.disableSelection();
             },
             sortFn: {
                 refresh: function(){
                     $sortul = $(".sort-ul"),
-                    $sortli = $("<li>",{ "class" : "sort-li" }).on("mousedown",toolbar.sortFn.sortable),
+                    $sortli = $("<li>",{ "class" : "sort-li" }),
                     objs = $(document).find(".canvas-content");
                     $sortul.empty();
                     objs.each(function(){
@@ -1527,24 +1524,55 @@
                         if(!$this.hasClass("placeHolder")){
                             $dummy = $this.clone().removeClass("canvas-obj canvas-content").addClass("sort-obj"),
                             objType = $this.data("value"),
-                            $wrapper = $sortli.clone(true).append($dummy);
+                            $wrapper = $sortli.clone().append($dummy);
                             $wrapper.appendTo($sortul);
-                            $(".sort-ul .obj-menu-btn").remove();
+                            $dummy.find(".obj-menu-btn").remove();
+                            toolbar.sortFn.objType(objType,$dummy);
                         }
                     });
                     console.log("sort refresh");
                 },
                 objType: function(val, selector){
                     var icon = $("<i/>");
-                    console.log(val);
-                    console.log(selector);
                     if(val == "image") icon.clone().addClass(icons.picture).appendTo(selector);
                     else if(val == "text") icon.clone().addClass(icons.font).appendTo(selector);
                     else if(val == "embed") icon.clone().addClass(icons.code).appendTo(selector);
                     else return false;
+                    console.log("objType");
                 },
                 sortable: function(event){
-                    console.log("index is changed!");
+                    sortedObj = $(".sort-obj"),
+                    sortedArray = [],
+                    $originObj = $(document).find(".canvas-content"),
+                    originArray = [],
+                    $menu = $originObj.find(".obj-menu-btn"),
+                    $menulist = $menu.find(".obj-menu");
+
+                    for(var i = 0; i < $originObj.length; i++) originArray.push($originObj[i]);
+                    originArray.shift();
+                    
+                    for(var i = 0; i < sortedObj.length; i++){
+                        var $obj = $(sortedObj[i]),
+                        index = $obj.data("index"),
+                        $target = $(".canvas-content[data-index='" + index + "']");
+                        sortedArray.push($target.clone(true)[0]);
+                    }
+
+                    for(i in originArray){
+                        var $original = $(originArray[i]),
+                        $sorted = $(sortedArray[i]);
+                        $original.replaceWith($sorted);
+                        $sorted.hover(function(){
+                            $(this).find(".obj-menu-btn").show();
+                        },function(){
+                            $(this).find(".obj-menu-btn").hide();
+                        });
+                        $(".obj-menu-btn").hover(function(){
+                            $(this).find(".obj-menu").show();
+                        },function(){
+                            $(this).find(".obj-menu").hide();
+                        })
+                    }
                 }
             }
         },
