@@ -4,35 +4,17 @@
 	require_once '../database/database_class.php';
 
 	// object instance
-	$database = new DBConnect;
-	$database->DBInsert();
+	$db = new Database();
 
-	//get variable
-	$data = $_POST['data'];
-	$id = $_POST['id'];
-
-	if($id == "email"){
-		$id = "user_email";
-	}else if($id == "nick"){
-		$id = "user_nick";
-	}
+	($_POST['id'] == "email")?$id="user_email": $id="user_nick";
 
 	//overlap check
-	$database->query = "select exists(select * from luby_user where ".$id." = '".$data."')";
-	$database->DBQuestion();
-	$result = $database->result->fetch_array();
+	$db->query = "select exists(select * from luby_user where ".$id." = '".$_POST['data']."')";
+	$db->askQuery();
+	$result = mysqli_fetch_array($db->result);
 
 	//return to xml
-	if($result[0]){
-		$database->DBOut();
-		echo ($result[0]);
-	}else{
-		$database->DBOut();
-		echo ($result[0]);
-	}
-	
-
-	
-
+	echo $result[0];
+	$db->disconnectDb();
 
 ?>

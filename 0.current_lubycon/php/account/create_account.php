@@ -1,8 +1,8 @@
 <?php
      require_once '../database/database_class.php';
 
-     $database = new DBConnect;
-     $database->DBInsert();
+     $db = new Database();
+
 ?>
 
 <section id="create_account_area">
@@ -32,9 +32,9 @@
                          <div class="location_option_ca">
                               <select class="locationFilter" name="country_code">
                                    <?php
-                                        $database->query = "SELECT * FROM luby_country";
-                                        $database->DBQuestion();
-                                        while($row = mysqli_fetch_array($database->result)){
+                                        $db->query = "SELECT * FROM luby_country";
+                                        $db->askQuery();
+                                        while($row = mysqli_fetch_array($db->result)){
                                              echo ("<option data-value = ".$row['country_code'].">".$row['country_name']."</option>");
                                         }
                                    ?>

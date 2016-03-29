@@ -1,97 +1,54 @@
 <?php
-    $terms_check = $_POST['terms_check'];
-    $private_check = $_POST['private_check'];
-    $email_send_check = $_POST['email_send_check'];
-	
 	require_once '../database/database_class.php';
 
-	$database = new DBConnect;
-	$database->DBInsert();
-
-	$email = $_POST['email'];
-	$nick = $_POST['nick'];
-	$pass = $_POST['pass'];
-	$repass = $_POST['repass'];
-	$date = date('Y-m-d H:i:s');
-	$country_code = $_POST['country_code'];
+	$db = new Database();
+	$db->askQuery();
 
 	// password encryption -> using bycrypt
-	$hash = password_hash($pass, PASSWORD_DEFAULT);
+	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
 	//regular expression
-	$mail_vali = "/^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/";	// email validation check
+	$mail_vali = "/^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/";	
+	// email validation check
 	$pass_vali[0] = "/[^0-9]/";
 	$pass_vali[1] = "/[`;',.\/~!@\#$%<>^&*\()\-=+_\¡¯]/";
 	$nick_vali = "/^[A-Za-z0-9+]*$/";	//only english & number
 
 	//confirm password
-	$nomali_pass = strtolower($pass);	//string nomalization -> to lower
-	$nomali_repass = strtolower($repass);
-	$confirm_pass = ($nomali_pass == $nomali_repass) && preg_match($pass_vali[0], $pass) &&((int)strlen($pass)) > 7 && ((int)strlen($pass) < 21 && !($pass == ' '));	//length & pass same check
+	$confirm_pass = (strtolower($_POST['pass']) == strtolower($_POST['repass'])) && preg_match($pass_vali[0], $_POST['pass']) &&((int)strlen($_POST['pass'])) > 7 && ((int)strlen($_POST['pass']) < 21 && !($_POST['pass'] == ' '));	//length & pass same check
 
 	//confirm email
-	$mail_length = strlen($email);	//length email (deny null & space)
-	$confirm_email = $mail_length > 0 && !($email == ' ') && preg_match($mail_vali, $email);
+	$confirm_email = strlen($_POST['email']) > 0 && !($_POST['email'] == ' ') && preg_match($mail_vali, $_POST['email']);
 
 	//confirm nickname
-	$nick_length = ((int)strlen($nick));
-
-	$confirm_nick = $nick_length > 0 && $nick_length < 17 && !($nick == ' ') && preg_match($nick_vali, $nick);
+	$confirm_nick = ((int)strlen($_POST['nick'])) > 0 && ((int)strlen($_POST['nick'])) < 17 && !($_POST['nick'] == ' ') && preg_match($nick_vali, $_POST['nick']);
 
 	//email validation check
-	if($confirm_email){	//check to length & validation
-		$email_validation = true;
-	}
-	else{
-		$email_validation = false;
-	}
+	($confirm_email==true)?$email_validation = true : $email_validation = false;
 
 	//password validation check
-	if($confirm_pass){
-		$pass_validation = true;
-	}
-	else{
-		$pass_validation = false;
-	}
+	($confirm_pass == true) ? $pass_validation = true : $pass_validation = false;
 
 	//nickname validation check
-	if($confirm_nick){
-		$nick_validation = true;
-	}
-	else{
-		$nick_validation = false;
-	}
+	($confirm_nick === true)? $nick_validation=true : $nick_validation=false;
 
 	//term validation check
-	if($terms_check == "on"){
-		$terms_validation = true;
-	}
-	else{
-		$terms_validation = false;
-	}
+	($_POST['terms_check'] == "on") ? $terms_validation = true : $terms_validation = false;
 
 	//private plicy validation check
-	if($private_check == "on"){
-		$private_validation = true;
-	}else{
-		$private_validation = false;
-	}
+	($_POST['private_check'] == "on")?$private_validation = true : $private_validation = false;
 
 	//newsletter
-	if($email_send_check == ""){
-		$newsletter = 'true';
-	}else{
-		$newsletter = 'false';
-	}
+	(isset($_POST['email_send_check']))? $newsletter = 'true' : $newsletter = 'false';
 
 	if($email_validation && $pass_validation && $nick_validation && $private_validation && $terms_validation){
 		
-		$database->query = "insert into luby_user(user_email,user_nick,user_pass,user_date,country_code,term_check, private_check, newsletter)values('".$email."', '".$nick."', '".$hash."', '".$date."', '".$country_code."', '".'true'."', '".'true'."', '".$newsletter."')";
-		$database->DBQuestion();
+		$db->query = "insert into luby_user(user_email,user_nick,user_pass,user_date,country_code,term_check, private_check, newsletter)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".$_POST['country_code']."', '".'true'."', '".'true'."', '".$newsletter."')";
+		$db->askQuery();
 
-		if(!$database->result){
+		if(!$db->result){
 			echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.";
-			$database->DBOut();
+			$db->disconnectDb();
 			sleep(5);
 			echo("<script>history.back();</script>");
 		}
@@ -118,7 +75,7 @@
 				$mail->Port=465;
 				$mail->SMTPAuth=true;
 				$mail->Username=$fromaddress;
-				$mail->Password="hmdwdg2015";
+				$mail->Password="hmdwdgdhkr2015";
 				$mail->setFrom($fromaddress,$fromaddress);
 				$mail->addAddress($toaddress,$toaddress);
 				$mail->Subject=$subject;
@@ -133,9 +90,9 @@
 			sendMail($fromaddress, $toaddress, $subject);
 
 
-			$database->DBOut();
+			$db->disconnectDb();
 			//redirecting
-			echo('<script>document.location.href="./waiting_for_resisting.php"</script>');  
+			//echo('<script>document.location.href="./waiting_for_resisting.php"</script>');  
 			exit;
 		}
 	}
