@@ -367,25 +367,34 @@
                 var rootElement = $(".lubyPictoolKey"),
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
+                imgData = [],
+                contentData = $(".canvas-content").each(function () {
+                    var $this = $(this),
+                        val = $this.attr("data-value").split("-"),
+                        innerVal = { "contentID": val[0], "ext": val[1] };
+                    imgData.push(innerVal)
+                }),
                 categories = [], //data
                 tags = [], //data
-                cc = {"by":true,"nc":true,"nd":true,"sa":false}, //data
-                category = rootElement.find(".search-choice > span").each(function(){categories.push($(this).text())}),
-                tag = rootElement.find(".hashtag-list").each(function(){tags.push($(this).text())}),
+                cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
+                category = rootElement.find(".search-choice > span").each(function () { categories.push($(this).text()) }),
+                tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
                 descript = rootElement.find(".descript-input").text(),
-                ccbox = rootElement.find(".cc-checkbox").each(function(){
+                ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
                 }),
-                data = {
-                    "content" : content,
-                    "name" : contentName,
-                    "category" : categories,
-                    "tag" : tags,
-                    "cc" : cc,
-                    "descript" : descript
-                };
-                d.submit(data)
+                $form = $("<form/>", {
+                    "id": "finalForm",
+                    "enctype": "multipart/form-data",
+                    "method": "post",
+                    "action": "./php/editor/test.php"
+                }),
+                wrap = rootElement.wrapInner($form),
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" }).appendTo($("#finalForm")).val(JSON.stringify(content)),
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
+                
+                console.log(imgData);
             },
             databind: function(){
                 //toolbar data bind start
@@ -735,14 +744,12 @@
             		if(!$this.is(".placeHolder")) $this.attr("data-index",index);
             	});
             },
-            setId: function(extention){
-                var $contents = $(document).find(".canvas-content");
-                $contents.each(function(){
-                    var $this = $(this),
-                    dataVal = $this.data("value"),
-                    index = $this.index(".canvas-content");
-                    if(!$this.is(".placeHolder")) $this.attr("data-value", index + "-" + dataVal);
-                }); 
+            imgCount : 0,
+            setId: function(obj){
+                var $this = obj.parent(".canvas-content"),
+                dataVal = $this.data("value");
+                if (!$this.is(".placeHolder")) $this.attr("data-value", upload.imgCount + "-" + dataVal);
+                upload.imgCount++;
             },
             insertPosition: function(selector,wrap,object){
                 var $this = selector,
@@ -767,7 +774,7 @@
                 }
                 canvasTool.addObjBt();
                 upload.setIndex();
-                upload.setId();
+                upload.setId(object);
                 toolbar.sortFn.refresh();
             }
         },
