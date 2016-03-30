@@ -44,6 +44,7 @@ session_start();
     <script type="text/javascript" src="js/module/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
     <script type="text/javascript" src="js/module/resizeObject.js"></script>
+    <script type="text/javascript" src="js/module/sticky.js"></script>
     <script type="text/javascript" src="js/core/ui.js"></script><!-- ui file js -->
     <script type="text/javascript" src="js/core/core.js"></script> <!-- index file js -->
     <script type="text/javascript" src="js/module/account.js"></script> <!-- account file js -->
@@ -142,7 +143,7 @@ session_start();
         <button class="closeButton"></button>
     </div>
     <!-- popup end -->
-    <header id="main_header">
+    <header class="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1>
             <a href="./index.php">

@@ -2,7 +2,7 @@
 var windowWidth = $(window).width(),
     windowHeight = $(window).height();
 /////////////////////////////////////////////////////////
-//      dragging sensor start
+//      dragging sensor start(touch)
 /////////////////////////////////////////////////////////
 var dragging = false;
 $(function(){
@@ -14,7 +14,7 @@ $(function(){
     });
 });
 /////////////////////////////////////////////////////////
-//      dragging sensor end
+//      dragging sensor end(touch)
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      loading icon start
@@ -87,7 +87,7 @@ var four_param = getUrlParameter('4');
 
 $(function () //selcted change
 {
-    $('#lnb_nav ul').children('#' + third_param).addClass('selected_nav');
+    $('.lnb_nav ul').children('#' + third_param).addClass('selected_nav');
     $(".selected_nav").children("a").click(function(){
         return false;//disabled anchor tag
     });

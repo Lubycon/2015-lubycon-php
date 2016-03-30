@@ -4,9 +4,9 @@
 <script type="text/javascript" src="js/community.js"></script>
 <script type="text/javascript" src="js/module/resizeObject.js"></script>
 
-<section id="contents">
-    <section id="navsel" class="hidden-mb-b">
-        <nav id="lnb_nav">
+<section class="container">
+    <section class="navsel hidden-mb-b">
+        <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="forum">
                     <a href="./index.php?1=community&2=community_page&3=forum">Forum</a>

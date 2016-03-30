@@ -7,9 +7,9 @@
     </figure>	<!-- end main_figure -->
 </div>
 <link href="css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
-<section id="contents">
-    <section id="navsel" class="hidden-mb-b">
-        <nav id="lnb_nav">
+<section class="container">
+    <section class="navsel hidden-mb-b">
+        <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="all">
                     <a href="./index.php?1=contents&2=contents_page&3=all">All</a>

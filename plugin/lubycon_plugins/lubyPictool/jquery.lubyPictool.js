@@ -657,7 +657,12 @@
                 $body = $(".obj-body"),
                 $footer = $(".obj-footer"),
                 $placeHolder = $body.find(".placeHolder"),
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "image"}),
+
+                fileValue = $(this).val(),
+                indexNum = fileValue.lastIndexOf("."),
+                fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "",
+
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"}),
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
 
@@ -667,7 +672,8 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
-                        var img = $("<img/>",{ "src":event.target.result});
+                        var img = $("<img/>",{ "src":event.target.result}),
+                        fileEXT;
                         upload.insertPosition($this,$objectWrap,img);
                         $(".uploading").removeClass("uploading") // init target object  
                         $inputFile.val(null); // init input value
@@ -729,6 +735,15 @@
             		if(!$this.is(".placeHolder")) $this.attr("data-index",index);
             	});
             },
+            setId: function(extention){
+                var $contents = $(document).find(".canvas-content");
+                $contents.each(function(){
+                    var $this = $(this),
+                    dataVal = $this.data("value"),
+                    index = $this.index(".canvas-content");
+                    if(!$this.is(".placeHolder")) $this.attr("data-value", index + "-" + dataVal);
+                }); 
+            },
             insertPosition: function(selector,wrap,object){
                 var $this = selector,
                 $placeHolder = $(document).find(".placeHolder"),
@@ -752,6 +767,7 @@
                 }
                 canvasTool.addObjBt();
                 upload.setIndex();
+                upload.setId();
                 toolbar.sortFn.refresh();
             }
         },
@@ -778,7 +794,7 @@
                 height = $grid.height()
                 $dummy = $grid.clone(),
                 $canvas = $(document).find(".obj-body"),
-                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "image"}),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "jpg-image"}),
                 $placeHolder = $(document).find(".canvas-content.placeHolder");
                 $dummy.appendTo("body");
                 html2canvas($dummy, {
@@ -1593,6 +1609,7 @@
                             $(this).find(".obj-menu").hide();
                         })
                     }
+                    upload.setIndex();
                 }
             }
         },

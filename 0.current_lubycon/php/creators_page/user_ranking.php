@@ -8,8 +8,8 @@
 
 <link href="css/user_ranking.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
-<section id="contents">
-    <section id="navsel">
+<section class="container">
+    <section class="navsel">
         <!-- end lnb nav -->
     </section>
     <section class="nav_guide">

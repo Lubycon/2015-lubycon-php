@@ -29,7 +29,7 @@ switch($current_url){
 };
 ?>
 <link href="css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
-<section id="contents">
+<section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="subnav_box">
             <h3 id="contents_title"><?=$contents_name[$number]?></h3>

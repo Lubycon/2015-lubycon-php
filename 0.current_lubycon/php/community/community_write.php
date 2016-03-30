@@ -7,7 +7,7 @@
 
 
 <form id="writer_form" enctype="multipart/form-data" method="post" action="./php/community/test.php">
-<section id="contents">
+<section class="container">
     <section id="work_space" class="con_wrap">
         <div id="work_inner">
             <div class="properties_box">

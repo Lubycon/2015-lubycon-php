@@ -6,58 +6,83 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link href="cropper.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="jquery-1.12.2.js"></script>
-	<script type="text/javascript" src="cropper.js"></script>
+	<script type="text/javascript" src="sticky.js"></script>
 	<style>
-		img {
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		li,ol {
+			list-style: none;
+		}
+		.header {
+			position: fixed;
+			top: 0;
 			width: 100%;
+			height: 50px;
+			background: #222222;
+			color: #eeeeee;
+			text-align: center;
+			z-index: 10;
 		}
-		#testWrap {
-			width: 500px;
-			display: inline-block;
-		}
-		#preview {
-			display: inline-block;
-			width: 200px;
-			height: 200px;
+		.container {
+			position: relative;
+			width: 100%;
+			height: 1000px;
 			background: #aaaaaa;
-			overflow: hidden;
+			top: 50px;
+			z-index: 1;
 		}
-		#testBt {
-			border: none;
-			width: 100px;
-			height: 40px;
-			background: #48cfad;
-			color: #ffffff;
-			cursor: pointer;
-		}
-			#testBt:hover{
-				opacity: 0.7;
+			.lnb_nav {
+				height: 35px;
+				background: #aaaaaa;
+				text-align: center;
+				z-index: 5;
 			}
+			.nav {
+				height: 50px;
+				background: #222222;
+				color: #ffffff;
+				text-align: center;
+				z-index: 4;
+			}
+			.wrapper {
+				width: 100%;
+				position: relative;
+				z-index: 1;
+			}
+			.aside {
+				position: absolute;
+				right: 0;
+				height: 100%;
+				width: 200px;
+				background: #555555;
+			}
+			.main {
+				position: relative;
+				width: 100%;
+				height: 1000px;
+				box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				padding-right: 200px;
+			}
+			
 	</style>
 </head>
 <body>
-	<div id="testWrap">
-		<img id="test" src="lubycon_wallpaper2.png" />
+	<header class="header">Header</header>
+	<div class="container">
+		<nav class="lnb_nav">lnb_Nav</nav>
+		<nav class="nav">Nav</nav>
+		<div class="wrapper">
+			<div class="aside">Aside</div>
+			<div class="main">Main Content</div>
+		</div>
 	</div>
-	<div id="preview" width="200" height="200"></div>
-	<button id="testBt" data-method="getCroppedCanvas">crop</button>
-	<div id="result"></div>
 	<script>
-		$("#test").cropper({
-			aspectRatio: 250/215,
-			autoCropArea: 0.4,
-			viewMode: 3,
-			responsive: true,
-			zoomable: false,
-			preview: "#preview",
-			dragMode: "crop"
-		});
-		$("#testBt").on("click",function(){
-			var $object = $("#test").cropper("getCroppedCanvas"),
-            dataURL = $object.toDataURL("image/png");
-			$("#result").html($object);
-
+		$(window).on("load",function(){
+			$("body").sticky();
 		})
-	</script>
 </body>
 </html>

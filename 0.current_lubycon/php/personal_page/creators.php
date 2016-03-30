@@ -8,7 +8,7 @@
 
 <link href="css/creators_page.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
-<section id="contents">
+<section class="container">
     <section class="nav_guide hidden-mb-ib">
         <select class="locationFilter hidden-mb-ib">
             <option>All Continents</option>

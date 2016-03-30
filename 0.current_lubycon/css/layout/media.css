@@ -306,9 +306,6 @@
                 font-size: 35px;
                 top: 3px;
             }
-    #navsel {
-        margin-top: 46px;
-    }
     .nav_guide {
         margin-top: 46px;
         height: auto;
@@ -868,7 +865,7 @@
                     width: 33px;
                     height: 33px;
                 }
-    #navsel {
+    .navsel {
         margin: 0px auto;
     }
     .nav_guide {
@@ -995,7 +992,6 @@
 
     #contents_info_wrap {
         background: #222222;
-        margin-top: 50px;
         top: 0;
     }
     #floating_bt{
