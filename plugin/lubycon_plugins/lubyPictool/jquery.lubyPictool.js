@@ -1617,6 +1617,7 @@
                         })
                     }
                     upload.setIndex();
+                    toolbar.sortFn.refresh();
                 }
             }
         },
