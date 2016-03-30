@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          lubyPictool.min.js
- *  Updated:       2016-03-27
+ *  Updated:       2016-03-30
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -291,7 +291,7 @@
 
                         $contentName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Content Name"))
-                        .append($settingInput.clone()).appendTo($settingInnerLeft),
+                        .append($settingInput.clone().attr("name","content-name")).appendTo($settingInnerLeft),
 
                         $categoryName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Categories"))
@@ -356,12 +356,36 @@
                             "html" : "Submit",
                             "data-value" : "submit",
                             "disabled" : "disabled"
-                        }).on("click",pac.currentProg).on("click",d.submit).appendTo($settingBtWrap);
+                        }).on("click",pac.currentProg).on("click",pac.submit).appendTo($settingBtWrap);
 
                         // right : {project team}
                         pac.databind();//data binding    
                     }
                 })
+            },
+            submit: function(){
+                var rootElement = $(".lubyPictoolKey"),
+                content = rootElement.find(".editing-canvas").html(), //data
+                contentName = rootElement.find("input[name='content-name']").val(), //data
+                categories = [], //data
+                tags = [], //data
+                cc = {"by":true,"nc":true,"nd":true,"sa":false}, //data
+                category = rootElement.find(".search-choice > span").each(function(){categories.push($(this).text())}),
+                tag = rootElement.find(".hashtag-list").each(function(){tags.push($(this).text())}),
+                descript = rootElement.find(".descript-input").text(),
+                ccbox = rootElement.find(".cc-checkbox").each(function(){
+                    var data = $(this).data("value");
+                    cc[data] = $(this).prop("checked");
+                }),
+                data = {
+                    "content" : content,
+                    "name" : contentName,
+                    "category" : categories,
+                    "tag" : tags,
+                    "cc" : cc,
+                    "descript" : descript
+                };
+                d.submit(data)
             },
             databind: function(){
                 //toolbar data bind start
@@ -420,7 +444,7 @@
                     "class" : "toolbox-wrap",
                     "data-value" : value,
                     "id" : value + "-toolbox"
-                }).draggable().appendTo($aside).hide();
+                }).appendTo($aside).hide();
                 if(value == "gridTool") $toolboxWrap.addClass("modal");
             },
             objMenu: function(selector){
@@ -826,13 +850,12 @@
                 deleteCommand = inKeyCode == keyCode.delete,
                 wrapperExist = $this.prev("ul").length == 0;
                 if(endCommand){
-                    if(value.indexOf("#") >= 0){
-                        if(wrapperExist) $tagWrap.prependTo($wrapper);
-                        $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalTool.deleteTag).appendTo(".hashtag-wrapper");
-                        $this.val(null);
-                    }
+                    if(wrapperExist) $tagWrap.prependTo($wrapper);
+                    $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalTool.deleteTag).appendTo(".hashtag-wrapper");
+                    $this.val(null);
+                
                 }
-                else if(deleteCommand){
+                else if(deleteCommand && value == ""){
                     $(".hashtag-list:last-child").remove();
                 }
             },

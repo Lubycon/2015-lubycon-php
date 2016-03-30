@@ -33,18 +33,20 @@ session_start();
     <link href="css/layout/normalize.css" rel="stylesheet" type="text/css" />  <!-- web normalize -->
     <link href="css/layout/common.css" rel="stylesheet" type="text/css" />  <!-- common css -->
     <link href="css/layout/media.css" rel="stylesheet" type="text/css" /> <!-- media query-->
-    <link href="css/selectordie.css" rel="stylesheet" type="text/css" /> <!-- selector decoration css -->
+    <link href="css/module/lubySelector.css" rel="stylesheet" type="text/css" />
+    <link href="css/module/lubyAlert.css" rel="stylesheet" type="text/css" />
     <link href="css/layout/animate.css" rel="stylesheet" type="text/css" /><!--animation for objects-->
     <link href="css/slider.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
-    <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="js/slider.js"></script><!--slider plugin-->
-    <script type="text/javascript" src="js/jquery.lubySelector.js"></script><!--lubySelector-->
-    <script type="text/javascript" src="js/jquery.lubyAlert.js"></script><!--lubyAlert-->
-    <script type="text/javascript" src="js/resizeObject.js"></script>
-    <script type="text/javascript" src="js/luby_ui.js"></script><!-- ui file js -->
-    <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
-    <script type="text/javascript" src="js/account.js"></script> <!-- account file js -->
+    <script type="text/javascript" src="js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/core/jquery-ui.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/module/slider.js"></script><!--slider plugin-->
+    <script type="text/javascript" src="js/module/jquery.lubySelector.js"></script><!--lubySelector-->
+    <script type="text/javascript" src="js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
+    <script type="text/javascript" src="js/module/resizeObject.js"></script>
+    <script type="text/javascript" src="js/core/ui.js"></script><!-- ui file js -->
+    <script type="text/javascript" src="js/core/core.js"></script> <!-- index file js -->
+    <script type="text/javascript" src="js/module/account.js"></script> <!-- account file js -->
     
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"><!--responsive design enable-->
     <meta name="theme-color" content="#222222"><!--mobile web browser address window will be changed to #222-->

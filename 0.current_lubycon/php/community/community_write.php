@@ -2,7 +2,7 @@
 <link href="css/summernote.css" type="text/css" rel="stylesheet" />
 <link href="css/community_write.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
 <link href="css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
-<script src="js/bootstrap.min.js" type="text/javascript"></script> 
+<script src="js/module/bootstrap.min.js" type="text/javascript"></script> 
 <script src="js/community.js" type="text/javascript"></script>
 
 

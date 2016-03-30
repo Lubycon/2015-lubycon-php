@@ -1,4 +1,4 @@
-<script type="text/javascript" src="js/infinite_scroll.js"></script> <!-- scroll js -->
+<script type="text/javascript" src="js/module/infinite_scroll.js"></script> <!-- scroll js -->
 
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">

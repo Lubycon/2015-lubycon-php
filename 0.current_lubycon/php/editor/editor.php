@@ -13,9 +13,9 @@
 <link href="css/croppic.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="js/editor.js"></script>
-<script type="text/javascript" src="js/spectrum.js"></script>
-<script type="text/javascript" src="js/summernote.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/module/spectrum.js"></script>
+<script type="text/javascript" src="js/module/summernote.js"></script>
+<script type="text/javascript" src="js/module/bootstrap.min.js"></script>
 
 <!-- editor css -->
 
@@ -84,7 +84,7 @@
                     </ul>
                     <div id="croppic"></div>
                     <span class="btn" id="cropContainerHeaderButton">Choose Image</span>
-                    <script src="./js/croppic.min.js"></script>
+                    <script src="./js/module/croppic.min.js"></script>
                     <script>
 		                var croppicHeaderOptions = {
 				                uploadUrl:'./php/img_crop/img_save_to_file.php',
@@ -236,7 +236,7 @@
             <link rel="stylesheet" href="css/chosen.css">
             <!-- multi select box css -->
             <!-- multi select box js -->
-            <script src="js/chosen.jquery.js" type="text/javascript"></script>
+            <script src="js/module/chosen.jquery.js" type="text/javascript"></script>
             <!--<script src="js/chosen.prism.js" type="text/javascript"></script>-->
             <script type="text/javascript">
                 var config = {

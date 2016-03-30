@@ -1,0 +1,159 @@
+﻿/*--------------lubySelector start------------------*/
+.lubySelector { 
+    display: inline-block; 
+    position: relative;
+    float: right;
+    width: 160px;
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 200;
+    background: #555555;
+    text-align: center;
+    margin: 7px 5px;
+    cursor: pointer;
+    border: 1px solid #111111;
+    border-radius: 5px;
+    box-shadow : 0px 0px 7px 0px rgba(0,0,0,0.05);
+}
+.lubySelector > select{
+    display: none !important;
+}
+.lubySelector:hover{
+    background: #666666;
+}
+.lubySelector.open{
+    background: #333333;
+}
+
+.lubySelector .global_icon {
+    width: 10px;
+    height: 30px;
+    line-height: 32px;
+    color: #ffffff;
+    font-size: 16px;
+    position: absolute;
+    left: 8px;
+    top: 2px;
+}
+
+    .global_icon i {
+        font-size: 21px !important;
+        vertical-align: middle !important;
+        margin-top: -4px !important;
+    }
+
+.lubySelector .ls_Label {
+    font-weight: 200;
+    font-size: 14px;
+}
+
+.lubySelector .ls_arrow{
+    width: 10px;
+    height: 30px;
+    line-height: 30px;
+    color: #ffffff;
+    font-size: 16px;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+}
+
+.lubySelector .ls_search{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+    .lubySelector .ls_search .ls_input{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        font-size: 14px;
+        font-weight: 200;
+        color: #ffffff;
+        margin: 0;
+        padding: 7px;
+        padding-right: 23px;
+        border: none;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        resize: none;
+        overflow: hidden;
+    }
+
+    .lubySelector .ls_search .fa-search{
+        font-size: 14px;
+        color: #ffffff;
+        position: absolute;
+        top: 8px;
+        right: 6px;
+        cursor: default;
+    }
+
+.lubySelector .ls_optionWrap {
+    width: 100%;
+    
+    text-align: center;
+    position: absolute;
+    overflow: auto;
+    
+    z-index: 4;
+    display: block;
+    border: 1px solid #111111;
+    border-radius: 3px;
+    background: #333333;
+    margin-top: 2px;
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.8);
+    padding: 5px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+    .lubySelector .ls_option {
+        width: 100%;
+        display: block;
+        background: #333333;
+        color:#aaaaaa;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        font-weight: 200;
+        border-radius: 3px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+        .ls_option a {
+        color: #999999;   
+        font-weight: 200;
+    }
+
+        .ls_option:hover {
+            color: #ffffff;
+        }
+        .ls_option.selected {
+            font-weight: 600 !important;
+            color: #48cfad !important;
+        }
+
+    .optGroup{
+        display: block;
+        text-align: left;
+        font-size: 16px;
+        border-bottom: 1px solid #ffffff;
+        border-radius: 0px;
+        cursor: default;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        margin: 0px 7px;
+    }
+/*--------------lubySelector end------------------*/
