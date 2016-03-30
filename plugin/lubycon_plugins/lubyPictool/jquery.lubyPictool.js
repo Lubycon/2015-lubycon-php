@@ -391,10 +391,10 @@
                     "action": "./php/editor/test.php"
                 }),
                 wrap = rootElement.wrapInner($form),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" }).appendTo($("#finalForm")).val(JSON.stringify(content)),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg" , "name" : "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
                 
-                console.log(imgData);
+                //$("#finalForm").submit();
             },
             databind: function(){
                 //toolbar data bind start
