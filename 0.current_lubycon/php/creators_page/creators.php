@@ -49,7 +49,7 @@
     </section>
     <!-- end nav_guide -->
     <section class="con_wrap">
-        <div id="user_view_aside" class="con_aside">
+        <div class="con_aside">
             <?php 
                 $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/32.jpg";
                 $username = "Kim dongkyu";

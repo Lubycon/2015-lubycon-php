@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////
 //      sticky start
 /////////////////////////////////////////////////////////
-$(document).ready(function(){
+$(window).on("load",function(){
     var $mainHeader = $(".main_header"),
     $figure = $(".main_figure_wrap"),
     $navsel = $(".navsel"),
@@ -15,6 +15,7 @@ $(document).ready(function(){
     navselHeight = $navsel.length==0 ? 0 : $navsel.height(),
     stickyStart = figureHeight + navselHeight,
     objectY = $navGuide.length==0 ? 0 : $navGuide.outerHeight(true);
+
     lubySticky(stickyStart,objectY);
 });
 function lubySticky(start,objectY){
@@ -30,7 +31,7 @@ function lubySticky(start,objectY){
             $navGuide,//object
             $object,//object
             $aside,//object
-            objectY//object.marginTop,top
+            objectY//object.top
         );
     });
 }
@@ -38,17 +39,17 @@ function navGuideSticky(start,scrollTop,nav,object,aside,objectY){
     if(start <= scrollTop){
         nav.addClass("stickyHeader").css({
             "position":"fixed",
-            "margin-top": 50,
-            "top": 0
+            "top": 50
         });
         object.addClass("stickyObject").css({
             "top": objectY,
         });
-        objectY = $("#contents_aside").length==0 ? objectY+50 : objectY;
-        aside.addClass("stickyAside").css({
-            "position":"fixed",
-            "top": objectY,
-        });
+        if(aside.attr("id")!="contents_aside"){
+            aside.addClass("stickyAside").css({
+                "position":"fixed",
+                "top": objectY+50,
+            });
+        }
     }
     else{
         nav.removeClass("stickyHeader").css({
@@ -59,11 +60,13 @@ function navGuideSticky(start,scrollTop,nav,object,aside,objectY){
         object.removeClass("stickyObject").css({
             "top": 0
         });
-        aside.removeClass("stickyAside").css({
-            "position":"absolute",
-            "top": 0,
-            "margin-top": 0
-        })
+        if(aside.attr("id")!="contents_aside"){
+            aside.removeClass("stickyAside").css({
+                "position":"absolute",
+                "top": 0,
+                "margin-top": 0
+            })
+        } 
     }
 }
 /////////////////////////////////////////////////////////

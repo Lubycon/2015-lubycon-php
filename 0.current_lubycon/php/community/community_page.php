@@ -31,7 +31,7 @@
         <!-- end select box -->
     </section>
     <section class="nav_guide">
-        <div class="subnav_box"> 
+        <div class="nav-wrapper"> 
             <select class="preferFilter hidden-mb-ib">
                 <option>Featured</option>
                 <option>Recent</option>

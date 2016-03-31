@@ -40,7 +40,6 @@ $(document).ready(function(){
             minHeight: null,
             maxHeight: null,
             focus: true,
-            placeholder: '...make your preview image on here...',
             toolbar: [
                 // [groupName, [list of button]]
                 ['style',['style']],

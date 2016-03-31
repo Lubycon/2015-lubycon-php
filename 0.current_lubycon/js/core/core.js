@@ -2,19 +2,19 @@
 var windowWidth = $(window).width(),
     windowHeight = $(window).height();
 /////////////////////////////////////////////////////////
-//      dragging sensor start(touch)
+//      mbDragging sensor start(touch)
 /////////////////////////////////////////////////////////
-var dragging = false;
+var mbDragging = false;
 $(function(){
     $(window).on("touchmove", function(){
-        dragging = true;
+        mbDragging = true;
     });
     $(window).on("touchstart", function(){
-        dragging = false;
+        mbDragging = false;
     });
 });
 /////////////////////////////////////////////////////////
-//      dragging sensor end(touch)
+//      mbDragging sensor end(touch)
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      loading icon start
@@ -237,44 +237,6 @@ $(function () { //search box click value reset start
 /////////////////////////////////////////////////////////
 //      main search bar input reset end
 /////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      main index contents viewmore start(mobile)
-/////////////////////////////////////////////////////////
-$(function(){
-    if($(window).width() < 1025){//It will be activate in only mobile
-        $(".mb-view_more").on("click touchend",function(event){
-            eventHandler(event,$(this));
-            if(!dragging){
-                var id = $(this).attr("id"),
-                hostURL = location.host,
-                url = "";
-                switch(id){
-                    case "mb-artwork_bt" : 
-                        url = 'http://' + hostURL + '/Lubycon_Website/0.current_lubycon/index.php?1=contents&2=contents_page&3=artwork';
-                        location.href = url;
-                    break;
-                    case "mb-vector_bt" :
-                        url = 'http://' + hostURL + '/Lubycon_Website/0.current_lubycon/index.php?1=contents&2=contents_page&3=vector';
-                        location.href = url;
-                    break;
-                    case "mb-3d_bt" :
-                        url = 'http://' + hostURL + '/Lubycon_Website/0.current_lubycon/index.php?1=contents&2=contents_page&3=3d';
-                        location.href = url;
-                    break;
-                    default: return; break;
-                }
-            }
-            else if(dragging){
-                return;
-            } 
-        });
-    }else{
-        return;
-    }
-});
-/////////////////////////////////////////////////////////
-//      main index contents viewmore end(mobile)
-/////////////////////////////////////////////////////////
 /*----------------------------common js----------------------------*/
 /*----------------------------index page slider----------------------------*/
 /////////////////////////////////////////////////////////
@@ -380,20 +342,20 @@ $(function(){
 });
 function floating_bt_action(){
     $("#contents_main").hover(function(){
-        $("#floating_bt").stop().fadeIn(200);
+        $(".floating_bt").stop().fadeIn(200);
         $(document).scroll(function(){
-            if($("#floating_bt").offset().top > $("#comment_box").offset().top - 50){
-                $("#floating_bt").stop().fadeOut(200);
+            if($(".floating_bt").offset().top > $("#comment_box").offset().top - 50){
+                $(".floating_bt").stop().fadeOut(200);
             }
             else{
-                $("#floating_bt").stop().fadeIn(200);
+                $(".floating_bt").stop().fadeIn(200);
                 return;
             }
         });
     },function(){
-        $("#floating_bt").stop().fadeOut(200);
+        $(".floating_bt").stop().fadeOut(200);
         $(document).scroll(function(){
-            $("#floating_bt").stop().fadeOut(200);
+            $(".floating_bt").stop().fadeOut(200);
             return;
         });
     });
@@ -425,40 +387,26 @@ $(function() {
 /////////////////////////////////////////////////////////
 //      comment write box auto height end
 /////////////////////////////////////////////////////////
-
 /////////////////////////////////////////////////////////
-//      contents view file_info toggle start
+//      contents view title box start
 /////////////////////////////////////////////////////////
-$(function () {
-    var toggle_count = 0;
-    $(document).on('click', '#info_header', function ()
-    {
-        switch (toggle_count) {
-            case 0:
-                file_info_slidedown();
-                toggle_count = 1;
-                break;
-
-            case 1:
-                file_info_slideup();
-                toggle_count = 0;
-                break;
-        };
-    });
-});
-
-function file_info_slidedown() {
-    $("#files").stop().slideDown(300);
-    $("#info_toggle").attr('class', 'fa fa-angle-up');
-    toggle_count = 1;
-};
-function file_info_slideup() {
-    $("#files").stop().slideUp(300);
-    $("#info_toggle").attr('class', 'fa fa-angle-down');
-    toggle_count = 0;
-};
+$(function (){
+    var $this = $(document).find("#contents_info_wrap"),
+    notMobile = windowWidth >= 1024;
+    $(document).scroll(function(){
+        var scrollTop = $(document).scrollTop();
+        if(notMobile && scrollTop > 50){
+            $this.stop().fadeOut(400);
+            console.log(true);
+        }
+        else if(notMobile && scrollTop <= 50){
+            $this.stop().fadeIn(400);
+            console.log(false);
+        }
+    }) 
+})
 /////////////////////////////////////////////////////////
-//      contents view file_info toggle end
+//      contents view title box end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      contents view descript box toggle start
@@ -554,10 +502,8 @@ $(function () {
 /////////////////////////////////////////////////////////
 //      personal page subnav hover and ajax
 /////////////////////////////////////////////////////////
-
 /*----------------------------personal page----------------------------*/
 /*----------------------------waiting for resisting start----------------------------*/
-
 /////////////////////////////////////////////////////////
 //      waiting for resisting animate
 /////////////////////////////////////////////////////////
@@ -587,12 +533,6 @@ $(function(){
 /////////////////////////////////////////////////////////
 //      waiting for resisting animate
 /////////////////////////////////////////////////////////
-
-/*----------------------------waiting for resisting end----------------------------*/
-
-
-
-
 /*----------------------------waiting for resisting end----------------------------*/
 /*----------------------------followers start--------------------------*/
 $(function(){

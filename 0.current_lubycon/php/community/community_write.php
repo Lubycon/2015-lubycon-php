@@ -29,8 +29,8 @@
                 <input type="file" id="file_import_com" name="user_upload_file"/>
             </div><!--link2 end-->
         </div>
-        <input type="submit" value="SUBMIT" id="community_submit" class="animate_opacity" />
+        <input type="submit" value="SUBMIT" id="community_submit" class="animate_width" />
     </section><!--work_space end-->        
 </section>  <!-- end contents section -->
 </form>
-<script src="js/summernote.js" type="text/javascript" ></script>
+<script src="js/module/summernote.js" type="text/javascript" ></script>

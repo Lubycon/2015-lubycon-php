@@ -29,7 +29,7 @@
 
 
     <section class="nav_guide">
-        <div class="subnav_box">
+        <div class="nav-wrapper">
             <select class="categoryFilter">
             <?php
                 $current_url = $_GET["3"];//change to db query later

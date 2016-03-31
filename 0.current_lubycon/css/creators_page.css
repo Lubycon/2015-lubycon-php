@@ -40,29 +40,33 @@
         #bestCreator .creator_location{
             color: #fafafa;
         }
-            #bestCreator .creator_location i{
+            #bestCreator .creator_location i {
                 color: #fafafa;
             }
-        #bestCreator .usercontent{
+        #bestCreator .usercontent {
             
         }
-        #bestCreator .usercontent img{
+        #bestCreator .usercontent img {
             max-width: 300px;
         }
-.con_aside{
+.con_aside {
     border-right: 1px solid #222222;
     border-left: 0px;    
 }
-    #myinfo_setting{
-        color: #aaaaaa;
+    #myinfo_setting {
+        display: block;
+        color: #999999;
         font-size: 22px;
-        float: left;
+        text-align: left;
         margin-top: 10px;
         margin-left: 10px;
         cursor: pointer;
     }
+        #myinfo_setting.opened {
+            color: #ffffff;
+        }
 
-        #myinfo_menu_list{
+        #myinfo_menu_list {
             width: 150px;
             top: 20px;
             left: 20px;
@@ -73,10 +77,10 @@
             background: rgba(255,255,255,0.9);
             display: none;  
         }
-        #myinfo_menu_list ul{
+        #myinfo_menu_list ul {
             line-height: 35px;
         }
-            #myinfo_menu_list ul li{
+            #myinfo_menu_list ul li {
                 text-align: center;
                 color: #aaaaaa;
                 font-weight: 200;
@@ -98,7 +102,7 @@
                     color: #444444;
                 }
 
-    #user_view_aside #myinfo_main{
+    .con_aside #myinfo_main{
         width: 100%;
         text-align: left;
         padding: 5px;
@@ -119,7 +123,7 @@
             color:#eeeeee;
             text-align: center;
         }
-    #user_view_aside #myinfo_sub{
+    .con_aside #myinfo_sub{
         display: block;
         width: 220px;
         margin: 0px auto;

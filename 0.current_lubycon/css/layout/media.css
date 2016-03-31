@@ -468,21 +468,21 @@
     #contents_info_wrap {
         background: #383838;
     }
-    #floating_bt{
+    .floating_bt{
         display: block;
         position: relative;
         background: #222222;
         width: 100%;
         padding: 30px;
     }
-        #floating_bt .bookmark_bt{
+        .floating_bt .bookmark_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
             font-size: 45px;
             margin: 0px 10px;
         }
-        #floating_bt .like_bt{
+        .floating_bt .like_bt{
             width: 80px;
             height: 80px;
             line-height: 80px;
@@ -991,20 +991,20 @@
     }
 
     #contents_info_wrap {
-        background: #222222;
+        background: rgba(35,35,35,0.4);
         top: 0;
     }
-    #floating_bt{
+    .floating_bt{
         display: none;
-        position: absolute;
+        position: fixed;
         background: rgba(0,0,0,0.5);
         border-radius: 3px;
-        top: 10px;
+        top: 168px;
         right: 320px;
         z-index: 1;
         overflow: hidden;
     }
-        #floating_bt .bookmark_bt{
+        .floating_bt .bookmark_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
@@ -1012,7 +1012,7 @@
             margin-left: 4px;
         }
 
-        #floating_bt #like_bt{
+        .floating_bt #like_bt{
             width: 40px;
             height: 40px;
             line-height: 40px;
@@ -1050,8 +1050,8 @@
 
     }
     #contents_aside .creator_info{
-        padding-bottom: 20px;
-        padding-top: 20px;
+        padding-bottom: 15px;
+        padding-top: 15px;
         border-bottom: 1px solid #484848;
     }
         #contents_aside .creator_info #user_img{

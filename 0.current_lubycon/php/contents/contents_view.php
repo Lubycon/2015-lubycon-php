@@ -31,7 +31,7 @@ switch($current_url){
 <link href="css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
-        <div class="subnav_box">
+        <div class="nav-wrapper">
             <h3 id="contents_title"><?=$contents_name[$number]?></h3>
             <div id="contents_category"><?=$category0?> > <?=$category1?>, <?=$category2?></div>
             <div id="contents_score">
@@ -48,24 +48,6 @@ switch($current_url){
                     <li class="contents_view_score"><?=$file_like?></li>
                 </ul>
             </div>
-            <div class="share_bt_wrap">
-                <div class="share_bt">
-                    <i class="fa fa-share-alt share_bt_icon"></i>
-                </div>
-                <div class="sharing_bt_box">
-                    <ul>
-                        <li class="share_list" data="success">
-                            <i class="fa fa-facebook-square"></i>
-                            <p>Share to Facebook</p>
-                        </li>
-                        <li class="share_list" data="success">
-                            <i class="fa fa-twitter-square"></i>
-                            <p>Share to Twitter</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
         </div><!--subnav_box end-->
     </section>
     <section class="con_wrap">
@@ -81,7 +63,7 @@ switch($current_url){
                     echo '<figure class="contents_img"><img class="inner_img" src="'.$contents_img_url.'" /></figure>';
                 };
             ?>
-            <div id="floating_bt">
+            <div class="floating_bt">
                 <i id="bookmark_bt" class="bookmark_bt alertKey fa fa-star bookmark" data="bookmark"></i>
                 <i id="like_bt" class="like_bt alertKey fa fa-heart" data="like"></i>
             </div>
@@ -147,33 +129,15 @@ switch($current_url){
                 </span>
             </div>
             <div id="content_down" class="hidden-mb-b animate_width"><i class="fa fa-download"></i></div>
-            <div id="file_info">
-                <header id="info_header">File info<i class="fa fa-angle-down" id="info_toggle"></i></header>
-                <section id="files">
-                    <article id="file_name"><i class="fa fa-chevron-circle-down"></i>
-                        <p><i class="fa fa-folder"></i>Lorem ipsum.zip</p>
-                    </article>
-                    <ul>
-                        <li><i class="fa fa-file"></i>ipsum.psd</li>
-                        <li><i class="fa fa-file"></i>ipsum.ai</li>
-                        <li><i class="fa fa-file"></i>ipsum.html</li>
-                        <li><i class="fa fa-file"></i>ipsum.css</li>
-                        <li><i class="fa fa-circle"></i><i class="fa fa-file"></i>ipsum.js</li>
-                    </ul>
-                </section>
-                <footer id="storage">
-                    <p>1.2 MB</p>
-                </footer>
-            </div>
             <div id="tag_wrap" class="hidden-mb-b">
                 <p id="tag_title"><i class="fa fa-tag"></i>Tags</p>
                 <div id="tagbox_wrap">
                     <ul id="tagbox_wrap_inner">
-                        <li class="tagbox">#lorem</li>
-                        <li class="tagbox">#lorem</li>
-                        <li class="tagbox">#lorem</li>
-                        <li class="tagbox">#lorem</li>
-                        <li class="tagbox">#lorem</li>
+                        <li class="tagbox">javascript</li>
+                        <li class="tagbox">html</li>
+                        <li class="tagbox">c++</li>
+                        <li class="tagbox">php</li>
+                        <li class="tagbox">python</li>
                     </ul>                       
                 </div>
             </div>

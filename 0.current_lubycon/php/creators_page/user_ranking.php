@@ -13,7 +13,7 @@
         <!-- end lnb nav -->
     </section>
     <section class="nav_guide">
-        <div class="subnav_box">
+        <div class="nav-wrapper">
             <div class="contents_bt">
                 <span class="global_icon">
                     <img src="./ch/img/grobal_icon.png" width="24" height="24" /></span>

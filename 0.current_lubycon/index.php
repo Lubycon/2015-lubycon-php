@@ -46,6 +46,7 @@ session_start();
     <script type="text/javascript" src="js/module/resizeObject.js"></script>
     <script type="text/javascript" src="js/module/sticky.js"></script>
     <script type="text/javascript" src="js/core/ui.js"></script><!-- ui file js -->
+    <script type="text/javascript" src="js/core/mobile.js"></script><!--mobile file js-->
     <script type="text/javascript" src="js/core/core.js"></script> <!-- index file js -->
     <script type="text/javascript" src="js/module/account.js"></script> <!-- account file js -->
     
@@ -117,8 +118,7 @@ session_start();
             <li class="mb-menu_list"><i class="fa fa-power-off fa-1x"></i>Log out</li>
         </ul>
     </aside>
-    <!-- popup start -->
-    <div class="editor_popup fadeInDown animated">
+    <div class="editor_popup fadeInDown animated"> <!-- popup start -->
         <p>Which content will you upload?</p>
         <ul>
             <li>
@@ -141,8 +141,7 @@ session_start();
             </li>
         </ul>
         <button class="closeButton"></button>
-    </div>
-    <!-- popup end -->
+    </div><!-- popup end -->
     <header class="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1>
@@ -270,20 +269,15 @@ session_start();
                 </li>
             </ul> <!-- end gnb ul -->
         </nav>	<!--end main_gnb-->
-
-        <!-- before sign in -->
-        <div id="signin_bt" class="hidden-mb-b">
+        <div id="signin_bt" class="hidden-mb-b"><!-- before sign in -->
             <div id="signin">
                 <a href="./login_page.php">
                     <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
                     <p class="signin">SIGN IN</p>
                 </a>
             </div>  <!-- end signin -->
-        </div>
-        <!-- before sign in -->
-
-        <!-- after sign in -->
-        <div id="after_signin" class="hidden-mb-b">   
+        </div><!-- before sign in -->
+        <div id="after_signin" class="hidden-mb-b">   <!-- after sign in -->
                 <div id="display_user">
                     <figure id="accountImg"><img src="./ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
                     <span id="user_id">Admin_User</span>
@@ -317,9 +311,7 @@ session_start();
                     </a></li>
                 </div>
             </ul>
-        </div>
-        <!-- end after sign in -->
-
+        </div><!-- end after sign in -->
         <button id="addcontent_bt" class="animate_width hidden-mb-b"><i class="fa fa-plus"></i>Add Contents</button>
         <!--세션 여기-->
         
@@ -331,9 +323,7 @@ session_start();
                 }
             }
         ?>
-
-        <!--end content button-->
-        <div id="lang_select_bt" class="hidden-mb-b">
+        <div id="lang_select_bt" class="hidden-mb-b"><!--end content button-->
             <ul>
                 <li class="lang_selected">ENG</li>
                 <ul class="lang_list">
@@ -349,10 +339,8 @@ session_start();
             </ul>	<!-- end lang_all -->
         </div>	<!-- end lang_select_bt -->
         <div id="mb-search" class="visible-mb"><i class="fa fa-search icon1"></i><i class="fa fa-angle-up icon2"></i></div>
-    </header>	
-    <!---------------- header end ---------------->
-    <!---------------- search bar start ---------------->
-    <div id="main_search_bar">
+    </header><!---------------- header end ---------------->
+    <div id="main_search_bar"><!---------------- search bar start ---------------->
         <input type="text" id="main_search_text" value="Enter The Keyword" />
         <button id="main_search_btn" class="out">
             <i class="fa fa-search"></i>
@@ -375,8 +363,7 @@ session_start();
             });
         </script>
         <!-- end select_box -->
-    </div>
-    <!---------------- search bar end ---------------->
+    </div><!---------------- search bar end ---------------->
     <!---------------- common parts end ---------------->
     <?php
         if( empty($_GET['1']) == false ) {
