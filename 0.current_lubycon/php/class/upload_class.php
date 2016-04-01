@@ -121,25 +121,34 @@ class upload
                 }
                 print_r($this->_filepath_array); // move uploaded files path
                 return;
-            }else // maybe ajax
-            {
-                if(is_array($files))  //lots of files
-                {
-                    for($i=0 ; $i< count($files); $i++)
-                    {
-                        $modName = basename($files[$i]); //파일명 추출
-                        $oldfile = $this->_temp_path.$modName; // temp file
-                        $newfile = $upload_path.$modName; // 
+            }
+        }
+    }
 
-                        if(file_exists($oldfile)) {
-                             if(!copy($oldfile, $newfile)) {
-                                   echo "fail";
-                             } else if(file_exists($newfile)) {
-                                   unlink($oldfile);
-                                   echo $newfile . "<br/>"; //uploaded file path
-                             }
-                        } 
-                    };
+    public function ajax_move()
+    {
+        if( 1 ) // maybe ajax
+        {
+            if(is_array($files)) //lots of files
+            {
+                for($i=0 ; $i< count($files); $i++)
+                {
+                    $modName = basename($files[$i]); //파일명 추출
+                    $oldfile = $this->_temp_path.$modName; // temp file
+                    $newfile = $upload_path.$modName; //
+
+                    if(file_exists($oldfile)) 
+                    {
+                        if(!copy($oldfile, $newfile)) 
+                        {
+                        echo "fail";
+                        } else if(file_exists($newfile)) 
+                        {
+                            unlink($oldfile);
+                            echo $newfile . "<br/>"; //uploaded file path
+                        }
+                    }
+                };
                 }else // only profile img
                 {
                     $modName = basename($files); //파일명 추출
@@ -147,23 +156,21 @@ class upload
                     $oldfile = $this->_temp_path.$modName; // temp file
                     $newfile = $upload_path.$this->_profile_name.$ext; // copyed file
 
-                    if(file_exists($oldfile)) 
+                    if(file_exists($oldfile))
                     {
-                        if(!copy($oldfile, $newfile)) 
+                        if(!copy($oldfile, $newfile))
                         {
                             echo "fail";
-                        } else if(file_exists($newfile)) 
+                        } else if(file_exists($newfile))
                         {
                             unlink($oldfile);
                             echo $newfile . "<br/>"; //uploaded file path
                         }
                     }
                 }
-            }
         }
-
-
     }
+
 
     public function zipfile($files,$zip_compress, $upload_path = null , $upload_zip)
     {

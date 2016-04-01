@@ -368,7 +368,7 @@
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
-                contentData = $(".canvas-content").each(function () {
+                contentData = $(".obj-body .object-img").each(function () {
                     var $this = $(this),
                         val = $this.attr("data-value").split("-"),
                         innerVal = { "contentID": val[0], "ext": val[1] };
@@ -388,13 +388,13 @@
                     "id": "finalForm",
                     "enctype": "multipart/form-data",
                     "method": "post",
-                    "action": "./php/editor/test.php"
+                    "action": "./test.php"
                 }),
                 wrap = rootElement.wrapInner($form),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg" , "name" : "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg" , "name" : "content_img" }).appendTo($("#finalForm")).val(JSON.param(imgData));
                 
-                //$("#finalForm").submit();
+                $("#finalForm").submit();
             },
             databind: function(){
                 //toolbar data bind start
