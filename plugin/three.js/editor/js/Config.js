@@ -8,7 +8,7 @@ var Config = function () {
 
 	var storage = {
 		'autosave': true,
-		'theme': 'css/light.css',
+		'theme': 'css/dark.css',
 
 		'project/renderer': 'WebGLRenderer',
 		'project/renderer/antialias': true,
