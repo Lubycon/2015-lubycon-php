@@ -12,7 +12,9 @@
 (function($){
     $.fn.slider = function(option){
         var defaults = { 
-            callback: null
+            customID: null,
+            disabled: false,
+            callback: $.noop()
         },
         d = {},
         slider = {
@@ -27,9 +29,12 @@
                         maxVal = $this.attr("max"),
                         areaX = (maxVal - defaultVal),
                         buttonX = defaultVal,
+                        disabled = d.disabled ? "disabled" : "",
+                        customID = d.customID ? d.customID : "",
 
-                        $sliderWrap = $("<div/>",{ "class" : "slider-wrapper" }).width(objWidth)
-                        .insertBefore($this).append($this).on("mousedown",drag.dragable),
+                        $sliderWrap = $("<div/>",{ "class" : "slider-wrapper","id" : customID}).width(objWidth)
+                        .insertBefore($this).addClass(disabled).append($this),
+                        disableAction = $sliderWrap.hasClass("disabled") ? "" : $sliderWrap.on("mousedown",drag.dragable),
                         $sliderBar = $("<span/>",{
                             "class" : "slider-bar",
                             "data-value" : defaultVal,
@@ -65,7 +70,6 @@
                 })
                 .on("mouseleave",function(){
                     $this.off("mousemove");
-                    isDragging = false;
                     $this.removeClass("dragging");
                 })
                 .on("mouseup","*",function(){
@@ -106,7 +110,7 @@
                 $bar = $this.siblings(".slider-bar"),
                 $area = $bar.find(".slider-area"),
                 $bt = $this.siblings(".slider-bt"),
-                value = isNaN($this.val()) ? 0 : $this.val(),
+                value = isNaN($this.val()) ? 0 : $this.val() <= 100 ? $this.val() : 100,
                 ratio = 100 - value + "%";
                 btX = value + "%";
                 
@@ -117,15 +121,22 @@
                 console.log(value);
             }
         },
-        start = {
-            test: function () {
+        method = {
+            disable: function (selector) {
                 return this.each(function () {
-                    console.log("tested");
+                    var $this = $(this);
+                    $this.addClass("disabled").off("mousedown");
+                })
+            },
+            enable: function () {
+                return this.each(function () {
+                    var $this = $(this);
+                    $this.removeClass("disabled").on("mousedown",drag.dragable);
                 })
             }
         }
-        return start[option] ? 
-        start[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
+        return method[option] ? 
+        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
         "object" != typeof option && option ? 
             ($.error('No such method "' + option + '" for the lubySlider instance'), void 0) : 
             slider.init.apply(this, arguments);
