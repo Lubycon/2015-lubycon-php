@@ -368,7 +368,7 @@
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
-                contentData = $(".canvas-content").each(function () {
+                contentData = $(".obj-body .object-img").each(function () {
                     var $this = $(this),
                         val = $this.attr("data-value").split("-"),
                         innerVal = { "contentID": val[0], "ext": val[1] };
@@ -392,9 +392,9 @@
                 }),
                 wrap = rootElement.wrapInner($form),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg" , "name" : "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
                 
-                //$("#finalForm").submit();
+                $("#finalForm").submit();
             },
             databind: function(){
                 //toolbar data bind start
@@ -674,19 +674,29 @@
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
 
+
+                console.log(fileEXT);
                 if($placeHolder.length!=0) $placeHolder.hide();
 
                 $.each($object, function(i,file){
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
-                        var img = $("<img/>",{ "src":event.target.result}),
-                        fileEXT;
-                        upload.insertPosition($this,$objectWrap,img);
+                        var img = new Image(),
+                        fileEXT,
+                        canvas = $("<canvas/>").appendTo("body"),
+                        dummy = canvas[0],
+                        ctx = dummy.getContext("2d");
+                        img.onload = function () {
+                            ctx.drawImage(img, 0, 0);
+                        }
+                        img.src = event.target.result;
+                        upload.insertPosition($this,$objectWrap,canvas);//this
                         $(".uploading").removeClass("uploading") // init target object  
                         $inputFile.val(null); // init input value
                     };
-                });  
+                });
+
                 pac.objMenu($objectWrap);
                    
                 console.log("The new image is uploaded");
@@ -748,6 +758,21 @@
                 var $this = obj.parent(".canvas-content"),
                 dataVal = $this.data("value");
                 if (!$this.is(".placeHolder")) $this.attr("data-value", upload.imgCount + "-" + dataVal);
+
+                var content_dataArray = new Array;
+                content_dataArray[0] = { 'type': 'editor_content', 'data64': $this.find('img').attr('src'), 'index': upload.imgCount };
+                $.ajax({
+                    type: "POST",
+                    url: "./php/ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
+                    data:
+                    {
+                        'ajax_data': content_dataArray
+                    },
+                    cache: false,
+                    success: function (data) {
+                        //console.log(data);
+                    }
+                })
                 upload.imgCount++;
             },
             insertPosition: function(selector,wrap,object){
@@ -852,10 +877,16 @@
                     console.log($object);
                     console.log(dataURL); // for ajax
 
+                    var dataArray = new Array;
+                    dataArray[0] = { 'type': 'editor_thumb', 'data64': dataURL ,'index': null};
+
                     $.ajax({
                         type: "POST",
-                        url: "ajax_upload.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
-                        data: 'data=' + dataURL,//test.asp¿¡ id °ªÀ» º¸³½´Ù
+                        url: "./php/ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
+                        data:
+                        {
+                            'ajax_data': dataArray
+                        },
                         cache: false,
                         success: function (data) {
                             //console.log(data);
