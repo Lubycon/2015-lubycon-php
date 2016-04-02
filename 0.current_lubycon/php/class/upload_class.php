@@ -23,7 +23,7 @@ class upload
     private $_ajax_ext = [];
     
     private $_thumb_size = 100;
-    private $_contents_size = 1000;
+    private $_contents_size = 3000;
 
     private $_thumb_save_path = 'editor/thumb';
     private $_contents_save_path = 'editor/contents';
@@ -37,7 +37,7 @@ class upload
 
 
     private $_jpg_white_list = ['data:image/jpeg;base64'];
-    private $_contents_white_list = ['data:image/jpeg;base64','data:image/gif;base64'];
+    private $_contents_white_list = ['data:image/jpeg;base64','data:image/gif;base64','data:image/bmp;base64','data:image/png;base64'];
 
     private $_img;
     private $_img_data;
@@ -233,6 +233,7 @@ class upload
                     $this->_ajax_white_list = $this->_jpg_white_list;
                     $this->_ajax_save_name = $this->_profile_file_name;
                     break;
+                default : die('something was wrong') ; break;
             }
         }
     }
@@ -243,12 +244,19 @@ class upload
         {
             $this->_data = explode(',', $post_data[$key]['data64']);
 
-            if( !in_array($this->_data[0] , $this->_ajax_white_list ))
+            if( in_array($this->_data[0] , $this->_ajax_white_list ))
+            {
+                switch($this->_data[0])
+                {
+                    case 'data:image/gif;base64' : $this->_ajax_ext[$key] = '.gif' ; break;
+                    case 'data:image/jpeg;base64' : $this->_ajax_ext[$key] = '.jpg'; break;
+                    case 'data:image/png;base64' : $this->_ajax_ext[$key] = '.png' ; break;
+                    case 'data:image/bmp;base64' : $this->_ajax_ext[$key] = '.bmp' ; break;
+                    default : die('something was wrong') ; break;
+                }
+            }else
             {
                 die( 'it is not allow image file');
-            }else if( $this->_data[0] == 'data:image/gif;base64' ? $this->_ajax_ext[$key] = '.gif' : $this->_ajax_ext[$key] = '.jpg')
-            {
-                echo 'ext validate done';
             }
         }
     }
@@ -271,18 +279,36 @@ class upload
 
     public function ajax_saveto_temp($post_data)
     {
+        $temp_path = $this->_temp_path.$this->_ajax_save_path;
+        $user_path = $temp_path.'/'.$this->_user_name;
+
         foreach($post_data as $key => $value) 
         {
+            $save_path = $user_path.'/'.$this->_ajax_save_name.$post_data[$key]['index'].$this->_ajax_ext[$key];
+
 	        $this->_img = str_replace($this->_ajax_ext[$key], '', $post_data[$key]['data64']);
 	        $this->_img = str_replace(' ', '+', $this->_img);
 	        $this->_img_data = base64_decode($this->_img);
             
-            is_dir($this->_temp_path.$this->_ajax_save_path) ? chmod($this->_temp_path.$this->_ajax_save_path,0777) : mkdir($this->_temp_path.$this->_ajax_save_path,0777);
-
-            if ( is_dir($this->_temp_path.$this->_ajax_save_path.'/'.$this->_user_name) ? chmod($this->_temp_path.$this->_ajax_save_path.'/'.$this->_user_name,0777) : mkdir($this->_temp_path.$this->_ajax_save_path.'/'.$this->_user_name,0777) )
+            is_dir($temp_path) ? chmod($temp_path,0777) : mkdir($temp_path,0777); //temp path making
+            is_dir($user_path) ? chmod($user_path,0777) : mkdir($user_path,0777); //user path making
+            if ( $this->_ajax_ext[$key] == '.jpg' )
             {
-            echo 'donedonedonedone';
-                file_put_contents($this->_temp_path.$this->_ajax_save_path.'/'.$this->_user_name.'/'.$this->_ajax_save_name.$post_data[$key]['index'].$this->_ajax_ext[$key], $this->_img_data);
+                $image = imagecreatefromjpeg($post_data[$key]['data64']);
+                imagejpeg($image, $save_path, 100);
+                imagedestroy($image);
+            }else if ( $this->_ajax_ext[$key] == '.png' )
+            {
+                echo 'png';
+                $image = imagecreatefrompng($post_data[$key]['data64']);
+                imagepng($image, $save_path);
+                imagedestroy($image);
+            }else if ( $this->_ajax_ext[$key] == '.gif' )
+            {
+                echo 'png';
+                $image = imagecreatefromgif($post_data[$key]['data64']);
+                imagegif($image, $save_path);
+                imagedestroy($image);
             }
         }
     }
