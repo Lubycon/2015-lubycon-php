@@ -4,85 +4,18 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<link href="cropper.css" rel="stylesheet" type="text/css" />
+	
 	<script type="text/javascript" src="jquery-1.12.2.js"></script>
-	<script type="text/javascript" src="sticky.js"></script>
 	<style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		li,ol {
-			list-style: none;
-		}
-		.header {
-			position: fixed;
-			top: 0;
+		canvas {
 			width: 100%;
-			height: 50px;
-			background: #222222;
-			color: #eeeeee;
-			text-align: center;
-			z-index: 10;
+			height: 100%;
 		}
-		.container {
-			position: relative;
-			width: 100%;
-			height: 1000px;
-			background: #aaaaaa;
-			top: 50px;
-			z-index: 1;
-		}
-			.lnb_nav {
-				height: 35px;
-				background: #aaaaaa;
-				text-align: center;
-				z-index: 5;
-			}
-			.nav {
-				height: 50px;
-				background: #222222;
-				color: #ffffff;
-				text-align: center;
-				z-index: 4;
-			}
-			.wrapper {
-				width: 100%;
-				position: relative;
-				z-index: 1;
-			}
-			.aside {
-				position: absolute;
-				right: 0;
-				height: 100%;
-				width: 200px;
-				background: #555555;
-			}
-			.main {
-				position: relative;
-				width: 100%;
-				height: 1000px;
-				box-sizing: border-box;
-				-webkit-box-sizing: border-box;
-				-moz-box-sizing: border-box;
-				padding-right: 200px;
-			}
-			
 	</style>
 </head>
 <body>
-	<header class="header">Header</header>
-	<div class="container">
-		<nav class="lnb_nav">lnb_Nav</nav>
-		<nav class="nav">Nav</nav>
-		<div class="wrapper">
-			<div class="aside">Aside</div>
-			<div class="main">Main Content</div>
-		</div>
-	</div>
 	<script>
-		$(window).on("load",function(){
-			$("body").sticky();
-		})
+		
+	</script>
 </body>
 </html>
