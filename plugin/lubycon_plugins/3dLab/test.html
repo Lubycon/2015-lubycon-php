@@ -9,33 +9,56 @@
 	<style>
 		canvas {
 			width: 100%;
-			height: 100%;
+			height: 90%;
 		}
-		.testBt {
+		#imgInput {
+			position: fixed;
+			top: 10px;
+			left: 10px;
+			color: #ffffff;
+		}
+		.testBtWrap {
+			display: inline-block;
 			position: fixed;
 			top: 100px;
-			right: 100px;
+			left: 100px;
+		}
+		.testBt {
+			position: relative;
 			width: 100px;
-			height: 30px;
+			height: 50px;
 			color: #ffffff;
+			background: #444444;
+			transition: background 0.4s;
+			border: none;
+			cursor: pointer;
+		}
+		.testBt:hover {
 			background: #48cfad;
 		}
 	</style>
 </head>
 <body>
-	
+	<input type="file" id="imgInput" />
 	<script type="text/javascript" src="three.min.js"></script>
 	<script type="text/javascript" src=""></script>
 	<script>
 		//three.js
 		var scene = new THREE.Scene(), //canvas scene
-		psCamera = new THREE.PerspectiveCamera(75,window.innerWidth / window.innerHeight,0.1,1000),
+		canvasWidth = window.innerWidth,
+		canvasHeight = window.innerHeight*0.9,
+		psCamera = new THREE.PerspectiveCamera(75,canvasWidth/canvasHeight,0.1,1000),
 		renderer = new THREE.WebGLRenderer(),
 		object = new THREE.BoxGeometry( 1, 1, 1 ),
 		mat = new THREE.MeshPhongMaterial({
-			color : 0x48cfad
+			ambient: 0x48cfad, 
+			color: 0x48cfad, 
+			specular: 0xffffff, 
+			shininess: 50, 
+			shading: THREE.SmoothShading
 		}),
 		mesh = new THREE.Mesh(object,mat),
+
 		aLight = new THREE.AmbientLight(0xffffff);
 		dLight = new THREE.DirectionalLight( 0xffffff, 1);
 		dLight.position.set(1,2,1);
@@ -44,6 +67,7 @@
 		$("body").append(renderer.domElement);
 		scene.add(mesh);
 		scene.add(dLight,aLight);
+
 		psCamera.position.z = 5;
 
 		function render() {
@@ -56,16 +80,45 @@
 
 		//jqeury
 		$("canvas").attr("id","webgl");
-		var test = $("<button/>",{
+		var btwrap = $("<div/>",{
+			"class" : "testBtWrap"
+		}).appendTo("body")
+		var cubeBt = $("<button/>",{
 			"class" : "testBt",
-			"html" : "Change Camera Distance"
-		}).on("click",test).appendTo("body");
+			"html" : "Change width of object"
+		}).on("click",objWidth).appendTo(btwrap);
+		var cameraBt = $("<button/>",{
+			"class" : "testBt",
+			"html" : "Change position of camera"
+		}).on("click",distanceCamera).appendTo(btwrap);
 
-		function test() {
+		$("#imgInput").on("change",imgUpload);
+
+
+		function objWidth() {
+			var $this = $(this),
+			$target = mesh;
+			if($this.hasClass("selected")) $this.removeClass("selected"),$target.scale.set(1,1,1);
+			else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.scale.set(2,1,1);
+		}
+		function distanceCamera() {
 			var $this = $(this),
 			$target = psCamera;
-			if($this.hasClass("selected")) $this.removeClass("selected"),mesh.scale.set(1,1,1);
-			else if(!$this.hasClass("selected")) $this.addClass("selected"),mesh.scale.set(2,1,1);
+			if($this.hasClass("selected")) $this.removeClass("selected"),$target.position.z = 5;
+			else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.position.z = 10;
+		}
+		function imgUpload(event) {
+			var $object = event.target.files;
+
+			$.each($object, function(i,file){
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function(event){
+                	var image = document.createElement( 'img' );
+					image.src = event.target.result;
+                    mesh.material.map = new THREE.Texture( image );
+                };
+            });
 		}
 	</script>
 </body>
