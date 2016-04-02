@@ -682,16 +682,9 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
-                        var img = new Image(),
-                        fileEXT,
-                        canvas = $("<canvas/>").appendTo("body"),
-                        dummy = canvas[0],
-                        ctx = dummy.getContext("2d");
-                        img.onload = function () {
-                            ctx.drawImage(img, 0, 0);
-                        }
-                        img.src = event.target.result;
-                        upload.insertPosition($this,$objectWrap,canvas);//this
+                        var img = $("<img/>",{ "src":event.target.result}),
+                        fileEXT;
+                        upload.insertPosition($this,$objectWrap,img);
                         $(".uploading").removeClass("uploading") // init target object  
                         $inputFile.val(null); // init input value
                     };
