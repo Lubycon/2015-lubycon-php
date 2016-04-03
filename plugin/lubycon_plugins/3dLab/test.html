@@ -41,40 +41,79 @@
 <body>
 	<input type="file" id="imgInput" />
 	<script type="text/javascript" src="three.min.js"></script>
-	<script type="text/javascript" src=""></script>
+	<script type="text/javascript" src="OrbitControls.js"></script>
 	<script>
+		//functions
+		var windowWidth = window.innerWidth,
+		windowHeight = window.innerHeight,
+		funcs = {
+			windowResize: function(){
+				windowHalfX = window.innerWidth / 2,
+				windowHalfY = window.innerHeight / 2,
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize(windowWidth,windowHeight);
+			},
+			objWidth: function(){
+				var $this = $(this),
+				$target = mesh;
+				if($this.hasClass("selected")) $this.removeClass("selected"),$target.scale.set(1,1,1);
+				else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.scale.set(2,1,1);
+			},
+			distanceCamera: function(){
+				var $this = $(this),
+				$target = camera;
+				if($this.hasClass("selected")) $this.removeClass("selected"),$target.position.z = 5;
+				else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.position.z = 10;
+			},
+			imgUpload: function(event){
+				var $object = event.target.files;
+
+				$.each($object, function(i,file){
+	                var reader = new FileReader();
+	                reader.readAsDataURL(file);
+	                reader.onload = function(event){
+	           			var material = new THREE.MeshPhongMaterial({
+	           				map: THREE.ImageUtils.loadTexture(event.target.result)
+	           			});
+	           			mesh.material = material;
+	                };
+	            });
+			}
+		}
+
 		//three.js
 		var scene = new THREE.Scene(), //canvas scene
-		canvasWidth = window.innerWidth,
-		canvasHeight = window.innerHeight*0.9,
-		psCamera = new THREE.PerspectiveCamera(75,canvasWidth/canvasHeight,0.1,1000),
+		camera = new THREE.PerspectiveCamera(75,windowWidth/windowHeight,0.1,1000),
 		renderer = new THREE.WebGLRenderer(),
 		object = new THREE.BoxGeometry( 1, 1, 1 ),
-		mat = new THREE.MeshPhongMaterial({
+		mate = new THREE.MeshPhongMaterial({
 			ambient: 0x48cfad, 
 			color: 0x48cfad, 
 			specular: 0xffffff, 
 			shininess: 50, 
 			shading: THREE.SmoothShading
 		}),
-		mesh = new THREE.Mesh(object,mat),
+		mesh = new THREE.Mesh(object,mate),
+		aLight = new THREE.AmbientLight(0xffffff),
+		dLight = new THREE.DirectionalLight( 0xffffff, 1),
+		contorls = new THREE.OrbitControls(camera);
 
-		aLight = new THREE.AmbientLight(0xffffff);
-		dLight = new THREE.DirectionalLight( 0xffffff, 1);
-		dLight.position.set(1,2,1);
-
-		renderer.setSize(window.innerWidth, window.innerHeight);
+		dLight.position.set(-1,1,2);
+		renderer.setSize(windowWidth, windowHeight);
+		renderer.setPixelRatio(window.devicePixelRatio);
 		$("body").append(renderer.domElement);
 		scene.add(mesh);
 		scene.add(dLight,aLight);
+		camera.position.z = 5;
 
-		psCamera.position.z = 5;
+		window.addEventListener("resize", funcs.windowResize, false);
 
 		function render() {
 			requestAnimationFrame( render );
 			mesh.rotation.x += 0.01;
-			mesh.rotation.y += 0.01;
-			renderer.render( scene, psCamera );
+			//mesh.rotation.y += 0.01;
+			renderer.render( scene, camera );
 		}
 		render();
 
@@ -86,40 +125,14 @@
 		var cubeBt = $("<button/>",{
 			"class" : "testBt",
 			"html" : "Change width of object"
-		}).on("click",objWidth).appendTo(btwrap);
+		}).on("click",funcs.objWidth).appendTo(btwrap);
 		var cameraBt = $("<button/>",{
 			"class" : "testBt",
 			"html" : "Change position of camera"
-		}).on("click",distanceCamera).appendTo(btwrap);
+		}).on("click",funcs.distanceCamera).appendTo(btwrap);
 
-		$("#imgInput").on("change",imgUpload);
+		$("#imgInput").on("change",funcs.imgUpload);
 
-
-		function objWidth() {
-			var $this = $(this),
-			$target = mesh;
-			if($this.hasClass("selected")) $this.removeClass("selected"),$target.scale.set(1,1,1);
-			else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.scale.set(2,1,1);
-		}
-		function distanceCamera() {
-			var $this = $(this),
-			$target = psCamera;
-			if($this.hasClass("selected")) $this.removeClass("selected"),$target.position.z = 5;
-			else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.position.z = 10;
-		}
-		function imgUpload(event) {
-			var $object = event.target.files;
-
-			$.each($object, function(i,file){
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function(event){
-                	var image = document.createElement( 'img' );
-					image.src = event.target.result;
-                    mesh.material.map = new THREE.Texture( image );
-                };
-            });
-		}
 	</script>
 </body>
 </html>
