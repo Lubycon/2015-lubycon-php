@@ -136,34 +136,6 @@ class upload
         }
     }
 
-    public function ajax_move($data , $path)
-    {
-        if( 1 ) // maybe ajax
-        {
-             foreach ( $data as $key => $value) 
-             {
-                print_r($value['contentID']);
-                print_r($value['ext']);
-                //$modName = basename($files[$i]); //파일명 추출
-                //$oldfile = $this->_temp_path.$modName; // temp file
-                //$newfile = $upload_path.$modName; //
-                
-                //if(file_exists($oldfile)) 
-                //{
-                //    if(!copy($oldfile, $newfile)) 
-                //    {
-                //    echo "fail";
-                //    } else if(file_exists($newfile)) 
-                //    {
-                //        unlink($oldfile);
-                //        echo $newfile . "<br/>"; //uploaded file path
-                //    }
-                //}
-            };
-        }
-    }
-
-
     public function zipfile($files,$zip_compress, $upload_path = null , $upload_zip)
     {
         if($zip_compress) // zip
@@ -200,7 +172,38 @@ class upload
             echo '<br/>do not zip just save';
         }
     }
-    
+
+    public function ajax_move($files , $temp_path , $save_path)   /////// tnstjeofh wjwkd
+    {
+        if( !is_dir($save_path)  ) // maybe ajax
+        {
+             mkdir($save_path,0777); //make dir
+
+             foreach ( $files as $key => $value) 
+             {
+                $file_name = 'content'.$files[$key]['contentID'].'.'.$files[$key]['ext'];
+                
+                if( file_exists( $this->_temp_path.$temp_path.$file_name ) )
+                {
+                    if(!copy($this->_temp_path.$temp_path.$file_name, $save_path.$file_name)) 
+                    {
+                        die( "ajax file move fail" );
+                    } else if(file_exists($save_path.$file_name)) 
+                    {
+                        unlink($this->_temp_path.$temp_path.$file_name);
+                        echo $save_path.$file_name . "<br/>"; //uploaded file path
+                    }
+                }else
+                {
+                    die('file is unexists');
+                }
+            };
+        }else
+        {
+            unlink($save_path);
+            die('something wrong');
+        }
+    }
 
     public function ajax_check_type($post_data)
     {
@@ -299,16 +302,14 @@ class upload
                 imagedestroy($image);
             }else if ( $this->_ajax_ext[$key] == '.png' )
             {
-                echo 'png';
                 $image = imagecreatefrompng($post_data[$key]['data64']);
                 imagepng($image, $save_path);
                 imagedestroy($image);
             }else if ( $this->_ajax_ext[$key] == '.gif' )
             {
-                echo 'png';
-                $image = imagecreatefromgif($post_data[$key]['data64']);
-                imagegif($image, $save_path);
-                imagedestroy($image);
+                $image = imagecreatefrompng($post_data[$key]['data64']);
+                Imagegif ($image , $save_path);
+			    ImageDestroy ($image);
             }
         }
     }
