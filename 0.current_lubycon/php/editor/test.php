@@ -3,8 +3,9 @@
     $set_date = date("YmdHis");
     $con_cate = 'artwork';
     $user_name = 'daniel_zepp'; // from db
+    $big_cate = 'contents';
     //$files = $_FILES['upload_file']; // input name
-    $upload_path= '../../../../Lubycon_Contents/contents/' . $con_cate . '/' . $user_name . $set_date . '/' ; // realative uploaded path
+    $upload_path= '../../../../Lubycon_Contents/'.$big_cate.'/' . $con_cate . '/' . $user_name . $set_date . '/' ; // realative uploaded path
     $whitelist = 'media'; //you cans choice 'media','txt','img','zip' ,'all' all is so dangurus
     $limit_size = 3 * 1024 * 1024; // byte
     $fileupload_zip_compress = true;
@@ -36,11 +37,14 @@
     
     
 $image_array = $_POST['content_img'];
-$content_type = 'editor_content';
 $image_json = json_decode($image_array,true);
-$path = '1';
 
-$uploader->ajax_move($image_json , $path);
+$editor_contents_temp_path = 'editor/contents/'.$user_name.'/';
+$editor_thumb_temp_path = 'editor/thumb/'.$user_name.'/';
+//$editor_save_path = '../../../../Lubycon_Contents/contents/'.$con_cate.'/';
+
+$uploader->ajax_move($image_json , $editor_contents_temp_path ,$upload_path); //contents image upload move
+
 //echo($image_json[0]->{'contentID'});
 //echo($image_json[0]->{'ext'});
 
