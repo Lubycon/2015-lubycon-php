@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />-->
-	
 	<script type="text/javascript" src="jquery-1.12.2.js"></script>
+	<script type="text/javascript" src="three.min.js"></script>
+	<script tpye="text/javascript" src="threex.domevents.js"></script>
 	<style>
 		canvas {
 			width: 100%;
@@ -32,16 +33,23 @@
 			transition: background 0.4s;
 			border: none;
 			cursor: pointer;
+			vertical-align: top;
 		}
 		.testBt:hover {
-			background: #48cfad;
+			background: #666666;
+		}
+		.testBt.selected {
+			background : #48cfad;
 		}
 	</style>
 </head>
 <body>
 	<input type="file" id="imgInput" />
-	<script type="text/javascript" src="three.min.js"></script>
+	<script type="text/javascript" src="ShadowMaterial.js"></script>
+	<script type="text/javascript" src="DragControls.js"></script>
+	<script type="text/javascript" src="TransformControls.js"></script>
 	<script type="text/javascript" src="OrbitControls.js"></script>
+	<script type="text/javascript" src="stats.min.js"></script>
 	<script>
 		//functions
 		var windowWidth = window.innerWidth,
@@ -54,17 +62,45 @@
 				camera.updateProjectionMatrix();
 				renderer.setSize(windowWidth,windowHeight);
 			},
-			objWidth: function(){
+			objLength: function(){
+				var $this = $(this),
+				data = $this.data("value"),
+				$target = mesh,
+				objX = mesh.scale.x,
+				objY = mesh.scale.y,
+				objZ = mesh.scale.z;
+				if($this.hasClass("selected")){
+					$this.removeClass("selected");
+					switch(data){
+						case "x" : mesh.scale.set(objX*0.5,objY,objZ); break;
+						case "y" : mesh.scale.set(objX,objY*0.5,objZ); break;
+						case "z" : mesh.scale.set(objX,objY,objZ*0.5); break;
+						default : return false; break;
+					}
+				}
+				else if(!$this.hasClass("selected")) {
+					$this.addClass("selected");
+					switch(data){
+						case "x" : mesh.scale.set(objX*2,objY,objZ); break;
+						case "y" : mesh.scale.set(objX,objY*2,objZ); break;
+						case "z" : mesh.scale.set(objX,objY,objZ*2); break;
+						default : return false; break;
+					}
+				}
+			},
+			animate: function(){
 				var $this = $(this),
 				$target = mesh;
-				if($this.hasClass("selected")) $this.removeClass("selected"),$target.scale.set(1,1,1);
-				else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.scale.set(2,1,1);
-			},
-			distanceCamera: function(){
-				var $this = $(this),
-				$target = camera;
-				if($this.hasClass("selected")) $this.removeClass("selected"),$target.position.z = 5;
-				else if(!$this.hasClass("selected")) $this.addClass("selected"),$target.position.z = 10;
+				if($this.hasClass("selected")){
+					$this.removeClass("selected");
+					$this.html("Stop Animation");
+					render();
+				}
+				else if(!$this.hasClass("selected")){
+					$this.addClass("selected");
+					$this.html("Start Animation");
+					cancelAnimationFrame(animate);
+				}
 			},
 			imgUpload: function(event){
 				var $object = event.target.files;
@@ -79,6 +115,9 @@
 	           			mesh.material = material;
 	                };
 	            });
+			},
+			click: function(){
+				console.log(true);
 			}
 		}
 
@@ -86,6 +125,7 @@
 		var scene = new THREE.Scene(), //canvas scene
 		camera = new THREE.PerspectiveCamera(75,windowWidth/windowHeight,0.1,1000),
 		renderer = new THREE.WebGLRenderer(),
+		//objects
 		object = new THREE.BoxGeometry( 1, 1, 1 ),
 		mate = new THREE.MeshPhongMaterial({
 			ambient: 0x48cfad, 
@@ -95,24 +135,43 @@
 			shading: THREE.SmoothShading
 		}),
 		mesh = new THREE.Mesh(object,mate),
+		planeGeo = new THREE.PlaneGeometry(10,10,1),
+		planeMate = new THREE.MeshPhongMaterial({
+			color: 0x444444
+		}),
+		plane = new THREE.Mesh(planeGeo, planeMate),
+		
 		aLight = new THREE.AmbientLight(0xffffff),
-		dLight = new THREE.DirectionalLight( 0xffffff, 1),
-		contorls = new THREE.OrbitControls(camera);
+		dLight = new THREE.SpotLight( 0xffffff, 1),
+		contorls = new THREE.OrbitControls(camera),
+		animate;
 
-		dLight.position.set(-1,1,2);
+		planeMate.opacity = 1;
+		plane.position.y = -3;
+		plane.receiveShadow = true;
+
+		dLight.position.set(3,3,1); //set position of light
+		aLight.position.set(1,-1,1);
+		dLight.shadowCameraVisible = true;
+		dLight.shadowDarkness = 0.95;
+		dLight.castShadow = true;
+
+		renderer.shadowMapEnabled = true;
 		renderer.setSize(windowWidth, windowHeight);
 		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.setClearColor(0x282828,1);
+
 		$("body").append(renderer.domElement);
-		scene.add(mesh);
-		scene.add(dLight,aLight);
+		scene.add(mesh,plane,dLight,aLight);
 		camera.position.z = 5;
 
 		window.addEventListener("resize", funcs.windowResize, false);
 
 		function render() {
-			requestAnimationFrame( render );
+			animate = requestAnimationFrame( render );
 			mesh.rotation.x += 0.01;
-			//mesh.rotation.y += 0.01;
+			mesh.rotation.y += 0.01;
+			mesh.rotation.z += 0.01;
 			renderer.render( scene, camera );
 		}
 		render();
@@ -121,16 +180,27 @@
 		$("canvas").attr("id","webgl");
 		var btwrap = $("<div/>",{
 			"class" : "testBtWrap"
-		}).appendTo("body")
-		var cubeBt = $("<button/>",{
-			"class" : "testBt",
-			"html" : "Change width of object"
-		}).on("click",funcs.objWidth).appendTo(btwrap);
-		var cameraBt = $("<button/>",{
-			"class" : "testBt",
-			"html" : "Change position of camera"
-		}).on("click",funcs.distanceCamera).appendTo(btwrap);
+		}).appendTo("body");
 
+		var cubeBtX = $("<button/>",{
+			"class" : "testBt",
+			"html" : "Scale-X",
+			"data-value" : "x"
+		}).on("click",funcs.objLength).appendTo(btwrap);
+		var cubeBtY = $("<button/>",{
+			"class" : "testBt",
+			"html" : "Scale-Y",
+			"data-value" : "y"
+		}).on("click",funcs.objLength).appendTo(btwrap);
+		var cubeBtZ = $("<button/>",{
+			"class" : "testBt",
+			"html" : "Scale-Z",
+			"data-value" : "z"
+		}).on("click",funcs.objLength).appendTo(btwrap);
+		var aniBt = $("<button/>",{
+			"class" : "testBt",
+			"html" : "Stop Animation",
+		}).on("click",funcs.animate).appendTo(btwrap);
 		$("#imgInput").on("change",funcs.imgUpload);
 
 	</script>
