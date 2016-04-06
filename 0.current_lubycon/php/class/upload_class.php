@@ -175,14 +175,14 @@ class upload
 
     public function ajax_move($files , $temp_path , $save_path)   /////// tnstjeofh wjwkd
     {
-        if( !is_dir($save_path)  ) // maybe ajax
+        if( is_dir($save_path) ? chmod($save_path,0777) : mkdir($save_path,0777)  ) // maybe ajax
         {
-             mkdir($save_path,0777); //make dir
-
              foreach ( $files as $key => $value) 
              {
-                $file_name = 'content'.$files[$key]['contentID'].'.'.$files[$key]['ext'];
+                $file_name = $files[$key]['contentID'].'.'.$files[$key]['ext'];
                 
+                echo $file_name;
+
                 if( file_exists( $this->_temp_path.$temp_path.$file_name ) )
                 {
                     if(!copy($this->_temp_path.$temp_path.$file_name, $save_path.$file_name)) 
@@ -198,10 +198,6 @@ class upload
                     die('file is unexists');
                 }
             };
-        }else
-        {
-            unlink($save_path);
-            die('something wrong');
         }
     }
 

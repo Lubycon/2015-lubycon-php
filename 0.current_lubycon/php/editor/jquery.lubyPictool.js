@@ -371,7 +371,7 @@
                 contentData = $(".obj-body .object-img").each(function () {
                     var $this = $(this),
                         val = $this.attr("data-value").split("-"),
-                        innerVal = { "contentID": val[0], "ext": val[1] };
+                        innerVal = { "contentID": 'content'+val[0], "ext": val[1] };
                     imgData.push(innerVal)
                 }),
                 categories = [], //data
