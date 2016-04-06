@@ -1,0 +1,47 @@
+* {
+	margin: 0;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+}
+.uploadbox {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
+	padding: 5px;
+	background: rgba(0,0,0,0.7);
+}
+ .uploadbox > label {
+ 	display: block;
+ 	color: #ffffff;
+ 	font-size: 14px;
+ }
+ .uploadbox > input {
+ 	color: #ffffff;
+ }
+
+.testBtWrap {
+	display: inline-block;
+	position: fixed;
+	top: 10px;
+	left: 100px;
+}
+.testBt {
+	position: relative;
+	width: 100px;
+	height: 50px;
+	color: #ffffff;
+	background: #444444;
+	transition: background 0.4s;
+	border: none;
+	cursor: pointer;
+	vertical-align: top;
+}
+.testBt:hover {
+	background: #666666;
+}
+.testBt.selected {
+	background : #48cfad;
+}

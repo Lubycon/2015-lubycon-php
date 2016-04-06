@@ -4,222 +4,23 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />-->
+	<link rel="stylesheet" href="test.css" />
 	<script type="text/javascript" src="jquery-1.12.2.js"></script>
 	<script type="text/javascript" src="three.min.js"></script>
 	<script tpye="text/javascript" src="threex.domevents.js"></script>
-	<style>
-		canvas {
-			width: 100%;
-			height: 90%;
-		}
-		#imgInput {
-			position: fixed;
-			top: 10px;
-			left: 10px;
-			color: #ffffff;
-		}
-		.testBtWrap {
-			display: inline-block;
-			position: fixed;
-			top: 100px;
-			left: 100px;
-		}
-		.testBt {
-			position: relative;
-			width: 100px;
-			height: 50px;
-			color: #ffffff;
-			background: #444444;
-			transition: background 0.4s;
-			border: none;
-			cursor: pointer;
-			vertical-align: top;
-		}
-		.testBt:hover {
-			background: #666666;
-		}
-		.testBt.selected {
-			background : #48cfad;
-		}
-	</style>
-</head>
-<body>
-	<input type="file" id="imgInput" />
 	<script type="text/javascript" src="ShadowMaterial.js"></script>
 	<script type="text/javascript" src="DragControls.js"></script>
 	<script type="text/javascript" src="TransformControls.js"></script>
 	<script type="text/javascript" src="OrbitControls.js"></script>
 	<script type="text/javascript" src="stats.min.js"></script>
-	<script>
-		//functions
-		var windowWidth = window.innerWidth,
-		windowHeight = window.innerHeight,
-		funcs = {
-			windowResize: function(){
-				windowHalfX = window.innerWidth / 2,
-				windowHalfY = window.innerHeight / 2,
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-				renderer.setSize(windowWidth,windowHeight);
-			},
-			objLength: function(){
-				var $this = $(this),
-				data = $this.data("value"),
-				$target = mesh,
-				objX = mesh.scale.x,
-				objY = mesh.scale.y,
-				objZ = mesh.scale.z;
-				if($this.hasClass("selected")){
-					$this.removeClass("selected");
-					switch(data){
-						case "x" : mesh.scale.set(objX*0.5,objY,objZ); break;
-						case "y" : mesh.scale.set(objX,objY*0.5,objZ); break;
-						case "z" : mesh.scale.set(objX,objY,objZ*0.5); break;
-						default : return false; break;
-					}
-				}
-				else if(!$this.hasClass("selected")) {
-					$this.addClass("selected");
-					switch(data){
-						case "x" : mesh.scale.set(objX*2,objY,objZ); break;
-						case "y" : mesh.scale.set(objX,objY*2,objZ); break;
-						case "z" : mesh.scale.set(objX,objY,objZ*2); break;
-						default : return false; break;
-					}
-				}
-			},
-			animate: function(){
-				var $this = $(this),
-				$target = mesh;
-				if($this.hasClass("selected")){
-					$this.removeClass("selected");
-					$this.html("Stop Animation");
-					render();
-				}
-				else if(!$this.hasClass("selected")){
-					$this.addClass("selected");
-					$this.html("Start Animation");
-					cancelAnimationFrame(animate);
-				}
-			},
-			imgUpload: function(event){
-				var $object = event.target.files;
-
-				$.each($object, function(i,file){
-	                var reader = new FileReader();
-	                reader.readAsDataURL(file);
-	                reader.onload = function(event){
-	           			var material = new THREE.MeshPhongMaterial({
-	           				map: THREE.ImageUtils.loadTexture(event.target.result)
-	           			});
-	           			mesh.material = material;
-	                };
-	            });
-			},
-			click: function(){
-				console.log(true);
-			}
-		}
-
-		//three.js
-		var scene = new THREE.Scene(), //canvas scene
-		camera = new THREE.PerspectiveCamera(75,windowWidth/windowHeight,0.1,1000),
-		renderer = new THREE.WebGLRenderer(),
-		//objects
-		object = new THREE.BoxGeometry( 1, 1, 1 ),
-		mate = new THREE.MeshPhongMaterial({
-			ambient: 0x48cfad, 
-			color: 0x48cfad, 
-			specular: 0xffffff, 
-			shininess: 50, 
-			shading: THREE.SmoothShading
-		}),
-		mesh = new THREE.Mesh(object,mate),
-		planeGeo = new THREE.PlaneGeometry(100,100,3,3),
-		planeMate = new THREE.MeshPhongMaterial({
-			color: 0x444444
-		}),
-		plane = new THREE.Mesh(planeGeo, planeMate),
-		
-		aLight = new THREE.AmbientLight(0xffffff),
-		dLight = new THREE.SpotLight( 0xffffff, 1),
-		contorls = new THREE.OrbitControls(camera),
-		domEvents   = new THREEx.DomEvents(camera, renderer.domElement),
-		animate;
-
-		mesh.castShadow = true;
-		planeMate.opacity = 1;
-		plane.position.y = -5;
-		plane.receiveShadow = true;
-		plane.rotation.x = -Math.PI/2;
-
-		dLight.position.set(1,3,0); //set position of light
-		aLight.position.set(1,-1,1);
-		dLight.shadowCameraVisible = true;
-		dLight.shadowDarkness = 0.2;
-		dLight.castShadow = true;
-		dLight.shadowMapWidth = 1;
-		dLight.shadowMapHeight = 1;
-		dLight.shadowCameraNear = 1;
-		dLight.shadowCameraFar = 100;
-		dLight.shadowCameraFov = 25;
-
-		renderer.shadowMapEnabled = true;
-		renderer.shadowMapType = THREE.PCFSoftShadowMap;
-		renderer.setSize(windowWidth, windowHeight);
-		renderer.setPixelRatio(window.devicePixelRatio);
-		renderer.setClearColor(0x282828,1);
-
-		$("body").append(renderer.domElement);
-		scene.add(mesh,plane,dLight,aLight);
-		camera.position.z = 5;
-
-		window.addEventListener("resize", funcs.windowResize, false);
-
-		function render() {
-			animate = requestAnimationFrame( render );
-			mesh.rotation.x += 0.01;
-			mesh.rotation.y += 0.01;
-			mesh.rotation.z += 0.01;
-			dLight.rotation.x += 0.01;
-			renderer.render( scene, camera );
-		}
-		render();
-
-		//jqeury
-		$("canvas").attr("id","webgl");
-		var btwrap = $("<div/>",{
-			"class" : "testBtWrap"
-		}).appendTo("body");
-
-		var cubeBtX = $("<button/>",{
-			"class" : "testBt",
-			"html" : "Scale-X",
-			"data-value" : "x"
-		}).on("click",funcs.objLength).appendTo(btwrap);
-		var cubeBtY = $("<button/>",{
-			"class" : "testBt",
-			"html" : "Scale-Y",
-			"data-value" : "y"
-		}).on("click",funcs.objLength).appendTo(btwrap);
-		var cubeBtZ = $("<button/>",{
-			"class" : "testBt",
-			"html" : "Scale-Z",
-			"data-value" : "z"
-		}).on("click",funcs.objLength).appendTo(btwrap);
-		var aniBt = $("<button/>",{
-			"class" : "testBt",
-			"html" : "Stop Animation",
-		}).on("click",funcs.animate).appendTo(btwrap);
-		$("#imgInput").on("change",funcs.imgUpload);
-		domEvents.addEventListener(mesh,"mouseover",function(){
-			mesh.material.opacity = 0.2;
-			console.log("mouseover to object");
-		});
-		domEvents.addEventListener(mesh,"mouseout",function(){
-			mesh.material.opacity = 1.0;
-			console.log("mouseout to object");
-		});
-	</script>
+	<script type="text/javascript" src="dat.gui.min.js"></script>
+	<script type="text/javascript" src="droid_sans_regular.typeface.js"></script>
+	<script type="text/javascript" src="test.js"></script>
+</head>
+<body>
+	<div class="uploadbox">
+		<label>Texture Upload</label>
+		<input type="file" id="imgInput"/>
+	</div>	
 </body>
 </html>
