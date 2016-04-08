@@ -252,6 +252,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{39DEB90F-81F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_editor", "_editor", "{B766FCB4-280D-4970-8695-B446CC83A008}"
+	ProjectSection(SolutionItems) = preProject
+		php\_editor\editor.php = php\_editor\editor.php
+		php\_editor\editor_setting.php = php\_editor\editor_setting.php
+		php\_editor\editor_thumbnail.php = php\_editor\editor_thumbnail.php
+		php\_editor\imageUpload.php = php\_editor\imageUpload.php
+		php\_editor\test.php = php\_editor\test.php
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution

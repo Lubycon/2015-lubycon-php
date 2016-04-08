@@ -1,6 +1,5 @@
 <aside id="personal_aside" class="con_aside">
-    <?php 
-        $username = "Admin_User";
+    <?php
         $user_intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";        
     ?>
     <div id="user_information">
