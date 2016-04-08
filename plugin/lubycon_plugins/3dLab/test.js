@@ -1,4 +1,5 @@
 $(window).on("load",function(){
+	"use strict";
 	var funcs = {
 		windowResize: function(){
 			camera.aspect = window.innerWidth / window.innerHeight;
@@ -36,12 +37,12 @@ $(window).on("load",function(){
 			if($this.hasClass("selected")){
 				$this.removeClass("selected");
 				$this.html("Stop Animation");
-				render();
+				defaultSpeed = 0.01;
 			}
 			else if(!$this.hasClass("selected")){
 				$this.addClass("selected");
 				$this.html("Start Animation");
-				cancelAnimationFrame(animate);
+				defaultSpeed = 0;
 			}
 		},
 		imgUpload: function(event){
@@ -51,7 +52,7 @@ $(window).on("load",function(){
 	            var reader = new FileReader();
 	            reader.readAsDataURL(file);
 	            reader.onload = function(event){
-	       			var material = new THREE.MeshPhongMaterial({
+	       			var material = new THREE.MeshLambertMaterial({
 	       				map: THREE.ImageUtils.loadTexture(event.target.result)
 	       			});
 	       			cubeMesh.material = material;
@@ -80,11 +81,10 @@ $(window).on("load",function(){
 				case 82: // R
 					transformControls.setMode("scale");
 				break;
-				case 107:
-				console.log(107);
+				case 187:
 					transformControls.setSize(transformControls.size + 0.1);
 				break;
-				case 109:
+				case 189:
 					transformControls.setSize( Math.max( transformControls.size - 0.1, 0.1 ) );
 				break;
 			}
@@ -109,6 +109,7 @@ $(window).on("load",function(){
 
 	var scene = new THREE.Scene();
 		scene.add( new THREE.GridHelper(20, 3));
+		//THREE.WebGLRenderer: OES_texture_float_linear extension not supported
 	var renderer = new THREE.WebGLRenderer();
 		renderer.physicallyCorrectLights = true;
 		renderer.setSize(window.innerWidth, window.innerHeight);
@@ -116,8 +117,8 @@ $(window).on("load",function(){
 		renderer.setClearColor(0x282828,1);
 		renderer.sortObjects = false;
 	var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000); //camera
-		camera.position.z = 3;
-		camera.position.y = 3;
+		camera.position.z = 5;
+		camera.position.y = 0;
 	var sLight = new THREE.SpotLight(0xffffff,0.5); //spot light
 		sLight.position.set(1,5,0);
 		sLight.castShadow = true;
@@ -139,9 +140,7 @@ $(window).on("load",function(){
 		aLight.shadowCameraFar = 100;
 		aLight.shadowCameraFov = 25;
 	var viewControls = new THREE.OrbitControls(camera);
-	var transformControls = new THREE.TransformControls(camera, renderer.domElement);
-		transformControls.addEventListener("change",render);
-		
+	
 	var stats = new Stats();
 		stats.setMode(0);
 		stats.domElement.style.position = "absolute";
@@ -166,10 +165,9 @@ $(window).on("load",function(){
 		shading: THREE.SmoothShading
 	});
 	var cubeMesh = new THREE.Mesh(cube,cubeMate);
-	transformControls.attach(cubeMesh);
 	var wireframe = new THREE.WireframeHelper(cubeMesh,0xffffff);
 
-	var plane = new THREE.PlaneGeometry(20,20,3,3);
+	var plane = new THREE.PlaneGeometry(20,20,1,1);
 	var planeMate = new THREE.MeshPhongMaterial({
 		color: 0x222222
 	});
@@ -183,24 +181,24 @@ $(window).on("load",function(){
 	
 	scene.add(cubeMesh,wireframe,planeMesh,sLight,sLightHelper,aLight);
 
+	var requestAni,update;
+	var defaultSpeed = 0.01;
 	var prevShadowMap = false;
 	function render(){
-		animate = requestAnimationFrame(render);
 		update = requestAnimationFrame(funcs.updateFPS);
-		//transformControls.update();
-
-		cubeMesh.rotation.y += 0.01;
-
-		renderer.toneMappingExposure = Math.pow(params.control.exposure,5.0);
-		renderer.shadowMapEnabled = params.control.shadow;
-		if(params.control.shadow !== prevShadowMap){
-			cubeMesh.needsUpdate = true;
-			planeMesh.needsUpdate = true;
-			prevShadowMap = params.control.shadow;
-		}
 		renderer.render(scene,camera);
 	}
-	render();
+	function animate(){
+		requestAni = requestAnimationFrame( animate );
+		cubeMesh.rotation.y += defaultSpeed;
+		renderer.toneMappingExposure = Math.pow(params.control.exposure,5.0);
+		renderer.shadowMapEnabled = params.control.shadow;
+		cubeMesh.needsUpdate = true;
+		planeMesh.needsUpdate = true;
+		prevShadowMap = true;
+		render();
+	}
+	animate();
 
 
 	//jquery events
@@ -232,11 +230,11 @@ $(window).on("load",function(){
 	_$.addEventListener(cubeMesh,"mouseover",function(){
 		var color = new THREE.Color(0xffbe54);
 		cubeMesh.material.color = color;
-		console.log(cubeMesh.material.color.getHexString())
-	});
+		//console.log(cubeMesh.material.color.getHexString())
+	},false);
 	_$.addEventListener(cubeMesh,"mouseout",function(){
 		var color = new THREE.Color(0x48cfad);
 		cubeMesh.material.color = color;
-		console.log(cubeMesh.material.color.getHexString())
-	});
+		//console.log(cubeMesh.material.color.getHexString());
+	},false);
 });

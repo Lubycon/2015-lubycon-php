@@ -393,17 +393,17 @@ $(function() {
 $(function (){
     var $this = $(document).find("#contents_info_wrap"),
     notMobile = windowWidth >= 1024;
-    $(document).scroll(function(){
+    $(document).scroll(function(event){
         var scrollTop = $(document).scrollTop();
-        if(notMobile && scrollTop > 50){
-            $this.stop().fadeOut(400);
+        if(notMobile && scrollTop >= 50){
+            $this.fadeOut(400);
             console.log(true);
         }
-        else if(notMobile && scrollTop <= 50){
+        else if(notMobile && scrollTop < 50){
             $this.stop().fadeIn(400);
             console.log(false);
         }
-    }) 
+    })
 })
 /////////////////////////////////////////////////////////
 //      contents view title box end
