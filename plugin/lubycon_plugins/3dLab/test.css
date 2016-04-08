@@ -13,22 +13,25 @@ canvas {
 	padding: 5px;
 	background: rgba(0,0,0,0.7);
 }
- .uploadbox > label {
+.uploadbox {
+	display: none;
+}
+.uploadbox > label {
  	display: block;
  	color: #ffffff;
  	font-size: 14px;
  }
- .uploadbox > input {
+.uploadbox > input {
  	color: #ffffff;
  }
 
-.testBtWrap {
+.gl-bt-wrapper {
 	display: inline-block;
 	position: fixed;
 	top: 10px;
 	left: 100px;
 }
-.testBt {
+.gl-bt-wrapper > .gl-btn {
 	position: relative;
 	width: 100px;
 	height: 50px;
@@ -39,9 +42,9 @@ canvas {
 	cursor: pointer;
 	vertical-align: top;
 }
-.testBt:hover {
+.gl-bt-wrapper > .gl-btn:hover {
 	background: #666666;
 }
-.testBt.selected {
+.gl-bt-wrapper > .gl-btn.selected {
 	background : #48cfad;
 }

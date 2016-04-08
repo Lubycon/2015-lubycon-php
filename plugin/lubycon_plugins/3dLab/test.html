@@ -5,14 +5,22 @@
 	<title>Document</title>
 	<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />-->
 	<link rel="stylesheet" href="test.css" />
-	
-	<script type="text/javascript" src="test2.js"></script>
+	<script type="text/javascript" src="jquery-1.12.2.js"></script>
+	<script type="text/javascript" src="three.min.js"></script>
+	<script type="text/javascript" src="ShadowMaterial.js"></script>
+	<script type="text/javascript" src="DragControls.js"></script>
+	<script type="text/javascript" src="TransformControls.js"></script>
+	<script type="text/javascript" src="OrbitControls.js"></script>
+	<script type="text/javascript" src="stats.min.js"></script> <!--get fps-->
+	<script type="text/javascript" src="dat.gui.min.js"></script> <!--get controller-->
+	<script tpye="text/javascript" src="threex.domevents.js"></script>
+	<script type="text/javascript" src="test.js"></script>
 </head>
-<body onload="startup();">
-	<canvas id="web-gl" width="500" height="500"></canvas>
+<body>
+	<div id="web-gl"></div>
 	<div class="uploadbox">
-		<label>Texture Upload</label>
-		<input type="file" id="imgInput"/>
+		<input type="file" id="objInput" />
+		<input type="file" id="texInput" />
 	</div>	
 </body>
 </html>
