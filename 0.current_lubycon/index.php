@@ -3,6 +3,7 @@ session_start();
     if(isset($_COOKIE)){
         if(isset($_COOKIE['login'])){
             $info = unserialize($_COOKIE['login']);
+            $username = $_SESSION['user_name'];
             setcookie('login', serialize($info), time()+5000000);
         }else if(!isset($_COOKIE['login'])){
             session_destroy();
@@ -71,7 +72,6 @@ session_start();
             <div id="mb-after_signin">
                 <?php
                     $user_pic = "./ch/img/no_img/no_img_user1.jpg";
-                    $user_name = "Lorem ipsum";
                     $user_city = "City";
                     $user_country = "Country";
                 ?>
@@ -280,7 +280,7 @@ session_start();
         <div id="after_signin" class="hidden-mb-b">   <!-- after sign in -->
                 <div id="display_user">
                     <figure id="accountImg"><img src="./ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
-                    <span id="user_id">Admin_User</span>
+                    <span id="user_id"><?=$username?></span>
                     <i class="fa fa-angle-down"></i>
                 </div>  
             <ul>

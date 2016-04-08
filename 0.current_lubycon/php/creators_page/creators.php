@@ -52,7 +52,6 @@
         <div class="con_aside">
             <?php 
                 $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/32.jpg";
-                $username = "Kim dongkyu";
                 $userjob = "Designer";
                 $usercity = "Seoul";
                 $usercountry = "South Korea";
@@ -73,7 +72,7 @@
                 <figure>
                     <img src="<?=$user_img_url?>">
                 </figure>
-                <h4><?=$username?></h4>
+                <h4><?=$user_name?></h4>
             </div>
             <div id="myinfo_sub">
                 <article class="myinfo_wrap" id="myinfo_job">
