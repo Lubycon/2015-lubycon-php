@@ -36,20 +36,23 @@
     //echo "<br/><br/>-------------contents image--------------<br/>";
     
     
-$image_array = $_POST['content_img'];
-$image_json = json_decode($image_array,true);
+    $image_array = $_POST['content_img'];
 
-$editor_contents_temp_path = 'editor/contents/'.$user_name.'/';
-$editor_thumb_temp_path = 'editor/thumb/'.$user_name.'/';
-//$editor_save_path = '../../../../Lubycon_Contents/contents/'.$con_cate.'/';
+    $image_json = json_decode($image_array,true);
+    $thumb_array[] = array('contentID' => 'thumb', 'ext' => 'jpg');
 
-$uploader->ajax_move($image_json , $editor_contents_temp_path ,$upload_path); //contents image upload move
+    $editor_contents_temp_path = 'editor/contents/'.$user_name.'/';
+    $editor_thumb_temp_path = 'editor/thumb/'.$user_name.'/';
+    //$editor_save_path = '../../../../Lubycon_Contents/contents/'.$con_cate.'/';
 
-//echo($image_json[0]->{'contentID'});
-//echo($image_json[0]->{'ext'});
+    $uploader->ajax_move($image_json , $editor_contents_temp_path ,$upload_path); //contents image upload move
+    $uploader->ajax_move($thumb_array , $editor_thumb_temp_path ,$upload_path); //contents thumb upload move
 
-$html_post = $_POST['content_html'];
-$html_data = htmlspecialchars($html_post); // save db content html
+    //echo($image_json[0]->{'contentID'});
+    //echo($image_json[0]->{'ext'});
+
+    $html_post = $_POST['content_html'];
+    $html_data = htmlspecialchars($html_post); // save db content html
 
 
 
