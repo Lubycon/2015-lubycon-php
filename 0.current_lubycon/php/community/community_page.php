@@ -67,7 +67,7 @@
             include("./php/layout/main_board.php");
         ?><!--end main_board section -->
     </section>
-    <a>
+    <a href="./index.php?1=community&2=community_write&3=<?=$_GET[3]?>">
         <span id="write_bt" class="out animate_opacity write_bt"><i class="fa fa-plus"></i></span>
         <span class="write_bt_background write_bt"></span>
     </a>

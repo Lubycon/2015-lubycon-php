@@ -7,6 +7,10 @@
 
 
 <form id="writer_form" enctype="multipart/form-data" method="post" action="./php/community/test.php">
+
+<input type="hidden" id="contents_cate" name="contents_cate" value="<?=$_GET[3]?>"/>
+<input type="hidden" id="userid" name="userid" value="<?=$usercode?>"/>
+
 <section class="container">
     <section id="work_space" class="con_wrap">
         <div id="work_inner">

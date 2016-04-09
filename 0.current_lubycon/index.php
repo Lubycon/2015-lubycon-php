@@ -4,6 +4,7 @@ session_start();
         if(isset($_COOKIE['login'])){
             $info = unserialize($_COOKIE['login']);
             $username = $_SESSION['user_name'];
+            $usercode = $_SESSION['user_code'];
             setcookie('login', serialize($info), time()+5000000);
         }else if(!isset($_COOKIE['login'])){
             session_destroy();

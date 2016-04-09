@@ -1,5 +1,20 @@
 <section id="main_board">
     <?php
+
+        $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubycon");
+        
+        switch($_GET[3]){
+        case 'forum' : $contents_cate = 1; break;
+        case 'tutorial' : $contents_cate = 2;  break;
+        case 'qna' : $contents_cate = 3;  break;
+        default : $contents_cate = die('no category');  break;
+        };
+
+
+        $query = "SELECT * FROM `luby_board` WHERE `contents_code` = " .$contents_cate. " ORDER BY `luby_board`.`board_code` ASC ";
+        $result = mysqli_query($conn,$query);
+
+
         @$third_param = $_GET["3"];
         @$current_url = $third_param;
     ?>
@@ -25,14 +40,13 @@
             
             <ul class="table_list_wrap">
             <?php
-            $j = 1;
-            for($i=0;$i<30;$i++){
+            while( $row = mysqli_fetch_array($result) )
+            {
                 @$third_param = $_GET['3'];
                 $third_param = $third_param;
-                $_GET["number"] = $j;
+
                 @include('./php/layout/community_card.php');
                 @include('../layout/community_card.php');
-                $j++;
             }
             ?>
             </ul>
