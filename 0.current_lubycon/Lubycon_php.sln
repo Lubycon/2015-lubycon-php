@@ -115,41 +115,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{F4657569-6E1C-48D8-8BE1-96250A2CB5CA}"
 	ProjectSection(SolutionItems) = preProject
 		js\aboutus.js = js\aboutus.js
-		js\account.js = js\account.js
 		js\account_setting.js = js\account_setting.js
-		js\ajax.js = js\ajax.js
-		js\bootstrap.min.js = js\bootstrap.min.js
 		js\call_comments.js = js\call_comments.js
-		js\chosen.jquery.js = js\chosen.jquery.js
-		js\chosen.prism.js = js\chosen.prism.js
 		js\community.js = js\community.js
-		js\community_infinite_scroll.js = js\community_infinite_scroll.js
-		js\croppic.min.js = js\croppic.min.js
-		js\d3.min.js = js\d3.min.js
 		js\dashboard.js = js\dashboard.js
 		js\editor.js = js\editor.js
-		js\index.js = js\index.js
 		js\index.js.rej = js\index.js.rej
-		js\infinite_scroll.js = js\infinite_scroll.js
 		js\insight.js = js\insight.js
-		js\jquery-1.11.3.min.js = js\jquery-1.11.3.min.js
-		js\jquery-2.1.3.min.js = js\jquery-2.1.3.min.js
-		js\jquery-ui.min.js = js\jquery-ui.min.js
-		js\jquery.cycle.all.js = js\jquery.cycle.all.js
-		js\jquery.form.min.js = js\jquery.form.min.js
-		js\jquery.js = js\jquery.js
-		js\jquery.lubySelector.js = js\jquery.lubySelector.js
-		js\jquery.mousewheel.min.js = js\jquery.mousewheel.min.js
 		js\login_page.js = js\login_page.js
-		js\luby_ui.js = js\luby_ui.js
-		js\resizeObject.js = js\resizeObject.js
-		js\selectordie.demo.js = js\selectordie.demo.js
-		js\selectordie.min.js = js\selectordie.min.js
-		js\slider.js = js\slider.js
-		js\spectrum.js = js\spectrum.js
 		js\success_account.js = js\success_account.js
-		js\summernote.js = js\summernote.js
-		js\summernote.min.js = js\summernote.min.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "contents_page", "contents_page", "{7328460A-3607-460C-8C81-56CB4C1DF3A8}"
@@ -204,13 +178,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artists_page", "artists_pag
 		php\artists_page\user_ranking.php = php\artists_page\user_ranking.php
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "chart", "chart", "{4A844A4F-BD40-4012-B242-753595699D6D}"
-	ProjectSection(SolutionItems) = preProject
-		js\chart\amcharts.js = js\chart\amcharts.js
-		js\chart\lubytheme.js = js\chart\lubytheme.js
-		js\chart\serial.js = js\chart\serial.js
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "creators_page", "creators_page", "{B5BAB6CF-31EF-4F58-AB26-627D58D8B67D}"
 	ProjectSection(SolutionItems) = preProject
 		php\creators_page\creators.php = php\creators_page\creators.php
@@ -260,6 +227,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_editor", "_editor", "{B766
 		php\_editor\test.php = php\_editor\test.php
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "module", "module", "{37599D85-88B3-449A-8406-5A2B1EB56DC6}"
+	ProjectSection(SolutionItems) = preProject
+		js\module\account.js = js\module\account.js
+		js\module\bootstrap.min.js = js\module\bootstrap.min.js
+		js\module\chosen.jquery.js = js\module\chosen.jquery.js
+		js\module\chosen.prism.js = js\module\chosen.prism.js
+		js\module\community_infinite_scroll.js = js\module\community_infinite_scroll.js
+		js\module\croppic.min.js = js\module\croppic.min.js
+		js\module\infinite_scroll.js = js\module\infinite_scroll.js
+		js\module\jquery.cycle.all.js = js\module\jquery.cycle.all.js
+		js\module\jquery.form.min.js = js\module\jquery.form.min.js
+		js\module\jquery.lubyAlert.js = js\module\jquery.lubyAlert.js
+		js\module\jquery.lubySelector.js = js\module\jquery.lubySelector.js
+		js\module\jquery.mousewheel.min.js = js\module\jquery.mousewheel.min.js
+		js\module\resizeObject.js = js\module\resizeObject.js
+		js\module\slider.js = js\module\slider.js
+		js\module\spectrum.js = js\module\spectrum.js
+		js\module\sticky.js = js\module\sticky.js
+		js\module\summernote.js = js\module\summernote.js
+		js\module\summernote.min.js = js\module\summernote.min.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{8C8CD4A4-8FE8-481B-A430-2C60EF1410DF}"
+	ProjectSection(SolutionItems) = preProject
+		js\core\ajax.js = js\core\ajax.js
+		js\core\core.js = js\core\core.js
+		js\core\d3.min.js = js\core\d3.min.js
+		js\core\jquery-1.12.2.min.js = js\core\jquery-1.12.2.min.js
+		js\core\jquery-ui.min.js = js\core\jquery-ui.min.js
+		js\core\mobile.js = js\core\mobile.js
+		js\core\ui.js = js\core\ui.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,12 +281,13 @@ Global
 		{A5A8174F-E088-43E5-BDAE-1CF2E3FCFFAE} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{47A72F42-267F-46A1-83F9-784BC9FB8B66} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{15C9771D-A4D8-4999-BB4D-670E36973F1D} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
-		{4A844A4F-BD40-4012-B242-753595699D6D} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{B5BAB6CF-31EF-4F58-AB26-627D58D8B67D} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{B28D56C0-BF45-4F8E-9C8D-F8B33B2A7D60} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{95D8E7D4-DFA3-4DD2-B9C7-E03AEB7EA262} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{5F95FFB1-CF25-4D80-8A05-F82AF5F6E8D7} = {3FC22545-B208-4275-8530-090F43F8CDD4}
 		{39DEB90F-81F1-4497-8D15-A13124716B47} = {3FC22545-B208-4275-8530-090F43F8CDD4}
 		{B766FCB4-280D-4970-8695-B446CC83A008} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{37599D85-88B3-449A-8406-5A2B1EB56DC6} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
+		{8C8CD4A4-8FE8-481B-A430-2C60EF1410DF} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 	EndGlobalSection
 EndGlobal

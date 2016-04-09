@@ -17,6 +17,7 @@
 		setcookie('login', serialize($info), time()+500000);
 		$_SESSION['id'] = $login_id;
         $_SESSION['user_name'] = $result['user_nick'];
+        $_SESSION['user_code'] = $result['user_code'];
 		header('location:index.php');
 		//echo "<script>document.location.href='index.php'</script>";
 	}else{

@@ -298,7 +298,8 @@
                         .append($settingSelect.clone().addClass("chosen-select category").attr({
                             "data-placeholder" : "Choose your contents categories",
                             "multiple" : "",
-                            "tabindex" : "8",
+                            "tabindex": "8",
+                            "name" : "contents_category[]"
                         })).appendTo($settingInnerLeft),
                         $chosenOptions = ["Apple","Banana","Caramel","Diamond","Element","Fedex","Glory","Hive","Iframe","Jelly","Key","Lion","Mom","Nurse"],
                         insertOption = function(){
@@ -319,7 +320,7 @@
 
                         $descriptName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Description"))
-                        .append($("<textarea/>",{ "class" : "descript-input" })).appendTo($settingInnerLeft),
+                        .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($settingInnerLeft),
 
                         $ccName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Creative Commons"))

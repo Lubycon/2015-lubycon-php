@@ -72,7 +72,7 @@
                 <figure>
                     <img src="<?=$user_img_url?>">
                 </figure>
-                <h4><?=$user_name?></h4>
+                <h4><?=$username?></h4>
             </div>
             <div id="myinfo_sub">
                 <article class="myinfo_wrap" id="myinfo_job">

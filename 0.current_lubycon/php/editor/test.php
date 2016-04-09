@@ -23,54 +23,39 @@
 
     //echo "<hr/><br/>-------------zip file upload--------------<hr/>";
 
-    //echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
-
-    //$croppic_url = $_POST['croppicurl']; // temp file
-    //$croppic_zip_compress = false;
-    //$uploader->file_move($croppic_url,$upload_path,$croppic_zip_compress);
-
-
-    //echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
-
-    
-    //echo "<br/><br/>-------------contents image--------------<br/>";
+    echo "<br/><br/>-------------contents image--------------<br/>";
     
     
     $image_array = $_POST['content_img'];
-
     $image_json = json_decode($image_array,true);
-    $thumb_array[] = array('contentID' => 'thumb', 'ext' => 'jpg');
-
     $editor_contents_temp_path = 'editor/contents/'.$user_name.'/';
+
+    //$uploader->ajax_move($image_json , $editor_contents_temp_path ,$upload_path); //contents image upload move
+
+    echo "<br/><br/>-------------contents image--------------<br/>";
+    
+
+    echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
+
+    $thumb_array[] = array('contentID' => 'thumb', 'ext' => 'jpg');
     $editor_thumb_temp_path = 'editor/thumb/'.$user_name.'/';
-    //$editor_save_path = '../../../../Lubycon_Contents/contents/'.$con_cate.'/';
 
-    $uploader->ajax_move($image_json , $editor_contents_temp_path ,$upload_path); //contents image upload move
-    $uploader->ajax_move($thumb_array , $editor_thumb_temp_path ,$upload_path); //contents thumb upload move
+    //$uploader->ajax_move($thumb_array , $editor_thumb_temp_path ,$upload_path); //contents thumb upload move
 
-    //echo($image_json[0]->{'contentID'});
-    //echo($image_json[0]->{'ext'});
+    echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
+    
+    echo "<br/>-------------contents html data-------------<br/><br/>";
     $html_post = $_POST['content_html'];
     $html_data = htmlspecialchars($html_post); // save db content html
-
-
-
-
-    //$conimg_url = $_POST['contents_image']; // temp file
-    //$conimg_zip_compress = false;
-    //$uploader->file_move($conimg_url,$upload_path,$conimg_zip_compress);
-
-
-    //echo "<br/><br/>-------------contents image--------------<br/>";
-
+    echo "<br/>-------------contents html data--------------<br/><br/>";
 
     
-    //echo "<br/>-------------contents subject name--------------<br/><br/>";
+    echo "<br/>-------------contents subject name--------------<br/><br/>";
 
-    //echo "contents_subject = " . $_POST['contents_subject'];
+    echo "contents_subject = " . $_POST['content-name'];
     
-    //echo "<br/><br/>-------------contents subject name--------------<br/>";
+    echo "<br/><br/>-------------contents subject name--------------<br/>";
 
     ///*if($con_article)
     //{
@@ -115,11 +100,6 @@
 
     //echo "<br/><br/>-------------contents description--------------<br/>";
 
-    //echo "<br/>-------------text editor html--------------<br/><br/>";
-    
-    //echo htmlspecialchars($_POST['text_editor']);
-    
-    //echo "<br/><br/>-------------text editor html--------------<br/>";
-
-    //print_r($_POST);
+    echo "<hr><hr><hr><hr>";
+    print_r($_POST);
 ?>

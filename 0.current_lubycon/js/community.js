@@ -6,20 +6,20 @@ function eventHandler(event, selector) {//
     }
 };
 
-/*--------------------------------community write button start-----------------------------*/
-$(function(){
-    if($("#write_bt").length != 0){
-        if("length true");
-        $("#write_bt").on("click touchend", function(event){
-            eventHandler(event,$(this));
-            var url = "./index.php?1=community&2=community_write";    
-            $(location).attr('href',url);
-            return;
-        });
-    }else{
-        return;
-    }
-});
+///*--------------------------------community write button start-----------------------------*/
+//$(function(){
+//    if($("#write_bt").length != 0){
+//        if("length true");
+//        $("#write_bt").on("click touchend", function(event){
+//            eventHandler(event,$(this));
+//            var url = "./index.php?1=community&2=community_write";    
+//            $(location).attr('href',url);
+//            return;
+//        });
+//    }else{
+//        return;
+//    }
+//});
 /*--------------------------------community write button end-------------------------------*/
 
 /*--------------------------------community editor start-------------------------------*/
