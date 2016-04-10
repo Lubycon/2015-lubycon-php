@@ -57,6 +57,22 @@
     
     echo "<br/><br/>-------------contents subject name--------------<br/>";
 
+
+    require_once '../database/database_class.php';
+    require_once "../class/regex_class.php";
+    $db = new Database();
+
+
+    switch($_POST['contents_cate']){
+    case 'artwork' : $contents_cate = 1; break;
+    case 'vector' : $contents_cate = 2;  break;
+    case '3d' : $contents_cate = 3;  break;
+    default : $contents_cate = die('no category');  break;
+    };
+    
+    $db->query = "insert into luby_artwork(board_code,contents_date,user_code,contents_code,board_title,board_desc,board_contents,board_down_public,board_down_count,board_view_count,board_like_count,board_preview)values('','".$set_date."', '1', '".$contents_cate."', '".$_POST['content-name']."', '".$_POST['contenst_description']."', '".$html_data."','','','','','')";
+	$db->askQuery();
+
     ///*if($con_article)
     //{
     //    for($k=0 ; $k< count($con_article); $k++)

@@ -9,6 +9,8 @@
  *
  * =========================================================== */
 
+
+
 (function($){
     $.fn.lubyPictool = function(option){
         var defaults = { 
@@ -372,7 +374,7 @@
                 contentData = $(".obj-body .object-img").each(function () {
                     var $this = $(this),
                         val = $this.attr("data-value").split("-"),
-                        innerVal = { "contentID": 'content'+val[0], "ext": val[1] };
+                        innerVal = { "contentID": 'content' + val[0], "ext": val[1] };
                     imgData.push(innerVal)
                 }),
                 categories = [], //data
@@ -392,9 +394,18 @@
                     "action": "./php/editor/test.php"
                 }),
                 wrap = rootElement.wrapInner($form),
+
+                geturl = function (key) {
+                    var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+                    return result && result[1] || "";
+                };
+
+                $dummy = $("<input/>", { "type": "hidden", "id": "userid", "name": "userid" }).appendTo($("#finalForm")).val($("user_id").text()),
+                $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl(3)),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
-                
+
+                console.log(contents_cate);
                 $("#finalForm").submit();
             },
             databind: function(){
