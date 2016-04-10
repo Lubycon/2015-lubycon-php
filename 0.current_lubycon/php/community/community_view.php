@@ -2,11 +2,11 @@
 <link href="css/community_view.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
 <link href="css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
 <script type="text/javascript" src="js/community.js"></script>
-<script type="text/javascript" src="js/resizeObject.js"></script>
+<script type="text/javascript" src="js/module/resizeObject.js"></script>
 
-<section id="contents">
-    <section id="navsel" class="hidden-mb-b">
-        <nav id="lnb_nav">
+<section class="container">
+    <section class="navsel hidden-mb-b">
+        <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="forum">
                     <a href="./index.php?1=community&2=community_page&3=forum">Forum</a>
@@ -20,34 +20,42 @@
             </ul>
         </nav>
     </section>
+
+
+
+
+
     <?php
-        $post_subject = "Lorem Ipsum";
-        $year = 2015;
-        $month = "Nov";
-        $day = 7;
-        $hour = 0;
-        $minute = 0;
+        $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubycon");
 
-        $post_like = 0;
-        $post_view = 0;
-        $comment_num = 0;
+        $query = "SELECT * FROM `luby_board` WHERE `board_code` = " .$_GET['bno']. " ORDER BY `luby_board`.`board_code` ASC ";
+        $result = mysqli_query($conn,$query);
 
-        $username = "Admin_User";
-        $userjob = "Job name";
-        $usercity = "City";
-        $usercountry = "Country";
-        $post_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Cras commodo lacus at lacus bibendum imperdiet.
-                            Quisque in accumsan turpis. Nullam non lacus nec enim convallis iaculis.
-                                    Vivamus a sodales sapien. Curabitur suscipit ullamcorper enim, quis hendrerit nunc tempus eu.
-                                    Nunc porttitor mauris sapien, quis molestie quam placerat sit amet.
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Cras commodo lacus at lacus bibendum imperdiet.
-                                    Quisque in accumsan turpis. Nullam non lacus nec enim convallis iaculis.
-                                    Vivamus a sodales sapien. Curabitur suscipit ullamcorper enim, quis hendrerit nunc tempus eu.
-                                    Nunc porttitor mauris sapien, quis molestie quam placerat sit amet.
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+        $row = mysqli_fetch_array($result);
+        
+        $post_subject = $row['board_title'];
+        $year = 2015; //not yet
+        $month = "Nov"; //not yet
+        $day = 7; //not yet
+        $hour = 0; //not yet
+        $minute = 0; //not yet
+
+        $post_like = $row['board_like_count'];
+        $post_view = $row['board_view_count'];
+        $comment_num = 0; // not yet
+
+        $userjob = "Job name"; //not yet
+        $usercity = "City"; //not yet
+        $usercountry = "Country"; //not yet
+        $language1 = "language1"; //not yet
+        $language2 = "language2"; //not yet
+        $post_content = $row['board_contents'];
+        
+        $query = "SELECT * FROM `luby_user` WHERE `user_code` =" . $row['user_code'];
+        $result = mysqli_query($conn,$query);
+        $row = mysqli_fetch_array($result);
+        $username = $row['user_nick'];
+
     ?>
 
     <section class="nav_guide">
@@ -63,15 +71,6 @@
     </section>  <!-- end nav_guide -->
     <section id="post_box" class="con_wrap">
         <div id="post_banner" class="con_aside">
-            <?php 
-                $username = "Admin_User";
-                $userjob = "Job";
-                $usercity = "City";
-                $usercountry = "Country";
-                $language1 = "language1";
-                $language2 = "language2";
-                
-            ?>
             <div id="author_main">
                 <figure>
                     <img src="./ch/img/no_img/no_img_user1.jpg">
@@ -97,7 +96,7 @@
         <section id="post_section" class="con_main">
             <article id="post_contents">
                 <p>
-                    <?=$post_content?>
+                    <?=htmlspecialchars_decode($post_content)?>
                 </p>
                 <i id="like_bt" class="like_bt alertKey fa fa-heart" data="like"></i>
                 <div id="post_edit_box">

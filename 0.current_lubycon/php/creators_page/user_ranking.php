@@ -8,12 +8,12 @@
 
 <link href="css/user_ranking.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
-<section id="contents">
-    <section id="navsel">
+<section class="container">
+    <section class="navsel">
         <!-- end lnb nav -->
     </section>
     <section class="nav_guide">
-        <div class="subnav_box">
+        <div class="nav-wrapper">
             <div class="contents_bt">
                 <span class="global_icon">
                     <img src="./ch/img/grobal_icon.png" width="24" height="24" /></span>

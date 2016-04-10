@@ -14,29 +14,7 @@
 
 	if(password_verify($_POST['login_pass'],$result['user_pass'])){
 		$session->WriteSession('lubycon',$result['user_email'], $result['user_nick']);
-		
-		//echo $result['user_email']. '<br/>';
-		//echo $result['user_nick'].'<br/>';
-		
-		//echo $_SESSION['lubycon_session_id'].'<br />';
-		//echo $_SESSION['lubycon_id'].'<br />';
-		//echo $_SESSION['lubycon_nick'].'<br/>';
-
-
-		//$session->FreeResource();
-		//$session = null;
-		/*
-		$db->disconnectDb();
-		// 로그인 기록 로그 테이블에 남겨놔야함.
-		$info[0] = $login_id;
-		$info[1] = $result['user_nick'];
-		$info[2] = $result['user_code'];
-		$info[3] = time();
-		setcookie('login', serialize($info), time()+500000);
-		$_SESSION['id'] = $login_id;
-		*/
 		header('location:index.php');
-		//echo "<script>document.location.href='index.php'</script>";
 	}else{
 		echo "false <br/>";
 	}

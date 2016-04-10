@@ -8,7 +8,7 @@
 
 <link href="css/creators_page.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
-<section id="contents">
+<section class="container">
     <section class="nav_guide hidden-mb-ib">
         <select class="locationFilter hidden-mb-ib">
             <option>All Continents</option>
@@ -49,10 +49,9 @@
     </section>
     <!-- end nav_guide -->
     <section class="con_wrap">
-        <div id="user_view_aside" class="con_aside">
+        <div class="con_aside">
             <?php 
                 $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/32.jpg";
-                $username = "Kim dongkyu";
                 $userjob = "Designer";
                 $usercity = "Seoul";
                 $usercountry = "South Korea";

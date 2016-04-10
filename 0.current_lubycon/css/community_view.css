@@ -1,19 +1,10 @@
 ﻿@charset "utf-8";
-#navsel{
-    margin-top: 50px;
-}
 .con_aside {
         left: 0;
     }
 .con_main {
     padding-right: 0px;
     padding-left: 310px;
-}
-
-
-#contents{
-    position:relative;
-    background: #f0f0f0;
 }
 
 #post_subject_area{

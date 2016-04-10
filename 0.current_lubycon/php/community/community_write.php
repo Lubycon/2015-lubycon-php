@@ -2,12 +2,16 @@
 <link href="css/summernote.css" type="text/css" rel="stylesheet" />
 <link href="css/community_write.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
 <link href="css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
-<script src="js/bootstrap.min.js" type="text/javascript"></script> 
+<script src="js/module/bootstrap.min.js" type="text/javascript"></script> 
 <script src="js/community.js" type="text/javascript"></script>
 
 
 <form id="writer_form" enctype="multipart/form-data" method="post" action="./php/community/test.php">
-<section id="contents">
+
+<input type="hidden" id="contents_cate" name="contents_cate" value="<?=$_GET[3]?>"/>
+<input type="hidden" id="userid" name="userid" value="<?=$usercode?>"/>
+
+<section class="container">
     <section id="work_space" class="con_wrap">
         <div id="work_inner">
             <div class="properties_box">
@@ -29,8 +33,8 @@
                 <input type="file" id="file_import_com" name="user_upload_file"/>
             </div><!--link2 end-->
         </div>
-        <input type="submit" value="SUBMIT" id="community_submit" class="animate_opacity" />
+        <input type="submit" value="SUBMIT" id="community_submit" class="animate_width" />
     </section><!--work_space end-->        
 </section>  <!-- end contents section -->
 </form>
-<script src="js/summernote.js" type="text/javascript" ></script>
+<script src="js/module/summernote.js" type="text/javascript" ></script>

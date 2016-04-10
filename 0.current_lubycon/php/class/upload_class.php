@@ -1,7 +1,7 @@
 <?php
 class upload
 {
-    private $_temp_path = '../../../../Lubycon_Contents/contents/temp/';
+    private $_temp_path = '../../../../Lubycon_Contents/temp/';
     private $_user_name = 'daniel_zepp'; //from db
 
     private $_filesize_array = array();
@@ -16,24 +16,35 @@ class upload
     private $_white_list_txt = ['hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
     private $_white_list_all = ['all'];
 
-    private $_ajax_type;
+    private $_ajax_save_path;
     private $_ajax_limit_size;
     private $_ajax_white_list;
+    private $_ajax_file_name;
     private $_ajax_ext = [];
     
     private $_thumb_size = 100;
-    private $_contents_size = 1000;
+    private $_contents_size = 3000;
 
-    private $_thumb_type = 'thumb';
-    private $_contents_type = 'contents';
+    private $_thumb_save_path = 'editor/thumb';
+    private $_contents_save_path = 'editor/contents';
+    private $_community_save_path = 'community';
+    private $_profile_save_path = 'profile';
 
-    private $_thumb_white_list = ['data:image/jpeg;base64'];
-    private $_contents_white_list = ['data:image/jpeg;base64','data:image/gif;base64'];
+    private $_thumb_file_name = 'thumb';
+    private $_contents_file_name = 'content';
+    private $_community_file_name = 'community';
+    private $_profile_file_name = 'profile';
+
+
+    private $_jpg_white_list = ['data:image/jpeg;base64'];
+    private $_contents_white_list = ['data:image/jpeg;base64','data:image/gif;base64','data:image/bmp;base64','data:image/png;base64'];
 
     private $_img;
     private $_img_data;
     private $_data;
     private $_string_length;
+
+    private $_ajax_upload_type;
 
     public function validate_size($files,$limit_size)
     {
@@ -121,48 +132,8 @@ class upload
                 }
                 print_r($this->_filepath_array); // move uploaded files path
                 return;
-            }else // maybe ajax
-            {
-                if(is_array($files))  //lots of files
-                {
-                    for($i=0 ; $i< count($files); $i++)
-                    {
-                        $modName = basename($files[$i]); //파일명 추출
-                        $oldfile = $this->_temp_path.$modName; // temp file
-                        $newfile = $upload_path.$modName; // 
-
-                        if(file_exists($oldfile)) {
-                             if(!copy($oldfile, $newfile)) {
-                                   echo "fail";
-                             } else if(file_exists($newfile)) {
-                                   unlink($oldfile);
-                                   echo $newfile . "<br/>"; //uploaded file path
-                             }
-                        } 
-                    };
-                }else // only profile img
-                {
-                    $modName = basename($files); //파일명 추출
-                    $ext = substr(strrchr($modName, '.'), 1); // 확장자 추출
-                    $oldfile = $this->_temp_path.$modName; // temp file
-                    $newfile = $upload_path.$this->_profile_name.$ext; // copyed file
-
-                    if(file_exists($oldfile)) 
-                    {
-                        if(!copy($oldfile, $newfile)) 
-                        {
-                            echo "fail";
-                        } else if(file_exists($newfile)) 
-                        {
-                            unlink($oldfile);
-                            echo $newfile . "<br/>"; //uploaded file path
-                        }
-                    }
-                }
             }
         }
-
-
     }
 
     public function zipfile($files,$zip_compress, $upload_path = null , $upload_zip)
@@ -201,46 +172,99 @@ class upload
             echo '<br/>do not zip just save';
         }
     }
-    
 
-    public function ajax_check_type($post_type)
+    public function ajax_move($files , $temp_path , $save_path)   /////// tnstjeofh wjwkd
     {
-        switch($post_type)
+        if( is_dir($save_path) ? chmod($save_path,0777) : mkdir($save_path,0777)  ) // maybe ajax
         {
-            case 'thumb': 
-                $this->_ajax_type = $this->_thumb_type; 
-                $this->_ajax_limit_size = $this->_thumb_size;
-                $this->_ajax_white_list = $this->_thumb_white_list;
-                break;
-            case 'contents': 
-                $this->_ajax_type = $this->_contents_type; 
-                $this->_ajax_limit_size = $this->_contents_size;
-                $this->_ajax_white_list = $this->_contents_white_list;
-                break;
+             foreach ( $files as $key => $value) 
+             {
+                $file_name = $files[$key]['contentID'].'.'.$files[$key]['ext'];
+                
+                echo $file_name;
+
+                if( file_exists( $this->_temp_path.$temp_path.$file_name ) )
+                {
+                    if(!copy($this->_temp_path.$temp_path.$file_name, $save_path.$file_name)) 
+                    {
+                        die( "ajax file move fail" );
+                    } else if(file_exists($save_path.$file_name)) 
+                    {
+                        unlink($this->_temp_path.$temp_path.$file_name);
+                        echo $save_path.$file_name . "<br/>"; //uploaded file path
+                    }
+                }else
+                {
+                    die('file is unexists');
+                }
+            };
         }
     }
 
-    public function ajax_validate_ext($post_data64)
+    public function ajax_check_type($post_data)
     {
-        foreach($post_data64 as $key => $value) 
+        foreach( $post_data as $key => $value )
         {
-            $this->_data = explode(',', $post_data64[$key]);
-
-            if( !in_array($this->_data[0] , $this->_ajax_white_list ))
+            echo $key;
+            switch($post_data[$key]['type'])
             {
-                die( 'it is not allow image file');
-            }else if( $this->_data[0] == 'data:image/gif;base64' ? $this->_ajax_ext[$key] = '.gif' : $this->_ajax_ext[$key] = '.jpg')
-            {
-                echo 'ext validate done';
+                case 'editor_thumb': 
+                    $this->_ajax_save_path = $this->_thumb_save_path; 
+                    $this->_ajax_limit_size = $this->_thumb_size;
+                    $this->_ajax_white_list = $this->_jpg_white_list;
+                    $this->_ajax_save_name = $this->_thumb_file_name;
+                    break;
+                case 'editor_content': 
+                    $this->_ajax_save_path = $this->_contents_save_path; 
+                    $this->_ajax_limit_size = $this->_contents_size;
+                    $this->_ajax_white_list = $this->_contents_white_list;
+                    $this->_ajax_save_name = $this->_contents_file_name;
+                    break;
+                case 'community': 
+                    $this->_ajax_save_path = $this->_community_save_path; 
+                    $this->_ajax_limit_size = $this->_contents_size;
+                    $this->_ajax_white_list = $this->_jpg_white_list;
+                    $this->_ajax_save_name = $this->_community_file_name;
+                    break;
+                case 'profile': 
+                    $this->_ajax_save_path = $this->_profile_save_path; 
+                    $this->_ajax_limit_size = $this->_contents_size;
+                    $this->_ajax_white_list = $this->_jpg_white_list;
+                    $this->_ajax_save_name = $this->_profile_file_name;
+                    break;
+                default : die('something was wrong') ; break;
             }
         }
     }
 
-    public function ajax_validate_size($post_data64)
+    public function ajax_validate_ext($post_data)
     {
-        foreach($post_data64 as $key => $value) 
+        foreach($post_data as $key => $value) 
         {
-            $this->_string_length = strlen($post_data64[$key]);
+            $this->_data = explode(',', $post_data[$key]['data64']);
+
+            if( in_array($this->_data[0] , $this->_ajax_white_list ))
+            {
+                switch($this->_data[0])
+                {
+                    case 'data:image/gif;base64' : $this->_ajax_ext[$key] = '.gif' ; break;
+                    case 'data:image/jpeg;base64' : $this->_ajax_ext[$key] = '.jpg'; break;
+                    case 'data:image/png;base64' : $this->_ajax_ext[$key] = '.png' ; break;
+                    case 'data:image/bmp;base64' : $this->_ajax_ext[$key] = '.bmp' ; break;
+                    default : die('something was wrong') ; break;
+                }
+            }else
+            {
+                die( 'it is not allow image file');
+            }
+        }
+    }
+
+    public function ajax_validate_size($post_data)
+    {
+        foreach($post_data as $key => $value) 
+        {
+            $this->_string_length = strlen($post_data[$key]['data64']);
 
             if( $this->_string_length >= $this->_ajax_limit_size * 1024 )
             {
@@ -252,19 +276,36 @@ class upload
         }
     }
 
-    public function ajax_saveto_temp($post_data64)
+    public function ajax_saveto_temp($post_data)
     {
-        foreach($post_data64 as $key => $value) 
+        $temp_path = $this->_temp_path.$this->_ajax_save_path;
+        $user_path = $temp_path.'/'.$this->_user_name;
+
+        foreach($post_data as $key => $value) 
         {
-	        $this->_img = str_replace($this->_ajax_ext, '', $post_data64[$key]);
+            $save_path = $user_path.'/'.$this->_ajax_save_name.$post_data[$key]['index'].$this->_ajax_ext[$key];
+
+	        $this->_img = str_replace($this->_ajax_ext[$key], '', $post_data[$key]['data64']);
 	        $this->_img = str_replace(' ', '+', $this->_img);
 	        $this->_img_data = base64_decode($this->_img);
             
-            is_dir($this->_temp_path.$this->_ajax_type) ? chmod($this->_temp_path.$this->_ajax_type,0777) : mkdir($this->_temp_path.$this->_ajax_type,0777);
-
-            if ( is_dir($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name) ? chmod($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name,0777) : mkdir($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name,0777) )
+            is_dir($temp_path) ? chmod($temp_path,0777) : mkdir($temp_path,0777); //temp path making
+            is_dir($user_path) ? chmod($user_path,0777) : mkdir($user_path,0777); //user path making
+            if ( $this->_ajax_ext[$key] == '.jpg' )
             {
-                file_put_contents($this->_temp_path.$this->_ajax_type.'/'.$this->_user_name.'/'.$this->_ajax_type.$this->_ajax_ext[$key], $this->_img_data);
+                $image = imagecreatefromjpeg($post_data[$key]['data64']);
+                imagejpeg($image, $save_path, 100);
+                imagedestroy($image);
+            }else if ( $this->_ajax_ext[$key] == '.png' )
+            {
+                $image = imagecreatefrompng($post_data[$key]['data64']);
+                imagepng($image, $save_path);
+                imagedestroy($image);
+            }else if ( $this->_ajax_ext[$key] == '.gif' )
+            {
+                $image = imagecreatefrompng($post_data[$key]['data64']);
+                Imagegif ($image , $save_path);
+			    ImageDestroy ($image);
             }
         }
     }

@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          lubyPictool.min.js
- *  Updated:       2016-03-27
+ *  Updated:       2016-03-30
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -29,11 +29,11 @@
             basic: "fa fa-filter",
 
             ccIcon: "fa fa-creative-commons",
-            ccImg: "img/cc_w.png",
-            by: "img/by_w.png",
-            nc: "img/nc_w.png",
-            nd: "img/nd_w.png",
-            share: "img/share_w.png",
+            ccImg: "./php/editor/img/cc_w.png",
+            by: "./php/editor/img/by_w.png",
+            nc: "./php/editor/img/nc_w.png",
+            nd: "./php/editor/img/nd_w.png",
+            share: "./php/editor/img/share_w.png",
 
             charge: "fa fa-credit-card",
             usd: "fa fa-usd",
@@ -291,7 +291,7 @@
 
                         $contentName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Content Name"))
-                        .append($settingInput.clone()).appendTo($settingInnerLeft),
+                        .append($settingInput.clone().attr("name","content-name")).appendTo($settingInnerLeft),
 
                         $categoryName = $settingInputWrap.clone()
                         .append($settingLabel.clone().html("Categories"))
@@ -356,12 +356,45 @@
                             "html" : "Submit",
                             "data-value" : "submit",
                             "disabled" : "disabled"
-                        }).on("click",pac.currentProg).on("click",d.submit).appendTo($settingBtWrap);
+                        }).on("click",pac.currentProg).on("click",pac.submit).appendTo($settingBtWrap);
 
                         // right : {project team}
                         pac.databind();//data binding    
                     }
                 })
+            },
+            submit: function(){
+                var rootElement = $(".lubyPictoolKey"),
+                content = rootElement.find(".editing-canvas").html(), //data
+                contentName = rootElement.find("input[name='content-name']").val(), //data
+                imgData = [],
+                contentData = $(".obj-body .object-img").each(function () {
+                    var $this = $(this),
+                        val = $this.attr("data-value").split("-"),
+                        innerVal = { "contentID": val[0], "ext": val[1] };
+                    imgData.push(innerVal)
+                }),
+                categories = [], //data
+                tags = [], //data
+                cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
+                category = rootElement.find(".search-choice > span").each(function () { categories.push($(this).text()) }),
+                tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
+                descript = rootElement.find(".descript-input").text(),
+                ccbox = rootElement.find(".cc-checkbox").each(function () {
+                    var data = $(this).data("value");
+                    cc[data] = $(this).prop("checked");
+                }),
+                $form = $("<form/>", {
+                    "id": "finalForm",
+                    "enctype": "multipart/form-data",
+                    "method": "post",
+                    "action": "./test.php"
+                }),
+                wrap = rootElement.wrapInner($form),
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg" , "name" : "content_img" }).appendTo($("#finalForm")).val(JSON.param(imgData));
+                
+                $("#finalForm").submit();
             },
             databind: function(){
                 //toolbar data bind start
@@ -420,7 +453,7 @@
                     "class" : "toolbox-wrap",
                     "data-value" : value,
                     "id" : value + "-toolbox"
-                }).draggable().appendTo($aside).hide();
+                }).appendTo($aside).hide();
                 if(value == "gridTool") $toolboxWrap.addClass("modal");
             },
             objMenu: function(selector){
@@ -461,9 +494,8 @@
                 windowWidth = $(window).width(),
                 windowHeight = $(window).height(),
                 hrAlign = (width/2)*-1,
-                vtAlign = (windowHeight/2 - height/2) - 50;
+                vtAlign = (windowHeight/2 - height/2) - 20;
                 $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
-                //console.log("modalAlign : "); console.log($this[0]); 
             },
             keyEvent: function(event){
                 $this = $(this),
@@ -633,7 +665,12 @@
                 $body = $(".obj-body"),
                 $footer = $(".obj-footer"),
                 $placeHolder = $body.find(".placeHolder"),
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "image"}),
+
+                fileValue = $(this).val(),
+                indexNum = fileValue.lastIndexOf("."),
+                fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "",
+
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"}),
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
 
@@ -643,7 +680,8 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
-                        var img = $("<img/>",{ "src":event.target.result});
+                        var img = $("<img/>",{ "src":event.target.result}),
+                        fileEXT;
                         upload.insertPosition($this,$objectWrap,img);
                         $(".uploading").removeClass("uploading") // init target object  
                         $inputFile.val(null); // init input value
@@ -705,6 +743,13 @@
             		if(!$this.is(".placeHolder")) $this.attr("data-index",index);
             	});
             },
+            imgCount : 0,
+            setId: function(obj){
+                var $this = obj.parent(".canvas-content"),
+                dataVal = $this.data("value");
+                if (!$this.is(".placeHolder")) $this.attr("data-value", upload.imgCount + "-" + dataVal);
+                upload.imgCount++;
+            },
             insertPosition: function(selector,wrap,object){
                 var $this = selector,
                 $placeHolder = $(document).find(".placeHolder"),
@@ -712,7 +757,8 @@
                 $deviderWrap = $("<div/>",{"class" : "canvas-obj canvas-devider-wrap"}),
                 $devider = $("<div/>",{"class" : "canvas-devider"}).appendTo($deviderWrap),
                 dvHeight = $("#devider-tool").find("input[type='text']").val(),
-                contentSize = $(document).find(".canvas-content").size() > 1;
+                contentSize = $(document).find(".canvas-content").size() > 1,
+                $deviderSlider = $("#contentSpace-slider");
 
                 if($this.parents().is(".obj-header")) {
                     wrap.insertAfter($placeHolder).append(object);
@@ -726,9 +772,12 @@
                     wrap.appendTo($body).append(object);
                     if(contentSize) $deviderWrap.clone().height(dvHeight).insertBefore(wrap);
                 }
+                if($(".canvas-devider").length != 0) $deviderSlider.slider("enable");
                 canvasTool.addObjBt();
                 upload.setIndex();
+                upload.setId(object);
                 toolbar.sortFn.refresh();
+                if(wrap.hasClass("object-text")) wrap.focusin(); // it is not working
             }
         },
         modalTool = {
@@ -754,7 +803,7 @@
                 height = $grid.height()
                 $dummy = $grid.clone(),
                 $canvas = $(document).find(".obj-body"),
-                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "image"}),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "jpg-image"}),
                 $placeHolder = $(document).find(".canvas-content.placeHolder");
                 $dummy.appendTo("body");
                 html2canvas($dummy, {
@@ -826,13 +875,12 @@
                 deleteCommand = inKeyCode == keyCode.delete,
                 wrapperExist = $this.prev("ul").length == 0;
                 if(endCommand){
-                    if(value.indexOf("#") >= 0){
-                        if(wrapperExist) $tagWrap.prependTo($wrapper);
-                        $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalTool.deleteTag).appendTo(".hashtag-wrapper");
-                        $this.val(null);
-                    }
+                    if(wrapperExist) $tagWrap.prependTo($wrapper);
+                    $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalTool.deleteTag).appendTo(".hashtag-wrapper");
+                    $this.val(null);
+                
                 }
-                else if(deleteCommand){
+                else if(deleteCommand && value == ""){
                     $(".hashtag-list:last-child").remove();
                 }
             },
@@ -989,7 +1037,8 @@
                 objects = $(document).find(".canvas-content").size(),
                 $target = $this.parents(".canvas-content"),
                 $placeHolder = $(document).find(".placeHolder"),
-                $ObjBts = $(document).find(".canvas-uploader-wrap");
+                $objBts = $(document).find(".canvas-uploader-wrap"),
+                $deviderSlider = $("#contentSpace-slider");
 
                 if($target.index() == 1) {
                 	$target.next(".canvas-devider-wrap").remove();
@@ -999,7 +1048,8 @@
                 	$target.prev(".canvas-devider-wrap").remove();
                 	$target.remove();
                 }
-                if(objects == 2) $placeHolder.show() && $ObjBts.remove();
+                if(objects == 2) $placeHolder.show() && $objBts.remove();
+                if(objects == 3) $deviderSlider.slider("disable");
                 upload.setIndex();
                 toolbar.sortFn.refresh();
                 console.log("image was deleted");
@@ -1067,7 +1117,9 @@
                     "value" : 20,
                     "min" : 0,
                     "max" : 100
-                }).appendTo($fontSize).slider({ 
+                }).appendTo($fontSize).slider({
+                    customID: "fontSize-slider",
+                    disabled: true, 
                     callback: toolbar.textFn.fontSize
                 }),
                 
@@ -1145,13 +1197,14 @@
                     fontSize = parseInt($textInput.css("font-size")),
                     fontColor = $textInput.css("color"),
                     $fontSizeTool = $("#fontSize-tool"),
+                    $fontSizeSlider = $("#fontSize-slider"),
                     $fontColorTool = $("#fontColor-tool"),
                     $fontDecoTool = $("#fontDeco-tool"),
                     $fontAlignTool = $("#fontAlign-tool");                    
 
                     if($(".focused").size() == 1) $(".focused").removeClass("focused");
                     $this.addClass("focused");
-
+                    $fontSizeSlider.slider("enable");
                     var //data reset
                     $changeSize = $fontSizeTool.find(".slider-text").val(fontSize).trigger("change"),
                     $changeColor = $("#fontColorKey").spectrum("set", fontColor),
@@ -1176,11 +1229,13 @@
                 blurAction: function(event){
                     var $this = $(".focused"),
                     $target = $(event.target),
+                    $fontSizeSlider = $("#fontSize-slider"),
                     $fontDecoTool = $("#fontDeco-tool"),
                     $fontAlignTool = $("#fontAlign-tool"),
         			inputChild = $target.is("b") || $target.is("em") || $target.is("u") || $target.is("strike"),
                     input = $target.is(".canvas-input") || inputChild,
                     aside = $target.parents().is(".lubypic-aside");
+
                     if(aside || input) {
                         console.log("This is aside or input");
                     }
@@ -1188,7 +1243,7 @@
                         $this.removeClass("focused");
                         $fontDecoTool.find(".btn").removeClass("selected");
                         $fontAlignTool.find(".btn").removeClass("selected");
-                        //if($this.children(".canvas-input").text() == "") $this.remove();
+                        $fontSizeSlider.slider("disable");
                         $("html").off("click");
                         console.log("This is not aside or input");
                     }
@@ -1312,17 +1367,17 @@
 
                 $btnIcon = $("<img/>"),
                 $btn1 = $btn.clone(true).attr("data-value","n-1-1")
-                .append($btnIcon.clone().attr("src","img/grid_icons/1.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/1.png")).appendTo($btnWrap),
                 $btn2 = $btn.clone(true).attr("data-value","v-1-2")
-                .append($btnIcon.clone().attr("src","img/grid_icons/2.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/2.png")).appendTo($btnWrap),
                 $btn3 = $btn.clone(true).attr("data-value","v-2-1")
-                .append($btnIcon.clone().attr("src","img/grid_icons/3.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/3.png")).appendTo($btnWrap),
                 $btn4 = $btn.clone(true).attr("data-value","h-1-2")
-                .append($btnIcon.clone().attr("src","img/grid_icons/4.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/4.png")).appendTo($btnWrap),
                 $btn5 = $btn.clone(true).attr("data-value","h-2-1")
-                .append($btnIcon.clone().attr("src","img/grid_icons/5.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/5.png")).appendTo($btnWrap),
                 $btn6 = $btn.clone(true).attr("data-value","n-2-2")
-                .append($btnIcon.clone().attr("src","img/grid_icons/6.png")).appendTo($btnWrap);
+                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/6.png")).appendTo($btnWrap);
                 pac.modalAlign($this);
             },
             gridFn: {
@@ -1471,7 +1526,9 @@
                     "value" : 50,
                     "min" : 0,
                     "max" : 100
-                }).appendTo($deviderMargin).slider({ 
+                }).appendTo($deviderMargin).slider({
+                    customID: "contentSpace-slider",
+                    disabled: true, 
                     callback: toolbar.marginFn.deviderMargin
                 })
             },
@@ -1531,7 +1588,7 @@
                 },
                 objType: function(val, selector){
                     var icon = $("<i/>");
-                    if(val == "image") icon.clone().addClass(icons.picture).appendTo(selector);
+                    if(val.indexOf("image") != -1) icon.clone().addClass(icons.picture).appendTo(selector);
                     else if(val == "text") icon.clone().addClass(icons.font).appendTo(selector);
                     else if(val == "embed") icon.clone().addClass(icons.code).appendTo(selector);
                     else return false;
@@ -1570,6 +1627,8 @@
                             $(this).find(".obj-menu").hide();
                         })
                     }
+                    upload.setIndex();
+                    toolbar.sortFn.refresh();
                 }
             }
         },

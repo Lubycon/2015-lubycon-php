@@ -18,6 +18,8 @@
     if(isset($_COOKIE)){
         if(isset($_COOKIE['login'])){
             $info = unserialize($_COOKIE['login']);
+            $username = $_SESSION['user_name'];
+            $usercode = $_SESSION['user_code'];
             setcookie('login', serialize($info), time()+5000000);
         }else if(!isset($_COOKIE['login'])){
             session_destroy();
@@ -50,18 +52,22 @@
     <link href="css/layout/normalize.css" rel="stylesheet" type="text/css" />  <!-- web normalize -->
     <link href="css/layout/common.css" rel="stylesheet" type="text/css" />  <!-- common css -->
     <link href="css/layout/media.css" rel="stylesheet" type="text/css" /> <!-- media query-->
-    <link href="css/selectordie.css" rel="stylesheet" type="text/css" /> <!-- selector decoration css -->
+    <link href="css/module/lubySelector.css" rel="stylesheet" type="text/css" />
+    <link href="css/module/lubyAlert.css" rel="stylesheet" type="text/css" />
     <link href="css/layout/animate.css" rel="stylesheet" type="text/css" /><!--animation for objects-->
     <link href="css/slider.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
-    <script type="text/javascript" src="js/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="js/slider.js"></script><!--slider plugin-->
-    <script type="text/javascript" src="js/jquery.lubySelector.js"></script><!--lubySelector-->
-    <script type="text/javascript" src="js/jquery.lubyAlert.js"></script><!--lubyAlert-->
-    <script type="text/javascript" src="js/resizeObject.js"></script>
-    <script type="text/javascript" src="js/luby_ui.js"></script><!-- ui file js -->
-    <script type="text/javascript" src="js/index.js"></script> <!-- index file js -->
-    <script type="text/javascript" src="js/account.js"></script> <!-- account file js -->
+    <script type="text/javascript" src="js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/core/jquery-ui.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="js/module/slider.js"></script><!--slider plugin-->
+    <script type="text/javascript" src="js/module/jquery.lubySelector.js"></script><!--lubySelector-->
+    <script type="text/javascript" src="js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
+    <script type="text/javascript" src="js/module/resizeObject.js"></script>
+    <script type="text/javascript" src="js/module/sticky.js"></script>
+    <script type="text/javascript" src="js/core/ui.js"></script><!-- ui file js -->
+    <script type="text/javascript" src="js/core/mobile.js"></script><!--mobile file js-->
+    <script type="text/javascript" src="js/core/core.js"></script> <!-- index file js -->
+    <script type="text/javascript" src="js/module/account.js"></script> <!-- account file js -->
     
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"><!--responsive design enable-->
     <meta name="theme-color" content="#222222"><!--mobile web browser address window will be changed to #222-->
@@ -84,7 +90,6 @@
             <div id="mb-after_signin">
                 <?php
                     $user_pic = "./ch/img/no_img/no_img_user1.jpg";
-                    $user_name = "Lorem ipsum";
                     $user_city = "City";
                     $user_country = "Country";
                 ?>
@@ -131,8 +136,7 @@
             <li class="mb-menu_list"><i class="fa fa-power-off fa-1x"></i>Log out</li>
         </ul>
     </aside>
-    <!-- popup start -->
-    <div class="editor_popup fadeInDown animated">
+    <div class="editor_popup fadeInDown animated"> <!-- popup start -->
         <p>Which content will you upload?</p>
         <ul>
             <li>
@@ -155,9 +159,8 @@
             </li>
         </ul>
         <button class="closeButton"></button>
-    </div>
-    <!-- popup end -->
-    <header id="main_header">
+    </div><!-- popup end -->
+    <header class="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1>
             <a href="./index.php">
@@ -284,23 +287,18 @@
                 </li>
             </ul> <!-- end gnb ul -->
         </nav>	<!--end main_gnb-->
-
-        <!-- before sign in -->
-        <div id="signin_bt" class="hidden-mb-b">
+        <div id="signin_bt" class="hidden-mb-b"><!-- before sign in -->
             <div id="signin">
                 <a href="./login_page.php">
                     <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
                     <p class="signin">SIGN IN</p>
                 </a>
             </div>  <!-- end signin -->
-        </div>
-        <!-- before sign in -->
-
-        <!-- after sign in -->
-        <div id="after_signin" class="hidden-mb-b">   
+        </div><!-- before sign in -->
+        <div id="after_signin" class="hidden-mb-b">   <!-- after sign in -->
                 <div id="display_user">
                     <figure id="accountImg"><img src="./ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
-                    <span id="user_id">Admin_User</span>
+                    <span id="user_id"><?=$username?></span>
                     <i class="fa fa-angle-down"></i>
                 </div>  
             <ul>
@@ -331,9 +329,7 @@
                     </a></li>
                 </div>
             </ul>
-        </div>
-        <!-- end after sign in -->
-
+        </div><!-- end after sign in -->
         <button id="addcontent_bt" class="animate_width hidden-mb-b"><i class="fa fa-plus"></i>Add Contents</button>
         <!--세션 여기-->
         
@@ -342,9 +338,7 @@
                 echo ('<script>$("#signin_bt").remove();$("#after_signin,#addcontent_bt").show();</script>');
             }
         ?>
-
-        <!--end content button-->
-        <div id="lang_select_bt" class="hidden-mb-b">
+        <div id="lang_select_bt" class="hidden-mb-b"><!--end content button-->
             <ul>
                 <li class="lang_selected">ENG</li>
                 <ul class="lang_list">
@@ -360,10 +354,8 @@
             </ul>	<!-- end lang_all -->
         </div>	<!-- end lang_select_bt -->
         <div id="mb-search" class="visible-mb"><i class="fa fa-search icon1"></i><i class="fa fa-angle-up icon2"></i></div>
-    </header>	
-    <!---------------- header end ---------------->
-    <!---------------- search bar start ---------------->
-    <div id="main_search_bar">
+    </header><!---------------- header end ---------------->
+    <div id="main_search_bar"><!---------------- search bar start ---------------->
         <input type="text" id="main_search_text" value="Enter The Keyword" />
         <button id="main_search_btn" class="out">
             <i class="fa fa-search"></i>
@@ -386,8 +378,7 @@
             });
         </script>
         <!-- end select_box -->
-    </div>
-    <!---------------- search bar end ---------------->
+    </div><!---------------- search bar end ---------------->
     <!---------------- common parts end ---------------->
     <?php
         if( empty($_GET['1']) == false ) {

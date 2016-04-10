@@ -16,8 +16,8 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
 
-	<script type="text/javascript" src="../../js/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="../../js/index.js"></script>
+	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="../../js/core/index.js"></script>
 
 </head>
 <body ondragstart="return false" onselectstart="return false">

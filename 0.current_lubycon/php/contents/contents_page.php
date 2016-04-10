@@ -1,4 +1,4 @@
-<script type="text/javascript" src="js/infinite_scroll.js"></script> <!-- scroll js -->
+<script type="text/javascript" src="js/module/infinite_scroll.js"></script> <!-- scroll js -->
 
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
@@ -7,9 +7,9 @@
     </figure>	<!-- end main_figure -->
 </div>
 <link href="css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
-<section id="contents">
-    <section id="navsel" class="hidden-mb-b">
-        <nav id="lnb_nav">
+<section class="container">
+    <section class="navsel hidden-mb-b">
+        <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="all">
                     <a href="./index.php?1=contents&2=contents_page&3=all">All</a>
@@ -29,11 +29,12 @@
 
 
     <section class="nav_guide">
-        <div class="subnav_box">
+        <div class="nav-wrapper">
             <select class="categoryFilter">
             <?php
                 $current_url = $_GET["3"];//change to db query later
                 switch($current_url){
+                    case "all" : include_once("./php/sub_nav/categories/category_default.php"); break;
                     case "artwork" : include_once("./php/sub_nav/categories/category_artwork.php"); break;
                     case "vector" : include_once("./php/sub_nav/categories/category_vector.php"); break;
                     case "3d" : include_once("./php/sub_nav/categories/category_3d.php"); break;

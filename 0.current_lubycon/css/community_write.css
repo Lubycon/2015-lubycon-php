@@ -155,17 +155,17 @@
             margin-right: 10px;
         }
 #community_submit{
-    display: inline-block;
+    display: block;
     width: 200px;
-    height: 60px;
-    line-height: 57px;
-    background: #48cfad;
-    border: none;
+    height: 55px;
+    line-height: 50px;
+    background: transparent;
+    border: 2px solid #48cfad;
     border-radius: 200px;
-    color: #ffffff;
-    font-size: 23px;
+    color: #48cfad;
+    font-size: 20px;
     font-weight: 200;
-    margin: 40px 0px;
+    margin: 20px auto;
     cursor: pointer;
 }
 

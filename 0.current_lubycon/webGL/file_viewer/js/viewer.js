@@ -5,18 +5,15 @@ copyright: Lubycon@dart
 * threejs.org
 */
 
-
-
-
 var container, stats;
 var camera, controls, scene, renderer;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
 
-running();
+init();
 
-function running() {
+function init() {
 
 	gl = document.createElement( 'div' );
 	document.body.appendChild( gl );
