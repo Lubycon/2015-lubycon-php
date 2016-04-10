@@ -4,28 +4,42 @@ require_once "./session_class.php";
 
 $obj = new Session();
 
-if($obj->set_session_id()){
+if($obj->SessionId()){
 	echo "session set <br />";
 }
 
-echo "내부 변수 확인";
-
-echo '<br />' .$obj->get_session_id() . "<br />";
-echo $obj->get_user_id(). "<br />";
-echo $obj->get_user_nick(). "<br />";
-
-echo '<br />';
-
 echo "<br/ >세션 만들기 <br />";
 
-$obj->create_session("bihong05","SsaRu");
-echo '<br />' .$obj->get_session_id() . "<br />";
-echo $obj->get_user_id(). "<br />";
-echo $obj->get_user_nick(). "<br />";
+$obj->WriteSession("lubycon","bihong05","SsaRu");
+$check = $obj->GetVar();
+
+foreach($check as $name=>$val){
+	echo ('name : ' . $name . '<br />' . 'val : ' . $val . '<br />');
+}
+//echo '<br />' .$check['session_id'] . '<br />' . $check['user_id']. '<br />' . $check['user_nick']. '<br/>';
+
+
+if(($obj->GetSessionId() == null) && $obj->GetSessionName() == null){
+    $LoginState = false;
+}else{
+    if($obj->SessionExist()){
+        $LoginState = true;
+    }else{
+     	$LoginState = false;	
+    }
+}
+
+
+echo "로그인 상태<br/>";
+if($LoginState == true){
+	echo "로그인 성공<br/>";
+}else{
+	echo "로그인 실패<br/>";
+}
 
 echo "<br/ >세션 존재 확인 <br />";
 
-if($obj->session_exist('user_id')){
+if($obj->SessionExist('user_id')){
 	echo "<br /> session exist <br />";
 }else{
 	echo "<br />session doesn't exist<br />";
@@ -33,16 +47,17 @@ if($obj->session_exist('user_id')){
 
 echo "<br/ >세션 파괴함수 작동 <br />";
 
-$obj->destroy_session();
+$obj->DestroySession();
 
-if($obj->session_exist('user_id')){
+if($obj->SessionExist()){
 	echo "<br /> session exist <br />";
 }else{
 	echo "<br /> session doesn't exist <br />";
 }
 echo "<br />";
 echo "<br /> 세션 내용 확인";
-echo $_SESSION['user_id'];
-echo $_SESSION['user_nick'];
+foreach($_SESSION as $name=>$val){
+	echo '<br/>$name : '.$name.'<br/>'.'val : '.$val.'<br/><br/>';
+}
 
 ?>

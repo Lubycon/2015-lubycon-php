@@ -10,8 +10,7 @@ class Login{
 
 	public function __construct(){
 		$lSession = new Session;
-		$database = new DBConnect;
-		$database->DBInsert();
+		$database = new Database();
 	}
 
 	public function Logout(){
@@ -27,6 +26,10 @@ class Login{
 		}
 		$lSession->create_session('Lubycon',$login_id,$database->result['user_nick']);
 
+	}
+
+	public function LoginCheck(){
+		
 	}
 }
 /*
