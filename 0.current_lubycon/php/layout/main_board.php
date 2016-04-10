@@ -11,7 +11,7 @@
         };
 
 
-        $query = "SELECT * FROM `luby_board` WHERE `contents_code` = " .$contents_cate. " ORDER BY `luby_board`.`board_code` ASC ";
+        $query = "SELECT * FROM `luby_board` WHERE `contents_code` = " .$contents_cate. " ORDER BY `luby_board`.`board_code` DESC ";
         $result = mysqli_query($conn,$query);
 
 
@@ -42,6 +42,10 @@
             <?php
             while( $row = mysqli_fetch_array($result) )
             {
+                $query_name = "SELECT * FROM `luby_user` WHERE `user_code` =" . $row['user_code'];
+                $result_name = mysqli_query($conn,$query_name);
+                $row_name = mysqli_fetch_array($result_name);
+
                 @$third_param = $_GET['3'];
                 $third_param = $third_param;
 

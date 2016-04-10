@@ -9,7 +9,7 @@ $content_date = "00.00.00"; // not yet
 
 
 
-$username = "Admin_User";
+$username = $row_name['user_nick'];
 $userimg = "./ch/img/no_img/no_img_user1.jpg";
 
 
@@ -32,7 +32,7 @@ echo "<li class='table_list'>
             <img src='{$userimg}'>
         </span>
         <span class='table_info'>
-            <a href='./index.php?1=community&2=community_view&3={$number}'>  
+            <a href='./index.php?1=community&2=community_view&3={$current_url}&bno={$number}'>  
                 <span class='table_subject'>{$subject}</span>   <!-- subject -->
                 <span class='table_contents'>[{$comment_num}]</span>
             </a>
