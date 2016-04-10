@@ -1,10 +1,7 @@
 <?php
-	if(isset($_COOKIE['login'])){
-		setcookie('login',time(),time()-3600);
-		if(isset($_SESSION['id'])){
-			$_SESSION['id'] = array();
-			session_destroy();
-		}
-    	echo '<script type="text/javascript">location.href="./index.php";</script>';
-	}
+	require_once './php/session/session_class.php';
+	$session = new Session();
+
+	$session->DestroySession();
+	header('location:index.php');
 ?>

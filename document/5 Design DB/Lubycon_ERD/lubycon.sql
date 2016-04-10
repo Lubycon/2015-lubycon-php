@@ -218,6 +218,69 @@ CREATE TABLE IF NOT EXISTS `luby_board`
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- -----------------------------------
+-- For 2D Contents                  --
+-- -----------------------------------
+
+DROP TABLE IF EXISTS `luby_Vector`;
+
+CREATE TABLE IF NOT EXISTS `luby_Vector`
+(
+	`board_code` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`user_code` INT UNSIGNED NOT NULL,
+	`contents_code` INT UNSIGNED NOT NULL,
+	`board_title` VARCHAR(255) NOT NULL,
+	`board_desc` TEXT,
+	`board_contents` TEXT,
+	`board_down_public` ENUM('Free','Qualified','View') NOT NULL,
+	`board_down_count` INT UNSIGNED NOT NULL,
+	`board_view_count` INT UNSIGNED NOT NULL,
+	`board_like_count` INT UNSIGNED NOT NULL,
+	`board_preview` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_ArtWork`;
+
+CREATE TABLE IF NOT EXISTS `luby_ArtWork`
+(
+	`board_code` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`user_code` INT UNSIGNED NOT NULL,
+	`contents_code` INT UNSIGNED NOT NULL,
+	`board_title` VARCHAR(255) NOT NULL,
+	`board_desc` TEXT,
+	`board_contents` TEXT,
+	`board_down_public` ENUM('Free','Qualified','View') NOT NULL,
+	`board_down_count` INT UNSIGNED NOT NULL,
+	`board_view_count` INT UNSIGNED NOT NULL,
+	`board_like_count` INT UNSIGNED NOT NULL,
+	`board_preview` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_3d`;
+
+CREATE TABLE IF NOT EXISTS `luby_3d`
+(
+	`board_code` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`user_code` INT UNSIGNED NOT NULL,
+	`contents_code` INT UNSIGNED NOT NULL,
+	`board_title` VARCHAR(255) NOT NULL,
+	`board_desc` TEXT,
+	`board_contents` TEXT,
+	`board_down_public` ENUM('Free','Qualified','View') NOT NULL,
+	`board_down_count` INT UNSIGNED NOT NULL,
+	`board_view_count` INT UNSIGNED NOT NULL,
+	`board_like_count` INT UNSIGNED NOT NULL,
+	`board_preview` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 -- TABLE for luby_contents_category --
 -- -----------------------------------
 
@@ -250,6 +313,50 @@ CREATE TABLE IF NOT EXISTS `luby_board_comment`
 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+-- ---------------------------
+-- For 2dContents comment
+-- ---------------------------
+DROP TABLE IF EXISTS `luby_Vector_comment`;
+
+CREATE TABLE IF NOT EXISTS `luby_Vector_comment`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`comment_contents` TEXT NOT NULL,
+	`comment_like` INT UNSIGNED NOT NULL,
+	`comment_member_code` INT UNSIGNED NOT NULL,
+	`comment_date` DATETIME NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_ArtWork_comment`;
+
+CREATE TABLE IF NOT EXISTS `luby_ArtWork_comment`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`comment_contents` TEXT NOT NULL,
+	`comment_like` INT UNSIGNED NOT NULL,
+	`comment_member_code` INT UNSIGNED NOT NULL,
+	`comment_date` DATETIME NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_3d_comment`;
+
+CREATE TABLE IF NOT EXISTS `luby_3d_comment`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`comment_contents` TEXT NOT NULL,
+	`comment_like` INT UNSIGNED NOT NULL,
+	`comment_member_code` INT UNSIGNED NOT NULL,
+	`comment_date` DATETIME NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- ---------------------------
 -- TABLE for luby_board_img --
@@ -266,6 +373,39 @@ CREATE TABLE IF NOT EXISTS `luby_board_img`
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `luby_Vector_img`;
+
+CREATE TABLE IF NOT EXISTS `luby_Vector_img`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`img_directory` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_ArtWork_img`;
+
+CREATE TABLE IF NOT EXISTS `luby_ArtWork_img`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`img_directory` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_3d_img`;
+
+CREATE TABLE IF NOT EXISTS `luby_3d_img`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`img_directory` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------
 -- TABLE for luby_board_download --
@@ -274,6 +414,39 @@ CREATE TABLE IF NOT EXISTS `luby_board_img`
 DROP TABLE IF EXISTS `luby_board_download`;
 
 CREATE TABLE IF NOT EXISTS `luby_board_download`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`download_directory` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_Vector_download`;
+
+CREATE TABLE IF NOT EXISTS `luby_Vector_download`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`download_directory` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_ArtWork_download`;
+
+CREATE TABLE IF NOT EXISTS `luby_ArtWork_download`
+(
+	`board_code` INT UNSIGNED NOT NULL,
+	`download_directory` TEXT NOT NULL,
+	
+	PRIMARY KEY(`board_code`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `luby_3d_download`;
+
+CREATE TABLE IF NOT EXISTS `luby_3d_download`
 (
 	`board_code` INT UNSIGNED NOT NULL,
 	`download_directory` TEXT NOT NULL,

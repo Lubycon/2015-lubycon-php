@@ -1,5 +1,20 @@
 <?php
-session_start();
+    require_once './php/session/session_class.php';
+    //session_start();
+    $session = new Session();
+
+    if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
+        $LoginState = false;
+    }else{
+        if($session->SessionExist()){
+            $LoginState = true;
+        }else{
+            $LoginState = false;    
+        }
+                
+    }
+    //echo("<script>console.log(LoginState:".$LoginState.");</script>");
+    /*
     if(isset($_COOKIE)){
         if(isset($_COOKIE['login'])){
             $info = unserialize($_COOKIE['login']);
@@ -10,7 +25,9 @@ session_start();
             session_destroy();
         }
     }
+    */
 ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -317,11 +334,8 @@ session_start();
         <!--세션 여기-->
         
         <?php
-            if(isset($_COOKIE)){
-                //echo '<script>console.log("if 1-1");</script>';
-                if(isset($_COOKIE['login'])){
-                    echo ('<script>$("#signin_bt").remove();$("#after_signin,#addcontent_bt").show();</script>');
-                }
+            if($LoginState == true){
+                echo ('<script>$("#signin_bt").remove();$("#after_signin,#addcontent_bt").show();</script>');
             }
         ?>
         <div id="lang_select_bt" class="hidden-mb-b"><!--end content button-->
