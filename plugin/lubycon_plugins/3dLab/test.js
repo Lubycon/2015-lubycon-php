@@ -55,13 +55,14 @@ $(window).on("load",function(){
 	       				default: $.error("Texture load error"); break;
 					}
 					$input.removeClass();
+					$input.val() = null;
 				}
 			});
 		},
 		loaders: function(file){
 			var reader = new FileReader();
 			var filename = file.name;
-			var ext = filename.split(".").pop();
+			var ext = filename.split(".").pop().toLowerCase();
 			console.log(ext);
 			switch(ext){
 				case "obj" :
@@ -85,6 +86,7 @@ $(window).on("load",function(){
 					reader.addEventListener("load", function(event){
 						var contents = event.target.result;
 						object = new THREE.FBXLoader().parse(contents);
+						console.log(object);
 						var toJSON = object.toJSON();
 						object.name = filename;
 						object.children[0].geometry.center();
@@ -111,25 +113,29 @@ $(window).on("load",function(){
 
 		scene = new THREE.Scene();
 		scene.add(new THREE.AxisHelper(50));
-		scene.add(new THREE.GridHelper(50, 10));
+		scene.add(new THREE.GridHelper(3, 0.5));
 
 		camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 2000);
 		camera.position.z = 10;
 
 		dirLight = new THREE.DirectionalLight(0xffffff);
-		dirLight.position.y = 120;
+		dirLight.position.y = 100;
 		dirLight.position.x = -100;
 		var dirHelper = new THREE.DirectionalLightHelper(dirLight);
 		ambLight = new THREE.AmbientLight(0xffffff);
 		scene.add(dirLight,dirHelper,ambLight);
 
 		renderer = new THREE.WebGLRenderer();
-		renderer.setPixelRatio(2);
+		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setSize(windowWidth, windowHeight);
 		renderer.setClearColor(0x222222, 1);
 		gl.appendChild(renderer.domElement);
 
-		controls = new THREE.TrackballControls(camera);
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		controls.enableDamping = true;
+		controls.dampingFactor = 0.15;
+		controls.rotateSpeed = 0.5;
+		controls.zoomSpeed = 0.5;
 
 		stats = new Stats();
 		stats.setMode(0);
