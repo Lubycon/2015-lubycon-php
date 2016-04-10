@@ -28,7 +28,7 @@
     <?php
         $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubycon");
 
-        $query = "SELECT * FROM `luby_board` WHERE `board_code` = " .$_GET[3]. " ORDER BY `luby_board`.`board_code` ASC ";
+        $query = "SELECT * FROM `luby_board` WHERE `board_code` = " .$_GET['bno']. " ORDER BY `luby_board`.`board_code` ASC ";
         $result = mysqli_query($conn,$query);
 
         $row = mysqli_fetch_array($result);
