@@ -190,3 +190,4 @@ test/
 
 # 3d model file
 *.obj
+obj
