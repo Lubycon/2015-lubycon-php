@@ -187,3 +187,6 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 test/
+
+# 3d model file
+*.obj
