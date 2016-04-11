@@ -1001,6 +1001,7 @@ body{
         .creator_desc {
             display: block;
             width: 100%;
+            transition: opacity 0.4s
         }
             .creator_desc:hover {
                 opacity: 0.7;
@@ -1303,6 +1304,7 @@ body{
             .creator_name a{
                 color: #444444;
                 font-weight: 600;
+                transition: color 0.2s;
             }
             .creator_name a:hover{
                 text-decoration: underline;
@@ -1357,13 +1359,14 @@ body{
                 border-radius: 3px;
                 overflow: hidden;
                 cursor: pointer;
+                transition: opacity 0.4s;
             }
                 .usercontent img{
                     width: 100%;
                     margin-bottom: -3px;
                 }
             .usercontent:hover{
-                opacity: 0.7;
+                opacity: 0.5;
             }
 
 /*creator card end*/

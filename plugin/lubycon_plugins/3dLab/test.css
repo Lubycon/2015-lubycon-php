@@ -42,6 +42,9 @@ canvas {
 	cursor: pointer;
 	vertical-align: top;
 }
+.gl-bt-wrapper > .gl-btn:focus {
+	outline: none;
+}
 .gl-bt-wrapper > .gl-btn:hover {
 	background: #666666;
 }

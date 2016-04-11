@@ -2,7 +2,7 @@ $(window).on("load",function(){
 	"use strict";
 
 	var scene, camera, dirLight, ambLight, renderer, controls, stats;
-	var object;
+	var object, mtl;
 	var funcs = {
 		windowResize: function(){
 			camera.aspect = window.innerWidth / window.innerHeight;
@@ -28,7 +28,6 @@ $(window).on("load",function(){
 			var $input = $(this),
 			$object = event.target.files;
 			funcs.loaders($object[0]);
-			//console.log("uploadObj");
 		},
 		uploadTex: function(event){
 			var $input = $(this);
@@ -55,7 +54,7 @@ $(window).on("load",function(){
 	       				default: $.error("Texture load error"); break;
 					}
 					$input.removeClass();
-					$input.val() = null;
+					$input.val(null);
 				}
 			});
 		},
@@ -69,9 +68,13 @@ $(window).on("load",function(){
 					reader.addEventListener("load", function (event) {
 						var contents = event.target.result;
 						object = new THREE.OBJLoader().parse(contents);
-						var toJSON = object.toJSON();
-						//console.log(toJSON);
+						object.traverse(function(child){
+							if(child instanceof THREE.Mesh) object.toJSON();
+							console.log(child);
+						});
 						object.name = filename;
+						object.castShadow = true;
+						object.receiveShadow = true;
 						object.children[0].geometry.center();
 						object.children[0].material.color = new THREE.Color(0x888888);
 						object.children[0].material.specular = new THREE.Color(0xffffff);
@@ -98,8 +101,14 @@ $(window).on("load",function(){
 				default: $.error("this is not supported file"); break;
 			}
 		},
-		convertJson: function(file){
-			console.log("converted to json");
+		completeLoad: function(){
+			console.log("load complete");
+		},
+		onProgress: function(xhr){
+			console.log((xhr.loaded / xhr.total * 100) + '% loaded' );
+		},
+		onError: function(xhr){
+			$.error("load Error");
 		}
 	}
 	initGL();
@@ -127,6 +136,7 @@ $(window).on("load",function(){
 
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio(window.devicePixelRatio);
+		//renderer.setPixelRatio(window.devicePixelRatio*2);
 		renderer.setSize(windowWidth, windowHeight);
 		renderer.setClearColor(0x222222, 1);
 		gl.appendChild(renderer.domElement);

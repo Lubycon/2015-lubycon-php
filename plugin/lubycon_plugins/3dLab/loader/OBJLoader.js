@@ -223,6 +223,8 @@ THREE.OBJLoader.prototype = {
 
 		var lines = text.split( '\n' );
 
+		var multiMaterial = [];
+
 		for ( var i = 0; i < lines.length; i ++ ) {
 
 			var line = lines[ i ];
@@ -322,8 +324,8 @@ THREE.OBJLoader.prototype = {
 			} else if ( /^usemtl /.test( line ) ) {
 
 				// material
-
 				object.material.name = line.substring( 7 ).trim();
+				console.log(object.material);
 
 			} else if ( /^mtllib /.test( line ) ) {
 
