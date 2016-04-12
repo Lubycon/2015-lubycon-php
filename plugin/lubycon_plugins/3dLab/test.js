@@ -68,10 +68,9 @@ $(window).on("load",function(){
 					reader.addEventListener("load", function (event) {
 						var contents = event.target.result;
 						object = new THREE.OBJLoader().parse(contents);
-						object.traverse(function(child){
-							if(child instanceof THREE.Mesh) object.toJSON();
-							console.log(child);
-						});
+						var toJSON = object.toJSON();
+						console.log(toJSON);
+						console.log(object.children[0].material.materials);
 						object.name = filename;
 						object.castShadow = true;
 						object.receiveShadow = true;
@@ -81,7 +80,13 @@ $(window).on("load",function(){
 						object.children[0].material.shininess = 100;
 						object.children[0].material.shading = THREE.SmoothShading;
 						object.children[0].material.side = THREE.DoubleSide;
-						scene.add(object);
+
+						var testGeo = object.children[0].geometry;
+						var testMate = object.children[0].material.materials;
+						var testMesh = new THREE.SceneUtils.createMultiMaterialObject(testGeo,testMate);
+						scene.add(testMesh);
+						console.log(testMesh); // test was successful!!!!!!!!!!
+						//scene.add(object);
 					},false);
 					reader.readAsText(file);
 				break;
