@@ -95,7 +95,7 @@ var updata = [];
 var downdata = [];
 
 var likedata_loader = 
-$.getJSON("js/chart/data/likedata.json", function(data) {
+$.getJSON("../../js/chart/data/likedata.json", function(data) {
     $.each(data, function(i, v) {
         console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
         likedata.push({
@@ -108,7 +108,7 @@ $.getJSON("js/chart/data/likedata.json", function(data) {
     success : likeChart(); console.log("likeChart complete");  
 });
 var viewdata_loader = 
-$.getJSON("js/chart/data/viewdata.json", function(data) {
+$.getJSON("../../js/chart/data/viewdata.json", function(data) {
     $.each(data, function(i, v) {
         console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
         viewdata.push({
@@ -121,7 +121,7 @@ $.getJSON("js/chart/data/viewdata.json", function(data) {
     success : viewChart(); console.log("viewChart complete");  
 });
 var updata_loader = 
-$.getJSON("js/chart/data/updata.json", function(data) {
+$.getJSON("../../js/chart/data/updata.json", function(data) {
     $.each(data, function(i, v) {
         console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
         updata.push({
@@ -134,7 +134,7 @@ $.getJSON("js/chart/data/updata.json", function(data) {
     success : upChart(); console.log("upChart complete");  
 });
 var downdata_loader = 
-$.getJSON("js/chart/data/downdata.json", function(data) {
+$.getJSON("../../js/chart/data/downdata.json", function(data) {
     $.each(data, function(i, v) {
         console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
         downdata.push({

@@ -1,7 +1,7 @@
-<script src="js/chart/amcharts.js" type="text/javascript"></script>
-<script src="js/chart/serial.js" type="text/javascript"></script>
-<script src="js/chart/lubytheme.js" type="text/javascript"></script>
- <script type="text/javascript" src="js/dashboard.js"></script>
+<script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <?php
     $userjob = "UI/UX Designer";
     $user_position = "Lubycon Co.";
@@ -34,7 +34,7 @@
                         <figure id="dash_creator_info_background"></figure>
                         <div id="dash_creator_info_p">
                             <figure id="dash_creator_pic_frame">
-                                <img src="./ch/img/creator_of_the_month/SsaRu.png" id="creator_pic">
+                                <img src="<?=$one_depth?>/ch/img/creator_of_the_month/SsaRu.png" id="creator_pic">
                             </figure>
                             <ul>
                                 <li id="dash_creator_name">SsaRu</li>

@@ -5,7 +5,7 @@
         $time = 00;
     ?>
     <figure class="comment_pic">
-        <img src="ch/img/no_img/no_img_user1.jpg">
+        <img src="../../ch/img/no_img/no_img_user1.jpg">
     </figure>
     <h4><?=$username?></h4>
     <p class="comment_contents"><?=$comment_content?></p>

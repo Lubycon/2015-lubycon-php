@@ -1,17 +1,17 @@
 <?php
-     require_once '../database/database_class.php';
+    require_once '../database/database_class.php';
+    require_once "../class/regex_class.php";
+    $db = new Database();
 
-     $database = new DBConnect;
-     $database->DBInsert();
 ?>
-<link href="css/account_setting.css" rel="stylesheet" type="text/css" />
-<link href="css/croppic.css" rel="stylesheet" type="text/css" />
+<link href="<?=$one_depth?>/css/account_setting.css" rel="stylesheet" type="text/css" />
+<link href="<?=$one_depth?>/css/croppic.css" rel="stylesheet" type="text/css" />
 <!-- account_setting page css -->
-<script type="text/javascript" src="js/luby_ui.js"></script>
-<script type="text/javascript" src="js/account_setting.js"></script>
-<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="<?=$one_depth?>/js/luby_ui.js"></script>
+<script type="text/javascript" src="<?=$one_depth?>/js/account_setting.js"></script>
+<script type="text/javascript" src="<?=$one_depth?>/js/jquery.mousewheel.min.js"></script>
 
-<form id="account_setting_form" enctype="multipart/form-data" method="post" action="./php/personal_page/test.php">
+<form id="account_setting_form" enctype="multipart/form-data" method="post" action="./test.php">
     <section id="account_section">
         <section id="account_setting_section" class="setting_card">
             <p class="setting_title">Account Setting</p>
@@ -37,30 +37,6 @@
             <p class="setting_title">Basic Infomation</p>
                 <label>Profile Photo</label>
                 <div id="croppic_account"></div>
-                    <span class="btn" id="cropContainerHeaderButton">Find Image</span>
-                    <script src="./js/croppic.min.js"></script>
-                    <script>
-		                var croppicHeaderOptions = {
-				                uploadUrl:'./php/img_crop/img_save_to_file.php',
-				                cropData:{
-					                "dummyData":1,
-					                "dummyData2":"asdas"
-				                },
-				                cropUrl:'./php/img_crop/img_crop_to_file.php',
-				                customUploadButtonId:'cropContainerHeaderButton',
-                                outputUrlId:'myOutputId',
-				                modal:false,
-				                loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-				                onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
-				                onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
-				                onImgDrag: function(){ console.log('onImgDrag') },
-				                onImgZoom: function(){ console.log('onImgZoom') },
-				                onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
-				                onAfterImgCrop:function(){ console.log('onAfterImgCrop') }
-		                }	
-		                var croppic = new Croppic('croppic_account', croppicHeaderOptions);
-	                </script>
-                    <input type="hidden" id="myOutputId" name="croppicurl">
                 <label>Occupation / Job</label>
                 <div class="job_option">
                     <select class="jobFilter" name="job">
@@ -77,12 +53,12 @@
                 <div class="location_option">
                     <select class="locationFilter" name="location">
                          <?php
-                                $database->query = "SELECT * FROM luby_country";
-                                $database->DBQuestion();
-                                while($row = mysqli_fetch_array($database->result)){
+                                $db->query = "SELECT * FROM luby_country";
+                                $db->askquery();
+                                while($row = mysqli_fetch_array($db->result)){
                                      echo ("<option data-value = ".$row['country_code'].">".$row['country_name']."</option>");
                                 }
-                           ?>
+                         ?>
                     </select>
                 </div>
                 <input type="text" id="location_text" name="location_text" />

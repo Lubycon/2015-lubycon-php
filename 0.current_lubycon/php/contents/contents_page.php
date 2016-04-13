@@ -1,4 +1,9 @@
-<script type="text/javascript" src="js/module/infinite_scroll.js"></script> <!-- scroll js -->
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+?>
+<script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
 
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
@@ -6,22 +11,22 @@
         <h2>CONTENTS</h2>
     </figure>	<!-- end main_figure -->
 </div>
-<link href="css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+<link href="<?=$one_depth?>/css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 <section class="container">
     <section class="navsel hidden-mb-b">
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="all">
-                    <a href="./index.php?1=contents&2=contents_page&3=all">All</a>
+                    <a href="./contents_page.php?cate=all">All</a>
                 </li>
                 <li class="nav_menu" id="artwork">
-                    <a href="./index.php?1=contents&2=contents_page&3=artwork">Artwork</a>
+                    <a href="./contents_page.php?cate=artwork">Artwork</a>
                 </li>
                 <li class="nav_menu" id="vector">
-                    <a href="./index.php?1=contents&2=contents_page&3=vector">Vector</a>
+                    <a href="./contents_page.php?cate=vector">Vector</a>
                 </li>
                 <li class="nav_menu" id="3d"> 
-                    <a href="./index.php?1=contents&2=contents_page&3=3d">3D</a>
+                    <a href="./contents_page.php?cate=3d">3D</a>
                 </li>
             </ul>
         </nav>  <!-- end lnb nav -->
@@ -32,12 +37,13 @@
         <div class="nav-wrapper">
             <select class="categoryFilter">
             <?php
-                $current_url = $_GET["3"];//change to db query later
+                $current_url = $_GET["cate"];//change to db query later
                 switch($current_url){
                     case "all" : include_once("./php/sub_nav/categories/category_default.php"); break;
                     case "artwork" : include_once("./php/sub_nav/categories/category_artwork.php"); break;
                     case "vector" : include_once("./php/sub_nav/categories/category_vector.php"); break;
                     case "3d" : include_once("./php/sub_nav/categories/category_3d.php"); break;
+                    default : include_once(""); break;
                 }
             ?>
             </select>
@@ -74,11 +80,16 @@
             <?php
             for($i=0;$i<60;$i++)
             {
-                $third_param = $_GET['3'];
+                $category_param = $_GET['cate'];
+                $web_depth = $one_depth;
                 $_GET["number"] = $i;
-                include('php/layout/content_card.php');
+                include($two_depth.'/layout/content_card.php');
             }
             ?>
         </ul>
     </section>  <!-- end contents box -->
 </section>  <!-- end contents section -->
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>

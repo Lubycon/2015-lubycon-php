@@ -196,14 +196,14 @@ $(function(){
                     <ul>';
                         for( $k=1 ; $k<11 ; $k++ ){ //loop slide img call
                         echo '<li class="load_view">
-                                <a href="./index.php?1=contents&2=contents_view&3=';
+                                <a href="./php/contents/contents_view.php?cate=';
                                 switch($i){
                                     case "1" : echo "artwork"; $kind = 'artwork'; break;
                                     case "2" : echo "vector"; $kind = 'vector';break;
                                     case "3" : echo "3d"; $kind = '3d'; break;
                                     default : echo ""; break;
                                 };
-                                echo '&4='.$v.'">
+                                echo '&conno='.$v.'">
                                 <img src="../../Lubycon_Contents/contents/'.$kind.'/'.$kind.'jpg/thumb/'.$v.'.jpg" alt="thumbnail_photo_'.$v.'">
                                 </a>
                               </li>';

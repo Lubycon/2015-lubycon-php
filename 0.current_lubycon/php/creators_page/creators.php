@@ -1,3 +1,8 @@
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+?>
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
         <div class="dark_overlay_small"></div>
@@ -6,7 +11,7 @@
 </div>
 <!-- end main_figure -->
 
-<link href="css/creators_page.css" rel="stylesheet" type="text/css" />
+<link href="<?=$one_depth?>/css/creators_page.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
 <section class="container">
     <section class="nav_guide hidden-mb-ib">
@@ -51,7 +56,7 @@
     <section class="con_wrap">
         <div class="con_aside">
             <?php 
-                $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/32.jpg";
+                $user_img_url = $one_depth."/../../Lubycon_Contents/contents/3d/3djpg/profile/32.jpg";
                 $userjob = "Designer";
                 $usercity = "Seoul";
                 $usercountry = "South Korea";
@@ -62,17 +67,17 @@
             <i id="myinfo_setting" class="fa fa-bars hidden-mb-b"></i>
             <div id="myinfo_menu_list">
                 <ul>
-                    <li><a href="./index.php?1=personal_page&2=personal_page&3=dashboard"><i class="fa fa-tachometer"></i>Dashboard</a></li>
-                    <li><a href="./index.php?1=personal_page&2=personal_page&3=my_contents"><i class="fa fa-eye"></i>My Contents</a></li>
-                    <li><a href="./index.php?1=personal_page&2=personal_page&3=insight"><i class="fa fa-bar-chart"></i>My Insight</a></li>
-                    <li><a href="./index.php?1=personal_page&2=personal_page&3=bookmark"><i class="fa fa-star"></i>Bookmarks</a></li>
+                    <li><a href="<?=$two_depth?>/personal_page.php?cate=dashboard"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+                    <li><a href="<?=$two_depth?>/personal_page.php?cate=my_contents"><i class="fa fa-eye"></i>My Contents</a></li>
+                    <li><a href="<?=$two_depth?>/personal_page.php?cate=insight"><i class="fa fa-bar-chart"></i>My Insight</a></li>
+                    <li><a href="<?=$two_depth?>/personal_page.php?cate=bookmark"><i class="fa fa-star"></i>Bookmarks</a></li>
                 </ul>
             </div>
             <div id="myinfo_main">
                 <figure>
                     <img src="<?=$user_img_url?>">
                 </figure>
-                <h4><?=$username?></h4>
+                <h4><?=@$username?></h4>
             </div>
             <div id="myinfo_sub">
                 <article class="myinfo_wrap" id="myinfo_job">
@@ -88,33 +93,33 @@
                     <p class="myinfo_name" id="language_name"><?=$language1?>, <?=$language2?></p>
                 </article>
             </div>
-            <a href="./index.php?1=personal_page&2=personal_page&3=dashboard">
+            <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard">
                 <div class="my_page_bt animate_width">My Page</div>
             </a>
         </div><!--end con_aside-->
         <div id="user_view_main" class="con_main">
             <?php
-                $user_img_url = "../../Lubycon_Contents/contents/3d/3djpg/profile/15.jpg";
-                $user_location_img = "./ch/img/flag_icons/United-States-Of-America.png";
+                $user_img_url = $one_depth."/../../Lubycon_Contents/contents/3d/3djpg/profile/15.jpg";
+                $user_location_img = $one_depth."/ch/img/flag_icons/United-States-Of-America.png";
                 $usercity = "Los Santos";
                 $usercountry = "United States";
                 $username = "Ssaru";
                 $userjob = "Gangster";
                 $randCount = rand(200,1500);
                 $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
-                $user_content1 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/20.jpg";
-                $user_content2 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/34.jpg";
-                $user_content3 = "../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/50.jpg";
+                $user_content1 = $one_depth."/../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/20.jpg";
+                $user_content2 = $one_depth."/../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/34.jpg";
+                $user_content3 = $one_depth."/../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/50.jpg";
             ?><!--you should change to mySQL later-->
             <div id="bestCreator" class="creators_card">
                 <div class="creator_menu">
                     <i class="fa fa-bars creator_menu_icon hidden-mb-b"></i>
                     <div class="creator_menu_list">
                         <ul>
-                            <li><a href="./index.php?1=personal_page&2=personal_page&3=dashboard"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
-                            <li><a href="./index.php?1=personal_page&2=personal_page&3=my_contents"><i class="fa fa-eye"></i>View Contents</a></li>
-                            <li><a href="./index.php?1=personal_page&2=personal_page&3=insight"><i class="fa fa-bar-chart"></i>View Insight</a></li>
-                            <li><a href="./index.php?1=personal_page&2=personal_page&3=my_forums"><i class="fa fa-table"></i>View Forums</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=dashboard"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_contents"><i class="fa fa-eye"></i>View Contents</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=insight"><i class="fa fa-bar-chart"></i>View Insight</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_forums"><i class="fa fa-table"></i>View Forums</a></li>
                         </ul>
                     </div>
                 </div>
@@ -128,7 +133,7 @@
                         </div>
                     </div>
                     <div class="creator_mid_info">
-                        <p class="creator_name"><a href="./index.php?1=personal_page&2=personal_page&3=dashboard"><?=$username?></a></p><!--user name-->
+                        <p class="creator_name"><a href="<?=$two_depth?>/personal_page.php?cate=dashboard"><?=$username?></a></p><!--user name-->
                         <p class="creator_job"><?=$userjob?></p><!--job-->
                         <p class="creator_location"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
                         <article class="contents_count">
@@ -155,7 +160,7 @@
             <?php
                 for($i=0;$i<60;$i++){
                     $_GET["number"] = $i;
-                    include('php/layout/creator_card.php');
+                    include($two_depth.'/layout/creator_card.php');
                 }
             ?>
             </ul>
@@ -163,3 +168,7 @@
     </section><!--end user_box_total-->
 </section>
 <!-- end contents section -->
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>

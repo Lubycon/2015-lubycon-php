@@ -31,11 +31,11 @@
             basic: "fa fa-filter",
 
             ccIcon: "fa fa-creative-commons",
-            ccImg: "./php/editor/img/cc_w.png",
-            by: "./php/editor/img/by_w.png",
-            nc: "./php/editor/img/nc_w.png",
-            nd: "./php/editor/img/nd_w.png",
-            share: "./php/editor/img/share_w.png",
+            ccImg: "./img/cc_w.png",
+            by: "./img/by_w.png",
+            nc: "./img/nc_w.png",
+            nd: "./img/nd_w.png",
+            share: "./img/share_w.png",
 
             charge: "fa fa-credit-card",
             usd: "fa fa-usd",
@@ -391,7 +391,7 @@
                     "id": "finalForm",
                     "enctype": "multipart/form-data",
                     "method": "post",
-                    "action": "./php/editor/test.php"
+                    "action": "./test.php"
                 }),
                 wrap = rootElement.wrapInner($form),
 
@@ -768,7 +768,7 @@
                 content_dataArray[0] = { 'type': 'editor_content', 'data64': $this.find('img').attr('src'), 'index': upload.imgCount };
                 $.ajax({
                     type: "POST",
-                    url: "./php/ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
+                    url: "../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
                     data:
                     {
                         'ajax_data': content_dataArray
@@ -887,7 +887,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "./php/ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
+                        url: "../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
                         data:
                         {
                             'ajax_data': dataArray
@@ -1403,17 +1403,17 @@
 
                 $btnIcon = $("<img/>"),
                 $btn1 = $btn.clone(true).attr("data-value","n-1-1")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/1.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./img/grid_icons/1.png")).appendTo($btnWrap),
                 $btn2 = $btn.clone(true).attr("data-value","v-1-2")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/2.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./img/grid_icons/2.png")).appendTo($btnWrap),
                 $btn3 = $btn.clone(true).attr("data-value","v-2-1")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/3.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./img/grid_icons/3.png")).appendTo($btnWrap),
                 $btn4 = $btn.clone(true).attr("data-value","h-1-2")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/4.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./img/grid_icons/4.png")).appendTo($btnWrap),
                 $btn5 = $btn.clone(true).attr("data-value","h-2-1")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/5.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","./img/grid_icons/5.png")).appendTo($btnWrap),
                 $btn6 = $btn.clone(true).attr("data-value","n-2-2")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/6.png")).appendTo($btnWrap);
+                .append($btnIcon.clone().attr("src","./img/grid_icons/6.png")).appendTo($btnWrap);
                 pac.modalAlign($this);
             },
             gridFn: {

@@ -1,5 +1,10 @@
-<link href="css/about_us.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/aboutus.js"></script> <!-- selector decoration js -->
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+?>
+<link href="<?=$one_depth?>/css/about_us.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?=$one_depth?>/js/aboutus.js"></script> <!-- selector decoration js -->
 
 <div id="aboutus_body">
     <div id="aboutus_nav" class="hidden-mb-b">
@@ -12,7 +17,7 @@
     <section class="aboutus_section" id="aboutus_main">
         <figure id="aboutus_figure"></figure>
         <article id="descript_lubycon">
-            <img id="lubyLogo" src="./ch/img/logo/Lubycon_Logo_Title.svg" />
+            <img id="lubyLogo" src="<?=$one_depth?>/ch/img/logo/Lubycon_Logo_Title.svg" />
             <p class="descript_subject">Welcome to Lubycon !</p>
             <p class="descript_article">
                 Lubycon is a playground for all creative minds.<br />
@@ -21,7 +26,7 @@
             </p>
         </article>
         <div class="aboutus_photo">
-            <img src="./ch/img/about_us/overlay.png" class="photo_overlay"/>
+            <img src="<?=$one_depth?>/ch/img/about_us/overlay.png" class="photo_overlay"/>
         </div>
     </section>
     <section class="aboutus_section" id="focus_section">
@@ -73,3 +78,7 @@
         </div>
     </section>
 </div>
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>

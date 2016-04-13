@@ -1,21 +1,27 @@
-<script type="text/javascript" src="js/call_comments.js"></script> <!-- account file js -->
-<link href="css/community_view.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
-<link href="css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
-<script type="text/javascript" src="js/community.js"></script>
-<script type="text/javascript" src="js/module/resizeObject.js"></script>
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+?>
+
+<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
+<link href="<?=$one_depth?>/css/community_view.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
+<link href="<?=$one_depth?>/css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
+<script type="text/javascript" src="<?=$one_depth?>/js/community.js"></script>
+<script type="text/javascript" src="<?=$one_depth?>/js/module/resizeObject.js"></script>
 
 <section class="container">
     <section class="navsel hidden-mb-b">
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="forum">
-                    <a href="./index.php?1=community&2=community_page&3=forum">Forum</a>
+                    <a href="./community_page.php?cate=forum">Forum</a>
                 </li>
                 <li class="nav_menu" id="tutorial">
-                    <a href="./index.php?1=community&2=community_page&3=tutorial">Tutorial</a>
+                    <a href="./community_page.php?cate=tutorial">Tutorial</a>
                 </li>
                 <li class="nav_menu" id="qna">
-                    <a href="./index.php?1=community&2=community_page&3=qna">Q&amp;A</a>
+                    <a href="./community_page.php?cate=qna">Q&amp;A</a>
                 </li>
             </ul>
         </nav>
@@ -73,7 +79,7 @@
         <div id="post_banner" class="con_aside">
             <div id="author_main">
                 <figure>
-                    <img src="./ch/img/no_img/no_img_user1.jpg">
+                    <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg">
                 </figure>
                 <h4><?=$username?></h4>
             </div>
@@ -108,7 +114,7 @@
                 <div id="comment_writer">
                     <div id="comment_text_box">
                         <figure id="comment_my_pic" class="hidden-mb-ib">
-                            <img src="ch/img/no_img/no_img_user1.jpg">
+                            <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg">
                         </figure>
                         <textarea id="comment_text"></textarea>
                         <button id="comment_bt">
@@ -120,7 +126,7 @@
                     <p id="comment_count"><span id="comment_counter">10</span> Comments</p>
                     <?php
                         for($i=1; $i<=10; $i++){
-                            include("./php/layout/comment.php");
+                            include("../layout/comment.php");
                         };
                     ?>
                 </div><!--end comment_list-->
@@ -131,6 +137,11 @@
         </section><!-- end post_section -->
     </section>  <!-- end post_box -->
     <?php
-        include("./php/layout/main_board.php");
+        include("../layout/main_board.php");
     ?><!--end main_board section -->
 </section>  <!-- end contents section -->
+
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>
