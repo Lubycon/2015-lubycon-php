@@ -14,7 +14,7 @@
 
 <form id="writer_form" enctype="multipart/form-data" method="post" action="./test.php">
 
-<input type="hidden" id="contents_cate" name="contents_cate" value="<?=$_GET[3]?>"/>
+<input type="hidden" id="contents_cate" name="contents_cate" value="<?=$_GET['cate']?>"/>
 <input type="hidden" id="userid" name="userid" value="<?=$usercode?>"/>
 
 <section class="container">
