@@ -23,13 +23,13 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="forum">
-                    <a href="../community_page?cate=forum">Forum</a>
+                    <a href="./community_page.php?cate=forum">Forum</a>
                 </li>
                 <li class="nav_menu" id="tutorial">
-                    <a href="../community_page?cate=tutorial">Tutorial</a>
+                    <a href="./community_page.php?cate=tutorial">Tutorial</a>
                 </li>
                 <li class="nav_menu" id="qna">
-                    <a href="../community_page?cate=qna">Q&amp;A</a>
+                    <a href="./community_page.php?cate=qna">Q&amp;A</a>
                 </li>
             </ul>
         </nav>

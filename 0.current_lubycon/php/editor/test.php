@@ -30,7 +30,7 @@
     $image_json = json_decode($image_array,true);
     $editor_contents_temp_path = 'editor/contents/'.$user_name.'/';
 
-    //$uploader->ajax_move($image_json , $editor_contents_temp_path ,$upload_path); //contents image upload move
+    $uploader->ajax_move($image_json , $editor_contents_temp_path ,$upload_path); //contents image upload move
 
     echo "<br/><br/>-------------contents image--------------<br/>";
     
@@ -40,7 +40,7 @@
     $thumb_array[] = array('contentID' => 'thumb', 'ext' => 'jpg');
     $editor_thumb_temp_path = 'editor/thumb/'.$user_name.'/';
 
-    //$uploader->ajax_move($thumb_array , $editor_thumb_temp_path ,$upload_path); //contents thumb upload move
+    $uploader->ajax_move($thumb_array , $editor_thumb_temp_path ,$upload_path); //contents thumb upload move
 
     echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 

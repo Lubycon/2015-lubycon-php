@@ -159,7 +159,7 @@ switch($current_url){
                             </span>
                         </li><!--cc icon-->
                         <li class="cc_icon" id="cc_by">
-                            <img src=".<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
                             <span class="tooltip_bt cc_tooltip" id="by_tooltip">
                                 Attribution
                             </span>
