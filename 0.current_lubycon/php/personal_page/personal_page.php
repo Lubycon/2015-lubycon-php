@@ -24,7 +24,15 @@
 		    ?><!--end con_aside-->
 		    <section id="contents_box" class="personal con_main">
             <?php
-                include_once('./'.$_GET['cate'].'.php');
+                $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark','account_setting'];
+
+                if( in_array($_GET['cate'] , $allow_array) )
+                {
+                    include_once('./'.$_GET['cate'].'.php');
+                }else
+                {
+                    include_once('../../404.php');
+                }
             ?>
 		    </section><!--end con_main-->
 		</section><!--end con_wrap-->

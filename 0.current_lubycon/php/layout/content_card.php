@@ -29,14 +29,14 @@
         <div class="contents_desc">
             <div class="contents_sub">
                 <?php
-                    echo "<a class='contents_link' href='./contents_view.php?cate=".$current_url."&conno=".$number."'>";
+                    echo "<a class='contents_link' href='../contents/contents_view.php?cate=".$current_url."&conno=".$number."'>";
                 ?>
                     <h4 class="contents_title load_view"><?=$contents_name[$number]?></h4>
                     <h5><?=$price?></h5>
                 </a>
             </div>
             <span class="creator_desc">
-                <a href="../personal_page.php&cate=dashboard">
+                <a href="../personal_page/personal_page.php?cate=dashboard">
                     <img src="<?=$user_img_url?>" class="hidden-mb-ib" alt="artist photo" />
                     <span class="by">by</span>
                     <span class="name"><?=$username[$number]?></span>
@@ -47,7 +47,7 @@
         <!-- end contents desc -->
         <div class="contents_overlay load_view">
                 <?php 
-                    echo "<a class='contents_link' href='./contents_view.php?cate=".$current_url."&conno=".$number."'>";
+                    echo "<a class='contents_link' href='../contents/contents_view.php?cate=".$current_url."&conno=".$number."'>";
                 ?>
                 <i class="fa fa-search-plus"></i>
                 <ul>

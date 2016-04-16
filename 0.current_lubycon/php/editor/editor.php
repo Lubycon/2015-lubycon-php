@@ -25,19 +25,28 @@
 <script type="text/javascript" src="./jquery.lubyPictool.js"></script> 
 
 <!-- editor css -->
-
+<section id="editor-container" class="lubyPictoolKey"></section>
 <?php
 //php variable setting
     $contents_cate = $_GET["cate"];
+
+    $allow_array = ['artwork','vector','3d'];
+
+    if( in_array($contents_cate , $allow_array) )
+    {
+        echo 
+        '<script>
+	        $("#editor-container").lubyPictool({
+		        submit: function(data){
+			        //console.log(data);
+		        }
+	        });
+        </script>';
+    }else
+    {
+        include_once('../../404.php');
+    }
 ?>
-<section id="editor-container" class="lubyPictoolKey"></section>
-<script>
-	$("#editor-container").lubyPictool({
-		submit: function(data){
-			//console.log(data);
-		}
-	});
-</script>
 <?php
     include_once($two_depth.'/layout/index_footer.php');
 ?>

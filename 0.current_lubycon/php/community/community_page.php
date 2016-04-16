@@ -70,7 +70,15 @@
     <!-- end nav_guide -->
     <section class="con_wrap">
         <?php
-            include("../layout/main_board.php");
+            $allow_array = ['forum','tutorial','qna'];
+
+            if( in_array($_GET['cate'] , $allow_array) )
+            {
+                include("../layout/main_board.php");
+            }else
+            {
+                include_once('../../404.php');
+            }
         ?><!--end main_board section -->
     </section>
     <a href="./community_write.php?cate=<?=$_GET['cate']?>">

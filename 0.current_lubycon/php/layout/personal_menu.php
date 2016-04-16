@@ -13,12 +13,12 @@
     </div>
     <div id="subnav" class="hidden-mb-b">
         <ul>
-            <li class="subnav_li selected_subnav"><a href="./personal_page.php?cate=dashboard">Dashboard</a></li>
-            <li class="subnav_li"><a href="./personal_page.php?cate=my_contents">Contents</a></li>
-            <li class="subnav_li"><a href="./personal_page.php?cate=my_forums">Forums</a></li>
-            <li class="subnav_li"><a href="./personal_page.php?cate=insight">Insight</a></li>
-            <li class="subnav_li"><a href="./personal_page.php?cate=bookmark">Bookmark</a></li>
-            <li class="subnav_li"><a href="./personal_page.php?cate=account_setting">Account Setting</a></li>
+            <li class="subnav_li selected_subnav"><a href="../personal_page/personal_page.php?cate=dashboard">Dashboard</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_contents">Contents</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_forums">Forums</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=insight">Insight</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark">Bookmark</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=account_setting">Account Setting</a></li>
         </ul>
     </div>
 </aside>

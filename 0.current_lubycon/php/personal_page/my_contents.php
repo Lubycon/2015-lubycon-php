@@ -4,6 +4,8 @@
         {
             $_GET["number"] = $i;
             $category_param = 'my_contents';
+
+            $one_depth = '../contents';
             $web_depth = '../..';
             include('../layout/content_card.php');
         }

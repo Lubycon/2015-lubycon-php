@@ -78,12 +78,20 @@
     <section id="contents_box" class="con_wrap">
         <ul>
             <?php
-            for($i=0;$i<60;$i++)
+            $allow_array = ['all','artwork','vector','3d'];
+
+            if( in_array($_GET['cate'] , $allow_array) )
             {
-                $category_param = $_GET['cate'];
-                $web_depth = $one_depth;
-                $_GET["number"] = $i;
-                include($two_depth.'/layout/content_card.php');
+                for($i=0;$i<60;$i++)
+                {
+                    $category_param = $_GET['cate'];
+                    $web_depth = $one_depth;
+                    $_GET["number"] = $i;
+                    include($two_depth.'/layout/content_card.php');
+                }
+            }else
+            {
+                include_once('../../404.php');
             }
             ?>
         </ul>

@@ -7,7 +7,7 @@
         case 'forum' : $contents_cate = 1; break;
         case 'tutorial' : $contents_cate = 2;  break;
         case 'qna' : $contents_cate = 3;  break;
-        default : $contents_cate = 3;  break;
+        default : $contents_cate = 1;  break;
         };
 
 
