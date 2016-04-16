@@ -1,6 +1,5 @@
 <?php
     require_once './php/session/session_class.php';
-    //session_start();
     $session = new Session();
 
     if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
@@ -10,22 +9,8 @@
             $LoginState = true;
         }else{
             $LoginState = false;    
-        }
-                
+        }           
     }
-    //echo("<script>console.log(LoginState:".$LoginState.");</script>");
-    /*
-    if(isset($_COOKIE)){
-        if(isset($_COOKIE['login'])){
-            $info = unserialize($_COOKIE['login']);
-            $username = $_SESSION['user_name'];
-            $usercode = $_SESSION['user_code'];
-            setcookie('login', serialize($info), time()+5000000);
-        }else if(!isset($_COOKIE['login'])){
-            session_destroy();
-        }
-    }
-    */
 ?>
 
 <!DOCTYPE html>
