@@ -26,7 +26,7 @@ canvas {
  }
 
 .gl-bt-wrapper {
-	display: inline-block;
+	display: block;
 	position: fixed;
 	top: 10px;
 	left: 100px;
@@ -41,6 +41,9 @@ canvas {
 	border: none;
 	cursor: pointer;
 	vertical-align: top;
+}
+.gl-bt-wrapper > .gl-btn:focus {
+	outline: none;
 }
 .gl-bt-wrapper > .gl-btn:hover {
 	background: #666666;

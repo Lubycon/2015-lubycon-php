@@ -1,10 +1,9 @@
 <li>
     <?php
         $number = $_GET["number"];
-        $current_url = $third_param;
+        $current_url = $category_param;
 
-        @include('../../Lubycon_Contents/contents/contents_data.php');
-        @include('../../../../Lubycon_Contents/contents/contents_data.php');
+        include($web_depth.'/../../Lubycon_Contents/contents/contents_data.php');
 
         switch($current_url){
             case "artwork" : $current_url = "artwork"; $contents_name = $artwork_subject; $username = $artwork_author;  break;
@@ -13,8 +12,8 @@
             default : $current_url = "artwork"; $contents_name = $artwork_subject;$username = $artwork_author; break;
         };
         $price = "Free";
-        $contents_thumb_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/thumb/".$number.".jpg";
-        $user_img_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/profile/".$number.".jpg";
+        $contents_thumb_url = $web_depth.'/../../Lubycon_Contents/contents/'.$current_url.'/'.$current_url.'jpg/thumb/'.$number.'.jpg';
+        $user_img_url = $web_depth.'/../../Lubycon_Contents/contents/'.$current_url.'/'.$current_url.'jpg/profile/'.$number.'.jpg';
         $randCount = rand(400,5000);
         $randCount1 = rand(400,1200);
         $randCount2= rand(400,1200);
@@ -29,22 +28,15 @@
         <!-- end contents pic -->
         <div class="contents_desc">
             <div class="contents_sub">
-                <?php 
-                    echo "<a class='contents_link' href='./index.php?1=contents&2=contents_view&3=";
-                    switch($current_url){
-                        case "artwork" : echo "artwork"; break;
-                        case "vector" : echo "vector"; break;
-                        case "3d" : echo "3d"; break;
-                        default : echo "artwork"; break;
-                    };
-                    echo "&4=".$number."'>";
+                <?php
+                    echo "<a class='contents_link' href='../contents/contents_view.php?cate=".$current_url."&conno=".$number."'>";
                 ?>
                     <h4 class="contents_title load_view"><?=$contents_name[$number]?></h4>
                     <h5><?=$price?></h5>
                 </a>
             </div>
             <span class="creator_desc">
-                <a href="./index.php?1=personal_page&2=personal_page&3=dashboard">
+                <a href="../personal_page/personal_page.php?cate=dashboard">
                     <img src="<?=$user_img_url?>" class="hidden-mb-ib" alt="artist photo" />
                     <span class="by">by</span>
                     <span class="name"><?=$username[$number]?></span>
@@ -55,14 +47,7 @@
         <!-- end contents desc -->
         <div class="contents_overlay load_view">
                 <?php 
-                    echo "<a class='contents_link' href='./index.php?1=contents&2=contents_view&3=";
-                    switch($current_url){
-                        case "artwork" : echo "artwork"; break;
-                        case "vector" : echo "vector"; break;
-                        case "3d" : echo "3d"; break;
-                        default : echo "artwork"; break;
-                    };
-                    echo "&4=".$number."'>";
+                    echo "<a class='contents_link' href='../contents/contents_view.php?cate=".$current_url."&conno=".$number."'>";
                 ?>
                 <i class="fa fa-search-plus"></i>
                 <ul>

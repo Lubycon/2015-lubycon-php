@@ -147,9 +147,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{95A271
 		php\layout\content_card.php = php\layout\content_card.php
 		php\layout\creator_card.php = php\layout\creator_card.php
 		php\layout\follower_card.php = php\layout\follower_card.php
+		php\layout\index_footer.php = php\layout\index_footer.php
 		php\layout\index_forum.php = php\layout\index_forum.php
+		php\layout\index_header.php = php\layout\index_header.php
 		php\layout\main_board.php = php\layout\main_board.php
-		php\layout\mb_contents_card.php = php\layout\mb_contents_card.php
 		php\layout\personal_menu.php = php\layout\personal_menu.php
 	EndProjectSection
 EndProject
@@ -260,6 +261,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{8C8CD4A4-8
 		js\core\ui.js = js\core\ui.js
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sesstion", "sesstion", "{52FF6F65-7481-4DE9-8BAC-87D3B6F77CF3}"
+	ProjectSection(SolutionItems) = preProject
+		php\session\session_class.php = php\session\session_class.php
+		php\session\session_test.php = php\session\session_test.php
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -289,5 +296,6 @@ Global
 		{B766FCB4-280D-4970-8695-B446CC83A008} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{37599D85-88B3-449A-8406-5A2B1EB56DC6} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{8C8CD4A4-8FE8-481B-A430-2C60EF1410DF} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
+		{52FF6F65-7481-4DE9-8BAC-87D3B6F77CF3} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 	EndGlobalSection
 EndGlobal
