@@ -26,7 +26,7 @@ canvas {
  }
 
 .gl-bt-wrapper {
-	display: inline-block;
+	display: block;
 	position: fixed;
 	top: 10px;
 	left: 100px;

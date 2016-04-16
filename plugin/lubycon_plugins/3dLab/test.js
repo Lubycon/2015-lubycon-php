@@ -2,7 +2,7 @@ $(window).on("load",function(){
 	"use strict";
 
 	var scene, camera, dirLight, ambLight, renderer, controls, stats;
-	var object, mtl;
+	var object, mtl, geometry, materials, mesh;
 	var funcs = {
 		windowResize: function(){
 			camera.aspect = window.innerWidth / window.innerHeight;
@@ -20,6 +20,7 @@ $(window).on("load",function(){
 					input.addClass(data); 
 					input.off("change").on("change",funcs.uploadTex);
 				break;
+				case "material" : funcs.materialSelect(data); break;
 				default : $.error("Can't find input element : " + target); break;
 			}
 			input.trigger("click");
@@ -36,20 +37,21 @@ $(window).on("load",function(){
 			var material;
 			$.each($texture,function(i,file){
 				var reader = new FileReader();
+				var material = object.children[0].material;
 				reader.readAsDataURL(file);
 				reader.onload = function(event){
 					switch(type){
 						case "diffuse" :
-			       			object.children[0].material.map = THREE.ImageUtils.loadTexture(event.target.result);
-			       			object.children[0].material.needsUpdate = true;
+			       			material.map = THREE.ImageUtils.loadTexture(event.target.result);
+			       			material.needsUpdate = true;
 		       			break;
 		       			case "specular" :
-		       				object.children[0].material.specularMap = THREE.ImageUtils.loadTexture(event.target.result);
-		       				object.children[0].material.needsUpdate = true;
+		       				material.specularMap = THREE.ImageUtils.loadTexture(event.target.result);
+		       				material.needsUpdate = true;
 	       				break;
 	       				case "normal" : 
-	       					object.children[0].material.normalMap = THREE.ImageUtils.loadTexture(event.target.result);
-       						object.children[0].material.needsUpdate = true;
+	       					material.normalMap = THREE.ImageUtils.loadTexture(event.target.result);
+       						material.needsUpdate = true;
    						break;
 	       				default: $.error("Texture load error"); break;
 					}
@@ -62,43 +64,21 @@ $(window).on("load",function(){
 			var reader = new FileReader();
 			var filename = file.name;
 			var ext = filename.split(".").pop().toLowerCase();
-			console.log(ext);
+
 			switch(ext){
 				case "obj" :
 					reader.addEventListener("load", function (event) {
 						var contents = event.target.result;
 						object = new THREE.OBJLoader().parse(contents);
-						var toJSON = object.toJSON();
-						console.log(toJSON);
-						console.log(object.children[0].material.materials);
-						object.name = filename;
-						object.castShadow = true;
-						object.receiveShadow = true;
-						object.children[0].geometry.center();
-						object.children[0].material.color = new THREE.Color(0x888888);
-						object.children[0].material.specular = new THREE.Color(0xffffff);
-						object.children[0].material.shininess = 100;
-						object.children[0].material.shading = THREE.SmoothShading;
-						object.children[0].material.side = THREE.DoubleSide;
+						var geometry = object.children[0].geometry;
+						var material = object.children[0].material;
+						geometry.center();
+						material.side = THREE.DoubleSide;
+						material.color = new THREE.Color(0x888888);
+						material.specular = new THREE.Color(0xffffff);
+						material.specularColor = new THREE.Color(0xffffff);
+						console.log(material);
 
-						var testGeo = object.children[0].geometry;
-						var testMate = object.children[0].material.materials;
-						var testMesh = new THREE.SceneUtils.createMultiMaterialObject(testGeo,testMate);
-						scene.add(testMesh);
-						console.log(testMesh); // test was successful!!!!!!!!!!
-						//scene.add(object);
-					},false);
-					reader.readAsText(file);
-				break;
-				case "fbx" :
-					reader.addEventListener("load", function(event){
-						var contents = event.target.result;
-						object = new THREE.FBXLoader().parse(contents);
-						console.log(object);
-						var toJSON = object.toJSON();
-						object.name = filename;
-						object.children[0].geometry.center();
-						object.children[0].material.color = new THREE.Color(0x888888);
 						scene.add(object);
 					},false);
 					reader.readAsText(file);
@@ -114,6 +94,19 @@ $(window).on("load",function(){
 		},
 		onError: function(xhr){
 			$.error("load Error");
+		},
+		materialSelect: function(data){
+			var material = mesh.material.materials[data];
+			var faces = mesh.geometry.faces;
+			for(var i = 0; i < faces.length; i++){
+				if(i <= 5){
+					console.log(faces[i]);
+				}
+				else if(i == 6) console.log("---------------------------");
+				if(faces[i].materialIndex == data) console.log(true);
+				else console.log(false);
+			}
+			geometry.elementsNeedUpdate = true;
 		}
 	}
 	initGL();
@@ -129,7 +122,7 @@ $(window).on("load",function(){
 		scene.add(new THREE.AxisHelper(50));
 		scene.add(new THREE.GridHelper(3, 0.5));
 
-		camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 2000);
+		camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
 		camera.position.z = 10;
 
 		dirLight = new THREE.DirectionalLight(0xffffff);
@@ -144,6 +137,11 @@ $(window).on("load",function(){
 		//renderer.setPixelRatio(window.devicePixelRatio*2);
 		renderer.setSize(windowWidth, windowHeight);
 		renderer.setClearColor(0x222222, 1);
+		gl.addEventListener("webglcontextlost",function(event){
+			event.preventDefault();
+			alert("context losted");
+			cancelAnimationFrame(animationID);
+		},false);
 		gl.appendChild(renderer.domElement);
 
 		controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -188,7 +186,7 @@ $(window).on("load",function(){
 			"html":"Normal",
 			"data-target":"texInput",
 			"data-value":"normal"
-		}).appendTo(btWrap).on("click",funcs.btnTrigger);
+		}).appendTo(btWrap).on("click",funcs.btnTrigger)
 	}
 
 	function animate(){

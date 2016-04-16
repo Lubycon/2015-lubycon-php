@@ -223,8 +223,6 @@ THREE.OBJLoader.prototype = {
 
 		var lines = text.split( '\n' );
 
-		var multiMaterial = [];
-
 		for ( var i = 0; i < lines.length; i ++ ) {
 
 			var line = lines[ i ];
@@ -324,13 +322,8 @@ THREE.OBJLoader.prototype = {
 			} else if ( /^usemtl /.test( line ) ) {
 
 				// material
-				var material = new THREE.MeshPhongMaterial({color:0xaaaaaa});
-				material.name = line.substring(7).trim();
-				multiMaterial.push(material);
-				object.material = new THREE.MeshFaceMaterial(multiMaterial);
-				object.material.name = line.substring(7).trim().replace("Material.","");
-				material = object.material;
-				//object.material.name = line.substring( 7 ).trim();
+
+				object.material.name = line.substring( 7 ).trim();
 
 			} else if ( /^mtllib /.test( line ) ) {
 
@@ -351,7 +344,7 @@ THREE.OBJLoader.prototype = {
 		}
 
 		var container = new THREE.Group();
-		console.log(objects.length);
+
 		for ( var i = 0, l = objects.length; i < l; i ++ ) {
 
 			object = objects[ i ];
@@ -378,7 +371,7 @@ THREE.OBJLoader.prototype = {
 			}
 
 			var material;
-			console.log(material);
+
 			if ( this.materials !== null ) {
 
 				material = this.materials.create( object.material.name );
@@ -391,6 +384,7 @@ THREE.OBJLoader.prototype = {
 				material.name = object.material.name;
 
 			}
+
 			material.shading = object.material.smooth ? THREE.SmoothShading : THREE.FlatShading;
 
 			var mesh = new THREE.Mesh( buffergeometry, material );
