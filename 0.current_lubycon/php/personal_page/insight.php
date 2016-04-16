@@ -1,7 +1,7 @@
-<script src="js/chart/amcharts.js" type="text/javascript"></script>
-<script src="js/chart/serial.js" type="text/javascript"></script>
-<script src="js/chart/lubytheme.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/insight.js"></script>
+<script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/insight.js" type="text/javascript"></script>
 
 <!--graph script-->
 
@@ -26,7 +26,7 @@
             <div class="chartboxes" id="chartdiv3" style="width: 100%; height: 450px;"></div>
             <div class="chartboxes" id="chartdiv4" style="width: 100%; height: 450px;"></div> 
         </div>   
-        <link href="css/insight.css" rel="stylesheet" type="text/css" />
+        <link href="<?=$one_depth?>/css/insight.css" rel="stylesheet" type="text/css" />
         <!-- personal page css -->
         
         <!--graph script-->

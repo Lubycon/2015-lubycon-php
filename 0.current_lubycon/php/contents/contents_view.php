@@ -1,12 +1,18 @@
-<script type="text/javascript" src="js/call_comments.js"></script> <!-- account file js -->
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+?>
+
+<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
 
 <?php
-include('../../Lubycon_Contents/contents/contents_data.php');
+include($one_depth.'/../../Lubycon_Contents/contents/contents_data.php');
 
-$number = $_GET["4"];
-$current_url = $_GET["3"];
-$contents_img_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/".$number.".jpg";
-$user_img_url = "../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/profile/".$number.".jpg";
+$number = $_GET["conno"];
+$current_url = $_GET["cate"];
+$contents_img_url = $one_depth."/../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/".$number.".jpg";
+$user_img_url = $one_depth."/../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/profile/".$number.".jpg";
 $category0 = ucwords($current_url);
 $category1 = "Category1";
 $category2 = "Category2";
@@ -28,7 +34,7 @@ switch($current_url){
     default : $current_url = "artwork"; $contents_name = $artwork_subject;$contents_author = $artwork_author; break;
 };
 ?>
-<link href="css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
+<link href="<?=$one_depth?>/css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
@@ -53,7 +59,7 @@ switch($current_url){
     <section class="con_wrap">
         <div id="contents_main" class="con_main">
             <?php
-                $current_url = $_GET["3"];
+                $current_url = $_GET["cate"];
                 if($current_url=="3d"){
                     echo 
                     "<iframe id='webgl_viewer' name='webgl' src='webGL/file_viewer/viewer.html' frameborder='0' marginwidth='0' marginheight='0' scrolling='no' style='margin-bottom:-5px'>
@@ -72,19 +78,19 @@ switch($current_url){
                     <ul id="cc_wrap_inner">
                         <a href="#" id="cc_desc_link" target="_brank">
                         <li class="cc_icon" id="cc_main">
-                            <img src="./ch/img/creative_commons/png/cc_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
                         </li><!--cc icon-->
                         <li class="cc_icon" id="cc_by">
-                            <img src="./ch/img/creative_commons/png/by_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
                         </li><!-- default icon-->
                         <li class="cc_icon" id="cc_nc">
-                            <img src="./ch/img/creative_commons/png/nc_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nc_w.png" />
                         </li><!--non commercial-->
                         <li class="cc_icon" id="cc_nd">
-                            <img src="./ch/img/creative_commons/png/nd_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nd_w.png" />
                         </li><!--non derivation-->
                         <li class="cc_icon" id="cc_share">
-                            <img src="./ch/img/creative_commons/png/share_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/share_w.png" />
                         </li><!--non derivation-->
                     </a>
                     </ul>                       
@@ -95,7 +101,7 @@ switch($current_url){
                 <div id="comment_writer">
                     <div id="comment_text_box">
                         <figure id="comment_my_pic" class="hidden-mb-ib">
-                            <img src="ch/img/no_img/no_img_user1.jpg" class="hidden-mb-ib">
+                            <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg" class="hidden-mb-ib">
                         </figure>
                         <textarea id="comment_text"></textarea>
                         <button id="comment_bt">
@@ -107,7 +113,7 @@ switch($current_url){
                     <p id="comment_count"><span id="comment_counter">10</span> Comments</p>
                     <?php
                         for($i=1; $i<=10; $i++){
-                            include("php/layout/comment.php");
+                            include($two_depth."/layout/comment.php");
                         };
                     ?>
                 </div><!--end comment_list-->
@@ -123,7 +129,7 @@ switch($current_url){
                     <img src="<?=$user_img_url?>">
                 </figure>
                 <span id="user_info_wrap">
-                    <h4><a href="./index.php?1=personal_page&2=personal_page&3=dashboard"><?=$contents_author[$number]?></a></h4>
+                    <h4><a href="<?=$two_depth?>/personal_page.php&cate=dashboard"><?=$contents_author[$number]?></a></h4>
                     <h5><?=$userjob?></h5>
                     <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
@@ -147,31 +153,31 @@ switch($current_url){
                     <ul id="cc_wrap_inner">
                         <a href="#" id="cc_desc_link" target="_brank">
                         <li class="cc_icon" id="cc_main">
-                            <img src="./ch/img/creative_commons/png/cc_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
                             <span class="tooltip_bt tooltip_long cc_tooltip" id="cc_tooltip">
                                Creative Commons License
                             </span>
                         </li><!--cc icon-->
                         <li class="cc_icon" id="cc_by">
-                            <img src="./ch/img/creative_commons/png/by_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
                             <span class="tooltip_bt cc_tooltip" id="by_tooltip">
                                 Attribution
                             </span>
                         </li><!-- default icon-->
                         <li class="cc_icon" id="cc_nc">
-                            <img src="./ch/img/creative_commons/png/nc_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nc_w.png" />
                             <span class="tooltip_bt cc_tooltip" id="nc_tooltip">
                                 Non-Commercial
                             </span>
                         </li><!--non commercial-->
                         <li class="cc_icon" id="cc_nd">
-                            <img src="./ch/img/creative_commons/png/nd_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nd_w.png" />
                             <span class="tooltip_bt cc_tooltip" id="nb_tooltip">
                                 Non-Derivative
                             </span>
                         </li><!--non derivation-->
                         <li class="cc_icon" id="cc_share">
-                            <img src="./ch/img/creative_commons/png/share_w.png" />
+                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/share_w.png" />
                             <span class="tooltip_bt cc_tooltip" id="share_tooltip">
                                 Share Alike
                             </span>
@@ -189,3 +195,7 @@ switch($current_url){
         </div><!--end con_aside-->
     </section><!--end content_wrap-->
 </section>  <!-- end contents section -->
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>

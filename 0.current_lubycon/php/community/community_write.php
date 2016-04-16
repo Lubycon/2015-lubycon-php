@@ -1,14 +1,20 @@
-<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet"> 
-<link href="css/summernote.css" type="text/css" rel="stylesheet" />
-<link href="css/community_write.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
-<link href="css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
-<script src="js/module/bootstrap.min.js" type="text/javascript"></script> 
-<script src="js/community.js" type="text/javascript"></script>
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+?>
+
+<link href="<?=$one_depth?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"> 
+<link href="<?=$one_depth?>/css/summernote.css" type="text/css" rel="stylesheet" />
+<link href="<?=$one_depth?>/css/community_write.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
+<link href="<?=$one_depth?>/css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
+<script src="<?=$one_depth?>/js/module/bootstrap.min.js" type="text/javascript"></script> 
+<script src="<?=$one_depth?>/js/community.js" type="text/javascript"></script>
 
 
-<form id="writer_form" enctype="multipart/form-data" method="post" action="./php/community/test.php">
+<form id="writer_form" enctype="multipart/form-data" method="post" action="./test.php">
 
-<input type="hidden" id="contents_cate" name="contents_cate" value="<?=$_GET[3]?>"/>
+<input type="hidden" id="contents_cate" name="contents_cate" value="<?=$_GET['cate']?>"/>
 <input type="hidden" id="userid" name="userid" value="<?=$usercode?>"/>
 
 <section class="container">
@@ -37,4 +43,9 @@
     </section><!--work_space end-->        
 </section>  <!-- end contents section -->
 </form>
-<script src="js/module/summernote.js" type="text/javascript" ></script>
+<script src="<?=$one_depth?>/js/module/summernote.js" type="text/javascript" ></script>
+
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>

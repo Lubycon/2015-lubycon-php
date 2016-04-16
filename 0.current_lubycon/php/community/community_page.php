@@ -1,4 +1,10 @@
-<script type="text/javascript" src="js/module/community_infinite_scroll.js"></script> <!-- scroll js -->
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+?>
+
+<script type="text/javascript" src="<?=$one_depth?>/js/module/community_infinite_scroll.js"></script> <!-- scroll js -->
 
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
@@ -8,8 +14,8 @@
 </div>
 <!-- end main_figure -->
 
-<link href="css/community.css" rel="stylesheet" type="text/css" />
-<script src="js/community.js" type="text/javascript"></script>
+<link href="../../css/community.css" rel="stylesheet" type="text/css" />
+<script src="../../js/community.js" type="text/javascript"></script>
 
 <!-- contents page css -->
 <section class="container">
@@ -17,13 +23,13 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="forum">
-                    <a href="./index.php?1=community&2=community_page&3=forum">Forum</a>
+                    <a href="./community_page.php?cate=forum">Forum</a>
                 </li>
                 <li class="nav_menu" id="tutorial">
-                    <a href="./index.php?1=community&2=community_page&3=tutorial">Tutorial</a>
+                    <a href="./community_page.php?cate=tutorial">Tutorial</a>
                 </li>
                 <li class="nav_menu" id="qna">
-                    <a href="./index.php?1=community&2=community_page&3=qna">Q&amp;A</a>
+                    <a href="./community_page.php?cate=qna">Q&amp;A</a>
                 </li>
             </ul>
         </nav>
@@ -64,11 +70,23 @@
     <!-- end nav_guide -->
     <section class="con_wrap">
         <?php
-            include("./php/layout/main_board.php");
+            $allow_array = ['forum','tutorial','qna'];
+
+            if( in_array($_GET['cate'] , $allow_array) )
+            {
+                include("../layout/main_board.php");
+            }else
+            {
+                include_once('../../404.php');
+            }
         ?><!--end main_board section -->
     </section>
-    <a href="./index.php?1=community&2=community_write&3=<?=$_GET[3]?>">
+    <a href="./community_write.php?cate=<?=$_GET['cate']?>">
         <span id="write_bt" class="out animate_opacity write_bt"><i class="fa fa-plus"></i></span>
     </a>
 </section>
 <!-- end contents section -->
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>
