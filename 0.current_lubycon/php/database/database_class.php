@@ -6,7 +6,7 @@ class Database{
 	public $query;
 	public $result;
 
-	public function __construct($host='localhost', $user='lubycon', $pass='hmdwdgdhkr2015', $database='lubycon'){
+	public function __construct($host='localhost', $user='lubycon', $pass='hmdwdgdhkr2015', $database='lubyconuser'){
 		// default 인자 암호화 방법에 대해서 생각해보기(해당 데이터 베이스, 유저 계정, 유저 비밀번호)
 		$this->database = new mysqli($host, $user, $pass, $database) or die("Database Connection error");
 		$this->database->query('SET NAMES UTF-8');

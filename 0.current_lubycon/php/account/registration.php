@@ -46,7 +46,8 @@
 
 	if($email_validation && $pass_validation && $nick_validation && $private_validation && $terms_validation){
 		
-		$db->query = "insert into luby_user(user_email,user_nick,user_pass,user_date,country_code,term_check, private_check, newsletter)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".$_POST['country_code']."', '".'true'."', '".'true'."', '".$newsletter."')";
+		$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."')";
+		//'".$_POST['country_code']."',
 		$db->askQuery();
 
 		if(!$db->result){
