@@ -5,7 +5,6 @@
     $regex_vali = new regex_validate;
 
 	$db = new Database();
-	$db->askQuery();
 
 	// password encryption -> using bycrypt
 	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -55,14 +54,15 @@
 		}   
 
 		$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$rand_str."')";
+
 		//'".$_POST['country_code']."',
 		$db->askQuery();
-
+		echo (mysql_error($db->database)."<br/>");
 		if(!$db->result){
 			echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.";
 			$db->disconnectDb();
 			sleep(5);
-			echo("<script>history.back();</script>");
+			//echo("<script>history.back();</script>");
 		}
 		else{
 			
@@ -92,7 +92,7 @@
 			$mail->setFrom($fromaddress,$fromaddress);
 			$mail->addAddress($toaddress,$toaddress);
 			$mail->Subject=$subject;
-			$mail->msgHTML(file_get_contents('./mail_for_resist.php'));
+			$mail->msgHTML(file_get_contents('./mail_for_resist.php/?Token="'.$rand_str.'"'));
 			$mail->Altbody='This is a plain-text message body';
 		
 			if(!$mail->send()){
@@ -103,14 +103,15 @@
 		sendMail($fromaddress, $toaddress, $subject);
 
 		//redirecting
-		//echo('<script>document.location.href="./waiting_for_resisting.php"</script>');  
+		echo('./mail_for_resist.php/?Token="'.$rand_str.'"');
+		//'<script>document.location.href="./waiting_for_resisting.php"</script>'  
 		exit;
 		}
 	}
 	else{
 		echo "registration fail back to the website.";
 		sleep(5);
-		echo("<script>history.back();</script>");
+		//echo("<script>history.back();</script>");
 		exit;
 	}
 ?>
