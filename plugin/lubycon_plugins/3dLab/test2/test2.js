@@ -122,7 +122,7 @@ $(window).on("load",function(){
 			material.color = new THREE.Color(0xffffff);
 			setTimeout(function(){
 				material.color = color;
-			},1000);
+			},300);
 		},
 		opacityControl: function(){
 			var $this = $(this),
@@ -155,8 +155,7 @@ $(window).on("load",function(){
 			uiAddition.materialOpacity(mesh,btWrap);
 		},
 		materialOpacity: function(mesh,wrap){
-			var slider = $("<input/>",{ "type":"range","id":"material-opacity","min":"0","max":"1000","value":"1000
-				" })
+			var slider = $("<input/>",{ "type":"range","id":"material-opacity","min":"0","max":"1000","value":"1000"})
 			.on("change",funcs.opacityControl).appendTo(wrap);
 		}
 	}
