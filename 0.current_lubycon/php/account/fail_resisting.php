@@ -13,26 +13,17 @@
 
     <title>Lubycon</title>
 	
-	<link rel="shortcut icon" href="../../ch/img/logo/lubycon.ico" />  <!-- favicon -->
-	<link rel="stylesheet" href="../../css/find_password.css">
+	<link rel="shortcut icon" href="../../CH/img/logo/lubycon.ico" />  <!-- favicon -->
+	<link rel="stylesheet" href="../../css/waiting_for_resisting.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
 
 	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="../../js/core/index.js"></script>
+    <script type="text/javascript" src="../../js/core/core.js"></script>
 
 </head>
-<body ondragstart="return false" onselectstart="return false">
-    <wrap id="fotgot_wrap">
-        <header id="forgot_pass">
-            <figure id="logo_gray"></figure>Forgot password?
-        </header>
-        <section id="email_input">
-            <p>Enter the email address you used for your LUBYCON ID</p>
-            <label>E-mail</label><input id="email_id_find" type="text" />
-        </section>
-        <input type="submit" id="find_submit" value="Find password" disabled/>
-        <p id="return_main"><a href="../../index.php">Return to main page</a></p>
-    </wrap>
+<body>
+	<p>Lubycon tried to deliver your message for resist, but it was rejected by the server</p>
+	<a href="#">Go to the main page</a>
 </body>
 </html>

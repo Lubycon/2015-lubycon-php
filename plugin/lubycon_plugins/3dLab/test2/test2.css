@@ -26,15 +26,23 @@ canvas {
  }
 
 .gl-bt-wrapper {
+	background: #111111;
 	display: block;
 	position: fixed;
-	top: 10px;
 	left: 100px;
+	padding: 10px;
 }
+	.gl-bt-wrapper.top {
+		top: 10px;
+	}
+	.gl-bt-wrapper.bottom {
+		bottom: 10px;
+		left: 0px;
+	}
 .gl-bt-wrapper > .gl-btn {
 	position: relative;
 	width: 100px;
-	height: 50px;
+	height: 30px;
 	color: #ffffff;
 	background: #444444;
 	transition: background 0.4s;

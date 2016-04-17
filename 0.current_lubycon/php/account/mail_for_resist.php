@@ -9,7 +9,7 @@
 		<tbody>
 			<tr id="mail_lubycon_logo">
 				<td>
-					<img src="../ch/img/resist_mail/mail_header.png" class="mail_header" >
+					<img src="../../CH/img/resist_mail/mail_header.png" class="mail_header" >
 				</td>
 			</tr>
         	<tr id="mail_hello">
@@ -35,7 +35,7 @@
             <tr id="confirm_bt">
                 <td align="center">
                 	<a href="#">
-                		<img src="../ch/img/resist_mail/mail_bt.png">
+                		<img src="../../CH/img/resist_mail/mail_bt.png">
                     </a>
                 </td>
             </tr>

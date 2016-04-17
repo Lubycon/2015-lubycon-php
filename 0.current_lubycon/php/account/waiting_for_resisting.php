@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>LUBYCON</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
     <meta name="subject" content="Lubycon" />
     <meta name="description" content="free sources" />
-    <meta name="author" content="Daniel ZEPOT" />
+    <meta name="developed" content="Lubycon" />
+    <meta name="designed" content="Lubycon" />
     <meta name="robots" content="index" />
-    <meta name="copyright" content="copyrights 2015 ZEPOT" />
-    <meta name="keywords" content="font ,vector, 3D design, community, designers, engineer, 3D printer, Illustration, Lubycon" />
+    <meta name="copyright" content="copyrights 2015 LUBYCON" />
+    <meta name="keywords" content="design, font ,vector, 3d design, community, designers, engineer, 3d printer, illustration, lubycon" />
+
+    <title>Lubycon</title>
 	
 	<link rel="shortcut icon" href="../../CH/img/logo/lubycon.ico" />  <!-- favicon -->
 	<link rel="stylesheet" href="../../css/waiting_for_resisting.css">

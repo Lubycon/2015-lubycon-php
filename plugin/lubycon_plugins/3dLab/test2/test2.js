@@ -31,20 +31,20 @@ $(window).on("load",function(){
 			funcs.loaders($object[0]);
 		},
 		uploadTex: function(event){
-			var $input = $(this);
-			var $texture = event.target.files;
-			var type = $input.attr("class");
-			var material;
+			var $input = $(this),
+			$texture = event.target.files,
+			type = $input.attr("class"),
+			id = $("#mtlSelector").find(".mtl-option:selected").data("value"),
+			materials, material;
 			$.each($texture,function(i,file){
-				var reader = new FileReader();
-				var material = object.children[0].material;
+				var reader = new FileReader(),
+				materials = mesh.material.materials;
+				material = materials[id];
 				reader.readAsDataURL(file);
 				reader.onload = function(event){
 					switch(type){
 						case "diffuse" :
 			       			material.map = THREE.ImageUtils.loadTexture(event.target.result);
-			       			material.transparent = true;
-			       			material.opacity = 0.4;
 			       			material.needsUpdate = true;
 		       			break;
 		       			case "specular" :
@@ -77,8 +77,8 @@ $(window).on("load",function(){
 						material = object.material;
 						var materials = object.material.materials;
 							for(var i = 0, ml = materials.length; i < ml; i++){
-								//materials[i].specular = new THREE.Color(0xffffff);
-								//materials[i].specularColor = new THREE.Color(0xffffff);
+								materials[i].specular = new THREE.Color(0xffffff);
+								materials[i].specularColor = new THREE.Color(0xffffff);
 								materials[i].side = THREE.DoubleSide;
 
 								switch(i){
@@ -89,13 +89,14 @@ $(window).on("load",function(){
 									case 4 : materials[i].color = new THREE.Color(0x48cfad); break; //Material.002_SCAR_DIF, GLASS
 									case 5 : materials[i].color = new THREE.Color(0xffaaff); break; //Material.001_SCAR_DIF, AIM1,3
 								}
+								materials[i].transparent = true;
 								materials[i].needsUpdate = true;
 							}
 						mesh = new THREE.Mesh(geometry,material);
 							mesh.castShadow = true;
 							mesh.receiveShadow = true;
-						console.log(mesh);
 						scene.add(mesh);
+						uiAddition.materialSelector(mesh);
 						//scene.add(new THREE.WireframeHelper(mesh, 0x0000ff));
 					},false);
 					reader.readAsText(file);
@@ -112,18 +113,51 @@ $(window).on("load",function(){
 		onError: function(xhr){
 			$.error("load Error");
 		},
-		materialSelect: function(data){
-			var material = mesh.material.materials[data];
-			var faces = mesh.geometry.faces;
-			for(var i = 0; i < faces.length; i++){
-				if(i <= 5){
-					console.log(faces[i]);
+		materialSelect: function(){
+			var $this = $(this).find(".mtl-option:selected"),
+			id = $this.data("value"),
+			materials = mesh.material.materials,
+			material = materials[id],
+			color = material.color;
+			material.color = new THREE.Color(0xffffff);
+			setTimeout(function(){
+				material.color = color;
+			},1000);
+		},
+		opacityControl: function(){
+			var $this = $(this),
+			value = $this.val(),
+			id = $("#mtlSelector").find(".mtl-option:selected").data("value"),
+			materials = mesh.material.materials,
+			material = materials[id];
+			console.log(material);
+			material.opacity = value/1000;
+		}
+	},
+	uiAddition = {
+		materialSelector: function(mesh){
+			console.log("material Selector");
+			var btWrap = $("<div/>",{"class":"gl-bt-wrapper bottom"}).appendTo("body"),
+			selectBox = $("<select/>",{"id":"mtlSelector"}).on("change",funcs.materialSelect).appendTo(btWrap),
+			options = $("<option/>",{"class":"mtl-option"}),
+			addOption = function(){
+				var materials = mesh.material.materials;
+				for(var i = 0, l = materials.length; i < l; i++){
+					var material = materials[i],
+					option = options.clone();
+					option.text(material.name);
+					option.attr("data-value",i);
+					option.appendTo(selectBox);
+					if(i == 0) option.prop("selected",true);
 				}
-				else if(i == 6) console.log("---------------------------");
-				if(faces[i].materialIndex == data) console.log(true);
-				else console.log(false);
-			}
-			geometry.elementsNeedUpdate = true;
+			};
+			addOption();
+			uiAddition.materialOpacity(mesh,btWrap);
+		},
+		materialOpacity: function(mesh,wrap){
+			var slider = $("<input/>",{ "type":"range","id":"material-opacity","min":"0","max":"1000","value":"1000
+				" })
+			.on("change",funcs.opacityControl).appendTo(wrap);
 		}
 	}
 	initGL();
@@ -179,7 +213,7 @@ $(window).on("load",function(){
 	}
 
 	function initUI(){
-		var btWrap = $("<div/>",{"class":"gl-bt-wrapper"}).appendTo("body"),
+		var btWrap = $("<div/>",{"class":"gl-bt-wrapper top"}).appendTo("body"),
 		objUpload = $("<button/>",{
 			"class":"gl-btn",
 			"html":"Upload Object",
@@ -203,24 +237,6 @@ $(window).on("load",function(){
 			"html":"Normal",
 			"data-target":"texInput",
 			"data-value":"normal"
-		}).appendTo(btWrap).on("click",funcs.btnTrigger),
-		materialBt1 = $("<button/>",{
-			"class":"gl-btn",
-			"html":"Material1",
-			"data-target":"material",
-			"data-value":"0"
-		}).appendTo(btWrap).on("click",funcs.btnTrigger),
-		materialBt2 = $("<button/>",{
-			"class":"gl-btn",
-			"html":"Material2",
-			"data-target":"material",
-			"data-value":"1"
-		}).appendTo(btWrap).on("click",funcs.btnTrigger),
-		materialBt3 = $("<button/>",{
-			"class":"gl-btn",
-			"html":"Material3",
-			"data-target":"material",
-			"data-value":"2"
 		}).appendTo(btWrap).on("click",funcs.btnTrigger)
 	}
 
