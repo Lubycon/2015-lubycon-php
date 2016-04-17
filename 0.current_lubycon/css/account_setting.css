@@ -202,27 +202,12 @@
     .public_option  .sod_select.custom.focus{
         box-shadow:none;
     }
-#croppic_account{
-    display: block;
-}
-#cropContainerHeaderButton{
-    display: inline-block;
-    min-width: 110px;
-    background: transparent;
-    border: 1px solid #444444;
-    border-radius: 50px;
-    color: #444444;
-    font-size: 14px;
-    text-align: center;
-    margin: 10px 24px;
-    padding: 10px;
-    cursor:pointer;
-    font-weight: 200;
-}
 
-#file_hide {
-    visibility:hidden;
-    width:1px;
+#profile_uploader {
+visibility: hidden;
+height: 0;
+margin: 0px;
+padding: 0px;
 }
 #file_bt {
     width: 130px;

@@ -32,22 +32,22 @@
 
 
     <?php
-        $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubycon");
+        $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubyconboard");
 
-        $query = "SELECT * FROM `luby_board` WHERE `board_code` = " .$_GET['bno']. " ORDER BY `luby_board`.`board_code` ASC ";
+        $query = "SELECT * FROM `lubyconboard` WHERE `".$_GET['cate']."` = " .$_GET['bno']. " ORDER BY `lubyconboard`.`boardCode` ASC ";
         $result = mysqli_query($conn,$query);
 
         $row = mysqli_fetch_array($result);
         
-        $post_subject = $row['board_title'];
+        $post_subject = $row['title'];
         $year = 2015; //not yet
         $month = "Nov"; //not yet
         $day = 7; //not yet
         $hour = 0; //not yet
         $minute = 0; //not yet
 
-        $post_like = $row['board_like_count'];
-        $post_view = $row['board_view_count'];
+        $post_like = $row['likeCount'];
+        $post_view = $row['viewCount'];
         $comment_num = 0; // not yet
 
         $userjob = "Job name"; //not yet
@@ -55,12 +55,12 @@
         $usercountry = "Country"; //not yet
         $language1 = "language1"; //not yet
         $language2 = "language2"; //not yet
-        $post_content = $row['board_contents'];
+        $post_content = $row['contents'];
         
-        $query = "SELECT * FROM `luby_user` WHERE `user_code` =" . $row['user_code'];
-        $result = mysqli_query($conn,$query);
-        $row = mysqli_fetch_array($result);
-        $username = $row['user_nick'];
+        //$query = "SELECT * FROM `luby_user` WHERE `user_code` =" . $row['user_code'];
+        //$result = mysqli_query($conn,$query);
+        //$row = mysqli_fetch_array($result);
+        //$username = $row['user_nick'];
 
     ?>
 

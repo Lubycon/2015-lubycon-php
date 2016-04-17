@@ -360,9 +360,10 @@
                             "data-value" : "submit",
                             "disabled" : "disabled"
                         }).on("click",pac.currentProg).on("click",pac.submit).appendTo($settingBtWrap);
-
+                        
                         // right : {project team}
-                        pac.databind();//data binding    
+                        pac.databind();//data binding
+                        setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
                     }
                 })
             },
@@ -406,6 +407,30 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
 
                 $("#finalForm").submit();
+            },
+            autoSave: function () {
+                var imgData = [],
+                    contentData = $(".obj-body .object-img").each(function () {
+                    var $this = $(this),
+                        url = $this.find('img').attr("src"),
+                        val = $this.attr("data-value").split("-"),
+                        innerVal = { 'type': 'editor_content', 'data64': url, "index": val[0] };
+                    imgData.push(innerVal)
+                    }),
+                    html_Data = $('.editing-canvas').html();
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/editor_ajax_upload_test.php", // temp image file ajax post
+                    data:
+                    {
+                        'ajax_data': imgData
+                    },
+                    cache: false,
+                    success: function (data) {
+                        console.log('auto save succece');
+                    }
+                });
+                console.log(html_Data);
             },
             databind: function(){
                 //toolbar data bind start
@@ -758,25 +783,11 @@
             	});
             },
             imgCount : 0,
-            setId: function(obj){
+            setId: function (obj) {
+                console.log(obj);
                 var $this = obj.parent(".canvas-content"),
                 dataVal = $this.data("value");
                 if (!$this.is(".placeHolder")) $this.attr("data-value", upload.imgCount + "-" + dataVal);
-
-                var content_dataArray = new Array;
-                content_dataArray[0] = { 'type': 'editor_content', 'data64': $this.find('img').attr('src'), 'index': upload.imgCount };
-                $.ajax({
-                    type: "POST",
-                    url: "../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
-                    data:
-                    {
-                        'ajax_data': content_dataArray
-                    },
-                    cache: false,
-                    success: function (data) {
-                        //console.log(data);
-                    }
-                })
                 upload.imgCount++;
             },
             insertPosition: function(selector,wrap,object){
@@ -876,7 +887,7 @@
                 var $originImg = $(".thumb-origin-img");
                 if($originImg.attr("src") != "#") {
                     var $this = $(this),
-                    $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}),
+                    $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
                     console.log($object);
                     console.log(dataURL); // for ajax

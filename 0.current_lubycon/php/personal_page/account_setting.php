@@ -5,11 +5,12 @@
 
 ?>
 <link href="<?=$one_depth?>/css/account_setting.css" rel="stylesheet" type="text/css" />
-<link href="<?=$one_depth?>/css/croppic.css" rel="stylesheet" type="text/css" />
+<link href="./css/cropper.css" rel="stylesheet" type="text/css" />
 <!-- account_setting page css -->
-<script type="text/javascript" src="<?=$one_depth?>/js/luby_ui.js"></script>
+<script type="text/javascript" src="./js/cropper.js"></script>
+<script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?=$one_depth?>/js/account_setting.js"></script>
-<script type="text/javascript" src="<?=$one_depth?>/js/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.mousewheel.min.js"></script>
 
 <form id="account_setting_form" enctype="multipart/form-data" method="post" action="./test.php">
     <section id="account_section">
@@ -36,7 +37,11 @@
         <section id="basic_info_section" class="setting_card">
             <p class="setting_title">Basic Infomation</p>
                 <label>Profile Photo</label>
-                <div id="croppic_account"></div>
+                <div id="cropper_account">
+                    <span id="fileupload_bt">profile upload</span>
+                    <img id="cropper_img" />
+                    <input type="file" id="profile_uploader" />
+                </div>
                 <label>Occupation / Job</label>
                 <div class="job_option">
                     <select class="jobFilter" name="job">
