@@ -386,7 +386,7 @@ THREE.OBJLoader.prototype = {
 			}
 
 			material.shading = object.material.smooth ? THREE.SmoothShading : THREE.FlatShading;
-
+			buffergeometry = new THREE.Geometry().fromBufferGeometry(buffergeometry);
 			var mesh = new THREE.Mesh( buffergeometry, material );
 			mesh.name = object.name;
 

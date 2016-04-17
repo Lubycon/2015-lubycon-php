@@ -2,7 +2,7 @@ $(window).on("load",function(){
 	"use strict";
 
 	var scene, camera, dirLight, ambLight, renderer, controls, stats;
-	var object, mtl, geometry, materials, mesh;
+	var object, mtl, geometry, material, mesh;
 	var funcs = {
 		windowResize: function(){
 			camera.aspect = window.innerWidth / window.innerHeight;
@@ -73,9 +73,30 @@ $(window).on("load",function(){
 						var contents = event.target.result;
 						object = new THREE.OBJLoader().parse(contents);
 						geometry = object.geometry;
-						material = obejct.material;
+							geometry.center();
+						material = object.material;
+						var materials = object.material.materials;
+							for(var i = 0, ml = materials.length; i < ml; i++){
+								//materials[i].specular = new THREE.Color(0xffffff);
+								//materials[i].specularColor = new THREE.Color(0xffffff);
+								materials[i].side = THREE.DoubleSide;
+
+								switch(i){
+									case 0 : materials[i].color = new THREE.Color(0x555555); break; //Material_SCAR_DIFF.pn, BODY
+									case 1 : materials[i].color = new THREE.Color(0xffc0cb); break; //Material.001_SCAR_DIF, AIM4
+									case 2 : materials[i].color = new THREE.Color(0x555555); break; // Material_SCAR_DIFF.pn, BODY
+									case 3 : materials[i].color = new THREE.Color(0x488ccb); break; //Material.001_SCAR_DIF, AIM2
+									case 4 : materials[i].color = new THREE.Color(0x48cfad); break; //Material.002_SCAR_DIF, GLASS
+									case 5 : materials[i].color = new THREE.Color(0xffaaff); break; //Material.001_SCAR_DIF, AIM1,3
+								}
+								materials[i].needsUpdate = true;
+							}
 						mesh = new THREE.Mesh(geometry,material);
+							mesh.castShadow = true;
+							mesh.receiveShadow = true;
+						console.log(mesh);
 						scene.add(mesh);
+						//scene.add(new THREE.WireframeHelper(mesh, 0x0000ff));
 					},false);
 					reader.readAsText(file);
 				break;
