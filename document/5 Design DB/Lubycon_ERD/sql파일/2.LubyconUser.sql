@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `UserBasic`
 	`email` VARCHAR(255) NOT NULL,
 	`nick` VARCHAR(20) NOT NULL,
 	`pass` VARCHAR(255) NOT NULL,
+	`validationToken` VARCHAR(255) NOT NULL,
 	`validation` ENUM('active','inactive','drop') NOT NULL,
 	`subscription` ENUM('true', 'false') NOT NULL,
 	`termCheck` ENUM('true', 'false') NOT NULL,
@@ -114,7 +115,6 @@ CREATE TABLE IF NOT EXISTS `Log`
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 SHOW WARNINGS;
-
 
 INSERT INTO `userbasic` (`userCode`, `date`, `email`, `nick`, `pass`, `validation`, `subscription`, `termCheck`, `policyCheck`) VALUES
 (1, '2016-04-16 22:43:35', 'qwer@naver.com', 'danielzepp', '$2y$10$nc17yAiGfC3Pn4YYYwHnteOfQmo26uN3HYalgli5WwLB2Nt1RHr8y', 'active', 'false', 'true', 'true'),

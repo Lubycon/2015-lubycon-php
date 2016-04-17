@@ -32,9 +32,16 @@
 
 
     <?php
+        switch($_GET['cate']){
+        case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
+        case 'tutorial' : $contents_cate = 2; $cate_name = 'tutorial'; break;
+        case 'qna' : $contents_cate = 3; $cate_name = 'qna'; break;
+        default : $contents_cate = 1;  break;
+        };
+
         $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubyconboard");
 
-        $query = "SELECT * FROM `lubyconboard` WHERE `".$_GET['cate']."` = " .$_GET['bno']. " ORDER BY `lubyconboard`.`boardCode` ASC ";
+        $query = "SELECT * FROM `".$cate_name."` WHERE `boardCode` = " .$_GET['bno']. " ORDER BY `".$cate_name."`.`boardCode` ASC ";
         $result = mysqli_query($conn,$query);
 
         $row = mysqli_fetch_array($result);
@@ -50,6 +57,7 @@
         $post_view = $row['viewCount'];
         $comment_num = 0; // not yet
 
+        $username = 'need db';
         $userjob = "Job name"; //not yet
         $usercity = "City"; //not yet
         $usercountry = "Country"; //not yet
