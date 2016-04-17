@@ -1,18 +1,17 @@
 <section id="main_board">
     <?php
-
-        $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubycon");
+        $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubyconboard");
         
         switch($_GET['cate']){
-        case 'forum' : $contents_cate = 1; break;
-        case 'tutorial' : $contents_cate = 2;  break;
-        case 'qna' : $contents_cate = 3;  break;
+        case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
+        case 'tutorial' : $contents_cate = 2; $cate_name = 'tutorial'; break;
+        case 'qna' : $contents_cate = 3; $cate_name = 'qna'; break;
         default : $contents_cate = 1;  break;
         };
 
-
-        $query = "SELECT * FROM `luby_board` WHERE `contents_code` = " .$contents_cate. " ORDER BY `luby_board`.`board_code` DESC ";
+        $query = "SELECT * FROM `".$cate_name."` ORDER BY `".$cate_name."`.`boardCode` DESC";
         $result = mysqli_query($conn,$query);
+        $row = mysqli_fetch_array($result);
     ?>
     <div class="table_wrap">
         <div class="table_head">
@@ -36,13 +35,20 @@
             
             <ul class="table_list_wrap">
             <?php
-            while( $row = mysqli_fetch_array($result) )
-            {
-                $query_name = "SELECT * FROM `luby_user` WHERE `user_code` =" . $row['user_code'];
-                $result_name = mysqli_query($conn,$query_name);
-                $row_name = mysqli_fetch_array($result_name);
 
-                include('../layout/community_card.php');
+            if( is_array($row) )
+            {
+                while( $row = mysqli_fetch_array($result) )
+                {
+                    //$query_name = "SELECT * FROM `lubyconuser` WHERE `userCode` =" . $row['userCode'];
+                    //$result_name = mysqli_query($conn,$query_name);
+                    //$row_name = mysqli_fetch_array($result_name);
+
+                    include('../layout/community_card.php');
+                }
+            }else
+            {
+                echo 'nothing in database';
             }
             ?>
             </ul>

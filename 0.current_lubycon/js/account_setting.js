@@ -98,7 +98,7 @@ $(document).on("click touchend", "#history_minus", function (event) { //clone la
     }
     history_stack--;
 });
-$(".refresh").on("click touchend",function(event){
+$(document).on("click touchend", ".refresh", function (event) {
     eventHandler(event,$(this));
     var history_array = [];
     $('.history_cell .history_data').each(function (index) {
@@ -147,6 +147,28 @@ function eventHandler(event, selector) {//
     if (event.type === 'touchend'){
         selector.off('click');
     }
-};
+}; 
+
+$(document).ready(function () {
+    $("#fileupload_bt").click(function () {
+        $("#profile_uploader").click();
+    });
+
+    $("#profile_uploader").change(function () {
+        showImage(this);
+    });
+
+    function showImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#cropper_img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+});
 
 ////////////////////////////delete button interaction end

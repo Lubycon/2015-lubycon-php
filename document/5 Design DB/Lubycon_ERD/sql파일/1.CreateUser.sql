@@ -23,5 +23,8 @@ USE mysql;
 -- user pass : hmdwdgdhkr2015
 -- only SELECT, INSERT, UPDATE authority 
 
-GRANT USAGE ON lubycon.* TO lubycon@'%' IDENTIFIED BY 'hmdwdgdhkr2015';
-GRANT SELECT, INSERT, UPDATE ON lubycon.* TO lubycon@'%';
+GRANT USAGE ON lubyconuser.* TO lubycon@'%' IDENTIFIED BY 'hmdwdgdhkr2015';
+GRANT SELECT, INSERT, UPDATE ON lubyconuser.* TO lubycon@'%';
+
+GRANT USAGE ON lubyconboard.* TO lubycon@'%' IDENTIFIED BY 'hmdwdgdhkr2015';
+GRANT SELECT, INSERT, UPDATE ON lubyconboard.* TO lubycon@'%';

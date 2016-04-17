@@ -46,7 +46,16 @@
 
 	if($email_validation && $pass_validation && $nick_validation && $private_validation && $terms_validation){
 		
-		$db->query = "insert into luby_user(user_email,user_nick,user_pass,user_date,country_code,term_check, private_check, newsletter)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".$_POST['country_code']."', '".'true'."', '".'true'."', '".$newsletter."')";
+		$feed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+		$size = 6;
+		$rand_str=null;
+		
+		for ($i=0; $i < $size; $i++){
+			$rand_str .= substr($feed, rand(0, strlen($feed)-1), 1);
+		}   
+
+		$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$rand_str."')";
+		//'".$_POST['country_code']."',
 		$db->askQuery();
 
 		if(!$db->result){
@@ -56,6 +65,7 @@
 			echo("<script>history.back();</script>");
 		}
 		else{
+			
 			//google smtp mailer start		
 			
 			$DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
@@ -64,39 +74,37 @@
 			$subject = "Confirmation Mail for Lubycon account";
 
 			function sendMail($fromaddress, $toaddress, $subject){
-				date_default_timezone_set('Etc/UTC');
+			date_default_timezone_set('Etc/UTC');
 		
-				require '../PHPMailer/PHPMailerAutoload.php';
+			require '../PHPMailer/PHPMailerAutoload.php';
 
-				$mail = new PHPMailer;
-				$mail->isSMTP();
-				$mail->CharSet='UTF-8';
-				//$mail->SMTPDebug=1;
-				//$mail->Debugoutput='html';
-				$mail->Host='smtp.gmail.com';
-				$mail->SMTPSecure='ssl';
-				$mail->Port=465;
-				$mail->SMTPAuth=true;
-				$mail->Username=$fromaddress;
-				$mail->Password="hmdwdgdhkr2015";
-				$mail->setFrom($fromaddress,$fromaddress);
-				$mail->addAddress($toaddress,$toaddress);
-				$mail->Subject=$subject;
-				$mail->msgHTML(file_get_contents('./mail_for_resist.php'));
-				$mail->Altbody='This is a plain-text message body';
+			$mail = new PHPMailer;
+			$mail->isSMTP();
+			$mail->CharSet='UTF-8';
+			//$mail->SMTPDebug=1;
+			//$mail->Debugoutput='html';
+			$mail->Host='smtp.gmail.com';
+			$mail->SMTPSecure='ssl';
+			$mail->Port=465;
+			$mail->SMTPAuth=true;
+			$mail->Username=$fromaddress;
+			$mail->Password="hmdwdgdhkr2015";
+			$mail->setFrom($fromaddress,$fromaddress);
+			$mail->addAddress($toaddress,$toaddress);
+			$mail->Subject=$subject;
+			$mail->msgHTML(file_get_contents('./mail_for_resist.php'));
+			$mail->Altbody='This is a plain-text message body';
 		
-				if(!$mail->send()){
-					echo "Mailer Error : ".$mail->ErrorInfo;
-				}
+			if(!$mail->send()){
+				echo "Mailer Error : ".$mail->ErrorInfo;
 			}
+		}
 	
-			sendMail($fromaddress, $toaddress, $subject);
+		sendMail($fromaddress, $toaddress, $subject);
 
-
-			$db->disconnectDb();
-			//redirecting
-			echo('<script>document.location.href="./waiting_for_resisting.php"</script>');  
-			exit;
+		//redirecting
+		//echo('<script>document.location.href="./waiting_for_resisting.php"</script>');  
+		exit;
 		}
 	}
 	else{

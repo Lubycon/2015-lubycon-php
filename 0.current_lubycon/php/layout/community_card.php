@@ -1,19 +1,19 @@
 <?php
-$number = $row['board_code'];
-$subject = $row['board_title'];
+$number = $row['boardCode'];
+$subject = $row['title'];
 $comment_num = 0; //not yet
 
-$like_num = $row['board_like_count'];
-$view_num = $row['board_view_count'];
+$like_num = $row['likeCount'];
+$view_num = $row['viewCount'];
 $content_date = "00.00.00"; // not yet
 
 
 
-$username = $row_name['user_nick'];
-$userimg = "../../ch/img/no_img/no_img_user1.jpg";
+$username = 'not yet'; //not yet
+$userimg = "../../ch/img/no_img/no_img_user1.jpg"; //not yet
 
 
-$current_url = $row['contents_code'];
+$current_url = $row['boardCode'];
 
 switch($current_url){
 case 1 : $current_url = "forum"; break;

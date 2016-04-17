@@ -82,12 +82,26 @@
 
             if( in_array($_GET['cate'] , $allow_array) )
             {
-                for($i=0;$i<60;$i++)
+                $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubyconboard");
+        
+                switch($_GET['cate']){
+                case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
+                case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
+                case '3d' : $contents_cate = 3; $cate_name = 'threed'; break;
+                default : $contents_cate = 1;  break;
+                };
+
+
+                $query = "SELECT * FROM `".$cate_name."` ORDER BY `".$cate_name."`.`boardCode` DESC";
+                $result = mysqli_query($conn,$query);
+                $row = mysqli_fetch_array($result);
+
+
+                while( $row = mysqli_fetch_array($result) )
                 {
-                    $category_param = $_GET['cate'];
-                    $web_depth = $one_depth;
-                    $_GET["number"] = $i;
-                    include($two_depth.'/layout/content_card.php');
+                    $query_name = "SELECT * FROM `luby_user` WHERE `boardCode` =" . $row['boardCode'];
+
+                    include('../layout/content_card.php');
                 }
             }else
             {

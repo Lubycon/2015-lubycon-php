@@ -23,13 +23,13 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="forum">
-                    <a href="./community_page.php?cate=forum">Forum</a>
+                    <a href="../community/community_page.php?cate=forum">Forum</a>
                 </li>
                 <li class="nav_menu" id="tutorial">
-                    <a href="./community_page.php?cate=tutorial">Tutorial</a>
+                    <a href="../community/community_page.php?cate=tutorial">Tutorial</a>
                 </li>
                 <li class="nav_menu" id="qna">
-                    <a href="./community_page.php?cate=qna">Q&amp;A</a>
+                    <a href="../community/community_page.php?cate=qna">Q&amp;A</a>
                 </li>
             </ul>
         </nav>
@@ -81,7 +81,7 @@
             }
         ?><!--end main_board section -->
     </section>
-    <a href="./community_write.php?cate=<?=$_GET['cate']?>">
+    <a href="../community/community_write.php?cate=<?=$_GET['cate']?>">
         <span id="write_bt" class="out animate_opacity write_bt"><i class="fa fa-plus"></i></span>
     </a>
 </section>

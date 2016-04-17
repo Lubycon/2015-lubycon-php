@@ -6,10 +6,10 @@
 	// object instance
 	$db = new Database();
 
-	($_POST['id'] == "email")?$id="user_email": $id="user_nick";
+	($_POST['id'] == "email")?$id="email": $id="nick";
 
 	//overlap check
-	$db->query = "select exists(select * from luby_user where ".$id." = '".$_POST['data']."')";
+	$db->query = "select exists(select * from userbasic where ".$id." = '".$_POST['data']."')";
 	$db->askQuery();
 	$result = mysqli_fetch_array($db->result);
 
