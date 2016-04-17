@@ -8,6 +8,8 @@
     }else{
         if($session->SessionExist()){
             $LoginState = true;
+            $username= $_SESSION['lubycon_nick'];
+            $userid= $_SESSION['lubycon_id'];
         }else{
             $LoginState = false;    
         }
@@ -26,6 +28,7 @@
         }
     }
     */
+
 ?>
 
 <!DOCTYPE html>

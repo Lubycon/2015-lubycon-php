@@ -16,7 +16,7 @@
     <section id="account_section">
         <section id="account_setting_section" class="setting_card">
             <p class="setting_title">Account Setting</p>
-                <label>E-mail</label><input type="text" value="loremIpsum@lubycon.com" disabled />
+                <label>E-mail</label><input type="text" value="<?=$userid?>" disabled />
                 <div class="public_option">
                     <select class="privacyFilter" name="email_public">
                         <option value="Public">Public</option>
@@ -26,7 +26,7 @@
                 </div>
                 <!-- end select box -->
                 
-                <label>Nickname</label><input type="text" value="loremIpsum" disabled />
+                <label>Nickname</label><input type="text" value="<?=$username?>" disabled />
                 <label>Password</label><input type="password" name="now_pass" id="now_pass_id" disabled /><i></i><span id="change_pass">Change Password</span><br />
                 <p id="now_pass_check" class="form_check"></p>
                 <label>New Password</label><input type="password" name="pass" id="pass_id" disabled /><i></i>
@@ -58,11 +58,11 @@
                 <div class="location_option">
                     <select class="locationFilter" name="location">
                          <?php
-                                $db->query = "SELECT * FROM luby_country";
-                                $db->askquery();
-                                while($row = mysqli_fetch_array($db->result)){
-                                     echo ("<option data-value = ".$row['country_code'].">".$row['country_name']."</option>");
-                                }
+                            $db->query = "SELECT * FROM country";
+                            $db->askQuery();
+                            while($row = mysqli_fetch_array($db->result)){
+                            echo ("<option data-value = ".$row['countryCode'].">".$row['name']."</option>");
+                            }
                          ?>
                     </select>
                 </div>
