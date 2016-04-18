@@ -1,7 +1,7 @@
 $(window).on("load",function(){
 	"use strict";
 
-	var scene, camera, dirLight, ambLight, renderer, controls, stats;
+	var scene, camera, dirLight, ambLight, renderer, controls, statsMemory, statsFPS;
 	var group, object, mtl, geometry, material, mesh;
 	var funcs = {
 		windowResize: function(){
@@ -38,22 +38,29 @@ $(window).on("load",function(){
 			materials, material;
 			$.each($texture,function(i,file){
 				var reader = new FileReader(),
+				loader = new THREE.TextureLoader(),
 				materials = mesh.material.materials;
 				material = materials[id];
 				reader.readAsDataURL(file);
 				reader.onload = function(event){
 					switch(type){
 						case "diffuse" :
-			       			material.map = THREE.ImageUtils.loadTexture(event.target.result);
-			       			material.needsUpdate = true;
+			       			loader.load(event.target.result,function(texture){
+			       				material.map = texture;
+			       				material.needsUpdate = true;
+			       			});
 		       			break;
 		       			case "specular" :
-		       				material.specularMap = THREE.ImageUtils.loadTexture(event.target.result);
-		       				material.needsUpdate = true;
+		       				loader.load(event.target.result,function(texture){
+		       					material.specularMap = texture;
+		       					material.needsUpdate = true;
+		       				});
 	       				break;
 	       				case "normal" : 
-	       					material.normalMap = THREE.ImageUtils.loadTexture(event.target.result);
-       						material.needsUpdate = true;
+	       					loader.load(event.target.result,function(texture){
+	       						material.normalMap = texture;
+	       						material.needsUpdate = true;
+	       					});
    						break;
 	       				default: $.error("Texture load error"); break;
 					}
@@ -77,6 +84,7 @@ $(window).on("load",function(){
 						for(var i = 0, l = object.length; i < l; i++){
 							geometry = object[i].geometry;
 								geometry.center();
+								geometry.dispose();
 							material = object[i].material;
 							var materials = material.materials;
 							for(var j = 0, ml = materials.length; j < ml; j++){
@@ -85,6 +93,7 @@ $(window).on("load",function(){
 								materials[j].side = THREE.DoubleSide;
 								materials[j].transparent = true;
 								materials[j].needsUpdate = true;
+								materials[j].dispose();
 							}
 							mesh = new THREE.Mesh(geometry,material);
 								mesh.castShadow = true;
@@ -118,7 +127,7 @@ $(window).on("load",function(){
 			material.color = new THREE.Color(0xffffff);
 			setTimeout(function(){
 				material.color = color;
-			},300);
+			},200);
 		},
 		opacityControl: function(){
 			var $this = $(this),
@@ -196,12 +205,20 @@ $(window).on("load",function(){
 		controls.rotateSpeed = 0.5;
 		controls.zoomSpeed = 0.5;
 
-		stats = new Stats();
-		stats.setMode(0);
-		stats.domElement.style.position = "absolute";
-		stats.domElement.style.left = "10px";
-		stats.domElement.style.top = "10px";
-		document.body.appendChild(stats.domElement);
+		statsMemory = new Stats();
+		statsMemory.setMode(2);
+		statsMemory.domElement.style.position = "absolute";
+		statsMemory.domElement.style.left = "10px";
+		statsMemory.domElement.style.top = "10px";
+
+		statsFPS = new Stats();
+		statsFPS.setMode(0);
+		statsFPS.domElement.style.position = "absolute";
+		statsFPS.domElement.style.left = "10px";
+		statsFPS.domElement.style.top = "50px";
+
+		document.body.appendChild(statsMemory.domElement);
+		document.body.appendChild(statsFPS.domElement);
 
 		window.addEventListener("resize", funcs.windowResize, false);
 		animate();
@@ -236,7 +253,8 @@ $(window).on("load",function(){
 	}
 
 	function animate(){
-		stats.update();
+		statsMemory.update();
+		statsFPS.update();
 		controls.update();
 		requestAnimationFrame(animate);
 		render();

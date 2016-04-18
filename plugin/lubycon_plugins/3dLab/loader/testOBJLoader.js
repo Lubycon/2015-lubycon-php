@@ -339,8 +339,9 @@ THREE.OBJLoader.prototype = {
 			object.geometry = geometry;
 
 			var material;
-			if(object.material.length === 0){
+			if(object.material.materials.length === 0){
 				material = new THREE.MeshPhongMaterial();
+				console.log()
 			}
 			else{
 				material = new THREE.MeshFaceMaterial(object.material.materials);
