@@ -45,15 +45,13 @@ THREE.OBJLoader.prototype = {
 
 		console.time( 'OBJLoader' );
 		var objects = [];
-		var object = {
-			geometry: new THREE.Geometry(),
-			material: [],
-			name: null
-		}
+		var objIndex = objects.length;
+		var object;
+		var foundObjects = false;
 		var vertices = [];
 		var normals = [];
 		var uvs = [];
-		var faceVertexUV = [];
+		var faceVertexUvs = [];
 		var faces = [];
 
 		var patterns;
@@ -65,21 +63,52 @@ THREE.OBJLoader.prototype = {
 		var quadFaceCount = 0;
 		var materialCount = 0;
 
+		function addObject(name){
+			var geometry = {
+				vertices: [],
+				normals: [],
+				uvs: [],
+				faces: [],
+				faceVertexUvs: []
+			};
+			var material = {
+				materials: [],
+				name: null,
+				smooth: true
+			};
+			object = {
+				name: name,
+				geometry: geometry,
+				material: material
+			}
+
+			objects.push(object);
+		}
+		addObject("main");
 		function addVertex(x,y,z){
 			var vertex = new THREE.Vector3(x,y,z);
+			object = objects[objIndex];
 			vertices.push(vertex);
 			object.geometry.vertices = vertices;
 			object.geometry.verticesNeedUpdate = true;
+			console.log("vertex");
 		}
 		function addNormal(x,y,z){
 			var normal = new THREE.Vector3(x,y,z);
+			object = objects[objIndex];
 			normals.push(normal);
+			object.geometry.normals = normals;
+			console.log("normal");
 		}
 		function addUV(w,h){
 			var uv = new THREE.Vector2(w,h);
+			object = objects[objIndex];
 			uvs.push(uv);
+			object.geometry.uvs = uvs;
+			console.log("uv");
 		}
 		function addFace(v1,v2,v3,v4,uv1,uv2,uv3,uv4,nm1,nm2,nm3,nm4){
+			object = objects[objIndex];
 			var face = new THREE.Face3(1,1,1);
 			var face2 = new THREE.Face3(1,1,1);
 			var uvArray = [];
@@ -90,7 +119,7 @@ THREE.OBJLoader.prototype = {
 				face.a = v1;
 				face.b = v2;
 				face.c = v3;
-				face.materialIndex = (object.material.length) - 1;
+				face.materialIndex = (object.material.materials.length) - 1;
 			}
 			else{
 				quadFaceCount++;
@@ -101,8 +130,8 @@ THREE.OBJLoader.prototype = {
 				face2.b = v3;
 				face2.c = v4;
 
-				face.materialIndex = (object.material.length) - 1;
-				face2.materialIndex = (object.material.length) - 1;
+				face.materialIndex = (object.material.materials.length) - 1;
+				face2.materialIndex = (object.material.materials.length) - 1;
 			}
 			if(!isNaN(uv1)){ //face uv = [x,y,z]
 				if(!isNaN(uv4)){
@@ -141,8 +170,12 @@ THREE.OBJLoader.prototype = {
 			if(isNaN(v4)) faces.push(face);
 			else faces.push(face,face2);
 
-			if(isNaN(uv4)) faceVertexUV.push(uvArray);
-			else faceVertexUV.push(uvArray,uvArray2);
+			if(isNaN(uv4)) faceVertexUvs.push(uvArray);
+			else faceVertexUvs.push(uvArray,uvArray2);
+
+			object.geometry.faces = faces;
+			object.geometry.faceVertexUvs = faceVertexUvs;
+			console.log("face");
 		}
 
 		////////////////////////////////////////patterns start/////////////////////////////////////
@@ -255,9 +288,17 @@ THREE.OBJLoader.prototype = {
 				addFace(v1,v2,v3,v4,uv1,uv2,uv3,uv4,nm1,nm2,nm3,nm4);
 			}
 			else if((result = patterns.object.exec(line)) !== null){
-				console.log("object/group");
+				var name = result[ 0 ].substr( 1 ).trim();
+				if (foundObjects === false){
+					foundObjects = true;
+					object.name = name;
+				} else{
+					addObject( name );
+				}
+				console.log("object, group");
 			}
 			else if((result = patterns.smooth.exec(line)) !== null){
+				object.material.smooth = result[1] === "1" || result[1] === "on";
 				console.log("smooth : " + line.substring(2));
 			}
 			else if((result = patterns.mtllib.exec(line)) !== null){
@@ -267,7 +308,7 @@ THREE.OBJLoader.prototype = {
 				var material = new THREE.MeshPhongMaterial({ color: 0x888888});
 				material.name = line.substring(7).trim();
 
-				object.material.push(material);
+				object.material.materials.push(material);
 
 				materialCount++;
 				console.log("material_" + materialCount + " : " + line.substring(7).trim());
@@ -279,17 +320,37 @@ THREE.OBJLoader.prototype = {
 
 		console.timeEnd( 'OBJLoader' );
 
-		var multiMaterial = new THREE.MeshFaceMaterial(object.material);
-		object.name = object.material[0];
-		object.material = multiMaterial;
+		var container = [];
+		for(var i = 0, l = objects.length; i < l; i++){
+			var mesh = {
+				geometry: null,
+				material: null,
+				name: null
+			}
+			object = objects[i];
+			var geometry = new THREE.Geometry();
 
+			geometry.vertices = object.geometry.vertices;
+			geometry.faces = object.geometry.faces;
+			geometry.faceVertexUvs[0] = object.geometry.faceVertexUvs;
+			geometry.elementsNeedUpdate = true;
+			geometry.computeFaceNormals();
+			//geometry.computeVertexNormals();
+			object.geometry = geometry;
 
-		object.geometry.vertices = vertices;
-		object.geometry.faces = faces;
-		object.geometry.faceVertexUvs[0] = faceVertexUV;
-		object.geometry.elementsNeedUpdate = true;
-		object.geometry.computeFaceNormals();
-		//object.geometry.computeVertexNormals();
+			var material;
+			if(object.material.length === 0){
+				material = new THREE.MeshPhongMaterial();
+			}
+			else{
+				material = new THREE.MeshFaceMaterial(object.material.materials);
+			}
+			mesh.geometry = geometry;
+			mesh.material = material;
+			mesh.name = object.name;
+			container.push(mesh);
+		}
+		
 
 		console.log(object);
 		console.log("vertices : " + vertexCount);
@@ -299,7 +360,7 @@ THREE.OBJLoader.prototype = {
 		console.log("quadFace : " + quadFaceCount);
 		console.log("materials : " + materialCount);
 
-		return object;
+		return container;
 	}
 
 };
