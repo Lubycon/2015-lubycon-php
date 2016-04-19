@@ -174,6 +174,39 @@ CREATE TABLE IF NOT EXISTS `ThreeDComment`
 	PRIMARY KEY(`boardCode`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+-- QAA
+DROP TABLE IF EXISTS `QaA`;
+CREATE TABLE IF NOT EXISTS `QaA`
+(
+	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userCode` INT UNSIGNED NOT NULL,
+	`title` VARCHAR(255) NOT NULL,
+	`desc` TEXT,
+	`contents` TEXT,
+	`imgDirectory` TEXT,
+	`downDirectory` TEXT,
+	`downloadCount` INT UNSIGNED NOT NULL,
+	`viewCount` INT UNSIGNED NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
+	`preview` TEXT NOT NULL,
+	
+	PRIMARY KEY(`boardCode`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- ThreeDComment
+DROP TABLE IF EXISTS `QaAComment`;
+CREATE TABLE IF NOT EXISTS `QaAComment`
+(
+	`boardCode` INT UNSIGNED NOT NULL,
+	`contents` TEXT NOT NULL,
+	`like` INT UNSIGNED NOT NULL,
+	`userCode` INT UNSIGNED NOT NULL,
+	`date` DATETIME NOT NULL,
+	
+	PRIMARY KEY(`boardCode`)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 SHOW WARNINGS;
 
 
