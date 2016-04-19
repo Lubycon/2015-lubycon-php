@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `Tutorial`
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
+	`date` DATETIME NOT NULL,
 	`desc` TEXT,
 	`contents` TEXT,
 	`imgDirectory` TEXT,
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `TutoComment`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
 	`contents` TEXT NOT NULL,
-	`like` INT UNSIGNED NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
 	`userCode` INT UNSIGNED NOT NULL,
 	`date` DATETIME NOT NULL,
 	
@@ -46,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `Forum`
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
+	`date` DATETIME NOT NULL,
 	`desc` TEXT,
 	`contents` TEXT,
 	`imgDirectory` TEXT,
@@ -65,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ForumComment`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
 	`contents` TEXT NOT NULL,
-	`like` INT UNSIGNED NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
 	`userCode` INT UNSIGNED NOT NULL,
 	`date` DATETIME NOT NULL,
 	
@@ -79,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `Vector`
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
+	`date` DATETIME NOT NULL,
 	`desc` TEXT,
 	`contents` TEXT,
 	`imgDirectory` TEXT,
@@ -99,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `VectorComment`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
 	`contents` TEXT NOT NULL,
-	`like` INT UNSIGNED NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
 	`userCode` INT UNSIGNED NOT NULL,
 	`date` DATETIME NOT NULL,
 	
@@ -113,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `ArtWork`
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
+	`date` DATETIME NOT NULL,
 	`desc` TEXT,
 	`contents` TEXT,
 	`imgDirectory` TEXT,
@@ -133,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `ArtWorkComment`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
 	`contents` TEXT NOT NULL,
-	`like` INT UNSIGNED NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
 	`userCode` INT UNSIGNED NOT NULL,
 	`date` DATETIME NOT NULL,
 	
@@ -147,6 +151,7 @@ CREATE TABLE IF NOT EXISTS `ThreeD`
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
+	`date` DATETIME NOT NULL,
 	`desc` TEXT,
 	`contents` TEXT,
 	`imgDirectory` TEXT,
@@ -167,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `ThreeDComment`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
 	`contents` TEXT NOT NULL,
-	`like` INT UNSIGNED NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
 	`userCode` INT UNSIGNED NOT NULL,
 	`date` DATETIME NOT NULL,
 	
@@ -181,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `QaA`
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
+	`date` DATETIME NOT NULL,
 	`desc` TEXT,
 	`contents` TEXT,
 	`imgDirectory` TEXT,
@@ -200,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `QaAComment`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
 	`contents` TEXT NOT NULL,
-	`like` INT UNSIGNED NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
 	`userCode` INT UNSIGNED NOT NULL,
 	`date` DATETIME NOT NULL,
 	
