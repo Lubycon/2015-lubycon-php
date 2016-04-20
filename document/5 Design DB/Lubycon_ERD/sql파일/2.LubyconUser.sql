@@ -60,20 +60,34 @@ CREATE TABLE IF NOT EXISTS `UserInfo`
 	`jobCode` INT UNSIGNED NOT NULL,
 	`countryCode` INT UNSIGNED NOT NULL,
 	`languageCode` INT UNSIGNED NOT NULL,
+	`logCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`profileImg` TEXT,
 	`desc` VARCHAR(160),
 	`company` VARCHAR(255),
-	`userCity` VARCHAR(255),
-	`userCell` VARCHAR(20),
-	`userFax` VARCHAR(20),
-	`userWeb` TEXT,
-	`subscription` ENUM('true', 'false') NOT NULL,
+	`city` VARCHAR(255),
+	`telNumber` VARCHAR(20),
+	`fax` VARCHAR(20),
+	`web` TEXT,
+	`languageLevel` ENUM('beginer','advanced','fluent','native'),
 	`permission` INT UNSIGNED NOT NULL DEFAULT 11111111,
 	
 	PRIMARY KEY (`userCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+
+-- UserHistory
+DROP TABLE IF EXISTS `UserHistory`;
+CREATE TABLE IF NOT EXISTS `UserHistory`
+(
+	`userCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`history` INT UNSIGNED NOT NULL,
+	`date` INT UNSIGNED NOT NULL,
+	`category` ENUM('work experience', 'education', 'awards'),
+	
+	PRIMARY KEY (`userCode`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- Bookmark --
 DROP TABLE IF EXISTS `Bookmark`;
@@ -92,12 +106,10 @@ CREATE TABLE IF NOT EXISTS `Bookmark`
 DROP TABLE IF EXISTS `Language`;
 CREATE TABLE IF NOT EXISTS `Language`
 (
-	`userCode` INT UNSIGNED NOT NULL,
 	`languageCode` INT UNSIGNED NOT NULL,
 	`language` VARCHAR(255),
-	`languageLevel` ENUM('Beginer','Advanced','Fluent','Native') NOT NULL,
 	
-	PRIMARY KEY(`userCode`)
+	PRIMARY KEY(`languageCode`)
 
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
@@ -109,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `Log`
 	`userCode` INT UNSIGNED NOT NULL,
 	`ip` CHAR(71) NOT NULL,
 	`ipCategory` ENUM('ipv4','ipv6') NOT NULL,
+	`date` DATETIME NOT NULL,
 	
 	PRIMARY KEY(`logCode`)
 	

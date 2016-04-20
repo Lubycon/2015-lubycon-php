@@ -1,11 +1,3 @@
-<?php
-$host = $_SERVER['HTTP_HOST'];
-$uri = $_SERVER['REQUEST_URI'];
-$get = $_GET['Token'];
-echo $get."<br/>";
-echo $host.$uri;
-?>
-<!--
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -42,7 +34,7 @@ echo $host.$uri;
             </tr>
             <tr id="confirm_bt">
                 <td align="center">
-                	<a href="#">
+                	<a href="./certificateEmail.php">
                 		<img src="../../CH/img/resist_mail/mail_bt.png">
                     </a>
                 </td>
@@ -60,4 +52,3 @@ echo $host.$uri;
         </tbody>
 	</table>
 </body>
--->
