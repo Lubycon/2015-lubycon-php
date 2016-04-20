@@ -3,43 +3,26 @@
  */
 
 THREE.OBJLoader = function ( manager ) {
-
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
-
 	this.materials = null;
-
 };
 
 THREE.OBJLoader.prototype = {
-
 	constructor: THREE.OBJLoader,
-
 	load: function ( url, onLoad, onProgress, onError ) {
-
 		var scope = this;
-
 		var loader = new THREE.XHRLoader( scope.manager );
 		loader.setPath( this.path );
 		loader.load( url, function ( text ) {
-
 			onLoad( scope.parse( text ) );
-
 		}, onProgress, onError );
-
 	},
-
 	setPath: function ( value ) {
-
 		this.path = value;
-
 	},
-
 	setMaterials: function ( materials ) {
-
 		this.materials = materials;
-
 	},
-
 	parse: function ( text ) { //text = file contents
 		"use strict";
 
@@ -62,6 +45,7 @@ THREE.OBJLoader.prototype = {
 		var triFaceCount = 0;
 		var quadFaceCount = 0;
 		var materialCount = 0;
+		var materialIndex = 0;
 
 		function addObject(name){
 			var geometry = {
@@ -85,27 +69,25 @@ THREE.OBJLoader.prototype = {
 			objects.push(object);
 		}
 		addObject("main");
+
 		function addVertex(x,y,z){
 			var vertex = new THREE.Vector3(x,y,z);
 			object = objects[objIndex];
 			vertices.push(vertex);
 			object.geometry.vertices = vertices;
 			object.geometry.verticesNeedUpdate = true;
-			console.log("vertex");
 		}
 		function addNormal(x,y,z){
 			var normal = new THREE.Vector3(x,y,z);
 			object = objects[objIndex];
 			normals.push(normal);
 			object.geometry.normals = normals;
-			console.log("normal");
 		}
 		function addUV(w,h){
 			var uv = new THREE.Vector2(w,h);
 			object = objects[objIndex];
 			uvs.push(uv);
 			object.geometry.uvs = uvs;
-			console.log("uv");
 		}
 		function addFace(v1,v2,v3,v4,uv1,uv2,uv3,uv4,nm1,nm2,nm3,nm4){
 			object = objects[objIndex];
@@ -119,7 +101,7 @@ THREE.OBJLoader.prototype = {
 				face.a = v1;
 				face.b = v2;
 				face.c = v3;
-				face.materialIndex = (object.material.materials.length) - 1;
+				face.materialIndex = materialIndex;
 			}
 			else{
 				quadFaceCount++;
@@ -130,8 +112,8 @@ THREE.OBJLoader.prototype = {
 				face2.b = v3;
 				face2.c = v4;
 
-				face.materialIndex = (object.material.materials.length) - 1;
-				face2.materialIndex = (object.material.materials.length) - 1;
+				face.materialIndex = materialIndex;
+				face2.materialIndex = materialIndex;
 			}
 			if(!isNaN(uv1)){ //face uv = [x,y,z]
 				if(!isNaN(uv4)){
@@ -295,7 +277,6 @@ THREE.OBJLoader.prototype = {
 				} else{
 					addObject( name );
 				}
-				console.log("object, group");
 			}
 			else if((result = patterns.smooth.exec(line)) !== null){
 				object.material.smooth = result[1] === "1" || result[1] === "on";
@@ -305,13 +286,33 @@ THREE.OBJLoader.prototype = {
 				console.log("material library " + line.substring(7).trim());
 			}
 			else if((result = patterns.usemtl.exec(line)) !== null){
-				var material = new THREE.MeshPhongMaterial({ color: 0x888888});
-				material.name = line.substring(7).trim();
-
-				object.material.materials.push(material);
-
-				materialCount++;
-				console.log("material_" + materialCount + " : " + line.substring(7).trim());
+				var existCheck = false;
+				var name = line.substring(7).trim();
+				var materials = object.material.materials;
+				if(materials.length == 0){ //first material
+					var material = new THREE.MeshPhongMaterial({ color: 0x888888 });
+					material.name = name;
+					materials.push(material);
+					materialCount++;
+				}
+				else if(materials.length > 0){ //after second material
+					for(var j = 0; j < materials.length; j++){
+						if(materials[j].name == name){
+							existCheck = true;
+							materialIndex = j;
+							break;
+						}
+						else existCheck = false;
+					}
+					if(!existCheck){
+						var material = new THREE.MeshPhongMaterial({ color: 0x888888 });
+						material.name = name;
+						materials.push(material);
+						materialIndex = materials.length - 1;
+						materialCount++;
+					} 
+				}
+				console.log("Loaded material_" + materialIndex + " : " + line.substring(7).trim());
 			}
 			else{
 				$.error("Load Error : " + line);
@@ -340,7 +341,7 @@ THREE.OBJLoader.prototype = {
 
 			var material;
 			if(object.material.materials.length === 0){
-				material = new THREE.MeshPhongMaterial();
+				material = new THREE.MeshPhongMaterial({ color: 0x888888 });
 				console.log()
 			}
 			else{
@@ -352,7 +353,6 @@ THREE.OBJLoader.prototype = {
 			container.push(mesh);
 		}
 		
-
 		console.log(object);
 		console.log("vertices : " + vertexCount);
 		console.log("normals : " + normalCount);
