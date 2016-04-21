@@ -132,6 +132,9 @@ $(window).on("load",function(){
 		onError: function(xhr){
 			$.error("load Error");
 		},
+		autoScaling: function(){
+			
+		},
 		materialSelect: function(){
 			var $this = $(this).find(".mtl-option:selected"),
 			id = $this.data("value"),

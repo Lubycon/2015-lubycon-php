@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lubyEditor3d-prototype</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source Sans Pro:200,400,600" type="text/css" />
+	<link href="../css/lubySlider.css" rel="stylesheet" type="text/css" />
+	<link href="../css/spectrum.css" rel="stylesheet" type="text/css" />
+	<link href="../css/cropper.css" rel="stylesheet" type="text/css" />
+	<link href="../css/chosen.css" rel="stylesheet" type="text/css" />
+	<link href="lubyEditor_3d.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="../js/jquery-1.12.2.js"></script> <!-- jquery library -->
+	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.lubySlider.js"></script>
+	<script type="text/javascript" src="../js/spectrum.js"></script>
+	<script type="text/javascript" src="../js/cropper.js"></script>
+	<script type="text/javascript" src="../js/chosen.jquery.js"></script>
+	<script type="text/javascript" src="../js/html2canvas.js"></script>
+	<script type="text/javascript" src="../js/resizeObject.js"></script>
+
+	<script type="text/javascript" src="../js/3d/three.min.js"></script>
+
+	<script type="text/javascript" src="../js/3d/3dLoader.js"></script>
+
+	<script type="text/javascript" src="../js/3d/ShadowMaterial.js"></script>
+	<script type="text/javascript" src="../js/3d/DragControls.js"></script>
+	<script type="text/javascript" src="../js/3d/OrbitControls.js"></script>
+	<script type="text/javascript" src="../js/3d/stats.min.js"></script> <!--get fps-->
+	<script type="text/javascript" src="../js/3d/dat.gui.min.js"></script> <!--get controller-->
+	<script tpye="text/javascript" src="../js/3d/threex.domevents.js"></script>
+
+	<script type="text/javascript" src="jquery.lubyEditor_3d.js"></script> 
+</head>
+<body>
+	<div id="test" class="lubyEditor"></div>
+	<script>
+		$("#test").lubyEditor3d({
+			submit: function(data){
+				//console.log(data);
+			}
+		});
+	</script>
+</body>
+</html>

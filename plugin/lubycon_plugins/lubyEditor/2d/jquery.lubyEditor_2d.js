@@ -1,6 +1,6 @@
 /* ===========================================================
  *
- *  Name:          lubyPictool.min.js
+ *  Name:          lubyEditor2d.min.js
  *  Updated:       2016-03-30
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
@@ -10,7 +10,7 @@
  * =========================================================== */
 
 (function($){
-    $.fn.lubyPictool = function(option){
+    $.fn.lubyEditor2d = function(option){
         var defaults = { 
             height: $(window).height(),
             minHeight: null,
@@ -29,11 +29,11 @@
             basic: "fa fa-filter",
 
             ccIcon: "fa fa-creative-commons",
-            ccImg: "./php/editor/img/cc_w.png",
-            by: "./php/editor/img/by_w.png",
-            nc: "./php/editor/img/nc_w.png",
-            nd: "./php/editor/img/nd_w.png",
-            share: "./php/editor/img/share_w.png",
+            ccImg: "../img/cc_w.png",
+            by: "../img/by_w.png",
+            nc: "../img/nc_w.png",
+            nd: "../img/nd_w.png",
+            share: "../img/share_w.png",
 
             charge: "fa fa-credit-card",
             usd: "fa fa-usd",
@@ -107,9 +107,9 @@
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
-                    if (!$(this).hasClass("lubyPictoolKey")) $.error("The key for lubyPictool is not exist");
+                    if (!$(this).hasClass("lubyEditor")) $.error("The key for lubyPictool is not exist");
                     else {
-                        console.log("lubyPictool is loaded");//function start
+                        console.log("lubyEditor2d is loaded");//function start
                         var $this = $(this),
                         //init object
                         $wrapper = $("<div/>",{"class" : "lubypic-wrapper"}).appendTo($this),
@@ -364,7 +364,7 @@
                 })
             },
             submit: function(){
-                var rootElement = $(".lubyPictoolKey"),
+                var rootElement = $(".lubyEditor"),
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
@@ -1367,17 +1367,17 @@
 
                 $btnIcon = $("<img/>"),
                 $btn1 = $btn.clone(true).attr("data-value","n-1-1")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/1.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","../img/grid_icons/1.png")).appendTo($btnWrap),
                 $btn2 = $btn.clone(true).attr("data-value","v-1-2")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/2.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","../img/grid_icons/2.png")).appendTo($btnWrap),
                 $btn3 = $btn.clone(true).attr("data-value","v-2-1")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/3.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","../img/grid_icons/3.png")).appendTo($btnWrap),
                 $btn4 = $btn.clone(true).attr("data-value","h-1-2")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/4.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","../img/grid_icons/4.png")).appendTo($btnWrap),
                 $btn5 = $btn.clone(true).attr("data-value","h-2-1")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/5.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src","../img/grid_icons/5.png")).appendTo($btnWrap),
                 $btn6 = $btn.clone(true).attr("data-value","n-2-2")
-                .append($btnIcon.clone().attr("src","./php/editor/img/grid_icons/6.png")).appendTo($btnWrap);
+                .append($btnIcon.clone().attr("src","../img/grid_icons/6.png")).appendTo($btnWrap);
                 pac.modalAlign($this);
             },
             gridFn: {
