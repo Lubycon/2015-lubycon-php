@@ -640,7 +640,7 @@
 
                 if(selected){
                     if(notExist) {
-                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".lubyPictoolKey")),
+                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".lubyEditor")),
                         useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
                         .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")).hide().stop().fadeIn(400),
@@ -797,7 +797,6 @@
                     "max" : 100
                 }).appendTo($fontSize).slider({
                     customID: "fontSize-slider",
-                    disabled: true, 
                     callback: toolbar.textFn.fontSize
                 }),
                 
@@ -874,19 +873,29 @@
             objectTool: function(){
                 var $this = $(document).find("#objectTool-toolbox"),
 
-                $bgColor = $("<div/>",{
+                $materialSelector = $("<div/>",{
                     "class" : "toolbox-inner", 
-                    "id" : "bgColor-tool",
-                    "data-value" : "bg-color"
+                    "id" : "materialSelect-tool",
+                    "data-value" : "material-select"
                 }).appendTo($this),
                 $colorLabel = $("<div>",{
                     "class" : "toolbox-label",
-                    "html" : "Background Color"
-                }).appendTo($bgColor),
-                $colorInput = $("<input/>",{ //input
+                    "html" : "Meterials"
+                }).appendTo($materialSelector),
+                $selectBox = $("<select/>",{
+                    "class" : "material-selector"
+                }).appendTo($materialSelector).lubySelector({
+                    id: "materialSelector",
+                    width: "100%",
+                    maxHeight: 250,
+                    float: "none",
+                    icon: "",
+                    theme: "black"
+                })
+                /*$colorInput = $("<input/>",{ //input
                     "type" : "text",
                     "id" : "bgColorKey"
-                }).appendTo($bgColor).spectrum({
+                }).appendTo($materialSelector).spectrum({
                     color: "#ffffff",
                     showInput: true,
                     showAlpha: true,
@@ -898,7 +907,7 @@
                     selectionPalette: [],
                     move: toolbar.colorFn.bgColor,
                     change: toolbar.colorFn.bgColor
-                });
+                });*/
             },
             colorFn: {
                 bgColor: function(color){
@@ -918,9 +927,7 @@
                 $sortLabel = $("<div>",{
                     "class" : "toolbox-label",
                     "html" : "Sort"
-                }).appendTo($sortWrap),
-                $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap),
-                $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable).appendTo($sortWrap);
+                }).appendTo($sortWrap)
             },
             sortFn: {
                 sortable: function(event){

@@ -909,7 +909,7 @@
 
                 if(selected){
                     if(notExist) {
-                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".lubyPictoolKey")),
+                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".lubyEditor")),
                         useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
                         .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")).hide().stop().fadeIn(400),
