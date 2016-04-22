@@ -86,15 +86,29 @@ $(window).on("load",function(){
 								geometry.center();
 								geometry.dispose();
 							material = object[i].material;
-							var materials = material.materials;
-							for(var j = 0, ml = materials.length; j < ml; j++){
-								materials[j].specular = new THREE.Color(0xffffff);
-								materials[j].specularColor = new THREE.Color(0xffffff);
-								materials[j].side = THREE.DoubleSide;
-								materials[j].transparent = true;
-								materials[j].needsUpdate = true;
-								materials[j].dispose();
+							if(material.type == "MeshPhongMaterial"){
+								material.specular = new THREE.Color(0xffffff);
+								material.specularColor = new THREE.Color(0xffffff);
+								material.side = THREE.DoubleSide;
+								material.transparent = true;
+								material.needsUpdate = true;
+								material.dispose();
 							}
+							else if(material.type == "MultiMaterial"){
+								var materials = material.materials;
+								for(var j = 0, ml = materials.length; j < ml; j++){
+									materials[j].specular = new THREE.Color(0xffffff);
+									materials[j].specularColor = new THREE.Color(0xffffff);
+									materials[j].side = THREE.DoubleSide;
+									materials[j].transparent = true;
+									materials[j].needsUpdate = true;
+									materials[j].dispose();
+								}
+							}
+							else{
+								$.error("WebGl failed loading to material");
+							}
+							
 							mesh = new THREE.Mesh(geometry,material);
 								mesh.castShadow = true;
 								mesh.receiveShadow = true;
@@ -117,6 +131,9 @@ $(window).on("load",function(){
 		},
 		onError: function(xhr){
 			$.error("load Error");
+		},
+		autoScaling: function(){
+			
 		},
 		materialSelect: function(){
 			var $this = $(this).find(".mtl-option:selected"),
@@ -146,14 +163,16 @@ $(window).on("load",function(){
 			selectBox = $("<select/>",{"id":"mtlSelector"}).on("change",funcs.materialSelect).appendTo(btWrap),
 			options = $("<option/>",{"class":"mtl-option"}),
 			addOption = function(){
-				var materials = group.children[0].material.materials;
-				for(var i = 0, l = materials.length; i < l; i++){
-					var material = materials[i],
-					option = options.clone();
-					option.text(material.name);
-					option.attr("data-value",i);
-					option.appendTo(selectBox);
-					if(i == 0) option.prop("selected",true);
+				if(group.children[0].material.type == "MultiMaterial"){
+					var materials = group.children[0].material.materials;
+					for(var i = 0, l = materials.length; i < l; i++){
+						var material = materials[i],
+						option = options.clone();
+						option.text(material.name);
+						option.attr("data-value",i);
+						option.appendTo(selectBox);
+						if(i == 0) option.prop("selected",true);
+					}
 				}
 			};
 			addOption();
