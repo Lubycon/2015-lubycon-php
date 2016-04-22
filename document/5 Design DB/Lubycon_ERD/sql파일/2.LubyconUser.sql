@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `UserInfo`
 	`jobCode` INT UNSIGNED NOT NULL,
 	`countryCode` INT UNSIGNED NOT NULL,
 	`languageCode` INT UNSIGNED NOT NULL,
-	`logCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`logCode` INT UNSIGNED,
 	`profileImg` TEXT,
 	`desc` VARCHAR(160),
 	`company` VARCHAR(255),
