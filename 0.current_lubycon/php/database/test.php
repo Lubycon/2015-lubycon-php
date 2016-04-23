@@ -30,16 +30,10 @@
 	$db->changeDb('helloworld');
 	
 	// 잘못된 db를 변경시 테스트
-	$hi = null;
-	$hi = $db->getConnection();
-	echo (isset($hi))?"연결정보 있음<br/>":"연결정보 없음<br/>";
-	// 연결정보 받아오는 것을 테스트
 
 	$db->disconnectDb();
 
-	$bye = null;
-	$bye = $db->getConnection();
-	echo (isset($bye))?"연결정보 있음":"연결정보 없음";
+	echo (isset($db->database))?"연결정보 있음":"연결정보 없음";
 	// 연결정보 죽었는지 확인
 	
 	

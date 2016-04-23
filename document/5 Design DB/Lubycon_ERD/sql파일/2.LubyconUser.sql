@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `UserInfo`
 	`languageCode` INT UNSIGNED NOT NULL,
 	`logCode` INT UNSIGNED,
 	`profileImg` TEXT,
-	`desc` VARCHAR(160),
+	`description` VARCHAR(160),
 	`company` VARCHAR(255),
 	`city` VARCHAR(255),
 	`telNumber` VARCHAR(20),
