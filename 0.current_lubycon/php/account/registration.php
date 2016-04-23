@@ -44,6 +44,9 @@
 	//newsletter
 	(isset($_POST['email_send_check']))? $newsletter = 'true' : $newsletter = 'false';
 
+	$host = $_SERVER['HTTP_HOST'];
+	$uri = $_SERVER['REQUEST_URI'];
+
 	if($email_validation && $pass_validation && $nick_validation && $private_validation && $terms_validation){
 		
 		$feed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
@@ -94,7 +97,7 @@
 			$mail->setFrom($fromaddress,$fromaddress);
 			$mail->addAddress($toaddress,$toaddress);
 			$mail->Subject=$subject;
-			$mail->msgHTML($mailContents);
+			$mail->msgHTML(file_get_contents("mail_for_resist.php"));
 			$mail->Altbody='This is a plain-text message body';
 		
 			if(!$mail->send()){

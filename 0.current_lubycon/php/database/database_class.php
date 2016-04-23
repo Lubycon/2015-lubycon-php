@@ -32,6 +32,14 @@ class Database{
 		}else{echo "연결 해제 실패";}
 	}
 
+	public function changeDb($db){
+		if($this->database->select_db($db)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	public function askMultiQuery(){
 		# for later
 	}
