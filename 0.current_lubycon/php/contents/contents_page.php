@@ -82,25 +82,27 @@
 
             if( in_array($_GET['cate'] , $allow_array) )
             {
-                $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubyconboard");
-        
-                switch($_GET['cate']){
+	            require_once '../database/database_class.php';
+	            $db = new Database();
+
+                switch($_GET['cate']){ //check category
                 case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
                 case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
                 case '3d' : $contents_cate = 3; $cate_name = 'threed'; break;
                 default : $contents_cate = 1;  break;
                 };
 
+                $db->query =
+                "SELECT * 
+                FROM lubyconboard.`$cate_name` 
+                INNER join lubyconuser.`userbasic` 
+                INNER join lubyconuser.`userinfo` 
+                on `$cate_name`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode`
+                ORDER BY `$cate_name`.`boardCode` DESC";
+		        $db->askQuery();
 
-                $query = "SELECT * FROM `".$cate_name."` ORDER BY `".$cate_name."`.`boardCode` DESC";
-                $result = mysqli_query($conn,$query);
-                $row = mysqli_fetch_array($result);
-
-
-                while( $row = mysqli_fetch_array($result) )
+                while( $row = mysqli_fetch_array($db->result) )
                 {
-                    $query_name = "SELECT * FROM `luby_user` WHERE `boardCode` =" . $row['boardCode'];
-
                     include('../layout/content_card.php');
                 }
             }else
