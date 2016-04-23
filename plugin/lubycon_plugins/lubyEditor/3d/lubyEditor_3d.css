@@ -401,7 +401,7 @@ a {
         padding: 20px;
         margin-top: 50px;
         padding-top: 20px;
-        min-width: 250px;
+        min-width: 300px;
         background: #282828;
         z-index: 90;
         box-shadow: 3px 5px 10px -3px rgba(0,0,0,0.6);
@@ -469,6 +469,48 @@ a {
             .toolbox-inner input[type="range"] {
                 width: 150px;
             }
+            .toolbox-inner > .material-controller {
+                position: relative;
+            }
+                .toolbox-inner > .material-controller > .material-tab-bt-wrapper {
+                    width: 100%;
+                }
+                .toolbox-inner > .material-controller > .material-tab-bt-wrapper > .material-tab {
+                    display: inline-block;
+                    width: 50%;
+                    height: 30px;
+                    line-height: 30px;
+                    color: #eeeeee;
+                    font-size: 14px;
+                    font-weight: 200;
+                    border-radius: 0;
+                }
+                .toolbox-inner > .material-controller > .material-tab-bt-wrapper > .material-tab.selected {
+                    box-shadow: none !important;
+                }
+            .toolbox-inner > .material-controller > .material-control-inner {
+                position: relative;
+                width: 100%;
+                min-height: 50px;
+                background: #222222;
+            }
+                .toolbox-inner > .material-controller > .material-control-inner > .material-control-panel {
+                    position: relative;
+                    display: block;
+                    padding: 10px;
+                }
+                    .material-control-panel > .material-control-viewer {
+                        display: inline-block;
+                        width: 30px;
+                        height: 30px;
+                        cursor: pointer;
+                    }
+                    .material-control-panel .sp-container {
+                        top: 40px !important;
+                    }
+                    .material-control-panel .sp-dd {
+                        display: none;
+                    }           
 
     .lubypic-body > .editing-background{
         position: fixed;
@@ -564,6 +606,7 @@ a {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     cursor: pointer;
+    transition: background 0.2s;
 }
     .btn.selected {
         background: #222222 !important;
