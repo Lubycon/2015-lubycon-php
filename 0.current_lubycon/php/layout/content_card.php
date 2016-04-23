@@ -3,12 +3,12 @@
         $price = $row['downloadPermission'];
         $contents_thumb_url = $row['preview'];
         $title = $row['title'];
-        $user_img_url = 'not yet';
-        $user_name = 'not yet';
+        $user_img_url = $row['profileImg'];
+        $user_name = $row['nick'];
         $board_code = $row['boardCode'];
         $cate = $cate_name;
         $randCount = $row['viewCount'];
-        $randCount1 = rand(400,1200); //not yet
+        $randCount1 = rand(400,1200); //not yet comment count
         $randCount2= $row['likeCount'];
         $viewCount = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
         $commentCount = $randCount1 < 1000 ? $randCount1 : (string)(round((double)($randCount1/1000),1))."K";
