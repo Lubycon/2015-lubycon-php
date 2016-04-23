@@ -187,7 +187,7 @@ INSERT INTO `userbasic` (`userCode`, `date`, `email`, `nick`, `pass`, `validatio
 (181, '2016-04-16 22:56:09', 'qwerqwer@naver.com', 'Eric Wynne', '123123', 'active', 'false', 'true', 'true');
 
 delete from `userinfo`;
-INSERT INTO `userinfo` (`userCode`, `jobCode`, `countryCode`, `languageCode`, `profileImg`, `desc`, `company`, `city`, `telNumber`, `fax`, `web`, `languageLevel`, `permission`) VALUES
+INSERT INTO `userinfo` (`userCode`, `jobCode`, `countryCode`, `languageCode`, `profileImg`, `description`, `company`, `city`, `telNumber`, `fax`, `web`, `languageLevel`, `permission`) VALUES
 (1, 3, 184, 3, '../../../../lubycon_Contents/user/0/profile.jpg', 'neque pellentesque massa lobortis ultrices. Vivamus rhoncus. Donec est.', 'Amet Consectetuer Adipiscing Inc.', 'New Haven', '(957) 539-9817', '(200) 955-4802', 'placerat@temporaugueac.com', 'native', 11111111),
 (2, 2, 141, 1, '../../../../lubycon_Contents/user/1/profile.jpg', 'non, egestas a, dui. Cras pellentesque. Sed dictum. Proin', 'At Pede Cras Limited', 'Grand Falls', '(391) 783-3046', '(123) 742-7453', 'volutpat.nunc.sit@mattissemperdui.edu', 'native', 11111111),
 (3, 3, 160, 2, '../../../../lubycon_Contents/user/2/profile.jpg', 'est,', 'Libero Integer In Industries', 'Los Andes', '(778) 705-9461', '(362) 702-3716', 'interdum.Sed@elit.com', 'native', 11111111),

@@ -86,6 +86,7 @@
 	            $db = new Database();
 
                 switch($_GET['cate']){ //check category
+                case 'all' : $contents_cate = 0; $cate_name = 'artwork,vector,threed'; break;
                 case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
                 case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
                 case '3d' : $contents_cate = 3; $cate_name = 'threed'; break;

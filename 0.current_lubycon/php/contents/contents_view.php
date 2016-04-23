@@ -1,44 +1,77 @@
 <?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    include_once('../layout/index_header.php');
-?>
+$one_depth = '../..'; //css js load
+$two_depth = '..'; // php load
+include_once('../layout/index_header.php');
 
-<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
 
-<?php
-include($one_depth.'/../../Lubycon_Contents/contents/contents_data.php');
+$number = $_GET["conno"]; //contenst number form url
+$current_url = $_GET["cate"]; //contents category form url
 
-$number = $_GET["conno"];
-$current_url = $_GET["cate"];
-$contents_img_url = $one_depth."/../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/".$number.".jpg";
-$user_img_url = $one_depth."/../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/profile/".$number.".jpg";
-$category0 = ucwords($current_url);
+$allow_array = ['all','artwork','vector','3d'];
+
+if( in_array($_GET['cate'] , $allow_array) )
+{
+    require_once '../database/database_class.php';
+    $db = new Database();
+
+    switch($_GET['cate']){ //check category
+    case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
+    case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
+    case '3d' : $contents_cate = 3; $cate_name = 'threed'; break;
+    default : $contents_cate = 1; break;
+    }
+}else
+{
+    include_once('../../404.php');
+    die();
+};
+
+$db->query =
+"
+SELECT * 
+FROM lubyconboard.`$cate_name` 
+INNER join lubyconuser.`userbasic` 
+INNER join lubyconuser.`userinfo` 
+on `$cate_name`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` 
+WHERE `$cate_name`.`boardCode` = $number 
+";
+
+$db->askQuery();
+
+if( !is_array($db->row) )
+{
+    include_once('../../404.php');
+}
+
+
+//$contents_img_url = $one_depth."/../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/".$number.".jpg"; what the..
+$contents_name = $db->row['title'];
+$contents_html = $db->row['contents'];
+$user_img_url = $db->row['profileImg'];
+$category0 = $cate_name;
 $category1 = "Category1";
 $category2 = "Category2";
 
-$userjob = "Job";
-$usercity = "City";
-$usercountry = "Country";
+$user_name = $db->row['nick'];
+$userjob = $db->row['jobCode'];
+$usercity = $db->row['city'];
+$usercountry = $db->row['countryCode'];
 
-$file_descript = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
+$file_descript = $db->row['description'];
 
-$file_view = rand(1, 300);
-$file_down = rand(1, 100);
-$file_like = rand(1, 30);
 
-switch($current_url){
-    case "artwork" : $current_url = "artwork"; $contents_name = $artwork_subject; $contents_author = $artwork_author; break;
-    case "vector" : $current_url = "vector"; $contents_name = $vector_subject; $contents_author = $vector_author; break;
-    case "3d" : $current_url = "3d"; $contents_name = $threed_subject; $contents_author = $threed_author; break;
-    default : $current_url = "artwork"; $contents_name = $artwork_subject;$contents_author = $artwork_author; break;
-};
+$file_view = $db->row['viewCount'];
+$file_down = $db->row['downloadCount'];
+$file_like = $db->row['likeCount'];
 ?>
+
+
+<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
 <link href="<?=$one_depth?>/css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
-            <h3 id="contents_title"><?=$contents_name[$number]?></h3>
+            <h3 id="contents_title"><?=$contents_name?></h3>
             <div id="contents_category"><?=$category0?> > <?=$category1?>, <?=$category2?></div>
             <div id="contents_score">
                 <ul>
@@ -66,7 +99,7 @@ switch($current_url){
            </iframe>";
                 }
                 else{
-                    echo '<figure class="contents_img"><img class="inner_img" src="'.$contents_img_url.'" /></figure>';
+                    echo $contents_html;
                 };
             ?>
             <div class="floating_bt">
@@ -129,7 +162,7 @@ switch($current_url){
                     <img src="<?=$user_img_url?>">
                 </figure>
                 <span id="user_info_wrap">
-                    <h4><a href="<?=$two_depth?>/personal_page.php&cate=dashboard"><?=$contents_author[$number]?></a></h4>
+                    <h4><a href="<?=$two_depth?>/personal_page.php&cate=dashboard"><?=$user_name?></a></h4>
                     <h5><?=$userjob?></h5>
                     <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
