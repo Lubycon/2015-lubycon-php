@@ -1,4 +1,6 @@
 ﻿-- --
+DROP DATABASE IF EXISTS lubycon;
+
 DROP DATABASE IF EXISTS LubyconUser;
 CREATE DATABASE IF NOT EXISTS LubyconUser;
 
