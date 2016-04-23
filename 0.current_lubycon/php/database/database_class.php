@@ -5,6 +5,7 @@ class Database{
 	public $database;
 	public $query;
 	public $result;
+    public $row;
 
 	public function __construct($host='localhost', $user='lubycon', $pass='hmdwdgdhkr2015', $database='lubyconuser'){
 		// default 인자 암호화 방법에 대해서 생각해보기(해당 데이터 베이스, 유저 계정, 유저 비밀번호)
@@ -14,15 +15,14 @@ class Database{
 	}
 
 	public function askQuery(){
-
 		if(isset($this->query)){
 			$this->result = $this->database->query($this->query);
+            $this->row = mysqli_fetch_array($this->result);
 			return true;
 		}else{
 			return false;
 		}
 	}
-
 	public function disconnectDb(){
 
 		if(mysqli_close($this->database)){
@@ -30,6 +30,14 @@ class Database{
 			$this->result = null;
 			$this->query = null;	
 		}else{echo "연결 해제 실패";}
+	}
+
+	public function changeDb($db){
+		if($this->database->select_db($db)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public function askMultiQuery(){
