@@ -951,10 +951,39 @@
                     upload.textureUpload();
                 },
                 materialColor: function(color){
-                    console.log("materialColor" + color);
+                    var $this = $(this),
+                    $materials = group.children[0].material,
+                    color = color.toRgbString();
+
+                    if($materials.type == "MeshPhongMaterial"){}
+                    else if($materials.type == "MultiMaterial"){
+                        var id = $("#material-selector").find("option:selected").data("value"),
+                        $material = $materials.materials[id],
+                        kind = $this.parents(".material-controller").data("value");
+
+                        switch(kind){
+                            case "diffuse" : $material.color = new THREE.Color(color); break;
+                            case "specular" : $material.specularColor = new THREE.Color(color); break;
+                            default : $.error("color Error"); break;
+                        }
+                    }   
                 },
-                changeOpacity: function(){
-                    console.log("change Opacity");
+                changeOpacity: function(val,selector){
+                    var $this = selector,
+                    val = val*0.01,
+                    $materials = group.children[0].material;
+
+                    if($materials.type == "MeshPhongMaterial"){}
+                    else if($materials.type == "MultiMaterial"){
+                        var id = $("#material-selector").find("option:selected").data("value"),
+                        $material = $materials.materials[id],
+                        kind = $this.parents(".material-controller").data("value");
+                        console.log(kind);
+                        switch(kind){
+                            case "diffuse" : $material.opacity = val; break;
+                            default : $.error("opacity Error"); break;
+                        }
+                    }
                 }
             },
             backgroundTool: function(){
