@@ -52,5 +52,4 @@ function loadPage(url)
 		}
 		
 	});
-
 }

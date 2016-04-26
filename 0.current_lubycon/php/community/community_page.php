@@ -29,7 +29,7 @@
                     <a href="../community/community_page.php?cate=tutorial">Tutorial</a>
                 </li>
                 <li class="nav_menu" id="qna">
-                    <a href="../community/community_page.php?cate=qna">Q&amp;A</a>
+                    <a href="../community/community_page.php?cate=qaa">Q&amp;A</a>
                 </li>
             </ul>
         </nav>
@@ -70,7 +70,7 @@
     <!-- end nav_guide -->
     <section class="con_wrap">
         <?php
-            $allow_array = ['forum','tutorial','qna'];
+            $allow_array = ['forum','tutorial','qaa'];
 
             if( in_array($_GET['cate'] , $allow_array) )
             {
