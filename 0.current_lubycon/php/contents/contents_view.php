@@ -5,10 +5,8 @@ include_once('../layout/index_header.php');
 
 
 $number = $_GET["conno"]; //contenst number form url
-$current_url = $_GET["cate"]; //contents category form url
 
-$allow_array = ['all','artwork','vector','3d'];
-
+$allow_array = ['all','artwork','vector','threed'];
 if( in_array($_GET['cate'] , $allow_array) )
 {
     require_once '../database/database_class.php';
@@ -17,7 +15,7 @@ if( in_array($_GET['cate'] , $allow_array) )
     switch($_GET['cate']){ //check category
     case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
     case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
-    case '3d' : $contents_cate = 3; $cate_name = 'threed'; break;
+    case 'threed' : $contents_cate = 3; $cate_name = 'threed'; break;
     default : $contents_cate = 1; break;
     }
 }else
@@ -25,6 +23,10 @@ if( in_array($_GET['cate'] , $allow_array) )
     include_once('../../404.php');
     die();
 };
+
+$db->changedb('lubyconboard');
+$db->query = "UPDATE `$cate_name` SET `viewCount` = `viewCount`+1 WHERE `$cate_name`.`boardCode` = $number";
+$db->askQuery(); // viewcount up
 
 $db->query =
 "
@@ -35,37 +37,51 @@ INNER join lubyconuser.`userinfo`
 on `$cate_name`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` 
 WHERE `$cate_name`.`boardCode` = $number 
 ";
+$db->askQuery(); //get db data
 
-$db->askQuery();
-
-if( !is_array($db->row) )
+$row = mysqli_fetch_array($db->result);
+if( !is_array($row) )
 {
     include_once('../../404.php');
 }
 
 
-//$contents_img_url = $one_depth."/../../Lubycon_Contents/contents/".$current_url."/".$current_url."jpg/".$number.".jpg"; what the..
-$contents_name = $db->row['title'];
-$contents_html = $db->row['contents'];
-$user_img_url = $db->row['profileImg'];
+$contents_name = $row['title'];
+$contents_html = $row['contents'];
+$user_img_url = $row['profileImg'];
 $category0 = $cate_name;
 $category1 = "Category1";
 $category2 = "Category2";
 
-$user_name = $db->row['nick'];
-$userjob = $db->row['jobCode'];
-$usercity = $db->row['city'];
-$usercountry = $db->row['countryCode'];
+$user_name = $row['nick'];
+$usercity = $row['city'];
 
-$file_descript = $db->row['description'];
+switch($row['jobCode'])
+{
+    case 0 : $job_name = 'Artist'; break;
+    case 1 : $job_name = 'Creator'; break;
+    case 2 : $job_name = 'Designer'; break;
+    case 3 : $job_name = 'Engineer'; break;
+    case 4 : $job_name = 'Student'; break;
+    case 5 : $job_name = 'Other'; break;
+    case 6 : $job_name = 'delete'; break;
+    default : break;
+}
+$userjob = $job_name;
 
 
-$file_view = $db->row['viewCount'];
-$file_down = $db->row['downloadCount'];
-$file_like = $db->row['likeCount'];
+$usercountry = $row['countryCode'];
+
+$file_descript = $row['description'];
+
+
+$file_view = $row['viewCount'];
+$file_down = $row['downloadCount'];
+$file_like = $row['likeCount'];
 ?>
 
 
+<script type="text/javascript" src="<?=$one_depth?>/js/contents_view.js"></script> <!-- account file js -->
 <script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
 <link href="<?=$one_depth?>/css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
 <section class="container">
@@ -76,15 +92,15 @@ $file_like = $db->row['likeCount'];
             <div id="contents_score">
                 <ul>
                     <li><i class="fa fa-eye"></i></li>
-                    <li class="contents_view_score"><?=$file_view?></li>
+                    <li id="viewCount" class="contents_view_score"><?=$file_view?></li>
                 </ul>
                 <ul>
                     <li><i class="fa fa-cloud-download"></i></li>
-                    <li class="contents_view_score"><?=$file_down?></li>
+                    <li id="downloadCount" class="contents_view_score"><?=$file_down?></li>
                 </ul>
                 <ul>
                     <li><i class="fa fa-heart"></i></li>
-                    <li class="contents_view_score"><?=$file_like?></li>
+                    <li id="likeCount" class="contents_view_score"><?=$file_like?></li>
                 </ul>
             </div>
         </div><!--subnav_box end-->
@@ -92,11 +108,9 @@ $file_like = $db->row['likeCount'];
     <section class="con_wrap">
         <div id="contents_main" class="con_main">
             <?php
-                $current_url = $_GET["cate"];
-                if($current_url=="3d"){
+                if($cate_name == 'threed'){
                     echo 
-                    "<iframe id='webgl_viewer' name='webgl' src='webGL/file_viewer/viewer.html' frameborder='0' marginwidth='0' marginheight='0' scrolling='no' style='margin-bottom:-5px'>
-           </iframe>";
+                    "<iframe id='webgl_viewer' name='webgl' src='webGL/file_viewer/viewer.html' frameborder='0' marginwidth='0' marginheight='0' scrolling='no' style='margin-bottom:-5px'></iframe>";
                 }
                 else{
                     echo $contents_html;

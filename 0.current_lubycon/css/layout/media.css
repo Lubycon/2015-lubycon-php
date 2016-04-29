@@ -833,7 +833,7 @@
     }
     #gotop_bt{
         position: relative;
-        margin: 0px auto;
+        margin: 50px auto;
     }
     #main_search_bar{
         display: none;

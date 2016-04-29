@@ -5,7 +5,7 @@
         switch($_GET['cate']){
         case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
         case 'tutorial' : $contents_cate = 2; $cate_name = 'tutorial'; break;
-        case 'qna' : $contents_cate = 3; $cate_name = 'qna'; break;
+        case 'qaa' : $contents_cate = 3; $cate_name = 'qaa'; break;
         default : $contents_cate = 1;  break;
         };
 
@@ -17,10 +17,10 @@
         <div class="table_head">
             <div class="board_name">
                 <?php
-                    switch($_GET['cate']){
+                    switch($cate_name){
                         case "forum" : echo "Forum"; break;
                         case "tutorial" : echo "Tutorial"; break;
-                        case "qna" : echo "Q & A"; break;
+                        case "qaa" : echo "Q & A"; break;
                         default : echo "All"; break;
                     }
                 ?>

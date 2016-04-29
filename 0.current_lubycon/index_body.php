@@ -185,45 +185,38 @@ $(function(){
     </nav>
     <!--end slide lnb-->
     <?php
-        for( $i=1 ; $i<4 ; $i++ ){ //loop slider making
-            echo 
-            '<div id="slider'.$i.'" style="width: 980px; height: 363px;">
-            <div class="slides" u="slides">';
-            $v=0; //reset image number
-                for( $j=1 ; $j<4 ; $j++ ){ //loop slide page  
-                
-            echo'<div>
-                    <ul>';
-                        for( $k=1 ; $k<11 ; $k++ ){ //loop slide img call
-                        echo '<li class="load_view">
-                                <a href="./php/contents/contents_view.php?cate=';
-                                switch($i){
-                                    case "1" : echo "artwork"; $kind = 'artwork'; break;
-                                    case "2" : echo "vector"; $kind = 'vector';break;
-                                    case "3" : echo "3d"; $kind = '3d'; break;
-                                    default : echo ""; break;
-                                };
-                                echo '&conno='.$v.'">
-                                <img src="../../Lubycon_Contents/contents/'.$kind.'/'.$kind.'jpg/thumb/'.$v.'.jpg" alt="thumbnail_photo_'.$v.'">
-                                </a>
-                              </li>';
-                        $v++;
-                        }
-                echo'</ul>
-                </div>';
+        require_once './php/database/database_class.php';
+        $db = new Database();
+
+        for( $i=1 ; $i<4 ; $i++ )//loop slider
+        { 
+            switch($i) //set query category
+            {
+                case "1" : $kind = 'artwork'; break;
+                case "2" : $kind = 'vector';break;
+                case "3" : $kind = 'threed'; break;
+                default : break;
+            };
+            $db->changeDb('lubyconboard');
+            $db->query = "select boardCode,preview from `$kind` order by `viewCount` desc limit 30";
+		    $db->askQuery();
+
+            echo "<div id='slider$i' style='width: 980px; height: 363px;'>";
+            echo "<div class='slides' u='slides'><div><ul>";
+            $index = 1;
+            while($row = mysqli_fetch_array($db->result))
+            {
+                $contents_number = $row['boardCode'];
+                $contents_thumb = $row['preview'];
+                echo "<li class='load_view'><a href='./php/contents/contents_view.php?cate=$kind&conno=$contents_number'><img src='$contents_thumb'></a></li>";
+                if($index == 10 || $index == 20)
+                {
+                    echo "</ul></div><div><ul>";
                 }
-        echo'</div>
-            <div u="navigator" class="slider_pager">
-                <div u="prototype"></div>
-            </div>
-            <span u="arrowleft" class="slider_arrow_left">
-                <i class="fa fa-angle-left"></i>
-            </span>
-            <span u="arrowright" class="slider_arrow_right">
-                <i class="fa fa-angle-right"></i>
-            </span>
-            </div>';
-        }
+                $index++;
+            }
+                echo '</ul></div></div><div u="navigator" class="slider_pager"><div u="prototype"></div></div><span u="arrowleft" class="slider_arrow_left"><i class="fa fa-angle-left"></i></span><span u="arrowright" class="slider_arrow_right"><i class="fa fa-angle-right"></i></span></div>';
+            }
     ?>
     <!-- end slider div -->
 </section>
@@ -275,7 +268,10 @@ $(function(){
         <div class="index_pre_inner">
             <ul class="forum_cards">
                 <?php
-                    for($i = 0; $i < 6; $i++){
+                    $db->query = "SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`forum` LEFT JOIN lubyconuser.`userbasic` ON `forum`.`userCode` = `userbasic`.`userCode` UNION SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`qaa` LEFT JOIN lubyconuser.`userbasic` ON `qaa`.`userCode` = `userbasic`.`userCode` UNION SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`tutorial` LEFT JOIN lubyconuser.`userbasic` ON `tutorial`.`userCode` = `userbasic`.`userCode` ORDER BY `viewCount` DESC LIMIT 5 ";
+		            $db->askQuery();
+                    while( $row = mysqli_fetch_array($db->result) )
+                    {
                         include("./php/layout/index_forum.php");
                     }
                 ?>
