@@ -5,8 +5,8 @@
     //        echo('<script>location.href="login_page.php"</script>');
     //    }
     //}
-    $one_depth = '../../..'; //css js load
-    $two_depth = '../..'; // php load
+    $one_depth = '../../../..'; //css js load
+    $two_depth = '../../..'; // php load
     include_once('../../../layout/index_header.php');
 ?>
 <link href="../../module/css/lubySlider.css" rel="stylesheet" type="text/css" />
