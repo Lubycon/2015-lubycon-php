@@ -1,13 +1,6 @@
 var iconPack = {
       "basic" : "fa fa-filter",
 
-      "ccIcon" : "fa fa-creative-commons",
-      "ccImg" : "../../img/cc_w.png",
-      "by" : "../../img/by_w.png",
-      "nc" : "../../img/nc_w.png",
-      "nd" : "../../img/nd_w.png",
-      "share" : "../../img/share_w.png",
-
       "grid1" : "../../img/grid_icons/1.png",
       "grid2" : "../../img/grid_icons/2.png",
       "grid3" : "../../img/grid_icons/3.png",

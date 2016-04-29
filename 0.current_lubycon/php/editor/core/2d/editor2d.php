@@ -10,6 +10,7 @@
     include_once('../../../layout/index_header.php');
 ?>
 <link href="../../module/css/lubySlider.css" rel="stylesheet" type="text/css" />
+<link href="../../module/css/lubyAlert.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/cropper.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/chosen.css" rel="stylesheet" type="text/css" />
@@ -18,9 +19,11 @@
 
 <script type="text/javascript" src="../../data/icons.json"></script>
 <script type="text/javascript" src="../../data/keyCode.json"></script>
-<script tpy-e"text/javascript" src="../../data/categories.json"></script>
+<script type="text/javascript" src="../../data/categories.json"></script>
+<script type="text/javascript" src="../../data/creative_commons.json"></script>
 
 <script type="text/javascript" src="../../module/js/jquery.lubySlider.js"></script>
+<script type="text/javascript" src="../../module/js/jquery.lubyAlert.js"></script>
 <script type="text/javascript" src="../../module/js/spectrum.js"></script>
 <script type="text/javascript" src="../../module/js/cropper.js"></script>
 <script type="text/javascript" src="../../module/js/chosen.jquery.js"></script>
@@ -40,11 +43,7 @@
     {
         echo 
         '<script>
-	        $("#editor-container").initEditor({
-		        submit: function(data){
-			        //console.log(data);
-		        }
-	        });
+	        $("#editor-container").initEditor();
         </script>';
     }else
     {

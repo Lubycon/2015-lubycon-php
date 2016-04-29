@@ -6,15 +6,15 @@
     position: relative;
     top: 50px;
 }
-#editor-container > .lubypic-wrapper > .lubypic-header {
+#editor-container > .editor-wrapper > .editor-header {
 	top: 50px;
 }
-#editor-container > .lubypic-wrapper > .lubypic-body {
+#editor-container > .editor-wrapper > .editor-body {
 	top: 50px;
 }
-#editor-container > .lubypic-wrapper > .lubypic-body > .lubypic-aside {
+#editor-container > .editor-wrapper > .editor-body > .editor-aside {
 	top: 50px;
 }
-#editor-container > .lubypic-wrapper > .lubypic-body > .editing-background {
+#editor-container > .editor-wrapper > .editor-body > .editing-background {
 	top: 50px;
 }

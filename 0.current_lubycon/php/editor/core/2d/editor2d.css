@@ -55,8 +55,8 @@ a {
     outline: 0;
 }
 
-/*--------------lubyPictool start------------------*/
-.lubypic-hidden {
+/*--------------editortool start------------------*/
+.editor-hidden {
     display: none;
 }
 .modal {
@@ -409,11 +409,11 @@ a {
             font-weight: 200;
         }
 
-.lubypic-wrapper{
+.editor-wrapper{
     position: relative;
     width: 100%;
 }
-.lubypic-wrapper > .lubypic-header{
+.editor-wrapper > .editor-header{
     position: fixed;
     top: 0;
     width: 100%;
@@ -422,13 +422,13 @@ a {
     z-index: 200;
     box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
 }
-.lubypic-wrapper > .lubypic-body{
+.editor-wrapper > .editor-body{
     position: relative;
     width: 100%;
     height: 100%;
     background: #222222;
 }
-    .lubypic-body > .lubypic-aside{
+    .editor-body > .editor-aside{
         position: fixed;
         left: 0;
         top: 0;
@@ -445,10 +445,10 @@ a {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-    .lubypic-body > .lubypic-aside > .toolbox-wrap {
+    .editor-body > .editor-aside > .toolbox-wrap {
         position: fixed;
         display: inline-block;
-        top: 0;
+        top: 50px;
         left: 50px;
         padding: 20px;
         margin-top: 50px;
@@ -465,7 +465,7 @@ a {
         #sortTool-toolbox {
             width: 300px;
         }
-    .lubypic-body > .lubypic-aside > .toolbox-wrap.modal {
+    .editor-body > .editor-aside > .toolbox-wrap.modal {
         position: fixed;
         display: inline-block;
         top: 40px;
@@ -480,15 +480,15 @@ a {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .lubypic-body > .lubypic-aside > .toolbox-wrap > .toolbox-inner {
+        .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner {
             margin-bottom: 20px;
         }
-        .lubypic-body > .lubypic-aside > .toolbox-wrap.modal > .toolbox-inner {
+        .editor-body > .editor-aside > .toolbox-wrap.modal > .toolbox-inner {
             position: relative;
             width: 100%;
             margin-top: 20px;
         }
-        .lubypic-body > .lubypic-aside > .toolbox-wrap.modal > .modal-wrapper > .toolbox-inner {
+        .editor-body > .editor-aside > .toolbox-wrap.modal > .modal-wrapper > .toolbox-inner {
             width: 100%;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -646,6 +646,7 @@ a {
                 height: 50px;
                 line-height: 50px;
                 padding-left: 10px;
+                text-align: left !important;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
@@ -678,7 +679,7 @@ a {
             background: #333333;
         }
 
-    .lubypic-body > .editing-background{
+    .editor-body > .editing-background{
         position: fixed;
         top: 0;
         width: 100%;
@@ -690,7 +691,7 @@ a {
         -moz-box-sizing: border-box;
         z-index: 50;
     }
-        .lubypic-body > .editing-area {
+        .editor-body > .editing-area {
             position: relative;
             width: 100%;
             height: 100%;
@@ -701,7 +702,7 @@ a {
             -moz-box-sizing: border-box;
             z-index: 51;
         }
-        .lubypic-body > .editing-area > .editing-canvas{
+        .editor-body > .editing-area > .editing-canvas{
             width: 100%;
             max-width: 1000px;
             min-height: 350px;
@@ -711,7 +712,7 @@ a {
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.7);
         }
 
-.lubypic-body > .editing-area > .editing-canvas > .canvas-obj {
+.editor-body > .editing-area > .editing-canvas > .canvas-obj {
     position: relative;
     width: 100%;
     text-align: center;
@@ -719,20 +720,20 @@ a {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
-    .lubypic-body > .editing-area > .editing-canvas > .canvas-obj.obj-header {
+    .editor-body > .editing-area > .editing-canvas > .canvas-obj.obj-header {
         height: 45px;
         padding: 0;
     }
-    .lubypic-body > .editing-area > .editing-canvas > .canvas-obj.obj-footer {
+    .editor-body > .editing-area > .editing-canvas > .canvas-obj.obj-footer {
         height: 50px;
         padding: 0;
     }
-    .lubypic-body > .editing-area > .editing-canvas > .canvas-obj.obj-body {
+    .editor-body > .editing-area > .editing-canvas > .canvas-obj.obj-body {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-    .lubypic-body > .editing-area > .editing-canvas .canvas-uploader-wrap {
+    .editor-body > .editing-area > .editing-canvas .canvas-uploader-wrap {
         position: absolute;
         width: 100%;
         height: 35px;
@@ -740,10 +741,10 @@ a {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .lubypic-body > .editing-area > .editing-canvas .canvas-uploader-wrap:hover {
+        .editor-body > .editing-area > .editing-canvas .canvas-uploader-wrap:hover {
             border: 1px dashed #aaaaaa;
         }
-        .lubypic-body > .editing-area > .editing-canvas .canvas-uploader-wrap > .canvas-uploader-bt {
+        .editor-body > .editing-area > .editing-canvas .canvas-uploader-wrap > .canvas-uploader-bt {
             position: absolute;
             top: -10px;
             left: 50%;
@@ -779,21 +780,21 @@ a {
                 .canvas-uploader-bt > i:hover {
                     color: #ffffff;
                 }
-    .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content{
+    .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content{
         position: relative;
         margin: 0 7%;
     }
-    .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-content:hover {
+    .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-content:hover {
         border: 1px dashed #48cfad;
     }
-        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > img{
+        .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > img{
             width: 100%;
             vertical-align: middle;
         }
-        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.object-text.focused{
+        .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.object-text.focused{
             border: 1px dashed #48cfad;
         }
-        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .canvas-input{
+        .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .canvas-input{
             width: 100%;
             min-height: 25px;
             border: none;
@@ -807,7 +808,7 @@ a {
         .object-text> .obj-menu-btn{
             top: -8px !important;
         }
-        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn {
+        .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn {
             position: absolute;
             display: inline-block;
             top: 10px;
@@ -824,11 +825,11 @@ a {
             -moz-box-sizing: border-box;
             cursor: pointer;
         }
-            .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > i {
+            .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > i {
                 color: #ffffff;
                 font-size: 22px;
             }
-            .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu {
+            .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu {
                 position: relative;
                 top: -23px;
                 right: -18px;
@@ -844,7 +845,7 @@ a {
                 -moz-box-sizing: border-box;
                 z-index: 60;
             }
-               .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list {
+               .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list {
                     width: 100%;
                     color: #aaaaaa;
                     font-size: 15px;
@@ -856,22 +857,22 @@ a {
                     -webkit-box-sizing: border-box;
                     -moz-box-sizing: border-box;
                }
-               .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list[data-value="delete"]{
+               .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list[data-value="delete"]{
                     color: #ec6446;
                }
-               .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list:hover {
+               .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content > .obj-menu-btn > .obj-menu > .obj-menu-list:hover {
                     color: #ffffff;
                }
-    .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-devider-wrap{
+    .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-devider-wrap{
         position: relative;
         height: 50px;
     }
-    .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-devider-wrap > .canvas-devider{
+    .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-devider-wrap > .canvas-devider{
         position: absolute;
         width: 100%;
         height: 100%;
     }
-    .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.placeHolder {
+    .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.placeHolder {
         height: 450px;
         background: #eeeeee;
         cursor: pointer;
@@ -881,11 +882,11 @@ a {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.placeHolder > p {
+        .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.placeHolder > p {
             font-size: 14px;
             color: #aaaaaa;
         }
-        .lubypic-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.placeHolder > i {
+        .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.placeHolder > i {
             font-size: 40px;
             margin-bottom: 10px;
         }
@@ -973,7 +974,7 @@ a {
     .btn > i {
         font-size: 18px;
     }
-/*--------------lubyPictool end------------------*/
+/*--------------editortool end------------------*/
 #test{
     width: 100%;
     margin: 0px auto;

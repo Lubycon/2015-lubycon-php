@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          slider.js
- *  Updated:       2016-03-17
+ *  Updated:       2016-04-30
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -17,6 +17,7 @@
             callback: $.noop()
         },
         d = {},
+        isDragging = false,
         slider = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
@@ -34,7 +35,6 @@
 
                         $sliderWrap = $("<div/>",{ "class" : "slider-wrapper","id" : customID}).width(objWidth)
                         .insertBefore($this).addClass(disabled).append($this),
-                        disableAction = $sliderWrap.hasClass("disabled") ? "" : $sliderWrap.on("mousedown",drag.dragable),
                         $sliderBar = $("<span/>",{
                             "class" : "slider-bar",
                             "data-value" : defaultVal,
@@ -50,33 +50,34 @@
                             "type" : "text",
                             "class" : "slider-text",
                             "value" : defaultVal
-                        }).appendTo($sliderWrap).on("change",drag.textBox);
+                        }).appendTo($sliderWrap).on("change",drag.textBox),
+                        disableAction = $sliderWrap.hasClass("disabled") ? "" : $sliderWrap.on("mousedown",drag.dragable)
                     }
                 })
             }
         },
         drag = {
-            dragable: function(){
-                var $this = $(this), 
-                $bt = $this.find(".slider-bt"),
-                $bar = $this.find(".slider-bar"),
-                isDragging = true;
-                $bt.addClass("dragging");
-                $this
-                .on("mousemove",function(event){
-                    var target = $(event.target);
-                    if(isDragging && (!target.is(".slider-text"))) drag.dragAction(event.pageX,$this,$bt);
-                    else $this.off("mousemove");
-                })
-                .on("mouseleave",function(){
-                    $this.off("mousemove");
-                    $this.removeClass("dragging");
-                })
-                .on("mouseup","*",function(){
-                    $this.off("mousemove");
-                    isDragging = false;
-                    $bt.removeClass("dragging"); 
-                });
+            dragable: function(event){
+                if(event.which == 1 && event.target.className == "slider-bt"){
+                    var $this = $(this), 
+                    $bt = $this.find(".slider-bt"),
+                    $bar = $this.find(".slider-bar"),
+                    isDragging = true;
+                    console.log(isDragging);
+                    $bt.addClass("dragging");
+                    $("html")
+                    .on("mousemove",function(event){
+                        var target = $(event.target);
+                        if(isDragging && (!target.is(".slider-text"))) drag.dragAction(event.pageX,$this,$bt);
+                    })
+                    .on("mouseup",function(){
+                        $this.off("mousemove");
+                        isDragging = false;
+                        $bt.removeClass("dragging"); 
+                        console.log(isDragging);
+                        $this.off("mouseup");
+                    });
+                }
             },
             dragAction: function(mouseX,selector,btn){
                 var $this = selector,
@@ -95,7 +96,6 @@
                 var ratio = width/objX,
                 value = Math.floor($input.attr("max")/ratio);
 
-                //d.callback(value,$this);
                 $bt.css({ "left" : objX });
                 $area.css({ "right" : width - objX});
                 $bar.data("value",value);
