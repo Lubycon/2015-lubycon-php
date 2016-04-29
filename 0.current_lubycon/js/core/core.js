@@ -19,7 +19,7 @@ $(function(){
 /////////////////////////////////////////////////////////
 //      loading icon start
 /////////////////////////////////////////////////////////
-$(function(){
+/*$(function(){
     var $loading = $("<div/>",{"id":"loading_icon"}),
     $icon = $("<i/>",{"class":"fa fa-spinner fa-spin"}),
     objectY = (windowHeight*0.5) - 40;
@@ -33,7 +33,7 @@ $(function(){
             $loading.remove();
         });
       });
-});
+});*/
 
 /////////////////////////////////////////////////////////
 //      loading icon end

@@ -26,7 +26,6 @@ $.getJSON("../../js/chart/data/likedata.json", function(data) {
     });
     console.log("loaded likedata"); 
     success : likeChart(); console.log("likeChart complete");
-     
 });
 
 var viewdata = [];

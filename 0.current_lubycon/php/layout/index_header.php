@@ -143,19 +143,19 @@
         <p>Which content will you upload?</p>
         <ul>
             <li>
-                <a href="<?=$two_depth?>/editor/editor.php?cate=artwork">
+                <a href="<?=$two_depth?>/editor/core/2d/editor2d.php?cate=artwork">
                 <i class="fa fa-font"></i>
                 <p>Artwork</p>
                 </a>
             </li>
             <li>
-                <a href="<?=$two_depth?>/editor/editor.php?cate=vector">
+                <a href="<?=$two_depth?>/editor/core/2d/editor/editor2d.php?cate=vector">
                 <i class="fa fa-stop"></i>
                 <p>Vector</p>
                 </a>
             </li>
             <li>
-                <a href="<?=$two_depth?>/editor/editor.php?cate=threed">
+                <a href="<?=$two_depth?>/editor/core/3d/editor3d.php?cate=threed">
                 <i class="fa fa-cube"></i>
                 <p>3D Model</p>
                 </a>

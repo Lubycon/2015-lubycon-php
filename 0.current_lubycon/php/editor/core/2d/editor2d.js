@@ -9,10 +9,8 @@
  *
  * =========================================================== */
 
-
-
 (function($){
-    $.fn.lubyPictool = function(option){
+    $.fn.initEditor = function(option){
         var defaults = { 
             height: $(window).height(),
             minHeight: null,
@@ -27,91 +25,16 @@
             },
             submit: $.noop()
         },
-        icons = {
-            basic: "fa fa-filter",
-
-            ccIcon: "fa fa-creative-commons",
-            ccImg: "./img/cc_w.png",
-            by: "./img/by_w.png",
-            nc: "./img/nc_w.png",
-            nd: "./img/nd_w.png",
-            share: "./img/share_w.png",
-
-            charge: "fa fa-credit-card",
-            usd: "fa fa-usd",
-            crop: "fa fa-crop",
-            edit: "fa fa-edit",
-            eraser: "fa fa-eraser",
-            code: "fa fa-code",
-            setting: "fa fa-cog",
-            image: "fa fa-image",
-            sorts: "fa fa-sort-amount-desc",
-            margin: "fa fa-sort",
-            slider: "fa fa-sliders",
-            tag: "fa fa-tag",
-            font: "fa fa-font",
-            plus: "fa fa-plus",
-            paint: "fa fa-paint-brush",
-            pencil: "fa fa-pencil",
-            picture: "fa fa-picture-o",
-            times: "fa fa-times",
-            alignJustify: "fa fa-align-justify",
-            alignCenter: "fa fa-align-center",
-            alignLeft: "fa fa-align-left",
-            alignRight: "fa fa-align-right",
-            bold: "fa fa-bold",
-            italic: "fa fa-italic",
-            underline: "fa fa-underline",
-            strike: "fa fa-strikethrough",
-            arrowUp: "fa fa-caret-up",
-            arrowDown: "fa fa-caret-down",
-            arrowLeft: "fa fa-caret-left",
-            arrowRight: "fa fa-caret-right",
-            refresh: "fa fa-refresh",
-            grid: "fa fa-th-large",
-            layer: "fa fa-object-ungroup",
-
-            upload: "fa fa-cloud-upload",
-            download: "fa fa-inbox"
-        },
-        keyCode = { //ascii
-            a: 65,
-            b: 66,
-            c: 67,
-            d: 68,
-            e: 69,
-            f: 70,
-            g: 71,
-            h: 72,
-            i: 73,
-            j: 74,
-            k: 75,
-            l: 76,
-            m: 77,
-            n: 78,
-            o: 79,
-            p: 80,
-            q: 81,
-            r: 82,
-            s: 83,
-            t: 84,
-            u: 85,
-            v: 86,
-            w: 87,
-            x: 88,
-            y: 89,
-            z: 90,
-            enter: 13,
-            space: 32,
-            delete: 8
-        },
+        icons = iconPack, //icons.json
+        keyCode = keycodePac, //keycode.json
+        categories = categoryPac, //categories.json
         d = {},
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
-                    if (!$(this).hasClass("lubyPictoolKey")) $.error("!");
+                    if (!$(this).hasClass("initEditor")) $.error("!");
                     else {
-                        console.log("lubyPictool is loaded");//function start
+                        console.log("editor is loaded");//function start
                         var $this = $(this),
                         //init object
                         $wrapper = $("<div/>",{"class" : "lubypic-wrapper"}).appendTo($this),
@@ -303,7 +226,7 @@
                             "tabindex": "8",
                             "name" : "contents_category[]"
                         })).appendTo($settingInnerLeft),
-                        $chosenOptions = ["Apple","Banana","Caramel","Diamond","Element","Fedex","Glory","Hive","Iframe","Jelly","Key","Lion","Mom","Nurse"],
+                        $chosenOptions = categories,
                         insertOption = function(){
                             var categoryBox = $(document).find(".chosen-select.category");
                             for(i in $chosenOptions){
@@ -1413,17 +1336,17 @@
 
                 $btnIcon = $("<img/>"),
                 $btn1 = $btn.clone(true).attr("data-value","n-1-1")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/1.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid1)).appendTo($btnWrap),
                 $btn2 = $btn.clone(true).attr("data-value","v-1-2")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/2.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid2)).appendTo($btnWrap),
                 $btn3 = $btn.clone(true).attr("data-value","v-2-1")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/3.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid3)).appendTo($btnWrap),
                 $btn4 = $btn.clone(true).attr("data-value","h-1-2")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/4.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid4)).appendTo($btnWrap),
                 $btn5 = $btn.clone(true).attr("data-value","h-2-1")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/5.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid5)).appendTo($btnWrap),
                 $btn6 = $btn.clone(true).attr("data-value","n-2-2")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/6.png")).appendTo($btnWrap);
+                .append($btnIcon.clone().attr("src",icons.grid6)).appendTo($btnWrap);
                 pac.modalAlign($this);
             },
             gridFn: {
