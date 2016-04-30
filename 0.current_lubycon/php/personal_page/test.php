@@ -1,30 +1,51 @@
 <?php
+    require_once '../session/session_class.php';
+    //session_start();
+    $session = new Session();
+
+    if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
+        $LoginState = false;
+    }else{
+        if($session->SessionExist()){
+            $LoginState = true;
+            $username= $_SESSION['lubycon_nick'];
+            $userid= $_SESSION['lubycon_id'];
+            $usercode= $_SESSION['lubycon_code'];
+        }else{
+            $LoginState = false;    
+        }
+                
+    }
+
+
+print_r($_SESSION);
 
 echo "<hr/><br/>";
+
+echo "<br/><br/>-------------basic information--------------<br/>";
 echo "email public option = " . $_POST['email_public'];
+
+if( isset($_POST['now_pass']) )
+{
 echo "<br/>origin password = " . $_POST['now_pass'];
 echo "<br/>changed password = " . $_POST['pass'];
-
-
-
+echo "<br/>repeat password = " . $_POST['repass'];
+}
+echo "<br/><br/>-------------basic information--------------<br/>";
 
 echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
+$upload_path= "../../../../Lubycon_Contents/temp/profile/$usercode/profile.jpg" ; // realative uploaded path
+$save_path= "../../../../Lubycon_Contents/user/$usercode/profile.jpg" ; // realative save path
 
-$upload_path= '../../../../Lubycon_Contents/contents/temp/' ; // realative uploaded path
 require_once "../class/upload_class.php";
 $uploader = new upload;
-$croppic_url = $_POST['croppicurl']; // temp file
-$croppic_zip_compress = false;
-$uploader->file_move($croppic_url,$upload_path,$croppic_zip_compress);
-
-
-
-
+$uploader->ajax_move($files , $upload_path , $save_path);
 echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
 echo "<br/><br/>user job = " . $_POST['job'];
 echo "<br/>select location = " . $_POST['location'];
 echo "<br/>type location = " . $_POST['location_text'];
+echo "<br/>type location = " . $_POST['desc'];
 
 $history_year = $_POST['history_year'];
 $history_month = $_POST['history_month'];
@@ -47,8 +68,6 @@ for($i=0 ; $i< count($language); $i++)
     echo "<br/>lang ability". $i . " = " . $lang_ability[$i];
     //echo "<br/>lang_public". $i . " = " . $lang_public[$i];
 };
-
-echo "<br/><br/>description = " . $_POST['desc'];
 
 echo "<br/><br/>mobile number = " . $_POST['mobile_number'];
 echo "<br/>mobile public = " . $_POST['mobile_public'];

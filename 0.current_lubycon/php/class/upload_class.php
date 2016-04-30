@@ -127,7 +127,7 @@ class upload
                         echo "succece upload<br/>";
                     }else
                     {
-                        die('something was wrong... check the logic');
+                        die('file_move _ something was wrong... check the logic');
                     }
                 }
                 print_r($this->_filepath_array); // move uploaded files path
@@ -232,7 +232,7 @@ class upload
                     $this->_ajax_white_list = $this->_jpg_white_list;
                     $this->_ajax_save_name = $this->_profile_file_name;
                     break;
-                default : die('something was wrong') ; break;
+                default : die('ajax_check_type _ something was wrong') ; break;
             }
         }
     }
@@ -251,7 +251,7 @@ class upload
                     case 'data:image/jpeg;base64' : $this->_ajax_ext[$key] = '.jpg'; break;
                     case 'data:image/png;base64' : $this->_ajax_ext[$key] = '.png' ; break;
                     case 'data:image/bmp;base64' : $this->_ajax_ext[$key] = '.bmp' ; break;
-                    default : die('something was wrong') ; break;
+                    default : die('ajax_validate_ext _ something was wrong') ; break;
                 }
             }else
             {

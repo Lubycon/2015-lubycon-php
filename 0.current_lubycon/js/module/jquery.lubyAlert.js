@@ -156,7 +156,8 @@
                     setTimeout(function(){ 
                         $this.blur().fadeOut(d.outSpeed,function(){
                             $this.remove();
-                            d.callback();
+                            if (d.callback !== null) d.callback();
+                            else return;
                         })
                     },500);
                     console.log("destroyAlert");

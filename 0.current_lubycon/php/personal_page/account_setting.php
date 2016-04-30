@@ -39,7 +39,10 @@
                 <label>Profile Photo</label>
                 <div id="cropper_account">
                     <span id="fileupload_bt">profile upload</span>
-                    <img id="cropper_img" />
+                    <div id="sex"></div>
+                    <img id="cropper_img"/>
+                    <div id="croped_img"></div>
+                    <div id="crop">crop</div>
                     <input type="file" id="profile_uploader" />
                 </div>
                 <label>Occupation / Job</label>
@@ -135,7 +138,7 @@
             <p class="setting_title">Contact Info</p>
                 <label>Mobile</label><input type="text" name="mobile_number"/>
                 <div class="public_option">
-                    <select class="privacyFilter" name="email_public">
+                    <select class="privacyFilter" name="mobile_public">
                         <option value="Public">Public</option>
                         <option value="Followers">Followers</option>
                         <option value="Private">Private</option>
@@ -145,7 +148,7 @@
                 
                 <label>FAX</label><input type="text" name="fax_number"/>
                 <div class="public_option">
-                    <select class="privacyFilter" name="email_public">
+                    <select class="privacyFilter" name="fax_public">
                         <option value="Public">Public</option>
                         <option value="Followers">Followers</option>
                         <option value="Private">Private</option>
@@ -155,7 +158,7 @@
                 
                 <label>Website</label><input type="text" name="website_url"/>
                 <div class="public_option">
-                    <select class="privacyFilter" name="email_public">
+                    <select class="privacyFilter" name="website_public">
                         <option value="Public">Public</option>
                         <option value="Followers">Followers</option>
                         <option value="Private">Private</option>
