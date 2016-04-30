@@ -81,8 +81,8 @@
             }
         ?><!--end main_board section -->
     </section>
-    <a href="../community/community_write.php?cate=<?=$_GET['cate']?>">
-        <span id="write_bt" class="out animate_opacity write_bt"><i class="fa fa-plus"></i></span>
+    <a id="write_bt" class="out animate_opacity write_bt" href="../community/community_write.php?cate=<?=$_GET['cate']?>">
+        <i class="fa fa-plus"></i>
     </a>
 </section>
 <!-- end contents section -->
