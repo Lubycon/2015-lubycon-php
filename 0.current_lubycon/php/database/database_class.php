@@ -16,9 +16,7 @@ class Database{
 
 	public function askQuery(){
 		if(isset($this->query)){
-			$this->result = $this->database->query($this->query);
-            $this->row = mysqli_fetch_array($this->result);
-			return true;
+			return $this->result = $this->database->query($this->query);
 		}else{
 			return false;
 		}

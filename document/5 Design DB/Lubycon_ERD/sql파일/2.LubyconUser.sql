@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `UserBasic`
 	`email` VARCHAR(255) NOT NULL,
 	`nick` VARCHAR(20) NOT NULL,
 	`pass` VARCHAR(255) NOT NULL,
-	`validationToken` VARCHAR(255) NOT NULL,
+	`validationToken` VARCHAR(255),
 	`validation` ENUM('active','inactive','drop') NOT NULL,
 	`subscription` ENUM('true', 'false') NOT NULL,
 	`termCheck` ENUM('true', 'false') NOT NULL,
