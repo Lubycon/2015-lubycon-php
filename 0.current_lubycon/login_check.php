@@ -1,7 +1,4 @@
 <?php
-	error_reporting(E_ALL);
-	ini_set("display_errors",1);
-
 	require_once './php/session/session_class.php';
 	//session_start();
 	require_once './php/database/database_class.php';
