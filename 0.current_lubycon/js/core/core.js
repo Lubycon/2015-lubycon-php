@@ -397,11 +397,9 @@ $(function (){
         var scrollTop = $(document).scrollTop();
         if(notMobile && scrollTop >= 50){
             $this.fadeOut(400);
-            console.log(true);
         }
         else if(notMobile && scrollTop < 50){
             $this.stop().fadeIn(400);
-            console.log(false);
         }
     })
 })

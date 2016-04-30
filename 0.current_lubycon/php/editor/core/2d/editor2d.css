@@ -92,6 +92,10 @@ a {
         position: relative;
         padding: 15px;
     }
+    .modal-content {
+        position: relative;
+        width: 100%;
+    }
     .modal-title {
         color: #eeeeee;
         font-size: 20px;
@@ -124,10 +128,10 @@ a {
             .modal-cancelbt {
                 color: #ec6446;
             }
-    .modal.embed-window > .embed-wrapper{
+    .modal.embed-modal > .modal-wrapper{
         width: 450px;
     }
-        .modal.embed-window > .embed-wrapper > .embed-input {
+        .modal.embed-modal > .modal-wrapper > .modal-content > .embed-input {
             width: 100%;
             height: 100px;
             margin-top: 20px;
@@ -141,14 +145,14 @@ a {
             -moz-box-sizing: border-box;
             resize: none;
         }
-            .modal.embed-window > .embed-wrapper > .embed-input.error {
+            .modal.embed-modal > .modal-wrapper > .modal-content > .embed-input.error {
                 border: 1px solid #ec6446 !important;
             }
-            .modal.embed-window > .embed-wrapper > .embed-input:focus {
+            .modal.embed-modal > .modal-wrapper > .modal-content > .embed-input:focus {
                 border: 1px solid #48cfad;
                 box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
             }
-        .modal.embed-window > .embed-wrapper > .embed-help {
+        .modal.embed-modal > .modal-wrapper > .modal-content > .embed-help {
             width: 100%;
             color: #eeeeee;
             font-size: 14px;
@@ -156,14 +160,14 @@ a {
             cursor: pointer;
             text-align: right;
         }
-            .modal.embed-window > .embed-wrapper > .embed-help:hover {
+            .modal.embed-modal > .modal-wrapper > .modal-content > .embed-help:hover {
                 text-decoration: underline;
             }
-            .modal.embed-window > .embed-wrapper > .embed-help.selected {
+            .modal.embed-modal > .modal-wrapper > .modal-content > .embed-help.selected {
                 text-align: left;
                 font-size: 12px;
             }
-        .modal.embed-window > .embed-wrapper > .embed-error {
+        .modal.embed-modal > .modal-wrapper > .modal-content > .embed-error {
             position: absolute;
             top: 32px;
             right: 10px;
@@ -173,17 +177,17 @@ a {
             cursor: default;
             text-align: right;
         }
-        .modal.embed-window > .embed-wrapper > .embed-bt-wrapper {
+        .modal.embed-modal > .modal-wrapper > .modal-wrapper > .embed-bt-wrapper {
             margin-top: 20px;
             text-align: center;
         }
 
-.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper {
+.modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper {
     position: relative;
     width: 100%;
     margin-top: 20px;
 }
-.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-preview-wrapper {
+.modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-preview-wrapper {
     display: inline-block;
     position: relative;
     width: 250px;
@@ -193,7 +197,7 @@ a {
     margin-right: 20px;
     overflow: hidden;
 }
-.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-img-change {
+.modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-img-change {
     position: absolute;
     top: -25px;
     right: 0;
@@ -202,13 +206,13 @@ a {
     font-weight: 200;
     cursor: pointer;
 }
-    .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-img-change > .fa-refresh {
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-img-change > .fa-refresh {
         margin-right: 5px;
     }
-    .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-img-change:hover {
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-img-change:hover {
         text-decoration: underline;
     }
-.modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper {
+.modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper {
     display: inline-block;
     position: relative;
     vertical-align: top;
@@ -216,7 +220,7 @@ a {
     min-width: 420px;
     max-height: 500px;
 }
-    .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder {
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder {
         width: 100%;
         height: 270px;
         line-height: 270px;
@@ -226,13 +230,13 @@ a {
         text-align: center;
         cursor: pointer;
     }
-        .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder:hover {
+        .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder:hover {
             opacity: 0.8;
         }
-    .modal.thumbnail-window > .thumb-wrapper > .thumb-inner-wrapper > .thumb-editor-wrapper img.thumb-origin-img {
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper img.thumb-origin-img {
         width: 100%;
     }
-.modal.setting-window > .setting-wrapper > .setting-inner-wrapper {
+.modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper {
     width: 700px;
     margin-top: 20px;
 }
@@ -285,7 +289,7 @@ a {
             font-size: 14px;
             border: none;
         }
-    .modal.setting-window > .setting-wrapper > .setting-inner-wrapper > .setting-inner-left {
+    .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper > .setting-inner-left {
         display: inline-block;
         width: 50%;
         min-height: 100px;
@@ -296,7 +300,7 @@ a {
         -moz-box-sizing: border-box;
         vertical-align: top;
     }
-    .modal.setting-window > .setting-wrapper > .setting-inner-wrapper > .setting-inner-right {
+    .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper > .setting-inner-right {
         display: inline-block;
         width: 50%;
         min-height: 100px;
@@ -305,10 +309,10 @@ a {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper {
+        .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper {
             margin: 10px 0px;
         }
-        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt {
+        .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt {
             color: #eeeeee;
             font-size: 13px;
             font-weight: 200;
@@ -316,21 +320,21 @@ a {
             text-align: right;
             margin-top: 8px;
         }
-            .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt > i {
+            .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt > i {
                 margin-right: 5px;
             }
-            .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt:hover {
+            .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt:hover {
                 text-decoration: underline;
             }
-        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-inner-right .cc-list-wrapper {
+        .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-inner-right .cc-list-wrapper {
             margin-top: 5px;
         }
-        .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-inner-right .cc-list {
+        .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-inner-right .cc-list {
             width: 35px;
             display: inline-block;
             margin: 0px 8px;
         }
-            .modal.setting-window > .setting-wrapper > .setting-inner-wrapper .setting-inner-right .cc-list > img {
+            .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-inner-right .cc-list > img {
                 width: 100%;
             }
     .hashTag-input-wrap .hashtag-wrapper {
@@ -571,6 +575,7 @@ a {
                 height: 100%;
             }
             .grid-placeHolder {
+                position: relative;
                 width: 100%;
                 height: 100%;
                 color: #eeeeee;
@@ -585,6 +590,7 @@ a {
                 }
                 .grid-placeHolder > i {
                     margin-right: 15px;
+                    font-size: 30px;
                 }
         .top, .bottom {
             height: 50% !important;
@@ -599,7 +605,7 @@ a {
         position: relative;
         width: 100%;
         min-height: 200px;
-        max-height: 500px;
+        max-height: 400px;
         margin-top: 20px;
         padding: 10px;
         background: #222222;
@@ -695,7 +701,6 @@ a {
             position: relative;
             width: 100%;
             height: 100%;
-            padding-top: 50px;
             padding-left: 50px;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;

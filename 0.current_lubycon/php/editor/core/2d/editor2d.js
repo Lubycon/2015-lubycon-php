@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          editor2d.js
- *  Updated:       2016-03-30
+ *  Updated:       2016-04-30
  *  Version:       0.1.1
  *  Created by:    DART, Lubycon.co
  *
@@ -53,9 +53,10 @@
                             "class" : "canvas-obj canvas-content placeHolder",
                             "data-value" : "newImgUpload"
                         }).append($("<i/>",{"class" : icons.plus}))
-                        .append($("<p/>",{"html" : "Click Here or Drag and Drop your file on here"}))
+                        .append($("<p/>",{"html" : "Click Here and upload your files"}))
                         .appendTo($objBody)
                         .on("click",upload.imgUpTrigger),
+
                         //in header bt
                         $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
@@ -69,6 +70,7 @@
                             "html" : "Save"
                         }).prepend($("<i/>",{"class":icons.download}))
                         .appendTo($headerBtWrap).on("click",headerTool.downToPc),
+
                         //in header progress
                         $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
                         $editProgress = $("<div/>",{
@@ -130,44 +132,30 @@
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox),
 
-                        //modal windows
-                        $modal = $("<div/>",{ "class" : "modal" }),
-                        $modalClose = $("<div/>",{ "class" : "modal-closebt" }).on("click",modalTool.cancel),
-
-                        $embedWindow = $modal.clone().addClass("embed-window").append($modalClose.clone(true)).appendTo($this).hide(), //embed window
-                        $embedWrap = $("<div/>",{ "class" : "embed-wrapper modal-wrapper" }).appendTo($embedWindow),
-                        $embedTitle = $("<div/>",{
-                            "class" : "embed-title modal-title",
-                            "html" : "Embed Media"
-                        }).appendTo($embedWrap),
-                        $embedInput = $("<textarea/>",{ "class" : "embed-input" }).appendTo($embedWrap),
+                        //embed windows
+                        $embedWindow = new modalTool.create(modalTool.embed,"embed-modal prog").appendTo($this).hide(),
+                        $embedWrap = $embedWindow.find(".modal-wrapper"),
+                        $embedTitle = $embedWindow.find(".modal-title").text("Embed Media"),
+                        $embedContent = $embedWindow.find(".modal-content"),
+                        $embedOk = $embedWindow.find(".modal-okbt").text("Embed"),
+                        $embedInput = $("<textarea/>",{ "class" : "embed-input" }).appendTo($embedContent),
                         $embedHelp = $("<p/>",{ 
                             "class" : "embed-help",
                             "html" : "What can I embed?"
-                        }).on("click",pac.dbToggle).on("click",modalTool.embedHelp).appendTo($embedWrap),
+                        }).on("click",pac.dbToggle).on("click",modalTool.embedHelp).appendTo($embedContent),
                         $embedError = $("<p/>",{ 
                             "class" : "embed-error",
                             "html" : "Please insert iframe tag only."
-                        }).appendTo($embedWrap).hide(),
-                        $embedBtWrap = $("<div/>",{ "class" : "embed-bt-wrapper modal-bt-wrapper" }).appendTo($embedWrap),       
-                        $embedCancel = $("<div/>",{
-                            "class" : "modal-bt modal-cancelbt",
-                            "html" : "Cancel"
-                        }).on("click",modalTool.cancel).appendTo($embedBtWrap),
-                        $embedOk = $("<div/>",{
-                            "class" : "modal-bt modal-okbt",
-                            "id" : "embed-okbt",
-                            "html" : "Embed"
-                        }).on("click",modalTool.embed).appendTo($embedBtWrap),
+                        }).appendTo($embedContent).hide(),            
 
                         //thumbnail windows
-                        $thumbWindow = $modal.clone().addClass("thumbnail-window prog").append($modalClose.clone(true)).appendTo($this).hide(),
-                        $thumbWrap = $("<div/>",{ "class" : "thumb-wrapper modal-wrapper" }).appendTo($thumbWindow),
-                        $thumbTitle = $("<div/>",{
-                            "class" : "thumb-title modal-title",
-                            "html" : "Edit Thumbnail Image"
-                        }).appendTo($thumbWrap),
-                        $thumbInnerWrap = $("<div/>",{ "class" : "thumb-inner-wrapper" }).appendTo($thumbWrap),
+                        $thumbWindow = new modalTool.create([pac.currentProg,modalTool.cropped],"thumbnail-modal prog")
+                        .addClass("thumbnail-window").appendTo($this).hide(),
+                        $thumbWrap = $thumbWindow.find(".modal-wrapper"),
+                        $thumbTitle = $thumbWindow.find(".modal-title").text("Edit Thumbnail Image"),
+                        $thumbContent = $thumbWindow.find(".modal-content"),
+                        $thumbOk = $thumbWindow.find(".modal-okbt").attr("data-value","setting").text("Next"),
+                        $thumbInnerWrap = $("<div/>",{ "class" : "thumb-inner-wrapper" }).appendTo($thumbContent),
                         $thumbPreview = $("<div/>",{ "class" : "thumb-preview-wrapper" }).appendTo($thumbInnerWrap),
                         $thumbEditWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($thumbInnerWrap),
                         $thumbPlaceHolder = $("<div/>", { 
@@ -179,17 +167,6 @@
                             "class" : "thumb-origin-img",
                             "src" : "#"
                         }).appendTo($thumbEditWrap).hide(),
-                        $thumbBtWrap = $("<div/>",{ "class" : "thumb-bt-wrapper modal-bt-wrapper" }).appendTo($thumbWrap),
-                        $thumbCancel = $("<div/>",{
-                            "class" : "modal-bt modal-cancelbt",
-                            "html" : "Cancel"
-                        }).on("click",modalTool.cancel).appendTo($thumbBtWrap),
-                        $thumbOk = $("<div/>",{
-                            "class" : "modal-bt modal-okbt",
-                            "id" : "Thumb-okbt",
-                            "html" : "Next",
-                            "data-value" : "setting"
-                        }).on("click",pac.currentProg).on("click",modalTool.cropped).appendTo($thumbBtWrap),
                         $changeThumb = $("<span/>",{
                             "class" : "thumb-img-change",
                             "html" : "<i class='fa " + icons.refresh + "'></i>Change Image",
@@ -197,13 +174,16 @@
                         }).on("click",upload.imgUpTrigger).appendTo($thumbInnerWrap).hide();
 
                         //setting windows
-                        $settingWindow = $modal.clone().addClass("setting-window prog").append($modalClose.clone(true)).appendTo($this).hide(),
-                        $settingWrap = $("<div/>",{ "class" : "setting-wrapper modal-wrapper" }).appendTo($settingWindow),
-                        $settingTitle = $("<div/>",{
-                            "class" : "setting-title modal-title",
-                            "html" : "Content Setting"
-                        }).appendTo($settingWrap),
-                        $settingInnerWrap = $("<div/>",{ "class" : "setting-inner-wrapper" }).appendTo($settingWrap),
+                        $settingWindow = new modalTool.create([pac.currentProg,pac.submit],"setting-modal prog")
+                        .addClass("setting-window").appendTo($this).hide(),
+                        $settingWrap = $settingWindow.find(".modal-wrapper"),
+                        $settingTitle = $settingWindow.find(".modal-title").text("Content Setting"),
+                        $settingContent = $settingWindow.find(".modal-content"),
+                        $settingOk = $settingWindow.find(".modal-okbt").attr({
+                            "data-value" : "submit",
+                            "disabled" : "disabled"
+                        }).text("Submit"),
+                        $settingInnerWrap = $("<div/>",{ "class" : "setting-inner-wrapper" }).appendTo($settingContent),
                         $settingInnerLeft= $("<div/>",{ "class" : "setting-inner-left" }).appendTo($settingInnerWrap),
                         $settingInnerRight = $("<div/>",{ "class" : "setting-inner-right" }).appendTo($settingInnerWrap),
                         
@@ -272,20 +252,6 @@
                                 }
                             }
                         }(),
-
-                        
-                        $settingBtWrap = $("<div/>",{ "class" : "setting-bt-wrapper modal-bt-wrapper" }).appendTo($settingWrap),
-                        $settingCancel = $("<div/>",{
-                            "class" : "modal-bt modal-cancelbt",
-                            "html" : "Cancel"
-                        }).on("click",modalTool.cancel).appendTo($settingBtWrap),
-                        $settingOk = $("<div/>",{
-                            "class" : "modal-bt modal-okbt",
-                            "id" : "Thumb-okbt",
-                            "html" : "Submit",
-                            "data-value" : "submit",
-                            "disabled" : "disabled"
-                        }).on("click",pac.currentProg).on("click",pac.submit).appendTo($settingBtWrap);
                         
                         // right : {project team}
                         pac.initTools();//data binding
@@ -346,7 +312,7 @@
                     html_Data = $('.editing-canvas').html();
                 $.ajax({
                     type: "POST",
-                    url: "../ajax/editor_ajax_upload_test.php", // temp image file ajax post
+                    url: "../../../ajax/editor_ajax_upload_test.php", // temp image file ajax post
                     data:
                     {
                         'ajax_data': imgData
@@ -356,7 +322,6 @@
                         console.log('auto save succece');
                     }
                 });
-                console.log(html_Data);
             },
             initTools: function(){
                 //toolbar data bind start
@@ -462,9 +427,12 @@
             keyEvent: function(event){
                 $this = $(this),
                 $confirm = $this.parent().find(".modal-okbt"),
+                $cancel = $this.parent().find(".modal-cancel"),
                 inKeyCode = event.which;
                 switch(inKeyCode){
                    case keyCode.enter : $confirm.trigger("click"); break;
+                   case keyCode.esc : $cancel.trigger("click"); break;
+                   default : return; break;
                 }
             }
         },
@@ -608,7 +576,7 @@
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
                         console.log(event.target.result);
-                        $cropper.cropper("replace",event.target.result),false;
+                        $cropper.cropper("replace",event.target.result);
                         $inputFile.val(null);
                     }
                 });
@@ -652,8 +620,6 @@
                 });
 
                 pac.objMenu($objectWrap);
-                   
-                console.log("The new image is uploaded");
             },
             imgReplace: function(event){
                 var $this = $(this),
@@ -671,7 +637,6 @@
                         toolbar.sortFn.refresh();
                     };
                 });
-                console.log("this image is replaced");
             },
             textUpload: function(event){
                 var $this = $(this),
@@ -684,7 +649,6 @@
                 if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$textWrap,$input);
                 pac.objMenu($textWrap);
-                console.log("text area is added");
             },
             embedUpload: function(val){
                 var $this = $(".uploading"),
@@ -697,7 +661,6 @@
                 upload.insertPosition($this,$mediaWrap,$media);
                 $this.removeClass(".uploading");
                 pac.objMenu($mediaWrap);
-                console.log("media link is added");
             }, 
             setIndex: function(){
             	var $contents = $(document).find(".canvas-content");
@@ -709,7 +672,7 @@
             },
             imgCount : 0,
             setId: function (obj) {
-                console.log(obj);
+                //console.log(obj);
                 var $this = obj.parent(".canvas-content"),
                 dataVal = $this.data("value");
                 if (!$this.is(".placeHolder")) $this.attr("data-value", upload.imgCount + "-" + dataVal);
@@ -746,18 +709,32 @@
             }
         },
         modalTool = {
-            create: function(action){
-                var body = $("<div/>",{"class":"modal"}),
-                wrapper = $("<div/>",{ "class" : "modal-wrapper" }).appendTo(body),
-                title = $("<div/>",{"class" : "modal-title"}).appendTo(wrapper),
-                closeBt = $("<div/>",{ "class" : "modal-closebt" }).on("click",modalTool.cancel).appendTo(wrapper),
-                btWrap = $("<div/>",{ "class" : "modal-bt-wrapper" }).appendTo(wrapper),
+            create: function(action,className){
+                var body = $("<div/>",{"class":"modal " + className }),
+                wrapper = $("<div/>",{ "class" : "modal-wrapper " + className }).appendTo(body),
+                title = $("<div/>",{"class" : "modal-title " + className }).appendTo(wrapper),
+                closeBt = $("<div/>",{ "class" : "modal-closebt " + className }).on("click",modalTool.cancel).appendTo(wrapper),
+                content = $("<div/>",{ "class" : "modal-content " + className }).appendTo(wrapper),
+                btWrap = $("<div/>",{ "class" : "modal-bt-wrapper " + className }).appendTo(wrapper),
                 btCancel = $("<div/>",{
-                    "class" : "modal-bt modal-cancelbt",
+                    "class" : "modal-bt modal-cancelbt " + className,
                     "html" : "Cancel"
                 }).on("click",modalTool.cancel).appendTo(btWrap),
-                btOk = $("<div/>",{"class" : "modal-bt modal-okbt"}).on("click",action).appendTo(btWrap);
+                btOk = $("<div/>",{"class" : "modal-bt modal-okbt " + className}),
+                action = action || 0;
 
+                if(typeof action === "object"){
+                    for(var i = 0, l = action.length; i < l; i++){
+                        btOk.on("click",action[i]);
+                    }
+                    btOk.appendTo(btWrap);
+                }
+                else if(typeof action === "function") {
+                    btOk.on("click",action);
+                    btOk.appendTo(btWrap);
+                }
+                else btWrap.remove();
+                
                 return body;
             },
             modalShow: function(){
@@ -829,8 +806,8 @@
                     var $this = $(this),
                     $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
-                    console.log($object);
-                    console.log(dataURL); // for ajax
+                    //console.log($object);
+                    //console.log(dataURL); // for ajax
 
                     var dataArray = new Array;
                     dataArray[0] = { 'type': 'editor_thumb', 'data64': dataURL ,'index': null};
@@ -877,8 +854,9 @@
             },
             showCCsetting: function(event){
                 var $this = $(this).find(".cc-setting-bt"),
-                $ccSettingWrap = $("<div/>",{ "class" : "modal cc-setting-wrapper" }),
-                $ccSettingInner = $("<div/>",{ "class" : "modal-wrapper cc-setting-inner-wrapper"}),
+                $ccSettingWrap = new modalTool.create(null,"cc-setting").addClass("cc-setting-wrapper"),
+                $ccSettingInner = $ccSettingWrap.find(".modal-wrapper").addClass("cc-setting-inner-wrapper"),
+
                 $ccSection = $("<div/>",{ "class" : "cc-section" }),
                 $ccTitleWrap = $("<div/>",{ "class" : "cc-title-wrapper" }),
                 $ccRadio = $("<input/>",{"type" : "radio", "class" : "license-selector", "name" : "cc-info", "data-value": "" }),
@@ -895,28 +873,23 @@
 
                 if(selected){
                     if(notExist) {
-                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".initEditor")),
+                        var makeCC = $ccSettingWrap.appendTo($(".initEditor")),
                         useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
                         .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")).hide().stop().fadeIn(400),
                         listWrap = $cclistWrap.appendTo($(".useCC")),
                         addlist = function(){
-                            $ccBY = $cclist.clone()
-                            .append($ccCheckBox.clone().attr({"data-value":"by","name":"cc-check"}).prop({"disabled" : true,"checked" : true}))
-                            .append($ccCheckDesc.clone().html("Free to share and adapt with appropriate credit"))
-                            .appendTo($(".cc-checklist-wrapper")),
-                            $ccNC = $cclist.clone()
-                            .append($ccCheckBox.clone().attr({"data-value":"nc","name":"cc-check"}).prop({"disabled" : false,"checked" : true}))
-                            .append($ccCheckDesc.clone().html("Not allowed for commercial purpose"))
-                            .appendTo($(".cc-checklist-wrapper")),
-                            $ccND = $cclist.clone()
-                            .append($ccCheckBox.clone().attr({"data-value":"nd","name":"cc-check"}).prop({"disabled" : false,"checked" : true}))
-                            .append($ccCheckDesc.clone().html("You may not distribute the modified material"))
-                            .appendTo($(".cc-checklist-wrapper")),
-                            $ccShare = $cclist.clone()
-                            .append($ccCheckBox.clone().attr({"data-value":"sa","name":"cc-check"}).prop({"disabled" : true,"checked" : false}))
-                            .append($ccCheckDesc.clone().html("Free to share including the modified material under the same license as original"))
-                            .appendTo($(".cc-checklist-wrapper"));
+                            for(var i = 0, l = ccData.length; i < l; i++){
+                                var disabled, checked;
+                                if(i == 0) continue;
+                                else if(i == 1) disabled = true, checked = true;
+                                else if(i == 2 || i == 3) disabled = false, checked = true;
+                                else if(i == 4) disabled = true, checked = false;
+                                $cclist.clone()
+                                .append($ccCheckBox.clone().attr({"data-value":ccData[i].id,"name":"cc-check"}).prop({"disabled" : disabled,"checked" : checked}))
+                                .append($ccCheckDesc.clone().html(ccData[i].descript))
+                                .appendTo($(".cc-checklist-wrapper"))
+                            }
                         }(),
                         withoutCC = $ccSection.clone().addClass("withoutCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",false).attr("data-value","withoutCC"))
@@ -1192,7 +1165,7 @@
                     if($(".focused").size() >= 1) $(".focused").removeClass("focused");
                     $this.addClass("focused");
                     $fontSizeSlider.slider("enable");
-                    var //data reset
+                    var //data init
                     $changeSize = $fontSizeTool.find(".slider-text").val(fontSize).trigger("change"),
                     $changeColor = $("#fontColorKey").spectrum("set", fontColor),
                     $boldbt = $this.find("b").length > 0 ? 
@@ -1222,8 +1195,7 @@
                     input = $target.is(".canvas-input") || inputChild,
                     aside = $target.parents().is(".editor-aside");
 
-                    if(aside || (input && $this)) console.log("This is aside or input");                    
-                    else {
+                    if(!(aside || (input && $this))) {
                         $this.removeClass("focused");
                         $fontDecoTool.find(".btn").removeClass("selected");
                         $fontAlignTool.find(".btn").removeClass("selected");
@@ -1247,7 +1219,7 @@
                 },
                 fontDeco: function(){
                     var $this = $(this),
-                    $target = $(document).find(".focused > .canvas-input"),
+                    $target = $(document).find(".obj-body > .focused > .canvas-input"),
                     bold = $("<b/>"),
                     italic = $("<em/>"),
                     underline = $("<u/>"),
@@ -1264,14 +1236,15 @@
                         }
                     }
                     else{
-                    	var bold = $target.find("b"),
-                    	italic = $target.find("em"),
-                    	underline = $target.find("u"),
-                    	strike = $target.find("strike"),
+                    	var bold = $target.find("b") || 0,
+                    	italic = $target.find("em") || 0,
+                    	underline = $target.find("u") || 0,
+                    	strike = $target.find("strike") || 0,
                     	boldText = $target.find("b").children()[0] || $target.find("b").text(),
                     	italText = $target.find("em").children()[0] || $target.find("em").text(),
                     	underText = $target.find("u").children()[0] || $target.find("u").text(),
                     	strikeText = $target.find("strike").children()[0] || $target.find("strike").text();
+                        console.log(boldText);
                         switch(value){
                             case "bold" : bold.parent().html(boldText); bold.remove(); break;
                             case "italic" : italic.parent().html(italText); italic.remove(); break;
@@ -1410,7 +1383,7 @@
                     $imgWrapper = $("<div/>",{ "class" : "grid-img-wrapper"}),
                     $placeHolder = $("<div/>",{ 
                         "class" : "grid-placeHolder",
-                        "html" : "<i class='" + icons.plus + "'></i>Click and upload",
+                        "html" : "<i class='" + icons.plus + "'></i>",
                         "data-value" : "grid"
                     }).on("click",upload.imgUpTrigger),
                     $devider1 = $obj.find(".grid-devider").eq(0),
@@ -1567,7 +1540,6 @@
                             toolbar.sortFn.objType(objType,$dummy);
                         }
                     });
-                    console.log("sort refresh");
                 },
                 objType: function(val, selector){
                     var icon = $("<i/>");
@@ -1575,7 +1547,6 @@
                     else if(val == "text") icon.clone().addClass(icons.font).appendTo(selector);
                     else if(val == "embed") icon.clone().addClass(icons.code).appendTo(selector);
                     else return false;
-                    console.log("objType");
                 },
                 sortable: function(event){
                     sortedObj = $(".sort-obj"),

@@ -27,5 +27,6 @@ var keycodePac = { //ascii
       "z" : 90,
       "enter" : 13,
       "space" : 32,
-      "delete" : 8
+      "delete" : 8,
+      "esc" : 27
 }
