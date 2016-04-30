@@ -265,8 +265,9 @@ function re_pass_check(current_id) { // repeat pass check
 /////////////////////////////////////////////////////////
 $(document).on("blur", function () {
 
-    //var current_stat = $(current_id + "_check");
-    //var value = $(current_id).val();
+    var current_id = $(this).attr('id');
+    var current_stat = $(current_id + "_check");
+    var value = $(current_id).val();
 
     $('#now_pass_id').on("blur", function () //account setting page now password check
     {
