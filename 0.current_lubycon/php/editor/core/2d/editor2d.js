@@ -53,7 +53,7 @@
                             "class" : "canvas-obj canvas-content placeHolder",
                             "data-value" : "newImgUpload"
                         }).append($("<i/>",{"class" : icons.plus}))
-                        .append($("<p/>",{"html" : "Click Here and upload your files"}))
+                        .append($("<p/>",{"html" : "Click here and upload your files for Preview"}))
                         .appendTo($objBody)
                         .on("click",upload.imgUpTrigger),
 
@@ -61,10 +61,9 @@
                         $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "File",
-                            "data-value" : "newImgUpload"
+                            "html" : "Attach File"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",upload.imgUpTrigger),
+                        .appendTo($headerBtWrap).on("click",upload.fileUpTrigger),
                         $savebtn = $("<div/>",{
                             "class" : "header-btn savepc",
                             "html" : "Save"
@@ -131,6 +130,13 @@
                             "type":"file"
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox),
+
+                        //fileupload modal
+                        $fileUpWindow = new modalTool.create(upload.fileUpTrigger,"file-modal").appendTo($this),
+                        $fileUpWrap = $fileUpWindow.find(".modal-wrapper"),
+                        $fileTitle = $fileUpWindow.find(".modal-title").text("----"),
+                        $fileContent = $fileUpWindow.find(".modal-content").text("Upload your attachment file"),
+                        $fileOk = $fileUpWindow.find(".modal-okbt").text("Upload");
 
                         //embed windows
                         $embedWindow = new modalTool.create(modalTool.embed,"embed-modal prog").appendTo($this).hide(),
@@ -251,7 +257,7 @@
                                     list.hide();
                                 }
                             }
-                        }(),
+                        }();
                         
                         // right : {project team}
                         pac.initTools();//data binding
@@ -441,6 +447,22 @@
                 var $this = $(this),
                 inputFile = $(document).find(".fileUploader");
                 inputFile.click();
+                inputFile.off("change").on("change",upload.fileUpload);
+            },
+            fileUpload: function(event){
+                console.log(true);
+                var $this = $(this),
+                object = event.target.files,
+                size = object[0].size, // 30MB
+                type = object[0].type,
+                $inputModal = $(document).find(".file-modal");
+                if(size < 31457280){
+                    $inputModal.remove();
+                }
+                else{
+                    alert("Your File is so big. Limit 30MB. This file is " + parseInt(size/1024/1024) + "MB");
+                    $this.val(null);
+                }
             },
             imgUpTrigger: function(){
                 var $this = $(this),
@@ -585,9 +607,6 @@
                 },200);
                 console.log("thumbnail is replaced");
             },
-            fileUpload: function(){
-                //do nothing
-            },
             imgUpload: function(event){
                 var $this = $(".uploading"),
                 $canvas = $(document).find(".editing-canvas"),
@@ -604,7 +623,7 @@
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
 
-                console.log(fileEXT);
+                console.log(fileEXT); //png, jpg, jpeg, gif, bmp
                 if($placeHolder.length!=0) $placeHolder.hide();
 
                 $.each($object, function(i,file){

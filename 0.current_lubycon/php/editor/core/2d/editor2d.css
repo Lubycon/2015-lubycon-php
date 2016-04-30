@@ -95,6 +95,10 @@ a {
     .modal-content {
         position: relative;
         width: 100%;
+        color: #eeeeee;
+        font-weight: 200;
+        font-size: 17px;
+        text-align: center;
     }
     .modal-title {
         color: #eeeeee;
@@ -940,9 +944,11 @@ a {
         background: #5a5a5a;
     }
     .header-btn > i {
+        margin-top: -3px;
         margin-right: 10px;
         color: #222222;
         font-size: 20px;
+        vertical-align: middle;
     }
 
 .btn {
