@@ -19,7 +19,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
 
 	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="../../js/core/success_account.js"></script>
+    <script type="text/javascript" src="../../js/success_account.js"></script>
 
 </head>
 <body>

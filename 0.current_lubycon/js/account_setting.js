@@ -1,4 +1,4 @@
-
+﻿
 $(function (){ //account setting script
     $('#change_pass').click(function (){ //change pass remove attr
         if($('#now_pass_id').attr('disabled')){
@@ -154,21 +154,66 @@ $(document).ready(function () {
         $("#profile_uploader").click();
     });
 
-    $("#profile_uploader").change(function () {
+    $(document).on("change","#profile_uploader",function () {
         showImage(this);
     });
 
-    function showImage(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#cropper_img').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    $(document).on("click", "#crop", function () {
+        var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 });
 
+        $("#croped_img").html('');
+        $("#croped_img").append($object);
+        //$(a).appendTo("#cropper_account");
+        $(".cropper-container").remove();
+
+        dataURL = $object.toDataURL("image/jpeg");
+        var dataArray = new Array;
+        dataArray[0] = { 'type': 'profile', 'data64': dataURL  , 'index':''};
+
+        $.ajax({
+            type: "POST",
+            url: "../ajax/editor_ajax_upload_test.php", //path
+            data:
+            {
+                'ajax_data': dataArray
+            },
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            }
+        })
+
+
+
+    })
 
 });
+
+function showImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#cropper_img').attr('src', e.target.result);
+
+            $(".cropper-container").remove();
+            $("#cropper_img").cropper({
+                minContainerWidth: 100,
+                minContainerHeight: 100,
+                aspectRatio: 1 / 1,
+                autoCropArea: 0.6,
+                viewMode: 3,
+                responsive: true,
+                zoomable: false,
+                preview: "#sex",
+                dragMode: "crop"
+            }).show();
+            $("#cropper_img").cropper("replace", e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+
 
 ////////////////////////////delete button interaction end

@@ -1,7 +1,7 @@
 ﻿/* ===========================================================
  *
  *  Name:          lubySelector.min.js
- *  Updated:       2016-02-28
+ *  Updated:       2016-04-30
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -160,7 +160,8 @@
                     && $wrap.removeClass("open")
                     && $optionWrap.fadeOut(300) :
                     "";
-                d.callback();
+                if (d.callback !== null) d.callback();
+                else return;
             },
             changeOption: function(selector) {
                 var $this = $(this),

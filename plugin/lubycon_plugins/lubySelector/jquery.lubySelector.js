@@ -160,7 +160,8 @@
                     && $wrap.removeClass("open")
                     && $optionWrap.fadeOut(300) :
                     "";
-                d.callback();
+                if (d.callback !== null) d.callback();
+                else return;
             },
             changeOption: function(selector) {
                 var $this = $(this),

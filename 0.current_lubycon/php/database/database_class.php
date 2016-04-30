@@ -16,8 +16,7 @@ class Database{
 
 	public function askQuery(){
 		if(isset($this->query)){
-			$this->result = $this->database->query($this->query);
-			return true;
+			return $this->result = $this->database->query($this->query);
 		}else{
 			return false;
 		}

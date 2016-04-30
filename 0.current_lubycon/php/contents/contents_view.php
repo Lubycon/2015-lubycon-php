@@ -84,6 +84,7 @@ $file_like = $row['likeCount'];
 <script type="text/javascript" src="<?=$one_depth?>/js/contents_view.js"></script> <!-- account file js -->
 <script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
 <link href="<?=$one_depth?>/css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
+
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
@@ -176,7 +177,7 @@ $file_like = $row['likeCount'];
                     <img src="<?=$user_img_url?>">
                 </figure>
                 <span id="user_info_wrap">
-                    <h4><a href="<?=$two_depth?>/personal_page.php&cate=dashboard"><?=$user_name?></a></h4>
+                    <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard"><?=$user_name?></a></h4>
                     <h5><?=$userjob?></h5>
                     <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>

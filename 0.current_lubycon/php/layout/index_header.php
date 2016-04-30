@@ -10,6 +10,7 @@
             $LoginState = true;
             $username= $_SESSION['lubycon_nick'];
             $userid= $_SESSION['lubycon_id'];
+            $usercode= $_SESSION['lubycon_code'];
         }else{
             $LoginState = false;    
         }
@@ -300,7 +301,7 @@
         </div><!-- before sign in -->
         <div id="after_signin" class="hidden-mb-b">   <!-- after sign in -->
                 <div id="display_user">
-                    <figure id="accountImg"><img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg" alt="profile_img" /></figure>
+                    <figure id="accountImg"><img src="<?=$two_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" alt="profile_img" /></figure>
                     <span id="user_id"><?=$username?></span>
                     <i class="fa fa-angle-down"></i>
                 </div>  

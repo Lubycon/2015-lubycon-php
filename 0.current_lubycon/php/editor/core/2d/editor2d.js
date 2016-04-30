@@ -814,14 +814,14 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
+                        url: "../../../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
                         data:
                         {
                             'ajax_data': dataArray
                         },
                         cache: false,
                         success: function (data) {
-                            //console.log(data);
+                            console.log(data);
                         }
                     })
                 }
