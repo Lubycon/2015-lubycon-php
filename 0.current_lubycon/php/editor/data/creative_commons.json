@@ -1,0 +1,31 @@
+var ccPac = [
+	{
+		"id" : "cc",
+		"name" : "creative-commons",
+		"descript" : "Creative Commons License",
+		"icon" : "../../img/cc_w.png" 
+	},
+	{
+		"id" : "by",
+		"descript" : "Free to share and adapt with appropriate credit",
+		"icon" : "../../img/by_w.png"
+	},
+	{
+		"id" : "nc",
+		"name" : "non-commercial",
+		"descript" : "Not allowed for commercial purpose",
+		"icon" : "../../img/nc_w.png"
+	},
+	{
+		"id" : "nd",
+		"name" : "non-distributed",
+		"descript" : "You may not distribute the modified material",
+		"icon" : "../../img/nd_w.png"
+	},
+	{
+		"id" : "sa",
+		"name" : "share",
+		"descript" : "Free to share including the modified material under the same license as original",
+		"icon" : "../../img/share_w.png"
+	}
+]

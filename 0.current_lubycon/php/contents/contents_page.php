@@ -26,7 +26,7 @@
                     <a href="./contents_page.php?cate=vector">Vector</a>
                 </li>
                 <li class="nav_menu" id="3d"> 
-                    <a href="./contents_page.php?cate=3d">3D</a>
+                    <a href="./contents_page.php?cate=threed">3D</a>
                 </li>
             </ul>
         </nav>  <!-- end lnb nav -->
@@ -78,27 +78,25 @@
     <section id="contents_box" class="con_wrap">
         <ul>
             <?php
-            $allow_array = ['all','artwork','vector','3d'];
-
+            $allow_array = ['all','artwork','vector','threed'];
+            $cate_name = $_GET['cate'];
             if( in_array($_GET['cate'] , $allow_array) )
             {
 	            require_once '../database/database_class.php';
 	            $db = new Database();
-
-                switch($_GET['cate']){ //check category
-                case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
-                case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
-                case '3d' : $contents_cate = 3; $cate_name = 'threed'; break;
-                default : $contents_cate = 1;  break;
-                };
-
-                $db->query =
-                "SELECT * 
-                FROM lubyconboard.`$cate_name` 
-                INNER join lubyconuser.`userbasic` 
-                INNER join lubyconuser.`userinfo` 
-                on `$cate_name`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode`
-                ORDER BY `$cate_name`.`boardCode` DESC";
+                
+                $query;
+                $cate_name;
+                $query_all = "SELECT downloadPermission , preview , title , profileImg , nick , boardCode , viewCount , likeCount FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT downloadPermission , preview , title , profileImg , nick , boardCode , viewCount , likeCount FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT downloadPermission , preview , title , profileImg , nick , boardCode , viewCount , likeCount FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC";
+                $query_one = "SELECT * FROM lubyconboard.`$cate_name` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` on `$cate_name`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `$cate_name`.`boardCode` DESC";
+                
+                if($cate_name == 'all')
+                {
+                    $db->query = $query_all;
+                }else if($cate_name == 'artwork' ||$cate_name == 'vector' || $cate_name='threed')
+                {
+                    $db->query = $query_one;
+                }
 		        $db->askQuery();
 
                 while( $row = mysqli_fetch_array($db->result) )

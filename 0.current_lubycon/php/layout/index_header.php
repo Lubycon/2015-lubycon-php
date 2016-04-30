@@ -113,7 +113,7 @@
                 <i class="fa fa-square fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=vector">Vector</a>
             </li>
             <li class="mb-menu_list">
-                <i class="fa fa-cube fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=3d">3D Model</a>
+                <i class="fa fa-cube fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=threed">3D Model</a>
             </li>
         </ul>
         <ul class="mb-menu_group">
@@ -143,19 +143,19 @@
         <p>Which content will you upload?</p>
         <ul>
             <li>
-                <a href="<?=$two_depth?>/editor/editor.php?cate=artwork">
+                <a href="<?=$two_depth?>/editor/core/2d/editor2d.php?cate=artwork">
                 <i class="fa fa-font"></i>
                 <p>Artwork</p>
                 </a>
             </li>
             <li>
-                <a href="<?=$two_depth?>/editor/editor.php?cate=vector">
+                <a href="<?=$two_depth?>/editor/core/2d/editor/editor2d.php?cate=vector">
                 <i class="fa fa-stop"></i>
                 <p>Vector</p>
                 </a>
             </li>
             <li>
-                <a href="<?=$two_depth?>/editor/editor.php?cate=3d">
+                <a href="<?=$two_depth?>/editor/core/3d/editor3d.php?cate=threed">
                 <i class="fa fa-cube"></i>
                 <p>3D Model</p>
                 </a>
@@ -266,7 +266,7 @@
                             <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector"><i class="fa fa-square fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=3d"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
                         </li>
                     </ul>	<!--end Contents menu-->
                 </li>
@@ -284,7 +284,7 @@
                             <a href="<?=$two_depth?>/community/community_page.php?cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
                         </li>
                         <li><!--Q&A-->
-                            <a href="<?=$two_depth?>/community/community_page.php?cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                            <a href="<?=$two_depth?>/community/community_page.php?cate=qaa"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>
@@ -334,7 +334,7 @@
             </ul>
         </div><!-- end after sign in -->
         <button id="addcontent_bt" class="animate_width hidden-mb-b"><i class="fa fa-plus"></i>Add Contents</button>
-        <!--¼¼¼Ç ¿©±â-->
+        <!--ï¿½ï¿½ï¿½ Ç¿ï¿½ï¿½-->
         <?php
             if($LoginState == true){
                 echo ('<script>$("#signin_bt").remove();$("#after_signin,#addcontent_bt").show();</script>');

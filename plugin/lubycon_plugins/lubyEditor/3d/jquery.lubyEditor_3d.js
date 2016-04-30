@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          lubyEditor3d.min.js
- *  Updated:       2016-03-30
+ *  Updated:       2016-04-22
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -18,47 +18,9 @@
             imageUpload: true,
             submit: $.noop()
         },
-        icons = {
-            basic: "fa fa-filter",
-
-            ccIcon: "fa fa-creative-commons",
-            ccImg: "../img/cc_w.png",
-            by: "../img/by_w.png",
-            nc: "../img/nc_w.png",
-            nd: "../img/nd_w.png",
-            share: "../img/share_w.png",
-
-            charge: "fa fa-credit-card",
-            usd: "fa fa-usd",
-            crop: "fa fa-crop",
-            edit: "fa fa-edit",
-            eraser: "fa fa-eraser",
-            code: "fa fa-code",
-            setting: "fa fa-cog",
-            image: "fa fa-image",
-            sorts: "fa fa-sort-amount-desc",
-            margin: "fa fa-sort",
-            slider: "fa fa-sliders",
-            tag: "fa fa-tag",
-            font: "fa fa-font",
-            plus: "fa fa-plus",
-            paint: "fa fa-paint-brush",
-            pencil: "fa fa-pencil",
-            picture: "fa fa-picture-o",
-            times: "fa fa-times",
-            arrowUp: "fa fa-caret-up",
-            arrowDown: "fa fa-caret-down",
-            arrowLeft: "fa fa-caret-left",
-            arrowRight: "fa fa-caret-right",
-            refresh: "fa fa-refresh",
-            grid: "fa fa-th-large",
-            layer: "fa fa-object-ungroup",
-            bulb: "fa fa-lightbulb-o",
-            cube: "fa fa-cube",
-
-            upload: "fa fa-cloud-upload",
-            download: "fa fa-inbox"
-        },
+        icons = $.getJSON("../data/icons.json",function(data){
+            console.log(data);
+        }),
         keyCode = { //ascii
             a: 65,
             b: 66,
@@ -362,7 +324,7 @@
             databind: function(){
                 //toolbar data bind start
                 toolbar.lightTool();
-                toolbar.objectTool();
+                toolbar.materialTool();
                 toolbar.backgroundTool();
                 //toolbar data bind end
                 $(window).on("load resize",function(){
@@ -495,8 +457,9 @@
                                 mesh = new THREE.Mesh(geometry,material);
                                     mesh.castShadow = true;
                                     mesh.receiveShadow = true;
-                                group.add(mesh)
+                                group.add(mesh);
                             }
+                            toolbar.materialFn.materialRefresh();
                             scene.add(group);
                         },false);
                         reader.readAsText(file);
@@ -566,13 +529,14 @@
                 $uploading = $(document).find(".uploading"),
                 $target = $(document).find("."+data),
                 $input = $target.find("textarea");
-                console.log($target);
                 $target.fadeIn(200);
+                console.log($target);
                 $input.focus().on("keydown",pac.keyEvent);
                 if($uploading.length!=0) $uploading.removeClass(".uploading");
 
                 $this.addClass("uploading");
                 pac.modalAlign($target);
+
             },
             cropped: function(event){
                 var $originImg = $(".thumb-origin-img");
@@ -744,23 +708,7 @@
             }
         },
         headerTool = {
-            downToPc: function(){
-                var $this = $(this), //download button
-                $canvas = $(document).find(".editing-canvas");
-                $("*").removeClass("focused");
-                html2canvas($canvas, {
-                    onrendered: function(canvas) {
-                        var dataURL = canvas.toDataURL("image/jpeg"), //export to jpeg
-                        $anchor = $("<a/>",{
-                            "href" : dataURL,
-                            "download" : "img-lubycon.jpg"
-                        }).appendTo("body");
-                        $anchor[0].click();
-                        $anchor.remove();
-                    }
-                });
-                console.log("Download to pc");
-            }
+            
         },
         canvasTool = {
             
@@ -778,99 +726,14 @@
                 else toolBox.fadeOut(200);
             },
             lightTool: function(){
-                var $this = $(document).find("#lightTool-toolbox"),
+                var $this = $(document).find("#lightTool-toolbox");
                 
-                $fontSize = $("<div/>",{ ///////////////////////font size start
-                    "class" : "toolbox-inner", 
-                    "id" : "fontSize-tool", 
-                    "data-value" : "font-size"
-                }).appendTo($this),
-                $fsLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Font Size"
-                }).appendTo($fontSize),
-                $sizeInput = $("<input/>",{ //input
-                    "type" : "range",
-                    "class" : "sliderKey",
-                    "value" : 20,
-                    "min" : 0,
-                    "max" : 100
-                }).appendTo($fontSize).slider({
-                    customID: "fontSize-slider",
-                    callback: toolbar.textFn.fontSize
-                }),
-                
-                $fontColor = $("<div/>",{ ////////////////////font color start
-                    "class" : "toolbox-inner", 
-                    "id" : "fontColor-tool",
-                    "data-value" : "font-color"
-                }).appendTo($this),
-                $fcLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Font Color"
-                }).appendTo($fontColor),
-                $colorInput = $("<input/>",{ //input
-                    "type" : "text",
-                    "id" : "fontColorKey"
-                }).appendTo($fontColor).spectrum({
-                    color: "#ffffff",
-                    showInput: true,
-                    showAlpha: true,
-                    showInitial: true,
-                    preferredFormat: "hex3",
-                    showPalette: true,
-                    palette: [],
-                    showSelectionPalette: true, // true by default
-                    selectionPalette: [],
-                    move: toolbar.textFn.fontColor,
-                    change: toolbar.textFn.fontColor
-                }),
-
-                $btWrap = $("<ul/>",{ "class" : "toolbox-btns" }),
-                $btn = $("<div/>",{ "class" : "btn" }),
-
-                $fontDeco = $("<div/>",{//////////////////// font deco
-                    "class" : "toolbox-inner",
-                    "id" : "fontDeco-tool",
-                    "data-value" : "font-deco"
-                }).appendTo($this),
-                $fdLabel = $("<div/>",{
-                    "class" : "toolbox-label",
-                    "html" : "Font Decorations"
-                }).appendTo($fontDeco),
-                $decobtns = $btWrap.clone().appendTo($fontDeco),
-                $boldBt = $btn.clone().addClass("boldbt").attr("data-value","bold").append($("<i/>",{"class" : icons.bold}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
-                $italicBt = $btn.clone().addClass("italicbt").attr("data-value","italic").append($("<i/>",{"class" : icons.italic}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
-                $underBt = $btn.clone().addClass("underbt").attr("data-value","underline").append($("<i/>",{"class" : icons.underline}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
-                $strikeBt = $btn.clone().addClass("strikebt").attr("data-value","strike").append($("<i/>",{"class" : icons.strike}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
-
-                $fontAlign = $("<div/>",{
-                    "class" : "toolbox-inner",
-                    "id" : "fontAlign-tool",
-                    "data-value" : "font-align"
-                }).appendTo($this),
-                $faLabel = $("<div/>",{
-                    "class" : "toolbox-label",
-                    "html" : "Align"
-                }).appendTo($fontAlign),
-                $alignbtns = $btWrap.clone().appendTo($fontAlign),
-                $alignLeft = $btn.clone().addClass("align-left-bt").attr("data-value","left").append($("<i/>",{"class" : icons.alignLeft}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
-                $alignCenter = $btn.clone().addClass("align-center-bt").attr("data-value","center").append($("<i/>",{"class" : icons.alignCenter}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
-                $alignRight = $btn.clone().addClass("align-right-bt").attr("data-value","right").append($("<i/>",{"class" : icons.alignRight}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
-                $alignRight = $btn.clone().addClass("align-justify-bt").attr("data-value","justify").append($("<i/>",{"class" : icons.alignJustify}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns);
-            },
-            textFn: {
                 
             },
-            objectTool: function(){
+            lightFn: {
+                
+            },
+            materialTool: function(){
                 var $this = $(document).find("#objectTool-toolbox"),
 
                 $materialSelector = $("<div/>",{
@@ -878,42 +741,211 @@
                     "id" : "materialSelect-tool",
                     "data-value" : "material-select"
                 }).appendTo($this),
-                $colorLabel = $("<div>",{
+                $materialLabel = $("<div>",{
                     "class" : "toolbox-label",
                     "html" : "Meterials"
                 }).appendTo($materialSelector),
                 $selectBox = $("<select/>",{
-                    "class" : "material-selector"
-                }).appendTo($materialSelector).lubySelector({
-                    id: "materialSelector",
-                    width: "100%",
-                    maxHeight: 250,
-                    float: "none",
-                    icon: "",
-                    theme: "black"
-                })
-                /*$colorInput = $("<input/>",{ //input
-                    "type" : "text",
-                    "id" : "bgColorKey"
-                }).appendTo($materialSelector).spectrum({
-                    color: "#ffffff",
-                    showInput: true,
-                    showAlpha: true,
-                    showInitial: true,
-                    preferredFormat: "hex3",
-                    showPalette: true,
-                    palette: [],
-                    showSelectionPalette: true, // true by default
-                    selectionPalette: [],
-                    move: toolbar.colorFn.bgColor,
-                    change: toolbar.colorFn.bgColor
-                });*/
+                    "id" : "material-selector"
+                }).appendTo($materialSelector).hide(),
+
+                $materialDiffuse = $("<div/>",{
+                    "class" : "toolbox-inner",
+                    "id" : "materialDiffuse-tool",
+                    "data-value" : "material-diffuse"
+                }).appendTo($this),
+                $diffuseLabel = $("<div/>",{
+                    "class" : "toolbox-label",
+                    "html" : "Diffuse"
+                }).appendTo($materialDiffuse),
+
+                $materialSpecular = $("<div/>",{
+                    "class" : "toolbox-inner",
+                    "id" : "materialSpecular-tool",
+                    "data-value" : "material-specular"
+                }).appendTo($this),
+                $specularLabel = $("<div/>",{
+                    "class" : "toolbox-label",
+                    "html" : "Specualr"
+                }).appendTo($materialSpecular),
+
+                $materialNormal = $("<div/>",{
+                    "class" : "toolbox-inner",
+                    "id" : "materialNormal-tool",
+                    "data-value" : "material-normal"
+                }).appendTo($this),
+                $normalLabel = $("<div/>",{
+                    "class" : "toolbox-label",
+                    "html" : "Normal"
+                }).appendTo($materialNormal),
+
+                $tabWrap = $("<div/>",{ "class" : "material-controller" }),
+                $tabBtWrap = $("<div/>",{ "class" : "material-tab-bt-wrapper" }).appendTo($tabWrap),
+                $tabLeftBt = $("<div/>",{ 
+                    "class" : "material-tab btn",
+                    "html" : "Texture",
+                    "data-value" : "texture-control"
+                }).on("click",pac.toggle).on("click",toolbar.materialFn.materialTab).appendTo($tabBtWrap),
+                $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-value","color-control").appendTo($tabBtWrap),
+
+                $tabTextureBody = $("<div/>",{ 
+                    "class" : "material-control-inner texture-control",
+                    "data-value" : "texture" 
+                }).appendTo($tabWrap).hide(),
+                $tabColorBody = $("<div/>",{ 
+                    "class" : "material-control-inner color-control",
+                    "data-value" : "color"
+                }).appendTo($tabWrap).hide();
+                
+                $tabWrap.clone(true).attr("data-value","diffuse").appendTo($materialDiffuse);//diffuse
+                $tabWrap.clone(true).attr("data-value","sepecular").appendTo($materialSpecular);//specular
+                $tabWrap.clone(true).attr("data-value","normal").appendTo($materialNormal);
+
+                toolbar.materialFn.addController();
             },
-            colorFn: {
-                bgColor: function(color){
-                    var color = color.toHexString(),
-                    $target = $(document).find(".editing-canvas");
-                    $target.css("background", color);
+            materialFn: {
+                addController: function(){
+                    var $targets = $(document).find(".material-control-inner"),
+                    $wrapper = $("<div/>",{ "class" : "material-control-panel"}),
+                    $viewer = $("<div/>", { "class" : "material-control-viewer" }).appendTo($wrapper),
+                    $slider = $("<input/>",{
+                        "class" : "material-control-slider sliderKey",
+                        "type" : "range",
+                        "value" : 100,
+                        "max" : 100,
+                        "min" : 0
+                    }).appendTo($wrapper);
+                    $targets.each(function(){
+                        $wrapper.clone().appendTo($(this));
+                    });
+                    toolbar.materialFn.initController();
+                },
+                initController: function(){
+                    var $targets = $(document).find(".material-control-inner");
+                    $targets.each(function(){
+                        var $this = $(this),
+                        $viewer = $this.find(".material-control-viewer"),
+                        $viewerInner
+                        $slider = $this.find(".material-control-slider"),
+                        data = $this.data("value");
+                        if(data == "texture"){
+                            $viewerInner = $("<img/>",{ "src" : "#", "data-value" : "texture-modal"})
+                            .on("click",modalTool.modalShow).appendTo($viewer); //event to .texture-modal .modal
+                            $slider.slider({
+                                callback: toolbar.materialFn.changeOpacity
+                            })
+                        }
+                        else if(data == "color"){
+                            $viewerInner = $("<input/>",{ "type" : "text" }).appendTo($viewer);
+                            $viewerInner.spectrum({
+                                color: "#ffffff",
+                                showInput: true,
+                                showAlpha: true,
+                                showInitial: true,
+                                preferredFormat: "hex3",
+                                showPalette: true,
+                                palette: [],
+                                showSelectionPalette: true,
+                                selectionPalette: [],
+                                move: toolbar.materialFn.materialColor,
+                                change: toolbar.materialFn.materialColor
+                            });
+                            $slider.slider({
+                                callback: toolbar.materialFn.changeOpacity
+                            });
+                        }
+                        else{
+                            console.log("this is not material controller");
+                        }
+                        console.log(data);
+                    });
+                },
+                materialRefresh: function(){
+                    var $target = $(document).find("#materialSelector"),
+                    options = $("<option/>",{"class" : "material-option"}),
+
+                    addOption = function(){
+                        if(group.children[0].material.type == "MultiMaterial"){
+                            var materials = group.children[0].material.materials;
+                            for(var i = 0, l = materials.length; i < l; i++){
+                                var material = materials[i],
+                                option = options.clone();
+                                option.text(material.name);
+                                option.attr("data-value",i);
+                                option.appendTo("#material-selector");
+                                if(i == 0) option.prop("selected",true);
+                            }
+                        }
+                    }();
+
+                    $("#material-selector").lubySelector({
+                        id : "materialSelector",
+                        width: "100%",
+                        float: "none",
+                        icon: "",
+                        callback: toolbar.materialFn.materialSelect
+                    });
+                },
+                materialSelect: function(){
+                    var selected = $("#material-selector").find("option:selected"),
+                    id = selected.data("value"),
+                    materials = group.children[0].material;
+                    material = materials.type == "MultiMaterial" ? materials.materials[id] : materials,
+                    color = material.color;
+
+                    material.color = new THREE.Color(0xffffff);
+                    setTimeout(function(){
+                        material.color = color;
+                    },200);
+                },
+                materialTab: function(){
+                    $this = $(this),
+                    $target = $this.parent().siblings("." + $(this).data("value")),
+                    $tabs = $this.parent().siblings(".material-control-inner"),
+                    selected = $this.hasClass("selected");
+                    if(selected){
+                        $tabs.hide();
+                        $target.show();
+                    }
+                    else $tabs.hide();
+                },
+                materialTexture: function(){
+                    upload.textureUpload();
+                },
+                materialColor: function(color){
+                    var $this = $(this),
+                    $materials = group.children[0].material,
+                    color = color.toRgbString();
+
+                    if($materials.type == "MeshPhongMaterial"){}
+                    else if($materials.type == "MultiMaterial"){
+                        var id = $("#material-selector").find("option:selected").data("value"),
+                        $material = $materials.materials[id],
+                        kind = $this.parents(".material-controller").data("value");
+
+                        switch(kind){
+                            case "diffuse" : $material.color = new THREE.Color(color); break;
+                            case "specular" : $material.specularColor = new THREE.Color(color); break;
+                            default : $.error("color Error"); break;
+                        }
+                    }   
+                },
+                changeOpacity: function(val,selector){
+                    var $this = selector,
+                    val = val*0.01,
+                    $materials = group.children[0].material;
+
+                    if($materials.type == "MeshPhongMaterial"){}
+                    else if($materials.type == "MultiMaterial"){
+                        var id = $("#material-selector").find("option:selected").data("value"),
+                        $material = $materials.materials[id],
+                        kind = $this.parents(".material-controller").data("value");
+                        console.log(kind);
+                        switch(kind){
+                            case "diffuse" : $material.opacity = val; break;
+                            default : $.error("opacity Error"); break;
+                        }
+                    }
                 }
             },
             backgroundTool: function(){
@@ -929,7 +961,7 @@
                     "html" : "Sort"
                 }).appendTo($sortWrap)
             },
-            sortFn: {
+            backgroundFn: {
                 sortable: function(event){
                     
                 }

@@ -21,7 +21,7 @@
                     <a href="./community_page.php?cate=tutorial">Tutorial</a>
                 </li>
                 <li class="nav_menu" id="qna">
-                    <a href="./community_page.php?cate=qna">Q&amp;A</a>
+                    <a href="./community_page.php?cate=qaa">Q&amp;A</a>
                 </li>
             </ul>
         </nav>
@@ -35,7 +35,7 @@
         switch($_GET['cate']){
         case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
         case 'tutorial' : $contents_cate = 2; $cate_name = 'tutorial'; break;
-        case 'qna' : $contents_cate = 3; $cate_name = 'qna'; break;
+        case 'qaa' : $contents_cate = 3; $cate_name = 'qaa'; break;
         default : $contents_cate = 1;  break;
         };
 

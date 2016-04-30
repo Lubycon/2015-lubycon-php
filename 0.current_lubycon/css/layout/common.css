@@ -40,12 +40,12 @@ a {
     font-weight: 400;
     outline: 0;
 }
-*:focus
-{
+*:focus{
     outline: 0;
 }
 #wrapper{
     background: #eeeeee;
+    padding-bottom: 10px;
 }
 /*CSS RESET*/
 /* class */

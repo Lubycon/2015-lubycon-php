@@ -17,6 +17,7 @@
             callback: $.noop()
         },
         d = {},
+        isDragging = false,
         slider = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
@@ -61,21 +62,18 @@
                 $bt = $this.find(".slider-bt"),
                 $bar = $this.find(".slider-bar"),
                 isDragging = true;
+                console.log(isDragging);
                 $bt.addClass("dragging");
-                $this
+                $("html")
                 .on("mousemove",function(event){
                     var target = $(event.target);
                     if(isDragging && (!target.is(".slider-text"))) drag.dragAction(event.pageX,$this,$bt);
-                    else $this.off("mousemove");
                 })
-                .on("mouseleave",function(){
-                    $this.off("mousemove");
-                    $this.removeClass("dragging");
-                })
-                .on("mouseup","*",function(){
+                .on("mouseup",function(){
                     $this.off("mousemove");
                     isDragging = false;
                     $bt.removeClass("dragging"); 
+                    console.log(isDragging);
                 });
             },
             dragAction: function(mouseX,selector,btn){
@@ -95,7 +93,6 @@
                 var ratio = width/objX,
                 value = Math.floor($input.attr("max")/ratio);
 
-                //d.callback(value,$this);
                 $bt.css({ "left" : objX });
                 $area.css({ "right" : width - objX});
                 $bar.data("value",value);

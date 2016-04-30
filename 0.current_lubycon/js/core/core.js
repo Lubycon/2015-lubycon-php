@@ -19,7 +19,7 @@ $(function(){
 /////////////////////////////////////////////////////////
 //      loading icon start
 /////////////////////////////////////////////////////////
-$(function(){
+/*$(function(){
     var $loading = $("<div/>",{"id":"loading_icon"}),
     $icon = $("<i/>",{"class":"fa fa-spinner fa-spin"}),
     objectY = (windowHeight*0.5) - 40;
@@ -33,7 +33,7 @@ $(function(){
             $loading.remove();
         });
       });
-});
+});*/
 
 /////////////////////////////////////////////////////////
 //      loading icon end
@@ -80,8 +80,8 @@ function getUrlParameter(sParam) //get parameter
     }
 }
 
-var first_param = getUrlParameter('1');
-var seceond_param = getUrlParameter('2');
+var cate_param = getUrlParameter('cate');
+var connum_param = getUrlParameter('conno');
 var third_param = getUrlParameter('3');
 var four_param = getUrlParameter('4');
 

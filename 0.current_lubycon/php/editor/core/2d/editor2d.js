@@ -1,18 +1,16 @@
 /* ===========================================================
  *
- *  Name:          lubyPictool.min.js
+ *  Name:          editor2d.js
  *  Updated:       2016-03-30
- *  Version:       0.1.0
+ *  Version:       0.1.1
  *  Created by:    DART, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co
  *
  * =========================================================== */
 
-
-
 (function($){
-    $.fn.lubyPictool = function(option){
+    $.fn.initEditor = function(option){
         var defaults = { 
             height: $(window).height(),
             minHeight: null,
@@ -24,100 +22,25 @@
                 gridTool: true,
                 marginTool : true,
                 sortTool: true
-            },
-            submit: $.noop()
+            }
         },
-        icons = {
-            basic: "fa fa-filter",
-
-            ccIcon: "fa fa-creative-commons",
-            ccImg: "./img/cc_w.png",
-            by: "./img/by_w.png",
-            nc: "./img/nc_w.png",
-            nd: "./img/nd_w.png",
-            share: "./img/share_w.png",
-
-            charge: "fa fa-credit-card",
-            usd: "fa fa-usd",
-            crop: "fa fa-crop",
-            edit: "fa fa-edit",
-            eraser: "fa fa-eraser",
-            code: "fa fa-code",
-            setting: "fa fa-cog",
-            image: "fa fa-image",
-            sorts: "fa fa-sort-amount-desc",
-            margin: "fa fa-sort",
-            slider: "fa fa-sliders",
-            tag: "fa fa-tag",
-            font: "fa fa-font",
-            plus: "fa fa-plus",
-            paint: "fa fa-paint-brush",
-            pencil: "fa fa-pencil",
-            picture: "fa fa-picture-o",
-            times: "fa fa-times",
-            alignJustify: "fa fa-align-justify",
-            alignCenter: "fa fa-align-center",
-            alignLeft: "fa fa-align-left",
-            alignRight: "fa fa-align-right",
-            bold: "fa fa-bold",
-            italic: "fa fa-italic",
-            underline: "fa fa-underline",
-            strike: "fa fa-strikethrough",
-            arrowUp: "fa fa-caret-up",
-            arrowDown: "fa fa-caret-down",
-            arrowLeft: "fa fa-caret-left",
-            arrowRight: "fa fa-caret-right",
-            refresh: "fa fa-refresh",
-            grid: "fa fa-th-large",
-            layer: "fa fa-object-ungroup",
-
-            upload: "fa fa-cloud-upload",
-            download: "fa fa-inbox"
-        },
-        keyCode = { //ascii
-            a: 65,
-            b: 66,
-            c: 67,
-            d: 68,
-            e: 69,
-            f: 70,
-            g: 71,
-            h: 72,
-            i: 73,
-            j: 74,
-            k: 75,
-            l: 76,
-            m: 77,
-            n: 78,
-            o: 79,
-            p: 80,
-            q: 81,
-            r: 82,
-            s: 83,
-            t: 84,
-            u: 85,
-            v: 86,
-            w: 87,
-            x: 88,
-            y: 89,
-            z: 90,
-            enter: 13,
-            space: 32,
-            delete: 8
-        },
+        icons = iconPack, //icons.json
+        keyCode = keycodePac, //keycode.json
+        categoryData = categoryPac, //categories.json
+        ccData = ccPac, //creative_commons.json
         d = {},
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
-                    if (!$(this).hasClass("lubyPictoolKey")) $.error("The key for lubyPictool is not exist");
+                    if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
-                        console.log("lubyPictool is loaded");//function start
+                        console.log("editor is loaded");//function start
                         var $this = $(this),
                         //init object
-                        $wrapper = $("<div/>",{"class" : "lubypic-wrapper"}).appendTo($this),
-                        $header = $("<div/>",{"class" : "lubypic-header"}).appendTo($wrapper),
-                        $body = $("<div/>",{"class" : "lubypic-body"}).appendTo($wrapper),
-                        $aside = $("<div/>",{"class" : "lubypic-aside"}).appendTo($body),
+                        $wrapper = $("<div/>",{"class" : "editor-wrapper"}).appendTo($this),
+                        $header = $("<div/>",{"class" : "editor-header"}).appendTo($wrapper),
+                        $body = $("<div/>",{"class" : "editor-body"}).appendTo($wrapper),
+                        $aside = $("<div/>",{"class" : "editor-aside"}).appendTo($body),
                         $editingBack = $("<div/>",{"class" : "editing-background"}).appendTo($body),
                         //canvas
                         $editingArea = $("<div/>",{"class" : "editing-area"}).appendTo($body),
@@ -196,12 +119,12 @@
 
                         //input files
                         $inputFile = $("<input/>",{
-                            "class":"fileUploader lubypic-hidden",
+                            "class":"fileUploader editor-hidden",
                             "name":"fileUploader",
                             "type":"file"
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
-                            "class":"imgUploader lubypic-hidden",
+                            "class":"imgUploader editor-hidden",
                             "name":"imgUploader",
                             "type":"file"
                         }).insertAfter($header);
@@ -303,7 +226,7 @@
                             "tabindex": "8",
                             "name" : "contents_category[]"
                         })).appendTo($settingInnerLeft),
-                        $chosenOptions = ["Apple","Banana","Caramel","Diamond","Element","Fedex","Glory","Hive","Iframe","Jelly","Key","Lion","Mom","Nurse"],
+                        $chosenOptions = categoryData,
                         insertOption = function(){
                             var categoryBox = $(document).find(".chosen-select.category");
                             for(i in $chosenOptions){
@@ -339,12 +262,15 @@
                         ccIconDefault = function(){
                             var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
                             $target = $(document).find(".cc-list-wrapper"),
-                            $img = $("<img/>",{ "src" : "#" }),
-                            $cc = ccIconLi.clone().attr("data-value","cc").append($img.clone().attr("src",icons.ccImg)).appendTo(".cc-list-wrapper"),
-                            $by = ccIconLi.clone().attr("data-value","by").append($img.clone().attr("src",icons.by)).appendTo(".cc-list-wrapper"),
-                            $nc = ccIconLi.clone().attr("data-value","nc").append($img.clone().attr("src",icons.nc)).appendTo(".cc-list-wrapper"),
-                            $nd = ccIconLi.clone().attr("data-value","nd").append($img.clone().attr("src",icons.nd)).appendTo(".cc-list-wrapper"),
-                            $share = ccIconLi.clone().attr("data-value","sa").append($img.clone().attr("src",icons.share)).appendTo(".cc-list-wrapper").hide();
+                            $img = $("<img/>",{ "src" : "#" });
+                            for(var i = 0, l = ccData.length; i < l; i++){
+                                var list = ccIconLi.clone().attr("data-value",ccData[i].id)
+                                .append($img.clone().attr("src",ccData[i].icon))
+                                .appendTo(".cc-list-wrapper");
+                                if(ccData[i].id == "sa"){
+                                    list.hide();
+                                }
+                            }
                         }(),
 
                         
@@ -362,13 +288,13 @@
                         }).on("click",pac.currentProg).on("click",pac.submit).appendTo($settingBtWrap);
                         
                         // right : {project team}
-                        pac.databind();//data binding
+                        pac.initTools();//data binding
                         setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
                     }
                 })
             },
             submit: function(){
-                var rootElement = $(".lubyPictoolKey"),
+                var rootElement = $(".initEditor"),
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
@@ -432,7 +358,7 @@
                 });
                 console.log(html_Data);
             },
-            databind: function(){
+            initTools: function(){
                 //toolbar data bind start
                 toolbar.textTool();
                 toolbar.colorTool();
@@ -483,7 +409,7 @@
             },
             toolbox: function(){
                 var $this = $(this),
-                $aside = $this.parents(".lubypic-aside"),
+                $aside = $this.parents(".editor-aside"),
                 value = $this.data("value"),
                 $toolboxWrap = $("<div/>",{
                     "class" : "toolbox-wrap",
@@ -710,7 +636,6 @@
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
 
-
                 console.log(fileEXT);
                 if($placeHolder.length!=0) $placeHolder.hide();
 
@@ -766,7 +691,7 @@
                 $body = $(".obj-body"),
                 $placeHolder = $body.find("placeHolder"),
                 $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-embed", "data-index" : "", "data-value" : "embed"}),
-                $media = val;
+                $media = $(val);
 
                 if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$mediaWrap,$media);
@@ -821,8 +746,22 @@
             }
         },
         modalTool = {
+            create: function(action){
+                var body = $("<div/>",{"class":"modal"}),
+                wrapper = $("<div/>",{ "class" : "modal-wrapper" }).appendTo(body),
+                title = $("<div/>",{"class" : "modal-title"}).appendTo(wrapper),
+                closeBt = $("<div/>",{ "class" : "modal-closebt" }).on("click",modalTool.cancel).appendTo(wrapper),
+                btWrap = $("<div/>",{ "class" : "modal-bt-wrapper" }).appendTo(wrapper),
+                btCancel = $("<div/>",{
+                    "class" : "modal-bt modal-cancelbt",
+                    "html" : "Cancel"
+                }).on("click",modalTool.cancel).appendTo(btWrap),
+                btOk = $("<div/>",{"class" : "modal-bt modal-okbt"}).on("click",action).appendTo(btWrap);
+
+                return body;
+            },
             modalShow: function(){
-                $this = $(this),
+                var $this = $(this),
                 data = $this.data("value"),
                 $uploading = $(document).find(".uploading"),
                 $target = $(document).find("."+data),
@@ -866,20 +805,21 @@
                 $window = $this.parents(".modal"),
                 $input = $this.parent().siblings("textarea"),
                 $errorMsg = $this.parent().siblings(".embed-error"),
-                value = $input.val() || 0;
-                valTest = value.indexOf("</iframe>") == -1;
-                if(value != 0 && !valTest) {
+                value = $input.val() || 0,
+                pattern = /^<iframe.*>.*<\/iframe>$/i,
+                valTest = isNaN(value) ? pattern.test(value) : true;
+                if(value && valTest) {
                     upload.embedUpload(value);
                     $input.val(null); 
                     $window.stop().fadeOut(200);
                 }
                 else {
-                    $input.addClass("error").on("blur",function(){
-                        $input.removeClass("error");
-                    });
+                    $input.addClass("error");
                     $errorMsg.fadeIn(200)
                     setTimeout(function(){
                         $errorMsg.fadeOut(200);
+                        $input.removeClass("error");
+                        $input.focus();
                     },1500);
                 }
             },
@@ -955,7 +895,7 @@
 
                 if(selected){
                     if(notExist) {
-                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".lubyPictoolKey")),
+                        var makeCC = $ccSettingWrap.append($ccSettingInner).append($modalClose.clone(true)).appendTo($(".initEditor")),
                         useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
                         .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
                         .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")).hide().stop().fadeIn(400),
@@ -1053,8 +993,9 @@
             },
             embedHelp: function(){
                 var $this = $(this),
+                text = "Embeds from: Vimeo, YouTube, Adobe TV, Adobe Voice, Blip.tv, Dailymotion, SoundCloud, Mixcloud, Bandcamp, Scribd, Google Maps, Wufoo, SlideShare, Giphy, Prezi, Sketchfab, Issuu, Vine, Spotify",
                 selected = $this.hasClass("selected");
-                if(selected) $this.text("Embeds from: Vimeo, YouTube, Adobe TV, Adobe Voice, Blip.tv, Dailymotion, SoundCloud, Mixcloud, Bandcamp, Scribd, Google Maps, Wufoo, SlideShare, Giphy, Prezi, Sketchfab, Issuu, Vine, Spotify").hide().stop().fadeIn(300);
+                if(selected) $this.text(text).hide().stop().fadeIn(300);
                 else $this.text("What can I embed?").hide().stop().fadeIn(300);
             }
         },
@@ -1248,7 +1189,7 @@
                     $fontDecoTool = $("#fontDeco-tool"),
                     $fontAlignTool = $("#fontAlign-tool");                    
 
-                    if($(".focused").size() == 1) $(".focused").removeClass("focused");
+                    if($(".focused").size() >= 1) $(".focused").removeClass("focused");
                     $this.addClass("focused");
                     $fontSizeSlider.slider("enable");
                     var //data reset
@@ -1270,7 +1211,6 @@
                     $fontAlign = $fontAlignTool.find(".btn[data-value='" + $textInput.css("text-align") + "']").addClass("selected");
 
                     $("html").on("click",toolbar.textFn.blurAction);
-                    console.log("focusin text");
                 },
                 blurAction: function(event){
                     var $this = $(".focused"),
@@ -1280,18 +1220,15 @@
                     $fontAlignTool = $("#fontAlign-tool"),
         			inputChild = $target.is("b") || $target.is("em") || $target.is("u") || $target.is("strike"),
                     input = $target.is(".canvas-input") || inputChild,
-                    aside = $target.parents().is(".lubypic-aside");
+                    aside = $target.parents().is(".editor-aside");
 
-                    if(aside || input) {
-                        console.log("This is aside or input");
-                    }
+                    if(aside || (input && $this)) console.log("This is aside or input");                    
                     else {
                         $this.removeClass("focused");
                         $fontDecoTool.find(".btn").removeClass("selected");
                         $fontAlignTool.find(".btn").removeClass("selected");
                         $fontSizeSlider.slider("disable");
                         $("html").off("click");
-                        console.log("This is not aside or input");
                     }
                     toolbar.sortFn.refresh();
                 },
@@ -1413,17 +1350,17 @@
 
                 $btnIcon = $("<img/>"),
                 $btn1 = $btn.clone(true).attr("data-value","n-1-1")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/1.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid1)).appendTo($btnWrap),
                 $btn2 = $btn.clone(true).attr("data-value","v-1-2")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/2.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid2)).appendTo($btnWrap),
                 $btn3 = $btn.clone(true).attr("data-value","v-2-1")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/3.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid3)).appendTo($btnWrap),
                 $btn4 = $btn.clone(true).attr("data-value","h-1-2")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/4.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid4)).appendTo($btnWrap),
                 $btn5 = $btn.clone(true).attr("data-value","h-2-1")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/5.png")).appendTo($btnWrap),
+                .append($btnIcon.clone().attr("src",icons.grid5)).appendTo($btnWrap),
                 $btn6 = $btn.clone(true).attr("data-value","n-2-2")
-                .append($btnIcon.clone().attr("src","./img/grid_icons/6.png")).appendTo($btnWrap);
+                .append($btnIcon.clone().attr("src",icons.grid6)).appendTo($btnWrap);
                 pac.modalAlign($this);
             },
             gridFn: {
@@ -1688,7 +1625,7 @@
         return start[option] ? 
         start[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
         "object" != typeof option && option ? 
-            ($.error('No such method "' + option + '" for the lubyPictool instance'), void 0) : 
+            ($.error('No such method "' + option + '" for the Editor instance'), void 0) : 
             pac.init.apply(this, arguments);
 };
 })(jQuery);
