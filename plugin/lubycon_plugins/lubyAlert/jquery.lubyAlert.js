@@ -15,11 +15,11 @@
             width: 170,
             height: 170,
             kind: "custom",//bookmark,like,success,cancel,confirm,prompt,custom
-            inSpeed: 500,
-            outSpeed: 700,
-            customIcon: "",//font awesome
-            customText: "",
-            customAnimation: "",
+            inSpeed: 500, //alert box fadeIn speed
+            outSpeed: 700, //alert box fadeOut speed
+            customIcon: "", //font awesome(class = "fa fa-custom")
+            customText: "", //this options is used to prompt, confirm, custom
+            customAnimation: "", //icon's animation(animate.css)
             toggle: false,
             callback: null
         },

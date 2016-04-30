@@ -32,9 +32,12 @@
 				kind: "success"
 			});
 			$("#test4").lubyAlert({
-				width: 400,
+				width: 800,
 				kind: "confirm",
-				customText: "Are you sure?"
+				customText: "Your Mail is sucked.<br/> Do you want to resend the confirm mail to your address?",
+				callback : function(){
+					console.log("mail is sended");
+				}
 
 			});
 			$("#test5").lubyAlert({
