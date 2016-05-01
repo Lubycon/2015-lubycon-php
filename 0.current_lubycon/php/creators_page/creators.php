@@ -94,7 +94,7 @@
                 </article>
             </div>
             <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard">
-                <div class="my_page_bt animate_width">My Page</div>
+                <div class="my_page_bt">My Page</div>
             </a>
         </div><!--end con_aside-->
         <div id="user_view_main" class="con_main">

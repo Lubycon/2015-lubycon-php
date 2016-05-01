@@ -81,7 +81,7 @@
 </head>
 <body id="bodyer">
 <div id="wrapper"> 
-    <div class="dark_overlay"></div>
+    <div class="dark_overlay" data-value="dark_overlay"></div>
     <div id="cancel_layer"></div>
     <aside id="mb-menu_panel" class="visible-mb"><!--mobile panel menu-->
         <header id="mb-user_section">
@@ -140,7 +140,7 @@
             <li class="mb-menu_list"><i class="fa fa-power-off fa-1x"></i>Log out</li>
         </ul>
     </aside>
-    <div class="editor_popup fadeInDown animated"> <!-- popup start -->
+    <div class="editor_popup modal fadeInDown animated"> <!-- popup start -->
         <p>Which content will you upload?</p>
         <ul>
             <li>
@@ -162,7 +162,7 @@
                 </a>
             </li>
         </ul>
-        <button class="closeButton"></button>
+        <button class="modal-closebt" data-value="modal-closebt"></button>
     </div><!-- popup end -->
     <header class="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
@@ -334,7 +334,7 @@
                 </div>
             </ul>
         </div><!-- end after sign in -->
-        <button id="addcontent_bt" class="animate_width hidden-mb-b"><i class="fa fa-plus"></i>Add Contents</button>
+        <button id="addcontent_bt" class="hidden-mb-b"><i class="fa fa-plus"></i>Add Contents</button>
         <!--��� ǿ��-->
         <?php
             if($LoginState == true){

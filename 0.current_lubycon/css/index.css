@@ -62,6 +62,11 @@
         border: 2px solid #444444;
         box-sizing: border-box;
         cursor: pointer;
+        transition: border-color 0.1s, color 0.1s;
+    }
+    .la_bt:hover {
+        border-color : #aaaaaa;
+        color: #aaaaaa;
     }
         .la_bt:first-child{
             border-right: none;
@@ -78,16 +83,7 @@
             border-bottom-right-radius: 20px;
         }
 
-    .out {
-        border-color: #444444;
-    }
-
-    .over {
-        border-color: #aaaaaa;
-        color: #aaaaaa;
-    }
-
-    .clicked {
+    .la_bt.selected {
         border-color: #48cfad;
         color: #48cfad;
         font-weight: 400;

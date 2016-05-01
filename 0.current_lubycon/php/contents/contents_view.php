@@ -182,7 +182,7 @@ $file_like = $row['likeCount'];
                     <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
             </div>
-            <div id="content_down" class="hidden-mb-b animate_width"><i class="fa fa-download"></i></div>
+            <div id="content_down" class="hidden-mb-b"><i class="fa fa-download"></i></div>
             <div id="tag_wrap" class="hidden-mb-b">
                 <p id="tag_title"><i class="fa fa-tag"></i>Tags</p>
                 <div id="tagbox_wrap">

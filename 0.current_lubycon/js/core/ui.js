@@ -86,34 +86,6 @@ $(document).ready(function(){
 //      lubyAlert enable
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//      add hover animations start
-/////////////////////////////////////////////////////////
-$(function(){   
-    $('.animate_scale').hover(function (e){
-        $(this).stop().animate({ width: "+=3", height: "+=3", right: "-=1.5", top: "-=1.5" }, 150);
-    }, function(){
-         $(this).stop().animate({ width: "-=3", height: "-=3", right: "+=1.5", top: "+=1.5" }, 150);
-    });
-});//scale animation end
-$(function(){
-    $('.animate_width').hover(function (e){
-        $(this).stop().animate({ width: "+=4", right: "-=2"}, 150);
-    }, function(){
-        $(this).stop().animate({ width: "-=4", right: "+=2"},150);
-    })
-})
-$(function(){
-    $(".animate_opacity").hover(function (e){
-        $(this).stop().animate({ opacity: 0.8 },200);
-    },function(){
-        $(this).stop().animate({ opacity: 1 },200);
-    });
-});//opacity animation end
-
-/////////////////////////////////////////////////////////
-//      add hover animations end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 //      tooltip start
 /////////////////////////////////////////////////////////
 $(function(){
@@ -187,5 +159,45 @@ $.fn.hideAnywhere = function(selector,button,list,target){
     }); 
 };
 /////////////////////////////////////////////////////////
-//      hideAnywhere start
+//      hideAnywhere end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      modalAction start
+/////////////////////////////////////////////////////////
+$(function(){
+    $(document).ready(function(){
+        var $modal = $(document).find(".modal"),
+        $cancelBt = $modal.find(".modal-closebt"),
+        $darkOverlay = $(document).find(".dark_overlay");
+
+        $darkOverlay.on("click",modalHide);
+        $cancelBt.on("click",modalHide);
+
+        function modalHide(){
+            console.log("close modal in ui.js");
+            var $this = $(this),
+            $target = $modal,
+            data = $this.data("value");
+
+            if(data == "dark_overlay"){
+                if($modal.length !== 0){
+                    $modal.find(".modal-closebt").trigger("click");
+                    $this.stop().fadeOut(200);
+                }
+                else{
+                    $this.stop().fadeOut(200);
+                }
+            }
+            else if(data == "modal-closebt"){
+                $this.parents(".modal").stop().fadeOut(200);
+                console.log($this.parents(".modal"));
+                if($modal.length === 1){
+                    $darkOverlay.stop().fadeOut(200);
+                }
+            }
+        }
+    })
+})
+/////////////////////////////////////////////////////////
+//      modalAction end
 /////////////////////////////////////////////////////////

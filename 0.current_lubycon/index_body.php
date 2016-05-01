@@ -45,16 +45,16 @@ $(function(){
                 <p class="mb-contents_count"><?=$artwork_count?>&nbsp;Contents</p>
             </div>
             <div class="mb-big_content">
-                <img src="../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/5.jpg" alt="best_img">
+                <!--<img src="../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/5.jpg" alt="best_img">-->
             </div>
             <div class="mb-contents_contents">
                 <?php
-                    for( $i=1 ; $i<=4 ; $i++ ){
+                    /*for( $i=1 ; $i<=4 ; $i++ ){
                         echo '<div class="mb-contents">
                                 <img src="../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/'.$i.'.jpg" alt="artwork_thumbnail'.$i.'">
                               </div>';
-                    };
-                ?>   
+                    };*/
+                ?> 
             </div>
             <div class="mb-contents_footer">
                 <div class="mb-view_more" id="mb-artwork_bt"><p>VIEW MORE</p></div>
@@ -67,19 +67,19 @@ $(function(){
                 <p class="mb-contents_count"><?=$vector_count?>&nbsp;Contents</p>
             </div>
             <div class="mb-big_content">
-                <img src="../../Lubycon_Contents/contents/vector/vectorjpg/thumb/7.jpg" alt="best_img">
+                <!--<img src="../../Lubycon_Contents/contents/vector/vectorjpg/thumb/7.jpg" alt="best_img">-->
             </div>
             <div class="mb-contents_contents">
                 <?php
-                    for( $i=1 ; $i<=4 ; $i++ ){
+                    /*for( $i=1 ; $i<=4 ; $i++ ){
                         echo '<div class="mb-contents">
                                 <img src="../../Lubycon_Contents/contents/vector/vectorjpg/thumb/'.$i.'.jpg" alt="vector_thumbnail'.$i.'">
                               </div>';
-                    };
-                ?>   
+                    };*/
+                ?>
             </div>
             <div class="mb-contents_footer">
-                <div class="mb-view_more" id="mb-vector_bt"><p>VIEW MORE</p></div>
+                <<div class="mb-view_more" id="mb-vector_bt"><p>VIEW MORE</p></div>
             </div>
         </div><!--section 2 end-->
         <div class="mb-contents_inner">
@@ -89,16 +89,16 @@ $(function(){
                 <p class="mb-contents_count"><?=$threeD_count?>&nbsp;Contents</p>
             </div>
             <div class="mb-big_content">
-                <img src="../../Lubycon_Contents/contents/3d/3djpg/thumb/5.jpg" alt="best_img">
+                <!--<img src="../../Lubycon_Contents/contents/3d/3djpg/thumb/5.jpg" alt="best_img">-->
             </div>
             <div class="mb-contents_contents">
                 <?php
-                    for( $i=1 ; $i<=4 ; $i++ ){
+                    /*for( $i=1 ; $i<=4 ; $i++ ){
                         echo '<div class="mb-contents">
                                 <img src="../../Lubycon_Contents/contents/3d/3djpg/thumb/'.$i.'.jpg" alt="3d_thumbnail'.$i.'">
                               </div>';
-                    };
-                ?>   
+                    };*/
+                ?>  
             </div>
             <div class="mb-contents_footer">
                 <div class="mb-view_more" id="mb-3d_bt"><p>VIEW MORE</p></div>
@@ -177,7 +177,7 @@ $(function(){
         <input id="vector_bt" type="radio" name="tap" />
         <input id="3d_bt" type="radio" name="tap" />
         <nav>
-            <label for="artwork_bt" class="la_bt clicked">ARTWORK</label>
+            <label for="artwork_bt" class="la_bt selected">ARTWORK</label>
             <label for="vector_bt" class="la_bt">VECTOR</label>
             <label for="3d_bt" class="la_bt">3D MODEL</label>
         </nav>

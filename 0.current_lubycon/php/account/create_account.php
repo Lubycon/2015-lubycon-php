@@ -5,9 +5,9 @@
 
 ?>
 
-<section id="create_account_area">
+<section id="create_account_area" class="modal">
      <p id="account_title">Create An Account</p>
-     <div id="modal_close_bt"><i class="fa fa-times"></i></div>
+     <div id="modal-closebt" data-value="modal-closebt"><i class="fa fa-times"></i></div>
      <div id="account_box">
           <form id="account_idpass" name="form" action="./php/account/registration.php" method="post">
                <div id="account_inputs">

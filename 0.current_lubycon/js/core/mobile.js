@@ -1,3 +1,5 @@
+var windowWidth = $(window).width(),
+    windowHeight = $(window).height();
 $(window).on("load resize",function(){
     if((windowWidth <= 1024) && ($("#mb-menu_panel").length != 0)){
         $("#mb-menu_panel").height = window.screen.height;

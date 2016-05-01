@@ -66,7 +66,6 @@ $(function (){ //gnb hover event
 });
 
 function getUrlParameter(sParam) //get parameter
-
 {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
@@ -99,12 +98,11 @@ $(function () //selcted change
 //      change language start
 /////////////////////////////////////////////////////////
 $(function (){
-	$('.lang_selected').mouseenter(function(){
-		$('.lang_list').stop().slideDown(300);
-	});
-	$('#lang_select_bt').mouseleave(function(){
-		$('.lang_list').stop().slideUp(300);
-	});
+    $("#lang_select_bt").hover(function(){
+        $(this).find(".lang_list").stop().slideDown(300);
+    },function(){
+        $(this).find(".lang_list").stop().slideUp(300);
+    });
     $('.lang_list li').click(function(event){
         var selectedLangText = $(this).text();
         $('.lang_selected').text(selectedLangText);
@@ -138,13 +136,13 @@ $(function(){
     $menuList = $personalMenu.find("ul");
 	$personalMenu.click(function (){
         var $this = $(this);
-        if($this.hasClass("opened")){
-            $this.removeClass("opened");
+        if($this.hasClass("selected")){
+            $this.removeClass("selected");
             $menuList.stop().fadeOut(200);
             $("html").off("click");
         }
         else{
-            $this.addClass("opened");
+            $this.addClass("selected");
             $menuList.stop().fadeIn(200);
             $("html").on("click", function (event) {
                 var $this = $(event.target);
@@ -164,25 +162,18 @@ $(function(){
 //      add contents bt popup event start
 /////////////////////////////////////////////////////////
 $(function () { //add contents button start
-    var $editorWindow = $(".editor_popup"),
-    $contents = $editorWindow.find("li"),
-    $background = $(".dark_overlay");
+    var $editorModal = $(".editor_popup.modal"),
+    $contents = $editorModal.find("li"),
+    $darkOverlay = $(".dark_overlay");
     $('#addcontent_bt').click(function () {
-       $background.stop().fadeIn(100);
-        $editorWindow.css("display","block").attr("class","editor_popup fadeInDown animated");
+        $darkOverlay.stop().fadeIn(100);
+        $editorModal.css("display","block").attr("class","editor_popup modal fadeInDown animated");
     });
 
     $contents.hover(function () {
-        $(this).children('a').children('i').css({ "color": "#fff", "background": "#48cfad" })
+        $(this).children('a').children('i').css({ "color": "#fff", "background": "#48cfad" });
     }, function () {
-        $(this).children('a').children('i').css({ "color": "#383838", "background": "#fff" })
-    });
-
-    $('.closeButton , .dark_overlay , .cancel_bt').click(function () {
-        $editorWindow.attr("class","editor_popup fadeOutUp animated")
-        setTimeout(function(){$editorWindow.hide();},500);
-        $background.stop().fadeOut(200);
-        $('#embed_popup').stop().fadeOut(150);
+        $(this).children('a').children('i').css({ "color": "#383838", "background": "#fff" });
     });
 });
 /////////////////////////////////////////////////////////
@@ -197,7 +188,6 @@ $(function () { //search box click value reset start
     search_bt = $('#main_search_btn'),
     search_bt2 = $('#sub_search_btn');
 
-    //
     search_box.on('keypress', function(event) {
         if(event.which == 13) {
             search_bt.click();
@@ -243,56 +233,38 @@ $(function () { //search box click value reset start
 //      index page slide switch start
 /////////////////////////////////////////////////////////
 
-$(function()  //slider change 
-{
-	$('#artwork_bt').click(function()
-	{
+$(function(){
+	$('#artwork_bt').click(function(){
 		$('#slider1').stop().fadeIn(150);
 		$('#slider2').hide();
 		$('#slider3').hide();
 	});
-	$('#vector_bt').click(function()
-	{
+	$('#vector_bt').click(function(){
 		$('#slider1').hide();
 		$('#slider2').stop().fadeIn(150);
 		$('#slider3').hide();
 	});
-	$('#3d_bt').click(function()
-	{
+	$('#3d_bt').click(function(){
 		$('#slider1').hide();
 		$('#slider2').hide();
 		$('#slider3').stop().fadeIn(150);
 	})
-	$('.slider_item ul li').hover(function ()
-	{
+	$('.slider_item ul li').hover(function (){
 	    $(this).stop().animate({opacity:0.3},100);
-	}, function ()
-	{
+	}, function (){
 	    $(this).stop().animate({ opacity: 1 },100);
 	});
 });
 /////////////////////////////////////////////////////////
 //      index page slide switch end
 /////////////////////////////////////////////////////////
-
-
 /////////////////////////////////////////////////////////
 //      index page triple bt event start
 /////////////////////////////////////////////////////////
 $(function(){
-	$('.la_bt').on({
-		mouseenter : function(){
-			$('.la_bt').removeClass('over');
-			$(this).addClass('over');
-		},
-		mouseleave: function (){
-		    $('.la_bt').removeClass('over');
-		    $(this).addClass('out');
-		},
-		click: function (){
-		    $('.la_bt').removeClass('clicked');
-		    $(this).addClass('clicked');
-		}
+	$('.la_bt').on("click", function (){
+	    $('.la_bt').removeClass('selected');
+	    $(this).addClass('selected');
 	});
 });
 /////////////////////////////////////////////////////////

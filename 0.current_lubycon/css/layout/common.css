@@ -75,11 +75,6 @@ body{
     scrollbar-darkshadow-color: #fff;*/
 }
 
-/*moz*/
-::-moz-scrollbar {
-    display: none;
-}/*It does not working. we should use bug#77790 for mozila FF
-
 /*----------------------------------------------------------scroll bar end*/
 /* main header start */
 /* popup end */
@@ -117,6 +112,78 @@ body{
     display: inline-block;
 }
 
+.modal {
+    position: fixed;
+    z-index: 30000;
+    min-width: 450px;
+    min-height: 100px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    .modal-closebt {
+        position: absolute;
+        top: 9px;
+        right: 8px;
+        width: 15px;
+        height: 15px;
+        border: none;
+        border-radius: 50%;
+        background: #ec6446;
+        cursor: pointer;
+        z-index: 11000;
+    }
+        .modal-closebt:hover {
+            background: #eb907b;
+        }
+    .modal-wrapper {
+        position: relative;
+        padding: 15px;
+    }
+    .modal-content {
+        position: relative;
+        width: 100%;
+        color: #eeeeee;
+        font-weight: 200;
+        font-size: 17px;
+        text-align: center;
+    }
+    .modal-title {
+        color: #eeeeee;
+        font-size: 20px;
+        font-weight: 200;
+    }
+    .modal-bt-wrapper {
+        text-align: center;
+        margin-top: 20px;
+    }
+        .modal-bt {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            padding: 5px;
+            border-radius: 3px;
+            font-weight: 200;
+            text-align: center;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            cursor: pointer;
+        }
+        .modal-bt:hover {
+            opacity: 0.8;
+        }
+            .modal-okbt {
+                background: #48cfad;
+                color: #ffffff;
+            }
+            .modal-cancelbt {
+                color: #ec6446;
+            }
+
+
 #gotop_bt{
     display: none;
     width: 65px;
@@ -133,17 +200,16 @@ body{
         color: #ffffff;
         font-size: 35px;
     }
-.editor_popup {
+
+.editor_popup.modal {
     width: 540px;
-    height: 175px;
+    height: 235px;
     background: #fff;
     border-radius: 10px;
-    position: fixed;
     top: 50%;
     left: 50%;
     margin-top: -152.5px;
     margin-left: -270px;
-    z-index: 100;
     text-align: center;
     padding: 25px 0px;
     display: none;
@@ -1712,9 +1778,6 @@ body{
     -moz-box-sizing: border-box;
 }
 
-.modal {
-    
-}
 /*---------------summer note end-----------------*/
 /*custom summernote css end*/
 /*---------------cc icon start-------------------*/

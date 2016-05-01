@@ -33,13 +33,13 @@
             </div><!--main textbox end-->
             
             <div class="properties_box hidden-mb-ib" id="uploader_com">
-                <p class="work_title animate_opacity">File Upload</p>
+                <p class="work_title">File Upload</p>
                 <input type="text" id="file_text_com" val="please select file..." readonly />
                 <span id="file_import_bt">Find the file</span>
                 <input type="file" id="file_import_com" name="user_upload_file"/>
             </div><!--link2 end-->
         </div>
-        <input type="submit" value="SUBMIT" id="community_submit" class="animate_width" />
+        <input type="submit" value="SUBMIT" id="community_submit" />
     </section><!--work_space end-->        
 </section>  <!-- end contents section -->
 </form>

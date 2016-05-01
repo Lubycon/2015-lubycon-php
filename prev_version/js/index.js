@@ -4,10 +4,8 @@
 //      ready to body fadein event start
 /////////////////////////////////////////////////////////
 
-$(function () //window fadein effect
-{
-    $(window).load(function ()
-    {
+$(function (){
+    $(window).load(function (){
         $('#bodyer').stop().fadeIn(500);
     });
 });
@@ -34,40 +32,6 @@ $(function () //add hover animation for every buttons
 /////////////////////////////////////////////////////////
 //      add hover animation for every buttons
 /////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////
-//      change language start
-/////////////////////////////////////////////////////////
-
-$(function () //language change bt slide and change
-{
-	$('.lang_selected').mouseenter(function()
-	{
-		$('.lang_list').stop().slideDown(300);
-	});
-	$('#lang_select_bt').mouseleave(function()
-	{
-		$('.lang_list').stop().slideUp(300);
-	});
-	$('.lang_list li').click(function()
-	{
-		$('.lang_selected').text($(this).text());
-		$('.lang_list').stop().slideUp(300);
-	});
-	$('.lang_list li').hover(function()
-    {
-        $(this).css('color','#fff')
-    },
-    function()
-    {
-        $(this).css('color','#929292')
-    });
-});
-
-/////////////////////////////////////////////////////////
-//      change language end
-/////////////////////////////////////////////////////////
-
 /////////////////////////////////////////////////////////
 //      before sign in child event start
 /////////////////////////////////////////////////////////
