@@ -1,7 +1,7 @@
 Options -Indexes
 
 RewriteEngine on
-ErrorDocument 404 ./404.php
+ErrorDocument 404 /Lubycon_Website/0.current_lubycon/php/error/404.php
 
 <ifModule mod_expires.c>
     ExpiresActive On

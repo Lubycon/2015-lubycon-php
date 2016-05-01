@@ -2,7 +2,7 @@
 class upload
 {
     private $_temp_path = '../../../../Lubycon_Contents/temp/';
-    private $_user_name = 'daniel_zepp'; //from db
+    private $_user_name;
 
     private $_filesize_array = array();
     private $_filepath_array = array();
@@ -45,6 +45,13 @@ class upload
     private $_string_length;
 
     private $_ajax_upload_type;
+
+
+    public function __construct($user_code)
+    {
+        $this->_user_name = $user_code;
+    }
+
 
     public function validate_size($files,$limit_size)
     {
