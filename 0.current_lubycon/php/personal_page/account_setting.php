@@ -2,7 +2,10 @@
     require_once '../database/database_class.php';
     require_once "../class/regex_class.php";
     $db = new Database();
-
+    $db->query = "SELECT * FROM `userinfo` WHERE `userCode` = $usercode";
+    $db->askQuery(); // viewcount up
+    $row = mysqli_fetch_array($db->result);
+    
 ?>
 <link href="<?=$one_depth?>/css/account_setting.css" rel="stylesheet" type="text/css" />
 <link href="./css/cropper.css" rel="stylesheet" type="text/css" />
@@ -25,7 +28,6 @@
                     </select>
                 </div>
                 <!-- end select box -->
-                
                 <label>Nickname</label><input type="text" value="<?=$username?>" disabled />
                 <label>Password</label><input type="password" name="now_pass" id="now_pass_id" disabled /><i></i><span id="change_pass">Change Password</span><br />
                 <p id="now_pass_check" class="form_check"></p>
@@ -45,9 +47,18 @@
                     <div id="crop">crop</div>
                     <input type="file" id="profile_uploader" />
                 </div>
+
+                <?php
+                    $job_json = json_decode(file_get_contents('../../data/job.json'),true);
+                    foreach ($job_json['jobCode'] AS $index=>$array){
+                        print_r ($array[$index]);
+                    }
+
+                ?>
+
                 <label>Occupation / Job</label>
                 <div class="job_option">
-                    <select class="jobFilter" name="job">
+                    <select class="jobFilter" name="job" value="<?=$job_code?>">
                         <option data-value="artist">Artist</option>
                         <option data-value="creator">Creator</option>
                         <option data-value="designer">Designer</option>
@@ -56,25 +67,21 @@
                         <option data-value="other">Other</option>
                     </select>
                 </div>
-
+                <label>Company</label>
+                <input type="text" name="company" value="<?=$row['company']?>"/>
                 <label>Location</label>
                 <div class="location_option">
                     <select class="locationFilter" name="location">
                          <?php
-                            $db->query = "SELECT * FROM country";
-                            $db->askQuery();
-                            while($row = mysqli_fetch_array($db->result)){
-                            echo ("<option data-value = ".$row['countryCode'].">".$row['name']."</option>");
-                            }
                          ?>
                     </select>
                 </div>
-                <input type="text" id="location_text" name="location_text" />
+                <input type="text" id="location_text" name="location_text" value="<?=$row[9]?>"/>
                 <label>Language</label>
                 <div class="langWrap">
                     <input type="text" id="lang_input_id" class="language_text" name="language[]" />
                     <div class="lang_option">
-                        <select class="langFilter0">
+                        <select class="langFilter0" name="lang_ability[]">
                             <option value="Beginer">Beginer</option>
                             <option value="Advanced">Advanced</option>
                             <option value="Fluent">Fluent</option>
@@ -88,21 +95,22 @@
                 <div id="lang_minus" class="optControl">
                     <i class="fa fa-minus"></i>
                 </div>
-                <label id="basic_desc_label">Description</label><textarea id="basic_desc" maxlength="1000" name="desc"></textarea><br />
+                <label id="basic_desc_label">Description</label>
+                <textarea id="basic_desc" maxlength="1000" name="desc"><?=$row['description']?></textarea><br />
         </section>
         <section id="history_setting_section" class="setting_card">
             <p class="setting_title">History Setting</p>
             <i class="fa fa-refresh refresh"></i>
             <div class="history_cell">
                 <div class="history_data">
-                    <select class="accountFilter">
+                    <select class="accountFilter" name="history_year[]">
                     <?php
                         for( $i=2016 ; $i > 1939 ; $i-- ){
                             echo '<option data-value='.$i.'>'.$i.'</option>';
                         }
                     ?>
                     </select>               
-                    <select class="accountFilter">
+                    <select class="accountFilter" name="history_month[]">
                         <option data-value="1">January</option>
                         <option data-value="2">February</option>
                         <option data-value="3">March</option>
@@ -116,7 +124,7 @@
                         <option data-value="11">November</option>
                         <option data-value="12">December</option>
                     </select>
-                    <select class="accountFilter">
+                    <select class="accountFilter" name="history_kind[]">
                         <option data-value="work_expierence">Work Experience</option>
                         <option data-value="studied">Education</option>
                         <option data-value="contest_prized">Awards</option>
@@ -136,7 +144,7 @@
 
         <section id="contact_info_section" class="setting_card">
             <p class="setting_title">Contact Info</p>
-                <label>Mobile</label><input type="text" name="mobile_number"/>
+                <label>Mobile</label><input type="text" name="mobile_number" value="<?=$row['telNumber']?>"/>
                 <div class="public_option">
                     <select class="privacyFilter" name="mobile_public">
                         <option value="Public">Public</option>
@@ -146,7 +154,7 @@
                 </div>
                 <!-- end select box -->
                 
-                <label>FAX</label><input type="text" name="fax_number"/>
+                <label>FAX</label><input type="text" name="fax_number" value="<?=$row['fax']?>"/>
                 <div class="public_option">
                     <select class="privacyFilter" name="fax_public">
                         <option value="Public">Public</option>
@@ -156,7 +164,7 @@
                 </div>
                 <!-- end select box -->
                 
-                <label>Website</label><input type="text" name="website_url"/>
+                <label>Website</label><input type="text" name="website_url" value="<?=$row['web']?>"/>
                 <div class="public_option">
                     <select class="privacyFilter" name="website_public">
                         <option value="Public">Public</option>

@@ -172,7 +172,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "../ajax/editor_ajax_upload_test.php", //path
+            url: "../ajax/account_setting_profile_upload.php", //path
             data:
             {
                 'ajax_data': dataArray
@@ -214,6 +214,4 @@ function showImage(input) {
 }
 
 
-
-
-////////////////////////////delete button interaction end
+    ////////////////////////////delete button interaction end

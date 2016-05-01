@@ -13,70 +13,188 @@
             $usercode= $_SESSION['lubycon_code'];
         }else{
             $LoginState = false;    
-        }
-                
+        }  
     }
-
-
 print_r($_SESSION);
 
 echo "<hr/><br/>";
 
+
+echo "<br/><br/>-------------vali setting--------------<br/>";
+
+$email_public = $_POST['email_public'];
+
+
+if(isset($_POST['now_pass']))
+{
+$now_password = $_POST['now_pass'];
+$change_password = $_POST['pass'];
+$repeat_password = $_POST['repass'];
+}
+
+$pass_change = false;
+
+
+$job = $_POST['job'];
+$job_code;
+switch($job)
+{
+    case 'Artist' : $job_code = 0; break;
+    case 'Creator' : $job_code = 1; break;
+    case 'Designer' : $job_code = 2; break;
+    case 'Engineer' : $job_code = 3; break;
+    case 'Student' : $job_code = 4; break;
+    case 'Other' : $job_code = 5; break;
+}
+
+$company = $_POST['company'];
+
+
+if(isset($_POST['location_text']))
+{
+    $location = $_POST['location'];
+    $location_text = $_POST['location_text'];
+}else
+{
+    $location = null;
+    $location_text = null;
+}
+
+if(isset($_POST['desc']))
+{
+    $user_description = $_POST['desc'];
+}else
+{
+    $user_description = null;
+}
+
+
+if( $_POST['history_text'][0] != '' )
+{
+    $history_year = $_POST['history_year'];
+    $history_month = $_POST['history_month'];
+    $history_kind = $_POST['history_kind'];
+    $history_text = $_POST['history_text'];
+}else
+{
+    $history_year = null;
+    $history_month = null;
+    $history_kind = null;
+    $history_text = null;
+}
+
+if( $_POST['language'][0] != '' )
+{
+    $language = $_POST['language'];
+    $lang_ability = $_POST['lang_ability'];
+}else{
+    $language = null;
+    $lang_ability = null;
+}
+
+
+
+$mobile_number = $_POST['mobile_number'];
+$mobile_public = $_POST['mobile_public'];
+$fax_number = $_POST['fax_number'];
+$fax_public = $_POST['fax_public'];
+$website_url = $_POST['website_url'];
+$website_public = $_POST['website_public'];
+
+
+echo "<br/><br/>-------------vali setting--------------<br/>";
+
+
+
+
+
+
 echo "<br/><br/>-------------basic information--------------<br/>";
-echo "email public option = " . $_POST['email_public'];
+
+echo "email public option = " . $email_public;
 
 if( isset($_POST['now_pass']) )
 {
-echo "<br/>origin password = " . $_POST['now_pass'];
-echo "<br/>changed password = " . $_POST['pass'];
-echo "<br/>repeat password = " . $_POST['repass'];
+    echo "<br/>origin password = " . $now_password; //password check
+    echo "<br/>changed password = " . $change_password;
+    echo "<br/>repeat password = " . $repeat_password;
+    $pass_change = true;
 }
 echo "<br/><br/>-------------basic information--------------<br/>";
 
 echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
-$upload_path= "../../../../Lubycon_Contents/temp/profile/$usercode/profile.jpg" ; // realative uploaded path
-$save_path= "../../../../Lubycon_Contents/user/$usercode/profile.jpg" ; // realative save path
 
-require_once "../class/upload_class.php";
-$uploader = new upload;
-$uploader->ajax_move($files , $upload_path , $save_path);
+$upload_path= "../../../../Lubycon_Contents/temp/profile/$usercode/profile.jpg" ; // realative uploaded path
+$last_path = "../../../../Lubycon_Contents/user/$usercode";
+if( file_exists($upload_path) )
+{
+    if( is_dir($last_path) ? chmod($last_path,0777) : mkdir($last_path,0777))
+    {
+    $save_path= "$last_path/profile.jpg" ; // realative save path
+    }
+    copy($upload_path,$save_path);
+}else
+{
+    $save_path= null; // realative save path
+}
+
 echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
-echo "<br/><br/>user job = " . $_POST['job'];
-echo "<br/>select location = " . $_POST['location'];
-echo "<br/>type location = " . $_POST['location_text'];
-echo "<br/>type location = " . $_POST['desc'];
+echo "<br/><br/>user job = " . $job;
+echo "<br/>user job code = " . $job_code;
+echo "<br/>select location = " . $location;
+echo "<br/>city = " . $location_text;
+echo "<br/>user description = " . $user_description;
 
-$history_year = $_POST['history_year'];
-$history_month = $_POST['history_month'];
-$history_kind = $_POST['history_kind'];
-$history_text = $_POST['history_text'];
-for($i=0 ; $i< count($history_year); $i++)
+
+if(isset($history_text[0]))
 {
-    echo "<br/><br/>history_year". $i . " = " . $history_year[$i];
-    echo "<br/>history_month". $i . " = " . $history_month[$i];
-    echo "<br/>history_kind". $i . " = " . $history_kind[$i];
-    echo "<br/>history_text". $i . " = " . $history_text[$i];
-};
+    for($i=0 ; $i< count($history_year); $i++)
+    {
+        echo "<br/><br/>history_year". $i . " = " . $history_year[$i];
+        echo "<br/>history_month". $i . " = " . $history_month[$i];
+        echo "<br/>history_kind". $i . " = " . $history_kind[$i];
+        echo "<br/>history_text". $i . " = " . $history_text[$i];
+    };
+}
 
-$language = $_POST['language'];
-$lang_ability = $_POST['lang_ability'];
-//$lang_public = $_POST['lang_public'];
-for($i=0 ; $i< count($language); $i++)
+if( isset($lang_ability[0]) )
 {
-    echo "<br/><br/>language". $i . " = " . $language[$i];
-    echo "<br/>lang ability". $i . " = " . $lang_ability[$i];
-    //echo "<br/>lang_public". $i . " = " . $lang_public[$i];
-};
+    for($i=0 ; $i< count($language); $i++)
+    {
+        echo "<br/><br/>language". $i . " = " . $language[$i];
+        echo "<br/>lang ability". $i . " = " . $lang_ability[$i];
+        //echo "<br/>lang_public". $i . " = " . $lang_public[$i];
+    };
+}
 
-echo "<br/><br/>mobile number = " . $_POST['mobile_number'];
-echo "<br/>mobile public = " . $_POST['mobile_public'];
+echo "<br/><br/>mobile number = " . $mobile_number;
+echo "<br/>mobile public = " . $mobile_public;
 
-echo "<br/><br/>fax number = " . $_POST['fax_number'];
-echo "<br/>fax public = " . $_POST['fax_public'];
+echo "<br/><br/>fax number = " . $fax_number;
+echo "<br/>fax public = " . $fax_public;
 
-echo "<br/><br/>website url = " . $_POST['website_url'];
-echo "<br/>website public = " . $_POST['website_public'];
+echo "<br/><br/>website url = " . $website_url;
+echo "<br/>website public = " . $website_public;
+
+require_once '../database/database_class.php';
+$db = new Database();
+$db->query = 
+"
+UPDATE `userinfo` 
+SET 
+`jobCode` = $job_code, 
+`company` = '$company',
+`profileImg` = '$save_path' ,
+`description` = '$user_description',
+`city` = '$location_text',
+`telNumber` = '$mobile_number',
+`fax` = '$fax_number',
+`web` = '$website_url'
+
+WHERE `userCode` = $usercode";
+$db->askQuery(); // viewcount up
+echo $db->query;
 
 echo "<hr/><br/>";
 print_r($_POST);

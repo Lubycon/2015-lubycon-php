@@ -143,6 +143,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{79EDE1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{95A2715A-1E5C-45E2-A385-A4B1032CE2F9}"
 	ProjectSection(SolutionItems) = preProject
+		php\error\404.php = php\error\404.php
 		php\layout\comment.php = php\layout\comment.php
 		php\layout\community_card.php = php\layout\community_card.php
 		php\layout\content_card.php = php\layout\content_card.php
@@ -157,6 +158,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "layout", "layout", "{95A271
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ajax", "ajax", "{A5A8174F-E088-43E5-BDAE-1CF2E3FCFFAE}"
 	ProjectSection(SolutionItems) = preProject
+		php\ajax\account_setting_profile_upload.php = php\ajax\account_setting_profile_upload.php
 		php\ajax\call_comments_ajax.php = php\ajax\call_comments_ajax.php
 		php\ajax\community_infinite_scroll.php = php\ajax\community_infinite_scroll.php
 		php\ajax\create_account_popup.php = php\ajax\create_account_popup.php
@@ -269,6 +271,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sesstion", "sesstion", "{52
 		php\session\session_test.php = php\session\session_test.php
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "error", "error", "{02EAD82B-CACA-4101-9781-5D79EFE2931F}"
+	ProjectSection(SolutionItems) = preProject
+		php\error\404.php = php\error\404.php
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -299,5 +306,6 @@ Global
 		{37599D85-88B3-449A-8406-5A2B1EB56DC6} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{8C8CD4A4-8FE8-481B-A430-2C60EF1410DF} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{52FF6F65-7481-4DE9-8BAC-87D3B6F77CF3} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{02EAD82B-CACA-4101-9781-5D79EFE2931F} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 	EndGlobalSection
 EndGlobal
