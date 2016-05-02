@@ -167,19 +167,18 @@ $.fn.hideAnywhere = function(selector,button,list,target){
 $(function(){
     $(document).ready(function(){
         var $modal = $(document).find(".modal"),
-        $cancelBt = $modal.find(".modal-closebt"),
         $darkOverlay = $(document).find(".dark_overlay");
 
         $darkOverlay.on("click",modalHide);
-        $cancelBt.on("click",modalHide);
+        $("body").on("click",".modal-closebt",modalHide);
+        $("body").on("click",".modal-cancelbt",modalHide);
 
         function modalHide(){
-            console.log("close modal in ui.js");
             var $this = $(this),
             $target = $modal,
             data = $this.data("value");
 
-            if(data == "dark_overlay"){
+            if(data === "dark_overlay"){
                 if($modal.length !== 0){
                     $modal.find(".modal-closebt").trigger("click");
                     $this.stop().fadeOut(200);
@@ -188,12 +187,14 @@ $(function(){
                     $this.stop().fadeOut(200);
                 }
             }
-            else if(data == "modal-closebt"){
+            else if(data === "modal-closebt"){
                 $this.parents(".modal").stop().fadeOut(200);
-                console.log($this.parents(".modal"));
-                if($modal.length === 1){
+                if(!$this.hasClass("cc-setting")){
                     $darkOverlay.stop().fadeOut(200);
                 }
+            }
+            else if(data === "modal-cancelbt"){
+                $this.parent(".modal").stop().fadeOut(200);
             }
         }
     })

@@ -334,7 +334,7 @@
                 </div>
             </ul>
         </div><!-- end after sign in -->
-        <button id="addcontent_bt" class="hidden-mb-b"><i class="fa fa-plus"></i>Add Contents</button>
+        <button id="addcontent_bt" class="btn hidden-mb-b"><i class="fa fa-plus"></i>Add Contents</button>
         <!--��� ǿ��-->
         <?php
             if($LoginState == true){

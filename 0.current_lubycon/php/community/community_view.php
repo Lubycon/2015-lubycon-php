@@ -105,7 +105,7 @@
                     <p class="author_name" id="language_name"><?=$language1?>, <?=$language2?></p>
                 </article>
             </div>
-            <div class="my_page_bt">VIEW MORE</div>
+            <div class="btn my_page_bt">VIEW MORE</div>
         </div><!--end con_aside-->
         <section id="post_section" class="con_main">
             <article id="post_contents">

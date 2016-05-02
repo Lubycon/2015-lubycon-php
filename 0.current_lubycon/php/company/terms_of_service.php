@@ -1,4 +1,4 @@
-<link href="css/terms.css" rel="stylesheet" type="text/css" />
+<link href="../../css/terms.css" rel="stylesheet" type="text/css" />
 <div class="doc_wrap con_wrap">
 	<div class="doc_wrap_inner">
 		<div class="doc_body doc_title">

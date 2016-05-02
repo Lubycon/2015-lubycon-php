@@ -47,8 +47,7 @@ $(document).ready(function(){
                 ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],              
                 ['color', ['color']],
                 ['para', ['paragraph']],
-                ['insert', ['picture', 'video', 'link', 'table', 'hr']],
-                ['misc', ['help']]
+                ['insert', ['picture', 'video', 'link', 'table', 'hr']]
             ],
             callbacks:{
                 onImageUpload: function (files, editor, welEditable){

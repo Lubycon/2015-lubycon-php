@@ -45,8 +45,7 @@
         transition: opacity 0.4s;
     }
 
-    #slide_section  .slides ul li:hover
-    {
+    #slide_section  .slides ul li:hover{
         opacity: 0.7;
     }
 

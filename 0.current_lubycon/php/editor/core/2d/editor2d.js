@@ -216,12 +216,12 @@
                 toolbar.sortTool();
                 //toolbar data bind end
                 $(window).on("load resize",function(){
-                    $(".modal").each(function(){ modalTool.modalAlign($(this)); });
+                    $(".modal").each(function(){ modalKit.align($(this)); });
                 })
             },
             initModal: {
                 file: function(){
-                    var modal = new modalTool.create(upload.fileUpTrigger,"file-modal"),
+                    var modal = new modalKit.create(upload.fileUpTrigger,"file-modal"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text(" "),
                     content = modal.find(".modal-content").text("Do you want to upload attachment file?"),
@@ -231,7 +231,7 @@
                     return modal;
                 },
                 embed: function(){
-                    var modal = new modalTool.create(modalTool.embed,"embed-modal").addClass("embed-window"),
+                    var modal = new modalKit.create(modalFunc.embed,"embed-modal").addClass("embed-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("Embed Media"),
                     content = modal.find(".modal-content"),
@@ -240,7 +240,7 @@
                     helpText = $("<p/>",{ 
                         "class" : "embed-help",
                         "html" : "What can I embed?"
-                    }).on("click",pac.dbToggle).on("click",modalTool.embedHelp).appendTo(content),
+                    }).on("click",pac.dbToggle).on("click",modalFunc.embedHelp).appendTo(content),
                     errorText = $("<p/>",{ 
                         "class" : "embed-error",
                         "html" : "Please insert iframe tag only."
@@ -249,11 +249,12 @@
                     return modal;
                 },
                 thumbnail: function(){
-                    var modal = new modalTool.create([pac.currentProg,modalTool.cropped],"thumbnail-modal prog").addClass("thumbnail-window"),
+                    var modal = new modalKit.create([pac.currentProg,modalFunc.cropped],"thumbnail-modal prog").addClass("thumbnail-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("Edit Thumbnail Image"),
                     content = modal.find(".modal-content"),
                     okbt = modal.find(".modal-okbt").attr("data-value","setting").text("Next"),
+                    cancelbt = modal.find(".modal-cancelbt").text("Prev"),
                     $innerWrap = $("<div/>",{ "class" : "thumb-inner-wrapper" }).appendTo(content),
                     $preview = $("<div/>",{ "class" : "thumb-preview-wrapper" }).appendTo($innerWrap),
                     $editWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($innerWrap),
@@ -275,10 +276,11 @@
                     return modal;
                 },
                 setting: function(){
-                    var modal = new modalTool.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
+                    var modal = new modalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("Content Setting"),
                     content = modal.find(".modal-content"),
+                    cancelbt = modal.find(".modal-cancelbt").attr("data-value","modal-cancelbt").text("Prev"),
                     okbt = modal.find(".modal-okbt").attr({
                         "data-value" : "submit",
                         "disabled" : "disabled"
@@ -322,7 +324,7 @@
                     $hashtagName = $inputWrap.clone()
                     .append($label.clone().html("Hash Tag"))
                     .append($inputInner.clone().addClass("hashTag-input-wrap")
-                        .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalTool.detectTag)))
+                        .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
                     .appendTo($innerLeft),
 
                     $descriptName = $inputWrap.clone()
@@ -357,7 +359,7 @@
                     }();
 
                     $ccName.append($ccLabel).append($ccInner).append($changebt)
-                    .on("click",modalTool.showCCsetting).appendTo($innerRight);
+                    .on("click",modalFunc.showCCsetting).appendTo($innerRight);
 
                     return modal;
                 }
@@ -395,7 +397,7 @@
                 else {
                     $modals.hide();
                     $(".btn.selected").removeClass("selected");
-                    modalTool.modalAlign($target);
+                    modalKit.align($target);
                     $target.fadeIn(200);
                     $darkOverlay.fadeIn(200);
                 }
@@ -469,7 +471,7 @@
                 type = object[0].type, //jpg||jpeg, png, bmg, gif, zip
                 $inputModal = $(document).find(".file-modal");
                 if(size < 31457280){
-                    $inputModal.remove();
+                    $inputmodalKit.remove();
                 }
                 else{
                     alert("Your File is so big. Limit 30MB. This file is " + parseInt(size/1024/1024) + "MB");
@@ -596,7 +598,7 @@
                     }
                 });
                 setTimeout(function(){
-                    modalTool.modalAlign($(".thumbnail-window"));
+                    modalKit.align($(".thumbnail-window"));
                 },200);
             },
             thumbReplace: function(event){
@@ -615,7 +617,7 @@
                     }
                 });
                 setTimeout(function(){
-                    modalTool.modalAlign($(".thumbnail-window"));
+                    modalKit.align($(".thumbnail-window"));
                 },200);
                 console.log("thumbnail is replaced");
             },
@@ -741,19 +743,19 @@
                 if(wrap.hasClass("object-text")) wrap.focusin(); // it is not working
             }
         },
-        modalTool = {
+        modalKit = {
             create: function(action,className){
                 var body = $("<div/>",{ "class":"modal " + className }),
                 wrapper = $("<div/>",{ "class" : "modal-wrapper " + className }).appendTo(body),
                 title = $("<div/>",{ "class" : "modal-title " + className }).appendTo(wrapper),
-                closeBt = $("<div/>",{ "class" : "modal-closebt " + className, "data-value" : "modal-closebt" }).on("click",modalTool.cancel).appendTo(wrapper),
+                closeBt = $("<div/>",{ "class" : "modal-closebt " + className, "data-value" : "modal-closebt" }).on("click",modalKit.cancel).appendTo(wrapper),
                 content = $("<div/>",{ "class" : "modal-content " + className }).appendTo(wrapper),
                 btWrap = $("<div/>",{ "class" : "modal-bt-wrapper " + className }).appendTo(wrapper),
                 btCancel = $("<div/>",{
                     "class" : "modal-bt modal-cancelbt " + className,
                     "html" : "Cancel",
                     "data-value" : "modal-closebt"
-                }).on("click",modalTool.cancel).appendTo(btWrap),
+                }).on("click",modalKit.cancel).appendTo(btWrap),
                 btOk = $("<div/>",{"class" : "modal-bt modal-okbt " + className}),
                 action = action || 0;
 
@@ -769,11 +771,11 @@
                 }
                 else btWrap.remove();
 
-                modalTool.modalAlign(body);
+                modalKit.align(body);
 
                 return body;
             },
-            modalAlign: function(selector){
+            align: function(selector){
                 $this = selector,
                 width = $this.width(),
                 height = $this.height(),
@@ -783,7 +785,7 @@
                 vtAlign = (windowHeight/2 - height/2) - 20;
                 $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
             },
-            modalShow: function(){
+            show: function(){
                 var $this = $(this),
                 data = $this.data("value"),
                 $uploading = $(document).find(".uploading"),
@@ -797,8 +799,24 @@
                 if($uploading.length!=0) $uploading.removeClass(".uploading");
 
                 $this.addClass("uploading");
-                modalTool.modalAlign($target);
+                modalKit.align($target);
             },
+            cancel: function(){
+                var $this = $(this),
+                $window = $this.parents(".modal"),
+                $input = $this.parent().siblings("textarea"),
+                $grid = $window.find(".grid-edit-window"),
+                $btns = ".header-btn",
+                $currentProg = $(document).find(".current-prog"),
+                data = $currentProg.data("value");
+
+                $input.val(null);
+                if($window.hasClass("prog")) $currentProg.prev($btns).trigger("click");
+                else if($window.attr("id") == "gridTool-toolbox") $grid.empty(), $(".btn.selected").removeClass("selected"); 
+                console.log("cancel");
+            }
+        },
+        modalFunc = {
             addGrid: function(){
                 var $this = $(this),
                 $window = $this.parents(".modal"),
@@ -881,13 +899,13 @@
                 $tagWrap = $("<ul/>",{ "class" : "hashtag-wrapper"}),
                 $tag = $("<li/>",{ "class" : "hashtag-list" }),
                 inKeyCode= event.which,
-                value = $this.val(),
+                value = $this.val().trim(),
                 endCommand = inKeyCode == keyCode.enter || inKeyCode == keyCode.space,
                 deleteCommand = inKeyCode == keyCode.delete,
                 wrapperExist = $this.prev("ul").length == 0;
-                if(endCommand){
+                if(endCommand && value != ""){
                     if(wrapperExist) $tagWrap.prependTo($wrapper);
-                    $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalTool.deleteTag).appendTo(".hashtag-wrapper");
+                    $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalFunc.deleteTag).appendTo(".hashtag-wrapper");
                     $this.val(null);
                 
                 }
@@ -902,7 +920,7 @@
             },
             showCCsetting: function(event){
                 var $this = $(this).find(".cc-setting-bt"),
-                $ccSettingWrap = new modalTool.create(null,"cc-setting").addClass("cc-setting-wrapper"),
+                $ccSettingWrap = new modalKit.create(null,"cc-setting").addClass("cc-setting-wrapper"),
                 $ccSettingInner = $ccSettingWrap.find(".modal-wrapper").addClass("cc-setting-inner-wrapper"),
 
                 $ccSection = $("<div/>",{ "class" : "cc-section" }),
@@ -943,9 +961,9 @@
                         .append($ccRadio.clone().prop("checked",false).attr("data-value","withoutCC"))
                         .append($ccTitle.clone().html("NO USAGE WITHOUT OWNER’S PERMISSION"))).appendTo($(".cc-setting-inner-wrapper"));
 
-                        $(".license-selector").on("change",modalTool.useCC);
-                        $(".cc-checkbox").on("change",modalTool.displayCC).on("change",modalTool.makelinkCC);
-                        modalTool.modalAlign($(".cc-setting-wrapper"));
+                        $(".license-selector").on("change",modalFunc.useCC);
+                        $(".cc-checkbox").on("change",modalFunc.displayCC).on("change",modalFunc.makelinkCC);
+                        modalKit.align($(".cc-setting-wrapper"));
                     }//create cc
                     else $(".cc-setting-wrapper").fadeIn(400);
                 }
@@ -972,11 +990,11 @@
                 selected = $this.prop("checked"),
                 data = $this.data("value"),
                 $target = $(".cc-list[data-value='" + data + "']");
-                if(data == "nd" || data == "sa") modalTool.ccNDSA();
+                if(data == "nd" || data == "sa") modalFunc.ccNDSA();
                 if(!selected) $target.stop().fadeOut(400);
                 else $target.stop().fadeIn(400);
             },
-            ccNDSA: function(){
+            ccNDSA: function(){ //if you select nd(sa), sa(nd) will be disabled.
                 $nd = $(".cc-checkbox[data-value='nd']"),
                 $sa = $(".cc-checkbox[data-value='sa']");
 
@@ -996,20 +1014,6 @@
                     ccUrl = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
                     $(".cc-list-link").attr("href", ccUrl);
                 });   
-            },
-            cancel: function(){
-                var $this = $(this),
-                $window = $this.parents(".modal"),
-                $input = $this.parent().siblings("textarea"),
-                $grid = $window.find(".grid-edit-window"),
-                $btns = ".header-btn",
-                $currentProg = $(document).find(".current-prog"),
-                data = $currentProg.data("value");
-
-                $input.val(null);
-                if($window.hasClass("prog")) $currentProg.prev($btns).trigger("click");
-                else if($window.attr("id") == "gridTool-toolbox") $grid.empty(), $(".btn.selected").removeClass("selected"); 
-                console.log("cancel");
             },
             embedHelp: function(){
                 var $this = $(this),
@@ -1090,7 +1094,7 @@
                 );
                 $(".canvas-uploader-bt").find(".fa-cloud-upload").off("click").on("click",upload.imgUpTrigger);
                 $(".canvas-uploader-bt").find(".fa-font").off("click").on("click",upload.textUpload);
-                $(".canvas-uploader-bt").find(".fa-code").off("click").on("click",modalTool.modalShow);
+                $(".canvas-uploader-bt").find(".fa-code").off("click").on("click",modalKit.show);
                 console.log("add object button is added to canvas");
             }
         },
@@ -1356,17 +1360,17 @@
                 $editWindow = $("<div/>",{ "class" : "grid-edit-window" }).appendTo($gridInnerWrap),
                 $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
                 $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",pac.toggle).on("click",toolbar.gridFn.makeGrid),
-                $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",modalTool.cancel).appendTo($gridWrap),
+                $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",modalKit.cancel).appendTo($gridWrap),
                 $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
                 $gridCancel = $("<div/>",{
                     "class" : "modal-bt modal-cancelbt",
                     "html" : "Cancel"
-                }).on("click",modalTool.cancel).appendTo($gridBtWrap),
+                }).on("click",modalKit.cancel).appendTo($gridBtWrap),
                 $gridOk = $("<div/>",{
                     "class" : "modal-bt modal-okbt",
                     "id" : "grid-okbt",
                     "html" : "Insert",
-                }).on("click",modalTool.addGrid).appendTo($gridBtWrap),
+                }).on("click",modalFunc.addGrid).appendTo($gridBtWrap),
 
                 $btnIcon = $("<img/>"),
                 $btn1 = $btn.clone(true).attr("data-value","n-1-1")
@@ -1381,7 +1385,7 @@
                 .append($btnIcon.clone().attr("src",icons.grid5)).appendTo($btnWrap),
                 $btn6 = $btn.clone(true).attr("data-value","n-2-2")
                 .append($btnIcon.clone().attr("src",icons.grid6)).appendTo($btnWrap);
-                modalTool.modalAlign($this);
+                modalKit.align($this);
             },
             gridFn: {
                 makeGrid: function(){
@@ -1633,15 +1637,15 @@
                 }
             }
         },
-        start = {
-            test: function () {
+        method = {
+            destroy: function () {
                 return this.each(function () {
                     console.log("tested");
                 })
             }
         }
-        return start[option] ? 
-        start[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
+        return method[option] ? 
+        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
         "object" != typeof option && option ? 
             ($.error('No such method "' + option + '" for the Editor instance'), void 0) : 
             pac.init.apply(this, arguments);

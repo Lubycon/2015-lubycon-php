@@ -112,6 +112,13 @@ body{
     display: inline-block;
 }
 
+.btn {
+    border: none;
+    background: #aaaaaa;
+    outline: 0;
+    transition: width 0.2s, opacity 0.2s, background 0.2s, color 0.2s, border 0.2s;
+}
+
 .modal {
     position: fixed;
     z-index: 30000;
@@ -370,7 +377,7 @@ body{
     float: left;
 }
 
-#addcontent_bt {
+#addcontent_bt.btn {
     position: relative;
     width: 130px;
     height: 36px;
@@ -386,9 +393,10 @@ body{
     opacity: 1;
     display:none;
 }
-    #addcontent_bt:hover {
+    #addcontent_bt.btn:hover {
         border: 2px solid #87ead1;
         color: #87ead1;
+        width: 140px;
     }
 
     #addcontent_bt i {
@@ -448,8 +456,9 @@ body{
             vertical-align: top;
             margin-top: 16px;
         }
-        .opened > #display_user > i {
+        #after_signin.selected > #display_user > i {
             color: #ffffff !important;
+            text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
         }
         #display_user a{
             display:inline-block;
@@ -1673,11 +1682,11 @@ body{
     -moz-box-sizing: border-box;    
 }/*edit window*/
 
-.btn {
+.note-editor .btn {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
@@ -1696,7 +1705,6 @@ body{
     color: #FFF;
     background: #404040 none repeat scroll 0% 0%;
     margin: 5px 10px;
-    font-size: 15px;
 }
 
 .note-popover .popover-content > .btn-group, .panel-heading.note-toolbar > .btn-group {
@@ -1708,7 +1716,7 @@ body{
     .note-popover .popover-content > .btn-group, .panel-heading.note-toolbar > .btn-group:last-child {
         border-bottom: none !important
     }
-.btn-group > .btn-group {
+.note-editor .btn-group > .btn-group {
     margin: 0px !important;
     float: none !important;
 }

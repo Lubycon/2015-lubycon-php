@@ -39,8 +39,7 @@
 
     $allow_array = ['artwork','vector','3d'];
 
-    if( in_array($contents_cate , $allow_array) )
-    {
+    if( in_array($contents_cate , $allow_array) ){
         echo 
         '<script>
 	        $("#editor-container").initEditor();

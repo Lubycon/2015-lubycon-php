@@ -1,11 +1,14 @@
 @charset "utf-8";
+body{
+	background: #fafafa;
+}
 .con_wrap{
 	margin-top: 50px;
 }
 .doc_wrap_inner{
 	max-width: 1000px;
 	padding: 70px;
-	background: #fafafa;
+	background: #ffffff;
 	text-align: left;
 	margin: 30px auto;
 }

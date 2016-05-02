@@ -218,16 +218,31 @@
                 
             }
         },
-        start = {
-            test: function () {
-                return this.each(function () {
-                    console.log("test");
+        method = {
+            destroy: function(){
+                return this.each(function(){
+                    var $this = $(this);
+                    $this.remove();
+                })
+            },
+            disable: function(){
+                return this.each(function(){
+                    var $this = $(this);
+                    $this.addClass("disabled").off("click").off("focusin").off("change");
+                })
+            },
+            enable: function(){
+                return this.each(function(){
+                    var $this = $(this);
+                    $this.removeClass("disabled")
+                    .on("click", pac.boxClick).on("focusin", pac.boxFocus)
+                    .on("click", ".ls_option", pac.optionClick)
+                    .on("change","select",pac.changeOption);
                 })
             }
         }
-
-        return start[option] ? 
-        start[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
+        return method[option] ? 
+        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
         "object" != typeof option && option ? 
             ($.error('No such method "' + option + '" for the lubySelector instance'), void 0) : 
             pac.init.apply(this, arguments);
