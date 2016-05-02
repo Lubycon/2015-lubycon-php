@@ -425,6 +425,7 @@ a {
         -moz-box-sizing: border-box;
     }
         .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner {
+            position: relative;
             margin-bottom: 20px;
         }
         .editor-body > .editor-aside > .toolbox-wrap.modal > .toolbox-inner {

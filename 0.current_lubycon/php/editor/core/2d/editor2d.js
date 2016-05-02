@@ -1103,50 +1103,49 @@
                 var $this = $(this),
                 value = $this.data("value"),
                 toolBoxes = $(document).find(".toolbox-wrap"),
-                toolBox = $(".toolbox-wrap[data-value=" + value + "]");
+                toolBox = $(".toolbox-wrap[data-value=" + value + "]"),
+                $darkOverlay = $(document).find(".dark_overlay");
                 if($this.hasClass("selected")) {
                     toolBoxes.fadeOut(200);
                     toolBox.fadeIn(200);
+                    //if(toolBox.hasClass("modal")) $darkOverlay.fadeIn(200);
                 }
                 else toolBox.fadeOut(200);
             },
+            create: function(content,name){
+                var body = $("<div>",{ "class" : "toolbox-inner" }),
+                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
+
+                if(typeof content == "object"){
+                    for(var i = 0, l = content.length; i < l; i++){
+                        content.appendTo(body);
+                    }
+                }
+                return body;
+
+            },
             textTool: function(){
-                var $this = $(document).find("#textTool-toolbox"),
+                var $this = $(document).find("#textTool-toolbox");
                 
-                $fontSize = $("<div/>",{ ///////////////////////font size start
-                    "class" : "toolbox-inner", 
-                    "id" : "fontSize-tool", 
-                    "data-value" : "font-size"
-                }).appendTo($this),
-                $fsLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Font Size"
-                }).appendTo($fontSize),
-                $sizeInput = $("<input/>",{ //input
+                //font size start
+                var $sizeInput = $("<input/>",{
                     "type" : "range",
                     "class" : "sliderKey",
                     "value" : 20,
                     "min" : 0,
                     "max" : 100
-                }).appendTo($fontSize).slider({
+                }),
+                $fontSize = new toolbar.create($sizeInput,"Font Size").attr({"id" : "fontSize-tool","data-value" : "font-size"}).appendTo($this);
+                $sizeInput.slider({
                     customID: "fontSize-slider",
                     disabled: true, 
                     callback: toolbar.textFn.fontSize
-                }),
-                
-                $fontColor = $("<div/>",{ ////////////////////font color start
-                    "class" : "toolbox-inner", 
-                    "id" : "fontColor-tool",
-                    "data-value" : "font-color"
-                }).appendTo($this),
-                $fcLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Font Color"
-                }).appendTo($fontColor),
-                $colorInput = $("<input/>",{ //input
-                    "type" : "text",
-                    "id" : "fontColorKey"
-                }).appendTo($fontColor).spectrum({
+                });
+
+                //font color start
+                var $colorInput = $("<input/>",{ "type" : "text","id" : "fontColorKey" }),
+                $fontColor = new toolbar.create($colorInput,"Font Color").attr({"id" : "fontColor-tool","data-value" : "font-color"}).appendTo($this);
+                $colorInput.spectrum({
                     color: "#ffffff",
                     showInput: true,
                     showAlpha: true,
@@ -1158,21 +1157,13 @@
                     selectionPalette: [],
                     move: toolbar.textFn.fontColor,
                     change: toolbar.textFn.fontColor
-                }),
+                });
 
-                $btWrap = $("<ul/>",{ "class" : "toolbox-btns" }),
+                //font decoration start
+                var $btWrap = $("<ul/>",{ "class" : "toolbox-btns" }),
                 $btn = $("<div/>",{ "class" : "btn" }),
 
-                $fontDeco = $("<div/>",{//////////////////// font deco
-                    "class" : "toolbox-inner",
-                    "id" : "fontDeco-tool",
-                    "data-value" : "font-deco"
-                }).appendTo($this),
-                $fdLabel = $("<div/>",{
-                    "class" : "toolbox-label",
-                    "html" : "Font Decorations"
-                }).appendTo($fontDeco),
-                $decobtns = $btWrap.clone().appendTo($fontDeco),
+                $decobtns = $btWrap.clone(),
                 $boldBt = $btn.clone().addClass("boldbt").attr("data-value","bold").append($("<i/>",{"class" : icons.bold}))
                 .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
                 $italicBt = $btn.clone().addClass("italicbt").attr("data-value","italic").append($("<i/>",{"class" : icons.italic}))
@@ -1182,16 +1173,10 @@
                 $strikeBt = $btn.clone().addClass("strikebt").attr("data-value","strike").append($("<i/>",{"class" : icons.strike}))
                 .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
 
-                $fontAlign = $("<div/>",{
-                    "class" : "toolbox-inner",
-                    "id" : "fontAlign-tool",
-                    "data-value" : "font-align"
-                }).appendTo($this),
-                $faLabel = $("<div/>",{
-                    "class" : "toolbox-label",
-                    "html" : "Align"
-                }).appendTo($fontAlign),
-                $alignbtns = $btWrap.clone().appendTo($fontAlign),
+                $fontDeco = new toolbar.create($decobtns,"Font Decorations").attr({"id" : "fontDeco-tool","data-value" : "font-dece"}).appendTo($this);
+
+                //font align start
+                var $alignbtns = $btWrap.clone(),
                 $alignLeft = $btn.clone().addClass("align-left-bt").attr("data-value","left").append($("<i/>",{"class" : icons.alignLeft}))
                 .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignCenter = $btn.clone().addClass("align-center-bt").attr("data-value","center").append($("<i/>",{"class" : icons.alignCenter}))
@@ -1199,7 +1184,9 @@
                 $alignRight = $btn.clone().addClass("align-right-bt").attr("data-value","right").append($("<i/>",{"class" : icons.alignRight}))
                 .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignRight = $btn.clone().addClass("align-justify-bt").attr("data-value","justify").append($("<i/>",{"class" : icons.alignJustify}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns);
+                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+
+                $fontAlign = new toolbar.create($alignbtns,"Align").attr({"id" : "fontAlign-tool","data-value" : "font-align"}).appendTo($this);
             },
             textFn: {
                 focusAction: function(){
@@ -1316,19 +1303,9 @@
             colorTool: function(){
                 var $this = $(document).find("#colorTool-toolbox"),
 
-                $bgColor = $("<div/>",{
-                    "class" : "toolbox-inner", 
-                    "id" : "bgColor-tool",
-                    "data-value" : "bg-color"
-                }).appendTo($this),
-                $colorLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Background Color"
-                }).appendTo($bgColor),
-                $colorInput = $("<input/>",{ //input
-                    "type" : "text",
-                    "id" : "bgColorKey"
-                }).appendTo($bgColor).spectrum({
+                $colorInput = $("<input/>",{"type" : "text","id" : "bgColorKey"}),
+                $bgColor = new toolbar.create($colorInput,"Background Color").attr({"id" : "bgColor-tool","data-value" : "bg-color"}).appendTo($this);
+                $colorInput.spectrum({
                     color: "#ffffff",
                     showInput: true,
                     showAlpha: true,
@@ -1364,7 +1341,8 @@
                 $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
                 $gridCancel = $("<div/>",{
                     "class" : "modal-bt modal-cancelbt",
-                    "html" : "Cancel"
+                    "html" : "Cancel",
+                    "data-value" : "modal-closebt"
                 }).on("click",modalKit.cancel).appendTo($gridBtWrap),
                 $gridOk = $("<div/>",{
                     "class" : "modal-bt modal-okbt",
@@ -1480,64 +1458,41 @@
                 }
             },
             marginTool: function(){
-                var $this = $(document).find("#marginTool-toolbox"),
+                var $this = $(document).find("#marginTool-toolbox");
                 
-                $headerMargin = $("<div/>",{
-                    "class" : "toolbox-inner", 
-                    "id" : "header-tool", 
-                    "data-value" : "header"
-                }).appendTo($this),
-                $headerLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Header"
-                }).appendTo($headerMargin),
-                $headerInput = $("<input/>",{ //input
+                var $headerInput = $("<input/>",{
                     "type" : "range",
                     "class" : "sliderKey",
                     "value" : 45,
                     "min" : 0,
                     "max" : 100
-                }).appendTo($headerMargin).slider({ 
-                    callback: toolbar.marginFn.headerMargin
                 }),
-                $footerMargin = $("<div/>",{
-                    "class" : "toolbox-inner", 
-                    "id" : "footer-tool", 
-                    "data-value" : "footer"
-                }).appendTo($this),
-                $footerLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Footer"
-                }).appendTo($footerMargin),
-                $footerInput = $("<input/>",{ //input
+                $headerMargin = new toolbar.create($headerInput,"Header").attr({"id" : "header-tool","data-value" : "header"}).appendTo($this);
+                $headerInput.slider({ callback: toolbar.marginFn.headerMargin });
+
+                var $footerInput = $("<input/>",{
                     "type" : "range",
                     "class" : "sliderKey",
                     "value" : 45,
                     "min" : 0,
                     "max" : 100
-                }).appendTo($footerMargin).slider({ 
-                    callback: toolbar.marginFn.footerMargin
                 }),
-                $deviderMargin = $("<div/>",{ ///////////////////////font size start
-                    "class" : "toolbox-inner", 
-                    "id" : "devider-tool", 
-                    "data-value" : "devider"
-                }).appendTo($this),
-                $dvLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Contents Spacing"
-                }).appendTo($deviderMargin),
-                $deviderInput = $("<input/>",{ //input
+                $footerMargin = new toolbar.create($footerInput,"Footer").attr({"id" : "footer-tool","data-value" : "footer"}).appendTo($this);
+                $footerInput.slider({ callback: toolbar.marginFn.footerMargin });
+
+                var $deviderInput = $("<input/>",{ //input
                     "type" : "range",
                     "class" : "sliderKey",
                     "value" : 50,
                     "min" : 0,
                     "max" : 100
-                }).appendTo($deviderMargin).slider({
+                }),
+                $deviderMargin = new toolbar.create($deviderInput,"Contents Spacing").attr({"id" : "devider-tool","data-value" : "devider"}).appendTo($this);
+                $deviderInput.slider({
                     customID: "contentSpace-slider",
                     disabled: true, 
                     callback: toolbar.marginFn.deviderMargin
-                })
+                });
             },
             marginFn: {
                 headerMargin: function(val,selector){
@@ -1557,19 +1512,11 @@
                 }
             },
             sortTool: function(){
-                var $this = $(document).find("#sortTool-toolbox"),
+                var $this = $(document).find("#sortTool-toolbox");
 
-                $sortWrap = $("<div/>",{
-                    "class" : "toolbox-inner", 
-                    "id" : "sort-tool", 
-                    "data-value" : "sort"
-                }).appendTo($this),
-                $sortLabel = $("<div>",{
-                    "class" : "toolbox-label",
-                    "html" : "Sort"
-                }).appendTo($sortWrap),
-                $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap),
-                $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable).appendTo($sortWrap);
+                var $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap),
+                $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable).appendTo($sortWrap),
+                $sortWrap = new toolbar.create($sortul,"Sort").attr({"id" : "sort-tool","data-value" : "sort"}).appendTo($this);
                 toolbar.sortFn.refresh();
                 $sortul.sortable();
                 $this.disableSelection();

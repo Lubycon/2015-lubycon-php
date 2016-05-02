@@ -41,7 +41,7 @@
         togglePaletteOnly: false,
         showSelectionPalette: true,
         localStorageKey: false,
-        appendTo: ".sp-replacer",
+        appendTo: "parent",
         maxSelectionSize: 7,
         cancelText: "Cancel",
         chooseText: "OK",
@@ -301,6 +301,7 @@
                 }
 
                 appendTo.append(container);
+                console.log(opts.appendTo,appendTo);
             }
 
             updateSelectionPaletteFromStorage();

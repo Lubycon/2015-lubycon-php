@@ -63,7 +63,6 @@
                     $bt = $this.find(".slider-bt"),
                     $bar = $this.find(".slider-bar"),
                     isDragging = true;
-                    console.log(isDragging);
                     $bt.addClass("dragging");
                     $("html")
                     .on("mousemove",function(event){
@@ -74,7 +73,6 @@
                         $this.off("mousemove");
                         isDragging = false;
                         $bt.removeClass("dragging"); 
-                        console.log(isDragging);
                         $this.off("mouseup");
                     });
                 }
@@ -118,7 +116,6 @@
                 $area.css({ "right":ratio });
                 $bt.css({"left" : btX});
                 d.callback(value,$this);
-                console.log(value);
             }
         },
         method = {
