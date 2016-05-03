@@ -82,7 +82,7 @@
 <body id="bodyer">
 <div id="wrapper"> 
     <div class="dark_overlay" data-value="dark_overlay"></div>
-    <div id="cancel_layer"></div>
+    <div id="cancel_layer"></div><!--for mobile, It's transparent-->
     <aside id="mb-menu_panel" class="visible-mb"><!--mobile panel menu-->
         <header id="mb-user_section">
             <div id="mb-signin">
@@ -150,7 +150,7 @@
                 </a>
             </li>
             <li>
-                <a href="<?=$two_depth?>/editor/core/2d/editor/editor2d.php?cate=vector">
+                <a href="<?=$two_depth?>/editor/core/2d/editor2d.php?cate=vector">
                 <i class="fa fa-stop"></i>
                 <p>Vector</p>
                 </a>

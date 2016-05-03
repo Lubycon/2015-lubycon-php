@@ -35,9 +35,10 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
-                        var $this = $(this),
+                        var $this = $(this);
+                        var $darkOverlay = $(document).find(".dark_overlay").show();
                         //init object
-                        $wrapper = $("<div/>",{"class" : "editor-wrapper"}).appendTo($this),
+                        var $wrapper = $("<div/>",{"class" : "editor-wrapper"}).appendTo($this),
                         $header = $("<div/>",{"class" : "editor-header"}).appendTo($wrapper),
                         $body = $("<div/>",{"class" : "editor-body"}).appendTo($wrapper),
                         $aside = $("<div/>",{"class" : "editor-aside"}).appendTo($body),
@@ -55,21 +56,22 @@
                         }).append($("<i/>",{"class" : icons.plus}))
                         .append($("<p/>",{"html" : "Click here and upload your files for Preview"}))
                         .appendTo($objBody)
-                        .on("click",upload.imgUpTrigger),
+                        .on("click",upload.imgUpTrigger);
 
-                        $darkOverlay = $(document).find(".dark_overlay").show();
                         //in header bt
-                        $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
+                        var $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "Attach File"
+                            "html" : "Attach File",
+                            "data-tip" : "Attach your files"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",upload.fileUpTrigger),
+                        .appendTo($headerBtWrap).on("click",upload.fileUpTrigger).tooltip({"top" : 55}),
                         $savebtn = $("<div/>",{
                             "class" : "header-btn savepc",
-                            "html" : "Save to PC"
+                            "html" : "Save to PC",
+                            "data-tip" : "Your canvas will be saved to your PC"
                         }).prepend($("<i/>",{"class":icons.download}))
-                        .appendTo($headerBtWrap).on("click",headerTool.downToPc);
+                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55});
 
                         //in header progress
                         var $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
@@ -118,7 +120,7 @@
                         pac.initModal.thumbnail().appendTo($this).hide(),
                         pac.initModal.setting().appendTo($this).hide(),
                         // right : {project team}
-                        
+
                         pac.initTools();//data binding
                         setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
@@ -261,6 +263,7 @@
                 setting: function(){
                     var modal = new modalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
                     wrapper = modal.find(".modal-wrapper"),
+                    closebt = modal.find(".modal-closebt").attr("data-value","modal-cancelbt"),
                     title = modal.find(".modal-title").text("Content Setting"),
                     content = modal.find(".modal-content"),
                     cancelbt = modal.find(".modal-cancelbt").attr("data-value","modal-cancelbt").text("Prev"),
@@ -331,9 +334,9 @@
                         $target = $ccIconWrap,
                         $img = $("<img/>",{ "src" : "#" });
                         for(var i = 0, l = ccData.length; i < l; i++){
-                            var list = ccIconLi.clone().attr("data-value",ccData[i].id)
+                            var list = ccIconLi.clone().attr({"data-value":ccData[i].id, "data-tip":ccData[i].name})
                             .append($img.clone().attr("src",ccData[i].icon))
-                            .appendTo($target);
+                            .appendTo($target).tooltip({"top":40});
                             if(ccData[i].id == "sa"){
                                 list.hide();
                             }
@@ -406,13 +409,15 @@
                 $replace = notimg ? $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Replace",
-                    "data-value" : "replace"
-                }).on("click",upload.imgUpTrigger).appendTo($menuWrap) : "",
+                    "data-value" : "replace",
+                    "data-tip" : "This Image will be replaced"
+                }).on("click",upload.imgUpTrigger).appendTo($menuWrap).tooltip({"left" : -150}) : "",
                 $largeImg = notimg ? $("<li/>",{
                     "class" : "obj-menu-list fullSizeOff",
                     "html" : "Full Size",
-                    "data-value" : "full-size"
-                }).on("click",canvasTool.getFullSizeImg).appendTo($menuWrap) : "",
+                    "data-value" : "full-size",
+                    "data-tip" : "1400px"
+                }).on("click",canvasTool.getFullSizeImg).appendTo($menuWrap).tooltip({"left" : -150}) : "",
                 $delete = $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Delete",
@@ -1098,11 +1103,17 @@
         },
         toolbar = {
             createButton: function(data,iconData){
-                var button = $("<div/>",{"class" : "btn", "data-value" : data }),
+                var tipData = disableCamelCase(data);
+                var button = $("<div/>",{"class" : "btn", "data-value" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
-                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle);
+                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle).tooltip({"top":5,"left" : 50});
 
+                function disableCamelCase(text){ //camelCase -> Camel Case
+                    var result = text.replace( /([A-Z])/g, " $1" ),
+                    result = result.charAt(0).toUpperCase() + result.slice(1);
+                    return result;
+                }
                 return button;
             },
             toolbarToggle: function(){

@@ -1,9 +1,10 @@
 //This file is only one separate classification codes associated with the UI of the Lubycon.
 //0. lubySelector
 //1. lubyAlert
-//2. hover action
-//3. tooltip box action
+//2. go to top button
+//3. tooltip
 //4. hideAnywhere
+//5. modal
 /////////////////////////////////////////////////////////
 //      lubySelector enable
 /////////////////////////////////////////////////////////
@@ -86,23 +87,6 @@ $(document).ready(function(){
 //      lubyAlert enable
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//      tooltip start
-/////////////////////////////////////////////////////////
-$(function(){
-   $(document).ready(function(){
-        var tip_parent = $(document).find(".tooltip_bt").prev();
-        //if you want use tooltip, just add "tootip_bt" class to object
-        tip_parent.hover(function() {
-            $(this).next(".tooltip_bt").stop().fadeIn(300);
-        }, function() {
-            $(this).next(".tooltip_bt").stop().fadeOut(300);
-        });
-    });
-});
-/////////////////////////////////////////////////////////
-//      toottip_end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 //      visible goToTheTop button start
 /////////////////////////////////////////////////////////
 $(window).on("load resize", function(){
@@ -134,6 +118,37 @@ $(window).on("load resize", function(){
 //      visible goToTheTop button end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
+//      tooltip start
+/////////////////////////////////////////////////////////
+$.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!!!
+    var defaults = { top: 0, left: 0 },
+    d = $.extend({}, defaults, option);
+
+    this.each(function(){
+        var $this = $(this),
+        data = $this.data("tip");
+
+        var tooltipBody = $("<div/>",{"class" : "tooltip tip-body"}).css({ "top" : d.top, "left" : d.left }),
+        tooltipWrap = $("<div/>",{"class" : "tooltip tip-wrapper"}).appendTo(tooltipBody),
+        tooltipContent = $("<p/>",{"class" : "tooltip tip-content","html" : data}).appendTo(tooltipWrap);
+        
+        $this.on("mouseenter",showTooltip).on("mouseleave",hideTooltip);
+
+        function showTooltip(){
+            var $this = $(this);
+            tooltipBody.appendTo($this).stop().fadeIn(300);
+        }
+        function hideTooltip(){
+            var $this = $(this);
+            tooltipBody.hide().remove();
+        }
+    });
+    return this;
+}
+/////////////////////////////////////////////////////////
+//      toottip_end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 //      hideAnywhere start
 /////////////////////////////////////////////////////////
 $.fn.hideAnywhere = function(selector,button,list,target){
@@ -152,7 +167,7 @@ $.fn.hideAnywhere = function(selector,button,list,target){
         d = $.extend({}, defaults, target),
         bool = $this.is(d.a)||$this.is(d.b)||$this.is(d.c)||$this.is(d.d)||$this.is(d.e)||$this.is(d.f);
         if(bool==false){
-            $button.removeClass("opened");
+            $button.removeClass("selected");
             $list.fadeOut(200);
         } 
         return this;

@@ -692,7 +692,8 @@ body{
     box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.5);
 }
     .selected_nav a{
-        color: #48cfad !important;
+        color: #ffffff !important;
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
         font-weight: 400 !important;
     }
 
@@ -1309,7 +1310,11 @@ body{
         .creator_menu .creator_menu_icon{
             font-size: 20px;
             color: #aaaaaa;
+            transition: color 0.2s;
         }
+            .creator_menu.selected .creator_menu_icon{
+                color: #48cfad;
+            }
         .creator_menu_list{
             width: 150px;
             top: 10px;
@@ -1621,36 +1626,36 @@ body{
     float: right;
     color: #545454;
 }
-    .table_list .table_date{
+    .table_list .table_date {
         display: inline-block;
     }
 /* main board */
 /*tooltip start*/
-.tooltip_bt{
-    min-width: 120px;
+.tooltip.tip-body {
+    display: none;
+    min-width: 100px;
     line-height: 30px;
     position: absolute;
 
-    padding: 3px;
+    padding: 0px 5px;
     
     background:rgba(0,0,0,0.9);
     border: 1px solid #000000;
     border-radius: 3px;
     box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.5);
     
-    color:#fff;
-    font-weight: 200;
-    font-size:14px;
-    text-align: center;
-    white-space: nowrap;
-    
-    
-    z-index: 1;  
+    z-index: 30001;  
     cursor:default;
-    display: none;
 }
-    .tooltip_long{
-        padding: 3px 10px;
+    .tooltip.tip-wraper {
+        padding: 0px 5px;
+    }
+    .tooltip.tip-content {
+        color:#fff;
+        font-weight: 200;
+        font-size: 12px;
+        text-align: center;
+        white-space: nowrap;
     }
 
 /*custom summernote css start*/

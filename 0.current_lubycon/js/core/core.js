@@ -386,13 +386,13 @@ $(function(){
     $object = $button.next("#descript_box");
     $button.click(function(){
         var $this = $(this);
-        if($button.hasClass("opened")){
+        if($button.hasClass("selected")){
             $object.stop().fadeOut(200);
-            $button.removeClass("opened");
+            $button.removeClass("selected");
         }
         else{
             $object.stop().fadeIn(200);
-            $button.addClass("opened");
+            $button.addClass("selected");
             $("html").on("click", function (event) {
                 var $this = $(event.target);
                 $this.hideAnywhere($this,$button,$object,{
@@ -526,12 +526,12 @@ $(function(){
         $menu = $button.next("#myinfo_menu_list");
         $button.click(function(){
             var $this = $(this);
-            if($this.hasClass("opened")){
+            if($this.hasClass("selected")){
                 $menu.stop().fadeOut(200);
-                $this.removeClass("opened");
+                $this.removeClass("selected");
             }
             else{
-                $this.addClass("opened");
+                $this.addClass("selected");
                 $menu.stop().fadeIn(200);
                 $("html").on("click", function (event) {
                     var $this = $(event.target);
@@ -552,14 +552,14 @@ $(function(){
         $menu = $this.children(".creator_menu_list");
         $this.click(function (event){
             event = event || window.event//for IE
-            if($this.hasClass("opened")){
-                $this.removeClass("opened");
+            if($this.hasClass("selected")){
+                $this.removeClass("selected");
                 $menu.stop().fadeOut(200);
                 console.log("a");
             }
             else{
                 console.log("b");
-                $this.addClass("opened");
+                $this.addClass("selected");
                 $menu.stop().fadeIn(200);
                 $("html").on("click", function (event) {
                     var $this = $(event.target);
