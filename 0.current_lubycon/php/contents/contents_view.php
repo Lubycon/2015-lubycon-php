@@ -182,7 +182,7 @@ $file_like = $row['likeCount'];
                     <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
             </div>
-            <div id="content_down" class="hidden-mb-b"><i class="fa fa-download"></i></div>
+            <div id="content_down" class="hidden-mb-b"><i class="fa fa-cloud-download"></i></div>
             <div id="tag_wrap" class="hidden-mb-b">
                 <p id="tag_title"><i class="fa fa-tag"></i>Tags</p>
                 <div id="tagbox_wrap">
@@ -200,35 +200,20 @@ $file_like = $row['likeCount'];
                 <div id="cc_wrap">
                     <ul id="cc_wrap_inner">
                         <a href="#" id="cc_desc_link" target="_brank">
-                        <li class="cc_icon" id="cc_main">
+                        <li class="cc_icon" id="cc_main" data-tip="Creative Commons License">
                             <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
-                            <span class="tooltip_bt tooltip_long cc_tooltip" id="cc_tooltip">
-                               Creative Commons License
-                            </span>
                         </li><!--cc icon-->
-                        <li class="cc_icon" id="cc_by">
+                        <li class="cc_icon" id="cc_by" data-tip="Attribution">
                             <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
-                            <span class="tooltip_bt cc_tooltip" id="by_tooltip">
-                                Attribution
-                            </span>
                         </li><!-- default icon-->
-                        <li class="cc_icon" id="cc_nc">
+                        <li class="cc_icon" id="cc_nc" data-tip="Non Commercial">
                             <img src="<?=$one_depth?>/ch/img/creative_commons/png/nc_w.png" />
-                            <span class="tooltip_bt cc_tooltip" id="nc_tooltip">
-                                Non-Commercial
-                            </span>
                         </li><!--non commercial-->
-                        <li class="cc_icon" id="cc_nd">
+                        <li class="cc_icon" id="cc_nd" data-tip="Non Derivative">
                             <img src="<?=$one_depth?>/ch/img/creative_commons/png/nd_w.png" />
-                            <span class="tooltip_bt cc_tooltip" id="nb_tooltip">
-                                Non-Derivative
-                            </span>
                         </li><!--non derivation-->
-                        <li class="cc_icon" id="cc_share">
+                        <li class="cc_icon" id="cc_share" data-tip="Share Alike">
                             <img src="<?=$one_depth?>/ch/img/creative_commons/png/share_w.png" />
-                            <span class="tooltip_bt cc_tooltip" id="share_tooltip">
-                                Share Alike
-                            </span>
                         </li><!--non derivation-->
                     </a>
                     </ul>                       

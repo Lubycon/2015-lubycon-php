@@ -86,7 +86,7 @@ var four_param = getUrlParameter('4');
 
 $(function () //selcted change
 {
-    $('.lnb_nav ul').children('#' + third_param).addClass('selected_nav');
+    $('.lnb_nav ul').children('#' + cate_param).addClass('selected_nav');
     $(".selected_nav").children("a").click(function(){
         return false;//disabled anchor tag
     });
@@ -163,17 +163,10 @@ $(function(){
 /////////////////////////////////////////////////////////
 $(function () { //add contents button start
     var $editorModal = $(".editor_popup.modal"),
-    $contents = $editorModal.find("li"),
     $darkOverlay = $(".dark_overlay");
     $('#addcontent_bt').click(function () {
         $darkOverlay.stop().fadeIn(100);
         $editorModal.css("display","block").attr("class","editor_popup modal fadeInDown animated");
-    });
-
-    $contents.hover(function () {
-        $(this).children('a').children('i').css({ "color": "#fff", "background": "#48cfad" });
-    }, function () {
-        $(this).children('a').children('i').css({ "color": "#383838", "background": "#fff" });
     });
 });
 /////////////////////////////////////////////////////////

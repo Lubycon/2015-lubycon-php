@@ -632,7 +632,7 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
-                        var img = $("<img/>",{ "src":event.target.result}),
+                        var img = $("<img/>",{ "src":event.target.result }),
                         imgWidth = img[0].width,
                         fileEXT;
                         if(imgWidth >= 1400) $objectWrap.addClass("large");
@@ -647,14 +647,21 @@
                 var $this = $(this),
                 $button = $(document).find(".uploading"),
                 $target = $button.parents(".obj-menu-btn").siblings("img"),
+                $objectWrap = $target.parents(".object-img").removeClass("large").css("margin","0 7%"),
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files;
                 $.each($object, function(i,file){
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
+                        var img = $("<img/>",{ src:event.target.result }),
+                        imgWidth = img[0].width,
+                        fileEXT;
+                        if(imgWidth >= 1400) $objectWrap.addClass("large");
                         $target.attr("src",event.target.result);
                         $button.removeClass("uploading");
+                        img.remove();
+
                         $inputFile.val(null);
                         toolbar.sortFn.refresh();
                     };

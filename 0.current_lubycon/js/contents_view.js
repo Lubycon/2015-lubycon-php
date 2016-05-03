@@ -2,8 +2,7 @@ var like_stat;
 var like_check;
 var countkind;
 
-$(document).on("click", "#like_bt", function ()
-{
+$(document).on("click", "#like_bt", function (){
     switch($(this).attr('id')) // if you want the other count ajax increase, add this switch to object 
     {
         case "like_bt": countkind = 'likeCount';
@@ -21,10 +20,8 @@ $(document).on("click", "#like_bt", function ()
 });
 
 
-function like_count_up(countkind,connum_param, like_stat) //ajax function
-{
-    $.ajax
-    ({
+function like_count_up(countkind,connum_param, like_stat){
+    $.ajax({
         type: "POST",
         url: "../ajax/increase_like_ajax.php",
         data: 'countkind=' + countkind + '&conno=' + connum_param + '&cate=' + cate_param + '&like=' + like_stat,// data send
@@ -42,3 +39,9 @@ function like_count_up(countkind,connum_param, like_stat) //ajax function
         }
     })
 }
+
+//tooltip start
+$(document).ready(function(){
+    $(".cc_icon").tooltip({"top": 30, "left": -50});
+})
+//tooltip end

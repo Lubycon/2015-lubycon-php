@@ -141,6 +141,7 @@ body{
         background: #ec6446;
         cursor: pointer;
         z-index: 11000;
+        transition: background 0.2s;
     }
         .modal-closebt:hover {
             background: #eb907b;
@@ -222,28 +223,27 @@ body{
     display: none;
 }
 
-    .editor_popup p {
+    .editor_popup.modal p {
         font-size: 24px;
         color: #333333;
         font-weight: 200;
     }
 
-    .editor_popup ul {
+    .editor_popup.modal > ul {
         display: inline-block;
         margin: 0px auto;
     }
 
-        .editor_popup ul li {
+        .editor_popup.modal > ul > li {
             float: left;
             margin: 0px 46px;
             font-size: 20px;
             margin-top: 25px;
             cursor: pointer;
         }
-        .editor_popup ul li a{
+        .editor_popup.modal > ul > li > a{
         }
-
-            .editor_popup ul li i {
+            .editor_popup.modal > ul > li > a > i {
                 width: 70px;
                 height: 70px;
                 line-height: 70px;
@@ -252,21 +252,12 @@ body{
                 color: #383838;
                 font-size: 25px;
                 margin-bottom: 20px;
+                transition: background 0.3s, color 0.3s;
             }
-
-.closeButton {
-    position: absolute;
-    top: 7px;
-    right: 8px;
-    width: 15px;
-    height: 15px;
-    background: #ec6446;
-    border: none;
-    border-radius: 50%;
-}
-    .closeButton:hover {
-        opacity: 0.8;
-    }
+                .editor_popup.modal > ul > li:hover > a > i {
+                    background: #48cfad;
+                    color: #ffffff;
+                }
 
 /* popup end */
 
@@ -1276,14 +1267,23 @@ body{
     #comment_more_bt{
         width: 120px;
         height: 40px;
-        background: #aaaaaa;
-        color: #ffffff;
-        border: none;
+        background: transparent;
+        border: 1px solid #444444;
         border-radius: 30px;
+        transition: width 0.3s, border 0.3s;
     }
-        #comment_more_bt i{
-            font-size: 25px;
+        #comment_more_bt:hover {
+            width: 130px;
+            border: 1px solid #48cfad;
         }
+        #comment_more_bt > i{
+            font-size: 25px;
+            color: #444444;
+            transition: color 0.3s;
+        }
+            #comment_more_bt:hover > i {
+                color: #48cfad;
+            }
 /*creators card start*/
 #creator_card_wrap{
     max-width: 1330px;
