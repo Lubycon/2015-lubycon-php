@@ -93,31 +93,11 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $textTool = d.toolbar.textTool ? $("<div/>",{
-                            "class" : "btn",
-                            "data-value" : "textTool"
-                        }).append($("<i/>",{"class":icons.font}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
-                        $colorTool = d.toolbar.colorTool ? $("<div/>",{
-                            "class" : "btn",
-                            "data-value" : "colorTool"
-                        }).append($("<i/>",{"class":icons.paint}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
-                        $gridTool = d.toolbar.gridTool ? $("<div/>",{
-                            "class" : "btn",
-                            "data-value" : "gridTool"
-                        }).append($("<i/>",{"class":icons.grid}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
-                        $marginTool = d.toolbar.marginTool ? $("<div/>",{
-                            "class" : "btn",
-                            "data-value" : "marginTool"
-                        }).append($("<i/>",{"class":icons.margin}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "",
-                        $sortTool = d.toolbar.sortTool ? $("<div/>",{
-                            "class" : "btn",
-                            "data-value" : "sortTool"
-                        }).append($("<i/>",{"class":icons.sorts}))
-                        .appendTo($aside).on("click",pac.toggle).on("click",toolbar.toolbarToggle) : "";
+                        var $textTool = d.toolbar.textTool ? new toolbar.createButton("textTool",icons.font).appendTo($aside) : "",
+                        $colorTool = d.toolbar.colorTool ? new toolbar.createButton("colorTool",icons.paint).appendTo($aside) : "",
+                        $gridTool = d.toolbar.gridTool ? new toolbar.createButton("gridTool",icons.grid).appendTo($aside) : "",
+                        $marginTool = d.toolbar.marginTool ? new toolbar.createButton("marginTool",icons.margin).appendTo($aside) : "",
+                        $sortTool = d.toolbar.sortTool ? new toolbar.createButton("sortTool",icons.sorts).appendTo($aside) : "";
 
                         //input files
                         var $inputFile = $("<input/>",{
@@ -133,13 +113,16 @@
                         $(".btn").each(pac.toolbox);
 
                         //initModals
-                        pac.initModal.file().appendTo($this),
+                        pac.initModal.file().appendTo($this).hide(),
                         pac.initModal.embed().appendTo($this).hide(),
                         pac.initModal.thumbnail().appendTo($this).hide(),
                         pac.initModal.setting().appendTo($this).hide(),
                         // right : {project team}
+                        
                         pac.initTools();//data binding
                         setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
+
+                        $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
                     }
                 })
             },
@@ -415,33 +398,33 @@
             },
             objMenu: function(selector){
                 var $object = selector,
-                notimg = !$object.is(".object-img"),
+                notimg = $object.is(".object-img"),
+                large = $object.hasClass("large"),
                 $objectMenu = $("<div/>",{"class" : "obj-menu-btn"}).appendTo($object).hide(),
                 $objectMenuIcon = $("<i/>",{"class" : icons.pencil}).appendTo($objectMenu),
                 $menuWrap = $("<ul/>",{"class" : "obj-menu"}).appendTo($objectMenu).hide(),
-                $replace = notimg ? "" : 
-                $("<li/>",{
+                $replace = notimg ? $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Replace",
                     "data-value" : "replace"
-                }).on("click",upload.imgUpTrigger).appendTo($menuWrap),
-                $select = $("<li/>",{
-                    "class" : "obj-menu-list",
-                    "html" : "Select",
-                    "data-value": "select"
-                }).appendTo($menuWrap),
+                }).on("click",upload.imgUpTrigger).appendTo($menuWrap) : "",
+                $largeImg = notimg ? $("<li/>",{
+                    "class" : "obj-menu-list fullSizeOff",
+                    "html" : "Full Size",
+                    "data-value" : "full-size"
+                }).on("click",canvasTool.getFullSizeImg).appendTo($menuWrap) : "",
                 $delete = $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Delete",
                     "data-value" : "delete"
-                }).appendTo($menuWrap).on("click",canvasTool.deleteObj);
+                }).on("click",canvasTool.deleteObj).appendTo($menuWrap);
                 $object.hover(
-                    function(){ $objectMenu.show(); },
-                    function(){ $objectMenu.hide(); }
+                    function(){ $objectMenu.stop().fadeIn(200); },
+                    function(){ $objectMenu.stop().fadeOut(200); }
                 );
                 $objectMenu.hover(
-                    function(){ $menuWrap.show(); },
-                    function(){ $menuWrap.hide(); }
+                    function(){ $menuWrap.stop().fadeIn(200); },
+                    function(){ $menuWrap.stop().fadeOut(200); }
                 );
             },
             keyEvent: function(event){
@@ -645,14 +628,15 @@
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
                         var img = $("<img/>",{ "src":event.target.result}),
+                        imgWidth = img[0].width,
                         fileEXT;
+                        if(imgWidth >= 1400) $objectWrap.addClass("large");
                         upload.insertPosition($this,$objectWrap,img);
                         $(".uploading").removeClass("uploading") // init target object  
                         $inputFile.val(null); // init input value
+                        pac.objMenu($objectWrap);
                     };
                 });
-
-                pac.objMenu($objectWrap);
             },
             imgReplace: function(event){
                 var $this = $(this),
@@ -771,8 +755,6 @@
                 }
                 else btWrap.remove();
 
-                modalKit.align(body);
-
                 return body;
             },
             align: function(selector){
@@ -845,16 +827,19 @@
             },
             embed: function(){
                 var $this = $(this),
+                $darkOverlay = $(document).find(".dark_overlay"),
                 $window = $this.parents(".modal"),
-                $input = $this.parent().siblings("textarea"),
-                $errorMsg = $this.parent().siblings(".embed-error"),
-                value = $input.val() || 0,
-                pattern = /^<iframe.*>.*<\/iframe>$/i,
-                valTest = isNaN(value) ? pattern.test(value) : true;
-                if(value && valTest) {
+                $input = $window.find("textarea"),
+                $errorMsg = $window.find(".embed-error"),
+                value = $input.val(),
+                pattern = /^(<iframe.*).*(\/iframe>)/,
+                valTest = pattern.test(value);
+
+                if(valTest) {
                     upload.embedUpload(value);
                     $input.val(null); 
                     $window.stop().fadeOut(200);
+                    $darkOverlay.stop().fadeOut(200);
                 }
                 else {
                     $input.addClass("error");
@@ -983,7 +968,6 @@
                     $target.slideUp(400);
                     $(".cc-list-link").hide();
                 } 
-                console.log("useCC");
             },
             displayCC: function(){
                 $this = $(this),
@@ -1039,7 +1023,6 @@
                         $anchor.remove();
                     }
                 });
-                console.log("Download to pc");
             }
         },
         canvasTool = {
@@ -1096,9 +1079,32 @@
                 $(".canvas-uploader-bt").find(".fa-font").off("click").on("click",upload.textUpload);
                 $(".canvas-uploader-bt").find(".fa-code").off("click").on("click",modalKit.show);
                 console.log("add object button is added to canvas");
+            },
+            getFullSizeImg: function(){
+                var $this = $(this),
+                $target = $this.parents(".object-img");
+                if($target.hasClass("large")){
+                    if($this.hasClass("fullSizeOff")){
+                        $target.css("margin","0px");
+                        $this.removeClass("fullSizeOff").addClass("fullSizeOn");
+                    }
+                    else {
+                        $target.css("margin","0 7%");
+                        $this.removeClass("fulllSizeOn").addClass("fullSizeOff");
+                    }
+                }
+                else alert("This image can not be full size(less 1400px)");  
             }
         },
         toolbar = {
+            createButton: function(data,iconData){
+                var button = $("<div/>",{"class" : "btn", "data-value" : data }),
+                icon = $("<i/>",{"class" : iconData}).appendTo(button);
+
+                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle);
+
+                return button;
+            },
             toolbarToggle: function(){
                 var $this = $(this),
                 value = $this.data("value"),
@@ -1112,13 +1118,17 @@
                 }
                 else toolBox.fadeOut(200);
             },
-            create: function(content,name){
+            createMenu: function(content,name){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
                 label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
-
-                if(typeof content == "object"){
-                    for(var i = 0, l = content.length; i < l; i++){
+                if(typeof content === "object"){
+                    if(content.length === 1){
                         content.appendTo(body);
+                    }
+                    else{
+                        for(var i = 0, l = content.length; i < l; i++){
+                            content[i].appendTo(body);
+                        }
                     }
                 }
                 return body;
@@ -1135,7 +1145,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $fontSize = new toolbar.create($sizeInput,"Font Size").attr({"id" : "fontSize-tool","data-value" : "font-size"}).appendTo($this);
+                $fontSize = new toolbar.createMenu($sizeInput,"Font Size").attr({"id" : "fontSize-tool","data-value" : "font-size"}).appendTo($this);
                 $sizeInput.slider({
                     customID: "fontSize-slider",
                     disabled: true, 
@@ -1144,7 +1154,7 @@
 
                 //font color start
                 var $colorInput = $("<input/>",{ "type" : "text","id" : "fontColorKey" }),
-                $fontColor = new toolbar.create($colorInput,"Font Color").attr({"id" : "fontColor-tool","data-value" : "font-color"}).appendTo($this);
+                $fontColor = new toolbar.createMenu($colorInput,"Font Color").attr({"id" : "fontColor-tool","data-value" : "font-color"}).appendTo($this);
                 $colorInput.spectrum({
                     color: "#ffffff",
                     showInput: true,
@@ -1173,7 +1183,7 @@
                 $strikeBt = $btn.clone().addClass("strikebt").attr("data-value","strike").append($("<i/>",{"class" : icons.strike}))
                 .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
 
-                $fontDeco = new toolbar.create($decobtns,"Font Decorations").attr({"id" : "fontDeco-tool","data-value" : "font-dece"}).appendTo($this);
+                $fontDeco = new toolbar.createMenu($decobtns,"Font Decorations").attr({"id" : "fontDeco-tool","data-value" : "font-dece"}).appendTo($this);
 
                 //font align start
                 var $alignbtns = $btWrap.clone(),
@@ -1186,7 +1196,7 @@
                 $alignRight = $btn.clone().addClass("align-justify-bt").attr("data-value","justify").append($("<i/>",{"class" : icons.alignJustify}))
                 .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
 
-                $fontAlign = new toolbar.create($alignbtns,"Align").attr({"id" : "fontAlign-tool","data-value" : "font-align"}).appendTo($this);
+                $fontAlign = new toolbar.createMenu($alignbtns,"Align").attr({"id" : "fontAlign-tool","data-value" : "font-align"}).appendTo($this);
             },
             textFn: {
                 focusAction: function(){
@@ -1304,7 +1314,7 @@
                 var $this = $(document).find("#colorTool-toolbox"),
 
                 $colorInput = $("<input/>",{"type" : "text","id" : "bgColorKey"}),
-                $bgColor = new toolbar.create($colorInput,"Background Color").attr({"id" : "bgColor-tool","data-value" : "bg-color"}).appendTo($this);
+                $bgColor = new toolbar.createMenu($colorInput,"Background Color").attr({"id" : "bgColor-tool","data-value" : "bg-color"}).appendTo($this);
                 $colorInput.spectrum({
                     color: "#ffffff",
                     showInput: true,
@@ -1467,7 +1477,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $headerMargin = new toolbar.create($headerInput,"Header").attr({"id" : "header-tool","data-value" : "header"}).appendTo($this);
+                $headerMargin = new toolbar.createMenu($headerInput,"Header").attr({"id" : "header-tool","data-value" : "header"}).appendTo($this);
                 $headerInput.slider({ callback: toolbar.marginFn.headerMargin });
 
                 var $footerInput = $("<input/>",{
@@ -1477,7 +1487,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $footerMargin = new toolbar.create($footerInput,"Footer").attr({"id" : "footer-tool","data-value" : "footer"}).appendTo($this);
+                $footerMargin = new toolbar.createMenu($footerInput,"Footer").attr({"id" : "footer-tool","data-value" : "footer"}).appendTo($this);
                 $footerInput.slider({ callback: toolbar.marginFn.footerMargin });
 
                 var $deviderInput = $("<input/>",{ //input
@@ -1487,7 +1497,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $deviderMargin = new toolbar.create($deviderInput,"Contents Spacing").attr({"id" : "devider-tool","data-value" : "devider"}).appendTo($this);
+                $deviderMargin = new toolbar.createMenu($deviderInput,"Contents Spacing").attr({"id" : "devider-tool","data-value" : "devider"}).appendTo($this);
                 $deviderInput.slider({
                     customID: "contentSpace-slider",
                     disabled: true, 
@@ -1514,9 +1524,9 @@
             sortTool: function(){
                 var $this = $(document).find("#sortTool-toolbox");
 
-                var $sortul = $("<ul/>",{ "class" : "sort-ul"}).appendTo($sortWrap),
-                $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable).appendTo($sortWrap),
-                $sortWrap = new toolbar.create($sortul,"Sort").attr({"id" : "sort-tool","data-value" : "sort"}).appendTo($this);
+                var $sortul = $("<ul/>",{ "class" : "sort-ul"}),
+                $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable),
+                $sortWrap = new toolbar.createMenu([$sortul,$sortbt],"Sort").attr({"id" : "sort-tool","data-value" : "sort"}).appendTo($this);
                 toolbar.sortFn.refresh();
                 $sortul.sortable();
                 $this.disableSelection();

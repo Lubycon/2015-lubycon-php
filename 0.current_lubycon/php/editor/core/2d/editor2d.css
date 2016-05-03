@@ -649,8 +649,8 @@ a {
             z-index: 51;
         }
         .editor-body > .editing-area > .editing-canvas{
-            width: 100%;
-            max-width: 1000px;
+            width: 90%;
+            min-width: 1000px;
             min-height: 350px;
             position: relative;
             margin: 50px auto;
@@ -729,6 +729,7 @@ a {
     .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-obj.canvas-content{
         position: relative;
         margin: 0 7%;
+        transition: margin 0.2s;
     }
     .editor-body > .editing-area > .editing-canvas > .obj-body > .canvas-content:hover {
         border: 1px dashed #48cfad;

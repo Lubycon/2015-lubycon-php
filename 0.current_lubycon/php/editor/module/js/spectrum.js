@@ -301,7 +301,6 @@
                 }
 
                 appendTo.append(container);
-                console.log(opts.appendTo,appendTo);
             }
 
             updateSelectionPaletteFromStorage();
