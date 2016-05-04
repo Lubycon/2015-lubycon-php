@@ -1,0 +1,989 @@
+/* ===========================================================
+ *
+ *  Name:          editor3d.js
+ *  Updated:       2016-05-05
+ *  Version:       0.1.1
+ *  Created by:    DART, Lubycon.co
+ *
+ *  Copyright (c) 2016 Lubycon.co
+ *
+ * =========================================================== */
+
+(function($){
+    $.fn.initEditor = function(option){
+        var defaults = { 
+            height: $(window).height(),
+            minHeight: null,
+            fileUpload: true,
+            imageUpload: true,
+            submit: $.noop()
+        },
+        icons = iconPack, //icons.json
+        keyCode = keycodePac, //keycode.json
+        categoryData = categoryPac, //categories.json
+        ccData = ccPac, //creative_commons.json
+        d = {},
+        scene, camera, dirLight, ambLight, renderer, controls, stats,
+        group, object, mtl, geometry, material, mesh,
+        pac = {
+            init: function (option) {
+                return d = $.extend({}, defaults, option), this.each(function () {
+                    if (!$(this).hasClass("initEditor")) $.error("Loading failed");
+                    else {
+                        console.log("editor is loaded");//function start
+                        var $this = $(this);
+                        var $darkOverlay = $(document).find(".dark_overlay").show();
+                        //init object
+                        var $wrapper = $("<div/>",{"class" : "editor-wrapper"}).appendTo($this),
+                        $header = $("<div/>",{"class" : "editor-header"}).appendTo($wrapper),
+                        $body = $("<div/>",{"class" : "editor-body"}).appendTo($wrapper),
+                        $aside = $("<div/>",{"class" : "editor-aside"}).appendTo($body),
+                        $editingBack = $("<div/>",{"class" : "editing-background"}).appendTo($body),
+                        //canvas
+                        $editingArea = $("<div/>",{"class" : "editing-area"}).appendTo($body),
+                        $canvas = $("<div/>",{"id" : "web-gl"}).appendTo($editingArea);
+
+                        //in header bt
+                        var $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
+                        $fileUpbtn = $("<div/>",{
+                            "class" : "header-btn fileUpload",
+                            "html" : "File",
+                            "data-tip" : "Upload your OBJ files"
+                        }).prepend($("<i/>",{"class":icons.upload}))
+                        .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55});
+
+                        //in header progress
+                        var $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
+                        $editProgress = $("<div/>",{
+                            "class" : "header-btn edit prog current-prog",
+                            "html" : "EDIT",
+                            "data-value" : "edit"
+                        }).prepend($("<i/>",{"class":icons.edit}))
+                        .appendTo($progressWrap).on("click",pac.currentProg),
+                        $thumbProgress = $("<div/>",{
+                            "class" : "header-btn thumbnail prog",
+                            "html" : "THUMBNAIL",
+                            "data-value" : "thumbnail"
+                        }).prepend($("<i/>",{"class":icons.image}))
+                        .appendTo($progressWrap).on("click",pac.currentProg),
+                        $setProgress = $("<div/>",{
+                            "class" : "header-btn setting prog",
+                            "html" : "SETTING",
+                            "data-value" : "setting"
+                        }).prepend($("<i/>",{"class":icons.setting}))
+                        .appendTo($progressWrap).on("click",pac.currentProg);
+
+                        //in toolbar
+                        var $lightTool = new toolbar.createButton("lightTool",icons.bulb).appendTo($aside),
+                        $materialTool = new toolbar.createButton("materialTool",icons.cube).appendTo($aside),
+                        $backgroundTool = new toolbar.createButton("backgroundTool",icons.image).appendTo($aside);
+                        //input files
+                        var $inputFile = $("<input/>",{
+                            "class":"fileUploader editor-hidden",
+                            "name":"fileUploader",
+                            "type":"file"
+                        }).insertAfter($header),
+                        $inputImage = $("<input/>",{
+                            "class":"imgUploader editor-hidden",
+                            "name":"imgUploader",
+                            "type":"file"
+                        }).insertAfter($header);
+                        $(".btn").each(pac.toolbox);
+
+                        var alertKey = $("<div/>",{"class" : "alertKey"}).appendTo($header).hide();
+                        //initModals
+                        pac.initModal.fileSelector().appendTo($this).hide();
+                        pac.initModal.thumbnail().appendTo($this).hide();
+                        pac.initModal.setting().appendTo($this).hide();
+                        // right : {project team}
+
+                        pac.initTools();//data binding
+                        pac.initGL();
+                        //setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
+
+                        $(window).on("load",function(){ $(".modal.file-selector-modal").fadeIn(400); });
+                    }
+                })
+            },
+            initGL: function(){
+                'use strict';
+                var windowWidth = window.innerWidth,
+                    windowHeight = window.innerHeight;
+
+                var gl = document.getElementById("web-gl");
+
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
+                    camera.position.z = 10;
+                dirLight = new THREE.DirectionalLight(0xffffff);
+                    dirLight.position.y = 100;
+                    dirLight.position.x = -100;
+                ambLight = new THREE.AmbientLight(0xffffff);
+
+                scene.add(camera, dirLight, ambLight);
+                scene.add(new THREE.AxisHelper(50));
+                scene.add(new THREE.GridHelper(3, 0.5));
+
+                renderer = new THREE.WebGLRenderer();
+                    renderer.setSize(windowWidth, windowHeight);
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                    renderer.setClearColor(0x222222, 1);
+                gl.addEventListener("webglcontextlost", function(event){
+                    event.preventDefault();
+                    alert("context is losted");
+                    cancelAnimationFrame(animationID);
+                }, false);
+                gl.appendChild(renderer.domElement);
+
+                controls = new THREE.OrbitControls(camera, renderer.domElement);
+                    controls.enableDamping = true;
+                    controls.dampingFactor = 0.15;
+                    controls.rotateSpeed = 0.5;
+                    controls.zoomSpeed = 0.5;
+
+                window.addEventListener("resize", pac.windowResizeGl, false);
+                pac.animateGL();
+            },
+            animateGL: function(){
+                controls.update();
+                requestAnimationFrame(pac.animateGL);
+                pac.renderGL();
+            },
+            renderGL: function(){
+                renderer.render(scene, camera);
+            },
+            windowResizeGl: function(){
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            },
+            submit: function(){
+                var rootElement = $(".initEditor"),
+                content = rootElement.find(".editing-canvas").html(), //data
+                contentName = rootElement.find("input[name='content-name']").val(), //data
+                imgData = [],
+                contentData = $(".obj-body .object-img").each(function () {
+                    var $this = $(this),
+                        val = $this.attr("data-value").split("-"),
+                        innerVal = { "contentID": 'content' + val[0], "ext": val[1] };
+                    imgData.push(innerVal)
+                }),
+                categories = [], //data
+                tags = [], //data
+                cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
+                category = rootElement.find(".search-choice > span").each(function () { categories.push($(this).text()) }),
+                tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
+                descript = rootElement.find(".descript-input").text(),
+                ccbox = rootElement.find(".cc-checkbox").each(function () {
+                    var data = $(this).data("value");
+                    cc[data] = $(this).prop("checked");
+                }),
+                $form = $("<form/>", {
+                    "id": "finalForm",
+                    "enctype": "multipart/form-data",
+                    "method": "post",
+                    "action": "./test.php"
+                }),
+                wrap = rootElement.wrapInner($form),
+
+                geturl = function (key) {
+                    var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
+                    return result && result[1] || "";
+                };
+
+                $dummy = $("<input/>", { "type": "hidden", "id": "userid", "name": "userid" }).appendTo($("#finalForm")).val($("user_id").text()),
+                $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl('cate')),
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
+                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
+
+                $("#finalForm").submit();
+            },
+            autoSave: function () {
+                var imgData = [],
+                    contentData = $(".obj-body .object-img").each(function () {
+                    var $this = $(this),
+                        url = $this.find('img').attr("src"),
+                        val = $this.attr("data-value").split("-"),
+                        innerVal = { 'type': 'editor_content', 'data64': url, "index": val[0] };
+                    imgData.push(innerVal)
+                    }),
+                    html_Data = $('.editing-canvas').html();
+                $.ajax({
+                    type: "POST",
+                    url: "../../../ajax/editor_ajax_upload_test.php", // temp image file ajax post
+                    data:
+                    {
+                        'ajax_data': imgData
+                    },
+                    cache: false,
+                    success: function (data) {
+                        console.log('auto save succece');
+                    }
+                });
+            },
+            initTools: function(){
+                //toolbar data bind start
+                toolbar.lightTool();
+                toolbar.materialTool();
+                toolbar.backgroundTool();
+                //toolbar data bind end
+                $(window).on("load resize",function(){
+                    $(".modal").each(function(){ modalKit.align($(this)); });
+                })
+            },
+            initModal: {
+                fileSelector: function(){
+                    var modal = new modalKit.create(null,"file-selector-modal"),
+                    wrapper = modal.find(".modal-wrapper"),
+                    title = modal.find(".modal-title").text("File Select"),
+                    content = modal.find(".modal-content"),
+                    okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
+                    cancelbt = modal.find(".modal-cancelbt").on("click",initInput);
+
+                    fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content);
+                    fileViewer = $("<input/>",{ "type" : "text", "class" : "modal-fileViewer", "readonly": "true" }).appendTo(fileInputWrap);
+                    uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find", "data-value" : "newOBJUpload" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
+                    fileSelectHelp = $("<i/>",{ 
+                        "class" : icons.help + " file-selector-help",
+                        "data-tip" : "You can upload maximun 30MB"
+                    }).tooltip({"top" : 30, "left" : -50}).appendTo(fileInputWrap);
+
+
+
+                    function initInput(){ fileViewer.val(""); };
+
+                    return modal;
+                },
+                thumbnail: function(){
+                    var modal = new modalKit.create([pac.currentProg,modalFunc.cropped],"thumbnail-modal prog").addClass("thumbnail-window"),
+                    wrapper = modal.find(".modal-wrapper"),
+                    title = modal.find(".modal-title").text("Edit Thumbnail Image"),
+                    content = modal.find(".modal-content"),
+                    okbt = modal.find(".modal-okbt").attr("data-value","setting").text("Next"),
+                    cancelbt = modal.find(".modal-cancelbt").text("Prev"),
+                    $innerWrap = $("<div/>",{ "class" : "thumb-inner-wrapper" }).appendTo(content),
+                    $preview = $("<div/>",{ "class" : "thumb-preview-wrapper" }).appendTo($innerWrap),
+                    $editWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($innerWrap),
+                    $placeholder = $("<div/>", { 
+                        "class" : "thumb-placeHolder",
+                        "html" : "Click and upload your thumbnail Image",
+                        "data-value" : "thumbnail"
+                    }).on("click",upload.imgUpTrigger).appendTo($editWrap),
+                    $img = $("<img/>", { 
+                        "class" : "thumb-origin-img",
+                        "src" : "#"
+                    }).appendTo($editWrap).hide(),
+                    $changeThumb = $("<span/>",{
+                        "class" : "thumb-img-change",
+                        "html" : "<i class='fa " + icons.refresh + "'></i>Change Image",
+                        "data-value" : "thumb-replace"
+                    }).on("click",upload.imgUpTrigger).appendTo($innerWrap).hide();
+
+                    return modal;
+                },
+                setting: function(){
+                    var modal = new modalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
+                    wrapper = modal.find(".modal-wrapper"),
+                    closebt = modal.find(".modal-closebt").attr("data-value","modal-cancelbt"),
+                    title = modal.find(".modal-title").text("Content Setting"),
+                    content = modal.find(".modal-content"),
+                    cancelbt = modal.find(".modal-cancelbt").attr("data-value","modal-cancelbt").text("Prev"),
+                    okbt = modal.find(".modal-okbt").attr({
+                        "data-value" : "submit",
+                        "disabled" : "disabled"
+                    }).text("Submit"),
+
+                    $innerWrap = $("<div/>",{ "class" : "setting-inner-wrapper" }).appendTo(content),
+                    $innerLeft = $("<div/>",{ "class" : "setting-inner-left" }).appendTo($innerWrap),
+                    $innerRight = $("<div/>",{ "class" : "setting-inner-right" }).appendTo($innerWrap),
+
+                    //make content
+                    $inputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
+                    $inputInner = $("<div/>",{ "class" : "setting-input" }),
+                    $label = $("<p/>",{ "class" : "setting-input-label"}),
+                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }),
+                    $select = $("<select>", { "class" : "setting-select" }),
+                    $option = $("<option/>",{"class" : "select-option"}),
+
+                    $contentName = $inputWrap.clone()
+                    .append($label.clone().html("Content Name"))
+                    .append($input.clone().attr("name","content-name")).appendTo($innerLeft),
+
+                    $categoryName = $inputWrap.clone()
+                    .append($label.clone().html("Categories")).appendTo($innerLeft),
+                    $categorySelect = $select.clone().addClass("chosen-select category").attr({
+                        "data-placeholder" : "Choose your contents categories",
+                        "multiple" : "",
+                        "tabindex" : "8",
+                        "name" : "contents_category[]"
+                    }).appendTo($categoryName);
+
+                    categories = categoryData,
+                    insertOption = function(){
+                        var categoryBox = $categorySelect;
+                        for(i in categories){ //categoryData is json
+                            var option = $option.clone().html(categories[i]).attr("data-index",i);
+                            option.appendTo(categoryBox);
+                        }
+                        categoryBox.chosen({  max_selected_options: 3 });
+                    }(),
+
+                    $hashtagName = $inputWrap.clone()
+                    .append($label.clone().html("Hash Tag"))
+                    .append($inputInner.clone().addClass("hashTag-input-wrap")
+                        .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
+                    .appendTo($innerLeft),
+
+                    $descriptName = $inputWrap.clone()
+                    .append($label.clone().html("Description"))
+                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft),
+
+                    //creative commons
+                    $ccName = $inputWrap.clone(),
+                    $ccLabel = $label.clone().html("Creative Commons"),
+                    $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
+                    
+                    $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper" }),
+                    getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "http://creativecommons.org/licenses/by-nc-nd/4.0", "target" : "_blank" }),
+                    $changebt = $("<p/>",{
+                        "class" : "cc-setting-bt",
+                        "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
+                    }).on("click",pac.dbToggle),
+                    
+                    insertCCicons = function(){
+                        var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
+                        $target = $ccIconWrap,
+                        $img = $("<img/>",{ "src" : "#" });
+                        for(var i = 0, l = ccData.length; i < l; i++){
+                            var list = ccIconLi.clone().attr({"data-value":ccData[i].id, "data-tip":ccData[i].name})
+                            .append($img.clone().attr("src",ccData[i].icon))
+                            .appendTo($target).tooltip({"top":40});
+                            if(ccData[i].id == "sa"){
+                                list.hide();
+                            }
+                        }
+                        $ccInner.append(getLink.append($target));
+                    }();
+
+                    $ccName.append($ccLabel).append($ccInner).append($changebt)
+                    .on("click",modalFunc.showCCsetting).appendTo($innerRight);
+
+                    return modal;
+                }
+            },
+            toggle: function(){
+                var $this = $(this),
+                $btns = $this.siblings(".btn");
+                if($this.hasClass("selected")) $this.removeClass("selected");
+                else {
+                    $btns.removeClass("selected");
+                    $this.addClass("selected");
+                }
+            },
+            dbToggle: function(){
+                var $this = $(this);
+                if($this.hasClass("selected")) $this.removeClass("selected");
+                else $this.addClass("selected");
+            },
+            currentProg: function(){
+                var $this = $(this),
+                $modals = $(document).find(".modal"),
+                $btns = $(".prog"),
+                data = $(this).data("value"),
+                $progress = $("." + data),
+                $target = $("." + data + "-window"),
+                $darkOverlay = $(document).find(".dark_overlay");
+                if(!$this.hasClass("selected")) {
+                    $btns.removeClass("current-prog");
+                    $progress.addClass("current-prog");
+                }
+                if(data == "edit") {
+                    $modals.fadeOut(200);
+                    $darkOverlay.fadeOut(200);
+                }
+                else {
+                    $modals.hide();
+                    $(".btn.selected").removeClass("selected");
+                    modalKit.align($target);
+                    $target.fadeIn(200);
+                    $darkOverlay.fadeIn(200);
+                }
+            },
+            toolbox: function(){
+                var $this = $(this),
+                $aside = $this.parents(".editor-aside"),
+                value = $this.data("value"),
+                $toolboxWrap = $("<div/>",{
+                    "class" : "toolbox-wrap",
+                    "data-value" : value,
+                    "id" : value + "-toolbox"
+                }).appendTo($aside).hide();
+                if(value == "gridTool") $toolboxWrap.addClass("modal");
+            },
+            keyEvent: function(event){
+                $this = $(this),
+                $confirm = $this.parent().find(".modal-okbt"),
+                $cancel = $this.parent().find(".modal-cancel"),
+                inKeyCode = event.which;
+                switch(inKeyCode){
+                   case keyCode.enter : $confirm.trigger("click"); break;
+                   case keyCode.esc : $cancel.trigger("click"); break;
+                   default : return; break;
+                }
+            }
+        },
+        upload = {
+            fileCheck: function(file){
+                var size = file.size, // 30MB
+                type = file.type, //jpg||jpeg, png, bmg, gif, zip
+                alertKey = $(document).find(".alertKey").off("click");
+                console.log(file);
+                if(size < 31457280){
+                    return true;
+                } 
+                else {
+                    alertKey.lubyAlert({
+                        width: 500,
+                        height: 150,
+                        textSize: 14,
+                        customIcon: icons.box,
+                        customText: "Your File is so big. Limit 10MB. This file is " + parseInt(size/1024/1024) + "MB",
+                        inSpeed: 600,
+                        stoptime: 600,
+                        outSpeed: 1000
+                    });
+                    alertKey.trigger("click");
+                    return false;
+                }
+            },
+            imgCheck: function(file){
+                var size = file.size, // 10MB
+                type = file.type, //jpg||jpeg, png, bmg, gif, zip
+                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type),
+                alertKey = $(document).find(".alertKey").off("click");
+
+                if(size < 10485760){
+                    if(typeCheck) return true;
+                    else {
+                        alertKey.lubyAlert({
+                            width: 300,
+                            height: 150,
+                            textSize: 14,
+                            customIcon: icons.box,
+                            customText: "You have to upload ' jpg,gif,png,bmp ' files",
+                            inSpeed: 600,
+                            stoptime: 600,
+                            outSpeed: 1000
+                        });
+                        alertKey.trigger("click");
+                        return false;
+                    }
+                } 
+                else {
+                    alertKey.lubyAlert({
+                        width: 300,
+                        height: 150,
+                        textSize: 14,
+                        customIcon: icons.box,
+                        customText: "Your File is so big. Limit 30MB. This file is " + parseInt(size/1024/1024) + "MB",
+                        inSpeed: 600,
+                        stoptime: 600,
+                        outSpeed: 1000
+                    });
+                    alertKey.trigger("click");
+                    return false;
+                }
+            },
+            fileUpTrigger: function(){
+                var data = $(this).data("value"),
+                inputFile = $(document).find(".fileUploader");
+                inputFile.click();
+                switch(data){
+                    case "newOBJUpload" : inputFile.off("change").on("change",upload.objectUpload); break;
+                    case "newTexUpload" : inputFile.off("change").on("change",upload.textureUpload); break;
+                    default : $.error("This is not upload button"); break;
+                }  
+            },
+            objectUpload: function(event){
+                var $this = $(this),
+                object = event.target.files,
+                $inputModal = $(document).find(".modal.file-selector-modal"),
+                $fileViewer = $inputModal.find(".modal-fileViewer"),
+                $darkOverlay = $(document).find(".dark_overlay");
+
+                if(upload.fileCheck(object[0])) {
+                    upload.loaders(object[0]);
+                    $inputModal.remove();
+                    $darkOverlay.fadeOut(400);
+                }
+                else {
+                    $this.val(null);
+                    $fileViewer.val("");
+                }
+
+                return;
+            },
+            textureUpload: function(event){
+                var $this = $(".uploading");
+                
+                if(upload.imgCheck($object[0])){
+                    $.each($object, function(i,file){
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(event){
+                            var img = $("<img/>",{ "src":event.target.result }),
+                            imgWidth = img[0].width;
+
+                            if(imgWidth >= 1400) $objectWrap.addClass("large");
+                            upload.insertPosition($this,$objectWrap,img);
+                            $(".uploading").removeClass("uploading") // init target object  
+                            $inputFile.val(null); // init input value
+                            pac.objMenu($objectWrap);
+                        };
+                    });
+                }
+                else $inputFile.val(null);
+            },
+            loaders: function(file){
+                var reader = new FileReader();
+                var filename = file.name;
+                var ext = filename.split(".").pop().toLowerCase();
+                switch(ext){
+                    case "obj" :
+                        reader.addEventListener("load", function(event){
+                            var contents = event.target.result;
+                            group = new THREE.Group();
+                            object = new THREE.OBJLoader().parse(contents);
+                            
+                            for(var i = 0, l = object.length; i < l; i++){
+                                geometry = object[i].geometry;
+                                    geometry.center();
+                                    geometry.dispose();
+
+                                material = object[i].material;
+                                if(material.type == "MeshPhongMaterial"){
+                                    material.specular = new THREE.Color(0xffffff);
+                                    material.specularColor = new THREE.Color(0xffffff);
+                                    material.side = THREE.DoubleSide;
+                                    material.transparent = true;
+                                    material.needsUpdate = true;
+                                    material.dispose();
+                                }
+                                else if(material.type = "MultiMaterial"){
+                                    var materials = material.materials;
+                                    for(var j = 0, ml = materials.length; j < ml; j++){
+                                        materials[j].specular = new THREE.Color(0xffffff);
+                                        materials[j].specularColor = new THREE.Color(0xffffff);
+                                        materials[j].side = THREE.DoubleSide;
+                                        materials[j].transparent = true;
+                                        materials[j].needsUpdate = true;
+                                        materials[j].dispose();
+                                    }
+                                }
+                                else $.error("WebGL failed loading to material");
+
+                                mesh = new THREE.Mesh(geometry,material);
+                                    mesh.castShadow = true;
+                                    mesh.receiveShadow = true;
+                                group.add(mesh);
+                            }
+                            toolbar.materialFn.materialRefresh();
+                            scene.add(group);
+                        },false);
+                        reader.readAsText(file);
+                    break;
+                    default: $.error("This file is not supported");
+                }
+            }
+        },
+        modalFunc = {
+            showFileSelector: function(){
+                $(document).find(".dark_overlay").fadeIn(200);
+                $(document).find(".modal").fadeOut(200);
+                $(document).find(".modal.file-selector-modal").fadeIn(200);
+            },
+            cropped: function(event){
+                var $originImg = $(".thumb-origin-img");
+                if($originImg.attr("src") != "#") {
+                    var $this = $(this),
+                    $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
+                    dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
+                    //console.log($object);
+                    //console.log(dataURL); // for ajax
+
+                    var dataArray = new Array;
+                    dataArray[0] = { 'type': 'editor_thumb', 'data64': dataURL ,'index': null};
+
+                    $.ajax({
+                        type: "POST",
+                        url: "../../../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
+                        data:
+                        {
+                            'ajax_data': dataArray
+                        },
+                        cache: false,
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    })
+                }
+                else $.error("There is no Image");                
+            },
+            detectTag: function(event){
+                var $this = $(this),
+                $wrapper = $this.parent(".hashTag-input-wrap"),
+                $tagWrap = $("<ul/>",{ "class" : "hashtag-wrapper"}),
+                $tag = $("<li/>",{ "class" : "hashtag-list" }),
+                inKeyCode= event.which,
+                value = $this.val().trim(),
+                endCommand = inKeyCode == keyCode.enter || inKeyCode == keyCode.space,
+                deleteCommand = inKeyCode == keyCode.delete,
+                wrapperExist = $this.prev("ul").length == 0;
+                if(endCommand && value != ""){
+                    if(wrapperExist) $tagWrap.prependTo($wrapper);
+                    $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalFunc.deleteTag).appendTo(".hashtag-wrapper");
+                    $this.val(null);
+                
+                }
+                else if(deleteCommand && value == ""){
+                    $(".hashtag-list:last-child").remove();
+                }
+            },
+            deleteTag: function(event){
+                $this = $(this);
+                $this.remove();
+                console.log("tag is deleted");
+            },
+            showCCsetting: function(event){
+                var $this = $(this).find(".cc-setting-bt"),
+                $ccSettingWrap = new modalKit.create(null,"cc-setting").addClass("cc-setting-wrapper"),
+                $ccSettingInner = $ccSettingWrap.find(".modal-wrapper").addClass("cc-setting-inner-wrapper"),
+
+                $ccSection = $("<div/>",{ "class" : "cc-section" }),
+                $ccTitleWrap = $("<div/>",{ "class" : "cc-title-wrapper" }),
+                $ccRadio = $("<input/>",{"type" : "radio", "class" : "license-selector", "name" : "cc-info", "data-value": "" }),
+                $ccTitle = $("<span/>",{ "class" : "cc-title"}),
+
+                $cclistWrap = $("<ul/>",{ "class" : "cc-checklist-wrapper" }),
+                $cclist = $("<li>",{ "class" : "cc-checklist"}),
+                $ccCheckBox = $("<input/>",{ "type" : "checkbox", "class" : "cc-checkbox", "data-value" : ""}),
+                $ccCheckDesc = $("<span/>",{ "class" : "cc-desc" }),
+                $learnMore = $("<a/>",{ "class" : "goto-cc", "href" : "#", "target" : "_blank"});
+
+                selected = $this.hasClass("selected"), //bool
+                notExist = $(document).find(".cc-setting-wrapper").length == 0; //bool
+
+                if(selected){
+                    if(notExist) {
+                        var makeCC = $ccSettingWrap.appendTo($(".initEditor")),
+                        useCC = $ccSection.clone().addClass("useCC").append($ccTitleWrap.clone()
+                        .append($ccRadio.clone().prop("checked",true).attr("data-value","useCC"))
+                        .append($ccTitle.clone().html("Creative Commons License"))).appendTo($(".cc-setting-inner-wrapper")).hide().stop().fadeIn(400),
+                        listWrap = $cclistWrap.appendTo($(".useCC")),
+                        addlist = function(){
+                            for(var i = 0, l = ccData.length; i < l; i++){
+                                var disabled, checked;
+                                if(i == 0) continue;
+                                else if(i == 1) disabled = true, checked = true;
+                                else if(i == 2 || i == 3) disabled = false, checked = true;
+                                else if(i == 4) disabled = true, checked = false;
+                                $cclist.clone()
+                                .append($ccCheckBox.clone().attr({"data-value":ccData[i].id,"name":"cc-check"}).prop({"disabled" : disabled,"checked" : checked}))
+                                .append($ccCheckDesc.clone().html(ccData[i].descript))
+                                .appendTo($(".cc-checklist-wrapper"))
+                            }
+                        }(),
+                        withoutCC = $ccSection.clone().addClass("withoutCC").append($ccTitleWrap.clone()
+                        .append($ccRadio.clone().prop("checked",false).attr("data-value","withoutCC"))
+                        .append($ccTitle.clone().html("NO USAGE WITHOUT OWNER’S PERMISSION"))).appendTo($(".cc-setting-inner-wrapper"));
+
+                        $(".license-selector").on("change",modalFunc.useCC);
+                        $(".cc-checkbox").on("change",modalFunc.displayCC).on("change",modalFunc.makelinkCC);
+                        modalKit.align($(".cc-setting-wrapper"));
+                    }//create cc
+                    else $(".cc-setting-wrapper").fadeIn(400);
+                }
+                else{
+                    $(".cc-setting-wrapper").fadeOut(400);
+                }
+            },
+            useCC: function(){
+                $this = $(this),
+                data = $this.data("value"),
+                $target = $(document).find(".cc-checklist-wrapper");
+                if(data == "useCC") {
+                    $target.slideDown(400);
+                    $(".cc-list-link").show();
+                }
+                else if(data == "withoutCC"){
+                    $target.slideUp(400);
+                    $(".cc-list-link").hide();
+                } 
+            },
+            displayCC: function(){
+                $this = $(this),
+                selected = $this.prop("checked"),
+                data = $this.data("value"),
+                $target = $(".cc-list[data-value='" + data + "']");
+                if(data == "nd" || data == "sa") modalFunc.ccNDSA();
+                if(!selected) $target.stop().fadeOut(400);
+                else $target.stop().fadeIn(400);
+            },
+            ccNDSA: function(){ //if you select nd(sa), sa(nd) will be disabled.
+                $nd = $(".cc-checkbox[data-value='nd']"),
+                $sa = $(".cc-checkbox[data-value='sa']");
+
+                if($nd.prop("checked")) $sa.prop("disabled",true);
+                else if($nd.prop("checked") == false) $sa.prop("disabled", false);
+
+                if($sa.prop("checked")) $nd.prop("disabled",true);
+                else if($sa.prop("checked") == false) $nd.prop("disabled", false);
+            },
+            makelinkCC: function(){
+                var link = [],
+                checked = $(".cc-checkbox[name='cc-check']:checked");
+                checked.each(function(){
+                    var data = $(this).data("value"),
+                    addData = link.push(data),
+                    checkedData = link.join("-"),
+                    ccUrl = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
+                    $(".cc-list-link").attr("href", ccUrl);
+                });   
+            }
+        },
+        headerTool = {
+
+        },
+        canvasTool = {
+            
+        },
+        toolbar = {
+            createButton: function(data,iconData){
+                var tipData = disableCamelCase(data);
+                var button = $("<div/>",{"class" : "btn", "data-value" : data, "data-tip" : tipData }),
+                icon = $("<i/>",{"class" : iconData}).appendTo(button);
+
+                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle).tooltip({"top":5,"left" : 50});
+
+                function disableCamelCase(text){ //camelCase -> Camel Case
+                    var result = text.replace( /([A-Z])/g, " $1" ),
+                    result = result.charAt(0).toUpperCase() + result.slice(1);
+                    return result;
+                }
+                return button;
+            },
+            toolbarToggle: function(){
+                var $this = $(this),
+                value = $this.data("value"),
+                toolBoxes = $(document).find(".toolbox-wrap"),
+                toolBox = $(".toolbox-wrap[data-value=" + value + "]"),
+                $darkOverlay = $(document).find(".dark_overlay");
+                if($this.hasClass("selected")) {
+                    toolBoxes.fadeOut(200);
+                    toolBox.fadeIn(200);
+                    //if(toolBox.hasClass("modal")) $darkOverlay.fadeIn(200);
+                }
+                else toolBox.fadeOut(200);
+            },
+            createMenu: function(content,name){
+                var body = $("<div>",{ "class" : "toolbox-inner" }),
+                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
+                if(content !== null && typeof content === "object"){
+                    if(content.length === 1){
+                        content.appendTo(body);
+                    }
+                    else{
+                        for(var i = 0, l = content.length; i < l; i++){
+                            content[i].appendTo(body);
+                        }
+                    }
+                    return body;
+                }
+                else {
+                    return body
+                }
+            },
+            lightTool: function(){
+                var $this = $(document).find("#textTool-toolbox");
+                
+            },
+            lightFn: {
+                
+            },
+            materialTool: function(){
+                var $this = $(document).find("#materialTool-toolbox");
+
+                var $selectBox = $("<select/>",{ "id" : "material-selector" }).hide(),
+                $materialSelector = new toolbar.createMenu($selectBox,"Materials").attr({"id" : "materialSelect-tool","data-value" : "material-select"}).appendTo($this);
+                
+                var $materialDiffuse = new toolbar.createMenu(null,"Diffuse").attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
+                var $materialSpecular = new toolbar.createMenu(null,"Specular").attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
+                var $materialNormal = new toolbar.createMenu(null,"Normal").attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
+
+                var $controllerBody = $("<div/>",{ "class" : "material-controller" }),
+                $tabBtWrap = $("<div/>",{ "class" : "material-tab-bt-wrapper" }).appendTo($controllerBody),
+                $tabLeftBt = $("<div/>",{ 
+                    "class" : "material-tab btn selected",
+                    "html" : "Texture",
+                    "data-value" : "texture"
+                }).on("click",pac.toggle).on("click",toolbar.materialFn.materialTab).appendTo($tabBtWrap),
+                $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-value","color").removeClass("selected").appendTo($tabBtWrap),
+
+                $tabBody = $("<div/>",{ "class" : "material-control-inner" }).appendTo($controllerBody);
+                
+                $controllerBody.clone(true).attr("data-value","diffuse").appendTo($materialDiffuse);//diffuse
+                $controllerBody.clone(true).attr("data-value","sepecular").appendTo($materialSpecular);//specular
+                $controllerBody.clone(true).attr("data-value","normal").appendTo($materialNormal);
+
+                toolbar.materialFn.addController();
+            },
+            materialFn: {
+                addController: function(){
+                    var $targets = $(document).find(".material-control-inner"),
+                    $wrapper = $("<div/>",{ "class" : "material-control-panel"}),
+                    $viewer = $("<div/>", { "class" : "material-control-viewer" }).appendTo($wrapper),
+                    $textureViewer = $("<img/>",{
+                        "class" : "texture-viewer material-viewer",
+                        "src" : icons.transparent,
+                        "data-value" : "texture-modal"
+                    }).on("click",modalKit.show).appendTo($viewer),
+                    $colorViewer = $("<input/>",{ "type" : "text", "class" : "colorKey" }).appendTo($viewer),
+                    $slider = $("<input/>",{
+                        "class" : "material-control-slider sliderKey",
+                        "type" : "range",
+                        "value" : 100,
+                        "max" : 100,
+                        "min" : 0
+                    }).appendTo($wrapper);
+
+                    $targets.each(function(){
+                        $wrapper.clone(true).appendTo($(this));
+                        $(this).find(".colorKey").spectrum({
+                            replacerClassName: "color-viewer material-viewer",
+                            color: "#ffffff",
+                            showInput: true,
+                            showAlpha: true,
+                            showInitial: true,
+                            preferredFormat: "hex3",
+                            showPalette: true,
+                            palette: [],
+                            showSelectionPalette: true,
+                            selectionPalette: [],
+                            move: toolbar.materialFn.materialColor,
+                            change: toolbar.materialFn.materialColor
+                        });
+                        $(this).find(".sliderKey").slider({
+                            callback: toolbar.materialFn.changeOpacity
+                        });
+                    });
+                },
+                materialRefresh: function(){
+                    var $target = $(document).find("#materialSelector"),
+                    options = $("<option/>",{"class" : "material-option"}),
+
+                    addOption = function(){
+                        if(group.children[0].material.type == "MultiMaterial"){
+                            var materials = group.children[0].material.materials;
+                            for(var i = 0, l = materials.length; i < l; i++){
+                                var material = materials[i],
+                                option = options.clone();
+                                option.text(material.name);
+                                option.attr("data-value",i);
+                                option.appendTo("#material-selector");
+                                if(i == 0) option.prop("selected",true);
+                            }
+                        }
+                    }();
+
+                    $("#material-selector").lubySelector({
+                        id : "materialSelector",
+                        width: "100%",
+                        float: "none",
+                        icon: "",
+                        callback: toolbar.materialFn.materialSelect
+                    });
+                },
+                materialSelect: function(){
+                    var selected = $("#material-selector").find("option:selected"),
+                    id = selected.data("value"),
+                    materials = group.children[0].material;
+                    material = materials.type == "MultiMaterial" ? materials.materials[id] : materials,
+                    color = material.color;
+
+                    material.color = new THREE.Color(0xffffff);
+                    setTimeout(function(){
+                        material.color = color;
+                    },200);
+                },
+                materialTab: function(){
+                    $this = $(this),
+                    $target = $this.parents(".material-controller").find("." + $(this).data("value") + "-viewer"),
+                    $viewers = $this.parents(".material-controller").find(".material-viewer"),
+                    selected = $this.hasClass("selected");
+                    if(selected){
+                        $viewers.hide();
+                        $target.show();
+                    }
+                    else $viewers.hide();
+                },
+                materialTexture: function(){
+                    upload.textureUpload();
+                },
+                materialColor: function(color){
+                    var $this = $(this),
+                    $materials = group.children[0].material,
+                    color = color.toRgbString();
+
+                    if($materials.type == "MeshPhongMaterial"){}
+                    else if($materials.type == "MultiMaterial"){
+                        var id = $("#material-selector").find("option:selected").data("value"),
+                        $material = $materials.materials[id],
+                        kind = $this.parents(".material-controller").data("value");
+
+                        switch(kind){
+                            case "diffuse" : $material.color = new THREE.Color(color); break;
+                            case "specular" : $material.specularColor = new THREE.Color(color); break;
+                            default : $.error("color Error"); break;
+                        }
+                    }   
+                },
+                changeOpacity: function(val,selector){
+                    var $this = selector,
+                    val = val*0.01,
+                    $materials = group.children[0].material;
+
+                    if($materials.type == "MeshPhongMaterial"){}
+                    else if($materials.type == "MultiMaterial"){
+                        var id = $("#material-selector").find("option:selected").data("value"),
+                        $material = $materials.materials[id],
+                        kind = $this.parents(".material-controller").data("value");
+                        console.log(kind);
+                        switch(kind){
+                            case "diffuse" : $material.opacity = val; break;
+                            default : $.error("opacity Error"); break;
+                        }
+                    }
+                }
+            },
+            backgroundTool: function(){
+                var $this = $(document).find("#gridTool-toolbox");
+                
+            },
+            gridFn: {
+                
+            }
+        },
+        method = {
+            destroy: function () {
+                return this.each(function () {
+                    console.log("tested");
+                })
+            }
+        }
+        return method[option] ? 
+        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
+        "object" != typeof option && option ? 
+            ($.error('No such method "' + option + '" for the Editor instance'), void 0) : 
+            pac.init.apply(this, arguments);
+};
+})(jQuery);

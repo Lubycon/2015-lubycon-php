@@ -43,7 +43,9 @@ var iconPack = {
       "layer" : "fa fa-object-ungroup",
       "help" : "fa fa-question",
       "box" : "fa fa-archive",
-
+      "bulb" : "fa fa-lightbulb-o",
+      "cube" : "fa fa-cube",
+      "transparent" : "../../img/transparent.png",
       "upload" : "fa fa-cloud-upload",
       "download" : "fa fa-inbox"
 }

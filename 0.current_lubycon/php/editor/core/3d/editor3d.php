@@ -14,7 +14,7 @@
 <link href="../../module/css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/cropper.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/chosen.css" rel="stylesheet" type="text/css" />
-<link href="./editor2d.css" rel="stylesheet" type="text/css" />
+<link href="./editor3d.css" rel="stylesheet" type="text/css" />
 <link href="../../../../css/editor.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../data/icons.json"></script>
@@ -30,7 +30,18 @@
 <script type="text/javascript" src="../../module/js/chosen.jquery.js"></script>
 <script type="text/javascript" src="../../module/js/html2canvas.js"></script>
 <script type="text/javascript" src="../../module/js/resizeObject.js"></script>
-<script type="text/javascript" src="./editor2d.js"></script> 
+
+<script type="text/javascript" src="../../module/js/3d/three.min.js"></script>
+
+<script type="text/javascript" src="../../module/js/3d/3dLoader.js"></script>
+<script type="text/javascript" src="../../module/js/3d/ShadowMaterial.js"></script>
+<script type="text/javascript" src="../../module/js/3d/DragControls.js"></script>
+<script type="text/javascript" src="../../module/js/3d/OrbitControls.js"></script>
+<script type="text/javascript" src="../../module/js/3d/stats.min.js"></script> <!--get fps-->
+<script type="text/javascript" src="../../module/js/3d/dat.gui.min.js"></script> <!--get controller-->
+<script tpye="text/javascript" src="../../module/js/3d/threex.domevents.js"></script>
+
+<script type="text/javascript" src="./editor3d.js"></script> 
 
 <!-- editor css -->
 <section id="editor-container" class="initEditor"></section>
@@ -38,7 +49,7 @@
 //php variable setting
     $contents_cate = $_GET["cate"];
 
-    $allow_array = ['artwork','vector'];
+    $allow_array = ['threed'];
 
     if( in_array($contents_cate , $allow_array) ){
         echo 
