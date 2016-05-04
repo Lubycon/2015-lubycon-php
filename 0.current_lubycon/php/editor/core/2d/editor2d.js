@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          editor2d.js
- *  Updated:       2016-04-30
+ *  Updated:       2016-05-04
  *  Version:       0.1.1
  *  Created by:    DART, Lubycon.co
  *
@@ -472,32 +472,33 @@
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
                 typeCheck = /(^image|application)\/(jpeg|png|bmp|zip)/i.test(type),
                 alertKey = $(document).find(".alertKey").off("click");
-                console.log(alertKey);
                 if(size < 31457280){
                     if(typeCheck) return true;
                     else {
-                        console.log("type false");
                         alertKey.lubyAlert({
                             width: 300,
-                            height: 100,
-                            textSize: 15,
-                            customIcon: "",//font awesome
+                            height: 150,
+                            textSize: 14,
+                            customIcon: icons.box,
                             customText: "You have to upload 'zip,jpg,gif,png,bmp' files",
-                            customAnimation: ""
+                            inSpeed: 600,
+                            stoptime: 600,
+                            outSpeed: 1000
                         });
                         alertKey.trigger("click");
                         return false;
                     }
                 } 
                 else {
-                    console.log("size false");
                     alertKey.lubyAlert({
                         width: 500,
-                        height: 100,
-                        textSize: 12,
-                        customIcon: "",//font awesome
+                        height: 150,
+                        textSize: 14,
+                        customIcon: icons.box,
                         customText: "Your File is so big. Limit 10MB. This file is " + parseInt(size/1024/1024) + "MB",
-                        customAnimation: ""
+                        inSpeed: 600,
+                        stoptime: 600,
+                        outSpeed: 1000
                     });
                     alertKey.trigger("click");
                     return false;
@@ -506,17 +507,38 @@
             imgCheck: function(file){
                 var size = file.size, // 10MB
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
-                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type);
+                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type),
+                alertKey = $(document).find(".alertKey").off("click");
 
                 if(size < 10485760){
                     if(typeCheck) return true;
                     else {
-                        alert("You have to upload 'jpg,gif,png,bmp' files");
+                        alertKey.lubyAlert({
+                            width: 300,
+                            height: 150,
+                            textSize: 14,
+                            customIcon: icons.box,
+                            customText: "You have to upload ' jpg,gif,png,bmp ' files",
+                            inSpeed: 600,
+                            stoptime: 600,
+                            outSpeed: 1000
+                        });
+                        alertKey.trigger("click");
                         return false;
                     }
                 } 
                 else {
-                    alert("Your File is so big. Limit 10MB. This file is " + parseInt(size/1024/1024) + "MB");
+                    alertKey.lubyAlert({
+                        width: 300,
+                        height: 150,
+                        textSize: 14,
+                        customIcon: icons.box,
+                        customText: "Your File is so big. Limit 30MB. This file is " + parseInt(size/1024/1024) + "MB",
+                        inSpeed: 600,
+                        stoptime: 600,
+                        outSpeed: 1000
+                    });
+                    alertKey.trigger("click");
                     return false;
                 }
             },
@@ -616,36 +638,38 @@
                 cropBoxWidth = $target.width(),
                 cropBoxHeight = $target.height();
 
-                $.each($object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        var img = $("<img/>").attr("src", event.target.result).appendTo($target)
-                        .cropper({
-                            minContainerWidth: cropBoxWidth,
-                            minContainerHeight: cropBoxHeight,
-                            minCanvasWidth: cropBoxWidth,
-                            minCanvasHeight: cropBoxHeight,
-                            autoCropArea: 1,
-                            viewMode: 3,
-                            modal: false,
-                            center: false,
-                            guides: false,
-                            background: false,
-                            highlight: false,
-                            cropBoxMovable: false,
-                            cropBoxResizable: false,
-                            zoomOnTouch: false,
-                            toggleDragModeOnDblclick: false,
-                            dragMode: "move"
-                        }); 
-                        $inputFile.val(null);
-                        $this.attr("data-value","grid-replace").hide();
-                        $(".uploading").removeClass("uploading");
-                        toolbar.sortFn.refresh();
-                    }
-                });
-                console.log("grid upload");
+                if(upload.imgCheck($object[0])){
+                    $.each($object, function(i,file){
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(event){
+                            var img = $("<img/>").attr("src", event.target.result).appendTo($target)
+                            .cropper({
+                                minContainerWidth: cropBoxWidth,
+                                minContainerHeight: cropBoxHeight,
+                                minCanvasWidth: cropBoxWidth,
+                                minCanvasHeight: cropBoxHeight,
+                                autoCropArea: 1,
+                                viewMode: 3,
+                                modal: false,
+                                center: false,
+                                guides: false,
+                                background: false,
+                                highlight: false,
+                                cropBoxMovable: false,
+                                cropBoxResizable: false,
+                                zoomOnTouch: false,
+                                toggleDragModeOnDblclick: false,
+                                dragMode: "move"
+                            }); 
+                            $inputFile.val(null);
+                            $this.attr("data-value","grid-replace").hide();
+                            $(".uploading").removeClass("uploading");
+                            toolbar.sortFn.refresh();
+                        }
+                    });
+                }
+                else $inputFile.val(null);
             },
             textUpload: function(event){
                 var $this = $(this),

@@ -42,6 +42,7 @@ var iconPack = {
       "grid" : "fa fa-th-large",
       "layer" : "fa fa-object-ungroup",
       "help" : "fa fa-question",
+      "box" : "fa fa-archive",
 
       "upload" : "fa fa-cloud-upload",
       "download" : "fa fa-inbox"

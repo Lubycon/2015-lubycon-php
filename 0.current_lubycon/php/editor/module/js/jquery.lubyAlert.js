@@ -16,6 +16,7 @@
             height: 170,
             kind: "custom",//bookmark,like,success,cancel,confirm,prompt,custom
             inSpeed: 500,
+            stoptime: 500,
             outSpeed: 700,
             customIcon: "",//font awesome
             customText: "",
@@ -61,10 +62,7 @@
                 }),
                 alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon " + icon}).appendTo(alertInner),
-                alertText = $("<p/>",{"class":"lubyAlertText","html":text}).css({
-                    "font-size" : d.textSize+"px",
-                    "line-height" : d.height+"px"
-                }).appendTo(alertInner),
+                alertText = $("<p/>",{"class":"lubyAlertText","html":text}).css({ "font-size" : d.textSize+"px" }).appendTo(alertInner),
                 
                 okBt = $("<div/>",{"class":"lubyOk lubyButton","html":"OK"}),
                 cancelBt = $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}),
@@ -162,7 +160,7 @@
                             $this.remove();
                             d.callback();
                         })
-                    },500);
+                    },d.stoptime);
                     console.log("destroyAlert");
                 } 
             },
