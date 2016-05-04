@@ -20,6 +20,7 @@
             customIcon: "",//font awesome
             customText: "",
             customAnimation: "",
+            textSize: 30,
             toggle: false,
             callback: null
         },
@@ -60,7 +61,10 @@
                 }),
                 alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon " + icon}).appendTo(alertInner),
-                alertText = $("<p/>",{"class":"lubyAlertText","html":text}).appendTo(alertInner),
+                alertText = $("<p/>",{"class":"lubyAlertText","html":text}).css({
+                    "font-size" : d.textSize+"px",
+                    "line-height" : d.height+"px"
+                }).appendTo(alertInner),
                 
                 okBt = $("<div/>",{"class":"lubyOk lubyButton","html":"OK"}),
                 cancelBt = $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}),

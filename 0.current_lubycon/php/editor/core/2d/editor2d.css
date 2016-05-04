@@ -67,6 +67,17 @@ a {
     left: 40px;
     background: #444444;
 }
+    .modal.file-selector-modal .file-selector-help {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        border-radius: 50%;
+        margin-left: 10px;
+        background: #333333;
+        color: #eeeeee;
+        font-size: 12px;
+    }
     .modal.embed-modal > .modal-wrapper{
         width: 450px;
     }

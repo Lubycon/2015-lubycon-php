@@ -5,7 +5,7 @@
     border-radius: 5px;
     text-align: center;
     padding: 15px;
-    z-index: 1000;
+    z-index: 50000;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -36,7 +36,6 @@
     .lubyWrapper > .lubyAlertText{
         width: 100%;
         color: #ffffff;
-        font-size: 30px;
         font-weight: 200;
         text-overflow: ellipsis;
         white-space: nowrap;

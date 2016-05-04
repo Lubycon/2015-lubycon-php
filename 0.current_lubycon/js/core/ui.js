@@ -186,11 +186,10 @@ $(function(){
 
         $darkOverlay.on("click",modalHide);
         $("body").on("click",".modal-closebt",modalHide);
-        $("body").on("click",".modal-cancelbt",modalHide);
+        $("body").on("click",".modal-bt",modalHide);
 
         function modalHide(){
             var $this = $(this),
-            $target = $modal,
             data = $this.data("value");
 
             if(data === "dark_overlay"){

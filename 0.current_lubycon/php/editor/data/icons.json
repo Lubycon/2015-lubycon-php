@@ -41,6 +41,7 @@ var iconPack = {
       "refresh" : "fa fa-refresh",
       "grid" : "fa fa-th-large",
       "layer" : "fa fa-object-ungroup",
+      "help" : "fa fa-question",
 
       "upload" : "fa fa-cloud-upload",
       "download" : "fa fa-inbox"
