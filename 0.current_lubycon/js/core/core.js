@@ -139,19 +139,12 @@ $(function(){
         if($this.hasClass("selected")){
             $this.removeClass("selected");
             $menuList.stop().fadeOut(200);
-            $("html").off("click");
+            $menuList.off("hideAnywhere");
         }
         else{
             $this.addClass("selected");
             $menuList.stop().fadeIn(200);
-            $("html").on("click", function (event) {
-                var $this = $(event.target);
-                $this.hideAnywhere($this,$personalMenu,$menuList,{
-                    a:"#user_id",
-                    b:"#display_user",
-                    c:"#accountImg"
-                });
-            });
+            $menuList.hideAnywhere($this);
         }
 	});
 });
@@ -380,19 +373,14 @@ $(function(){
     $button.click(function(){
         var $this = $(this);
         if($button.hasClass("selected")){
-            $object.stop().fadeOut(200);
             $button.removeClass("selected");
+            $object.stop().fadeOut(200);
+            $object.off("hideAnywhere")
         }
         else{
             $object.stop().fadeIn(200);
             $button.addClass("selected");
-            $("html").on("click", function (event) {
-                var $this = $(event.target);
-                $this.hideAnywhere($this,$button,$object,{
-                    a:"#view_descript",
-                    b:"#descript_box"
-                });
-            });
+            $object.hideAnywhere($this);
         }
     })
 });
@@ -522,16 +510,12 @@ $(function(){
             if($this.hasClass("selected")){
                 $menu.stop().fadeOut(200);
                 $this.removeClass("selected");
+                $menu.off("hideAnywhere");
             }
             else{
                 $this.addClass("selected");
                 $menu.stop().fadeIn(200);
-                $("html").on("click", function (event) {
-                    var $this = $(event.target);
-                    $this.hideAnywhere($this,$button,$menu,{
-                        a:"#myinfo_setting"
-                    });
-                });
+                $menu.hideAnywhere($this);
             };
         });
     };
@@ -548,18 +532,13 @@ $(function(){
             if($this.hasClass("selected")){
                 $this.removeClass("selected");
                 $menu.stop().fadeOut(200);
-                console.log("a");
+                $menu.off("hideAnywhere");
             }
             else{
-                console.log("b");
+
                 $this.addClass("selected");
                 $menu.stop().fadeIn(200);
-                $("html").on("click", function (event) {
-                    var $this = $(event.target);
-                    $this.hideAnywhere($this,$button,$menu,{
-                        a:".creator_menu_icon"
-                    });
-                });
+                $menu.hideAnywhere($this);
             }
         });
     });

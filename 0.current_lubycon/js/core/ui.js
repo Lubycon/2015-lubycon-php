@@ -5,6 +5,7 @@
 //3. tooltip
 //4. hideAnywhere
 //5. modal
+//6. toggle
 /////////////////////////////////////////////////////////
 //      lubySelector enable
 /////////////////////////////////////////////////////////
@@ -151,27 +152,26 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
 /////////////////////////////////////////////////////////
 //      hideAnywhere start
 /////////////////////////////////////////////////////////
-$.fn.hideAnywhere = function(selector,button,list,target){
+$.fn.hideAnywhere = function(){
     this.each(function(){
-        var $this = selector,//event.target
-        $button = button,
-        $list = list,
-        defaults = {
-            a:"",
-            b:"",
-            c:"",
-            d:"",
-            e:"",
-            f:""
-        },
-        d = $.extend({}, defaults, target),
-        bool = $this.is(d.a)||$this.is(d.b)||$this.is(d.c)||$this.is(d.d)||$this.is(d.e)||$this.is(d.f);
-        if(bool==false){
-            $button.removeClass("selected");
-            $list.fadeOut(200);
-        } 
-        return this;
-    }); 
+        var $menu = $(this),
+        $button = $menu.parents(".selected").length == 0 ? $menu.siblings(".selected") : $menu.parents(".selected");
+
+        $("html").off("click").on("click",hideMenu);
+
+        function hideMenu(event){
+            event.stopPropagation();
+            var $this = $(event.target),
+            checkElement = !$this.is($menu) && !$this.is($button) && $button.has($this).length == 0;
+
+            console.log(checkElement);
+            if(checkElement) {
+                $menu.fadeOut(200);
+                $button.removeClass("selected");
+            }
+        }
+    });
+    return this;
 };
 /////////////////////////////////////////////////////////
 //      hideAnywhere end
@@ -215,4 +215,11 @@ $(function(){
 })
 /////////////////////////////////////////////////////////
 //      modalAction end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      toogle action start
+/////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////
+//      toogle action end
 /////////////////////////////////////////////////////////

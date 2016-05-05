@@ -25,7 +25,7 @@
                 <li class="nav_menu" id="vector">
                     <a href="./contents_page.php?cate=vector">Vector</a>
                 </li>
-                <li class="nav_menu" id="3d"> 
+                <li class="nav_menu" id="threed"> 
                     <a href="./contents_page.php?cate=threed">3D</a>
                 </li>
             </ul>
