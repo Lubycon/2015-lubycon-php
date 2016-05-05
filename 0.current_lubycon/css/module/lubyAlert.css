@@ -14,7 +14,6 @@
 .lubyAlert > .lubyWrapper{
     width: 100%;
     display: inline-block;
-    margin-top: 28px;
 }
     .lubyWrapper > .lubyAlertIcon{
         color: #ffffff;

@@ -235,6 +235,7 @@
                 fileSelector: function(){
                     var modal = new modalKit.create(null,"file-selector-modal"),
                     wrapper = modal.find(".modal-wrapper"),
+                    closebt = modal.find(".modal-closebt").remove(),
                     title = modal.find(".modal-title").text("File Select"),
                     content = modal.find(".modal-content"),
                     okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
@@ -245,8 +246,8 @@
                     uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find", "data-value" : "newOBJUpload" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
                     fileSelectHelp = $("<i/>",{ 
                         "class" : icons.help + " file-selector-help",
-                        "data-tip" : "You can upload maximun 30MB"
-                    }).tooltip({"top" : 30, "left" : -50}).appendTo(fileInputWrap);
+                        "data-tip" : "Your file size must be under 30MB. The file extension must be OBJ"
+                    }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
 
 
 
@@ -443,14 +444,18 @@
                 } 
                 else {
                     alertKey.lubyAlert({
-                        width: 500,
-                        height: 150,
+                        kind: "confirm",
+                        okAlert: false,
+                        cancelButton: false,
+                        cancelAlert: false,
+                        width: 450,
+                        height: 180,
                         textSize: 14,
                         customIcon: icons.box,
-                        customText: "Your File is so big. Limit 10MB. This file is " + parseInt(size/1024/1024) + "MB",
+                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 30MB.",
                         inSpeed: 600,
-                        stoptime: 600,
-                        outSpeed: 1000
+                        stoptime: 1000,
+                        outSpeed: 600
                     });
                     alertKey.trigger("click");
                     return false;
@@ -466,14 +471,18 @@
                     if(typeCheck) return true;
                     else {
                         alertKey.lubyAlert({
+                            kind: "confirm",
+                            okAlert: false,
+                            cancelButton: false,
+                            cancelAlert: false,
                             width: 300,
-                            height: 150,
+                            height: 170,
                             textSize: 14,
                             customIcon: icons.box,
-                            customText: "You have to upload ' jpg,gif,png,bmp ' files",
+                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
                             inSpeed: 600,
-                            stoptime: 600,
-                            outSpeed: 1000
+                            stoptime: 1000,
+                            outSpeed: 600
                         });
                         alertKey.trigger("click");
                         return false;
@@ -481,13 +490,17 @@
                 } 
                 else {
                     alertKey.lubyAlert({
-                        width: 300,
-                        height: 150,
+                        kind: "confirm",
+                        okAlert: false,
+                        cancelButton: false,
+                        cancelAlert: false,
+                        width: 450,
+                        height: 180,
                         textSize: 14,
                         customIcon: icons.box,
-                        customText: "Your File is so big. Limit 30MB. This file is " + parseInt(size/1024/1024) + "MB",
+                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 10MB.",
                         inSpeed: 600,
-                        stoptime: 600,
+                        stoptime: 800,
                         outSpeed: 1000
                     });
                     alertKey.trigger("click");
@@ -845,7 +858,7 @@
                     $textureViewer = $("<img/>",{
                         "class" : "texture-viewer material-viewer",
                         "src" : icons.transparent,
-                        "data-value" : "texture-modal"
+                        "data-value" : "texture-window"
                     }).on("click",modalKit.show).appendTo($viewer),
                     $colorViewer = $("<input/>",{ "type" : "text", "class" : "colorKey" }).appendTo($viewer),
                     $slider = $("<input/>",{

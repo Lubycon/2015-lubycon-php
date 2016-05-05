@@ -230,8 +230,8 @@
                     uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
                     fileSelectHelp = $("<i/>",{ 
                         "class" : icons.help + " file-selector-help",
-                        "data-tip" : "You can upload maximun 30MB"
-                    }).tooltip({"top" : 30, "left" : -50}).appendTo(fileInputWrap);
+                        "data-tip" : "Your file size must be 30MB. The file extension must be ZIP,JPEG,PNG, or BMP"
+                    }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
 
                     function initInput(){ fileViewer.val(""); };
 
@@ -476,14 +476,15 @@
                     if(typeCheck) return true;
                     else {
                         alertKey.lubyAlert({
+                            kind: "confirm",
+                            okAlert: false,
+                            cancelButton: false,
+                            cancelAlert: false,
                             width: 300,
-                            height: 150,
+                            height: 170,
                             textSize: 14,
                             customIcon: icons.box,
-                            customText: "You have to upload 'zip,jpg,gif,png,bmp' files",
-                            inSpeed: 600,
-                            stoptime: 600,
-                            outSpeed: 1000
+                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension."
                         });
                         alertKey.trigger("click");
                         return false;
@@ -491,14 +492,15 @@
                 } 
                 else {
                     alertKey.lubyAlert({
-                        width: 500,
-                        height: 150,
+                        kind: "confirm",
+                        okAlert: false,
+                        cancelButton: false,
+                        cancelAlert: false,
+                        width: 450,
+                        height: 180,
                         textSize: 14,
                         customIcon: icons.box,
-                        customText: "Your File is so big. Limit 10MB. This file is " + parseInt(size/1024/1024) + "MB",
-                        inSpeed: 600,
-                        stoptime: 600,
-                        outSpeed: 1000
+                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 30MB."
                     });
                     alertKey.trigger("click");
                     return false;
@@ -514,14 +516,15 @@
                     if(typeCheck) return true;
                     else {
                         alertKey.lubyAlert({
+                            kind: "confirm",
+                            okAlert: false,
+                            cancelButton: false,
+                            cancelAlert: false,
                             width: 300,
-                            height: 150,
+                            height: 170,
                             textSize: 14,
                             customIcon: icons.box,
-                            customText: "You have to upload ' jpg,gif,png,bmp ' files",
-                            inSpeed: 600,
-                            stoptime: 600,
-                            outSpeed: 1000
+                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension."
                         });
                         alertKey.trigger("click");
                         return false;
@@ -529,14 +532,15 @@
                 } 
                 else {
                     alertKey.lubyAlert({
-                        width: 300,
-                        height: 150,
+                        kind: "confirm",
+                        okAlert: false,
+                        cancelButton: false,
+                        cancelAlert: false,
+                        width: 450,
+                        height: 180,
                         textSize: 14,
                         customIcon: icons.box,
-                        customText: "Your File is so big. Limit 30MB. This file is " + parseInt(size/1024/1024) + "MB",
-                        inSpeed: 600,
-                        stoptime: 600,
-                        outSpeed: 1000
+                        customText: "The file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 10MB."
                     });
                     alertKey.trigger("click");
                     return false;

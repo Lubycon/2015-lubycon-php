@@ -23,6 +23,10 @@
             customAnimation: "",
             textSize: 30,
             toggle: false,
+            okButton: true,
+            cancelButton: true,
+            okAlert: true,
+            cancelAlert: true,
             callback: null
         },
         d = {},
@@ -64,8 +68,8 @@
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon " + icon}).appendTo(alertInner),
                 alertText = $("<p/>",{"class":"lubyAlertText","html":text}).css({ "font-size" : d.textSize+"px" }).appendTo(alertInner),
                 
-                okBt = $("<div/>",{"class":"lubyOk lubyButton","html":"OK"}),
-                cancelBt = $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}),
+                okBt = d.okButton ? $("<div/>",{"class":"lubyOk lubyButton","html":"OK"}) : "",
+                cancelBt = d.cancelButton ? $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}) : "",
                 
                 alertInput = d.kind=="prompt" ? 
                 $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).on("keydown",pac.keyEvent).focus() 
@@ -106,7 +110,7 @@
                 windowHeight = $(window).height(),
                 objectY = ((windowHeight*0.5) - (170*0.5)),
                 objectX = ((170*0.5)*-1),
-                alertBody = $("<div/>",{
+                alertBody = d.okAlert ? $("<div/>",{
                     "class" : "lubyAlert success"
                 }).css({
                     "width": 170,
@@ -116,7 +120,7 @@
                     "margin-left": objectX
                 }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
                     pac.destroyAlert(alertBody,"success");
-                }),
+                }) : "",
                 alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-check-circle rotateIn animated"}).appendTo(alertInner),
                 alertText = $("<p/>",{"class":"lubyAlertText","html":"Completed"}).appendTo(alertInner);
@@ -128,7 +132,7 @@
                 windowHeight = $(window).height(),
                 objectY = ((windowHeight*0.5) - (170*0.5)),
                 objectX = ((170*0.5)*-1),
-                alertBody = $("<div/>",{
+                alertBody = d.cancelAlert ? $("<div/>",{
                     "class" : "lubyAlert cancel"
                 }).css({
                     "width": 170,
@@ -138,7 +142,7 @@
                     "margin-left": objectX
                 }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
                     pac.destroyAlert(alertBody,"cancel");
-                }),
+                }) : "",
                 alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-times tada animated"}).appendTo(alertInner),
                 alertText = $("<p/>",{"class":"lubyAlertText","html":"Cancelled"}).appendTo(alertInner);
