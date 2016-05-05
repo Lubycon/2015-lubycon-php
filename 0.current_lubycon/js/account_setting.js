@@ -212,6 +212,7 @@ function showImage(input) {
                 dragMode: "crop"
             }).show();
             $("#cropper-preview").show().css("display","inline-block");
+            $("#cropper-window-wrapper > i").show().css("display","inline-block");
             $("#cropper-wrapper").show();
             $("#cropper_img").cropper("replace", e.target.result);
         }

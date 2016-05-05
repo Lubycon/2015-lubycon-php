@@ -42,6 +42,7 @@
                 <div id="cropper_account">
                     <div id="cropper-window-wrapper">
                         <div class="cropper-window" id="croped"></div>
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         <div class="cropper-window" id="cropper-preview"></div>
                     </div>
                     <div id="profile-bt-wrap">
