@@ -3,23 +3,31 @@
 <script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
 <script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <?php
-    $userjob = "UI/UX Designer";
-    $user_position = "Lubycon Co.";
-    $usercity = "City";
-    $usercountry = "Country";
-    $language1 = "Language1";
-    $language2 = "Language2";
+    require_once "../class/json_class.php";
+    $json_control = new json_control;
+    $json_control->json_decode('jobCode',"$one_depth/data/job.json");
+    $job_origin_select = $json_control->json_decode_code[$row['jobCode']];
+    $userjob = $job_origin_select;
+    
+    $json_control->json_decode('country',"$one_depth/data/country.json");
+    $country_origin_select = $json_control->json_decode_code[$row['countryCode']];
+    $usercountry = $country_origin_select;
+
+    $user_position = $row['company'];
+    $usercity = $row['city'];
+    $language1 = "Language1"; //not yet
+    $language2 = "Language2"; //not yet
 
     $total_like = 0;
     $total_view = 0;
     $total_up = 0;
     $total_down = 0;   
     
-    $username = "Admin_User";
-    $userWebsite = "www.lubycon.com";
-    $userEmail = "lorem@ipsum.com";
-    $localcity = "City";
-    $localcountry = "Country";
+    $username = $username;
+    $userWebsite = $row['web'];
+    $userEmail = $userid;
+    $localcity = $usercity;
+    $localcountry = $usercountry;
 ?>
 <div id="information_inbody">
     <ul id="dashboard_wrap">

@@ -1,7 +1,13 @@
 <aside id="personal_aside" class="con_aside">
     <?php
+        require_once '../database/database_class.php';
+	    $db = new Database();
+        $db->query = "SELECT * FROM `userbasic` INNER JOIN `userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = $usercode ";
+        $db->askQuery();
+        $row = mysqli_fetch_array($db->result);
+
         $user_pic = "$one_depth/../../Lubycon_Contents/user/$usercode/profile.jpg";
-        $user_intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";        
+        $user_intro = $row['description'];        
     ?>
     <div id="user_information">
         <div id="userinfo_main">

@@ -186,6 +186,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "creators_page", "creators_page", "{B5BAB6CF-31EF-4F58-AB26-627D58D8B67D}"
 	ProjectSection(SolutionItems) = preProject
 		php\creators_page\creators.php = php\creators_page\creators.php
+		php\creators_page\creators_login.php = php\creators_page\creators_login.php
+		php\creators_page\creators_logout.php = php\creators_page\creators_logout.php
 		php\creators_page\user_ranking.php = php\creators_page\user_ranking.php
 	EndProjectSection
 EndProject
