@@ -139,7 +139,7 @@
 
                 controls = new THREE.OrbitControls(camera, renderer.domElement);
                     controls.enableDamping = true;
-                    controls.dampingFactor = 0.15;
+                    controls.dampingFactor = 0.1;
                     controls.rotateSpeed = 0.5;
                     controls.zoomSpeed = 0.5;
 
@@ -268,7 +268,7 @@
 
                     var textureList = $("<ul/>",{"class" : "texture-list-wrapper" });
 
-                    var texture = new toolbar.materialFn.addTextureObject(icons.transparent,"None").attr("data-index","-1").addClass("selected default").appendTo(content);
+                    var texture = new toolbar.materialFn.addTextureObject(icons.transparent,"None").removeClass("custom").attr("data-index","-1").addClass("selected default").appendTo(content);
 
                     var uploadBt = $("<li/>",{"class" : "upload-bt btn", "data-value" : "newTexUpload"}).on("click",upload.fileUpTrigger),
                     uploadIcon = $("<i/>",{"class" : icons.plus}).appendTo(uploadBt)
@@ -599,7 +599,6 @@
                 selectMaterial = loadedMaterials[selectID],
                 materials = mesh.material.materials;
                 material = materials[targetID];
-
                 
                 switch(kind){
                     case "diffuse" : 
@@ -613,7 +612,7 @@
                     break;
                     default: break;
                 }
-                $(".uploading").attr("src",selectSRC).removeClass("uploading");
+                $(".uploading").attr({"src" : selectSRC, "data-index" : selectID }).removeClass("uploading");
 
                 function idCheck(id,kind){
                     if(id == -1){
@@ -923,7 +922,7 @@
                 var $controllerBody = $("<div/>",{ "class" : "material-controller" }),
                 $tabBtWrap = $("<div/>",{ "class" : "material-tab-bt-wrapper" }).appendTo($controllerBody),
                 $tabLeftBt = $("<div/>",{ 
-                    "class" : "material-tab btn selected",
+                    "class" : "material-tab btn",
                     "html" : "Texture",
                     "data-value" : "texture"
                 }).on("click",pac.toggle).on("click",toolbar.materialFn.materialTab).appendTo($tabBtWrap),
@@ -945,8 +944,9 @@
                     $textureViewer = $("<img/>",{
                         "class" : "texture-viewer material-viewer",
                         "src" : icons.transparent,
-                        "data-value" : "texture-window"
-                    }).on("click",ModalKit.show).appendTo($viewer),
+                        "data-value" : "texture-window",
+                        "data-index" : "-1"
+                    }).on("click",ModalKit.show).appendTo($viewer).on("click",toolbar.materialFn.textureWindowSync).hide(),
                     $colorViewer = $("<input/>",{ "type" : "text", "class" : "colorKey" }).appendTo($viewer),
                     $slider = $("<input/>",{
                         "class" : "material-control-slider sliderKey",
@@ -971,11 +971,20 @@
                             selectionPalette: [],
                             move: toolbar.materialFn.materialColor,
                             change: toolbar.materialFn.materialColor
-                        });
+                        }).hide();
                         $(this).find(".sliderKey").slider({
                             callback: toolbar.materialFn.changeOpacity
                         });
                     });
+                },
+                textureWindowSync: function(){
+                    $textureWindow = $(document).find(".modal.texture-window"),
+                    selectedTexture = $textureWindow.find(".texture-list.btn.selected"),
+                    index = $(document).find(".uploading").attr("data-index"),
+                    targetTexture = $textureWindow.find(".texture-list.btn[data-index='" + index + "']");
+                    
+                    selectedTexture.removeClass("selected");
+                    targetTexture.addClass("selected");
                 },
                 materialRefresh: function(){
                     var $target = $(document).find("#materialSelector"),
@@ -1018,27 +1027,28 @@
                     material = materials.type == "MultiMaterial" ? materials.materials[id] : materials,
                     color = material.color;
 
-                    diffuseColor = "#" + color.getHexString(),
-                    specularColor = "#" + material.specularColor.getHexString();
+                    var diffuseColor = "#" + color.getHexString(),
+                    specularColor = "#" + material.specular.getHexString();
 
+                    console.log(material.map);
                     //synchronize  material controller start
                     if(material.map !== null){
                         var diffuseTexture = material.map.image.currentSrc;
-                        $diffuseTool.find(textureViewer).attr("src",diffuseTexture);
+                        $diffuseTool.find(textureViewer).attr({"src" : diffuseTexture});
                     }
-                    else $diffuseTool.find(textureViewer).attr("src",icons.transparent);
+                    else $diffuseTool.find(textureViewer).attr({"src" : icons.transparent, "data-index" : "-1"});
 
                     if(material.specularMap !== null){
                         var specularTexture = material.specularMap.image.currentSrc;
                         $specularTool.find(textureViewer).attr("src",specularTexture);
                     }
-                    else $specularTool.find(textureViewer).attr("src",icons.transparent);
+                    else $specularTool.find(textureViewer).attr({"src" : icons.transparent, "data-index" : "-1"});
 
                     if(material.normalMap !== null){
                         var normalTexture = material.normalMap.image.currentSrc;
                         $normalTool.find(textureViewer).attr("src",normalTexture);
                     }
-                    else $normalTool.find(textureViewer).attr("src",icons.transparent);
+                    else $normalTool.find(textureViewer).attr({"src" : icons.transparent, "data-index" : "-1"});
 
                     $diffuseTool.find(colorViewer).spectrum("set", diffuseColor); //diffuse color sync
                     $specularTool.find(colorViewer).spectrum("set", specularColor); //specular color sync
@@ -1053,19 +1063,33 @@
                 },
                 materialTab: function(){
                     $this = $(this),
-                    $target = $this.parents(".material-controller").find("." + $(this).data("value") + "-viewer"),
-                    $viewers = $this.parents(".material-controller").find(".material-viewer"),
+                    $materialController = $this.parents(".material-controller"),
+                    $target = $materialController.find("." + $(this).data("value") + "-viewer"),
+                    $viewers = $materialController.find(".material-viewer"),
+                    $slider = $materialController.find(".slider-wrapper"),
+                    loadedMaterials = $(document).find(".texture-list.btn.custom"),
                     selected = $this.hasClass("selected");
                     if(selected){
                         $viewers.hide();
                         $target.show();
+                        $slider.show().css("display","inline-block");
+                        if(loadedMaterials.length === 0 && $target.is(".texture-viewer")){
+                            $target.trigger("click"); //texture modal is open
+                            $("."+$target.data("value")).find(".upload-bt.btn").trigger("click"); //file upload window is open
+                        }
                     }
-                    else $viewers.hide();
+                    else {
+                        $viewers.hide();
+                        $slider.hide();
+                    }
                 },
                 addTextureObject: function(src,name){
-                    var wrapper = $("<li/>",{"class" : "texture-list btn" }).on("click",pac.toggle),
+                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45}).on("click",pac.toggle),
                     textureImg = $("<img/>",{"class" : "texture-img", "src" : src}).appendTo(wrapper),
-                    textureTitle = $("<p/>",{"class" : "texture-name"}).text(name).appendTo(wrapper);
+                    selectedTexture = $(".modal.texture-modal").find(".texture-list.btn.selected");
+
+                    selectedTexture.removeClass("selected");
+                    wrapper.addClass("selected");
 
                     return wrapper;
                 },
@@ -1082,7 +1106,7 @@
                         console.log(kind);
                         switch(kind){
                             case "diffuse" : $material.color = new THREE.Color(color); break;
-                            case "specular" : $material.specularColor = new THREE.Color(color); break;
+                            case "specular" : $material.specular = new THREE.Color(color); break;
                             default : console.log("color Error"); break;
                         }
                     }   
@@ -1097,7 +1121,7 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".material-controller").data("value");
-                        console.log(kind);
+
                         switch(kind){
                             case "diffuse" : $material.opacity = val; break;
                             default : $.error("opacity Error"); break;
