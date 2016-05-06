@@ -1678,6 +1678,13 @@ body{
     .tooltip.tip-wraper {
         padding: 0px 5px;
     }
+    .tooltip.tip-title {
+        color: #ffffff;
+        font-weight: 400;
+        font-size: 15px;
+        text-align: left;
+        white-space: nowrap;
+    }
     .tooltip.tip-content {
         color:#ffffff;
         font-weight: 200;

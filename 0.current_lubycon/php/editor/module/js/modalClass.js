@@ -1,16 +1,16 @@
-var modalKit = {
+var ModalKit = {
     create: function(action,className){
         var body = $("<div/>",{ "class":"modal " + className }),
         wrapper = $("<div/>",{ "class" : "modal-wrapper " + className }).appendTo(body),
         title = $("<div/>",{ "class" : "modal-title " + className }).appendTo(wrapper),
-        closeBt = $("<div/>",{ "class" : "modal-closebt " + className, "data-value" : "modal-closebt" }).on("click",modalKit.cancel).appendTo(wrapper),
+        closeBt = $("<div/>",{ "class" : "modal-closebt " + className, "data-value" : "modal-closebt" }).on("click",ModalKit.cancel).appendTo(wrapper),
         content = $("<div/>",{ "class" : "modal-content " + className }).appendTo(wrapper),
         btWrap = $("<div/>",{ "class" : "modal-bt-wrapper " + className }).appendTo(wrapper),
         btCancel = $("<div/>",{
             "class" : "modal-bt modal-cancelbt " + className,
             "html" : "Cancel",
             "data-value" : "modal-closebt"
-        }).on("click",modalKit.cancel).appendTo(btWrap),
+        }).on("click",ModalKit.cancel).appendTo(btWrap),
         btOk = $("<div/>",{"class" : "modal-bt modal-okbt " + className}),
         action = action || 0;
 
@@ -52,7 +52,7 @@ var modalKit = {
         if($uploading.length !== 0) $uploading.removeClass(".uploading");
 
         $this.addClass("uploading");
-        modalKit.align($target);
+        ModalKit.align($target);
     },
     cancel: function(){
         var $this = $(this),
