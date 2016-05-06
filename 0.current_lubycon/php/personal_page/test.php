@@ -15,7 +15,10 @@
             $LoginState = false;    
         }  
     }
-print_r($_SESSION);
+
+    
+    require_once "../class/json_class.php";
+
 
 echo "<hr/><br/>";
 
@@ -37,28 +40,23 @@ $pass_change = false;
 
 $job = $_POST['job'];
 $job_code;
-switch($job)
-{
-    case 'Artist' : $job_code = 0; break;
-    case 'Creator' : $job_code = 1; break;
-    case 'Designer' : $job_code = 2; break;
-    case 'Engineer' : $job_code = 3; break;
-    case 'Student' : $job_code = 4; break;
-    case 'Other' : $job_code = 5; break;
-}
+
+$json_control = new json_control;
+$json_control->json_decode('jobCode',"../../data/job.json");
+$json_control->json_search($job);
+$job_code = $json_control->search_key;
 
 $company = $_POST['company'];
 
 
-if(isset($_POST['location_text']))
-{
-    $location = $_POST['location'];
-    $location_text = $_POST['location_text'];
-}else
-{
-    $location = null;
-    $location_text = null;
-}
+$location = $_POST['location'];
+$location_code;
+$json_control->json_decode('country',"../../data/country.json");
+$json_control->json_search($location);
+$location_code = $json_control->search_key;
+
+echo 'location code is = '.$location_code;
+$location_text = $_POST['location_text'];
 
 if(isset($_POST['desc']))
 {
@@ -142,7 +140,7 @@ echo "<br/><br/>-------------crop thumbnail image--------------<br/>";
 
 echo "<br/><br/>user job = " . $job;
 echo "<br/>user job code = " . $job_code;
-echo "<br/>select location = " . $location;
+echo "<br/>select location = " . $location_code;
 echo "<br/>city = " . $location_text;
 echo "<br/>user description = " . $user_description;
 
@@ -187,6 +185,7 @@ SET
 `company` = '$company',
 `profileImg` = '$save_path' ,
 `description` = '$user_description',
+`countryCode` = '$location_code',
 `city` = '$location_text',
 `telNumber` = '$mobile_number',
 `fax` = '$fax_number',

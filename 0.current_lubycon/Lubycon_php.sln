@@ -198,6 +198,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "class", "class", "{95D8E7D4-DFA3-4DD2-B9C7-E03AEB7EA262}"
 	ProjectSection(SolutionItems) = preProject
 		php\class\ajax_upload_class.php = php\class\ajax_upload_class.php
+		php\class\json_class.php = php\class\json_class.php
 		php\class\regex_class.php = php\class\regex_class.php
 		php\class\upload_class.php = php\class\upload_class.php
 	EndProjectSection
@@ -276,6 +277,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "error", "error", "{02EAD82B
 		php\error\404.php = php\error\404.php
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{50099784-3595-4447-9129-C6E048C0861A}"
+	ProjectSection(SolutionItems) = preProject
+		data\categories.json = data\categories.json
+		data\country.json = data\country.json
+		data\job.json = data\job.json
+	EndProjectSection
+	ProjectSection(FolderGlobals) = preProject
+		__JSONSchema = 
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -307,5 +318,6 @@ Global
 		{8C8CD4A4-8FE8-481B-A430-2C60EF1410DF} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{52FF6F65-7481-4DE9-8BAC-87D3B6F77CF3} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{02EAD82B-CACA-4101-9781-5D79EFE2931F} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
+		{50099784-3595-4447-9129-C6E048C0861A} = {0776844A-08DE-4742-A0B4-6CEC4EF8BE00}
 	EndGlobalSection
 EndGlobal

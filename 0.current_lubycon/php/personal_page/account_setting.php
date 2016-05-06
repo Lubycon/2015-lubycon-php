@@ -1,6 +1,7 @@
 <?php
     require_once '../database/database_class.php';
     require_once "../class/regex_class.php";
+    require_once "../class/json_class.php";
     $db = new Database();
     $db->query = "SELECT * FROM `userinfo` WHERE `userCode` = $usercode";
     $db->askQuery(); // viewcount up
@@ -53,23 +54,21 @@
                     <input type="file" id="profile_uploader" />
                 </div>
 
-                <?php
-                    $job_json = json_decode(file_get_contents('../../data/job.json'),true);
-                    foreach ($job_json['jobCode'] AS $index=>$array){
-                        print_r ($array[$index]);
-                    }
-
-                ?>
-
                 <label>Occupation / Job</label>
                 <div class="job_option">
-                    <select class="jobFilter" name="job" value="<?=$job_code?>">
-                        <option data-value="artist">Artist</option>
-                        <option data-value="creator">Creator</option>
-                        <option data-value="designer">Designer</option>
-                        <option data-value="engineer">Engineer</option>
-                        <option data-value="student">Student</option>
-                        <option data-value="other">Other</option>
+                    <select class="jobFilter" name="job">
+                        <?php
+                            $json_control = new json_control;
+                            $json_control->json_decode('jobCode',"$one_depth/data/job.json");
+                            $origin_select = $json_control->json_decode_code[$row['jobCode']];
+
+                            foreach ($json_control->json_decode_code AS $index=>$value)
+                            {
+                                $loop_value = $value;
+                                echo "<option value='$loop_value' data-value='$loop_value'>$loop_value</option>";
+                            }
+                            echo "<script>luby_selcetor_val_change('.job_option','$origin_select');</script>";
+                        ?>
                     </select>
                 </div>
                 <label>Company</label>
@@ -78,10 +77,18 @@
                 <div class="location_option">
                     <select class="locationFilter" name="location">
                          <?php
-                         ?>
+                            $json_control->json_decode('country',"$one_depth/data/country.json");
+                            $origin_select = $json_control->json_decode_code[$row['countryCode']];
+                            foreach ($json_control->json_decode_code AS $index=>$value)
+                            {
+                                $loop_value = $json_control->json_decode_code[$index];
+                                echo "<option value='$loop_value' data-value='$loop_value'>$loop_value</option>";
+                            }
+                            echo "<script>luby_selcetor_val_change('.location_option','$origin_select');</script>";
+                        ?>
                     </select>
                 </div>
-                <input type="text" id="location_text" name="location_text" value="<?=$row[9]?>"/>
+                <input type="text" id="location_text" name="location_text" value="<?=$row['city']?>"/>
                 <label>Language</label>
                 <div class="langWrap">
                     <input type="text" id="lang_input_id" class="language_text" name="language[]" />

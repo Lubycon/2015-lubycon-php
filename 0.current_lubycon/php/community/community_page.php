@@ -28,7 +28,7 @@
                 <li class="nav_menu" id="tutorial">
                     <a href="../community/community_page.php?cate=tutorial">Tutorial</a>
                 </li>
-                <li class="nav_menu" id="qna">
+                <li class="nav_menu" id="qaa">
                     <a href="../community/community_page.php?cate=qaa">Q&amp;A</a>
                 </li>
             </ul>

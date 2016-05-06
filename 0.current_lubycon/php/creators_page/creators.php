@@ -1,7 +1,7 @@
 <?php
     $one_depth = '../..'; //css js load
     $two_depth = '..'; // php load
-    include_once('../layout/index_header.php');
+    include_once("$two_depth/layout/index_header.php");
 ?>
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
@@ -56,13 +56,12 @@
     <section class="con_wrap">
         <div class="con_aside">
             <?php 
-                $user_img_url = $one_depth."/../../Lubycon_Contents/contents/3d/3djpg/profile/32.jpg";
+                $user_img_url = "$two_depth/../../../Lubycon_Contents/user/$usercode/profile.jpg";
                 $userjob = "Designer";
                 $usercity = "Seoul";
                 $usercountry = "South Korea";
                 $language1 = "Korean";
                 $language2 = "English";
-                
             ?>
             <i id="myinfo_setting" class="fa fa-bars hidden-mb-b"></i>
             <div id="myinfo_menu_list">
@@ -73,29 +72,13 @@
                     <li><a href="<?=$two_depth?>/personal_page.php?cate=bookmark"><i class="fa fa-star"></i>Bookmarks</a></li>
                 </ul>
             </div>
-            <div id="myinfo_main">
-                <figure>
-                    <img src="<?=$user_img_url?>">
-                </figure>
-                <h4><?=@$username?></h4>
-            </div>
-            <div id="myinfo_sub">
-                <article class="myinfo_wrap" id="myinfo_job">
-                    <i class="fa fa-suitcase hidden-mb-ib"></i>
-                    <p class="myinfo_name" id="job_name"><?=$userjob?></p>
-                </article>
-                <article class="myinfo_wrap hidden-mb-b" id="myinfo_location">
-                    <i class="fa fa-map-marker"></i>
-                    <p class="myinfo_name" id="location_name"><?=$usercity?>, <?=$usercountry?></p>
-                </article>
-                <article class="myinfo_wrap hidden-mb-b" id="myinfo_language">
-                    <i class="fa fa-language"></i>
-                    <p class="myinfo_name" id="language_name"><?=$language1?>, <?=$language2?></p>
-                </article>
-            </div>
-            <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard">
-                <div class="my_page_bt">My Page</div>
-            </a>
+            <?php
+                if($session->SessionExist()){
+                    include_once("./creators_login.php");
+                }else{
+                    include_once("./creators_logout.php");
+                }
+            ?>
         </div><!--end con_aside-->
         <div id="user_view_main" class="con_main">
             <?php

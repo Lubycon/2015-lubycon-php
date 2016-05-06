@@ -81,8 +81,7 @@ function getUrlParameter(sParam) //get parameter
 
 var cate_param = getUrlParameter('cate');
 var connum_param = getUrlParameter('conno');
-var third_param = getUrlParameter('3');
-var four_param = getUrlParameter('4');
+var bno_param = getUrlParameter('bno');
 
 $(function () //selcted change
 {

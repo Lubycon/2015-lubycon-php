@@ -1,13 +1,11 @@
 {
-    "jobCode": 
-    [
-        {
-            "0": "Artist",
-            "1": "Creator",
-            "2": "Designer",
-            "3": "Engineer",
-            "4": "Student",
-            "5": "Other"
-        }
-    ]
+	"jobCode": 
+	{
+	  "0": "Artist",
+	  "1": "Creator",
+	  "2": "Designer",
+	  "3": "Engineer",
+	  "4": "Student",
+      "5": "Other"
+    }
 }

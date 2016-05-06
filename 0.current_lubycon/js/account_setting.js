@@ -147,7 +147,15 @@ function eventHandler(event, selector) {//
     if (event.type === 'touchend'){
         selector.off('click');
     }
-}; 
+};
+function luby_selcetor_val_change(selector_name , origin_selcet)
+{
+    console.log(selector_name);
+    console.log(origin_selcet);
+    $(selector_name).find('select:eq(0)').val(origin_selcet);
+    $(selector_name).find('.ls_Label:eq(0)').text(origin_selcet);
+}
+
 
 $(document).ready(function () {
     $("#profile-upload-bt").click(function () {

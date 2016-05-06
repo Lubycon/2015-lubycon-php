@@ -1,13 +1,14 @@
 <aside id="personal_aside" class="con_aside">
     <?php
+        $user_pic = "$one_depth/../../Lubycon_Contents/user/$usercode/profile.jpg";
         $user_intro = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";        
     ?>
     <div id="user_information">
         <div id="userinfo_main">
             <figure id="user_pic">
-                <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg">
+                <img src="<?=$user_pic?>">
             </figure>
-            <h4><?=@$username?></h4>
+            <h4><?=$username?></h4>
             <h5><?=$user_intro?></h5>
         </div>
     </div>
