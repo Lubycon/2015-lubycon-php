@@ -37,7 +37,7 @@
         line-height: 42px;
         margin: 7px;
         border-radius: 3px;
-        overflow: hidden;
+        vertical-align: middle;
         transition: opacity 0.2s;
     }
         .modal-content.texture-modal > .texture-list-wrapper > .btn:hover {
@@ -564,6 +564,7 @@
 /*--------------editortool end------------------*/
 .slider-wrapper{
     width: 160px !important;
+    display: none;
 }
     .slider-wrapper > .slider-text {
         display: none;
