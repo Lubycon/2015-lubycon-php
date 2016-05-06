@@ -2,7 +2,7 @@
  *
  *  Name:          editor2d.js
  *  Updated:       2016-05-04
- *  Version:       0.1.1
+ *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co
@@ -203,12 +203,12 @@
                 toolbar.sortTool();
                 //toolbar data bind end
                 $(window).on("load resize",function(){
-                    $(".modal").each(function(){ modalKit.align($(this)); });
+                    $(".modal").each(function(){ ModalKit.align($(this)); });
                 })
             },
             initModal: {
                 file: function(){
-                    var modal = new modalKit.create(modalFunc.showFileSelector,"file-modal"),
+                    var modal = new ModalKit.create(modalFunc.showFileSelector,"file-modal"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text(" "),
                     content = modal.find(".modal-content").text("Do you want to upload attachment file?"),
@@ -218,7 +218,7 @@
                     return modal;
                 },
                 fileSelector: function(){
-                    var modal = new modalKit.create(pac.autoSave,"file-selector-modal"),
+                    var modal = new ModalKit.create(pac.autoSave,"file-selector-modal"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("File Select"),
                     content = modal.find(".modal-content"),
@@ -238,7 +238,7 @@
                     return modal;
                 },
                 embed: function(){
-                    var modal = new modalKit.create(modalFunc.embed,"embed-modal").addClass("embed-window"),
+                    var modal = new ModalKit.create(modalFunc.embed,"embed-modal").addClass("embed-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("Embed Media"),
                     content = modal.find(".modal-content"),
@@ -256,7 +256,7 @@
                     return modal;
                 },
                 thumbnail: function(){
-                    var modal = new modalKit.create([pac.currentProg,modalFunc.cropped],"thumbnail-modal prog").addClass("thumbnail-window"),
+                    var modal = new ModalKit.create([pac.currentProg,modalFunc.cropped],"thumbnail-modal prog").addClass("thumbnail-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("Edit Thumbnail Image"),
                     content = modal.find(".modal-content"),
@@ -283,7 +283,7 @@
                     return modal;
                 },
                 setting: function(){
-                    var modal = new modalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
+                    var modal = new ModalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     closebt = modal.find(".modal-closebt").attr("data-value","modal-cancelbt"),
                     title = modal.find(".modal-title").text("Content Setting"),
@@ -405,7 +405,7 @@
                 else {
                     $modals.hide();
                     $(".btn.selected").removeClass("selected");
-                    modalKit.align($target);
+                    ModalKit.align($target);
                     $target.fadeIn(200);
                     $darkOverlay.fadeIn(200);
                 }
@@ -453,6 +453,17 @@
                     function(){ $menuWrap.stop().fadeIn(200); },
                     function(){ $menuWrap.stop().fadeOut(200); }
                 );
+            },
+            keyEvent: function(event){
+                $this = $(this),
+                $confirm = $this.parent().find(".modal-okbt"),
+                $cancel = $this.parent().find(".modal-cancel"),
+                inKeyCode = event.which;
+                switch(inKeyCode){
+                   case keyCode.enter : $confirm.trigger("click"); break;
+                   case keyCode.esc : $cancel.trigger("click"); break;
+                   default : return; break;
+                }
             }
         },
         upload = {
@@ -545,10 +556,21 @@
                 var $this = $(this),
                 object = event.target.files,
                 path = $this.val().replace(/^C:\\fakepath\\/i," ").trim(),
+                size = parseInt(object[0].size/1024/1024),
                 $inputModal = $(document).find(".modal.file-selector-modal"),
-                $fileViewer = $inputModal.find(".modal-fileViewer");
+                $fileViewer = $inputModal.find(".modal-fileViewer"),
+                $fileInfo = $(document).find(".fileinfo");
 
-                if(upload.fileCheck(object[0])) fileViewer.val(path);
+                if(upload.fileCheck(object[0])) {
+                    fileViewer.val(path);
+                    if($fileInfo.length === 0){
+                        var fileInfo = new modalFunc.showFileInfo(path,size).appendTo(".editor-wrapper").stop().fadeIn(300);
+                    }
+                    else {
+                        $fileInfo.remove();
+                        var fileInfo = new modalFunc.showFileInfo(path,size).appendTo(".editor-wrapper").stop().fadeIn(300);
+                    }
+                }
                 else $this.val(null);
 
                 return;
@@ -720,7 +742,7 @@
                         }
                     });
                     setTimeout(function(){
-                        modalKit.align($(".thumbnail-window"));
+                        ModalKit.align($(".thumbnail-window"));
                     },200);
                 }
                 else $inputFile.val(null);
@@ -785,7 +807,7 @@
                         }
                     });
                     setTimeout(function(){
-                        modalKit.align($(".thumbnail-window"));
+                        ModalKit.align($(".thumbnail-window"));
                     },200);
                 }
                 else $inputFile.val(null);
@@ -844,6 +866,15 @@
                 $(document).find(".modal").fadeOut(200);
                 $(document).find(".modal.file-selector-modal").fadeIn(200);
             },
+            showFileInfo: function(name,size){
+                var body = $("<div/>",{"class" : "tooltip tip-body fileinfo"}),
+                wrapper = $("<div/>",{"class" : "tooltip tip-wraper fileinfo"}).appendTo(body),
+                content = $("<p/>",{"class" : "tooltip tip-content fileinfo"}),
+                title = $("<p/>",{"class" : "tooltip tip-title fileinfo"}).text("Attached File").appendTo(wrapper)
+                content.html("File name : " + name + "<br/>" + "Size : " + size + "MB" ).appendTo(wrapper);
+
+                return body;
+            },
             addGrid: function(){
                 var $this = $(this),
                 $window = $this.parents(".modal"),
@@ -864,7 +895,7 @@
                     },
                     allowTaint: true
                 });
-                if($placeHolder.length!=0) $placeHolder.hide();
+                if($placeHolder.length != 0) $placeHolder.hide();
                 $window.fadeOut(200);
                 $(".btn.selected").removeClass("selected");
                 pac.objMenu($mediaWrap);
@@ -950,7 +981,7 @@
             },
             showCCsetting: function(event){
                 var $this = $(this).find(".cc-setting-bt"),
-                $ccSettingWrap = new modalKit.create(null,"cc-setting").addClass("cc-setting-wrapper"),
+                $ccSettingWrap = new ModalKit.create(null,"cc-setting").addClass("cc-setting-wrapper"),
                 $ccSettingInner = $ccSettingWrap.find(".modal-wrapper").addClass("cc-setting-inner-wrapper"),
 
                 $ccSection = $("<div/>",{ "class" : "cc-section" }),
@@ -993,7 +1024,7 @@
 
                         $(".license-selector").on("change",modalFunc.useCC);
                         $(".cc-checkbox").on("change",modalFunc.displayCC).on("change",modalFunc.makelinkCC);
-                        modalKit.align($(".cc-setting-wrapper"));
+                        ModalKit.align($(".cc-setting-wrapper"));
                     }//create cc
                     else $(".cc-setting-wrapper").fadeIn(400);
                 }
@@ -1122,7 +1153,7 @@
                 );
                 $(".canvas-uploader-bt").find(".fa-cloud-upload").off("click").on("click",upload.imgUpTrigger);
                 $(".canvas-uploader-bt").find(".fa-font").off("click").on("click",upload.textUpload);
-                $(".canvas-uploader-bt").find(".fa-code").off("click").on("click",modalKit.show);
+                $(".canvas-uploader-bt").find(".fa-code").off("click").on("click",ModalKit.show);
                 console.log("add object button is added to canvas");
             },
             getFullSizeImg: function(){
@@ -1401,13 +1432,13 @@
                 $editWindow = $("<div/>",{ "class" : "grid-edit-window" }).appendTo($gridInnerWrap),
                 $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
                 $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",pac.toggle).on("click",toolbar.gridFn.makeGrid),
-                $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",modalKit.cancel).appendTo($gridWrap),
+                $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",ModalKit.cancel).appendTo($gridWrap),
                 $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
                 $gridCancel = $("<div/>",{
                     "class" : "modal-bt modal-cancelbt",
                     "html" : "Cancel",
                     "data-value" : "modal-closebt"
-                }).on("click",modalKit.cancel).appendTo($gridBtWrap),
+                }).on("click",ModalKit.cancel).appendTo($gridBtWrap),
                 $gridOk = $("<div/>",{
                     "class" : "modal-bt modal-okbt",
                     "id" : "grid-okbt",
@@ -1427,7 +1458,7 @@
                 .append($btnIcon.clone().attr("src",icons.grid5)).appendTo($btnWrap),
                 $btn6 = $btn.clone(true).attr("data-value","n-2-2")
                 .append($btnIcon.clone().attr("src",icons.grid6)).appendTo($btnWrap);
-                modalKit.align($this);
+                ModalKit.align($this);
             },
             gridFn: {
                 makeGrid: function(){

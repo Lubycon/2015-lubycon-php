@@ -1,8 +1,8 @@
 /* ===========================================================
  *
  *  Name:          editor3d.js
- *  Updated:       2016-05-05
- *  Version:       0.1.1
+ *  Updated:       2016-05-06
+ *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co
@@ -230,12 +230,12 @@
                 toolbar.backgroundTool();
                 //toolbar data bind end
                 $(window).on("load resize",function(){
-                    $(".modal").each(function(){ modalKit.align($(this)); });
+                    $(".modal").each(function(){ ModalKit.align($(this)); });
                 })
             },
             initModal: {
                 fileSelector: function(){
-                    var modal = new modalKit.create(null,"file-selector-modal"),
+                    var modal = new ModalKit.create(null,"file-selector-modal"),
                     wrapper = modal.find(".modal-wrapper"),
                     closebt = modal.find(".modal-closebt").remove(),
                     title = modal.find(".modal-title").text("File Select"),
@@ -260,7 +260,7 @@
                 textureWindow: function(){
                     //texture limit is 20 objects
 
-                    var modal = new modalKit.create(upload.textureApply,"texture-modal").addClass("texture-window"),
+                    var modal = new ModalKit.create(upload.textureApply,"texture-modal").addClass("texture-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("Texture"),
                     content = modal.find(".modal-content"),
@@ -278,7 +278,7 @@
                     return modal;
                 },
                 thumbnail: function(){
-                    var modal = new modalKit.create([pac.currentProg,modalFunc.cropped],"thumbnail-modal prog").addClass("thumbnail-window"),
+                    var modal = new ModalKit.create([pac.currentProg,modalFunc.cropped],"thumbnail-modal prog").addClass("thumbnail-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text("Edit Thumbnail Image"),
                     content = modal.find(".modal-content"),
@@ -305,7 +305,7 @@
                     return modal;
                 },
                 setting: function(){
-                    var modal = new modalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
+                    var modal = new ModalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
                     wrapper = modal.find(".modal-wrapper"),
                     closebt = modal.find(".modal-closebt").attr("data-value","modal-cancelbt"),
                     title = modal.find(".modal-title").text("Content Setting"),
@@ -427,7 +427,7 @@
                 else {
                     $modals.hide();
                     $(".btn.selected").removeClass("selected");
-                    modalKit.align($target);
+                    ModalKit.align($target);
                     $target.fadeIn(200);
                     $darkOverlay.fadeIn(200);
                 }
@@ -466,7 +466,6 @@
         upload = {
             fileCheck: function(file){
                 var size = file.size, // 30MB
-                type = file.type, //jpg||jpeg, png, bmg, gif, zip
                 alertKey = $(document).find(".alertKey").off("click");
                 if(size < 31457280){
                     return true;
@@ -601,8 +600,6 @@
                 materials = mesh.material.materials;
                 material = materials[targetID];
 
-                console.log(selectID);
-                console.log(selectMaterial);
                 
                 switch(kind){
                     case "diffuse" : 
@@ -620,7 +617,7 @@
 
                 function idCheck(id,kind){
                     if(id == -1){
-                        material[kind] = "";
+                        material[kind] = null;
                         material.needsUpdate = true;
                     }
                     else{
@@ -759,7 +756,7 @@
             },
             showCCsetting: function(event){
                 var $this = $(this).find(".cc-setting-bt"),
-                $ccSettingWrap = new modalKit.create(null,"cc-setting").addClass("cc-setting-wrapper"),
+                $ccSettingWrap = new ModalKit.create(null,"cc-setting").addClass("cc-setting-wrapper"),
                 $ccSettingInner = $ccSettingWrap.find(".modal-wrapper").addClass("cc-setting-inner-wrapper"),
 
                 $ccSection = $("<div/>",{ "class" : "cc-section" }),
@@ -802,7 +799,7 @@
 
                         $(".license-selector").on("change",modalFunc.useCC);
                         $(".cc-checkbox").on("change",modalFunc.displayCC).on("change",modalFunc.makelinkCC);
-                        modalKit.align($(".cc-setting-wrapper"));
+                        ModalKit.align($(".cc-setting-wrapper"));
                     }//create cc
                     else $(".cc-setting-wrapper").fadeIn(400);
                 }
@@ -935,7 +932,7 @@
                 $tabBody = $("<div/>",{ "class" : "material-control-inner" }).appendTo($controllerBody);
                 
                 $controllerBody.clone(true).attr("data-value","diffuse").appendTo($materialDiffuse);//diffuse
-                $controllerBody.clone(true).attr("data-value","sepecular").appendTo($materialSpecular);//specular
+                $controllerBody.clone(true).attr("data-value","specular").appendTo($materialSpecular);//specular
                 $controllerBody.clone(true).attr("data-value","normal").appendTo($materialNormal);
 
                 toolbar.materialFn.addController();
@@ -949,7 +946,7 @@
                         "class" : "texture-viewer material-viewer",
                         "src" : icons.transparent,
                         "data-value" : "texture-window"
-                    }).on("click",modalKit.show).appendTo($viewer),
+                    }).on("click",ModalKit.show).appendTo($viewer),
                     $colorViewer = $("<input/>",{ "type" : "text", "class" : "colorKey" }).appendTo($viewer),
                     $slider = $("<input/>",{
                         "class" : "material-control-slider sliderKey",
@@ -1008,14 +1005,50 @@
                 },
                 materialSelect: function(){
                     var selected = $("#material-selector").find("option:selected"),
-                    id = selected.data("value"),
-                    materials = group.children[0].material;
+                    id = selected.data("value");
+
+                    var $diffuseTool = $("#materialDiffuse-tool"),
+                    $specularTool = $("#materialSpecular-tool"),
+                    $normalTool = $("#materialNormal-tool"),
+                    textureViewer = ".texture-viewer.material-viewer",
+                    colorViewer = ".colorKey",
+                    opacitySlider = ".slider-text";
+
+                    var materials = group.children[0].material;
                     material = materials.type == "MultiMaterial" ? materials.materials[id] : materials,
                     color = material.color;
 
+                    diffuseColor = "#" + color.getHexString(),
+                    specularColor = "#" + material.specularColor.getHexString();
+
+                    //synchronize  material controller start
+                    if(material.map !== null){
+                        var diffuseTexture = material.map.image.currentSrc;
+                        $diffuseTool.find(textureViewer).attr("src",diffuseTexture);
+                    }
+                    else $diffuseTool.find(textureViewer).attr("src",icons.transparent);
+
+                    if(material.specularMap !== null){
+                        var specularTexture = material.specularMap.image.currentSrc;
+                        $specularTool.find(textureViewer).attr("src",specularTexture);
+                    }
+                    else $specularTool.find(textureViewer).attr("src",icons.transparent);
+
+                    if(material.normalMap !== null){
+                        var normalTexture = material.normalMap.image.currentSrc;
+                        $normalTool.find(textureViewer).attr("src",normalTexture);
+                    }
+                    else $normalTool.find(textureViewer).attr("src",icons.transparent);
+
+                    $diffuseTool.find(colorViewer).spectrum("set", diffuseColor); //diffuse color sync
+                    $specularTool.find(colorViewer).spectrum("set", specularColor); //specular color sync
+                    
+                    $diffuseTool.find(opacitySlider).val(parseInt(material.opacity*100)).trigger("change"); //opacity sync
+                    //synchronize material controller end
+
                     material.color = new THREE.Color(0xffffff);
                     setTimeout(function(){
-                        material.color = color;
+                        material.color = color; //select blink action
                     },200);
                 },
                 materialTab: function(){
@@ -1046,11 +1079,11 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".material-controller").data("value");
-
+                        console.log(kind);
                         switch(kind){
                             case "diffuse" : $material.color = new THREE.Color(color); break;
                             case "specular" : $material.specularColor = new THREE.Color(color); break;
-                            default : $.error("color Error"); break;
+                            default : console.log("color Error"); break;
                         }
                     }   
                 },
