@@ -86,7 +86,7 @@ var four_param = getUrlParameter('4');
 
 $(function () //selcted change
 {
-    $('.lnb_nav ul').children('#' + third_param).addClass('selected_nav');
+    $('.lnb_nav ul').children('#' + cate_param).addClass('selected_nav');
     $(".selected_nav").children("a").click(function(){
         return false;//disabled anchor tag
     });
@@ -139,19 +139,12 @@ $(function(){
         if($this.hasClass("selected")){
             $this.removeClass("selected");
             $menuList.stop().fadeOut(200);
-            $("html").off("click");
+            $menuList.off("hideAnywhere");
         }
         else{
             $this.addClass("selected");
             $menuList.stop().fadeIn(200);
-            $("html").on("click", function (event) {
-                var $this = $(event.target);
-                $this.hideAnywhere($this,$personalMenu,$menuList,{
-                    a:"#user_id",
-                    b:"#display_user",
-                    c:"#accountImg"
-                });
-            });
+            $menuList.hideAnywhere($this);
         }
 	});
 });
@@ -163,17 +156,10 @@ $(function(){
 /////////////////////////////////////////////////////////
 $(function () { //add contents button start
     var $editorModal = $(".editor_popup.modal"),
-    $contents = $editorModal.find("li"),
     $darkOverlay = $(".dark_overlay");
     $('#addcontent_bt').click(function () {
         $darkOverlay.stop().fadeIn(100);
         $editorModal.css("display","block").attr("class","editor_popup modal fadeInDown animated");
-    });
-
-    $contents.hover(function () {
-        $(this).children('a').children('i').css({ "color": "#fff", "background": "#48cfad" });
-    }, function () {
-        $(this).children('a').children('i').css({ "color": "#383838", "background": "#fff" });
     });
 });
 /////////////////////////////////////////////////////////
@@ -386,20 +372,15 @@ $(function(){
     $object = $button.next("#descript_box");
     $button.click(function(){
         var $this = $(this);
-        if($button.hasClass("opened")){
+        if($button.hasClass("selected")){
+            $button.removeClass("selected");
             $object.stop().fadeOut(200);
-            $button.removeClass("opened");
+            $object.off("hideAnywhere")
         }
         else{
             $object.stop().fadeIn(200);
-            $button.addClass("opened");
-            $("html").on("click", function (event) {
-                var $this = $(event.target);
-                $this.hideAnywhere($this,$button,$object,{
-                    a:"#view_descript",
-                    b:"#descript_box"
-                });
-            });
+            $button.addClass("selected");
+            $object.hideAnywhere($this);
         }
     })
 });
@@ -526,19 +507,15 @@ $(function(){
         $menu = $button.next("#myinfo_menu_list");
         $button.click(function(){
             var $this = $(this);
-            if($this.hasClass("opened")){
+            if($this.hasClass("selected")){
                 $menu.stop().fadeOut(200);
-                $this.removeClass("opened");
+                $this.removeClass("selected");
+                $menu.off("hideAnywhere");
             }
             else{
-                $this.addClass("opened");
+                $this.addClass("selected");
                 $menu.stop().fadeIn(200);
-                $("html").on("click", function (event) {
-                    var $this = $(event.target);
-                    $this.hideAnywhere($this,$button,$menu,{
-                        a:"#myinfo_setting"
-                    });
-                });
+                $menu.hideAnywhere($this);
             };
         });
     };
@@ -552,21 +529,16 @@ $(function(){
         $menu = $this.children(".creator_menu_list");
         $this.click(function (event){
             event = event || window.event//for IE
-            if($this.hasClass("opened")){
-                $this.removeClass("opened");
+            if($this.hasClass("selected")){
+                $this.removeClass("selected");
                 $menu.stop().fadeOut(200);
-                console.log("a");
+                $menu.off("hideAnywhere");
             }
             else{
-                console.log("b");
-                $this.addClass("opened");
+
+                $this.addClass("selected");
                 $menu.stop().fadeIn(200);
-                $("html").on("click", function (event) {
-                    var $this = $(event.target);
-                    $this.hideAnywhere($this,$button,$menu,{
-                        a:".creator_menu_icon"
-                    });
-                });
+                $menu.hideAnywhere($this);
             }
         });
     });

@@ -158,20 +158,22 @@ function luby_selcetor_val_change(selector_name , origin_selcet)
 
 
 $(document).ready(function () {
-    $("#fileupload_bt").click(function () {
+    $("#profile-upload-bt").click(function () {
         $("#profile_uploader").click();
     });
 
     $(document).on("change","#profile_uploader",function () {
         showImage(this);
+        $(this).val(null);
     });
 
-    $(document).on("click", "#crop", function () {
+    $(document).on("click", "#crop-bt", function () {
         var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 });
 
-        $("#croped_img").html('');
-        $("#croped_img").append($object);
-        //$(a).appendTo("#cropper_account");
+        $("#croped").html('');
+        $("#croped").append($object);
+        $("#cropper-preview").hide();
+        $("#cropper-wrapper").hide();
         $(".cropper-container").remove();
 
         dataURL = $object.toDataURL("image/jpeg");
@@ -205,16 +207,21 @@ function showImage(input) {
 
             $(".cropper-container").remove();
             $("#cropper_img").cropper({
-                minContainerWidth: 100,
-                minContainerHeight: 100,
+                minCanvasWidth: 150,
+                minCanvasHeight: 150,
+                minContainerWidth: 200,
+                minContainerHeight: 200,
                 aspectRatio: 1 / 1,
                 autoCropArea: 0.6,
                 viewMode: 3,
                 responsive: true,
-                zoomable: false,
-                preview: "#sex",
+                moveable: true,
+                preview: "#cropper-preview",
                 dragMode: "crop"
             }).show();
+            $("#cropper-preview").show().css("display","inline-block");
+            $("#cropper-window-wrapper > i").show().css("display","inline-block");
+            $("#cropper-wrapper").show();
             $("#cropper_img").cropper("replace", e.target.result);
         }
         reader.readAsDataURL(input.files[0]);

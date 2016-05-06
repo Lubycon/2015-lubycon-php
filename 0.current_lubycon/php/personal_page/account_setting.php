@@ -41,11 +41,16 @@
             <p class="setting_title">Basic Infomation</p>
                 <label>Profile Photo</label>
                 <div id="cropper_account">
-                    <span id="fileupload_bt">profile upload</span>
-                    <div id="sex"></div>
-                    <img id="cropper_img"/>
-                    <div id="croped_img"></div>
-                    <div id="crop">crop</div>
+                    <div id="cropper-window-wrapper">
+                        <div class="cropper-window" id="croped"></div>
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        <div class="cropper-window" id="cropper-preview"></div>
+                    </div>
+                    <div id="profile-bt-wrap">
+                        <span id="profile-upload-bt" class="cropper-bt"><i class="fa fa-cloud-upload"></i></span>
+                        <span id="crop-bt" class="cropper-bt"><i class="fa fa-crop"></i></span>
+                    </div>
+                    <div id="cropper-wrapper"><img id="cropper_img"/></div>
                     <input type="file" id="profile_uploader" />
                 </div>
 

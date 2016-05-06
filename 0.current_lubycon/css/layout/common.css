@@ -141,6 +141,7 @@ body{
         background: #ec6446;
         cursor: pointer;
         z-index: 11000;
+        transition: background 0.2s;
     }
         .modal-closebt:hover {
             background: #eb907b;
@@ -157,10 +158,31 @@ body{
         font-size: 17px;
         text-align: center;
     }
+        .modal-content p {
+            color: #eeeeee;
+            font-weight: 200;
+            font-size: 17px;
+        }
     .modal-title {
         color: #eeeeee;
         font-size: 20px;
         font-weight: 200;
+    }
+    .modal-input-wrapper {
+        margin: 10px 0px;
+    }
+    .modal-fileViewer {
+        width: 230px;
+        height: 30px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 15px;
+        vertical-align: middle;
+        color: #444444;
+        padding: 5px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
     }
     .modal-bt-wrapper {
         text-align: center;
@@ -188,6 +210,13 @@ body{
             }
             .modal-cancelbt {
                 color: #ec6446;
+            }
+            .modal-filebt {
+                background: #333333;
+                color: #ffffff;
+                vertical-align: middle;
+                font-size: 14px;
+                line-height: 20px;
             }
 
 
@@ -222,28 +251,27 @@ body{
     display: none;
 }
 
-    .editor_popup p {
+    .editor_popup.modal p {
         font-size: 24px;
         color: #333333;
         font-weight: 200;
     }
 
-    .editor_popup ul {
+    .editor_popup.modal > ul {
         display: inline-block;
         margin: 0px auto;
     }
 
-        .editor_popup ul li {
+        .editor_popup.modal > ul > li {
             float: left;
             margin: 0px 46px;
             font-size: 20px;
             margin-top: 25px;
             cursor: pointer;
         }
-        .editor_popup ul li a{
+        .editor_popup.modal > ul > li > a{
         }
-
-            .editor_popup ul li i {
+            .editor_popup.modal > ul > li > a > i {
                 width: 70px;
                 height: 70px;
                 line-height: 70px;
@@ -252,21 +280,12 @@ body{
                 color: #383838;
                 font-size: 25px;
                 margin-bottom: 20px;
+                transition: background 0.3s, color 0.3s;
             }
-
-.closeButton {
-    position: absolute;
-    top: 7px;
-    right: 8px;
-    width: 15px;
-    height: 15px;
-    background: #ec6446;
-    border: none;
-    border-radius: 50%;
-}
-    .closeButton:hover {
-        opacity: 0.8;
-    }
+                .editor_popup.modal > ul > li:hover > a > i {
+                    background: #48cfad;
+                    color: #ffffff;
+                }
 
 /* popup end */
 
@@ -692,7 +711,8 @@ body{
     box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.5);
 }
     .selected_nav a{
-        color: #48cfad !important;
+        color: #ffffff !important;
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
         font-weight: 400 !important;
     }
 
@@ -1275,14 +1295,23 @@ body{
     #comment_more_bt{
         width: 120px;
         height: 40px;
-        background: #aaaaaa;
-        color: #ffffff;
-        border: none;
+        background: transparent;
+        border: 1px solid #444444;
         border-radius: 30px;
+        transition: width 0.3s, border 0.3s;
     }
-        #comment_more_bt i{
-            font-size: 25px;
+        #comment_more_bt:hover {
+            width: 130px;
+            border: 1px solid #48cfad;
         }
+        #comment_more_bt > i{
+            font-size: 25px;
+            color: #444444;
+            transition: color 0.3s;
+        }
+            #comment_more_bt:hover > i {
+                color: #48cfad;
+            }
 /*creators card start*/
 #creator_card_wrap{
     max-width: 1330px;
@@ -1309,7 +1338,11 @@ body{
         .creator_menu .creator_menu_icon{
             font-size: 20px;
             color: #aaaaaa;
+            transition: color 0.2s;
         }
+            .creator_menu.selected .creator_menu_icon{
+                color: #48cfad;
+            }
         .creator_menu_list{
             width: 150px;
             top: 10px;
@@ -1621,36 +1654,36 @@ body{
     float: right;
     color: #545454;
 }
-    .table_list .table_date{
+    .table_list .table_date {
         display: inline-block;
     }
 /* main board */
 /*tooltip start*/
-.tooltip_bt{
-    min-width: 120px;
+.tooltip.tip-body {
+    display: none;
+    min-width: 100px;
     line-height: 30px;
     position: absolute;
 
-    padding: 3px;
+    padding: 0px 10px;
     
-    background:rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.9);
     border: 1px solid #000000;
     border-radius: 3px;
     box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.5);
     
-    color:#fff;
-    font-weight: 200;
-    font-size:14px;
-    text-align: center;
-    white-space: nowrap;
-    
-    
-    z-index: 1;  
+    z-index: 30001;  
     cursor:default;
-    display: none;
 }
-    .tooltip_long{
-        padding: 3px 10px;
+    .tooltip.tip-wraper {
+        padding: 0px 5px;
+    }
+    .tooltip.tip-content {
+        color:#ffffff;
+        font-weight: 200;
+        font-size: 13px;
+        text-align: center;
+        white-space: nowrap;
     }
 
 /*custom summernote css start*/

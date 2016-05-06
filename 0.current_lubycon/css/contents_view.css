@@ -171,25 +171,31 @@
             } 
 
     #content_down {
-        width:110px;
-        height:55px;
-        line-height: 55px;
+        width: 150px;
+        height: 45px;
+        line-height: 45px;
         margin: 20px auto;
         background: transparent;
-        border: 2px solid #48cfad;
+        border: 2px solid #ffffff;
         border-radius: 30px;
         cursor: pointer;
+        transition: width 0.2s, border 0.2s;
     }
 
-        #content_down i {
-            color: #48cfad;
-            font-size: 34px;
+        #content_down > i {
+            color: #ffffff;
+            font-size: 30px;
             vertical-align: middle;
             margin-top: 1px;
+            transition: color 0.2s;
         }
     #content_down:hover {
-        opacity: 0.8;
+        width: 160px;
+        border: 2px solid #48cfad;
     }
+        #content_down:hover > i {
+            color: #48cfad;
+        }
     
     #contents_score{
         height: 22px;
@@ -211,14 +217,6 @@
             color:#eeeeee;
             font-size: 15px;
         }
-        #contents_score .fa-heart {
-            
-        }
-        #contents_score .fa-cloud-download {
-            
-        }
-        #contents_score .fa-eye {
-            
         }
         #contents_score .contents_view_score{
             float:right;

@@ -35,10 +35,6 @@
 				width: 800,
 				kind: "confirm",
 				customText: "Your Mail is sucked.<br/> Do you want to resend the confirm mail to your address?",
-				callback : function(){
-					console.log("mail is sended");
-				}
-
 			});
 			$("#test5").lubyAlert({
 				width: 500,
@@ -47,9 +43,10 @@
 				customText: "Please Write Your Name"
 			});
 			$("#test6").lubyAlert({
-				customText: "What's up!",
-				customIcon: "fa fa-user",
-				customAnimation: "rotateIn animated"
+				width: 300,
+				height: 100,
+				customText: "You have to upload 'jpg,gif,png,bmp' files",
+				textSize: 14
 			});
 		</script>
 	</div>

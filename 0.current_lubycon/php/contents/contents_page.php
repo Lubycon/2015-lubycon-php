@@ -25,7 +25,7 @@
                 <li class="nav_menu" id="vector">
                     <a href="./contents_page.php?cate=vector">Vector</a>
                 </li>
-                <li class="nav_menu" id="3d"> 
+                <li class="nav_menu" id="threed"> 
                     <a href="./contents_page.php?cate=threed">3D</a>
                 </li>
             </ul>
@@ -39,10 +39,10 @@
             <?php
                 $current_url = $_GET["cate"];//change to db query later
                 switch($current_url){
-                    case "all" : include_once("./php/sub_nav/categories/category_default.php"); break;
-                    case "artwork" : include_once("./php/sub_nav/categories/category_artwork.php"); break;
-                    case "vector" : include_once("./php/sub_nav/categories/category_vector.php"); break;
-                    case "3d" : include_once("./php/sub_nav/categories/category_3d.php"); break;
+                    case "all" : include_once("../php/sub_nav/categories/category_default.php"); break;
+                    case "artwork" : include_once("../php/sub_nav/categories/category_artwork.php"); break;
+                    case "vector" : include_once("../php/sub_nav/categories/category_vector.php"); break;
+                    case "3d" : include_once("../php/sub_nav/categories/category_3d.php"); break;
                     default : include_once(""); break;
                 }
             ?>

@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          editor2d.js
- *  Updated:       2016-04-30
+ *  Updated:       2016-05-04
  *  Version:       0.1.1
  *  Created by:    DART, Lubycon.co
  *
@@ -35,9 +35,10 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
-                        var $this = $(this),
+                        var $this = $(this);
+                        var $darkOverlay = $(document).find(".dark_overlay").show();
                         //init object
-                        $wrapper = $("<div/>",{"class" : "editor-wrapper"}).appendTo($this),
+                        var $wrapper = $("<div/>",{"class" : "editor-wrapper"}).appendTo($this),
                         $header = $("<div/>",{"class" : "editor-header"}).appendTo($wrapper),
                         $body = $("<div/>",{"class" : "editor-body"}).appendTo($wrapper),
                         $aside = $("<div/>",{"class" : "editor-aside"}).appendTo($body),
@@ -55,21 +56,22 @@
                         }).append($("<i/>",{"class" : icons.plus}))
                         .append($("<p/>",{"html" : "Click here and upload your files for Preview"}))
                         .appendTo($objBody)
-                        .on("click",upload.imgUpTrigger),
+                        .on("click",upload.imgUpTrigger);
 
-                        $darkOverlay = $(document).find(".dark_overlay").show();
                         //in header bt
-                        $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
+                        var $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "Attach File"
+                            "html" : "Attach File",
+                            "data-tip" : "Attach your files"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",upload.fileUpTrigger),
+                        .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55}),
                         $savebtn = $("<div/>",{
                             "class" : "header-btn savepc",
-                            "html" : "Save to PC"
+                            "html" : "Save to PC",
+                            "data-tip" : "Your canvas will be saved to your PC"
                         }).prepend($("<i/>",{"class":icons.download}))
-                        .appendTo($headerBtWrap).on("click",headerTool.downToPc);
+                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55});
 
                         //in header progress
                         var $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
@@ -112,13 +114,15 @@
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox);
 
+                        var alertKey = $("<div/>",{"class" : "alertKey"}).appendTo($header).hide();
                         //initModals
-                        pac.initModal.file().appendTo($this).hide(),
-                        pac.initModal.embed().appendTo($this).hide(),
-                        pac.initModal.thumbnail().appendTo($this).hide(),
-                        pac.initModal.setting().appendTo($this).hide(),
+                        pac.initModal.file().appendTo($this).hide();
+                        pac.initModal.fileSelector().appendTo($this).hide();
+                        pac.initModal.embed().appendTo($this).hide();
+                        pac.initModal.thumbnail().appendTo($this).hide();
+                        pac.initModal.setting().appendTo($this).hide();
                         // right : {project team}
-                        
+
                         pac.initTools();//data binding
                         setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
@@ -204,12 +208,32 @@
             },
             initModal: {
                 file: function(){
-                    var modal = new modalKit.create(upload.fileUpTrigger,"file-modal"),
+                    var modal = new modalKit.create(modalFunc.showFileSelector,"file-modal"),
                     wrapper = modal.find(".modal-wrapper"),
                     title = modal.find(".modal-title").text(" "),
                     content = modal.find(".modal-content").text("Do you want to upload attachment file?"),
                     okbt = modal.find(".modal-okbt").text("Yes"),
                     cancelbt = modal.find(".modal-cancelbt").text("No");
+
+                    return modal;
+                },
+                fileSelector: function(){
+                    var modal = new modalKit.create(pac.autoSave,"file-selector-modal"),
+                    wrapper = modal.find(".modal-wrapper"),
+                    title = modal.find(".modal-title").text("File Select"),
+                    content = modal.find(".modal-content"),
+                    okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
+                    cancelbt = modal.find(".modal-cancelbt").on("click",initInput);
+
+                    fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content);
+                    fileViewer = $("<input/>",{ "type" : "text", "class" : "modal-fileViewer", "readonly": "true" }).appendTo(fileInputWrap);
+                    uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
+                    fileSelectHelp = $("<i/>",{ 
+                        "class" : icons.help + " file-selector-help",
+                        "data-tip" : "Your file size must be 30MB. The file extension must be ZIP,JPEG,PNG, or BMP"
+                    }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
+
+                    function initInput(){ fileViewer.val(""); };
 
                     return modal;
                 },
@@ -261,6 +285,7 @@
                 setting: function(){
                     var modal = new modalKit.create([pac.currentProg,pac.submit],"setting-modal prog").addClass("setting-window"),
                     wrapper = modal.find(".modal-wrapper"),
+                    closebt = modal.find(".modal-closebt").attr("data-value","modal-cancelbt"),
                     title = modal.find(".modal-title").text("Content Setting"),
                     content = modal.find(".modal-content"),
                     cancelbt = modal.find(".modal-cancelbt").attr("data-value","modal-cancelbt").text("Prev"),
@@ -331,9 +356,9 @@
                         $target = $ccIconWrap,
                         $img = $("<img/>",{ "src" : "#" });
                         for(var i = 0, l = ccData.length; i < l; i++){
-                            var list = ccIconLi.clone().attr("data-value",ccData[i].id)
+                            var list = ccIconLi.clone().attr({"data-value":ccData[i].id, "data-tip":ccData[i].name})
                             .append($img.clone().attr("src",ccData[i].icon))
-                            .appendTo($target);
+                            .appendTo($target).tooltip({"top":40});
                             if(ccData[i].id == "sa"){
                                 list.hide();
                             }
@@ -406,13 +431,15 @@
                 $replace = notimg ? $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Replace",
-                    "data-value" : "replace"
-                }).on("click",upload.imgUpTrigger).appendTo($menuWrap) : "",
+                    "data-value" : "replace",
+                    "data-tip" : "This Image will be replaced"
+                }).on("click",upload.imgUpTrigger).appendTo($menuWrap).tooltip({"left" : -150}) : "",
                 $largeImg = notimg ? $("<li/>",{
                     "class" : "obj-menu-list fullSizeOff",
                     "html" : "Full Size",
-                    "data-value" : "full-size"
-                }).on("click",canvasTool.getFullSizeImg).appendTo($menuWrap) : "",
+                    "data-value" : "full-size",
+                    "data-tip" : "1400px"
+                }).on("click",canvasTool.getFullSizeImg).appendTo($menuWrap).tooltip({"left" : -150}) : "",
                 $delete = $("<li/>",{
                     "class" : "obj-menu-list",
                     "html" : "Delete",
@@ -426,20 +453,88 @@
                     function(){ $menuWrap.stop().fadeIn(200); },
                     function(){ $menuWrap.stop().fadeOut(200); }
                 );
-            },
-            keyEvent: function(event){
-                $this = $(this),
-                $confirm = $this.parent().find(".modal-okbt"),
-                $cancel = $this.parent().find(".modal-cancel"),
-                inKeyCode = event.which;
-                switch(inKeyCode){
-                   case keyCode.enter : $confirm.trigger("click"); break;
-                   case keyCode.esc : $cancel.trigger("click"); break;
-                   default : return; break;
-                }
             }
         },
         upload = {
+            fileCheck: function(file){
+                var size = file.size, // 30MB
+                type = file.type, //jpg||jpeg, png, bmg, gif, zip
+                typeCheck = /(^image|application)\/(jpeg|png|bmp|zip)/i.test(type),
+                alertKey = $(document).find(".alertKey").off("click");
+                if(size < 31457280){
+                    if(typeCheck) return true;
+                    else {
+                        alertKey.lubyAlert({
+                            kind: "confirm",
+                            okAlert: false,
+                            cancelButton: false,
+                            cancelAlert: false,
+                            width: 300,
+                            height: 170,
+                            textSize: 14,
+                            customIcon: icons.box,
+                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension."
+                        });
+                        alertKey.trigger("click");
+                        return false;
+                    }
+                } 
+                else {
+                    alertKey.lubyAlert({
+                        kind: "confirm",
+                        okAlert: false,
+                        cancelButton: false,
+                        cancelAlert: false,
+                        width: 450,
+                        height: 180,
+                        textSize: 14,
+                        customIcon: icons.box,
+                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 30MB."
+                    });
+                    alertKey.trigger("click");
+                    return false;
+                }
+            },
+            imgCheck: function(file){
+                var size = file.size, // 10MB
+                type = file.type, //jpg||jpeg, png, bmg, gif, zip
+                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type),
+                alertKey = $(document).find(".alertKey").off("click");
+
+                if(size < 10485760){
+                    if(typeCheck) return true;
+                    else {
+                        alertKey.lubyAlert({
+                            kind: "confirm",
+                            okAlert: false,
+                            cancelButton: false,
+                            cancelAlert: false,
+                            width: 300,
+                            height: 170,
+                            textSize: 14,
+                            customIcon: icons.box,
+                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension."
+                        });
+                        alertKey.trigger("click");
+                        return false;
+                    }
+                } 
+                else {
+                    alertKey.lubyAlert({
+                        kind: "confirm",
+                        okAlert: false,
+                        cancelButton: false,
+                        cancelAlert: false,
+                        width: 450,
+                        height: 180,
+                        textSize: 14,
+                        customIcon: icons.box,
+                        customText: "The file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 10MB."
+                    });
+                    alertKey.trigger("click");
+                    return false;
+                }
+            },
             fileUpTrigger: function(){
                 var $this = $(this),
                 inputFile = $(document).find(".fileUploader");
@@ -447,19 +542,16 @@
                 inputFile.off("change").on("change",upload.fileUpload);
             },
             fileUpload: function(event){
-                console.log(true);
                 var $this = $(this),
                 object = event.target.files,
-                size = object[0].size, // 30MB
-                type = object[0].type, //jpg||jpeg, png, bmg, gif, zip
-                $inputModal = $(document).find(".file-modal");
-                if(size < 31457280){
-                    $inputmodalKit.remove();
-                }
-                else{
-                    alert("Your File is so big. Limit 30MB. This file is " + parseInt(size/1024/1024) + "MB");
-                    $this.val(null);
-                }
+                path = $this.val().replace(/^C:\\fakepath\\/i," ").trim(),
+                $inputModal = $(document).find(".modal.file-selector-modal"),
+                $fileViewer = $inputModal.find(".modal-fileViewer");
+
+                if(upload.fileCheck(object[0])) fileViewer.val(path);
+                else $this.val(null);
+
+                return;
             },
             imgUpTrigger: function(){
                 var $this = $(this),
@@ -495,6 +587,42 @@
                 $inputFile.trigger("click");
                 console.log("Trigger On");
             },
+            imgUpload: function(event){
+                var $this = $(".uploading"),
+                $inputFile = $(document).find(".imgUploader"),
+                $canvas = $(document).find(".editing-canvas"),
+                $header = $(".obj-header"),
+                $body = $(".obj-body"),
+                $footer = $(".obj-footer"),
+                $placeHolder = $body.find(".placeHolder"),
+
+                fileValue = $inputFile.val(),
+                indexNum = fileValue.lastIndexOf("."),
+                fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "",
+
+                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"}),
+                $object = event.target.files;
+                
+                if(upload.imgCheck($object[0])){
+                    if($placeHolder.length!=0) $placeHolder.hide();
+
+                    $.each($object, function(i,file){
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(event){
+                            var img = $("<img/>",{ "src":event.target.result }),
+                            imgWidth = img[0].width;
+
+                            if(imgWidth >= 1400) $objectWrap.addClass("large");
+                            upload.insertPosition($this,$objectWrap,img);
+                            $(".uploading").removeClass("uploading") // init target object  
+                            $inputFile.val(null); // init input value
+                            pac.objMenu($objectWrap);
+                        };
+                    });
+                }
+                else $inputFile.val(null);
+            },
             gridUpload: function(event){
                 var $this = $(".uploading"),
                 $inputFile = $(this),
@@ -503,157 +631,38 @@
                 cropBoxWidth = $target.width(),
                 cropBoxHeight = $target.height();
 
-                $.each($object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        var img = $("<img/>").attr("src", event.target.result).appendTo($target)
-                        .cropper({
-                            minContainerWidth: cropBoxWidth,
-                            minContainerHeight: cropBoxHeight,
-                            minCanvasWidth: cropBoxWidth,
-                            minCanvasHeight: cropBoxHeight,
-                            autoCropArea: 1,
-                            viewMode: 3,
-                            modal: false,
-                            center: false,
-                            guides: false,
-                            background: false,
-                            highlight: false,
-                            cropBoxMovable: false,
-                            cropBoxResizable: false,
-                            zoomOnTouch: false,
-                            toggleDragModeOnDblclick: false,
-                            dragMode: "move"
-                        }); 
-                        $inputFile.val(null);
-                        $this.attr("data-value","grid-replace").hide();
-                        $(".uploading").removeClass("uploading");
-                        toolbar.sortFn.refresh();
-                    }
-                });
-                console.log("grid upload");
-            },
-            gridReplace: function(event){
-                var $this = $(".uploading");
-                $inputFile = $(document).find(".imgUploader"),
-                $object = event.target.files,
-                $cropper = $this.siblings("img");
-
-                $.each($object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        console.log(event.target.result);
-                        $cropper.cropper("replace",event.target.result),false;
-                        $inputFile.val(null);
-                    }
-                });
-            },
-            thumbUpload: function(event){
-                var $this = $(".thumb-editor-wrapper"),
-                $inputFile = $(this),
-                $placeHolder = $this.find(".thumb-placeHolder"),
-                $target = $this.find(".thumb-origin-img"),
-                $previewer = $this.siblings(".thumb-preview-wrapper"),
-                $object = event.target.files,
-                $changeThumb = $(document).find(".thumb-img-change");
-
-                $placeHolder.hide();
-                $.each($object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        var img = $(".thumb-origin-img").attr("src", event.target.result)
-                        .cropper({
-                            minContainerWidth: 420,
-                            minContainerHeight: 300,
-                            aspectRatio: 250/215,
-                            autoCropArea: 0.6,
-                            viewMode: 3,
-                            responsive: true,
-                            zoomable: false,
-                            preview: ".thumb-preview-wrapper",
-                            dragMode: "crop"
-                        }).show();
-                        $inputFile.val(null);
-                        $changeThumb.show();
-                    }
-                });
-                setTimeout(function(){
-                    modalKit.align($(".thumbnail-window"));
-                },200);
-            },
-            thumbReplace: function(event){
-                var $this = $(this);
-                $inputFile = $(document).find(".imgUploader"),
-                $object = event.target.files,
-                $cropper = $(document).find(".thumb-origin-img");
-
-                $.each($object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        console.log(event.target.result);
-                        $cropper.cropper("replace",event.target.result);
-                        $inputFile.val(null);
-                    }
-                });
-                setTimeout(function(){
-                    modalKit.align($(".thumbnail-window"));
-                },200);
-                console.log("thumbnail is replaced");
-            },
-            imgUpload: function(event){
-                var $this = $(".uploading"),
-                $canvas = $(document).find(".editing-canvas"),
-                $header = $(".obj-header"),
-                $body = $(".obj-body"),
-                $footer = $(".obj-footer"),
-                $placeHolder = $body.find(".placeHolder"),
-
-                fileValue = $(this).val(),
-                indexNum = fileValue.lastIndexOf("."),
-                fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "",
-
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"}),
-                $inputFile = $(document).find(".imgUploader"),
-                $object = event.target.files;
-
-                console.log(fileEXT); //png, jpg, jpeg, gif, bmp
-                if($placeHolder.length!=0) $placeHolder.hide();
-
-                $.each($object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        var img = $("<img/>",{ "src":event.target.result}),
-                        imgWidth = img[0].width,
-                        fileEXT;
-                        if(imgWidth >= 1400) $objectWrap.addClass("large");
-                        upload.insertPosition($this,$objectWrap,img);
-                        $(".uploading").removeClass("uploading") // init target object  
-                        $inputFile.val(null); // init input value
-                        pac.objMenu($objectWrap);
-                    };
-                });
-            },
-            imgReplace: function(event){
-                var $this = $(this),
-                $button = $(document).find(".uploading"),
-                $target = $button.parents(".obj-menu-btn").siblings("img"),
-                $inputFile = $(document).find(".imgUploader"),
-                $object = event.target.files;
-                $.each($object, function(i,file){
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(event){
-                        $target.attr("src",event.target.result);
-                        $button.removeClass("uploading");
-                        $inputFile.val(null);
-                        toolbar.sortFn.refresh();
-                    };
-                });
+                if(upload.imgCheck($object[0])){
+                    $.each($object, function(i,file){
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(event){
+                            var img = $("<img/>").attr("src", event.target.result).appendTo($target)
+                            .cropper({
+                                minContainerWidth: cropBoxWidth,
+                                minContainerHeight: cropBoxHeight,
+                                minCanvasWidth: cropBoxWidth,
+                                minCanvasHeight: cropBoxHeight,
+                                autoCropArea: 1,
+                                viewMode: 3,
+                                modal: false,
+                                center: false,
+                                guides: false,
+                                background: false,
+                                highlight: false,
+                                cropBoxMovable: false,
+                                cropBoxResizable: false,
+                                zoomOnTouch: false,
+                                toggleDragModeOnDblclick: false,
+                                dragMode: "move"
+                            }); 
+                            $inputFile.val(null);
+                            $this.attr("data-value","grid-replace").hide();
+                            $(".uploading").removeClass("uploading");
+                            toolbar.sortFn.refresh();
+                        }
+                    });
+                }
+                else $inputFile.val(null);
             },
             textUpload: function(event){
                 var $this = $(this),
@@ -679,6 +688,108 @@
                 $this.removeClass(".uploading");
                 pac.objMenu($mediaWrap);
             }, 
+            thumbUpload: function(event){
+                var $this = $(".thumb-editor-wrapper"),
+                $inputFile = $(this),
+                $placeHolder = $this.find(".thumb-placeHolder"),
+                $target = $this.find(".thumb-origin-img"),
+                $previewer = $this.siblings(".thumb-preview-wrapper"),
+                $object = event.target.files,
+                $changeThumb = $(document).find(".thumb-img-change");
+
+                if(upload.imgCheck($object[0])){
+                    $placeHolder.hide();
+                    $.each($object, function(i,file){
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(event){
+                            var img = $(".thumb-origin-img").attr("src", event.target.result)
+                            .cropper({
+                                minContainerWidth: 420,
+                                minContainerHeight: 300,
+                                aspectRatio: 250/215,
+                                autoCropArea: 0.6,
+                                viewMode: 3,
+                                responsive: true,
+                                zoomable: false,
+                                preview: ".thumb-preview-wrapper",
+                                dragMode: "crop"
+                            }).show();
+                            $inputFile.val(null);
+                            $changeThumb.show();
+                        }
+                    });
+                    setTimeout(function(){
+                        modalKit.align($(".thumbnail-window"));
+                    },200);
+                }
+                else $inputFile.val(null);
+            },
+            imgReplace: function(event){
+                var $this = $(this),
+                $button = $(document).find(".uploading"),
+                $target = $button.parents(".obj-menu-btn").siblings("img"),
+                $objectWrap = $target.parents(".object-img").removeClass("large").css("margin","0 7%"),
+                $inputFile = $(document).find(".imgUploader"),
+                $object = event.target.files;
+                if(upload.imgCheck($object[0])){
+                    $.each($object, function(i,file){
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(event){
+                            var img = $("<img/>",{ src:event.target.result }),
+                            imgWidth = img[0].width,
+                            fileEXT;
+                            if(imgWidth >= 1400) $objectWrap.addClass("large");
+                            $target.attr("src",event.target.result);
+                            $button.removeClass("uploading");
+                            img.remove();
+
+                            $inputFile.val(null);
+                            toolbar.sortFn.refresh();
+                        };
+                    });
+                }
+                else $inputFile.val(null);
+            },
+            gridReplace: function(event){
+                var $this = $(".uploading");
+                $inputFile = $(document).find(".imgUploader"),
+                $object = event.target.files,
+                $cropper = $this.siblings("img");
+
+                $.each($object, function(i,file){
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(event){
+                        console.log(event.target.result);
+                        $cropper.cropper("replace",event.target.result),false;
+                        $inputFile.val(null);
+                    }
+                });
+            },
+            thumbReplace: function(event){
+                var $this = $(this);
+                $inputFile = $(document).find(".imgUploader"),
+                $object = event.target.files,
+                $cropper = $(document).find(".thumb-origin-img");
+
+                if(upload.imgCheck($object[0])){
+                    $.each($object, function(i,file){
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(event){
+                            console.log(event.target.result);
+                            $cropper.cropper("replace",event.target.result);
+                            $inputFile.val(null);
+                        }
+                    });
+                    setTimeout(function(){
+                        modalKit.align($(".thumbnail-window"));
+                    },200);
+                }
+                else $inputFile.val(null);
+            },
             setIndex: function(){
             	var $contents = $(document).find(".canvas-content");
             	$contents.each(function(){
@@ -727,78 +838,12 @@
                 if(wrap.hasClass("object-text")) wrap.focusin(); // it is not working
             }
         },
-        modalKit = {
-            create: function(action,className){
-                var body = $("<div/>",{ "class":"modal " + className }),
-                wrapper = $("<div/>",{ "class" : "modal-wrapper " + className }).appendTo(body),
-                title = $("<div/>",{ "class" : "modal-title " + className }).appendTo(wrapper),
-                closeBt = $("<div/>",{ "class" : "modal-closebt " + className, "data-value" : "modal-closebt" }).on("click",modalKit.cancel).appendTo(wrapper),
-                content = $("<div/>",{ "class" : "modal-content " + className }).appendTo(wrapper),
-                btWrap = $("<div/>",{ "class" : "modal-bt-wrapper " + className }).appendTo(wrapper),
-                btCancel = $("<div/>",{
-                    "class" : "modal-bt modal-cancelbt " + className,
-                    "html" : "Cancel",
-                    "data-value" : "modal-closebt"
-                }).on("click",modalKit.cancel).appendTo(btWrap),
-                btOk = $("<div/>",{"class" : "modal-bt modal-okbt " + className}),
-                action = action || 0;
-
-                if(typeof action === "object"){
-                    for(var i = 0, l = action.length; i < l; i++){
-                        btOk.on("click",action[i]);
-                    }
-                    btOk.appendTo(btWrap);
-                }
-                else if(typeof action === "function") {
-                    btOk.on("click",action);
-                    btOk.appendTo(btWrap);
-                }
-                else btWrap.remove();
-
-                return body;
-            },
-            align: function(selector){
-                $this = selector,
-                width = $this.width(),
-                height = $this.height(),
-                windowWidth = $(window).width(),
-                windowHeight = $(window).height(),
-                hrAlign = (width/2)*-1,
-                vtAlign = (windowHeight/2 - height/2) - 20;
-                $this.css({ "top" : vtAlign+"px", "margin-left" : hrAlign+"px", "left" : "50%"});
-            },
-            show: function(){
-                var $this = $(this),
-                data = $this.data("value"),
-                $uploading = $(document).find(".uploading"),
-                $target = $(document).find("."+data),
-                $darkOverlay = $(document).find(".dark_overlay"),
-                $input = $target.find("textarea");
-                $target.fadeIn(300);
-                $darkOverlay.fadeIn(300);
-
-                $input.focus().on("keydown",pac.keyEvent);
-                if($uploading.length!=0) $uploading.removeClass(".uploading");
-
-                $this.addClass("uploading");
-                modalKit.align($target);
-            },
-            cancel: function(){
-                var $this = $(this),
-                $window = $this.parents(".modal"),
-                $input = $this.parent().siblings("textarea"),
-                $grid = $window.find(".grid-edit-window"),
-                $btns = ".header-btn",
-                $currentProg = $(document).find(".current-prog"),
-                data = $currentProg.data("value");
-
-                $input.val(null);
-                if($window.hasClass("prog")) $currentProg.prev($btns).trigger("click");
-                else if($window.attr("id") == "gridTool-toolbox") $grid.empty(), $(".btn.selected").removeClass("selected"); 
-                console.log("cancel");
-            }
-        },
         modalFunc = {
+            showFileSelector: function(){
+                $(document).find(".dark_overlay").fadeIn(200);
+                $(document).find(".modal").fadeOut(200);
+                $(document).find(".modal.file-selector-modal").fadeIn(200);
+            },
             addGrid: function(){
                 var $this = $(this),
                 $window = $this.parents(".modal"),
@@ -1098,11 +1143,17 @@
         },
         toolbar = {
             createButton: function(data,iconData){
-                var button = $("<div/>",{"class" : "btn", "data-value" : data }),
+                var tipData = disableCamelCase(data);
+                var button = $("<div/>",{"class" : "btn", "data-value" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
-                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle);
+                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle).tooltip({"top":5,"left" : 50});
 
+                function disableCamelCase(text){ //camelCase -> Camel Case
+                    var result = text.replace( /([A-Z])/g, " $1" ),
+                    result = result.charAt(0).toUpperCase() + result.slice(1);
+                    return result;
+                }
                 return button;
             },
             toolbarToggle: function(){
@@ -1121,7 +1172,7 @@
             createMenu: function(content,name){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
                 label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
-                if(typeof content === "object"){
+                if(content !== null && typeof content === "object"){
                     if(content.length === 1){
                         content.appendTo(body);
                     }
@@ -1130,8 +1181,11 @@
                             content[i].appendTo(body);
                         }
                     }
+                    return body;
                 }
-                return body;
+                else {
+                    return body
+                }
 
             },
             textTool: function(){
