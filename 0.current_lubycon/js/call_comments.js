@@ -18,7 +18,7 @@ var ajax_eventing = false;
 function call_comments() {
     $.ajax
     ({
-        url: "php/ajax/call_comments_ajax.php",
+        url: "../ajax/call_comments_ajax.php",
         processData: false,
         contentType: false,
         //data: formData,
