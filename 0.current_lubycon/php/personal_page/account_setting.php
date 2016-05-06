@@ -59,12 +59,13 @@
                     <select class="jobFilter" name="job">
                         <?php
                             $json_control = new json_control;
-                            $json_control->json_decode("$one_depth/data/job.json");
-                            $origin_select = $json_control->json_decode_code['jobCode'][$row['jobCode']][$row['jobCode']];
+                            $json_control->json_decode('jobCode',"$one_depth/data/job.json");
+                            $origin_select = $json_control->json_decode_code[$row['jobCode']];
 
-                            foreach ($json_control->json_decode_code['jobCode'] AS $index=>$array)
+                            foreach ($json_control->json_decode_code AS $index=>$value)
                             {
-                                echo '<option data-value='.$array[$index].'>'.$array[$index].'</option>';
+                                $loop_value = $value;
+                                echo "<option value='$loop_value' data-value='$loop_value'>$loop_value</option>";
                             }
                             echo "<script>luby_selcetor_val_change('.job_option','$origin_select');</script>";
                         ?>
@@ -76,11 +77,12 @@
                 <div class="location_option">
                     <select class="locationFilter" name="location">
                          <?php
-                            $json_control->json_decode("$one_depth/data/country.json");
-                            $origin_select = $json_control->json_decode_code['country'][$row['countryCode']]['name'];
-                            foreach ($json_control->json_decode_code['country'] AS $index=>$array)
+                            $json_control->json_decode('country',"$one_depth/data/country.json");
+                            $origin_select = $json_control->json_decode_code[$row['countryCode']];
+                            foreach ($json_control->json_decode_code AS $index=>$value)
                             {
-                                echo '<option data-value="'.$json_control->json_decode_code['country'][$index]['name'].'">'.$json_control->json_decode_code['country'][$index]['name'].'</option>';
+                                $loop_value = $json_control->json_decode_code[$index];
+                                echo "<option value='$loop_value' data-value='$loop_value'>$loop_value</option>";
                             }
                             echo "<script>luby_selcetor_val_change('.location_option','$origin_select');</script>";
                         ?>
