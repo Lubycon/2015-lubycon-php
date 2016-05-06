@@ -4,7 +4,6 @@
     display:none;
 }
 
-
 .con_wrap{
     position: relative;
     width:100%;
@@ -49,10 +48,12 @@
         #bestCreator .usercontent img {
             max-width: 300px;
         }
+
 .con_aside {
     border-right: 1px solid #222222;
     border-left: 0px;    
 }
+/*login aside start*/
     #myinfo_setting {
         display: block;
         color: #999999;
@@ -152,5 +153,57 @@
                     font-weight: 200;
                     color: #eeeeee;
                 }
+/*login aside end*/
+
+/*logout aside start*/
+    #creator_signin {
+        padding: 10px;
+    }
+        .login_icon {
+            font-size: 60px;
+            color: #ffffff;
+            margin-top: 30px;
+        }
+        .message_wrapper {
+        }
+            .join_us_message {
+                text-align: center;
+                color: #ffffff;
+            }
+                .join_us_message.join_title {
+                    font-size: 40px;
+                    font-weight: 600;
+                }
+                .join_us_message.join_content {
+                    font-size: 15px;
+                    text-align: center;
+                    font-weight: 200;
+                }
+        .sign_in_bt {
+            border: 1px solid #ffffff;
+            border-radius: 50px;
+            width: 260px;
+            background: none;
+            font-size: 20px;
+            margin: 35px auto;
+            color: #ffffff;
+            font-weight: 100;
+            transition: color 0.2s, border 0.2s;
+        }
+            .sign_in_bt:hover {
+                color: #48cfad;
+                border: 1px solid #48cfad;
+            }
+            .sign_in_bt > a {
+                display: block;
+                height: 42px;
+                line-height: 37px;
+                color: #ffffff;
+                transition: color 0.2s;
+            }
+                .sign_in_bt:hover > a {
+                    color: #48cfad;
+                }
+/*logout aside end*/
 
 /* main section end */

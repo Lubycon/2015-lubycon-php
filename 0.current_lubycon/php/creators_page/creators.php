@@ -63,15 +63,6 @@
                 $language1 = "Korean";
                 $language2 = "English";
             ?>
-            <i id="myinfo_setting" class="fa fa-bars hidden-mb-b"></i>
-            <div id="myinfo_menu_list">
-                <ul>
-                    <li><a href="<?=$two_depth?>/personal_page.php?cate=dashboard"><i class="fa fa-tachometer"></i>Dashboard</a></li>
-                    <li><a href="<?=$two_depth?>/personal_page.php?cate=my_contents"><i class="fa fa-eye"></i>My Contents</a></li>
-                    <li><a href="<?=$two_depth?>/personal_page.php?cate=insight"><i class="fa fa-bar-chart"></i>My Insight</a></li>
-                    <li><a href="<?=$two_depth?>/personal_page.php?cate=bookmark"><i class="fa fa-star"></i>Bookmarks</a></li>
-                </ul>
-            </div>
             <?php
                 if($session->SessionExist()){
                     include_once("./creators_login.php");
