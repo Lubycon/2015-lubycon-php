@@ -453,17 +453,6 @@
                     function(){ $menuWrap.stop().fadeIn(200); },
                     function(){ $menuWrap.stop().fadeOut(200); }
                 );
-            },
-            keyEvent: function(event){
-                $this = $(this),
-                $confirm = $this.parent().find(".modal-okbt"),
-                $cancel = $this.parent().find(".modal-cancel"),
-                inKeyCode = event.which;
-                switch(inKeyCode){
-                   case keyCode.enter : $confirm.trigger("click"); break;
-                   case keyCode.esc : $cancel.trigger("click"); break;
-                   default : return; break;
-                }
             }
         },
         upload = {

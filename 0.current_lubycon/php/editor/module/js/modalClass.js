@@ -48,8 +48,8 @@ var modalKit = {
         $target.fadeIn(300);
         $darkOverlay.fadeIn(300);
 
-        $input.focus().on("keydown",pac.keyEvent);
-        if($uploading.length!=0) $uploading.removeClass(".uploading");
+        $input.focus().on("keydown",this.keyEvent);
+        if($uploading.length !== 0) $uploading.removeClass(".uploading");
 
         $this.addClass("uploading");
         modalKit.align($target);
@@ -67,5 +67,8 @@ var modalKit = {
         if($window.hasClass("prog")) $currentProg.prev($btns).trigger("click");
         else if($window.attr("id") == "gridTool-toolbox") $grid.empty(), $(".btn.selected").removeClass("selected"); 
         console.log("cancel");
+    },
+    keyEvent: function(event){
+        console.log("KeyEvent");
     }
 }

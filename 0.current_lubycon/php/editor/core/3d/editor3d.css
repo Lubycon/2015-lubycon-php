@@ -22,6 +22,47 @@
         color: #eeeeee;
         font-size: 12px;
     }
+.modal-content.texture-modal > .texture-list-wrapper {
+    padding: 8px;
+    background: #222222;
+    border-radius: 3px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.8);
+    text-align: left;
+}
+    .modal-content.texture-modal > .texture-list-wrapper > .btn {
+        display: inline-block;
+        position: relative;
+        width: 42px;
+        height: 42px;
+        line-height: 42px;
+        margin: 7px;
+        border-radius: 3px;
+        overflow: hidden;
+        transition: opacity 0.2s;
+    }
+        .modal-content.texture-modal > .texture-list-wrapper > .btn:hover {
+            opacity: 0.7;
+        }
+        .modal-content.texture-modal > .texture-list-wrapper > .btn.selected {
+            border: 1px solid #48cfad;
+            box-shadow: 0px 0px 9px 1px rgba(72,207,173,0.8) !important;
+        }
+        .modal-content.texture-modal > .texture-list-wrapper > .texture-list.btn {
+
+        }
+            .modal-content.texture-modal > .texture-list-wrapper > .texture-list.btn .texture-img {
+                width: 100%;
+            }
+            .modal-content.texture-modal > .texture-list-wrapper > .texture-list.btn .texture-name {
+
+            }
+        .modal-content.texture-modal > .texture-list-wrapper > .upload-bt.btn {
+            border: 2px dashed #eeeeee;
+            background: transparent;
+        }
+            .modal-content.texture-modal > .texture-list-wrapper > .upload-bt.btn > i {
+                color: #ffffff;
+            }
 
 .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper {
     position: relative;
@@ -412,6 +453,7 @@
                             display: none;
                         }
 
+        
     .editor-body > .editing-background{
         position: fixed;
         top: 0;

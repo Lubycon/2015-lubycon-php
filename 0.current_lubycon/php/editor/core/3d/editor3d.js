@@ -25,6 +25,7 @@
         d = {},
         scene, camera, dirLight, ambLight, renderer, controls, stats,
         group, object, mtl, geometry, material, mesh,
+        loadedMaterials = [],
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
@@ -93,6 +94,7 @@
                         var alertKey = $("<div/>",{"class" : "alertKey"}).appendTo($header).hide();
                         //initModals
                         pac.initModal.fileSelector().appendTo($this).hide();
+                        pac.initModal.textureWindow().appendTo($this).hide();
                         pac.initModal.thumbnail().appendTo($this).hide();
                         pac.initModal.setting().appendTo($this).hide();
                         // right : {project team}
@@ -241,7 +243,7 @@
                     okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
                     cancelbt = modal.find(".modal-cancelbt").on("click",initInput);
 
-                    fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content);
+                    var fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content);
                     fileViewer = $("<input/>",{ "type" : "text", "class" : "modal-fileViewer", "readonly": "true" }).appendTo(fileInputWrap);
                     uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find", "data-value" : "newOBJUpload" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
                     fileSelectHelp = $("<i/>",{ 
@@ -252,6 +254,26 @@
 
 
                     function initInput(){ fileViewer.val(""); };
+
+                    return modal;
+                },
+                textureWindow: function(){
+                    //texture limit is 20 objects
+
+                    var modal = new modalKit.create(upload.textureApply,"texture-modal").addClass("texture-window"),
+                    wrapper = modal.find(".modal-wrapper"),
+                    title = modal.find(".modal-title").text("Texture"),
+                    content = modal.find(".modal-content"),
+                    okbt = modal.find(".modal-okbt").text("Apply").attr("data-value","modal-closebt");
+
+                    var textureList = $("<ul/>",{"class" : "texture-list-wrapper" });
+
+                    var texture = new toolbar.materialFn.addTextureObject(icons.transparent,"None").attr("data-index","-1").addClass("selected default").appendTo(content);
+
+                    var uploadBt = $("<li/>",{"class" : "upload-bt btn", "data-value" : "newTexUpload"}).on("click",upload.fileUpTrigger),
+                    uploadIcon = $("<i/>",{"class" : icons.plus}).appendTo(uploadBt)
+
+                    textureList.append(texture).append(uploadBt).appendTo(content);
 
                     return modal;
                 },
@@ -319,7 +341,7 @@
                         "name" : "contents_category[]"
                     }).appendTo($categoryName);
 
-                    categories = categoryData,
+                    var categories = categoryData,
                     insertOption = function(){
                         var categoryBox = $categorySelect;
                         for(i in categories){ //categoryData is json
@@ -431,6 +453,14 @@
                    case keyCode.esc : $cancel.trigger("click"); break;
                    default : return; break;
                 }
+            },
+            setIndex: function(element){
+                var elements = $(document).find(element);
+                elements.each(function(){
+                    var $this = $(this),
+                    index = $this.index(element) - 1;
+                    if(!$this.is(".default")) $this.attr("data-index",index);
+                });
             }
         },
         upload = {
@@ -438,7 +468,6 @@
                 var size = file.size, // 30MB
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
                 alertKey = $(document).find(".alertKey").off("click");
-                console.log(file);
                 if(size < 31457280){
                     return true;
                 } 
@@ -537,30 +566,74 @@
                 return;
             },
             textureUpload: function(event){
-                var $this = $(".uploading");
+                var $inputFile = $(this), 
+                object = event.target.files,
+                target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn")
                 
-                if(upload.imgCheck($object[0])){
-                    $.each($object, function(i,file){
-                        var reader = new FileReader();
+                if(upload.imgCheck(object[0])){
+                    $.each(object, function(i,file){
+                        var reader = new FileReader(),
+                        textureLoader = new THREE.TextureLoader();
+
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
-                            var img = $("<img/>",{ "src":event.target.result }),
-                            imgWidth = img[0].width;
-
-                            if(imgWidth >= 1400) $objectWrap.addClass("large");
-                            upload.insertPosition($this,$objectWrap,img);
-                            $(".uploading").removeClass("uploading") // init target object  
+                            var newTexture = new toolbar.materialFn.addTextureObject(event.target.result,file.name);
+                            textureLoader.load(event.target.result,function(texture){
+                                loadedMaterials.push(texture);
+                            });
+                            newTexture.insertBefore(target);
+                            pac.setIndex(".texture-list");
                             $inputFile.val(null); // init input value
-                            pac.objMenu($objectWrap);
                         };
                     });
                 }
                 else $inputFile.val(null);
             },
+            textureApply: function(){
+                var targetID = $("#material-selector").find("option:selected").data("value"),
+                kind = $(".texture-viewer.uploading").parents(".material-controller").data("value"),
+
+                selected = $(".texture-list-wrapper").find(".selected"),
+                selectSRC = selected.find(".texture-img").attr("src"),
+                selectID = selected.data("index"),
+
+                selectMaterial = loadedMaterials[selectID],
+                materials = mesh.material.materials;
+                material = materials[targetID];
+
+                console.log(selectID);
+                console.log(selectMaterial);
+                
+                switch(kind){
+                    case "diffuse" : 
+                        idCheck(selectID,"map");
+                    break;
+                    case "specular" : 
+                        idCheck(selectID,"specularMap");
+                    break;
+                    case "normal" : 
+                        idCheck(selectID,"normalMap");
+                    break;
+                    default: break;
+                }
+                $(".uploading").attr("src",selectSRC).removeClass("uploading");
+
+                function idCheck(id,kind){
+                    if(id == -1){
+                        material[kind] = "";
+                        material.needsUpdate = true;
+                    }
+                    else{
+                        material[kind] = selectMaterial;
+                        material.needsUpdate = true;
+                    }
+                }
+            },
             loaders: function(file){
                 var reader = new FileReader();
                 var filename = file.name;
                 var ext = filename.split(".").pop().toLowerCase();
+                var alertKey = $(document).find(".alertKey").off("click");
                 switch(ext){
                     case "obj" :
                         reader.addEventListener("load", function(event){
@@ -605,7 +678,24 @@
                         },false);
                         reader.readAsText(file);
                     break;
-                    default: $.error("This file is not supported");
+                    default: 
+                        alertKey.lubyAlert({
+                            kind: "confirm",
+                            okAlert: false,
+                            cancelButton: false,
+                            cancelAlert: false,
+                            width: 300,
+                            height: 170,
+                            textSize: 14,
+                            customIcon: icons.box,
+                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
+                            inSpeed: 600,
+                            stoptime: 1000,
+                            outSpeed: 600
+                        });
+                        alertKey.trigger("click");
+                        return false;
+                    break;
                 }
             }
         },
@@ -939,8 +1029,12 @@
                     }
                     else $viewers.hide();
                 },
-                materialTexture: function(){
-                    upload.textureUpload();
+                addTextureObject: function(src,name){
+                    var wrapper = $("<li/>",{"class" : "texture-list btn" }).on("click",pac.toggle),
+                    textureImg = $("<img/>",{"class" : "texture-img", "src" : src}).appendTo(wrapper),
+                    textureTitle = $("<p/>",{"class" : "texture-name"}).text(name).appendTo(wrapper);
+
+                    return wrapper;
                 },
                 materialColor: function(color){
                     var $this = $(this),
