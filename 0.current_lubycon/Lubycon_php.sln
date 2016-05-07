@@ -58,8 +58,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "editor", "editor", "{3FC22545-B208-4275-8530-090F43F8CDD4}"
 	ProjectSection(SolutionItems) = preProject
 		php\editor\ajax_upload.php = php\editor\ajax_upload.php
-		php\editor\editor.php = php\editor\editor.php
-		php\editor\jquery.lubyPictool.js = php\editor\jquery.lubyPictool.js
 		php\editor\test.php = php\editor\test.php
 	EndProjectSection
 EndProject
@@ -205,27 +203,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "class", "class", "{95D8E7D4
 		php\class\upload_class.php = php\class\upload_class.php
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{5F95FFB1-CF25-4D80-8A05-F82AF5F6E8D7}"
-	ProjectSection(SolutionItems) = preProject
-		php\editor\js\chosen.jquery.js = php\editor\js\chosen.jquery.js
-		php\editor\js\cropper.js = php\editor\js\cropper.js
-		php\editor\js\html2canvas.js = php\editor\js\html2canvas.js
-		php\editor\js\jquery-1.12.2.js = php\editor\js\jquery-1.12.2.js
-		php\editor\js\jquery-ui.min.js = php\editor\js\jquery-ui.min.js
-		php\editor\js\jquery.lubySlider.js = php\editor\js\jquery.lubySlider.js
-		php\editor\js\resizeObject.js = php\editor\js\resizeObject.js
-		php\editor\js\spectrum.js = php\editor\js\spectrum.js
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{39DEB90F-81F1-4497-8D15-A13124716B47}"
-	ProjectSection(SolutionItems) = preProject
-		php\editor\css\chosen.css = php\editor\css\chosen.css
-		php\editor\css\cropper.css = php\editor\css\cropper.css
-		php\editor\css\lubyPictool.css = php\editor\css\lubyPictool.css
-		php\editor\css\lubySlider.css = php\editor\css\lubySlider.css
-		php\editor\css\spectrum.css = php\editor\css\spectrum.css
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_editor", "_editor", "{B766FCB4-280D-4970-8695-B446CC83A008}"
 	ProjectSection(SolutionItems) = preProject
 		php\_editor\editor.php = php\_editor\editor.php
@@ -289,6 +266,67 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{50099784-3
 		__JSONSchema = 
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{903CDC67-7233-4DD5-9BCF-8E1DB1520447}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{6E61DE10-0893-4F97-9947-BB1441EE81ED}"
+	ProjectSection(SolutionItems) = preProject
+		php\editor\data\categories.json = php\editor\data\categories.json
+		php\editor\data\creative_commons.json = php\editor\data\creative_commons.json
+		php\editor\data\icons.json = php\editor\data\icons.json
+		php\editor\data\keyCode.json = php\editor\data\keyCode.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{E73D18C8-F10E-4B9D-BA0D-F53D66D55C0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "module", "module", "{467D0932-D70F-4B4D-AB66-EC5C094D129B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "temp", "temp", "{2F140E3A-697D-4763-8C03-07FA16A8B9F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2d", "2d", "{799B2D03-4BB8-47B5-8DCE-F896BF3501C2}"
+	ProjectSection(SolutionItems) = preProject
+		php\editor\core\2d\editor2d.css = php\editor\core\2d\editor2d.css
+		php\editor\core\2d\editor2d.js = php\editor\core\2d\editor2d.js
+		php\editor\core\2d\editor2d.php = php\editor\core\2d\editor2d.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3d", "3d", "{C49D6B1C-8866-4965-B892-B501B68DA64B}"
+	ProjectSection(SolutionItems) = preProject
+		php\editor\core\3d\editor3d.css = php\editor\core\3d\editor3d.css
+		php\editor\core\3d\editor3d.js = php\editor\core\3d\editor3d.js
+		php\editor\core\3d\editor3d.php = php\editor\core\3d\editor3d.php
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{EC7BD025-7309-4413-AD05-8B30BCF39BF3}"
+	ProjectSection(SolutionItems) = preProject
+		php\editor\module\js\chosen.jquery.js = php\editor\module\js\chosen.jquery.js
+		php\editor\module\js\cropper.js = php\editor\module\js\cropper.js
+		php\editor\module\js\html2canvas.js = php\editor\module\js\html2canvas.js
+		php\editor\module\js\jquery.lubySlider.js = php\editor\module\js\jquery.lubySlider.js
+		php\editor\module\js\modalClass.js = php\editor\module\js\modalClass.js
+		php\editor\module\js\resizeObject.js = php\editor\module\js\resizeObject.js
+		php\editor\module\js\spectrum.js = php\editor\module\js\spectrum.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{E48213F9-C738-43EF-8D23-87706ECF2BE8}"
+	ProjectSection(SolutionItems) = preProject
+		php\editor\module\css\chosen.css = php\editor\module\css\chosen.css
+		php\editor\module\css\cropper.css = php\editor\module\css\cropper.css
+		php\editor\module\css\lubySlider.css = php\editor\module\css\lubySlider.css
+		php\editor\module\css\spectrum.css = php\editor\module\css\spectrum.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3d", "3d", "{A6E6912E-64AA-4AEF-8075-FCB6467ABD14}"
+	ProjectSection(SolutionItems) = preProject
+		php\editor\module\js\3d\3dLoader.js = php\editor\module\js\3d\3dLoader.js
+		php\editor\module\js\3d\dat.gui.min.js = php\editor\module\js\3d\dat.gui.min.js
+		php\editor\module\js\3d\DragControls.js = php\editor\module\js\3d\DragControls.js
+		php\editor\module\js\3d\OrbitControls.js = php\editor\module\js\3d\OrbitControls.js
+		php\editor\module\js\3d\ShadowMaterial.js = php\editor\module\js\3d\ShadowMaterial.js
+		php\editor\module\js\3d\stats.min.js = php\editor\module\js\3d\stats.min.js
+		php\editor\module\js\3d\three.min.js = php\editor\module\js\3d\three.min.js
+		php\editor\module\js\3d\threex.domevents.js = php\editor\module\js\3d\threex.domevents.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -313,13 +351,21 @@ Global
 		{B5BAB6CF-31EF-4F58-AB26-627D58D8B67D} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{B28D56C0-BF45-4F8E-9C8D-F8B33B2A7D60} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{95D8E7D4-DFA3-4DD2-B9C7-E03AEB7EA262} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
-		{5F95FFB1-CF25-4D80-8A05-F82AF5F6E8D7} = {3FC22545-B208-4275-8530-090F43F8CDD4}
-		{39DEB90F-81F1-4497-8D15-A13124716B47} = {3FC22545-B208-4275-8530-090F43F8CDD4}
 		{B766FCB4-280D-4970-8695-B446CC83A008} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{37599D85-88B3-449A-8406-5A2B1EB56DC6} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{8C8CD4A4-8FE8-481B-A430-2C60EF1410DF} = {F4657569-6E1C-48D8-8BE1-96250A2CB5CA}
 		{52FF6F65-7481-4DE9-8BAC-87D3B6F77CF3} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{02EAD82B-CACA-4101-9781-5D79EFE2931F} = {DAEE0839-5F41-492F-95AB-58A345B7C2AE}
 		{50099784-3595-4447-9129-C6E048C0861A} = {0776844A-08DE-4742-A0B4-6CEC4EF8BE00}
+		{903CDC67-7233-4DD5-9BCF-8E1DB1520447} = {3FC22545-B208-4275-8530-090F43F8CDD4}
+		{6E61DE10-0893-4F97-9947-BB1441EE81ED} = {3FC22545-B208-4275-8530-090F43F8CDD4}
+		{E73D18C8-F10E-4B9D-BA0D-F53D66D55C0B} = {3FC22545-B208-4275-8530-090F43F8CDD4}
+		{467D0932-D70F-4B4D-AB66-EC5C094D129B} = {3FC22545-B208-4275-8530-090F43F8CDD4}
+		{2F140E3A-697D-4763-8C03-07FA16A8B9F0} = {3FC22545-B208-4275-8530-090F43F8CDD4}
+		{799B2D03-4BB8-47B5-8DCE-F896BF3501C2} = {903CDC67-7233-4DD5-9BCF-8E1DB1520447}
+		{C49D6B1C-8866-4965-B892-B501B68DA64B} = {903CDC67-7233-4DD5-9BCF-8E1DB1520447}
+		{EC7BD025-7309-4413-AD05-8B30BCF39BF3} = {467D0932-D70F-4B4D-AB66-EC5C094D129B}
+		{E48213F9-C738-43EF-8D23-87706ECF2BE8} = {467D0932-D70F-4B4D-AB66-EC5C094D129B}
+		{A6E6912E-64AA-4AEF-8075-FCB6467ABD14} = {EC7BD025-7309-4413-AD05-8B30BCF39BF3}
 	EndGlobalSection
 EndGlobal

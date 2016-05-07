@@ -87,7 +87,7 @@
         <div id="user_view_main" class="con_main">
             <?php
                 $user_img_url = "$one_depth/../../../Lubycon_Contents/user/41/profile.jpg";
-                $user_location_img = $one_depth."/ch/img/flag_icons/United-States-Of-America.png";
+                $user_location_img = "$one_depth/ch/img/flag_icons/230.png";
                 $usercity = "Los Santos";
                 $usercountry = "United States";
                 $username = "Ssaru";
