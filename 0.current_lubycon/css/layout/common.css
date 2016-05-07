@@ -1432,6 +1432,10 @@ body{
             color: #888888;
             font-size: 14px;
             margin-top: 2px;
+            text-overflow: ellipsis;
+            width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
         }
             .creator_location i {
                 color: #888888;
