@@ -122,17 +122,23 @@ $(window).on("load resize", function(){
 //      tooltip start
 /////////////////////////////////////////////////////////
 $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!!!
-    var defaults = { top: 0, left: 0 },
+    var defaults = { top: 0, left: null, right: null },
     d = $.extend({}, defaults, option);
 
     this.each(function(){
         var $this = $(this),
         data = $this.data("tip");
 
-        var tooltipBody = $("<div/>",{"class" : "tooltip tip-body"}).css({ "top" : d.top, "left" : d.left }),
+        var tooltipBody = $("<div/>",{"class" : "tooltip tip-body"}),
         tooltipWrap = $("<div/>",{"class" : "tooltip tip-wrapper"}).appendTo(tooltipBody),
         tooltipContent = $("<p/>",{"class" : "tooltip tip-content","html" : data}).appendTo(tooltipWrap);
         
+        tooltipBody.css("top",d.top);
+        d.left !== null ? tooltipBody.css("left",d.left) : "";
+        d.right !== null ? tooltipBody.css("right",d.right) : "";
+
+        if(d.left == null && d.right == null) alert("Tooltip Error(ui.js) : Please insert value about X coordinate(left or right)");
+
         $this.on("mouseenter",showTooltip).on("mouseleave",hideTooltip);
 
         function showTooltip(){

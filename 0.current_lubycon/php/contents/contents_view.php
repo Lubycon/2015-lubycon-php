@@ -178,7 +178,7 @@ $file_like = $row['likeCount'];
                 <span id="user_info_wrap">
                     <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$user_name?></a></h4>
                     <h5><?=$userjob?></h5>
-                    <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
+                    <h5 class="user_location" data-tip="<?=$usercity?>, <?=$usercountry?>"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
             </div>
             <div id="content_down" class="hidden-mb-b"><i class="fa fa-cloud-download"></i></div>
