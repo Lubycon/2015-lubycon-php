@@ -65,13 +65,13 @@
                             "html" : "Attach File",
                             "data-tip" : "Attach your files"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55}),
+                        .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55, "left" : 0}),
                         $savebtn = $("<div/>",{
                             "class" : "header-btn savepc",
                             "html" : "Save to PC",
                             "data-tip" : "Your canvas will be saved to your PC"
                         }).prepend($("<i/>",{"class":icons.download}))
-                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55});
+                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55, "left" : 0});
 
                         //in header progress
                         var $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
@@ -358,7 +358,7 @@
                         for(var i = 0, l = ccData.length; i < l; i++){
                             var list = ccIconLi.clone().attr({"data-value":ccData[i].id, "data-tip":ccData[i].name})
                             .append($img.clone().attr("src",ccData[i].icon))
-                            .appendTo($target).tooltip({"top":40});
+                            .appendTo($target).tooltip({"top":40, "left" : 0});
                             if(ccData[i].id == "sa"){
                                 list.hide();
                             }

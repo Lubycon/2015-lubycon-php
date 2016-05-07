@@ -51,7 +51,7 @@
                             "html" : "File",
                             "data-tip" : "Upload your OBJ files"
                         }).prepend($("<i/>",{"class":icons.upload}))
-                        .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55});
+                        .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55, "left" : 0});
 
                         //in header progress
                         var $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
@@ -380,7 +380,7 @@
                         for(var i = 0, l = ccData.length; i < l; i++){
                             var list = ccIconLi.clone().attr({"data-value":ccData[i].id, "data-tip":ccData[i].name})
                             .append($img.clone().attr("src",ccData[i].icon))
-                            .appendTo($target).tooltip({"top":40});
+                            .appendTo($target).tooltip({"top":40, "left": 0});
                             if(ccData[i].id == "sa"){
                                 list.hide();
                             }
@@ -612,6 +612,7 @@
                     break;
                     default: break;
                 }
+                console.log(group.children[0]);
                 $(".uploading").attr({"src" : selectSRC, "data-index" : selectID }).removeClass("uploading");
 
                 function idCheck(id,kind){
@@ -645,8 +646,7 @@
 
                                 material = object[i].material;
                                 if(material.type == "MeshPhongMaterial"){
-                                    material.specular = new THREE.Color(0xffffff);
-                                    material.specularColor = new THREE.Color(0xffffff);
+                                    material.specular = new THREE.Color(0x000000);
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
@@ -655,8 +655,7 @@
                                 else if(material.type = "MultiMaterial"){
                                     var materials = material.materials;
                                     for(var j = 0, ml = materials.length; j < ml; j++){
-                                        materials[j].specular = new THREE.Color(0xffffff);
-                                        materials[j].specularColor = new THREE.Color(0xffffff);
+                                        materials[j].specular = new THREE.Color(0x000000);
                                         materials[j].side = THREE.DoubleSide;
                                         materials[j].transparent = true;
                                         materials[j].needsUpdate = true;
@@ -718,8 +717,7 @@
                     $.ajax({
                         type: "POST",
                         url: "../../../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
-                        data:
-                        {
+                        data: {
                             'ajax_data': dataArray
                         },
                         cache: false,
@@ -962,7 +960,7 @@
                         $wrapper.clone(true).appendTo($(this));
                         $(this).find(".colorKey").spectrum({
                             replacerClassName: "color-viewer material-viewer",
-                            color: "#ffffff",
+                            color: "#000000",
                             showInput: true,
                             showAlpha: true,
                             showInitial: true,
@@ -975,7 +973,7 @@
                             change: toolbar.materialFn.materialColor
                         }).hide();
                         $(this).find(".sliderKey").slider({
-                            callback: toolbar.materialFn.changeOpacity
+                            callback: toolbar.materialFn.sliderAction
                         });
                     });
                 },
@@ -1086,7 +1084,7 @@
                     }
                 },
                 addTextureObject: function(src,name){
-                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45}).on("click",pac.toggle),
+                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45, "left" : 0}).on("click",pac.toggle),
                     textureImg = $("<img/>",{"class" : "texture-img", "src" : src}).appendTo(wrapper),
                     selectedTexture = $(".modal.texture-modal").find(".texture-list.btn.selected");
 
@@ -1113,9 +1111,8 @@
                         }
                     }   
                 },
-                changeOpacity: function(val,selector){
+                sliderAction: function(val,selector){
                     var $this = selector,
-                    val = val*0.01,
                     $materials = group.children[0].material;
 
                     if($materials.type == "MeshPhongMaterial"){}
@@ -1123,9 +1120,10 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".material-controller").data("value");
-
+                        console.log(val);
                         switch(kind){
-                            case "diffuse" : $material.opacity = val; break;
+                            case "diffuse" : $material.opacity = val*0.01; break;
+                            case "specular" : $material.shininess = val; break;
                             default : $.error("opacity Error"); break;
                         }
                     }
