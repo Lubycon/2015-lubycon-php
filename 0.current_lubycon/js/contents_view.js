@@ -43,5 +43,8 @@ function like_count_up(countkind,connum_param, like_stat){
 //tooltip start
 $(document).ready(function(){
     $(".cc_icon").tooltip({"top": 30, "left": -50});
+    $(".user_location").tooltip({"top": 75, "left": -60});
 })
+
+
 //tooltip end

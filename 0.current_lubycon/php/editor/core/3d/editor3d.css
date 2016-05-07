@@ -408,6 +408,7 @@
                 width: 150px;
             }
             .toolbox-inner .lubySelector {
+                max-width: 220px;
                 margin: 7px 0px;
             }
         .toolbox-inner > .material-controller {

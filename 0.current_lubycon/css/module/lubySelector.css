@@ -46,8 +46,13 @@
     }
 
 .lubySelector .ls_Label {
+    display: inline-block;
+    width: 100%;
     font-weight: 200;
     font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .lubySelector .ls_arrow{
