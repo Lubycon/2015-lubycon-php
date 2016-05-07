@@ -46,6 +46,17 @@ if( !is_array($row) )
 }
 
 
+
+require_once "../class/json_class.php";
+$json_control = new json_control;
+$json_control->json_decode('jobCode',"$one_depth/data/job.json");
+$job_decode = $json_control->json_decode_code;
+$json_control->json_decode('country',"$one_depth/data/country.json");
+$country_decode = $json_control->json_decode_code;
+
+$my_job_origin_select = $job_decode[$row['jobCode']];
+$my_country_origin_select = $country_decode[$row['countryCode']];
+
 $contents_name = $row['title'];
 $contents_html = $row['contents'];
 $user_img_url = $row['profileImg'];
@@ -53,24 +64,12 @@ $category0 = $cate_name;
 $category1 = "Category1";
 $category2 = "Category2";
 
+$usercode = $row['userCode'];
 $user_name = $row['nick'];
 $usercity = $row['city'];
 
-switch($row['jobCode'])
-{
-    case 0 : $job_name = 'Artist'; break;
-    case 1 : $job_name = 'Creator'; break;
-    case 2 : $job_name = 'Designer'; break;
-    case 3 : $job_name = 'Engineer'; break;
-    case 4 : $job_name = 'Student'; break;
-    case 5 : $job_name = 'Other'; break;
-    case 6 : $job_name = 'delete'; break;
-    default : break;
-}
-$userjob = $job_name;
-
-
-$usercountry = $row['countryCode'];
+$userjob = $my_job_origin_select;
+$usercountry = $my_country_origin_select;
 
 $file_descript = $row['description'];
 
@@ -174,10 +173,10 @@ $file_like = $row['likeCount'];
         <div id="contents_aside" class="con_aside">
             <div class="creator_info">
                 <figure id="user_img">
-                    <img src="<?=$user_img_url?>">
+                    <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" >
                 </figure>
                 <span id="user_info_wrap">
-                    <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard"><?=$user_name?></a></h4>
+                    <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$user_name?></a></h4>
                     <h5><?=$userjob?></h5>
                     <h5><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>

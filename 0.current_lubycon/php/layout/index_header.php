@@ -127,13 +127,13 @@
         </ul>
         <ul class="mb-menu_group">
             <li class="mb-menu_list">
-                <i class="fa fa-tachometer fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard">Dashboard</a>
+                <i class="fa fa-tachometer fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>">Dashboard</a>
             </li>
             <li class="mb-menu_list">
-                <i class="fa fa-line-chart fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight">Insight</a>
+                <i class="fa fa-line-chart fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>">Insight</a>
             </li>
             <li class="mb-menu_list">
-                <i class="fa fa-gear fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting">Account Setting</a>
+                <i class="fa fa-gear fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$usercode?>">Account Setting</a>
             </li>
         </ul>
         <ul class="mb-menu_group">
@@ -308,21 +308,21 @@
             <ul>
                 <i class="fa fa-caret-up"></i>
                 <div class="userMenuGroup">
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>">
                         <i class="fa fa-tachometer fa-1x"></i>Dashboard
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents&usernum=<?=$usercode?>">
                         <i class="fa fa-picture-o fa-1x"></i>My Contents
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>">
                         <i class="fa fa-line-chart fa-1x"></i>Insight
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=bookmark">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=bookmark&usernum=<?=$usercode?>">
                         <i class="fa fa-star fa-1x"></i>Bookmarks
                     </a></li>
                 </div>
                 <div class="userMenuGroup">
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$usercode?>">
                         <i class="fa fa-gear fa-1x"></i>Account Setting
                     </a></li>
                     <li style="display:none;"><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=message">
