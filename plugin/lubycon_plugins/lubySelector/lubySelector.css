@@ -1,61 +1,11 @@
-﻿@charset "utf-8";
-/*CSS RESET*/
-body {
-    width: 100%;
-    position: relative;
-    background: #444;
-    display: block;
-    overflow-x: hidden;
-    -webkit-text-size-adjust: none; /*hold font-size in moblie*/
-}
-
-article, aside, hgroup, header, footer, figure, figcaption, nav, section {
-    display: block;
-}
-
-body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, aside, hgroup, header, footer, figure, figcaption, nav, section {
-    margin: 0px;
-    padding: 0px;
-    color: #000;
-}
-
-li {
-    list-style: none;
-}
-
-img {
-    border-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: #000;
-    margin: 0px;
-    padding: 0px;
-}
-
-* {
-    font-family: 'Source Sans Pro';
-    /*font-size: 1em;*/
-    font-weight: 400;
-    outline: 0;
-}
-*:focus
-{
-    outline: 0;
-}
-#wrapper{
-    background: #eeeeee;
-}
-
-/*--------------lubySelector start------------------*/
+﻿/*--------------lubySelector start------------------*/
 .lubySelector { 
     display: inline-block; 
     position: relative;
     float: right;
     width: 160px;
     height: 34px;
-    line-height: 29px;
+    line-height: 34px;
     color: #fff;
     font-size: 18px;
     font-weight: 200;
@@ -75,6 +25,7 @@ a {
 }
 .lubySelector.open{
     background: #333333;
+    text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
 }
 
 .lubySelector .global_icon {
@@ -95,8 +46,13 @@ a {
     }
 
 .lubySelector .ls_Label {
+    display: inline-block;
+    width: 100%;
     font-weight: 200;
     font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .lubySelector .ls_arrow{
@@ -151,6 +107,7 @@ a {
     width: 100%;
     
     text-align: center;
+    text-shadow: none;
     position: absolute;
     overflow: auto;
     
@@ -159,8 +116,8 @@ a {
     border: 1px solid #111111;
     border-radius: 3px;
     background: #333333;
-    margin-top: 7px;
-    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.5);
+    margin-top: 2px;
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.8);
     padding: 5px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -171,7 +128,7 @@ a {
         width: 100%;
         display: block;
         background: #333333;
-        color:#fff;
+        color:#aaaaaa;
         height: 30px;
         line-height: 30px;
         font-size: 14px;
@@ -182,12 +139,12 @@ a {
         overflow: hidden;
     }
         .ls_option a {
-        color: #fff;   
+        color: #999999;   
         font-weight: 200;
     }
 
         .ls_option:hover {
-            opacity: 0.5;
+            color: #ffffff;
         }
         .ls_option.selected {
             font-weight: 600 !important;

@@ -636,6 +636,7 @@
                             var contents = event.target.result;
                             group = new THREE.Group();
                             object = new THREE.OBJLoader().parse(contents);
+                            console.log(object);
                             
                             for(var i = 0, l = object.length; i < l; i++){
                                 geometry = object[i].geometry;
@@ -671,6 +672,7 @@
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
+                            console.log(group);
                         },false);
                         reader.readAsText(file);
                     break;

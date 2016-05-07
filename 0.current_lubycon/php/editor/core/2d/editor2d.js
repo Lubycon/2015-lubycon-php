@@ -634,6 +634,7 @@
                         reader.onload = function(event){
                             var img = $("<img/>",{ "src":event.target.result }),
                             imgWidth = img[0].width;
+                            console.log(imgWidth);
 
                             if(imgWidth >= 1400) $objectWrap.addClass("large");
                             upload.insertPosition($this,$objectWrap,img);
