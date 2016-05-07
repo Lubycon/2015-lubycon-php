@@ -73,7 +73,7 @@
         </div><!--end con_aside-->
         <div id="user_view_main" class="con_main">
             <?php
-                $user_img_url = $one_depth."/../../Lubycon_Contents/contents/3d/3djpg/profile/15.jpg";
+                $user_img_url = "$one_depth/../../../Lubycon_Contents/user/41/profile.jpg";
                 $user_location_img = $one_depth."/ch/img/flag_icons/United-States-Of-America.png";
                 $usercity = "Los Santos";
                 $usercountry = "United States";
@@ -81,9 +81,9 @@
                 $userjob = "Gangster";
                 $randCount = rand(200,1500);
                 $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
-                $user_content1 = $one_depth."/../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/20.jpg";
-                $user_content2 = $one_depth."/../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/34.jpg";
-                $user_content3 = $one_depth."/../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/50.jpg";
+                $user_content1 = "$one_depth/../../../Lubycon_Contents/contents/threed/Alasdair_Munro20160414050808/thumb.jpg";
+                $user_content2 = "$one_depth/../../../Lubycon_Contents/contents/threed/Anushree_Dhar20160414050808/thumb.jpg";
+                $user_content3 = "$one_depth/../../../Lubycon_Contents/contents/threed/Caroline_Davies20160414050808/thumb.jpg";
             ?><!--you should change to mySQL later-->
             <div id="bestCreator" class="creators_card">
                 <div class="creator_menu">
@@ -132,10 +132,20 @@
             </div>
             <ul id="creator_card_wrap">
             <?php
-                for($i=0;$i<60;$i++){
-                    $_GET["number"] = $i;
-                    include($two_depth.'/layout/creator_card.php');
-                }
+	                require_once '../database/database_class.php';
+                    require_once "../class/json_class.php";
+	                $db = new Database();
+                    $db->query = "SELECT  `userbasic`.`userCode`, preview , nick , jobCode , boardCode , city , countryCode FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC";
+                    $db->askQuery();
+                    while( $row = mysqli_fetch_array($db->result) )
+                    {
+                        $json_control = new json_control;
+                        $json_control->json_decode('jobCode',"$one_depth/data/job.json");
+                        $job_origin_select = $json_control->json_decode_code[$row['jobCode']];
+                        $json_control->json_decode('country',"$one_depth/data/country.json");
+                        $country_origin_select = $json_control->json_decode_code[$row['countryCode']];
+                        include("$two_depth/layout/creator_card.php");
+                    }
             ?>
             </ul>
         </div><!--end con_main-->
