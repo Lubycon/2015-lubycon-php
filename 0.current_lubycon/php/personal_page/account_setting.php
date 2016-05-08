@@ -1,4 +1,6 @@
 <?php
+    if( $usernumber == $usercode ) //need more security
+    {
     require_once '../database/database_class.php';
     require_once "../class/regex_class.php";
     require_once "../class/json_class.php";
@@ -6,6 +8,11 @@
     $db->query = "SELECT * FROM `userinfo` WHERE `userCode` = $usercode";
     $db->askQuery(); // viewcount up
     $row = mysqli_fetch_array($db->result);
+    }else
+    {
+        include('../error/404.php');
+        die();
+    }
     
 ?>
 <link href="<?=$one_depth?>/css/account_setting.css" rel="stylesheet" type="text/css" />

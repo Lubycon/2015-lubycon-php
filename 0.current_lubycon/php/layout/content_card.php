@@ -1,5 +1,6 @@
 <li>
     <?php
+        $usercode = $row['userCode'];
         $price = $row['downloadPermission'];
         $contents_thumb_url = $row['preview'];
         $title = $row['title'];
@@ -29,8 +30,8 @@
                 </a>
             </div>
             <span class="creator_desc">
-                <a href="../personal_page/personal_page.php?cate=dashboard">
-                    <img src="<?=$user_img_url?>" class="hidden-mb-ib" alt="artist photo" />
+                <a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>">
+                    <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" class="hidden-mb-ib" alt="artist photo" />
                     <span class="by">by</span>
                     <span class="name"><?=$user_name?></span>
                 </a>

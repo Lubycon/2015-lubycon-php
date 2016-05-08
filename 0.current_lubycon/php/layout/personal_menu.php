@@ -2,12 +2,15 @@
     <?php
         require_once '../database/database_class.php';
 	    $db = new Database();
-        $db->query = "SELECT * FROM `userbasic` INNER JOIN `userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = $usercode ";
+        
+        $usernumber = $_GET['usernum'];
+        $db->query = "SELECT * FROM `userbasic` INNER JOIN `userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = $usernumber ";
         $db->askQuery();
         $row = mysqli_fetch_array($db->result);
 
-        $user_pic = "$one_depth/../../Lubycon_Contents/user/$usercode/profile.jpg";
-        $user_intro = $row['description'];        
+        $username = $row['nick'];
+        $user_pic = "$one_depth/../../Lubycon_Contents/user/$usernumber/profile.jpg";
+        $user_intro = $row['description'];
     ?>
     <div id="user_information">
         <div id="userinfo_main">
@@ -20,12 +23,18 @@
     </div>
     <div id="subnav" class="hidden-mb-b">
         <ul>
-            <li class="subnav_li selected_subnav"><a href="../personal_page/personal_page.php?cate=dashboard">Dashboard</a></li>
-            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_contents">Contents</a></li>
-            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_forums">Forums</a></li>
-            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=insight">Insight</a></li>
-            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark">Bookmark</a></li>
-            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=account_setting">Account Setting</a></li>
+            <li class="subnav_li selected_subnav"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usernumber?>">Dashboard</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_contents&usernum=<?=$usernumber?>">Contents</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_forums&usernum=<?=$usernumber?>">Forums</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=insight&usernum=<?=$usernumber?>">Insight</a></li>
+            <li class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark&usernum=<?=$usernumber?>">Bookmark</a></li>
+            <?php
+            if( $usernumber == $usercode ) //need more security
+            {
+                echo "<li class='subnav_li'><a href='../personal_page/personal_page.php?cate=account_setting&usernum=$usercode'>Account Setting</a></li>";
+            }
+            ?>
+            
         </ul>
     </div>
 </aside>

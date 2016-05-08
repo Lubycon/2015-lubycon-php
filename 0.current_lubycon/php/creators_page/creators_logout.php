@@ -7,7 +7,7 @@
 		<p class="join_us_message join_content">and Create with others</p>
 	</div>
 	<div class="sign_in_bt">
-		<a href="http://localhost/Lubycon_Website/0.current_lubycon/login_page.php">sign in</a>
+		<a href="../../login_page.php">sign in</a>
 	</div>
 </div>
 <!--how to use comment-->

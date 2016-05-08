@@ -2,6 +2,14 @@
     $one_depth = '../..'; //css js load
     $two_depth = '..'; // php load
     include_once("$two_depth/layout/index_header.php");
+	require_once '../database/database_class.php';
+    $db = new Database();
+    require_once "../class/json_class.php";
+    $json_control = new json_control;
+    $json_control->json_decode('jobCode',"$one_depth/data/job.json");
+    $job_decode = $json_control->json_decode_code;
+    $json_control->json_decode('country',"$one_depth/data/country.json");
+    $country_decode = $json_control->json_decode_code;
 ?>
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
@@ -55,16 +63,21 @@
     <!-- end nav_guide -->
     <section class="con_wrap">
         <div class="con_aside">
-            <?php 
-                $user_img_url = "$two_depth/../../../Lubycon_Contents/user/$usercode/profile.jpg";
-                $userjob = "Designer";
-                $usercity = "Seoul";
-                $usercountry = "South Korea";
-                $language1 = "Korean";
-                $language2 = "English";
-            ?>
             <?php
                 if($session->SessionExist()){
+                    $db->query = "SELECT * FROM `userbasic` LEFT JOIN `userinfo` on `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = 1 ";
+                    $db->askQuery();
+                    $myrow = mysqli_fetch_array($db->result);
+                    
+                    $my_job_origin_select = $job_decode[$myrow['jobCode']];
+                    $my_country_origin_select = $country_decode[$myrow['countryCode']];
+
+                    $user_img_url = "$two_depth/../../../Lubycon_Contents/user/$usercode/profile.jpg";
+                    $userjob = $my_job_origin_select;
+                    $usercity = $myrow['city'];
+                    $usercountry = $my_country_origin_select;
+                    $language1 = "Korean"; //not yet
+                    $language2 = "English"; //not yet
                     include_once("./creators_login.php");
                 }else{
                     include_once("./creators_logout.php");
@@ -74,7 +87,7 @@
         <div id="user_view_main" class="con_main">
             <?php
                 $user_img_url = "$one_depth/../../../Lubycon_Contents/user/41/profile.jpg";
-                $user_location_img = $one_depth."/ch/img/flag_icons/United-States-Of-America.png";
+                $user_location_img = "$one_depth/ch/img/flag_icons/230.png";
                 $usercity = "Los Santos";
                 $usercountry = "United States";
                 $username = "Ssaru";
@@ -90,10 +103,10 @@
                     <i class="fa fa-bars creator_menu_icon hidden-mb-b"></i>
                     <div class="creator_menu_list">
                         <ul>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=dashboard"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_contents"><i class="fa fa-eye"></i>View Contents</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=insight"><i class="fa fa-bar-chart"></i>View Insight</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_forums"><i class="fa fa-table"></i>View Forums</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=dashboard&usernum=$usernumber"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_contents&usernum=<?=$usercode?>"><i class="fa fa-eye"></i>View Contents</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=insight&usernum=<?=$usercode?>"><i class="fa fa-bar-chart"></i>View Insight</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_forums&usernum=<?=$usercode?>"><i class="fa fa-table"></i>View Forums</a></li>
                         </ul>
                     </div>
                 </div>
@@ -107,7 +120,7 @@
                         </div>
                     </div>
                     <div class="creator_mid_info">
-                        <p class="creator_name"><a href="<?=$two_depth?>/personal_page.php?cate=dashboard"><?=$username?></a></p><!--user name-->
+                        <p class="creator_name"><a href="<?=$two_depth?>/personal_page.php?cate=dashboard&usernum=$usernumber"><?=$username?></a></p><!--user name-->
                         <p class="creator_job"><?=$userjob?></p><!--job-->
                         <p class="creator_location"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
                         <article class="contents_count">
@@ -132,18 +145,12 @@
             </div>
             <ul id="creator_card_wrap">
             <?php
-	                require_once '../database/database_class.php';
-                    require_once "../class/json_class.php";
-	                $db = new Database();
                     $db->query = "SELECT  `userbasic`.`userCode`, preview , nick , jobCode , boardCode , city , countryCode FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC";
                     $db->askQuery();
                     while( $row = mysqli_fetch_array($db->result) )
                     {
-                        $json_control = new json_control;
-                        $json_control->json_decode('jobCode',"$one_depth/data/job.json");
-                        $job_origin_select = $json_control->json_decode_code[$row['jobCode']];
-                        $json_control->json_decode('country',"$one_depth/data/country.json");
-                        $country_origin_select = $json_control->json_decode_code[$row['countryCode']];
+                        $job_origin_select = $job_decode[$row['jobCode']];
+                        $country_origin_select = $country_decode[$row['countryCode']];
                         include("$two_depth/layout/creator_card.php");
                     }
             ?>

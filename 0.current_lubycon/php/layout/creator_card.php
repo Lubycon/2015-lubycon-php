@@ -1,7 +1,8 @@
 <li class="creator_card_in">
     <?php
+        $usercode = $row['userCode'];
         $user_img_url = "$one_depth/../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg";
-        $user_location_img = "$one_depth/ch/img/flag_icons/United-States-Of-America.png";
+        $user_location_img = "$one_depth/ch/img/flag_icons/".$row['countryCode'].'.png';
         $usercity = $row['city'];
         $usercountry = $country_origin_select;
         $username = $row['nick'];
@@ -20,10 +21,10 @@
             <i class="fa fa-bars creator_menu_icon hidden-mb-b"></i>
             <div class="creator_menu_list">
                 <ul>
-                    <li><a href="../personal_page/personal_page.php?cate=dashboard"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
-                    <li><a href="../personal_page/personal_page.php?cate=my_contents"><i class="fa fa-eye"></i>View Contents</a></li>
-                    <li><a href="../personal_page/personal_page.php?cate=insight"><i class="fa fa-bar-chart"></i>View Insight</a></li>
-                    <li><a href="../personal_page/personal_page.php?cate=my_forums"><i class="fa fa-table"></i>View Forums</a></li>
+                    <li><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
+                    <li><a href="../personal_page/personal_page.php?cate=my_contents&usernum=<?=$usercode?>"><i class="fa fa-eye"></i>View Contents</a></li>
+                    <li><a href="../personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>"><i class="fa fa-bar-chart"></i>View Insight</a></li>
+                    <li><a href="../personal_page/personal_page.php?cate=my_forums&usernum=<?=$usercode?>"><i class="fa fa-table"></i>View Forums</a></li>
                 </ul>
             </div>
         </div>
@@ -37,7 +38,7 @@
                 </div>
             </div>
             <div class="creator_mid_info">
-                <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard"><?=$username?></a></p><!--user name-->
+                <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p><!--user name-->
                 <p class="creator_job"><?=$userjob?></p><!--job-->
                 <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
                 <article class="contents_count hidden-mb-b">
