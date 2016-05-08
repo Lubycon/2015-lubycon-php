@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS `Tutorial`
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
 	`preview` TEXT NOT NULL,
-	
+	`CategoryCode` INT UNSIGNED NOT NULL,
+
 	PRIMARY KEY(`boardCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
@@ -56,7 +57,8 @@ CREATE TABLE IF NOT EXISTS `Forum`
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
 	`preview` TEXT NOT NULL,
-	
+	`CategoryCode` INT UNSIGNED NOT NULL,
+
 	PRIMARY KEY(`boardCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
@@ -91,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `Vector`
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
 	`preview` TEXT NOT NULL,
-	
+	`CategoryCode` INT UNSIGNED NOT NULL,
+
 	PRIMARY KEY(`boardCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
@@ -126,7 +129,8 @@ CREATE TABLE IF NOT EXISTS `ArtWork`
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
 	`preview` TEXT NOT NULL,
-	
+	`CategoryCode` INT UNSIGNED NOT NULL,
+
 	PRIMARY KEY(`boardCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
@@ -161,7 +165,8 @@ CREATE TABLE IF NOT EXISTS `ThreeD`
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
 	`preview` TEXT NOT NULL,
-	
+	`CategoryCode` INT UNSIGNED NOT NULL,
+
 	PRIMARY KEY(`boardCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
@@ -195,7 +200,8 @@ CREATE TABLE IF NOT EXISTS `QaA`
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
 	`preview` TEXT NOT NULL,
-	
+	`CategoryCode` INT UNSIGNED NOT NULL,
+
 	PRIMARY KEY(`boardCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
@@ -206,6 +212,19 @@ CREATE TABLE IF NOT EXISTS `QaAComment`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
 	`contents` TEXT NOT NULL,
+	`likeCount` INT UNSIGNED NOT NULL,
+	`userCode` INT UNSIGNED NOT NULL,
+	`date` DATETIME NOT NULL,
+	
+	PRIMARY KEY(`boardCode`)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- Category
+DROP TABLE IF EXISTS `Category`;
+CREATE TABLE IF NOT EXISTS `Category`
+(
+	`CategoryCode` INT UNSIGNED NOT NULL,
+	`Category` VARCHAR(255),
 	`likeCount` INT UNSIGNED NOT NULL,
 	`userCode` INT UNSIGNED NOT NULL,
 	`date` DATETIME NOT NULL,
