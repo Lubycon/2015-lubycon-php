@@ -23,7 +23,7 @@
         categoryData = categoryPac, //categories.json
         ccData = ccPac, //creative_commons.json
         d = {},
-        scene, camera, dirLight, ambLight, renderer, controls, stats,
+        scene, camera, spotLight, ambLight, renderer, controls, stats,
         group, object, mtl, geometry, material, mesh,
         loadedMaterials = [],
         pac = {
@@ -116,19 +116,20 @@
 
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
-                    camera.position.z = 10;
-                dirLight = new THREE.DirectionalLight(0xffffff);
-                    dirLight.position.y = 100;
-                    dirLight.position.x = -100;
+                    camera.position.z = 3;
+                spotLight = new THREE.SpotLight(0xffffff);
+                    spotLight.castShadow = true;
                 ambLight = new THREE.AmbientLight(0xffffff);
 
-                scene.add(camera, dirLight, ambLight);
-                scene.add(new THREE.AxisHelper(50));
-                scene.add(new THREE.GridHelper(3, 0.5));
+                scene.add(camera, spotLight, ambLight);
+                //scene.add(new THREE.AxisHelper(50));
+                //scene.add(new THREE.GridHelper(3, 0.5));
+                spotLight.target.position.set( 0, 1, -1 );
+                spotLight.position.copy( camera.position );
 
                 renderer = new THREE.WebGLRenderer();
                     renderer.setSize(windowWidth, windowHeight);
-                    renderer.setPixelRatio(window.devicePixelRatio);
+                    renderer.setPixelRatio(window.devicePixelRatio*1.5);
                     renderer.setClearColor(0x222222, 1);
                 gl.addEventListener("webglcontextlost", function(event){
                     event.preventDefault();
@@ -153,6 +154,7 @@
             },
             renderGL: function(){
                 renderer.render(scene, camera);
+                spotLight.position.copy( camera.position );
             },
             windowResizeGl: function(){
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -642,7 +644,6 @@
                             for(var i = 0, l = object.length; i < l; i++){
                                 geometry = object[i].geometry;
                                     geometry.center();
-                                    geometry.dispose();
 
                                 material = object[i].material;
                                 if(material.type == "MeshPhongMaterial"){
@@ -650,7 +651,6 @@
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
-                                    material.dispose();
                                 }
                                 else if(material.type = "MultiMaterial"){
                                     var materials = material.materials;
@@ -667,6 +667,7 @@
                                 mesh = new THREE.Mesh(geometry,material);
                                     mesh.castShadow = true;
                                     mesh.receiveShadow = true;
+                                    mesh.scale.set(1,1,1);   
                                 group.add(mesh);
                             }
                             toolbar.materialFn.materialRefresh();
@@ -1120,7 +1121,6 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".material-controller").data("value");
-                        console.log(val);
                         switch(kind){
                             case "diffuse" : $material.opacity = val*0.01; break;
                             case "specular" : $material.shininess = val; break;
@@ -1133,7 +1133,7 @@
                 var $this = $(document).find("#gridTool-toolbox");
                 
             },
-            gridFn: {
+            backgroundFn: {
                 
             }
         },
