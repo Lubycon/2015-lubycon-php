@@ -47,5 +47,7 @@ var iconPack = {
       "cube" : "fa fa-cube",
       "transparent" : "../../img/transparent.png",
       "upload" : "fa fa-cloud-upload",
-      "download" : "fa fa-inbox"
+      "download" : "fa fa-inbox",
+      "circle" : "fa fa-circle-thin",
+      "football" : "fa fa-futbol-o"
 }

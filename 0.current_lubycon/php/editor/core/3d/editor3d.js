@@ -22,9 +22,10 @@
         keyCode = keycodePac, //keycode.json
         categoryData = categoryPac, //categories.json
         ccData = ccPac, //creative_commons.json
+        bgPreset = backgroundPreset,
         d = {},
         scene, camera, spotLight, ambLight, renderer, controls, stats,
-        group, object, mtl, geometry, material, mesh,
+        group, object, mtl, geometry, material, mesh, skybox
         loadedMaterials = [],
         pac = {
             init: function (option) {
@@ -76,7 +77,8 @@
 
                         //in toolbar
                         var $lightTool = new toolbar.createButton("lightTool",icons.bulb).appendTo($aside),
-                        $materialTool = new toolbar.createButton("materialTool",icons.cube).appendTo($aside),
+                        $geometryTool = new toolbar.createButton("geometryTool",icons.circle).appendTo($aside),
+                        $materialTool = new toolbar.createButton("materialTool",icons.football).appendTo($aside),
                         $backgroundTool = new toolbar.createButton("backgroundTool",icons.image).appendTo($aside);
                         //input files
                         var $inputFile = $("<input/>",{
@@ -110,16 +112,18 @@
             initGL: function(){
                 'use strict';
                 var windowWidth = window.innerWidth,
-                    windowHeight = window.innerHeight;
+                    windowHeight = window.innerHeight - 100;
 
                 var gl = document.getElementById("web-gl");
 
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
                     camera.position.z = 3;
-                spotLight = new THREE.SpotLight(0xffffff);
+                spotLight = new THREE.SpotLight(0xffffff,1);
                     spotLight.castShadow = true;
-                ambLight = new THREE.AmbientLight(0xffffff);
+                    spotLight.receiveShadow = true;
+
+                ambLight = new THREE.AmbientLight(0xffffff,1);
 
                 scene.add(camera, spotLight, ambLight);
                 //scene.add(new THREE.AxisHelper(50));
@@ -129,12 +133,12 @@
 
                 var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
                 var skyMaterial = new THREE.MeshBasicMaterial({
-                    map: new THREE.TextureLoader().load("../../img/background3.jpg")
+                    map: new THREE.TextureLoader().load(bgPreset[0].image)
                 });
                     skyMaterial.side = THREE.BackSide;
-                var skyMesh = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox = new THREE.Mesh(skyGeometry,skyMaterial);
 
-                scene.add(skyMesh);
+                scene.add(skybox);
 
                 renderer = new THREE.WebGLRenderer();
                     renderer.setSize(windowWidth, windowHeight);
@@ -152,6 +156,7 @@
                     controls.dampingFactor = 0.1;
                     controls.rotateSpeed = 0.5;
                     controls.zoomSpeed = 0.5;
+                    controls.maxDistance = 100;
 
                 window.addEventListener("resize", pac.windowResizeGl, false);
                 pac.animateGL();
@@ -237,6 +242,7 @@
             initTools: function(){
                 //toolbar data bind start
                 toolbar.lightTool();
+                toolbar.geometryTool();
                 toolbar.materialTool();
                 toolbar.backgroundTool();
                 //toolbar data bind end
@@ -623,7 +629,6 @@
                     break;
                     default: break;
                 }
-                console.log(group.children[0]);
                 $(".uploading").attr({"src" : selectSRC, "data-index" : selectID }).removeClass("uploading");
 
                 function idCheck(id,kind){
@@ -913,11 +918,17 @@
                 }
             },
             lightTool: function(){
-                var $this = $(document).find("#textTool-toolbox");
+                var $this = $(document).find("#lightTool-toolbox");
                 
             },
             lightFn: {
                 
+            },
+            geometryTool: function(){
+                var $this = $(document).find("#geometryTool-toolbox");
+            },
+            geometryFn: {
+
             },
             materialTool: function(){
                 var $this = $(document).find("#materialTool-toolbox");
@@ -1139,11 +1150,44 @@
                 }
             },
             backgroundTool: function(){
-                var $this = $(document).find("#gridTool-toolbox");
-                
+                var $this = $(document).find("#backgroundTool-toolbox");
+
+                var $3Dselector = $("<select/>",{"id" : "bg-3d-selector","class" : "backgroundSelector"}),
+                $backgroundSelect = new toolbar.createMenu($3Dselector,"Background").attr({"id" : "3d-background-tool","data-value" : "3d-background"}).appendTo($this);
+                toolbar.backgroundFn.addPresets($3Dselector);
+
             },
             backgroundFn: {
-                
+                addPresets: function(target){
+                    var preset = bgPreset,
+                    selector = target,
+                    options = $("<option/>","class");
+
+                    for(var i = 0, l = preset.length; i < l; i++){
+                        var option = options.clone().attr({
+                            "data-value" : preset[i].id,
+                            "data-tip" : preset[i].image
+                        }).text(preset[i].name).appendTo(selector);
+                    }
+
+                    selector.lubySelector({
+                        id : "bg-3dSelector",
+                        width: "100%",
+                        float: "none",
+                        icon: "",
+                        callback: toolbar.backgroundFn.changeBackground
+                    });
+                },
+                changeBackground: function(){
+                    var selected = $("#bg-3d-selector").find("option:selected"),
+                    id = selected.data("value"),
+                    loader = new THREE.TextureLoader();
+
+                    loader.load(bgPreset[id].image,function(texture){
+                        skybox.material.map = texture;
+                        skybox.material.needsUpdate = true;
+                    });
+                }
             }
         },
         method = {

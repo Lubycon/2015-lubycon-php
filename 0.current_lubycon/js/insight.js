@@ -420,7 +420,7 @@ $(document).ready(function(){
     var chartbox4 = $("#chartdiv4");
     var chartlist_toggle = 0;
 
-    $(".chart_title").on("click touchend",function(){
+    $(".chart_title").on("click touchend",function(event){
         eventHandler(event,$(this));
         switch(chartlist_toggle){
             case 0 : 
