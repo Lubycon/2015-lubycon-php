@@ -158,7 +158,6 @@ THREE.OBJLoader.prototype = {
 
 			object.geometry.faces = faces;
 			object.geometry.faceVertexUvs = faceVertexUvs;
-			console.log("face");
 		}
 
 		////////////////////////////////////////patterns start/////////////////////////////////////
@@ -271,20 +270,19 @@ THREE.OBJLoader.prototype = {
 				addFace(v1,v2,v3,v4,uv1,uv2,uv3,uv4,nm1,nm2,nm3,nm4);
 			}
 			else if((result = patterns.object.exec(line)) !== null){
-				var name = result[ 0 ].substr( 1 ).trim();
-				if (foundObjects === false){
-					foundObjects = true;
-					object.name = name;
-				} else{
-					addObject( name );
-				}
+				//console.log(1);
 			}
 			else if((result = patterns.smooth.exec(line)) !== null){
-				object.material.smooth = result[1] === "1" || result[1] === "on";
+				if(result[1] === "1" || result[1] === "on"){
+					if(materials.length !== 0 ){
+						materials[materials.length-1].shading = THREE.SmoothShading;
+					}
+					console.log(materials[materials.length-1]);
+				}
 				console.log("smooth : " + line.substring(2));
 			}
 			else if((result = patterns.mtllib.exec(line)) !== null){
-				console.log("material library " + line.substring(7).trim());
+				//console.log("material library " + line.substring(7).trim());
 			}
 			else if((result = patterns.usemtl.exec(line)) !== null){
 				var existCheck = false;
@@ -316,7 +314,7 @@ THREE.OBJLoader.prototype = {
 				console.log("Loaded material_" + materialIndex + " : " + line.substring(7).trim());
 			}
 			else{
-				$.error("Load Error : " + line);
+				console.log("Load Error : " + line);
 			}
 		}
 
@@ -337,13 +335,14 @@ THREE.OBJLoader.prototype = {
 			geometry.faceVertexUvs[0] = object.geometry.faceVertexUvs;
 			geometry.elementsNeedUpdate = true;
 			geometry.computeFaceNormals();
-			//geometry.computeVertexNormals();
+			geometry.computeVertexNormals();
+			geometry.computeBoundingBox();
+			geometry.normalize();
 			object.geometry = geometry;
 
 			var material;
 			if(object.material.materials.length === 0){
 				material = new THREE.MeshPhongMaterial({ color: 0x888888 });
-				console.log()
 			}
 			else{
 				material = new THREE.MeshFaceMaterial(object.material.materials);

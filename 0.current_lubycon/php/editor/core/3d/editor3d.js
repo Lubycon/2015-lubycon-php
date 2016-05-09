@@ -127,6 +127,15 @@
                 spotLight.target.position.set( 0, 1, -1 );
                 spotLight.position.copy( camera.position );
 
+                var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
+                var skyMaterial = new THREE.MeshBasicMaterial({
+                    map: new THREE.TextureLoader().load("../../img/background3.jpg")
+                });
+                    skyMaterial.side = THREE.BackSide;
+                var skyMesh = new THREE.Mesh(skyGeometry,skyMaterial);
+
+                scene.add(skyMesh);
+
                 renderer = new THREE.WebGLRenderer();
                     renderer.setSize(windowWidth, windowHeight);
                     renderer.setPixelRatio(window.devicePixelRatio*1.5);
