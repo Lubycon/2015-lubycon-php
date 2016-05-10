@@ -225,9 +225,6 @@ CREATE TABLE IF NOT EXISTS `Category`
 (
 	`CategoryCode` INT UNSIGNED NOT NULL,
 	`Category` VARCHAR(255),
-	`likeCount` INT UNSIGNED NOT NULL,
-	`userCode` INT UNSIGNED NOT NULL,
-	`date` DATETIME NOT NULL,
 	
 	PRIMARY KEY(`CategoryCode`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8;
