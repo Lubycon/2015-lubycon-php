@@ -400,6 +400,9 @@
                     vertical-align: middle;
                     margin: 0px 5px
                 }
+            .toolbox-inner > .coordinate.btn {
+                width: 100%;
+            }
                     .toolbox-btns > .btn > i {
                         font-size: 13px;
                         color: #ffffff;

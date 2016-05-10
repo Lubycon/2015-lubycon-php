@@ -126,8 +126,6 @@
                 ambLight = new THREE.AmbientLight(0xffffff,1);
 
                 scene.add(camera, spotLight, ambLight);
-                //scene.add(new THREE.AxisHelper(50));
-                //scene.add(new THREE.GridHelper(3, 0.5));
                 spotLight.target.position.set( 0, 1, -1 );
                 spotLight.position.copy( camera.position );
 
@@ -170,6 +168,16 @@
             renderGL: function(){
                 renderer.render(scene, camera);
                 spotLight.position.copy( camera.position );
+            },
+            removeObjects: function(name){
+                //test
+                for(var i = 0,l = name.length; i < l; i++){
+                    var children = scene.children;
+                    var cl = children.length - 1;
+                    console.log(children,cl);
+                    scene.remove(children[cl]);
+                }
+                //test
             },
             windowResizeGl: function(){
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -459,7 +467,6 @@
                     "data-value" : value,
                     "id" : value + "-toolbox"
                 }).appendTo($aside).hide();
-                if(value == "gridTool") $toolboxWrap.addClass("modal");
             },
             keyEvent: function(event){
                 $this = $(this),
@@ -928,9 +935,38 @@
             },
             geometryTool: function(){
                 var $this = $(document).find("#geometryTool-toolbox");
+
+                var $testBt = $("<div/>",{ "class" : "coordinate btn", "html" : "Coordinate Test" }).on("click",pac.toggle).on("click",toolbar.geometryFn.transform),
+                coordinateTool = new toolbar.createMenu($testBt,"Coordinate").appendTo($this);
             },
             geometryFn: {
+                transform: function(){
+                    var $this = $(this);
+                    var objectControls = new THREE.TransformControls(camera,renderer.domElement);
+                        objectControls.name = "objectControls";
+                        objectControls.addEventListener( 'change', pac.renderGL );
+                        objectControls.attach(group);
+                    var gridHelper = new THREE.GridHelper(3,0.5);
+                        gridHelper.name = "gridHelper";
+                    var axisHelper = new THREE.AxisHelper(50);
+                        axisHelper.name = "axisHelper";
+                    var controlsIndecies = 0;
 
+                    if($this.hasClass("selected")){
+                        controls.enabled = false;
+                        scene.add(objectControls,gridHelper,axisHelper);
+                        controlsIndecies = scene.children.length;
+                        objectControls.setMode("rotate");
+                        objectControls.space = "world";
+                        objectControls.update();
+                    }
+                    else{
+                        objectControls.dispose();
+                        objectControls.detach(group);
+                        pac.removeObjects(["objectControls","gridHelper","axisHelper"]);
+                        controls.enabled = true;
+                    }
+                }
             },
             materialTool: function(){
                 var $this = $(document).find("#materialTool-toolbox");

@@ -36,6 +36,7 @@
 <script type="text/javascript" src="../../module/js/3d/ShadowMaterial.js"></script>
 <script type="text/javascript" src="../../module/js/3d/DragControls.js"></script>
 <script type="text/javascript" src="../../module/js/3d/OrbitControls.js"></script>
+<script type="text/javascript" src="../../module/js/3d/TransformControls.js"></script>
 <script type="text/javascript" src="../../module/js/3d/stats.min.js"></script> <!--get fps-->
 <script type="text/javascript" src="../../module/js/3d/dat.gui.min.js"></script> <!--get controller-->
 <script tpye="text/javascript" src="../../module/js/3d/threex.domevents.js"></script>
