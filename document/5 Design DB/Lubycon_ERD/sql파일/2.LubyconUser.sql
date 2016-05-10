@@ -90,14 +90,27 @@ CREATE TABLE IF NOT EXISTS `UserHistory`
 
 -- Bookmark --
 DROP TABLE IF EXISTS `Bookmark`;
-
 CREATE TABLE IF NOT EXISTS `Bookmark`
 (
-	`userCode` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255),
-	`url` TEXT NOT NULL,
+	`memberCode` INT UNSIGNED NOT NULL,
+	`boardCode` VARCHAR(255),
+	`bookmarkBoolean` INT UNSIGNED NOT NULL,
+	`CategoryCode` INT UNSIGNED NOT NULL,
 	
-	PRIMARY KEY(`userCode`)
+	PRIMARY KEY(`memberCode`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- like --
+DROP TABLE IF EXISTS `Like`;
+CREATE TABLE IF NOT EXISTS `Like`
+(
+	`memberCode` INT UNSIGNED NOT NULL,
+	`boardCode` INT UNSIGNED NOT NULL,
+	`likeBoolean` INT UNSIGNED NOT NULL,
+	`CategoryCode` INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY(`memberCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
@@ -107,9 +120,10 @@ CREATE TABLE IF NOT EXISTS `Language`
 (
 	`languageCode` INT UNSIGNED NOT NULL,
 	`language` VARCHAR(255),
+	`level` ENUM('beginer', 'advanced', 'fluent'),
 	
 	PRIMARY KEY(`languageCode`)
-
+	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- Log --
