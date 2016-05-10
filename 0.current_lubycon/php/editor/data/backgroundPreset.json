@@ -3,18 +3,21 @@ var backgroundPreset = [
 		"id" : "0",
 		"name" : "Desert",
 		"image" : "../../img/3dBackgrounds/desert_blur.jpg",
+		"preview" : "../../img/3dBackgrounds/desert.jpg",
 		"descript": ""
 	},
 	{
 		"id" : "1",
 		"name" : "Room",
 		"image" : "../../img/3dBackgrounds/room_blur.jpg",
+		"preview" : "../../img/3dBackgrounds/room.jpg",
 		"descript" : ""
 	},
 	{
 		"id" : "2",
 		"name" : "Snow Mountain",
 		"image" : "../../img/3dBackgrounds/snow_mountain_blur.jpg",
+		"preview" : "../../img/3dBackgrounds/snow_mountain.jpg",
 		"descript" : ""
 	}
 

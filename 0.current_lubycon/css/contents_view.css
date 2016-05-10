@@ -148,7 +148,8 @@
             overflow: hidden;
         }
         #user_info_wrap h4 a{
-            color:#eeeeee;
+            color: #eeeeee;
+            transition: color 0.2s;
         }
             #user_info_wrap h4 a:hover{
                 text-decoration: underline;

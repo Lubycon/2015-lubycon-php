@@ -48,7 +48,7 @@
                 }
             }else
             {
-                echo 'nothing in database';
+                echo 'THERE IS NO DATA IN DATABASE';
             }
             ?>
             </ul>

@@ -136,17 +136,18 @@
         border-radius: 3px;
         text-overflow: ellipsis;
         white-space: nowrap;
-        overflow: hidden;
+        overflow-x: hidden;
     }
         .ls_option a {
             color: #999999;   
             font-weight: 200;
         }
-        .ls_option img {
-            width: 30px;
-            height: 30px;
+        .ls_option .tooltip img {
+            width: 400px;
+            height: 300px;
+            margin: 5px 0px;
+            vertical-align: middle;
         }
-
         .ls_option:hover {
             color: #ffffff;
         }

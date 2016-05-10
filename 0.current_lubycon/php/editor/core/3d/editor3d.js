@@ -119,7 +119,7 @@
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
                     camera.position.z = 3;
-                spotLight = new THREE.SpotLight(0xffffff,1);
+                spotLight = new THREE.SpotLight(0xffd689,1);
                     spotLight.castShadow = true;
                     spotLight.receiveShadow = true;
 
@@ -137,6 +137,7 @@
                 });
                     skyMaterial.side = THREE.BackSide;
                 skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.material.dispose();
 
                 scene.add(skybox);
 
@@ -511,7 +512,6 @@
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
                 typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type),
                 alertKey = $(document).find(".alertKey").off("click");
-
                 if(size < 10485760){
                     if(typeCheck) return true;
                     else {
@@ -584,18 +584,20 @@
             textureUpload: function(event){
                 var $inputFile = $(this), 
                 object = event.target.files,
-                target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn")
-                
+                target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn"),
+                $loading_icon = $(document).find("#loading_icon");
                 if(upload.imgCheck(object[0])){
+                    $loading_icon.show();
                     $.each(object, function(i,file){
-                        var reader = new FileReader(),
-                        textureLoader = new THREE.TextureLoader();
-
+                        var reader = new FileReader();
+                        var textureLoader = new THREE.TextureLoader();
+           
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
                             var newTexture = new toolbar.materialFn.addTextureObject(event.target.result,file.name);
                             textureLoader.load(event.target.result,function(texture){
                                 loadedMaterials.push(texture);
+                                $loading_icon.hide();
                             });
                             newTexture.insertBefore(target);
                             pac.setIndex(".texture-list");
@@ -603,7 +605,9 @@
                         };
                     });
                 }
-                else $inputFile.val(null);
+                else {
+                    $inputFile.val(null);
+                }
             },
             textureApply: function(){
                 var targetID = $("#material-selector").find("option:selected").data("value"),
@@ -653,7 +657,6 @@
                             var contents = event.target.result;
                             group = new THREE.Group();
                             object = new THREE.OBJLoader().parse(contents);
-                            console.log(object);
                             
                             for(var i = 0, l = object.length; i < l; i++){
                                 geometry = object[i].geometry;
@@ -661,7 +664,7 @@
 
                                 material = object[i].material;
                                 if(material.type == "MeshPhongMaterial"){
-                                    material.specular = new THREE.Color(0x000000);
+                                    material.specular = new THREE.Color(0xffffff);
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
@@ -669,7 +672,7 @@
                                 else if(material.type = "MultiMaterial"){
                                     var materials = material.materials;
                                     for(var j = 0, ml = materials.length; j < ml; j++){
-                                        materials[j].specular = new THREE.Color(0x000000);
+                                        materials[j].specular = new THREE.Color(0xffffff);
                                         materials[j].side = THREE.DoubleSide;
                                         materials[j].transparent = true;
                                         materials[j].needsUpdate = true;
@@ -686,7 +689,6 @@
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
-                            console.log(group);
                         },false);
                         reader.readAsText(file);
                     break;
@@ -798,9 +800,9 @@
                             for(var i = 0, l = ccData.length; i < l; i++){
                                 var disabled, checked;
                                 if(i == 0) continue;
-                                else if(i == 1) disabled = true, checked = true;
-                                else if(i == 2 || i == 3) disabled = false, checked = true;
-                                else if(i == 4) disabled = true, checked = false;
+                                else if(i === 1) disabled = true, checked = true;
+                                else if(i === 2 || i === 3) disabled = false, checked = true;
+                                else if(i === 4) disabled = true, checked = false;
                                 $cclist.clone()
                                 .append($ccCheckBox.clone().attr({"data-value":ccData[i].id,"name":"cc-check"}).prop({"disabled" : disabled,"checked" : checked}))
                                 .append($ccCheckDesc.clone().html(ccData[i].descript))
@@ -981,7 +983,7 @@
                         $wrapper.clone(true).appendTo($(this));
                         $(this).find(".colorKey").spectrum({
                             replacerClassName: "color-viewer material-viewer",
-                            color: "#000000",
+                            color: "#ffffff",
                             showInput: true,
                             showAlpha: true,
                             showInitial: true,
@@ -1166,27 +1168,61 @@
                     for(var i = 0, l = preset.length; i < l; i++){
                         var option = options.clone().attr({
                             "data-value" : preset[i].id,
-                            "data-tip" : preset[i].image
+                            "data-tip" : "<img src='" + preset[i].preview + "' />"
                         }).text(preset[i].name).appendTo(selector);
                     }
+                    //the none option for test
+                    var option = options.clone().attr({
+                        "data-value" : "none",
+                        "data-tip" : "none"
+                    }).text("None").appendTo(selector);
+                    //the none option for test
 
                     selector.lubySelector({
                         id : "bg-3dSelector",
                         width: "100%",
                         float: "none",
                         icon: "",
-                        callback: toolbar.backgroundFn.changeBackground
+                        callback: toolbar.backgroundFn.changeBackground,
+                        tooltip: true
                     });
+
+                    $("#bg-3dSelector").find(".ls_option").tooltip({left: 270});
                 },
                 changeBackground: function(){
                     var selected = $("#bg-3d-selector").find("option:selected"),
                     id = selected.data("value"),
+                    $loading_icon = $(document).find("#loading_icon").show();
                     loader = new THREE.TextureLoader();
-
-                    loader.load(bgPreset[id].image,function(texture){
-                        skybox.material.map = texture;
+                    if(id !== "none"){
+                        loader.load(bgPreset[id].image,function(texture){
+                            skybox.material.map = texture;
+                            skybox.material.needsUpdate = true;
+                            skybox.material.dispose();
+                        });
+                        //light test
+                        switch(id){
+                            case 0 : 
+                                spotLight.color = new THREE.Color(0xffd689);
+                            break;//desert
+                            case 1 : 
+                                spotLight.color = new THREE.Color(0xffffff);
+                            break;//room
+                            case 2 : 
+                                spotLight.color = new THREE.Color(0xb9ffff);
+                            break;//snow mountain
+                        }
+                        //light test
+                    }
+                    //the none option test
+                    else {
+                        skybox.material.map = null;
+                        skybox.material.color = 0x222222;
                         skybox.material.needsUpdate = true;
-                    });
+                        skybox.material.dispose();
+                    }
+                    //the none option test
+                    $loading_icon.hide();
                 }
             }
         },
@@ -1204,3 +1240,4 @@
             pac.init.apply(this, arguments);
 };
 })(jQuery);
+
