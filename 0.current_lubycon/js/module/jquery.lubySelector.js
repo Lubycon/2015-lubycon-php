@@ -20,6 +20,7 @@
             theme: "black",//white, ghost, transparent
             optGroup: false,//알파벳 헤더 기능
             searchBar: false,//true시 셀렉박스리스트 맨 위에 서치바 생성
+            tooltip: false,
             callback: null
         },
         d = {},
@@ -77,6 +78,7 @@
                 optionVal = $this.val(),
                 optionName = $this.val().trim(),
                 optionText = $this.text(),
+                optionTip = d.tooltip ? $this.data("tip") : "",
                 optionTitle = $this.text().toLowerCase(),
                 selected = $this.is(":selected") ? "selected" : "",
                 disabled = $this.is(":disabled") ? " disabled " : "",
@@ -89,7 +91,8 @@
                     "class": "ls_option " + disabled + selected,
                     title: optionTitle,
                     html: optionText,
-                    "data-value": optionVal
+                    "data-value": optionVal,
+                    "data-tip" : optionTip
                 }).appendTo($optionWrap)) : "";
             },
             boxClick: function(selector) {

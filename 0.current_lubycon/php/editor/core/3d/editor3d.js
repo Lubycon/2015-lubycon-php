@@ -22,9 +22,10 @@
         keyCode = keycodePac, //keycode.json
         categoryData = categoryPac, //categories.json
         ccData = ccPac, //creative_commons.json
+        bgPreset = backgroundPreset,
         d = {},
-        scene, camera, dirLight, ambLight, renderer, controls, stats,
-        group, object, mtl, geometry, material, mesh,
+        scene, camera, spotLight, ambLight, renderer, controls, stats,
+        group, object, mtl, geometry, material, mesh, skybox
         loadedMaterials = [],
         pac = {
             init: function (option) {
@@ -76,7 +77,8 @@
 
                         //in toolbar
                         var $lightTool = new toolbar.createButton("lightTool",icons.bulb).appendTo($aside),
-                        $materialTool = new toolbar.createButton("materialTool",icons.cube).appendTo($aside),
+                        $geometryTool = new toolbar.createButton("geometryTool",icons.circle).appendTo($aside),
+                        $materialTool = new toolbar.createButton("materialTool",icons.football).appendTo($aside),
                         $backgroundTool = new toolbar.createButton("backgroundTool",icons.image).appendTo($aside);
                         //input files
                         var $inputFile = $("<input/>",{
@@ -110,25 +112,38 @@
             initGL: function(){
                 'use strict';
                 var windowWidth = window.innerWidth,
-                    windowHeight = window.innerHeight;
+                    windowHeight = window.innerHeight - 100;
 
                 var gl = document.getElementById("web-gl");
 
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
-                    camera.position.z = 10;
-                dirLight = new THREE.DirectionalLight(0xffffff);
-                    dirLight.position.y = 100;
-                    dirLight.position.x = -100;
-                ambLight = new THREE.AmbientLight(0xffffff);
+                    camera.position.z = 3;
+                spotLight = new THREE.SpotLight(0xffd689,1);
+                    spotLight.castShadow = true;
+                    spotLight.receiveShadow = true;
 
-                scene.add(camera, dirLight, ambLight);
-                scene.add(new THREE.AxisHelper(50));
-                scene.add(new THREE.GridHelper(3, 0.5));
+                ambLight = new THREE.AmbientLight(0xffffff,1);
+
+                scene.add(camera, spotLight, ambLight);
+                //scene.add(new THREE.AxisHelper(50));
+                //scene.add(new THREE.GridHelper(3, 0.5));
+                spotLight.target.position.set( 0, 1, -1 );
+                spotLight.position.copy( camera.position );
+
+                var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
+                var skyMaterial = new THREE.MeshBasicMaterial({
+                    map: new THREE.TextureLoader().load(bgPreset[0].image)
+                });
+                    skyMaterial.side = THREE.BackSide;
+                skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.material.dispose();
+
+                scene.add(skybox);
 
                 renderer = new THREE.WebGLRenderer();
                     renderer.setSize(windowWidth, windowHeight);
-                    renderer.setPixelRatio(window.devicePixelRatio);
+                    renderer.setPixelRatio(window.devicePixelRatio*1.5);
                     renderer.setClearColor(0x222222, 1);
                 gl.addEventListener("webglcontextlost", function(event){
                     event.preventDefault();
@@ -142,6 +157,7 @@
                     controls.dampingFactor = 0.1;
                     controls.rotateSpeed = 0.5;
                     controls.zoomSpeed = 0.5;
+                    controls.maxDistance = 100;
 
                 window.addEventListener("resize", pac.windowResizeGl, false);
                 pac.animateGL();
@@ -153,6 +169,7 @@
             },
             renderGL: function(){
                 renderer.render(scene, camera);
+                spotLight.position.copy( camera.position );
             },
             windowResizeGl: function(){
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -226,6 +243,7 @@
             initTools: function(){
                 //toolbar data bind start
                 toolbar.lightTool();
+                toolbar.geometryTool();
                 toolbar.materialTool();
                 toolbar.backgroundTool();
                 //toolbar data bind end
@@ -494,7 +512,6 @@
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
                 typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type),
                 alertKey = $(document).find(".alertKey").off("click");
-
                 if(size < 10485760){
                     if(typeCheck) return true;
                     else {
@@ -567,18 +584,20 @@
             textureUpload: function(event){
                 var $inputFile = $(this), 
                 object = event.target.files,
-                target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn")
-                
+                target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn"),
+                $loading_icon = $(document).find("#loading_icon");
                 if(upload.imgCheck(object[0])){
+                    $loading_icon.show();
                     $.each(object, function(i,file){
-                        var reader = new FileReader(),
-                        textureLoader = new THREE.TextureLoader();
-
+                        var reader = new FileReader();
+                        var textureLoader = new THREE.TextureLoader();
+           
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
                             var newTexture = new toolbar.materialFn.addTextureObject(event.target.result,file.name);
                             textureLoader.load(event.target.result,function(texture){
                                 loadedMaterials.push(texture);
+                                $loading_icon.hide();
                             });
                             newTexture.insertBefore(target);
                             pac.setIndex(".texture-list");
@@ -586,7 +605,9 @@
                         };
                     });
                 }
-                else $inputFile.val(null);
+                else {
+                    $inputFile.val(null);
+                }
             },
             textureApply: function(){
                 var targetID = $("#material-selector").find("option:selected").data("value"),
@@ -612,7 +633,6 @@
                     break;
                     default: break;
                 }
-                console.log(group.children[0]);
                 $(".uploading").attr({"src" : selectSRC, "data-index" : selectID }).removeClass("uploading");
 
                 function idCheck(id,kind){
@@ -637,25 +657,22 @@
                             var contents = event.target.result;
                             group = new THREE.Group();
                             object = new THREE.OBJLoader().parse(contents);
-                            console.log(object);
                             
                             for(var i = 0, l = object.length; i < l; i++){
                                 geometry = object[i].geometry;
                                     geometry.center();
-                                    geometry.dispose();
 
                                 material = object[i].material;
                                 if(material.type == "MeshPhongMaterial"){
-                                    material.specular = new THREE.Color(0x000000);
+                                    material.specular = new THREE.Color(0xffffff);
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
-                                    material.dispose();
                                 }
                                 else if(material.type = "MultiMaterial"){
                                     var materials = material.materials;
                                     for(var j = 0, ml = materials.length; j < ml; j++){
-                                        materials[j].specular = new THREE.Color(0x000000);
+                                        materials[j].specular = new THREE.Color(0xffffff);
                                         materials[j].side = THREE.DoubleSide;
                                         materials[j].transparent = true;
                                         materials[j].needsUpdate = true;
@@ -667,11 +684,11 @@
                                 mesh = new THREE.Mesh(geometry,material);
                                     mesh.castShadow = true;
                                     mesh.receiveShadow = true;
+                                    mesh.scale.set(1,1,1);   
                                 group.add(mesh);
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
-                            console.log(group);
                         },false);
                         reader.readAsText(file);
                     break;
@@ -783,9 +800,9 @@
                             for(var i = 0, l = ccData.length; i < l; i++){
                                 var disabled, checked;
                                 if(i == 0) continue;
-                                else if(i == 1) disabled = true, checked = true;
-                                else if(i == 2 || i == 3) disabled = false, checked = true;
-                                else if(i == 4) disabled = true, checked = false;
+                                else if(i === 1) disabled = true, checked = true;
+                                else if(i === 2 || i === 3) disabled = false, checked = true;
+                                else if(i === 4) disabled = true, checked = false;
                                 $cclist.clone()
                                 .append($ccCheckBox.clone().attr({"data-value":ccData[i].id,"name":"cc-check"}).prop({"disabled" : disabled,"checked" : checked}))
                                 .append($ccCheckDesc.clone().html(ccData[i].descript))
@@ -903,11 +920,17 @@
                 }
             },
             lightTool: function(){
-                var $this = $(document).find("#textTool-toolbox");
+                var $this = $(document).find("#lightTool-toolbox");
                 
             },
             lightFn: {
                 
+            },
+            geometryTool: function(){
+                var $this = $(document).find("#geometryTool-toolbox");
+            },
+            geometryFn: {
+
             },
             materialTool: function(){
                 var $this = $(document).find("#materialTool-toolbox");
@@ -960,7 +983,7 @@
                         $wrapper.clone(true).appendTo($(this));
                         $(this).find(".colorKey").spectrum({
                             replacerClassName: "color-viewer material-viewer",
-                            color: "#000000",
+                            color: "#ffffff",
                             showInput: true,
                             showAlpha: true,
                             showInitial: true,
@@ -1120,7 +1143,6 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".material-controller").data("value");
-                        console.log(val);
                         switch(kind){
                             case "diffuse" : $material.opacity = val*0.01; break;
                             case "specular" : $material.shininess = val; break;
@@ -1130,11 +1152,78 @@
                 }
             },
             backgroundTool: function(){
-                var $this = $(document).find("#gridTool-toolbox");
-                
+                var $this = $(document).find("#backgroundTool-toolbox");
+
+                var $3Dselector = $("<select/>",{"id" : "bg-3d-selector","class" : "backgroundSelector"}),
+                $backgroundSelect = new toolbar.createMenu($3Dselector,"Background").attr({"id" : "3d-background-tool","data-value" : "3d-background"}).appendTo($this);
+                toolbar.backgroundFn.addPresets($3Dselector);
+
             },
-            gridFn: {
-                
+            backgroundFn: {
+                addPresets: function(target){
+                    var preset = bgPreset,
+                    selector = target,
+                    options = $("<option/>","class");
+
+                    for(var i = 0, l = preset.length; i < l; i++){
+                        var option = options.clone().attr({
+                            "data-value" : preset[i].id,
+                            "data-tip" : "<img src='" + preset[i].preview + "' />"
+                        }).text(preset[i].name).appendTo(selector);
+                    }
+                    //the none option for test
+                    var option = options.clone().attr({
+                        "data-value" : "none",
+                        "data-tip" : "none"
+                    }).text("None").appendTo(selector);
+                    //the none option for test
+
+                    selector.lubySelector({
+                        id : "bg-3dSelector",
+                        width: "100%",
+                        float: "none",
+                        icon: "",
+                        callback: toolbar.backgroundFn.changeBackground,
+                        tooltip: true
+                    });
+
+                    $("#bg-3dSelector").find(".ls_option").tooltip({left: 270});
+                },
+                changeBackground: function(){
+                    var selected = $("#bg-3d-selector").find("option:selected"),
+                    id = selected.data("value"),
+                    $loading_icon = $(document).find("#loading_icon").show();
+                    loader = new THREE.TextureLoader();
+                    if(id !== "none"){
+                        loader.load(bgPreset[id].image,function(texture){
+                            skybox.material.map = texture;
+                            skybox.material.needsUpdate = true;
+                            skybox.material.dispose();
+                        });
+                        //light test
+                        switch(id){
+                            case 0 : 
+                                spotLight.color = new THREE.Color(0xffd689);
+                            break;//desert
+                            case 1 : 
+                                spotLight.color = new THREE.Color(0xffffff);
+                            break;//room
+                            case 2 : 
+                                spotLight.color = new THREE.Color(0xb9ffff);
+                            break;//snow mountain
+                        }
+                        //light test
+                    }
+                    //the none option test
+                    else {
+                        skybox.material.map = null;
+                        skybox.material.color = 0x222222;
+                        skybox.material.needsUpdate = true;
+                        skybox.material.dispose();
+                    }
+                    //the none option test
+                    $loading_icon.hide();
+                }
             }
         },
         method = {
@@ -1151,3 +1240,4 @@
             pac.init.apply(this, arguments);
 };
 })(jQuery);
+

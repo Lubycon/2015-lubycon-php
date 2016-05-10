@@ -341,7 +341,7 @@
         padding: 20px;
         margin-top: 50px;
         padding-top: 20px;
-        min-width: 250px;
+        min-width: 300px;
         background: #282828;
         z-index: 90;
         box-shadow: 3px 5px 10px -3px rgba(0,0,0,0.6);
@@ -408,9 +408,11 @@
                 width: 150px;
             }
             .toolbox-inner .lubySelector {
-                max-width: 220px;
                 margin: 7px 0px;
             }
+                .toolbox-inner > .lubySelector > .ls_optionWrap {
+                    overflow: visible;
+                }
         .toolbox-inner > .material-controller {
             position: relative;
         }
@@ -564,7 +566,7 @@
     }
 /*--------------editortool end------------------*/
 .slider-wrapper{
-    width: 160px !important;
+    width: 210px !important;
     display: none;
 }
     .slider-wrapper > .slider-text {

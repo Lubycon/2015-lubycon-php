@@ -25,6 +25,22 @@ $(window).on("load",function(){
 			}
 			input.trigger("click");
 		},
+		panoramaBG: function(){
+			var sphere = new THREE.Mesh(
+				new THREE.SphereGeometry(50, 32, 32),
+				new THREE.MeshBasicMaterial()
+			);
+			var imgLoader = new THREE.TextureLoader();
+			imgLoader.load("../background.jpg",function(texture){
+				console.log(texture);
+				sphere.material.map = texture;
+				sphere.material.needsUpdate = true;
+			});
+			imgLoader.crossOright = "anonymous";
+			
+			console.log(sphere);
+			scene.add(sphere);
+		},
 		uploadObj: function(event){
 			var $input = $(this),
 			$object = event.target.files;
@@ -235,6 +251,8 @@ $(window).on("load",function(){
 		statsFPS.domElement.style.position = "absolute";
 		statsFPS.domElement.style.left = "10px";
 		statsFPS.domElement.style.top = "50px";
+
+		funcs.panoramaBG();
 
 		document.body.appendChild(statsMemory.domElement);
 		document.body.appendChild(statsFPS.domElement);

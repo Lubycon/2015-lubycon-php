@@ -314,7 +314,7 @@ THREE.OBJLoader.prototype = {
 				console.log("Loaded material_" + materialIndex + " : " + line.substring(7).trim());
 			}
 			else{
-				$.error("Load Error : " + line);
+				console.log("Load Error : " + line);
 			}
 		}
 
@@ -335,8 +335,9 @@ THREE.OBJLoader.prototype = {
 			geometry.faceVertexUvs[0] = object.geometry.faceVertexUvs;
 			geometry.elementsNeedUpdate = true;
 			geometry.computeFaceNormals();
-			//geometry.computeVertexNormals();
+			geometry.computeVertexNormals();
 			geometry.computeBoundingBox();
+			geometry.normalize();
 			object.geometry = geometry;
 
 			var material;
