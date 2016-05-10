@@ -82,12 +82,17 @@
             $cate_name = $_GET['cate'];
             if( in_array($_GET['cate'] , $allow_array) )
             {
-	            require_once '../database/database_class.php';
+	            require_once "$two_depth/database/database_class.php";
 	            $db = new Database();
+
+                require_once "../class/json_class.php";
+                $json_control = new json_control;
+                $json_control->json_decode('top_category',"$one_depth/data/top_category.json");
+                $top_cate_decode = $json_control->json_decode_code;
                 
                 $query;
                 $cate_name;
-                $query_all = "SELECT downloadPermission , preview , title , profileImg , nick , boardCode , viewCount , likeCount FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT downloadPermission , preview , title , profileImg , nick , boardCode , viewCount , likeCount FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT downloadPermission , preview , title , profileImg , nick , boardCode , viewCount , likeCount FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC";
+                $query_all = "SELECT * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC ";
                 $query_one = "SELECT * FROM lubyconboard.`$cate_name` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` on `$cate_name`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `$cate_name`.`boardCode` DESC";
                 
                 if($cate_name == 'all')
@@ -101,6 +106,7 @@
 
                 while( $row = mysqli_fetch_array($db->result) )
                 {
+                    $top_cagegory = $top_cate_decode[$row['CategoryCode']];
                     include('../layout/content_card.php');
                 }
             }else
