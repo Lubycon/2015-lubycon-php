@@ -22,7 +22,8 @@
         keyCode = keycodePac, //keycode.json
         categoryData = categoryPac, //categories.json
         ccData = ccPac, //creative_commons.json
-        bgPreset = backgroundPreset,
+        bgPreset3d = backgroundPreset3d,
+        bgPreset2d = backgroundPreset2d,
         d = {},
         scene, camera, spotLight, ambLight, renderer, controls, stats,
         group, object, mtl, geometry, material, mesh, skybox
@@ -35,6 +36,7 @@
                         console.log("editor is loaded");//function start
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
+                        var $loading_icon = $(document).find("#loading_icon").show();
                         //init object
                         var $wrapper = $("<div/>",{"class" : "editor-wrapper"}).appendTo($this),
                         $header = $("<div/>",{"class" : "editor-header"}).appendTo($wrapper),
@@ -43,7 +45,9 @@
                         $editingBack = $("<div/>",{"class" : "editing-background"}).appendTo($body),
                         //canvas
                         $editingArea = $("<div/>",{"class" : "editing-area"}).appendTo($body),
-                        $canvas = $("<div/>",{"id" : "web-gl"}).appendTo($editingArea);
+                        $canvas = $("<div/>",{"id" : "web-gl"}).appendTo($editingArea),
+                        $canvasBackground = $("<div/>",{"id" : "canvas-background"}).appendTo($editingArea),
+                        $canvasLogo = $("<div/>",{"id" : "canvas-background-logo"}).appendTo($canvasBackground);
 
                         //in header bt
                         var $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
@@ -105,7 +109,10 @@
                         pac.initGL();
                         //setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
-                        $(window).on("load",function(){ $(".modal.file-selector-modal").fadeIn(400); });
+                        $(window).on("load",function(){ 
+                            $(".modal.file-selector-modal").fadeIn(400);
+                            $loading_icon.hide(); 
+                        });
                     }
                 })
             },
@@ -131,7 +138,7 @@
 
                 var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
                 var skyMaterial = new THREE.MeshBasicMaterial({
-                    map: new THREE.TextureLoader().load(bgPreset[0].image)
+                    map: new THREE.TextureLoader().load(bgPreset3d[0].image)
                 });
                     skyMaterial.side = THREE.BackSide;
                 skybox = new THREE.Mesh(skyGeometry,skyMaterial);
@@ -139,7 +146,7 @@
 
                 scene.add(skybox);
 
-                renderer = new THREE.WebGLRenderer();
+                renderer = new THREE.WebGLRenderer({ alpha: true });
                     renderer.setSize(windowWidth, windowHeight);
                     renderer.setPixelRatio(window.devicePixelRatio*1.5);
                     renderer.setClearColor(0x222222, 1);
@@ -397,7 +404,7 @@
                     $changebt = $("<p/>",{
                         "class" : "cc-setting-bt",
                         "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
-                    }).on("click",pac.dbToggle),
+                    }).on("click",pac.singleToggle),
                     
                     insertCCicons = function(){
                         var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
@@ -420,7 +427,7 @@
                     return modal;
                 }
             },
-            toggle: function(){
+            groupToggle: function(){
                 var $this = $(this),
                 $btns = $this.siblings(".btn");
                 if($this.hasClass("selected")) $this.removeClass("selected");
@@ -429,10 +436,25 @@
                     $this.addClass("selected");
                 }
             },
-            dbToggle: function(){
+            singleToggle: function(){
                 var $this = $(this);
                 if($this.hasClass("selected")) $this.removeClass("selected");
                 else $this.addClass("selected");
+            },
+            tabAction: function(){
+                var $this = $(this),
+                data = $this.data("target"),
+
+                depthTest = $this.parent().find(".tab-target").length === 0,
+                parent = depthTest ? $this.parent().parent() : $this.parent(),
+                target = parent.find(".tab-target[data-value='" + data + "']"),
+                elements = target.siblings(".tab-target");
+
+                if($this.hasClass("selected")){
+                    elements.hide();
+                    target.show();
+                }
+                else target.hide();
             },
             currentProg: function(){
                 var $this = $(this),
@@ -461,11 +483,10 @@
             toolbox: function(){
                 var $this = $(this),
                 $aside = $this.parents(".editor-aside"),
-                value = $this.data("value"),
+                value = $this.data("target"),
                 $toolboxWrap = $("<div/>",{
-                    "class" : "toolbox-wrap",
-                    "data-value" : value,
-                    "id" : value + "-toolbox"
+                    "class" : "toolbox-wrap tab-target",
+                    "data-value" : value
                 }).appendTo($aside).hide();
             },
             keyEvent: function(event){
@@ -618,7 +639,7 @@
             },
             textureApply: function(){
                 var targetID = $("#material-selector").find("option:selected").data("value"),
-                kind = $(".texture-viewer.uploading").parents(".material-controller").data("value"),
+                kind = $(".texture-viewer.uploading").parents(".toolbox-controller").data("value"),
 
                 selected = $(".texture-list-wrapper").find(".selected"),
                 selectSRC = selected.find(".texture-img").attr("src"),
@@ -883,10 +904,10 @@
         toolbar = {
             createButton: function(data,iconData){
                 var tipData = disableCamelCase(data);
-                var button = $("<div/>",{"class" : "btn", "data-value" : data, "data-tip" : tipData }),
+                var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
-                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle).tooltip({"top":5,"left" : 50});
+                button.on("click").on("click",pac.groupToggle).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
 
                 function disableCamelCase(text){ //camelCase -> Camel Case
                     var result = text.replace( /([A-Z])/g, " $1" ),
@@ -894,19 +915,6 @@
                     return result;
                 }
                 return button;
-            },
-            toolbarToggle: function(){
-                var $this = $(this),
-                value = $this.data("value"),
-                toolBoxes = $(document).find(".toolbox-wrap"),
-                toolBox = $(".toolbox-wrap[data-value=" + value + "]"),
-                $darkOverlay = $(document).find(".dark_overlay");
-                if($this.hasClass("selected")) {
-                    toolBoxes.fadeOut(200);
-                    toolBox.fadeIn(200);
-                    //if(toolBox.hasClass("modal")) $darkOverlay.fadeIn(200);
-                }
-                else toolBox.fadeOut(200);
             },
             createMenu: function(content,name){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
@@ -927,16 +935,16 @@
                 }
             },
             lightTool: function(){
-                var $this = $(document).find("#lightTool-toolbox");
+                var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
                 
             },
             lightFn: {
                 
             },
             geometryTool: function(){
-                var $this = $(document).find("#geometryTool-toolbox");
+                var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']");
 
-                var $testBt = $("<div/>",{ "class" : "coordinate btn", "html" : "Coordinate Test" }).on("click",pac.toggle).on("click",toolbar.geometryFn.transform),
+                var $testBt = $("<div/>",{ "class" : "coordinate btn", "html" : "Coordinate Test" }).on("click",pac.groupToggle).on("click",toolbar.geometryFn.transform),
                 coordinateTool = new toolbar.createMenu($testBt,"Coordinate").appendTo($this);
             },
             geometryFn: {
@@ -969,7 +977,7 @@
                 }
             },
             materialTool: function(){
-                var $this = $(document).find("#materialTool-toolbox");
+                var $this = $(document).find(".toolbox-wrap[data-value='materialTool']");
 
                 var $selectBox = $("<select/>",{ "id" : "material-selector" }).hide(),
                 $materialSelector = new toolbar.createMenu($selectBox,"Materials").attr({"id" : "materialSelect-tool","data-value" : "material-select"}).appendTo($this);
@@ -978,14 +986,14 @@
                 var $materialSpecular = new toolbar.createMenu(null,"Specular").attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
                 var $materialNormal = new toolbar.createMenu(null,"Normal").attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
 
-                var $controllerBody = $("<div/>",{ "class" : "material-controller" }),
-                $tabBtWrap = $("<div/>",{ "class" : "material-tab-bt-wrapper" }).appendTo($controllerBody),
+                var $controllerBody = $("<div/>",{ "class" : "toolbox-controller" }),
+                $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo($controllerBody),
                 $tabLeftBt = $("<div/>",{ 
-                    "class" : "material-tab btn",
+                    "class" : "toolbox-tab btn",
                     "html" : "Texture",
-                    "data-value" : "texture"
-                }).on("click",pac.toggle).on("click",toolbar.materialFn.materialTab).appendTo($tabBtWrap),
-                $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-value","color").removeClass("selected").appendTo($tabBtWrap),
+                    "data-target" : "texture-window"
+                }).on("click",pac.groupToggle).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
+                $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-target","color-window").removeClass("selected").appendTo($tabBtWrap),
 
                 $tabBody = $("<div/>",{ "class" : "material-control-inner" }).appendTo($controllerBody);
                 
@@ -994,6 +1002,13 @@
                 $controllerBody.clone(true).attr("data-value","normal").appendTo($materialNormal);
 
                 toolbar.materialFn.addController();
+
+                function showSlider(){
+                    var $this = $(this),
+                    $slider = $this.parents(".toolbox-controller").find(".slider-wrapper");
+                    if($this.hasClass("selected")) $slider.css("display","inline-block").show();
+                    else $slider.hide();
+                }
             },
             materialFn: {
                 addController: function(){
@@ -1001,7 +1016,7 @@
                     $wrapper = $("<div/>",{ "class" : "material-control-panel"}),
                     $viewer = $("<div/>", { "class" : "material-control-viewer" }).appendTo($wrapper),
                     $textureViewer = $("<img/>",{
-                        "class" : "texture-viewer material-viewer",
+                        "class" : "texture-viewer material-viewer tab-target",
                         "src" : icons.transparent,
                         "data-value" : "texture-window",
                         "data-index" : "-1"
@@ -1018,7 +1033,7 @@
                     $targets.each(function(){
                         $wrapper.clone(true).appendTo($(this));
                         $(this).find(".colorKey").spectrum({
-                            replacerClassName: "color-viewer material-viewer",
+                            replacerClassName: "color-viewer material-viewer tab-target",
                             color: "#ffffff",
                             showInput: true,
                             showAlpha: true,
@@ -1031,6 +1046,7 @@
                             move: toolbar.materialFn.materialColor,
                             change: toolbar.materialFn.materialColor
                         }).hide();
+                        $(".color-viewer.material-viewer.tab-target").attr("data-value","color-window")
                         $(this).find(".sliderKey").slider({
                             callback: toolbar.materialFn.sliderAction
                         });
@@ -1122,7 +1138,7 @@
                 },
                 materialTab: function(){
                     $this = $(this),
-                    $materialController = $this.parents(".material-controller"),
+                    $materialController = $this.parents(".toolbox-controller"),
                     $target = $materialController.find("." + $(this).data("value") + "-viewer"),
                     $viewers = $materialController.find(".material-viewer"),
                     $slider = $materialController.find(".slider-wrapper"),
@@ -1143,7 +1159,7 @@
                     }
                 },
                 addTextureObject: function(src,name){
-                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45, "left" : 0}).on("click",pac.toggle),
+                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45, "left" : 0}).on("click",pac.groupToggle),
                     textureImg = $("<img/>",{"class" : "texture-img", "src" : src}).appendTo(wrapper),
                     selectedTexture = $(".modal.texture-modal").find(".texture-list.btn.selected");
 
@@ -1161,7 +1177,7 @@
                     else if($materials.type == "MultiMaterial"){
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
-                        kind = $this.parents(".material-controller").data("value");
+                        kind = $this.parents(".toolbox-controller").data("value");
                         console.log(kind);
                         switch(kind){
                             case "diffuse" : $material.color = new THREE.Color(color); break;
@@ -1178,7 +1194,7 @@
                     else if($materials.type == "MultiMaterial"){
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
-                        kind = $this.parents(".material-controller").data("value");
+                        kind = $this.parents(".toolbox-controller").data("value");
                         switch(kind){
                             case "diffuse" : $material.opacity = val*0.01; break;
                             case "specular" : $material.shininess = val; break;
@@ -1188,77 +1204,147 @@
                 }
             },
             backgroundTool: function(){
-                var $this = $(document).find("#backgroundTool-toolbox");
+                var $this = $(document).find(".toolbox-wrap[data-value='backgroundTool']");
 
-                var $3Dselector = $("<select/>",{"id" : "bg-3d-selector","class" : "backgroundSelector"}),
-                $backgroundSelect = new toolbar.createMenu($3Dselector,"Background").attr({"id" : "3d-background-tool","data-value" : "3d-background"}).appendTo($this);
-                toolbar.backgroundFn.addPresets($3Dselector);
+                var $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }),
+                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",pac.groupToggle).on("click",pac.tabAction);
 
+                var $3dBt = $tabBt.clone(true).html("3D").attr("data-target","3d").addClass("selected").appendTo($tabBtWrap),
+                $2dBt = $tabBt.clone(true).html("Image").attr("data-target","2d").appendTo($tabBtWrap),
+                $colorBt = $tabBt.clone(true).html("Color").attr("data-target","color").appendTo($tabBtWrap);
+
+                var $backgroundSelect = new toolbar.createMenu($tabBtWrap,"Background").appendTo($this);
+
+                var $controllerBody = $("<div/>",{ "class" : "toolbox-controller tab-target" });
+                var $3DSelector = $("<select/>",{"id" : "bg-3d-selector","class" : "backgroundSelector","data-value" : "3d"}),
+                $2DSelector = $("<select/>",{"id" : "bg-2d-selector","class" : "backgroundSelector", "data-value" : "2d"}),
+                $colorSelector = $("<input/>",{"id" : "bg-color-selector","class" : "backgroundSelector", "data-value" : "color"});
+
+                $controllerBody.clone().attr("data-value","3d").append($3DSelector).appendTo($backgroundSelect);
+                $controllerBody.clone().attr("data-value","2d").append($2DSelector).appendTo($backgroundSelect).hide();
+                $controllerBody.clone().attr("data-value","color").append($colorSelector).appendTo($backgroundSelect).hide();
+
+                toolbar.backgroundFn.addPresets($this);
             },
             backgroundFn: {
                 addPresets: function(target){
-                    var preset = bgPreset,
-                    selector = target,
-                    options = $("<option/>","class");
+                    var preset3d = bgPreset3d,
+                    preset2d = bgPreset2d,
+                    selector = target.find(".backgroundSelector");
+                    console.log(preset3d,preset2d);
 
-                    for(var i = 0, l = preset.length; i < l; i++){
-                        var option = options.clone().attr({
-                            "data-value" : preset[i].id,
-                            "data-tip" : "<img src='" + preset[i].preview + "' />"
-                        }).text(preset[i].name).appendTo(selector);
-                    }
-                    //the none option for test
-                    var option = options.clone().attr({
-                        "data-value" : "none",
-                        "data-tip" : "none"
-                    }).text("None").appendTo(selector);
-                    //the none option for test
+                    selector.each(function(){
+                        var $this = $(this),
+                        data = $(this).data("value");
 
-                    selector.lubySelector({
-                        id : "bg-3dSelector",
-                        width: "100%",
-                        float: "none",
-                        icon: "",
-                        callback: toolbar.backgroundFn.changeBackground,
-                        tooltip: true
+                        switch(data){
+                            case "3d": 
+                                addOption(preset3d,$this);
+                                $this.lubySelector({
+                                    id : "bg-3dSelector",
+                                    width: "100%",
+                                    float: "none",
+                                    icon: "",
+                                    callback: toolbar.backgroundFn.background3d,
+                                    tooltip: true
+                                });
+                                $("#bg-3dSelector").find(".ls_option").tooltip({left: 270});
+                            break;
+                            case "2d": 
+                                addOption(preset2d,$this);
+                                $this.lubySelector({
+                                    id : "bg-2dSelector",
+                                    width: "100%",
+                                    float: "none",
+                                    icon: "",
+                                    callback: toolbar.backgroundFn.background2d,
+                                    tooltip: true
+                                });
+                                $("#bg-2dSelector").find(".ls_option").tooltip({left: 270});
+                            break;
+                            case "color": 
+                                $this.spectrum({
+                                    replacerClassName: "color-viewer background-viewer",
+                                    color: "#222222",
+                                    showInput: true,
+                                    showAlpha: true,
+                                    showInitial: true,
+                                    preferredFormat: "hex3",
+                                    showPalette: true,
+                                    palette: [],
+                                    showSelectionPalette: true,
+                                    selectionPalette: [],
+                                    move: toolbar.backgroundFn.backgroundColor,
+                                    change: toolbar.backgroundFn.backgroundColor
+                                });
+                            break;
+                            default: return false; break;
+                        }
                     });
 
-                    $("#bg-3dSelector").find(".ls_option").tooltip({left: 270});
+                    function addOption(preset,element){
+                        var options = $("<option/>");
+
+                        for(var i = 0, l = preset.length; i < l; i++){
+                            var option = options.clone().attr({
+                                "data-value" : preset[i].id,
+                                "data-tip" : "<img src='" + preset[i].preview + "' />"
+                            }).text(preset[i].name).appendTo(element);
+                        }
+                    }
                 },
-                changeBackground: function(){
+                background3d: function(){
                     var selected = $("#bg-3d-selector").find("option:selected"),
                     id = selected.data("value"),
-                    $loading_icon = $(document).find("#loading_icon").show();
+                    $loading_icon = $(document).find("#loading_icon").show(),
+                    background2d = $(document).find("#cavnas-background"),
                     loader = new THREE.TextureLoader();
-                    if(id !== "none"){
-                        loader.load(bgPreset[id].image,function(texture){
-                            skybox.material.map = texture;
-                            skybox.material.needsUpdate = true;
-                            skybox.material.dispose();
-                        });
-                        //light test
-                        switch(id){
-                            case 0 : 
-                                spotLight.color = new THREE.Color(0xffd689);
-                            break;//desert
-                            case 1 : 
-                                spotLight.color = new THREE.Color(0xffffff);
-                            break;//room
-                            case 2 : 
-                                spotLight.color = new THREE.Color(0xb9ffff);
-                            break;//snow mountain
-                        }
-                        //light test
-                    }
-                    //the none option test
-                    else {
-                        skybox.material.map = null;
-                        skybox.material.color = 0x222222;
+
+                    background2d.css("background-image","none");
+
+                    loader.load(bgPreset3d[id].image,function(texture){
+                        skybox.material.map = texture;
+                        skybox.material.opacity = 1.0;
+                        skybox.material.transparent = false;
                         skybox.material.needsUpdate = true;
                         skybox.material.dispose();
+                        $loading_icon.hide();
+                    });
+                    //light
+                    switch(id){
+                        case 0 : spotLight.color = new THREE.Color(0xffd689); break;//desert
+                        case 1 : spotLight.color = new THREE.Color(0xffffff); break;//room
+                        case 2 : spotLight.color = new THREE.Color(0xb9ffff); break;//snow mountain
                     }
-                    //the none option test
+                },
+                background2d: function(){
+                    var selected = $("#bg-2d-selector").find("option:selected"),
+                    id = selected.data("value"),
+                    $loading_icon = $(document).find("#loading_icon").show(),
+                    $background = $(document).find("#canvas-background"),
+                    $img = $background.find("#canvas-background-logo");
+                    
+                    $img.css("background-image","url(" + bgPreset2d[id].image + ")");
+                    toolbar.backgroundFn.clearRendererColor();
                     $loading_icon.hide();
+                },
+                backgroundColor: function(color){
+                    var background = $(document).find("#canvas-background"),
+                    logo = background.find("#canvas-background-logo");
+
+                    background.css("background-color",color.toHexString());
+                    toolbar.backgroundFn.clearRendererColor();
+                },
+                clearRendererColor: function(){
+                    skybox.material.map = null;
+                    skybox.material.transparent = true;
+                    skybox.material.opacity = 0.0;
+                    skybox.material.needsUpdate = true;
+                    skybox.material.dispose();
+
+                    spotLight.color = new THREE.Color(0xffffff);
+
+                    renderer.setClearColor(0x222222, 0);
                 }
             }
         },

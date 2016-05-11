@@ -1,6 +1,6 @@
 var ModalKit = {
     create: function(action,className){
-        var body = $("<div/>",{ "class":"modal " + className }),
+        var body = $("<div/>",{ "class":"modal " + className}),
         wrapper = $("<div/>",{ "class" : "modal-wrapper " + className }).appendTo(body),
         title = $("<div/>",{ "class" : "modal-title " + className }).appendTo(wrapper),
         closeBt = $("<div/>",{ "class" : "modal-closebt " + className, "data-value" : "modal-closebt" }).on("click",ModalKit.cancel).appendTo(wrapper),

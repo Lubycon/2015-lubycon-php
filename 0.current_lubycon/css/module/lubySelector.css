@@ -109,7 +109,6 @@
     text-align: center;
     text-shadow: none;
     position: absolute;
-    overflow: auto;
     
     z-index: 4;
     display: block;

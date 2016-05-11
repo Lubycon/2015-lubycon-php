@@ -247,7 +247,7 @@
                     helpText = $("<p/>",{ 
                         "class" : "embed-help",
                         "html" : "What can I embed?"
-                    }).on("click",pac.dbToggle).on("click",modalFunc.embedHelp).appendTo(content),
+                    }).on("click",pac.singleToggle).on("click",modalFunc.embedHelp).appendTo(content),
                     errorText = $("<p/>",{ 
                         "class" : "embed-error",
                         "html" : "Please insert iframe tag only."
@@ -349,7 +349,7 @@
                     $changebt = $("<p/>",{
                         "class" : "cc-setting-bt",
                         "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
-                    }).on("click",pac.dbToggle),
+                    }).on("click",pac.singleToggle),
                     
                     insertCCicons = function(){
                         var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
@@ -372,7 +372,7 @@
                     return modal;
                 }
             },
-            toggle: function(){
+            groupToggle: function(){
                 var $this = $(this),
                 $btns = $this.siblings(".btn");
                 if($this.hasClass("selected")) $this.removeClass("selected");
@@ -381,10 +381,25 @@
                     $this.addClass("selected");
                 }
             },
-            dbToggle: function(){
+            singleToggle: function(){
                 var $this = $(this);
                 if($this.hasClass("selected")) $this.removeClass("selected");
                 else $this.addClass("selected");
+            },
+            tabAction: function(){
+                var $this = $(this),
+                data = $this.data("target"),
+
+                depthTest = $this.parent().find(".tab-target").length === 0,
+                parent = depthTest ? $this.parent().parent() : $this.parent(),
+                target = parent.find(".tab-target[data-value='" + data + "']"),
+                elements = target.siblings(".tab-target");
+
+                if($this.hasClass("selected")){
+                    elements.hide();
+                    target.show();
+                }
+                else target.hide();
             },
             currentProg: function(){
                 var $this = $(this),
@@ -413,12 +428,12 @@
             toolbox: function(){
                 var $this = $(this),
                 $aside = $this.parents(".editor-aside"),
-                value = $this.data("value"),
+                value = $this.data("target"),
                 $toolboxWrap = $("<div/>",{
-                    "class" : "toolbox-wrap",
-                    "data-value" : value,
-                    "id" : value + "-toolbox"
+                    "class" : "toolbox-wrap tab-target",
+                    "data-value" : value
                 }).appendTo($aside).hide();
+                console.log(value);
                 if(value == "gridTool") $toolboxWrap.addClass("modal");
             },
             objMenu: function(selector){
@@ -1176,10 +1191,10 @@
         toolbar = {
             createButton: function(data,iconData){
                 var tipData = disableCamelCase(data);
-                var button = $("<div/>",{"class" : "btn", "data-value" : data, "data-tip" : tipData }),
+                var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
-                button.on("click").on("click",pac.toggle).on("click",toolbar.toolbarToggle).tooltip({"top":5,"left" : 50});
+                button.on("click").on("click",pac.groupToggle).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
 
                 function disableCamelCase(text){ //camelCase -> Camel Case
                     var result = text.replace( /([A-Z])/g, " $1" ),
@@ -1187,19 +1202,6 @@
                     return result;
                 }
                 return button;
-            },
-            toolbarToggle: function(){
-                var $this = $(this),
-                value = $this.data("value"),
-                toolBoxes = $(document).find(".toolbox-wrap"),
-                toolBox = $(".toolbox-wrap[data-value=" + value + "]"),
-                $darkOverlay = $(document).find(".dark_overlay");
-                if($this.hasClass("selected")) {
-                    toolBoxes.fadeOut(200);
-                    toolBox.fadeIn(200);
-                    //if(toolBox.hasClass("modal")) $darkOverlay.fadeIn(200);
-                }
-                else toolBox.fadeOut(200);
             },
             createMenu: function(content,name){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
@@ -1221,7 +1223,7 @@
 
             },
             textTool: function(){
-                var $this = $(document).find("#textTool-toolbox");
+                var $this = $(document).find(".toolbox-wrap[data-value='textTool']");
                 
                 //font size start
                 var $sizeInput = $("<input/>",{
@@ -1261,26 +1263,26 @@
 
                 $decobtns = $btWrap.clone(),
                 $boldBt = $btn.clone().addClass("boldbt").attr("data-value","bold").append($("<i/>",{"class" : icons.bold}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
                 $italicBt = $btn.clone().addClass("italicbt").attr("data-value","italic").append($("<i/>",{"class" : icons.italic}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
                 $underBt = $btn.clone().addClass("underbt").attr("data-value","underline").append($("<i/>",{"class" : icons.underline}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
                 $strikeBt = $btn.clone().addClass("strikebt").attr("data-value","strike").append($("<i/>",{"class" : icons.strike}))
-                .on("click",pac.dbToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
 
                 $fontDeco = new toolbar.createMenu($decobtns,"Font Decorations").attr({"id" : "fontDeco-tool","data-value" : "font-dece"}).appendTo($this);
 
                 //font align start
                 var $alignbtns = $btWrap.clone(),
                 $alignLeft = $btn.clone().addClass("align-left-bt").attr("data-value","left").append($("<i/>",{"class" : icons.alignLeft}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignCenter = $btn.clone().addClass("align-center-bt").attr("data-value","center").append($("<i/>",{"class" : icons.alignCenter}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignRight = $btn.clone().addClass("align-right-bt").attr("data-value","right").append($("<i/>",{"class" : icons.alignRight}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignRight = $btn.clone().addClass("align-justify-bt").attr("data-value","justify").append($("<i/>",{"class" : icons.alignJustify}))
-                .on("click",pac.toggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
 
                 $fontAlign = new toolbar.createMenu($alignbtns,"Align").attr({"id" : "fontAlign-tool","data-value" : "font-align"}).appendTo($this);
             },
@@ -1397,9 +1399,9 @@
                 }
             },
             colorTool: function(){
-                var $this = $(document).find("#colorTool-toolbox"),
+                var $this = $(document).find(".toolbox-wrap[data-value='colorTool']");
 
-                $colorInput = $("<input/>",{"type" : "text","id" : "bgColorKey"}),
+                var $colorInput = $("<input/>",{"type" : "text","id" : "bgColorKey"}),
                 $bgColor = new toolbar.createMenu($colorInput,"Background Color").attr({"id" : "bgColor-tool","data-value" : "bg-color"}).appendTo($this);
                 $colorInput.spectrum({
                     color: "#ffffff",
@@ -1423,8 +1425,9 @@
                 }
             },
             gridTool: function(){
-                var $this = $(document).find("#gridTool-toolbox"),
-                $gridWrap = $("<div/>",{ "class" : "grid-wrapper modal-wrapper" }).appendTo($this),
+                var $this = $(document).find(".toolbox-wrap[data-value='gridTool']");
+
+                var $gridWrap = $("<div/>",{ "class" : "grid-wrapper modal-wrapper" }).appendTo($this),
                 $gridTitle = $("<div/>",{
                     "class" : "grid-title modal-title",
                     "html" : "Making a Frame"
@@ -1432,7 +1435,7 @@
                 $gridInnerWrap = $("<div/>",{ "class" : "toolbox-inner" }).appendTo($gridWrap),
                 $editWindow = $("<div/>",{ "class" : "grid-edit-window" }).appendTo($gridInnerWrap),
                 $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
-                $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",pac.toggle).on("click",toolbar.gridFn.makeGrid),
+                $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",pac.groupToggle).on("click",toolbar.gridFn.makeGrid),
                 $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",ModalKit.cancel).appendTo($gridWrap),
                 $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
                 $gridCancel = $("<div/>",{
@@ -1554,7 +1557,7 @@
                 }
             },
             marginTool: function(){
-                var $this = $(document).find("#marginTool-toolbox");
+                var $this = $(document).find(".toolbox-wrap[data-value='marginTool']");
                 
                 var $headerInput = $("<input/>",{
                     "type" : "range",
@@ -1608,7 +1611,7 @@
                 }
             },
             sortTool: function(){
-                var $this = $(document).find("#sortTool-toolbox");
+                var $this = $(document).find(".toolbox-wrap[data-value='sortTool']");
 
                 var $sortul = $("<ul/>",{ "class" : "sort-ul"}),
                 $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable),

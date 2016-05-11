@@ -42,8 +42,9 @@
                         $wrapper = $("<span/>", {
                             "id": d.id,
                             "class": "lubySelector",
-                            optGroup: optGroup,
-                            theme: theme
+                            "optGroup": optGroup,
+                            "theme": theme,
+                            "onmousedown" : "return false"
                         }).insertAfter($this).append($this).css({"width":d.width,"float":d.float})
                         .on("click", pac.boxClick).on("focusin", pac.boxFocus)
                         .on("click", ".ls_option", pac.optionClick)

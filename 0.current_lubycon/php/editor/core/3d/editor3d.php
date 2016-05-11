@@ -20,7 +20,8 @@
 <script type="text/javascript" src="../../data/keyCode.json"></script>
 <script type="text/javascript" src="../../data/categories.json"></script>
 <script type="text/javascript" src="../../data/creative_commons.json"></script>
-<script type="text/javascript" src="../../data/backgroundPreset.json"></script>
+<script type="text/javascript" src="../../data/backgroundPreset3d.json"></script>
+<script type="text/javascript" src="../../data/backgroundPreset2d.json"></script>
 
 <script type="text/javascript" src="../../module/js/jquery.lubySlider.js"></script>
 <script type="text/javascript" src="../../module/js/modalClass.js"></script>
