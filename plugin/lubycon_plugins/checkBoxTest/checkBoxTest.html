@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Test</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /> <!--icon font-->
 	<link href="checkBoxTest.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
     <script type="text/javascript" src="jquery-1.12.2.min.js"></script> <!-- jquery library -->
@@ -11,16 +12,17 @@
 <body>
 	<input type="checkbox" id="test1" />
 	<input type="checkbox" id="test2" />
-	<input name="group1" type="radio" class="test-radio" />
+	<input name="group1" type="radio" class="test-radio" checked="checked"/>
 	<input name="group1" type="radio" class="test-radio" />
 	<input name="group1" type="radio" class="test-radio" />
 </body>
 <script>
-	$("#test1").lubyCheckbox({
-		width: 100,
-		height: 30
+	$("#test1").lubyCheckbox();
+	$("#test2").lubyCheckbox({
+		switchs: false
 	});
-	$("#test2").lubyCheckbox();
-	$(".test-radio[name='group1']").lubyCheckbox();
+	$(".test-radio[name='group1']").lubyCheckbox({
+		icon: "fa fa-circle"
+	});
 </script>
 </html>
