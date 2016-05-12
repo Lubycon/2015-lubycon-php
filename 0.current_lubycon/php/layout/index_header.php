@@ -81,7 +81,7 @@
 </head>
 <body id="bodyer">
 <div id="wrapper"> 
-    <div id="loading_icon"><i class="fa fa-spinner fa-pulse"></i></div>
+    <div id="loading_icon"><i class="fa fa-spinner fa-spin"></i></div>
     <div class="dark_overlay" data-value="dark_overlay"></div>
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
     <aside id="mb-menu_panel" class="visible-mb"><!--mobile panel menu-->

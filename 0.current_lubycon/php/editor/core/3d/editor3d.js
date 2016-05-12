@@ -992,7 +992,7 @@
                     "class" : "toolbox-tab btn",
                     "html" : "Texture",
                     "data-target" : "texture-window"
-                }).on("click",pac.groupToggle).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
+                }).on("click",pac.groupToggle).on("click",pac.tabAction).on("click",showSlider).on("click",firstMaterialCheck).appendTo($tabBtWrap),
                 $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-target","color-window").removeClass("selected").appendTo($tabBtWrap),
 
                 $tabBody = $("<div/>",{ "class" : "material-control-inner" }).appendTo($controllerBody);
@@ -1008,6 +1008,16 @@
                     $slider = $this.parents(".toolbox-controller").find(".slider-wrapper");
                     if($this.hasClass("selected")) $slider.css("display","inline-block").show();
                     else $slider.hide();
+                }
+                function firstMaterialCheck(){
+                    var $this = $(this); 
+                    trigger1 = $this.parent().siblings(".material-control-inner").find(".texture-viewer.material-viewer.tab-target"),
+                    trigger2 = $(".modal.texture-window").find(".texture-list.btn.default") 
+                    material = $(".modal.texture-window").find(".texture-list.btn.custom");
+                    if(material.length === 0){
+                        trigger1.trigger("click");
+                        trigger2.trigger("click");
+                    }
                 }
             },
             materialFn: {

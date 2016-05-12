@@ -1,0 +1,94 @@
+@charset "utf-8";
+/*CSS RESET*/
+body {
+    width: 100%;
+    position: relative;
+    background: #fff;
+    display: block;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: none; /*hold font-size in moblie*/
+}
+
+article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    display: block;
+}
+
+body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    font-family: 'Source Sans Pro';
+    /*font-size: 1em;*/
+    font-weight: 400;
+    outline: 0;
+}
+*:focus{
+    outline: 0;
+}
+/*CSS RESET*/
+
+.checkbox-wrapper {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ff0000;
+}
+    .checkbox-label {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        border: 1px solid #48cfad;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        .checkbox-label.switch {
+            border-radius: 10px;
+        }
+    .checkbox-innerbox {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background: #dddddd;
+    }
+        .checkbox-label.switch .checkbox-innerbox{
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    .checkbox-btn {
+        position: absolute;
+    }
+        .checkbox-label.switch .checkbox-btn {
+            border-radius: 50%;
+        }
+
+.checkbox-label .checkbox-btn {
+    width: 20px;
+    height: 100%;
+    background: #48cfad;
+    top: 0;
+    left: 0;
+    margin-left: 0;
+    transition: top 0.2s, left 0.2s, right 0.2s, margin-left 0.2s;
+}
+
