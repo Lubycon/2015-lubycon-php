@@ -282,6 +282,9 @@
         padding: 10px;
         background: #666666;
     }
+        .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .checkbox-wrapper {
+            margin-right: 10px;
+        }
         .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-title-wrapper > input[type="radio"] {
             margin-top: 6px;
             margin-right: 12px;

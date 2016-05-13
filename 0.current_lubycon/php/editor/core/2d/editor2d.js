@@ -1037,7 +1037,9 @@
                         .append($ccRadio.clone().prop("checked",false).attr("data-value","withoutCC"))
                         .append($ccTitle.clone().html("NO USAGE WITHOUT OWNER’S PERMISSION"))).appendTo($(".cc-setting-inner-wrapper"));
 
-                        $(".license-selector").on("change",modalFunc.useCC);
+                        $(".license-selector").on("change",modalFunc.useCC).lubyCheckbox({
+                            "icon" : "fa fa-circle"
+                        });
                         $(".cc-checkbox").on("change",modalFunc.displayCC).on("change",modalFunc.makelinkCC).lubyCheckbox({ switchs: false });
                         $(".cc-checkbox[data-value='nd']").add(".cc-checkbox[data-value='sa']").addClass("radioStyle");
                         ModalKit.align($(".cc-setting-wrapper"));
@@ -1071,14 +1073,11 @@
                 else $target.stop().fadeIn(400);
             },
             ccNDSA: function(){ //if you select nd(sa), sa(nd) will be disabled.
-                console.log(true);
                 var $this = $(this),
                 data = $this.data("value"),
                 otherData = data === "nd" ? "sa" : "nd",
                 checked = $this.prop("checked"),
                 others = $(".cc-checkbox[data-value='" + otherData + "']");
-
-                console.log($this,otherData,others);
 
                 if(checked) others.parents(".checkbox-wrapper").lubyCheckbox("disable");
                 else others.parents(".checkbox-wrapper").lubyCheckbox("enable");
