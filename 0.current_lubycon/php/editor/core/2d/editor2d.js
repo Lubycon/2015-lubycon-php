@@ -433,7 +433,6 @@
                     "class" : "toolbox-wrap tab-target",
                     "data-value" : value
                 }).appendTo($aside).hide();
-                console.log(value);
                 if(value == "gridTool") $toolboxWrap.addClass("modal");
             },
             objMenu: function(selector){
@@ -1039,7 +1038,8 @@
                         .append($ccTitle.clone().html("NO USAGE WITHOUT OWNER’S PERMISSION"))).appendTo($(".cc-setting-inner-wrapper"));
 
                         $(".license-selector").on("change",modalFunc.useCC);
-                        $(".cc-checkbox").on("change",modalFunc.displayCC).on("change",modalFunc.makelinkCC);
+                        $(".cc-checkbox").on("change",modalFunc.displayCC).on("change",modalFunc.makelinkCC).lubyCheckbox({ switchs: false });
+                        $(".cc-checkbox[data-value='nd']").add(".cc-checkbox[data-value='sa']").addClass("radioStyle");
                         ModalKit.align($(".cc-setting-wrapper"));
                     }//create cc
                     else $(".cc-setting-wrapper").fadeIn(400);
@@ -1066,19 +1066,22 @@
                 selected = $this.prop("checked"),
                 data = $this.data("value"),
                 $target = $(".cc-list[data-value='" + data + "']");
-                if(data == "nd" || data == "sa") modalFunc.ccNDSA();
+                if(data == "nd" || data == "sa") modalFunc.ccNDSA.call($this);
                 if(!selected) $target.stop().fadeOut(400);
                 else $target.stop().fadeIn(400);
             },
             ccNDSA: function(){ //if you select nd(sa), sa(nd) will be disabled.
-                $nd = $(".cc-checkbox[data-value='nd']"),
-                $sa = $(".cc-checkbox[data-value='sa']");
+                console.log(true);
+                var $this = $(this),
+                data = $this.data("value"),
+                otherData = data === "nd" ? "sa" : "nd",
+                checked = $this.prop("checked"),
+                others = $(".cc-checkbox[data-value='" + otherData + "']");
 
-                if($nd.prop("checked")) $sa.prop("disabled",true);
-                else if($nd.prop("checked") == false) $sa.prop("disabled", false);
+                console.log($this,otherData,others);
 
-                if($sa.prop("checked")) $nd.prop("disabled",true);
-                else if($sa.prop("checked") == false) $nd.prop("disabled", false);
+                if(checked) others.parents(".checkbox-wrapper").lubyCheckbox("disable");
+                else others.parents(".checkbox-wrapper").lubyCheckbox("enable");
             },
             makelinkCC: function(){
                 var link = [],

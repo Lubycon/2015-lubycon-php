@@ -1,53 +1,12 @@
-@charset "utf-8";
-/*CSS RESET*/
-body {
-    width: 100%;
-    position: relative;
-    background: #fff;
-    display: block;
-    overflow-x: hidden;
-    -webkit-text-size-adjust: none; /*hold font-size in moblie*/
-}
-
-article, aside, hgroup, header, footer, figure, figcaption, nav, section {
-    display: block;
-}
-
-body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, aside, hgroup, header, footer, figure, figcaption, nav, section {
-    margin: 0px;
-    padding: 0px;
-    color: #000;
-}
-
-li {
-    list-style: none;
-}
-
-img {
-    border-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: #000;
-    margin: 0px;
-    padding: 0px;
-}
-
-* {
-    font-family: 'Source Sans Pro';
-    /*font-size: 1em;*/
-    font-weight: 400;
-    outline: 0;
-}
-*:focus{
-    outline: 0;
-}
-/*CSS RESET*/
-
 .checkbox-wrapper {
     position: relative;
     display: inline-block;
+}
+.checkbox-wrapper.disabled .checkbox-innerbox {
+    background: #aaaaaa;
+}
+.checkbox-wrapper.disabled .checkbox-label.selected .checkbox-btn > i {
+    color: #444444;
 }
     .checkbox-label {
         position: relative;
@@ -126,10 +85,7 @@ a {
             .checkbox-label.selected .checkbox-btn > i {
                 color: #48cfad;
             }
-       
 
-/*---------test--------*/
 .checkbox-wrapper {
-    margin-left: 10px;
-    margin-top: 100px;
+    margin-top: 10px;
 }

@@ -58,6 +58,7 @@
     <link href="<?=$one_depth?>/css/layout/media.css" rel="stylesheet" type="text/css" /> <!-- media query-->
     <link href="<?=$one_depth?>/css/module/lubySelector.css" rel="stylesheet" type="text/css" />
     <link href="<?=$one_depth?>/css/module/lubyAlert.css" rel="stylesheet" type="text/css" />
+    <link href="<?=$one_depth?>/css/module/checkBox.css" rel="stylesheet" type="text/css" />
     <link href="<?=$one_depth?>/css/layout/animate.css" rel="stylesheet" type="text/css" /><!--animation for objects-->
     <link href="<?=$one_depth?>/css/slider.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
@@ -68,6 +69,7 @@
     <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
     <script type="text/javascript" src="<?=$one_depth?>/js/module/resizeObject.js"></script>
     <script type="text/javascript" src="<?=$one_depth?>/js/module/sticky.js"></script>
+    <script type="text/javascript" src="<?=$one_depth?>/js/module/checkBox.js"></script>
     <script type="text/javascript" src="<?=$one_depth?>/js/core/ui.js"></script><!-- ui file js -->
     <script type="text/javascript" src="<?=$one_depth?>/js/core/mobile.js"></script><!--mobile file js-->
     <script type="text/javascript" src="<?=$one_depth?>/js/core/core.js"></script> <!-- index file js -->

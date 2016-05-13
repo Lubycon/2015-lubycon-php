@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /> <!--icon font-->
+	<link href="checkBox.css" rel="stylesheet" type="text/css" /><!--slider css-->
+
+    <script type="text/javascript" src="jquery-1.12.2.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="checkBox.js"></script>
+</head>
+<body>
+	<input type="checkbox" class="cc_check" checked="checked" disabled="disabled" data-value="by" />
+	<p>BY</p>
+	<input type="checkbox" class="cc_check" checked="checked" data-value="nc" />
+	<p>NC</p>
+	<input type="checkbox" class="cc_check test" checked="checked" data-value="nd" />
+	<p>ND</p>
+	<input type="checkbox" class="cc_check test" disabled="disabled" data-value="sa" />
+	<p>SA</p>
+</body>
+<script>
+	$(".cc_check").lubyCheckbox({
+		switchs: false
+	});
+
+	$(".cc_check.test").each(function(){
+		$(this).on("change",testCheck);
+	});
+
+	function testCheck(){
+		var $this = $(this),
+		data = $this.data("value"),
+		antiData = data === "nd" ? "sa" : "nd",
+		checked = $this.prop("checked"),
+		others = $(".cc_check.test[data-value='" + antiData + "']");
+
+		console.log(data,others);
+		console.log(checked);
+
+		if(checked){
+			others.parents(".checkbox-wrapper").lubyCheckbox("disable");
+		}
+		else{
+			others.parents(".checkbox-wrapper").lubyCheckbox("enable");
+		}
+	}
+</script>
+</html>

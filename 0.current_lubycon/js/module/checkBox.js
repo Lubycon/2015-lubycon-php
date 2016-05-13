@@ -26,7 +26,8 @@
                         var $this = $(this),
                         id = $this.attr("id"),
                         name = $this.attr("name"),
-                        type = $this.attr("type");
+                        type = $this.attr("type"),
+                        disabled = $this.prop("disabled");
 
                         var $wrap = $("<div/>",{ "class" : "checkbox-wrapper " + type }).insertBefore($this);
                         if(d.switchs && type === "checkbox") $wrap.css({"width" : 50, "height" : 20});
@@ -39,8 +40,12 @@
                         }
                         else if(type === "radio") pac.initRadio.call($this,$wrap,id,name);
 
-                        $(".checkbox-btn > i").css({
-                        });
+                        if(disabled){
+                            var checkboxWrapper = $this.parents(".checkbox-wrapper"),
+                            checkboxLabel = checkboxWrapper.find(".checkbox-label");
+                            checkboxWrapper.addClass("disabled");
+                            checkboxLabel.off("click");
+                        }
                     }
                 })
             },
@@ -58,7 +63,7 @@
                 var $this = $(this),
                 type = "checkbox";
 
-                var $body = new Wrapper(id,name,type).appendTo(wrap).on("click",checkFn.checkbox).on("click",checkFn.checkAnimation),
+                var $body = new Wrapper(id,name,type).appendTo(wrap).on("click",checkFn.checkbox),
                 button = $body.find(".checkbox-btn"),
                 icon = $("<i/>",{ "class" : d.icon });
 
@@ -71,7 +76,7 @@
                 var $this = $(this),
                 type = "radio";
                 
-                var $body = new Wrapper(id,name,type).appendTo(wrap).on("click",checkFn.radio).on("click",checkFn.checkAnimation),
+                var $body = new Wrapper(id,name,type).appendTo(wrap).on("click",checkFn.radio),
                 button = $body.find(".checkbox-btn"),
                 label = $body.find(".checkbox-label"),
                 icon = $("<i/>",{ "class" : d.icon });
@@ -85,21 +90,35 @@
         checkFn = {
             checkbox: function(){
                 event.preventDefault();
-                var $this = $(this);
+                var $this = $(this),
+                checkbox = $this.find("input");
                 
-                if($this.hasClass("selected")) $this.removeClass("selected");
-                else $this.addClass("selected");
+                if($this.hasClass("selected")) {
+                    $this.removeClass("selected");
+                    checkbox.prop("checked",false);
+                    checkbox.trigger("change");
+                }
+                else {
+                    $this.addClass("selected");
+                    checkbox.prop("checked",true);
+                    checkbox.trigger("change");
+                }
             },
             radio: function(){
                 event.preventDefault();
                 var $this = $(this),
                 groupName = $this.attr("name"),
-                labels = $(document).find("label[name='" + groupName + "']");
+                labels = $(document).find("label[name='" + groupName + "']"),
+                checkbox = $this.find("input");
 
                 if($this.hasClass("selected")) return false;
                 else {
-                    labels.removeClass("selected");
+                    labels.each(function(){
+                        if(!$(this).parents(".checkbox-wrapper").hasClass("disabled")) $(this).removeClass("selected");
+                    });
                     $this.addClass("selected");
+                    checkbox.prop("checked",true);
+                    checkbox.trigger("change");
                 }
             },
             swithcAnimation: function(){
@@ -128,17 +147,34 @@
             },
             disable: function(){
                 return this.each(function(){
-                    var $this = $(this);
-                    $this.addClass("disabled").off("click").off("focusin").off("change");
+                    var $this = $(this),
+                    $label = $this.find(".checkbox-label"),
+                    $input = $this.find("input");
+
+                    $this.addClass("disabled");
+                    $input.prop("disabled",true);
+                    $label.off("click");
                 })
             },
             enable: function(){
                 return this.each(function(){
-                    var $this = $(this);
-                    $this.removeClass("disabled")
-                    .on("click", pac.boxClick).on("focusin", pac.boxFocus)
-                    .on("click", ".ls_option", pac.optionClick)
-                    .on("change","select",pac.changeOption);
+                    console.log($(this));
+                    console.log("enabled");
+                    var $this = $(this),
+                    $label = $this.find(".checkbox-label"),
+                    $input = $this.find("input"),
+                    check1 = $this.hasClass("checkbox"),
+                    check2 = $label.hasClass("switch");
+
+                    $this.removeClass("disabled");
+                    $input.prop("disabled",false);
+                    if(check1){ //this is checkbox
+                        $label.on("click",checkFn.checkbox);
+                        if(check2) $label.on("click",checkFn.swithcAnimation);
+                    }
+                    else {//this is radio button
+                        $label.on("click",checkFn.radio);
+                    }
                 })
             }
         }

@@ -60,9 +60,16 @@ $(function () { //create account bt popup event start
                     "icon": "fa fa-globe"
                 });
                 $("#create_account_area").css("top",verticalAlign(windowHeight,$("#create_account_area").height(),0));
+                initCheckbox();
             }
         });
     });
+    function initCheckbox(){
+        var checkbox = $(document).find(".document_check_box"),
+        checkbox2 = $(document).find(".email_resive");
+        checkbox.lubyCheckbox();
+        checkbox2.lubyCheckbox();
+    }
 
     $('.dark_overlay').on("click",function () {
         $('.dark_overlay').stop().fadeOut(500);
