@@ -262,7 +262,7 @@ form
 #create_account_area {
     background: #fff;
     z-index: 6;
-    position: absolute;
+    position: fixed;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -374,8 +374,8 @@ form
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
-    .document {
-        
+    .checkbox-wrapper {
+        margin-right: 10px;
     }
     .check_zone {
         position:relative;
@@ -433,7 +433,7 @@ form
     color: #fff;
 }
 /* check incons */
-#create_account_area .fa-check {
+#create_account_area .account_input_wrap .fa-check {
     position: absolute;
     width: 25px;
     height: 25px;
@@ -447,7 +447,7 @@ form
     color: #fff;
 }
 
-#create_account_area .fa-times {
+#create_account_area .account_input_wrap .fa-times {
     position: absolute;
     width: 25px;
     height: 25px;

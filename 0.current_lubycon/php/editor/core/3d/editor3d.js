@@ -905,7 +905,7 @@
         },
         toolbar = {
             createButton: function(data,iconData){
-                var tipData = disableCamelCase(data);
+                var tipData = data !== null ? disableCamelCase(data) : null;
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
@@ -946,8 +946,15 @@
             geometryTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']");
 
-                var $testBt = $("<div/>",{ "class" : "coordinate btn", "html" : "Coordinate Test" }).on("click",pac.groupToggle).on("click",toolbar.geometryFn.transform),
-                coordinateTool = new toolbar.createMenu($testBt,"Coordinate").appendTo($this);
+                var $coordinateCheckbox =  $("<input/>",{ "type" : "checkbox", "class" : "toolbox-checkbox", "id" : "coordinate-check" })
+                .on("change",toolbar.geometryFn.transform),
+                coordinateTool = new toolbar.createMenu($coordinateCheckbox,"Coordinate").appendTo($this);
+                $coordinateCheckbox.lubyCheckbox();
+
+                var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper" }),
+                smoothMode = new toolbar.createButton(null,icons.usd).attr("data-value","smooth").appendTo($viewmodeWrapper),
+                cleanMode = new toolbar.createButton(null,icons.usd).attr("data-value","clean").appendTo($viewmodeWrapper)
+                $viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode").appendTo($this);
             },
             geometryFn: {
                 transform: function(){
@@ -962,7 +969,7 @@
                         axisHelper.name = "axisHelper";
                     var controlsIndecies = 0;
 
-                    if($this.hasClass("selected")){
+                    if($this.prop("checked")){
                         controls.enabled = false;
                         scene.add(objectControls,gridHelper,axisHelper);
                         controlsIndecies = scene.children.length;

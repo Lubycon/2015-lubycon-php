@@ -30,7 +30,7 @@
                         disabled = $this.prop("disabled");
 
                         var $wrap = $("<div/>",{ "class" : "checkbox-wrapper " + type }).insertBefore($this);
-                        if(d.switchs && type === "checkbox") $wrap.css({"width" : 50, "height" : 20});
+                        if(d.switchs && type === "checkbox") $wrap.css({"width" : 40, "height" : 20});
                         else $wrap.css({"width" : 20, "height" : 20});
 
                         if(type === "checkbox") {
