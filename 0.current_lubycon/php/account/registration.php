@@ -1,17 +1,17 @@
 <?php
-	require_once '../database/database_class.php';
-    require_once "../class/regex_class.php";
+	include_once '../class/database_class.php';
+    include_once '../class/regex_class.php';
+    include_once '../class/certifiMail_class.php';
 
     $regex_vali = new regex_validate;
 
 	$db = new Database();
-	$rand_str=null;
-
+	
 	// password encryption -> using bycrypt
 	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
 	//email validation check
-	($regex_vali->email_check($_POST['email']==true)) ? $email_validation = true : $email_validation = false;
+	($regex_vali->email_check($_POST['email']) == true) ? $email_validation = true : $email_validation = false;
 
 	//password validation check
 	(($regex_vali->pass_check($_POST['pass']) && $regex_vali->sametext_check($_POST['pass'],$_POST['repass'])) == true) ? $pass_validation = true : $pass_validation = false;
@@ -31,7 +31,37 @@
 	$host = $_SERVER['HTTP_HOST'];
 	$uri = $_SERVER['REQUEST_URI'];
 
+	echo $_POST['email'];
+
 	if($email_validation && $pass_validation && $nick_validation && $private_validation && $terms_validation){
+		$from = "Lubycon@gmail.com";
+		$subject = "Confirmation Mail for Lubycon account";
+		$pass = "hmdwdgdhkr2015";
+		$certifimail = new CertifiMail($from, $_POST['email'], $subject, $pass);
+		$certifimail->makeToken(12);
+		$certifimail->makeHtml();
+
+		if($certifimail->sendMail()){
+			$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken,validation)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$certifimail->token."', 'inactive')";
+
+			$db->askQuery();
+		
+			if(!$db->result){
+				echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.";
+				$db->disconnectDb();
+				sleep(5);
+				//echo("<script>history.back();</script>");
+			}else{
+				echo '<script>document.location.href="./waiting_for_resisting.php"</script>';
+			}
+		}else{
+			echo "전송 실패";
+		}
+	}
+	else{
+		echo "안맞니?";
+	}
+	/*
 		
 		$feed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 		$size = 6;
@@ -140,6 +170,7 @@
 			$mail->SMTPAuth=true;
 			$mail->Username=$fromaddress;
 			$mail->Password="hmdwdgdhkr2015";
+			//
 			$mail->setFrom($fromaddress,$fromaddress);
 			$mail->addAddress($toaddress,$toaddress);
 			$mail->Subject=$subject;
@@ -158,11 +189,14 @@
 		exit;
 		}
 	}
+	*/
+	/*
 	else{
 		echo "registration fail back to the website.";
 		sleep(5);
 		//echo("<script>history.back();</script>");
 		exit;
 	}
+	*/
 
 ?>
