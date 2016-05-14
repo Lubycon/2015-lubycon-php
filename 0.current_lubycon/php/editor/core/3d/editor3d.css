@@ -440,6 +440,12 @@
         .toolbox-inner > .toolbox-controller {
             position: relative;
         }
+            .toolbox-inner > .toolbox-controller .tooltip img {
+                width: 400px;
+                height: 300px;
+                margin: 5px 0px;
+                vertical-align: middle;
+            }
             .toolbox-inner > .toolbox-controller > .material-control-inner > .material-control-panel > .material-control-viewer {
                 position: relative;
                 display: inline-block;

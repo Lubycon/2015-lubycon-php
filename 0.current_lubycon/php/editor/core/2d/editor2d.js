@@ -374,8 +374,12 @@
             },
             groupToggle: function(){
                 var $this = $(this),
+                radioType = $this.hasClass("radioType"),
                 $btns = $this.siblings(".btn");
-                if($this.hasClass("selected")) $this.removeClass("selected");
+
+                if($this.hasClass("selected")){
+                    if(!radioType) $this.removeClass("selected");
+                } 
                 else {
                     $btns.removeClass("selected");
                     $this.addClass("selected");
@@ -1203,6 +1207,12 @@
                     result = result.charAt(0).toUpperCase() + result.slice(1);
                     return result;
                 }
+                return button;
+            },
+            createRadioButton: function(data,iconData){
+                var button = new toolbar.createButton(data,iconData);
+                button.addClass("radioType");
+
                 return button;
             },
             createMenu: function(content,name){

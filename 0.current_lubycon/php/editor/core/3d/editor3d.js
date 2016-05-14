@@ -429,8 +429,12 @@
             },
             groupToggle: function(){
                 var $this = $(this),
+                radioType = $this.hasClass("radioType"),
                 $btns = $this.siblings(".btn");
-                if($this.hasClass("selected")) $this.removeClass("selected");
+
+                if($this.hasClass("selected")){
+                    if(!radioType) $this.removeClass("selected");
+                } 
                 else {
                     $btns.removeClass("selected");
                     $this.addClass("selected");
@@ -918,6 +922,12 @@
                 }
                 return button;
             },
+            createRadioButton: function(data,iconData){
+                var button = new toolbar.createButton(data,iconData);
+                button.addClass("radioType");
+
+                return button;
+            },
             createMenu: function(content,name){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
                 label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
@@ -946,15 +956,20 @@
             geometryTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']");
 
-                var $coordinateCheckbox =  $("<input/>",{ "type" : "checkbox", "class" : "toolbox-checkbox", "id" : "coordinate-check" })
+                var $rotateCheckbox =  $("<input/>",{ "type" : "checkbox", "class" : "toolbox-checkbox", "id" : "rotate-check" })
                 .on("change",toolbar.geometryFn.transform),
-                coordinateTool = new toolbar.createMenu($coordinateCheckbox,"Coordinate").appendTo($this);
-                $coordinateCheckbox.lubyCheckbox();
+                rotateTool = new toolbar.createMenu($rotateCheckbox,"Rotate").appendTo($this);
+                $rotateCheckbox.lubyCheckbox();
 
-                var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper" }),
-                smoothMode = new toolbar.createButton(null,icons.usd).attr("data-value","smooth").appendTo($viewmodeWrapper),
-                cleanMode = new toolbar.createButton(null,icons.usd).attr("data-value","clean").appendTo($viewmodeWrapper)
-                $viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode").appendTo($this);
+                var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper toolbox-btns" }),
+                smoothMode = new toolbar.createRadioButton("realistic",icons.usd).addClass("selected").attr("data-value","realistic").appendTo($viewmodeWrapper),
+                cleanMode = new toolbar.createRadioButton("cleanSurface",icons.usd).attr("data-value","clean").appendTo($viewmodeWrapper),
+                transparentMode = new toolbar.createRadioButton("transparency",icons.usd).attr("data-value","transparent").appendTo($viewmodeWrapper),
+                wireMode = new toolbar.createRadioButton("wireframe",icons.usd).attr("data-value","wireframe").appendTo($viewmodeWrapper),
+                wireCleanMode = new toolbar.createRadioButton("wireframeAndClean",icons.usd).attr("data-value","wireclean").appendTo($viewmodeWrapper),
+
+                viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode").appendTo($this)
+                .find(".btn.radioType").on("click",toolbar.geometryFn.viewModeChecker);
             },
             geometryFn: {
                 transform: function(){
@@ -982,6 +997,74 @@
                         objectControls.detach(group);
                         pac.removeObjects(["objectControls","gridHelper","axisHelper"]);
                         controls.enabled = true;
+                    }
+                },
+                viewModeChecker: function(result){
+                    var $this = $(this),
+                    data = $this.data("value");
+
+                    switch(data){
+                        case "realistic" : 
+                            toolbar.geometryFn.materialViewControl(true);
+                            toolbar.geometryFn.xrayViewControl(false);
+                            toolbar.geometryFn.wireframeControl(false);
+                        break;
+                        case "clean" : 
+                            toolbar.geometryFn.materialViewControl(false);
+                            toolbar.geometryFn.xrayViewControl(false);
+                            toolbar.geometryFn.wireframeControl(false); 
+                        break;
+                        case "transparent" : 
+                            toolbar.geometryFn.materialViewControl(false);
+                            toolbar.geometryFn.xrayViewControl(true);
+                            toolbar.geometryFn.wireframeControl(false);
+                        break;
+                        case "wireframe" : 
+                            toolbar.geometryFn.materialViewControl(false);
+                            toolbar.geometryFn.xrayViewControl(false);
+                            toolbar.geometryFn.wireframeControl(true,false);
+                        break;
+                        case "wireclean" : 
+                            toolbar.geometryFn.materialViewControl(false);
+                            toolbar.geometryFn.xrayViewControl(false);
+                            toolbar.geometryFn.wireframeControl(true,true);
+                        break;
+                        default: result = null; break;
+                    }
+                    return result;
+                },
+                materialViewControl: function(bool){
+                    if(bool){
+                        
+                    }
+                    else{
+
+                    }
+                },
+                xrayViewControl: function(bool){
+                    if(bool){
+
+                    }
+                    else{
+
+                    }
+                },
+                wireframeControl: function(bool,helper){
+                    var materials = mesh.material.materials;
+                    if(bool){
+                        var wireframeHelper = new THREE.WireframeHelper(mesh,0xffffff);
+                        wireframeHelper.name = "wireframeHelper";
+                        scene.add(wireframeHelper);
+                        if(!helper) mesh.material.visible = false;   
+                    }
+                    else{
+                        if(!helper){
+                            mesh.material.visible = true;
+                            pac.removeObjects(["wireframeHelper"]);
+                        }
+                        else{
+                            pac.removeObjects(["wireframeHelper"]);
+                        }
                     }
                 }
             },
@@ -1250,7 +1333,6 @@
                     var preset3d = bgPreset3d,
                     preset2d = bgPreset2d,
                     selector = target.find(".backgroundSelector");
-                    console.log(preset3d,preset2d);
 
                     selector.each(function(){
                         var $this = $(this),
@@ -1267,7 +1349,7 @@
                                     callback: toolbar.backgroundFn.background3d,
                                     tooltip: true
                                 });
-                                $("#bg-3dSelector").find(".ls_option").tooltip({left: 270});
+                                $("#bg-3dSelector").find(".ls_option").tooltip({left: 270,appendTo: $this.parents(".toolbox-controller") });
                             break;
                             case "2d": 
                                 addOption(preset2d,$this);
@@ -1279,7 +1361,7 @@
                                     callback: toolbar.backgroundFn.background2d,
                                     tooltip: true
                                 });
-                                $("#bg-2dSelector").find(".ls_option").tooltip({left: 270});
+                                $("#bg-2dSelector").find(".ls_option").tooltip({left: 270, appendTo: $this.parents(".toolbox-controller") });
                             break;
                             case "color": 
                                 $this.spectrum({
