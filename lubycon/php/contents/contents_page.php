@@ -104,11 +104,16 @@
                     $db->query = $query_one;
                 }
 		        $db->askQuery();
-
-                while( $row = mysqli_fetch_array($db->result) )
+                if($db->result->num_rows != 0)
                 {
-                    $top_cagegory = $top_cate_decode[$row['CategoryCode']];
-                    include('../layout/content_card.php');
+                    while( $row = mysqli_fetch_array($db->result) )
+                    {
+                        $top_cagegory = $top_cate_decode[$row['CategoryCode']];
+                        include('../layout/content_card.php');
+                    }
+                }else
+                {
+                    echo "<p class='finish_contents'>no more contents :)</p>";
                 }
             }else
             {

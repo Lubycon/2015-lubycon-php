@@ -78,16 +78,17 @@ function getUrlParameter(sParam) //get parameter
         }
     }
 }
-function setURLParameter(name, value) {
-    var search;
-    if (getUrlParameter(name)) {
-        search = location.search.replace(new RegExp('([?|&]' + name + '=)' + '(.+?)(&|$)'), "$1" + encodeURIComponent(value) + "$3");
-    } else if (location.search.length) {
-        search = location.search + '&' + name + '=' + encodeURIComponent(value);
-    } else {
-        search = '?' + name + '=' + encodeURIComponent(value);
+
+function replaceUrlParameter(sParam,value) //get parameter
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            history.pushState(null, "", location.pathname +'?'+ sPageURL.replace(sParameterName[1], value) );
+        }
     }
-    History.pushState({ state: History.getStateId() + 1 }, document.title, search);
 }
 
 var cate_param = getUrlParameter('cate');

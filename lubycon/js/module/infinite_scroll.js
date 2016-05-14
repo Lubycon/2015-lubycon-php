@@ -22,15 +22,21 @@ function up_call_contents() {
 };
 */
 function down_call_contents() {
-    setURLParameter('page', 3)
+    var pageCountUp = parseInt(getUrlParameter('page')) + 1;
     $.ajax
     ({
         type: "POST",
         url: "../ajax/infinite_scroll_ajax.php", //이페이지에서 중복체크를 한다
-        data: 'cate_param='+cate_param+'&page_param=' + page_param,//test.asp에 id 값을 보낸다
+        data: 'cate_param=' + cate_param + '&page_param=' + pageCountUp,//test.asp에 id 값을 보낸다
         cache: false,
         success: function (data) {
             $("#contents_box > ul:nth-child(1)").append(data);
+            if ($("#contents_box > ul > .finish_contents").hasClass('finish_contents'))
+            {
+                return false;
+            } else {
+                replaceUrlParameter('page', pageCountUp);
+            }
             ajax_eventing = false;
         }
     })
