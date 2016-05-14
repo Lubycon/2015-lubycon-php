@@ -125,7 +125,6 @@
                     $optionWrap = $this.find(".ls_optionWrap");
                     $this.hasClass("focused") ? 
                     ($this.removeClass("open focused"),$searchBar.removeClass("focused"))&&($optionWrap.fadeOut(300)) : "";
-                    //console.log("boxBlur");
                 }
             },
             optionGroup: function(selector){

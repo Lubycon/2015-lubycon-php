@@ -122,7 +122,7 @@ $(window).on("load resize", function(){
 //      tooltip start
 /////////////////////////////////////////////////////////
 $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!!!
-    var defaults = { top: 0, left: null, right: null },
+    var defaults = { top: 0, left: null, right: null, appendTo: null },
     d = $.extend({}, defaults, option);
 
     this.each(function(){
@@ -143,7 +143,8 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
 
         function showTooltip(){
             var $this = $(this);
-            tooltipBody.appendTo($this).stop().fadeIn(300);
+            if(d.appendTo === null ) tooltipBody.appendTo($this).stop().fadeIn(300);
+            else tooltipBody.appendTo(d.appendTo).stop().fadeIn(300);
         }
         function hideTooltip(){
             var $this = $(this);

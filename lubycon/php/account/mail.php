@@ -1,11 +1,11 @@
 <!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
-<html lang='en'>
-<head>
-	<meta charset='UTF-8'>
-	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
-</head>
-<body>
-	<table align='center' width='620' height='270' bgcolor='#ffffff' border='0' cellpadding='0' cellspacing='0'>
+		<html lang='en'>
+		<head>
+			<meta charset='UTF-8'>
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+		</head>
+		<body>
+		<table align='center' width='620' height='270' bgcolor='#ffffff' border='0' cellpadding='0' cellspacing='0'>
 		<tbody>
 			<tr id='mail_lubycon_logo'>
 				<td>
@@ -34,7 +34,7 @@
             </tr>
             <tr id='confirm_bt'>
                 <td align='center'>
-                	<a href='localhost/Lubycon_Website/0.current_lubycon/php/account/certificateEmail.php?Token=OkYy42'>
+                	<a href='localhost:8080/Lubycon_Website/0.current_lubycon/php/account/certificateEmail.php?Token=py6qhF59qpXD'>
                 		<img src='../../CH/img/resist_mail/mail_bt.png'>
                     </a>
                 </td>
@@ -51,4 +51,5 @@
             </tr>
         </tbody>
 	</table>
-</body>
+	</body>
+	

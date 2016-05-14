@@ -16,7 +16,7 @@ class regex_validate
             return true;
         }else
         {
-            die( 'email / wrong email<br/>' );
+            die( 'email / wrong email<br/> '.$value.'' );
         };
     }
 
