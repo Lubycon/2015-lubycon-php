@@ -2,12 +2,10 @@
     $one_depth = '../..'; //css js load
     $two_depth = '..'; // php load
     include_once('../layout/index_header.php');
-    
     require_once "../class/json_class.php";
     $json_control = new json_control;
 ?>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
-
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
         <div class="dark_overlay_small"></div>
@@ -20,16 +18,16 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="all">
-                    <a href="./contents_page.php?cate=all">All</a>
+                    <a href="./contents_page.php?cate=all&page=1">All</a>
                 </li>
                 <li class="nav_menu" id="artwork">
-                    <a href="./contents_page.php?cate=artwork">Artwork</a>
+                    <a href="./contents_page.php?cate=artwork&page=1">Artwork</a>
                 </li>
                 <li class="nav_menu" id="vector">
-                    <a href="./contents_page.php?cate=vector">Vector</a>
+                    <a href="./contents_page.php?cate=vector&page=1">Vector</a>
                 </li>
                 <li class="nav_menu" id="threed"> 
-                    <a href="./contents_page.php?cate=threed">3D</a>
+                    <a href="./contents_page.php?cate=threed&page=1">3D</a>
                 </li>
             </ul>
         </nav>  <!-- end lnb nav -->
@@ -93,8 +91,10 @@
                 
                 $query;
                 $cate_name;
-                $query_all = "SELECT * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC ";
-                $query_one = "SELECT * FROM lubyconboard.`$cate_name` , lubyconuser.`userbasic` , lubyconuser.`userinfo` WHERE lubyconboard.`$cate_name`.`userCode` = lubyconuser.`userbasic`.`userCode` AND lubyconuser.`userbasic`.`userCode` = lubyconuser.`userinfo`.`userCode`ORDER BY lubyconboard.`$cate_name`.`boardCode` DESC";
+                $page = ($_GET['page'] - 1) * 30;
+                $contents_limit = 30;
+                $query_all = "SELECT * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC limit $page,$contents_limit";
+                $query_one = "SELECT * FROM lubyconboard.`$cate_name` , lubyconuser.`userbasic` , lubyconuser.`userinfo` WHERE lubyconboard.`$cate_name`.`userCode` = lubyconuser.`userbasic`.`userCode` AND lubyconuser.`userbasic`.`userCode` = lubyconuser.`userinfo`.`userCode`ORDER BY lubyconboard.`$cate_name`.`boardCode` DESC limit $page,$contents_limit";
                 
                 if($cate_name == 'all')
                 {

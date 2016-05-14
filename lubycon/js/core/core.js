@@ -78,10 +78,22 @@ function getUrlParameter(sParam) //get parameter
         }
     }
 }
+function setURLParameter(name, value) {
+    var search;
+    if (getUrlParameter(name)) {
+        search = location.search.replace(new RegExp('([?|&]' + name + '=)' + '(.+?)(&|$)'), "$1" + encodeURIComponent(value) + "$3");
+    } else if (location.search.length) {
+        search = location.search + '&' + name + '=' + encodeURIComponent(value);
+    } else {
+        search = '?' + name + '=' + encodeURIComponent(value);
+    }
+    History.pushState({ state: History.getStateId() + 1 }, document.title, search);
+}
 
 var cate_param = getUrlParameter('cate');
 var connum_param = getUrlParameter('conno');
 var bno_param = getUrlParameter('bno');
+var page_param = getUrlParameter('page');
 
 $(function () //selcted change
 {

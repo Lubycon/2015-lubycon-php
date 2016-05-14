@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `Bookmark`
 	`bookmarkBoolean` INT UNSIGNED NOT NULL,
 	`CategoryCode` INT UNSIGNED NOT NULL,
 	
-	PRIMARY KEY(`memberCode`)
+	INDEX bookmarkIndex (`memberCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `Like`
 	`likeBoolean` INT UNSIGNED NOT NULL,
 	`CategoryCode` INT UNSIGNED NOT NULL,
 	
-	PRIMARY KEY(`memberCode`)
+	INDEX likeIndex (`memberCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 

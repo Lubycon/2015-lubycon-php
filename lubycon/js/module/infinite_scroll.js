@@ -1,4 +1,3 @@
-var third_param = getUrlParameter('3');
 /*
 function up_call_contents() {
     var top_bound = ($("#main_header").height() + $("#nav_guide").height() + $("#lnb_nav > ul:nth-child(1)").height());
@@ -23,11 +22,12 @@ function up_call_contents() {
 };
 */
 function down_call_contents() {
+    setURLParameter('page', 3)
     $.ajax
     ({
         type: "POST",
-        url: "php/ajax/infinite_scroll_ajax.php", //이페이지에서 중복체크를 한다
-        data: 'third_param=' + third_param,//test.asp에 id 값을 보낸다
+        url: "../ajax/infinite_scroll_ajax.php", //이페이지에서 중복체크를 한다
+        data: 'cate_param='+cate_param+'&page_param=' + page_param,//test.asp에 id 값을 보낸다
         cache: false,
         success: function (data) {
             $("#contents_box > ul:nth-child(1)").append(data);
