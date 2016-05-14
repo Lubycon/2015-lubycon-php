@@ -2,6 +2,9 @@
     $one_depth = '../..'; //css js load
     $two_depth = '..'; // php load
     include_once('../layout/index_header.php');
+    
+    require_once "../class/json_class.php";
+    $json_control = new json_control;
 ?>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
 
@@ -38,12 +41,12 @@
             <select class="categoryFilter">
             <?php
                 $current_url = $_GET["cate"];//change to db query later
-                switch($current_url){
-                    case "all" : include_once("../php/sub_nav/categories/category_default.php"); break;
-                    case "artwork" : include_once("../php/sub_nav/categories/category_artwork.php"); break;
-                    case "vector" : include_once("../php/sub_nav/categories/category_vector.php"); break;
-                    case "3d" : include_once("../php/sub_nav/categories/category_3d.php"); break;
-                    default : include_once(""); break;
+                $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
+                $middle_cate_decode = $json_control->json_decode_code;
+                foreach ($middle_cate_decode AS $index=>$value)
+                {
+                    $loop_value = $value;
+                    echo "<option value='$loop_value' data-value='$loop_value'>$loop_value</option>";
                 }
             ?>
             </select>
@@ -85,15 +88,13 @@
 	            require_once "$two_depth/database/database_class.php";
 	            $db = new Database();
 
-                require_once "../class/json_class.php";
-                $json_control = new json_control;
                 $json_control->json_decode('top_category',"$one_depth/data/top_category.json");
                 $top_cate_decode = $json_control->json_decode_code;
                 
                 $query;
                 $cate_name;
                 $query_all = "SELECT * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC ";
-                $query_one = "SELECT * FROM lubyconboard.`$cate_name` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` on `$cate_name`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `$cate_name`.`boardCode` DESC";
+                $query_one = "SELECT * FROM lubyconboard.`$cate_name` , lubyconuser.`userbasic` , lubyconuser.`userinfo` WHERE lubyconboard.`$cate_name`.`userCode` = lubyconuser.`userbasic`.`userCode` AND lubyconuser.`userbasic`.`userCode` = lubyconuser.`userinfo`.`userCode`ORDER BY lubyconboard.`$cate_name`.`boardCode` DESC";
                 
                 if($cate_name == 'all')
                 {
