@@ -4,14 +4,7 @@ var windowHeight = $(window).height();
 
 $(document).ready(function(){
 	$("#bodyer").fadeIn(500);
-    var loginboxHeight = $("#loginWrap").height();
-    $("#loginWrap").css("top",verticalAlign(windowHeight,loginboxHeight,30));
 });
-
-function verticalAlign(windowHeight,objectHeight,value){
-    var objectY = (((windowHeight*0.5) - (objectHeight*0.5)) - value).toString() + "px";
-    return objectY;
-};
 /////////////////////////////////////////////////////////
 //      sign in ajax start
 /////////////////////////////////////////////////////////
@@ -59,7 +52,6 @@ $(function () { //create account bt popup event start
                     searchBar: true,
                     "icon": "fa fa-globe"
                 });
-                $("#create_account_area").css("top",verticalAlign(windowHeight,$("#create_account_area").height(),0));
                 initCheckbox();
             }
         });
@@ -67,7 +59,7 @@ $(function () { //create account bt popup event start
     function initCheckbox(){
         var checkbox = $(document).find(".document_check_box"),
         checkbox2 = $(document).find(".email_resive");
-        checkbox.lubyCheckbox();
+        checkbox.lubyCheckbox({ switchs: false });
         checkbox2.lubyCheckbox();
     }
 
