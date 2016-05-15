@@ -341,12 +341,9 @@ THREE.OBJLoader.prototype = {
 			object.geometry = geometry;
 
 			var material;
-			if(object.material.materials.length === 0){
-				material = new THREE.MeshPhongMaterial({ color: 0x888888 });
-			}
-			else{
-				material = new THREE.MeshFaceMaterial(object.material.materials);
-			}
+
+			material = new THREE.MeshFaceMaterial(object.material.materials);
+			
 			mesh.geometry = geometry;
 			mesh.material = material;
 			mesh.name = object.name;

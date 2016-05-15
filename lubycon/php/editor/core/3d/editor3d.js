@@ -176,15 +176,18 @@
                 renderer.render(scene, camera);
                 spotLight.position.copy( camera.position );
             },
-            removeObjects: function(name){
-                //test
-                for(var i = 0,l = name.length; i < l; i++){
-                    var children = scene.children;
-                    var cl = children.length - 1;
-                    console.log(children,cl);
-                    scene.remove(children[cl]);
+            getSceneChild: function(name){
+                var children = scene.children,
+                result = -1;
+
+                for(var i = 0, l = children.length; i < l; i++){
+                    if(name === children[i].name){
+                        result = i;
+                        break;
+                    }
                 }
-                //test
+
+                return result;
             },
             windowResizeGl: function(){
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -995,7 +998,9 @@
                     else{
                         objectControls.dispose();
                         objectControls.detach(group);
-                        pac.removeObjects(["objectControls","gridHelper","axisHelper"]);
+                        scene.remove(scene.children[pac.getSceneChild("objectControls")]);
+                        scene.remove(scene.children[pac.getSceneChild("gridHelper")]);
+                        scene.remove(scene.children[pac.getSceneChild("axisHelper")]);
                         controls.enabled = true;
                     }
                 },
@@ -1042,29 +1047,33 @@
                     }
                 },
                 xrayViewControl: function(bool){
-                    if(bool){
+                    var materials = mesh.material.materials;
 
+                    if(bool){
+                        for(var i = 0, ml = materials.length; i < ml; i++){
+                            materials[i].opacity = 0.5;
+                        }
                     }
                     else{
-
+                        for(var i = 0, ml = materials.length; i < ml; i++){
+                            materials[i].opacity = 1;
+                        }
                     }
                 },
                 wireframeControl: function(bool,helper){
-                    var materials = mesh.material.materials;
                     if(bool){
-                        var wireframeHelper = new THREE.WireframeHelper(mesh,0xffffff);
-                        wireframeHelper.name = "wireframeHelper";
-                        scene.add(wireframeHelper);
-                        if(!helper) mesh.material.visible = false;   
+                        var exist = pac.getSceneChild("wireframeHelper");
+                        if(exist === -1){
+                            var wireframeHelper = new THREE.WireframeHelper(mesh,0xffffff);
+                            wireframeHelper.name = "wireframeHelper";
+                            scene.add(wireframeHelper);  
+                        }
+                        if(!helper) mesh.material.visible = false;
+                        else mesh.material.visible = true;
                     }
                     else{
-                        if(!helper){
-                            mesh.material.visible = true;
-                            pac.removeObjects(["wireframeHelper"]);
-                        }
-                        else{
-                            pac.removeObjects(["wireframeHelper"]);
-                        }
+                        mesh.material.visible = true;
+                        scene.remove(scene.children[pac.getSceneChild("wireframeHelper")]);
                     }
                 }
             },
