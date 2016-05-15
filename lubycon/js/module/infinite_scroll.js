@@ -21,21 +21,20 @@ function up_call_contents() {
     })
 };
 */
-function down_call_contents() {
-    var pageCountUp = parseInt(getUrlParameter('page')) + 1;
+function down_call_contents(pageNumber) {
     $.ajax
     ({
         type: "POST",
         url: "../ajax/infinite_scroll_ajax.php", //이페이지에서 중복체크를 한다
-        data: 'cate_param=' + cate_param + '&page_param=' + pageCountUp,//test.asp에 id 값을 보낸다
+        data: 'cate_param=' + cate_param + '&page_param=' + pageNumber,//test.asp에 id 값을 보낸다
         cache: false,
         success: function (data) {
-            $("#contents_box > ul:nth-child(1)").append(data);
+            $("#contents_box > ul:nth-child(2)").append(data);
             if ($("#contents_box > ul > .finish_contents").hasClass('finish_contents'))
             {
                 return false;
             } else {
-                replaceUrlParameter('page', pageCountUp);
+                replaceUrlParameter('page', pageNumber);
             }
             ajax_eventing = false;
         }
@@ -47,11 +46,12 @@ var ajax_eventing = false;
 $(document).scroll(function () {
     var window_position = $(document).height() - $(document).scrollTop();
     var ajax_call_boundary = 150;
+    var pageCountUp = parseInt(getUrlParameter('page')) + 1;
 
     if (window_position <= ($(window).height() + ajax_call_boundary) && ajax_eventing == false) {
         console.log('down ajax call');
         ajax_eventing = true;
-        down_call_contents();
+        down_call_contents(pageCountUp);
 
     } else if ($(document).scrollTop() == 0) {
 
@@ -60,4 +60,11 @@ $(document).scroll(function () {
         //up_call_contents();
 
     }
+});
+
+
+$(document).on('change','#contents_pager', function ()
+{
+    $("#contents_box > ul:nth-child(2)").html('');
+    down_call_contents($(this).val());
 });

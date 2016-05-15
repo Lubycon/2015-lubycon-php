@@ -2,8 +2,43 @@
     $one_depth = '../..'; //css js load
     $two_depth = '..'; // php load
     include_once('../layout/index_header.php');
+    require_once "$two_depth/database/database_class.php";
+    $db = new Database();
     require_once "../class/json_class.php";
     $json_control = new json_control;
+
+$allow_array = ['all','artwork','vector','threed'];
+$cate_name = $_GET['cate'];
+if( in_array($_GET['cate'] , $allow_array) )
+{
+    $json_control->json_decode('top_category',"$one_depth/data/top_category.json");
+    $top_cate_decode = $json_control->json_decode_code;
+
+    $query;
+    $cate_name;
+    $page = ($_GET['page'] - 1) * 30;
+    $contents_limit = 30;
+    $query_all = "SELECT SQL_CALC_FOUND_ROWS * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC limit $page,$contents_limit";
+    $query_one = "SELECT SQL_CALC_FOUND_ROWS * FROM lubyconboard.`$cate_name` , lubyconuser.`userbasic` , lubyconuser.`userinfo` WHERE lubyconboard.`$cate_name`.`userCode` = lubyconuser.`userbasic`.`userCode` AND lubyconuser.`userbasic`.`userCode` = lubyconuser.`userinfo`.`userCode`ORDER BY lubyconboard.`$cate_name`.`boardCode` DESC limit $page,$contents_limit";
+    $query_foundRow = "SELECT FOUND_ROWS()";
+    if($cate_name == 'all')
+    {
+        $db->query = $query_all;
+    }else if($cate_name == 'artwork' ||$cate_name == 'vector' || $cate_name='threed')
+    {
+        $db->query = $query_one;
+    }
+    $db->askQuery();
+    $contents_data = $db->result; //contents data
+
+    $db->query = $query_foundRow;
+    $db->askQuery();
+    $foundRow_result = mysqli_fetch_array($db->result); //row count
+    $all_page_count = ceil($foundRow_result[0] / 30);
+}else
+{
+    include_once('../../404.php');
+}
 ?>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
 <div class="main_figure_wrap hidden-mb-b">
@@ -77,48 +112,29 @@
         </div><!--subnav_box end-->
     </section>
     <section id="contents_box" class="con_wrap">
+        <p>
+            <select id="contents_pager" class="searchFilter">
+            <?php
+                for($i = 1 ; $i<=$all_page_count ; $i++ )
+                {
+                    echo "<option data-value='$i'>$i</option>";
+                }
+            ?>
+            </select>move to page
+        </p>
         <ul>
             <?php
-            $allow_array = ['all','artwork','vector','threed'];
-            $cate_name = $_GET['cate'];
-            if( in_array($_GET['cate'] , $allow_array) )
-            {
-	            require_once "$two_depth/database/database_class.php";
-	            $db = new Database();
-
-                $json_control->json_decode('top_category',"$one_depth/data/top_category.json");
-                $top_cate_decode = $json_control->json_decode_code;
-                
-                $query;
-                $cate_name;
-                $page = ($_GET['page'] - 1) * 30;
-                $contents_limit = 30;
-                $query_all = "SELECT * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC limit $page,$contents_limit";
-                $query_one = "SELECT * FROM lubyconboard.`$cate_name` , lubyconuser.`userbasic` , lubyconuser.`userinfo` WHERE lubyconboard.`$cate_name`.`userCode` = lubyconuser.`userbasic`.`userCode` AND lubyconuser.`userbasic`.`userCode` = lubyconuser.`userinfo`.`userCode`ORDER BY lubyconboard.`$cate_name`.`boardCode` DESC limit $page,$contents_limit";
-                
-                if($cate_name == 'all')
+                if($contents_data->num_rows != 0)
                 {
-                    $db->query = $query_all;
-                }else if($cate_name == 'artwork' ||$cate_name == 'vector' || $cate_name='threed')
-                {
-                    $db->query = $query_one;
-                }
-		        $db->askQuery();
-                if($db->result->num_rows != 0)
-                {
-                    while( $row = mysqli_fetch_array($db->result) )
+                    while( $row = mysqli_fetch_array($contents_data) )
                     {
                         $top_cagegory = $top_cate_decode[$row['CategoryCode']];
                         include('../layout/content_card.php');
-                    }
+                    }   
                 }else
                 {
                     echo "<p class='finish_contents'>no more contents :)</p>";
                 }
-            }else
-            {
-                include_once('../../404.php');
-            }
             ?>
         </ul>
     </section>  <!-- end contents box -->

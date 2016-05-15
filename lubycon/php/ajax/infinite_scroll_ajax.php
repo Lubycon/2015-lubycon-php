@@ -26,7 +26,7 @@
     {
         $db->query = $query_one;
     }
-        $db->askQuery();
+    $db->askQuery();
     if( $db->result->num_rows != 0 )
     {
         while( $row = mysqli_fetch_array($db->result) )
