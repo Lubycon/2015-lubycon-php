@@ -6,24 +6,26 @@ function eventHandler(event, selector) {//
         selector.off('click');
     }
 };
-
+$(document).ready(function(){
+    $(".toggle_info").on("click touchend",function (){
+        eventHandler(event,$(this));
+        var $this = $(this),
+        $body = $this.parent().next(".dash_body");
+        if($this.hasClass("selected")){
+            $this.attr("class","fa fa-angle-down toggle_info");
+            $this.removeClass("opened");
+            $body.css("min-height","0px").stop().slideUp(300);
+        }else{
+            $this.attr("class","fa fa-angle-up toggle_info");
+            $this.addClass("selected");
+            $body.stop().slideDown(300,function(){
+                $body.css("min-height","150px");
+            });
+        }
+    });//click end
+})
 /*----------------------------toggle section button start------------------------------*/
-$(".toggle_info").on("click touchend",function (){
-    eventHandler(event,$(this));
-    var $this = $(this),
-    $body = $this.parent().next(".dash_body");
-    if($this.hasClass("opened")){
-        $this.attr("class","fa fa-angle-down toggle_info");
-        $this.removeClass("opened");
-        $body.css("min-height","0px").stop().slideUp(300);
-    }else{
-        $this.attr("class","fa fa-angle-up toggle_info");
-        $this.addClass("opened");
-        $body.stop().slideDown(300,function(){
-            $body.css("min-height","150px");
-        });
-    }
-});//click end
+
 /*----------------------------toggle section button end------------------------------*/
 /*----------------------------time card in dashboard page start------------------------*/
 function localTime() {
@@ -61,9 +63,7 @@ function checkTime(i) {
 };
 
 function blinkColon() {
-
 	var colon_count = 0;
-
     var blink_time = setInterval(function(){
         var colon = $(".colon");
     	if(colon_count == 0){

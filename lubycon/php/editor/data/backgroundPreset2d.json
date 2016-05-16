@@ -1,10 +1,10 @@
 var backgroundPreset2d = [
 	{
 		"id" : "0",
-		"name" : "Lubycon Logo",
-		"image" : "../../../../ch/img/logo/Lubycon_logo_black.svg",
-		"preview" : "../../../../ch/img/logo/Lubycon_logo_black.svg",
-		"descript": ""
+		"name" : "None",
+		"image" : "#",
+		"preview" : "#",
+		"descript" : ""
 	},
 	{
 		"id" : "1",
@@ -15,9 +15,9 @@ var backgroundPreset2d = [
 	},
 	{
 		"id" : "2",
-		"name" : "None",
-		"image" : "#",
-		"preview" : "#",
-		"descript" : ""
+		"name" : "Lubycon Logo",
+		"image" : "../../../../ch/img/logo/Lubycon_logo_black.svg",
+		"preview" : "../../../../ch/img/logo/Lubycon_logo_black.svg",
+		"descript": ""
 	}
 ]

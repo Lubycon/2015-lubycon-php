@@ -98,9 +98,9 @@ var page_param = getUrlParameter('page');
 
 $(function () //selcted change
 {
-    $('.lnb_nav ul').children('#' + cate_param).addClass('selected_nav');
-    $('#subnav ul').children('#' + cate_param).addClass('selected_subnav');
-    $(".selected_nav").children("a").click(function(){
+    $('.lnb_nav ul').children('#' + cate_param).addClass('selected');
+    $('#subnav ul').children('#' + cate_param).addClass('selected');
+    $(".selected").children("a").click(function(){
         return false;//disabled anchor tag
     });
 });       

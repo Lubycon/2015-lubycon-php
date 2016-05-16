@@ -391,6 +391,12 @@
                 font-weight: 200;
                 margin-bottom: 10px;
             }
+                .toolbox-label.inlineBlock {
+                    display: inline-block;
+                }
+                    .toolbox-label.inlineBlock+.checkbox-wrapper {
+                        float: right;
+                    }
                 .toolbox-btns > .btn {
                     display: inline-block;
                     width: 35px;
@@ -407,6 +413,9 @@
             .toolbox-inner .toolbox-tab-bt-wrapper {
                 margin-bottom: 10px;
             }
+            .toolbox-inner .toolbox-btns {
+                text-align: center;
+            }
                 .toolbox-tab-bt-wrapper .toolbox-tab.btn {
                     display: inline-block;
                     width: 50%;
@@ -420,11 +429,7 @@
                 .toolbox-wrap[data-value='backgroundTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
                     width: 33.3%;
                 }
-            /*----test----*/
-            .toolbox-inner > .coordinate.btn {
-                width: 100%;
-            }
-            /*----test----*/       
+     
             .toolbox-inner input[type="range"] {
                 width: 150px;
             }

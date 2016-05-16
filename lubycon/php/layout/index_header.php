@@ -49,7 +49,7 @@
 
     <title>Lubycon</title>
 
-    <link rel="shortcut icon" href="./ch/img/logo/lubycon.ico" /> <!-- favicon -->
+    <link rel="icon" href="<?=$one_depth?>/ch/img/logo/lubycon.ico" /> <!-- favicon -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source Sans Pro:200,400,600" type="text/css" />	<!--google web font-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /> <!--icon font-->
 

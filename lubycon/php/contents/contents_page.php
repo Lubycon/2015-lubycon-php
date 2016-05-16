@@ -128,7 +128,7 @@ if( in_array($_GET['cate'] , $allow_array) )
                 {
                     while( $row = mysqli_fetch_array($contents_data) )
                     {
-                        $top_cagegory = $top_cate_decode[$row['CategoryCode']];
+                        $top_category = $top_cate_decode[$row['CategoryCode']];
                         include('../layout/content_card.php');
                     }   
                 }else

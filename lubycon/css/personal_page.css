@@ -53,11 +53,10 @@
 	#subnav {
 
 	}
-	    #personal_aside li {
+	    #personal_aside .subnav_li {
 	        width: 100%;
 	        height: 45px;
 	        line-height: 45px;
-	        font-weight: 200;
 	        cursor: pointer;
 	        text-align: left;
 	        padding-left: 50px;
@@ -65,15 +64,21 @@
 	        -webkit-box-sizing: border-box;
 	        -moz-box-sizing: border-box;
 	    }
-	    #personal_aside li:hover{
+	    #personal_aside .subnav_li:hover{
 	        background:#444444;
 	    }
-        #personal_aside li a{
+        #personal_aside .subnav_li a {
 	        color: #aaaaaa;
             display: inline-block;
             width: 100%;
+            font-weight: 200;
         }
-	    .selected_subnav{
+        	#personal_aside .subnav_li.selected a {
+				font-weight: 400;
+				color: #ffffff;
+				text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
+        	}
+	    .subnav_li.selected{
 	        border-left: 5px solid #48cfad !important;
 	        font-weight: 400;
 	        color:#48cfad !important;

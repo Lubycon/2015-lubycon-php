@@ -7,7 +7,7 @@
         $user_img_url = $row['profileImg'];
         $user_name = $row['nick'];
         $board_code = $row['boardCode'];
-        $cate = $top_cagegory;
+        $cate = $top_category;
         $randCount = $row['viewCount'];
         $randCount1 = rand(400,1200); //not yet comment count
         $randCount2= $row['likeCount'];

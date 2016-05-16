@@ -574,10 +574,11 @@
                 var $this = $(this),
                 object = event.target.files,
                 path = $this.val().replace(/^C:\\fakepath\\/i," ").trim(),
-                size = parseInt(object[0].size/1024/1024),
+                size = (object[0].size/1024/1024).toFixed(2),
                 $inputModal = $(document).find(".modal.file-selector-modal"),
                 $fileViewer = $inputModal.find(".modal-fileViewer"),
                 $fileInfo = $(document).find(".fileinfo");
+                console.log(object[0].size,size);
 
                 if(upload.fileCheck(object[0])) {
                     fileViewer.val(path);

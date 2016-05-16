@@ -55,7 +55,7 @@
                             "class" : "header-btn fileUpload",
                             "html" : "File",
                             "data-tip" : "Upload your OBJ files"
-                        }).prepend($("<i/>",{"class":icons.upload}))
+                        }).prepend($("<i/>",{"class":icons.upload})).hide()
                         .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55, "left" : 0});
 
                         //in header progress
@@ -589,8 +589,8 @@
             },
             fileUpTrigger: function(){
                 var data = $(this).data("value"),
-                inputFile = $(document).find(".fileUploader");
-                inputFile.click();
+                inputFile = data === "newOBJUpload" ? $(document).find(".fileUploader") : $(document).find(".imgUploader");
+                inputFile.trigger("click");
                 switch(data){
                     case "newOBJUpload" : inputFile.off("change").on("change",upload.objectUpload); break;
                     case "newTexUpload" : inputFile.off("change").on("change",upload.textureUpload); break;
@@ -964,6 +964,7 @@
                 var $rotateCheckbox =  $("<input/>",{ "type" : "checkbox", "class" : "toolbox-checkbox", "id" : "rotate-check" })
                 .on("change",toolbar.geometryFn.transform),
                 rotateTool = new toolbar.createMenu($rotateCheckbox,"Rotate").appendTo($this);
+                rotateTool.find(".toolbox-label").addClass("inlineBlock");
                 $rotateCheckbox.lubyCheckbox();
 
                 var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper toolbox-btns" }),
@@ -1041,13 +1042,11 @@
                 },
                 materialViewControl: function(bool){
                     var materials = mesh.material.materials;
-                    console.log(materials);
 
                     if(bool){
                         for(var i = 0, l = materials.length; i < l; i++){
                             var textureIndex = materials[i].textureIndex;
-                            console.log(textureIndex);
-                            console.log(loadedMaterials[textureIndex]);
+
                             if(textureIndex !== -1){
                                 materials[i].map = loadedMaterials[textureIndex];
                                 materials[i].needsUpdate = true;
@@ -1079,7 +1078,7 @@
                     if(bool){
                         var exist = pac.getSceneChild("wireframeHelper");
                         if(exist === -1){
-                            var wireframeHelper = new THREE.WireframeHelper(mesh,0xffffff);
+                            var wireframeHelper = new THREE.WireframeHelper(mesh,0x48cfad);
                             wireframeHelper.name = "wireframeHelper";
                             scene.add(wireframeHelper);  
                         }
@@ -1474,9 +1473,14 @@
         },
         method = {
             destroy: function () {
-                return this.each(function () {
+                return this.each(function(){
                     console.log("tested");
                 })
+            },
+            getFileValue: function(){
+                return this.each(function(){
+                    console.log($(".fileUploader").val());
+                });
             }
         }
         return method[option] ? 
