@@ -306,6 +306,7 @@ THREE.OBJLoader.prototype = {
 					if(!existCheck){
 						var material = new THREE.MeshPhongMaterial({ color: 0x888888 });
 						material.name = name;
+						material.textureIndex = -1;
 						materials.push(material);
 						materialIndex = materials.length - 1;
 						materialCount++;

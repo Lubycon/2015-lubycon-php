@@ -659,6 +659,7 @@
                 switch(kind){
                     case "diffuse" : 
                         idCheck(selectID,"map");
+                        material.textureIndex = selectID;
                     break;
                     case "specular" : 
                         idCheck(selectID,"specularMap");
@@ -668,6 +669,7 @@
                     break;
                     default: break;
                 }
+                console.log(materials);
                 $(".uploading").attr({"src" : selectSRC, "data-index" : selectID }).removeClass("uploading");
 
                 function idCheck(id,kind){
@@ -1034,16 +1036,29 @@
                             toolbar.geometryFn.xrayViewControl(false);
                             toolbar.geometryFn.wireframeControl(true,true);
                         break;
-                        default: result = null; break;
+                        default: return false; break;
                     }
-                    return result;
                 },
                 materialViewControl: function(bool){
+                    var materials = mesh.material.materials;
+                    console.log(materials);
+
                     if(bool){
-                        
+                        for(var i = 0, l = materials.length; i < l; i++){
+                            var textureIndex = materials[i].textureIndex;
+                            console.log(textureIndex);
+                            console.log(loadedMaterials[textureIndex]);
+                            if(textureIndex !== -1){
+                                materials[i].map = loadedMaterials[textureIndex];
+                                materials[i].needsUpdate = true;
+                            }
+                        }
                     }
                     else{
-
+                        for(var i = 0, l = materials.length; i < l; i++){
+                            materials[i].map = null;
+                            materials[i].needsUpdate = true;
+                        }
                     }
                 },
                 xrayViewControl: function(bool){
@@ -1216,7 +1231,6 @@
                     var diffuseColor = "#" + color.getHexString(),
                     specularColor = "#" + material.specular.getHexString();
 
-                    console.log(material.map);
                     //synchronize  material controller start
                     if(material.map !== null){
                         var diffuseTexture = material.map.image.currentSrc;
@@ -1253,13 +1267,13 @@
                     $target = $materialController.find("." + $(this).data("value") + "-viewer"),
                     $viewers = $materialController.find(".material-viewer"),
                     $slider = $materialController.find(".slider-wrapper"),
-                    loadedMaterials = $(document).find(".texture-list.btn.custom"),
+                    loadedTexture = $(document).find(".texture-list.btn.custom"),
                     selected = $this.hasClass("selected");
                     if(selected){
                         $viewers.hide();
                         $target.show();
                         $slider.show().css("display","inline-block");
-                        if(loadedMaterials.length === 0 && $target.is(".texture-viewer")){
+                        if(loadedTexture.length === 0 && $target.is(".texture-viewer")){
                             $target.trigger("click"); //texture modal is open
                             $("."+$target.data("value")).find(".upload-bt.btn").trigger("click"); //file upload window is open
                         }
