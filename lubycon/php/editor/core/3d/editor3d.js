@@ -103,7 +103,9 @@
                         pac.initModal.textureWindow().appendTo($this).hide();
                         pac.initModal.thumbnail().appendTo($this).hide();
                         pac.initModal.setting().appendTo($this).hide();
-                        // right : {project team}
+                        
+                        var captureBt = $("<div/>",{ "class" : "capture-btn" }).appendTo($canvas).on("click",canvasTool.capture),
+                        captureIcon = $("<i/>",{ "class" : icons.camera }).appendTo(captureBt);
 
                         pac.initTools();//data binding
                         pac.initGL();
@@ -113,6 +115,7 @@
                             $(".modal.file-selector-modal").fadeIn(400);
                             $loading_icon.hide(); 
                         });
+                        $(document).on("keydown",pac.initCamera);
                     }
                 })
             },
@@ -146,7 +149,7 @@
 
                 scene.add(skybox);
 
-                renderer = new THREE.WebGLRenderer({ alpha: true });
+                renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true });
                     renderer.setSize(windowWidth, windowHeight);
                     renderer.setPixelRatio(window.devicePixelRatio*1.5);
                     renderer.setClearColor(0x222222, 1);
@@ -193,6 +196,15 @@
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+            },
+            initCamera: function(event){
+                var existSetting = $(".modal.setting-modal.prog.setting-window").css("display") === "none";
+                if((event.which == keyCode.space) && existSetting){
+                    camera.position.x = 0;
+                    camera.position.y = 0;
+                    camera.position.z = 3;
+                    console.log("init Camera");
+                };
             },
             submit: function(){
                 var rootElement = $(".initEditor"),
@@ -688,6 +700,7 @@
                 var filename = file.name;
                 var ext = filename.split(".").pop().toLowerCase();
                 var alertKey = $(document).find(".alertKey").off("click");
+                var loading_icon = $(document).find("#loading_icon").show();
                 switch(ext){
                     case "obj" :
                         reader.addEventListener("load", function(event){
@@ -726,6 +739,7 @@
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
+                            loading_icon.hide();
                         },false);
                         reader.readAsText(file);
                     break;
@@ -910,7 +924,25 @@
 
         },
         canvasTool = {
-            
+            capture: function(){
+                var dataURL = renderer.domElement.toDataURL(),
+                icon = $(this).find("i");
+                icon.attr("class",icons.loading);
+                $(".thumb-origin-img").attr("src",dataURL)
+                .cropper({
+                    minContainerWidth: 420,
+                    minContainerHeight: 300,
+                    aspectRatio: 250/215,
+                    autoCropArea: 0.6,
+                    viewMode: 3,
+                    responsive: true,
+                    zoomable: false,
+                    preview: ".thumb-preview-wrapper",
+                    dragMode: "crop"
+                }).show();
+                $(".thumb-placeHolder").hide();
+                setTimeout(function(){ icon.attr("class", icons.camera); },3000);
+            }    
         },
         toolbar = {
             createButton: function(data,iconData){

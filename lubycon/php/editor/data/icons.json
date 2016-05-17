@@ -9,6 +9,8 @@ var iconPack = {
       "grid6" : "../../img/grid_icons/6.png",
 
       "charge" : "fa fa-credit-card",
+      "camera" : "fa fa-camera",
+      "loading" : "fa fa-spinner fa-spin",
       "usd" : "fa fa-usd",
       "crop" : "fa fa-crop",
       "edit" : "fa fa-edit",

@@ -500,6 +500,30 @@
                 position: relative;
                 z-index: 200;
             }
+                .editor-body > .editing-area > #web-gl > .capture-btn {
+                    position: fixed;
+                    z-index: 101;
+                    top: 110px;
+                    right: 10px;
+                    width: 100px;
+                    height: 35px;
+                    line-height: 13px;
+                    background: transparent;
+                    color: #ffffff;
+                    text-align: center;
+                    font-size: 15px;
+                    font-weight: 200;
+                    border: 1px solid #ffffff;
+                    padding: 10px;
+                    cursor: pointer;
+                    box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    transition: background 0.2s;
+                }
+                    .editor-body > .editing-area > #web-gl > .capture-btn:hover {
+                        background: rgba(0,0,0,0.5);
+                    }
             .editor-body > .editing-area > #canvas-background {
                 position: absolute;
                 z-index: 100;
