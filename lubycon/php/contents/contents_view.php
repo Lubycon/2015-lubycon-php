@@ -109,8 +109,7 @@ $file_like = $row['likeCount'];
         <div id="contents_main" class="con_main">
             <?php
                 if($cate_name == 'threed'){
-                    echo 
-                    "<iframe id='webgl_viewer' name='webgl' src='webGL/file_viewer/viewer.html' frameborder='0' marginwidth='0' marginheight='0' scrolling='no' style='margin-bottom:-5px'></iframe>";
+                    include "viewer3d.php";
                 }
                 else{
                     echo $contents_html;

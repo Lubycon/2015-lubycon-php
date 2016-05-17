@@ -155,7 +155,7 @@
                     renderer.setClearColor(0x222222, 1);
                 gl.addEventListener("webglcontextlost", function(event){
                     event.preventDefault();
-                    alert("context is losted");
+                    alert("context is lost");
                     cancelAnimationFrame(animationID);
                 }, false);
                 gl.appendChild(renderer.domElement);
