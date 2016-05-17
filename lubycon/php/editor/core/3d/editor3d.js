@@ -925,6 +925,8 @@
         },
         canvasTool = {
             capture: function(){
+                console.time("capture");
+                canvasTool.shutter();
                 var dataURL = renderer.domElement.toDataURL(),
                 icon = $(this).find("i");
                 icon.attr("class",icons.loading);
@@ -942,7 +944,21 @@
                 }).show();
                 $(".thumb-placeHolder").hide();
                 setTimeout(function(){ icon.attr("class", icons.camera); },3000);
-            }    
+                console.timeEnd("capture");
+            },
+            shutter: function(){
+                var shutter = $("<div/>").css({
+                    "position" : "absolute",
+                    "top" : "0",
+                    "left" : "0",
+                    "width": "100%",
+                    "height": "100%",
+                    "background" : "#ffffff",
+                    "z-index" : "30000"
+                }).appendTo("#web-gl").fadeOut(4000,function(){
+                    $(this).remove();
+                });
+            }  
         },
         toolbar = {
             createButton: function(data,iconData){
