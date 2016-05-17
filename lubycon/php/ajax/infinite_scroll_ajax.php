@@ -31,7 +31,7 @@
     {
         while( $row = mysqli_fetch_array($db->result) )
         {
-            $top_cagegory = $top_cate_decode[$row['CategoryCode']];
+            $top_category = $top_cate_decode[$row['CategoryCode']];
             include('../layout/content_card.php');
         }
     }else

@@ -103,10 +103,10 @@
                     <i class="fa fa-bars creator_menu_icon hidden-mb-b"></i>
                     <div class="creator_menu_list">
                         <ul>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=dashboard&usernum=$usernumber"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_contents&usernum=<?=$usercode?>"><i class="fa fa-eye"></i>View Contents</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=insight&usernum=<?=$usercode?>"><i class="fa fa-bar-chart"></i>View Insight</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page.php?cate=my_forums&usernum=<?=$usercode?>"><i class="fa fa-table"></i>View Forums</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=$usernumber"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents&usernum=<?=$usercode?>"><i class="fa fa-eye"></i>View Contents</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>"><i class="fa fa-bar-chart"></i>View Insight</a></li>
+                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_forums&usernum=<?=$usercode?>"><i class="fa fa-table"></i>View Forums</a></li>
                         </ul>
                     </div>
                 </div>

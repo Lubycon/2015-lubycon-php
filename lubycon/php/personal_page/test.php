@@ -131,8 +131,10 @@ if( file_exists($upload_path) )
     $save_path= "$last_path/profile.jpg" ; // realative save path
     }
     copy($upload_path,$save_path);
+    echo 'profile upload ok';
 }else
 {
+    echo 'profile upload fails';
     $save_path= null; // realative save path
 }
 
