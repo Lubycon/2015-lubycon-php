@@ -25,7 +25,7 @@
         bgPreset3d = backgroundPreset3d,
         bgPreset2d = backgroundPreset2d,
         d = {},
-        scene, camera, spotLight, ambLight, renderer, controls, stats,
+        scene, camera, dirLight, spotLight, ambLight, renderer, controls, stats,
         group, object, mtl, geometry, material, mesh, skybox
         loadedMaterials = [],
         pac = {
@@ -129,13 +129,15 @@
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
                     camera.position.z = 3;
-                spotLight = new THREE.SpotLight(0xffd689,1);
+                spotLight = new THREE.SpotLight(0xffffff,0.05); //spot light color (lightColor,brightness)
                     spotLight.castShadow = true;
                     spotLight.receiveShadow = true;
+                dirLight = new THREE.DirectionalLight(0xffd689,0.5); //direction light color (lightColor,brightness)
+                   dirLight.position.set(-3,3,3) //direction light position (x,y,z)
 
-                ambLight = new THREE.AmbientLight(0xffffff,1);
+                ambLight = new THREE.HemisphereLight(0xffd689,0xffffff,1); //hemisphere light color(skyColor,groundColor,brightness)
 
-                scene.add(camera, spotLight, ambLight);
+                scene.add(camera, spotLight, ambLight, dirLight);
                 spotLight.target.position.set( 0, 1, -1 );
                 spotLight.position.copy( camera.position );
 
