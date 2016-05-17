@@ -524,6 +524,17 @@
                     .editor-body > .editing-area > #web-gl > .capture-btn:hover {
                         background: rgba(0,0,0,0.5);
                     }
+            .editor-body > .editing-area > #web-gl > .tooltip.tip-body.fileinfo {
+                position: fixed;
+                z-index: 10000;
+                top: 155px;
+                right: 10px;
+                background: rgba(0,0,0,0.6);
+                text-align: left;
+            }
+                .editor-body > .editing-area > #web-gl > .tooltip.tip-body.fileinfo .tooltip.tip-content.fileinfo {
+                    text-align: left;
+                }
             .editor-body > .editing-area > #canvas-background {
                 position: absolute;
                 z-index: 100;

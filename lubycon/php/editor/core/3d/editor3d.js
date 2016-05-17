@@ -299,8 +299,6 @@
                         "data-tip" : "Your file size must be under 30MB. The file extension must be OBJ"
                     }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
 
-
-
                     function initInput(){ fileViewer.val(""); };
 
                     return modal;
@@ -531,9 +529,28 @@
         upload = {
             fileCheck: function(file){
                 var size = file.size, // 30MB
+                name = file.name,
+                typeCheck = /.*\.obj/i.test(name),
                 alertKey = $(document).find(".alertKey").off("click");
                 if(size < 31457280){
-                    return true;
+                    if(typeCheck) return true;
+                    else {
+                        alertKey.lubyAlert({
+                            kind: "confirm",
+                            okAlert: false,
+                            cancelButton: false,
+                            cancelAlert: false,
+                            width: 300,
+                            height: 170,
+                            textSize: 14,
+                            customIcon: icons.box,
+                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
+                            inSpeed: 600,
+                            stoptime: 1000,
+                            outSpeed: 600
+                        });
+                        alertKey.trigger("click");
+                    }
                 } 
                 else {
                     alertKey.lubyAlert({
@@ -557,7 +574,8 @@
             imgCheck: function(file){
                 var size = file.size, // 10MB
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
-                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type),
+                name = file.name,
+                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type) && /.*\.(jpg|jpeg|png|gif|bmp)/i.test(name),
                 alertKey = $(document).find(".alertKey").off("click");
                 if(size < 10485760){
                     if(typeCheck) return true;
@@ -620,10 +638,12 @@
                     upload.loaders(object[0]);
                     $inputModal.remove();
                     $darkOverlay.fadeOut(400);
+                    console.log(true);
                 }
                 else {
                     $this.val(null);
                     $fileViewer.val("");
+                    console.log(false);
                 }
 
                 return;
@@ -700,9 +720,10 @@
                 var filename = file.name;
                 var ext = filename.split(".").pop().toLowerCase();
                 var alertKey = $(document).find(".alertKey").off("click");
-                var loading_icon = $(document).find("#loading_icon").show();
+                var loading_icon = $(document).find("#loading_icon");
                 switch(ext){
                     case "obj" :
+                        loading_icon.show();
                         reader.addEventListener("load", function(event){
                             var contents = event.target.result;
                             group = new THREE.Group();
@@ -740,25 +761,11 @@
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
                             loading_icon.hide();
+                            modalFunc.showFileInfo();
                         },false);
                         reader.readAsText(file);
                     break;
                     default: 
-                        alertKey.lubyAlert({
-                            kind: "confirm",
-                            okAlert: false,
-                            cancelButton: false,
-                            cancelAlert: false,
-                            width: 300,
-                            height: 170,
-                            textSize: 14,
-                            customIcon: icons.box,
-                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
-                            inSpeed: 600,
-                            stoptime: 1000,
-                            outSpeed: 600
-                        });
-                        alertKey.trigger("click");
                         return false;
                     break;
                 }
@@ -769,6 +776,39 @@
                 $(document).find(".dark_overlay").fadeIn(200);
                 $(document).find(".modal").fadeOut(200);
                 $(document).find(".modal.file-selector-modal").fadeIn(200);
+            },
+            showFileInfo: function(){
+                if($(".fileinfo").length === 0){
+                    var fileInfo = new modalFunc.fileInfo().appendTo("#web-gl").stop().fadeIn(300);
+                }
+                else {
+                    $(".fileinfo").remove();
+                    var fileInfo = new modalFunc.fileInfo().appendTo("#web-gl").stop().fadeIn(300);
+                }
+            },
+            fileInfo: function(){
+                console.log(mesh);
+                var body = $("<div/>",{"class" : "tooltip tip-body fileinfo"}),
+                wrapper = $("<div/>",{"class" : "tooltip tip-wraper fileinfo"}).appendTo(body),
+                content = $("<p/>",{"class" : "tooltip tip-content fileinfo"}),
+                title = $("<p/>",{"class" : "tooltip tip-title fileinfo"}).text("Model Info").appendTo(wrapper);
+
+                var modelInfo = mesh.geometry.modelInfo,
+                vertices = modelInfo.vertices
+
+                var text = 
+                    "Vertices : " + convertToK(modelInfo.vertices) + "<br/>" +
+                    "Faces : " + convertToK(modelInfo.triFaces+modelInfo.quadFaces);
+                    
+                content.html(text).appendTo(wrapper);
+
+                function convertToK(number){
+                    var result = number;
+                    if(number > 1000) result = (number*0.001).toFixed(2) + "K";
+                    return result;
+                }
+
+                return body;
             },
             cropped: function(event){
                 var $originImg = $(".thumb-origin-img");
@@ -1155,10 +1195,11 @@
                     "class" : "toolbox-tab btn",
                     "html" : "Texture",
                     "data-target" : "texture-window"
-                }).on("click",pac.groupToggle).on("click",pac.tabAction).on("click",showSlider).on("click",firstMaterialCheck).appendTo($tabBtWrap),
-                $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-target","color-window").removeClass("selected").appendTo($tabBtWrap),
+                }).on("click",pac.groupToggle).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
+                $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-target","color-window").removeClass("selected").appendTo($tabBtWrap);
+                $tabLeftBt.on("click",firstMaterialCheck);
 
-                $tabBody = $("<div/>",{ "class" : "material-control-inner" }).appendTo($controllerBody);
+                var $tabBody = $("<div/>",{ "class" : "material-control-inner" }).appendTo($controllerBody);
                 
                 $controllerBody.clone(true).attr("data-value","diffuse").appendTo($materialDiffuse);//diffuse
                 $controllerBody.clone(true).attr("data-value","specular").appendTo($materialSpecular);//specular

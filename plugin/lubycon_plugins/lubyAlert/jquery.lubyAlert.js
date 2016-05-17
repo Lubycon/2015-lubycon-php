@@ -23,6 +23,10 @@
             customAnimation: "",
             textSize: 30,
             toggle: false,
+            okButton: true,
+            cancelButton: true,
+            okAlert: true,
+            cancelAlert: true,
             callback: null
         },
         d = {},
@@ -41,22 +45,19 @@
             init: function() {
                 var $this = $(this),
                 windowHeight = $(window).height(),
-                width = (typeof d.width == "number") ? d.width : "",
-                height = (typeof d.height == "number") ? d.height : "",
+                width = (typeof d.width === "number") ? d.width : "auto",
+                height = (typeof d.height === "number") ? d.height : "auto",
                 kind = d.kind,
                 text = (kind=="custom"||"confirm"||"prompt") ? d.customText : "",
                 icon = (kind=="custom"||"confirm"||"prompt") ? (d.customIcon +" "+ d.customAnimation) : "",
 
-                objectY = ((windowHeight*0.5) - (d.height*0.5)),
-                objectX = ((d.width*0.5)*-1),
                 alertBody = $("<div/>",{
                     "class" : "lubyAlert " + d.kind,
                 }).css({
                     "width":d.width,
                     "height":d.height,
-                    "top": objectY,
-                    "left": "50%",
-                    "margin-left": objectX
+                    "margin-top" : (height+100)*0.5*-1,
+                    "margin-left" : width*0.5*-1
                 }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
                     pac.destroyAlert(alertBody,kind);
                 }),
@@ -64,21 +65,22 @@
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon " + icon}).appendTo(alertInner),
                 alertText = $("<p/>",{"class":"lubyAlertText","html":text}).css({ "font-size" : d.textSize+"px" }).appendTo(alertInner),
                 
-                okBt = $("<div/>",{"class":"lubyOk lubyButton","html":"OK"}),
-                cancelBt = $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}),
+                okBt = $("<div/>",{"class":"lubyOk lubyButton","html":"OK"}).on("click",pac.okCallBack),
+                cancelBt = $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}).on("click",pac.cancelCallBack),
                 
-                alertInput = d.kind=="prompt" ? 
-                $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).on("keydown",pac.keyEvent).focus() 
-                && okBt.appendTo(alertInner).on("click",pac.okCallBack) 
-                && cancelBt.appendTo(alertInner).on("click",pac.cancelCallBack) : alertInner.focus(),
-                
-                alertConfirm = d.kind=="confirm" ?
-                okBt.appendTo(alertInner).on("click",pac.okCallBack)
-                && cancelBt.appendTo(alertInner).on("click",pac.cancelCallBack) : "",
-
-                contentsAlign = alertInner.css({"top":(d.height*0.5) - (alertInner.height()*0.5)});
+                alertInput = d.kind==="prompt" ? 
+                $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).on("keydown",pac.keyEvent).focus() : alertInner.focus();
 
                 pac.preset(kind,alertIcon,alertText);
+                buttonChecker();
+
+                function buttonChecker(){
+                    var kind = d.kind;
+                    if(kind === "confirm" || "prompt"){
+                        if(d.okButton) okBt.appendTo(alertBody);
+                        if(d.cancelButton) cancelBt.appendTo(alertBody);
+                    }
+                }
             },
             preset: function(kind,icon,text) {
                 switch(kind){
@@ -106,7 +108,7 @@
                 windowHeight = $(window).height(),
                 objectY = ((windowHeight*0.5) - (170*0.5)),
                 objectX = ((170*0.5)*-1),
-                alertBody = $("<div/>",{
+                alertBody = d.okAlert ? $("<div/>",{
                     "class" : "lubyAlert success"
                 }).css({
                     "width": 170,
@@ -116,7 +118,7 @@
                     "margin-left": objectX
                 }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
                     pac.destroyAlert(alertBody,"success");
-                }),
+                }) : "",
                 alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-check-circle rotateIn animated"}).appendTo(alertInner),
                 alertText = $("<p/>",{"class":"lubyAlertText","html":"Completed"}).appendTo(alertInner);
@@ -128,7 +130,7 @@
                 windowHeight = $(window).height(),
                 objectY = ((windowHeight*0.5) - (170*0.5)),
                 objectX = ((170*0.5)*-1),
-                alertBody = $("<div/>",{
+                alertBody = d.cancelAlert ? $("<div/>",{
                     "class" : "lubyAlert cancel"
                 }).css({
                     "width": 170,
@@ -138,7 +140,7 @@
                     "margin-left": objectX
                 }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
                     pac.destroyAlert(alertBody,"cancel");
-                }),
+                }) : "",
                 alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
                 alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-times tada animated"}).appendTo(alertInner),
                 alertText = $("<p/>",{"class":"lubyAlertText","html":"Cancelled"}).appendTo(alertInner);
@@ -151,7 +153,7 @@
                 if(kind=="prompt"||kind=="confirm"){
                     return;
                 }
-                else if(kind==null){
+                else if(kind === null){
                     $this.blur().fadeOut(d.outSpeed,function(){$this.remove();});
                 }
                 else{ 

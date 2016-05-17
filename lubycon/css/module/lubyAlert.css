@@ -1,6 +1,7 @@
-﻿/*--------------lubyAlert start------------------*/
-.lubyAlert{
+﻿.lubyAlert{
     position: fixed;
+    top: 50%;
+    left: 50%;
     background: rgba(0,0,0,0.8);
     border-radius: 5px;
     text-align: center;
@@ -12,8 +13,10 @@
     box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
 }
 .lubyAlert > .lubyWrapper{
+	position: relative;
     width: 100%;
     display: inline-block;
+    margin-top: 28px;
 }
     .lubyWrapper > .lubyAlertIcon{
         color: #ffffff;
@@ -59,7 +62,7 @@
             border:1px solid #48cfad;
             box-shadow: 0px 0px 7px rgba(81, 203, 238, 1);
         }
-    .lubyWrapper > .lubyButton{
+    .lubyAlert > .lubyButton{
         display: inline-block;
         width: 120px;
         height: 40px;
@@ -71,13 +74,12 @@
         margin-top: 25px;
         cursor: pointer;
     }
-        .lubyWrapper > .lubyButton:hover{
+        .lubyAlert > .lubyButton:hover{
             opacity: 0.7;
         }
-        .lubyWrapper > .lubyOk{
+        .lubyAlert > .lubyOk{
             color: #48cfad;
         }
-        .lubyWrapper > .lubyCancel{
+        .lubyAlert > .lubyCancel{
             color: #ec6446;
         }
-/*--------------lubyAlert end------------------*/

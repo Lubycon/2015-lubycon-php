@@ -488,7 +488,8 @@
             fileCheck: function(file){
                 var size = file.size, // 30MB
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
-                typeCheck = /(^image|application)\/(jpeg|png|bmp|zip)/i.test(type),
+                name = file.name,
+                typeCheck = /(^image|application)\/(jpeg|png|bmp|zip)/i.test(type) && /.*\.(jpg|jpeg|png|bmp|zip)/i.test(name),
                 alertKey = $(document).find(".alertKey").off("click");
                 if(size < 31457280){
                     if(typeCheck) return true;
@@ -527,7 +528,8 @@
             imgCheck: function(file){
                 var size = file.size, // 10MB
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
-                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type),
+                name = file.name,
+                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type) && /.*\.(jpg|jpeg|png|gif|bmp)/i.test(name),
                 alertKey = $(document).find(".alertKey").off("click");
 
                 if(size < 10485760){
