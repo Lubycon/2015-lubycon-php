@@ -88,7 +88,7 @@
             }
         },
         checkFn = {
-            checkbox: function(){
+            checkbox: function(event){
                 event.preventDefault();
                 var $this = $(this),
                 checkbox = $this.find("input");
@@ -104,7 +104,7 @@
                     checkbox.trigger("change");
                 }
             },
-            radio: function(){
+            radio: function(event){
                 event.preventDefault();
                 var $this = $(this),
                 groupName = $this.attr("name"),
@@ -121,7 +121,7 @@
                     checkbox.trigger("change");
                 }
             },
-            swithcAnimation: function(){
+            swithcAnimation: function(event){
                 event.preventDefault();
                 var $this = $(this),
                 background = $this.find(".checkbox-innerbox"),
