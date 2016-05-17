@@ -1,18 +1,26 @@
 <?php
+$number = $_GET["conno"]; //contenst number form url
+$url_parse = parse_url($_SERVER['HTTP_REFERER']);
+$devide_query = (string)$url_parse['query'];
+setcookie('contents_history', $devide_query.'&conno='.$number, time()+(60*60*3)); //3 hour cookie (for infinite scroll)
+//echo $_COOKIE['contents_history'];
+//echo $_SERVER['HTTP_REFERER'];
+//echo $url_parse['query'];
+
 $one_depth = '../..'; //css js load
 $two_depth = '..'; // php load
 include_once('../layout/index_header.php');
 
 
-$number = $_GET["conno"]; //contenst number form url
 
+$cate = $_GET['cate'];
 $allow_array = ['all','artwork','vector','threed'];
-if( in_array($_GET['cate'] , $allow_array) )
+if( in_array($cate , $allow_array) )
 {
     require_once '../database/database_class.php';
     $db = new Database();
 
-    switch($_GET['cate']){ //check category
+    switch($cate){ //check category
     case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
     case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
     case 'threed' : $contents_cate = 3; $cate_name = 'threed'; break;

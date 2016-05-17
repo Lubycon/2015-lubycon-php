@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -1569,5 +1570,8 @@
     <Folder Include="php\sub_nav" />
     <Folder Include="php\_editor" />
     <Folder Include="php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\contents_page.js" />
   </ItemGroup>
 </Project>

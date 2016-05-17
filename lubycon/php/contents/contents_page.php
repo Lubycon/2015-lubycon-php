@@ -41,6 +41,7 @@ if( in_array($_GET['cate'] , $allow_array) )
 }
 ?>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
+<script type="text/javascript" src="<?=$one_depth?>/js/contents_page.js"></script> <!-- scroll js -->
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
         <div class="dark_overlay_small"></div>
@@ -135,6 +136,18 @@ if( in_array($_GET['cate'] , $allow_array) )
                 {
                     echo "<p class='finish_contents'>no more contents :)</p>";
                 }
+                
+                $cookie_string = $_COOKIE['contents_history'];
+                parse_str ($cookie_string , $cookie_parse );
+                $cookie_contents_number = $cookie_parse['cate'].'_'.$cookie_parse['conno'];
+                if( $cate_name == $cookie_parse['cate'] && $_GET['page'] == $cookie_parse['page'])
+                {
+                    echo "<script>scroll_from_cookie('$cookie_contents_number');</script>";
+                }else
+                {
+                    setCookie('contents_history','',time()-3600,"/");  // cookie delete
+                }
+
             ?>
         </ul>
     </section>  <!-- end contents box -->
