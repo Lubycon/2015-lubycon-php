@@ -186,6 +186,7 @@ THREE.OBJLoader.prototype = {
 		result;
 		for(var i = 0, l = lines.length; i < l; i++){
 			var line = lines[i];
+			var materials = object.material.materials;
 			line = line.trim();
 			if(line.length === 0 || line.charAt(0) === "#"){
 				continue;
@@ -274,7 +275,7 @@ THREE.OBJLoader.prototype = {
 			}
 			else if((result = patterns.smooth.exec(line)) !== null){
 				if(result[1] === "1" || result[1] === "on"){
-					if(materials.length !== 0 ){
+					if(materials.length !== 0){
 						materials[materials.length-1].shading = THREE.SmoothShading;
 					}
 					console.log(materials[materials.length-1]);
@@ -287,7 +288,6 @@ THREE.OBJLoader.prototype = {
 			else if((result = patterns.usemtl.exec(line)) !== null){
 				var existCheck = false;
 				var name = line.substring(7).trim();
-				var materials = object.material.materials;
 				if(materials.length == 0){ //first material
 					var material = new THREE.MeshPhongMaterial({ color: 0x888888 });
 					material.name = name;
@@ -350,7 +350,11 @@ THREE.OBJLoader.prototype = {
 			object.geometry = geometry;
 
 			var material;
-
+			if(object.material.materials.length === 0) {
+				material = new THREE.MeshPhongMaterial({ color: 0x888888});
+				material.name = "default";
+				object.material.materials.push(material);
+			}
 			material = new THREE.MeshFaceMaterial(object.material.materials);
 			
 			mesh.geometry = geometry;
