@@ -836,16 +836,12 @@
         margin: 50px auto;
     }
     #main_search_bar{
-        display: none;
         position: absolute;
         width: 600px;
         height: 35px;
-        background: none;
         left: 50%;
         margin-left: -301px;
         line-height: 35px;
-        border: 1px solid #ffffff;
-        border-radius: 5px;
         margin-top: 180px;
         z-index: 2;
     }

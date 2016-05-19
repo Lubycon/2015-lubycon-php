@@ -1,11 +1,5 @@
 var windowWidth = $(window).width();
-function eventHandler(event, selector) {//
-    event.stopPropagation();
-    event.preventDefault();
-    if (event.type === 'touchend'){
-        selector.off('click');
-    }
-};
+
 $(document).ready(function(){
     $(".toggle_info").on("click touchend",function (){
         eventHandler(event,$(this));

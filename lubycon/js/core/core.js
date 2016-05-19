@@ -1,8 +1,4 @@
-﻿/*----------------------------common js----------------------------*/
-/////////////////////////////////////////////////////////
-//      event handler start
-/////////////////////////////////////////////////////////
-//This function will be canceled the click event when users touch in mobile devices
+﻿//This function will be canceled the click event when users touch in mobile devices
 //So if you want use any function in mobile, This eventHandler must be called to your function//
 function eventHandler(event, selector) {
     event.stopPropagation();
@@ -11,20 +7,11 @@ function eventHandler(event, selector) {
         selector.off('click');
     }
 };
-/////////////////////////////////////////////////////////
-//      event handler end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      gloval navigation button hover event start
-//      get parameter change selected nav color
-/////////////////////////////////////////////////////////
-$(function (){ //gnb hover event
-    $('.bigsub').hover(function () {
-        $(this).children("ul").stop().fadeIn(300);
-    }, function () {
-        $(this).children("ul").stop().fadeOut(300);
-    });
-});
+/////////////////////////////////////////////////////////////////////////////////////////////////parameter
+var CATE_PARAM = getUrlParameter('cate');
+var CONNUM_PARAM = getUrlParameter('conno');
+var BNO_PARAM = getUrlParameter('bno');
+var PAGE_PARAM = getUrlParameter('page');
 
 function getUrlParameter(sParam){
     var sPageURL = window.location.search.substring(1);
@@ -47,14 +34,16 @@ function replaceUrlParameter(sParam,value){
         }
     }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////parameter
+$(function (){ //gnb hover event
+    $('.bigsub').hover(function () {
+        $(this).children("ul").stop().fadeIn(300);
+    }, function () {
+        $(this).children("ul").stop().fadeOut(300);
+    });
+});
 
-var CATE_PARAM = getUrlParameter('cate');
-var CONNUM_PARAM = getUrlParameter('conno');
-var BNO_PARAM = getUrlParameter('bno');
-var PAGE_PARAM = getUrlParameter('page');
-
-$(function () //selcted change
-{
+$(function (){
     $('.lnb_nav ul').children('#' + CATE_PARAM).addClass('selected');
     $('#subnav ul').children('#' + CATE_PARAM).addClass('selected');
     $(".selected").children("a").click(function(){
@@ -136,52 +125,29 @@ $(function () { //add contents button start
 //      add contents bt popup event end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//      main search bar input reset start
+//     search bar input reset start
 /////////////////////////////////////////////////////////
 $(function () { //search box click value reset start
-    var search_box = $('#main_search_text'),
-    search_box2 = $('#sub_search_text'),
-    search_bt = $('#main_search_btn'),
-    search_bt2 = $('#sub_search_btn');
+    var searchBar = $(document).find(".search-bar"),
+    searchBarInput = searchBar.find(".search-bar-text");
+    searchBar.on("keypress",enterPressed);
+    searchBarInput.on("focus",onFocus).on("blur",onBlur);
+    
+    function enterPressed(event){
+        console.log(true);
+        if(event.which === 13) $(this).find(".search_btn").trigger("click");
+    }
+    function onFocus(){
+        console.log($(this).val());
+        if($(this).val() !== "") $(this).val("");
+    }
+    function onBlur(){
+        if($(this).val() === "") $(this).val("Enter the keyword");
+    }
 
-    search_box.on('keypress', function(event) {
-        if(event.which == 13) {
-            search_bt.click();
-            console.log("Searching....")
-        }
-    }).focus(function(){
-        if (search_box.val() == 'Enter The Keyword') {
-            search_box.val('');
-        }
-    }).blur(function(){
-        if (search_box.val() == '') {
-            search_box.val('Enter The Keyword');
-        }
-    });
-
-    search_box2.on('keypress', function(e) {
-        console.log("keypress_true");
-        if(e.which == 13) {
-            console.log("if true");
-            search_bt.click();
-        };
-    }).click(function(){
-        console.log("clicked");
-    }).focus(function(){
-        if(search_box2.val()=='Enter the Keyword'){
-            search_box2.val('')
-            $("#sub_search_bar").stop().animate({width:350},200);
-        }
-    }).blur(function(){
-        if(search_box2.val()==''){
-            search_box2.val('Enter the Keyword');
-            $("#sub_search_bar").stop().animate({width:295},200);
-        }
-    });
-});//search box click value reset end
-
+});
 /////////////////////////////////////////////////////////
-//      main search bar input reset end
+//     search bar input reset end
 /////////////////////////////////////////////////////////
 /*----------------------------common js----------------------------*/
 /*----------------------------index page slider----------------------------*/
@@ -208,11 +174,6 @@ $(function(){
 		$('#slider1').hide();
 		$('#slider2').hide();
 		$('#slider3').stop().fadeIn(150);
-	});
-	$('.slider_item ul li').hover(function (){
-	    $(this).stop().animate({opacity:0.3},100);
-	}, function (){
-	    $(this).stop().animate({ opacity: 1 },100);
 	});
 });
 /////////////////////////////////////////////////////////
@@ -388,58 +349,6 @@ $(function(){
 //      waiting for resisting animate
 /////////////////////////////////////////////////////////
 /*----------------------------waiting for resisting end----------------------------*/
-/*----------------------------followers start--------------------------*/
-$(function(){
-    var toggle_count=0;//from DB
-    $(document).on('click','.follow_card_bt', function(){
-        switch(toggle_count){
-            case 0:
-                $(this).css("background","#333");
-                $(this).children().attr("class","fa fa-user-times");
-                toggle_count=1;
-                console.log(toggle_count);
-            break;
-
-            case 1:
-                $(this).css("background","#48cfad");
-                $(this).children().attr("class","fa fa-user-plus");
-                toggle_count=0;
-                console.log(toggle_count);
-            break;
-        };
-    });
-});
-/*----------------------------followers end----------------------------*/
-/*----------------------------pager interaction start--------------------------*/
-$(function(){
-    var page_li = $(".page_list li");
-
-    $(".ten_page").hover(function(){
-        $(this).stop().animate({opacity:0.6},300);
-    },function(){
-        $(this).stop().animate({opacity:1},300);
-    });
-    
-    $(".one_page").hover(function(){
-        $(this).stop().animate({opacity:0.6},300);
-    },function(){
-        $(this).stop().animate({opacity:1},300);
-    });
-
-
-    page_li.hover(function(){
-        $(this).stop().animate({opacity:0.6},300);
-    },function(){
-        $(this).stop().animate({opacity:1},300);
-    })
-    
-    page_li.click(function(){
-        page_li.removeClass();
-        $(this).addClass("selected_pager");
-    })
-
-});
-/*----------------------------pager interaction end--------------------------*/
 /*--------------------my info setting in creator_page toggle start------------*/
 $(function(){
     if($("#myinfo_setting").length != 0){

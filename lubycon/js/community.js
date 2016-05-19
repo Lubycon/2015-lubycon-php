@@ -1,11 +1,3 @@
-function eventHandler(event, selector) {//
-    event.stopPropagation();
-    event.preventDefault();
-    if (event.type === 'touchend'){
-        selector.off('click');
-    }
-};
-
 ///*--------------------------------community write button start-----------------------------*/
 //$(function(){
 //    if($("#write_bt").length != 0){
