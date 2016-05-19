@@ -113,7 +113,7 @@ $(function(){
 <!-- index page slider plugin -->
 <script>
     jQuery(document).ready(function ($) {
-        if(windowWidth > 1024){
+        if($(window).width() > 1024){
             var _SlideshowTransitions = [{ $Duration: 1200, $Opacity: 2 }]; //Fade
             var options = {
                 $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
@@ -173,9 +173,9 @@ $(function(){
 <!-- index page slider plugin -->
 <section id="slide_section" class="hidden-mb-b">
     <nav id="slide_lnb">
-        <input id="artwork_bt" type="radio" name="tap" checked="checked" />
-        <input id="vector_bt" type="radio" name="tap" />
-        <input id="3d_bt" type="radio" name="tap" />
+        <input class="slide-radio" id="artwork_bt" type="radio" name="tap" checked="checked" />
+        <input class="slide-radio" id="vector_bt" type="radio" name="tap" />
+        <input class="slide-radio" id="3d_bt" type="radio" name="tap" />
         <nav>
             <label for="artwork_bt" class="la_bt selected">ARTWORK</label>
             <label for="vector_bt" class="la_bt">VECTOR</label>

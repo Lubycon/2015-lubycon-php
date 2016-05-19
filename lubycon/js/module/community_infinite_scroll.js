@@ -1,4 +1,4 @@
-var third_param = getUrlParameter('3');
+var third_param = CATE_PARAM;
 
 
 /*

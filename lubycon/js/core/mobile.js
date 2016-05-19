@@ -1,7 +1,21 @@
-var windowWidth = $(window).width(),
-    windowHeight = $(window).height();
+/////////////////////////////////////////////////////////
+//      touch dragging check start
+/////////////////////////////////////////////////////////
+var MOBILE_DRAGGING = false;
+$(function(){
+    $(window).on("touchmove", function(){
+        MOBILE_DRAGGING = true;
+    });
+    $(window).on("touchstart", function(){
+        MOBILE_DRAGGING = false;
+    });
+});
+/////////////////////////////////////////////////////////
+//      touch dragging check end
+/////////////////////////////////////////////////////////
+
 $(window).on("load resize",function(){
-    if((windowWidth <= 1024) && ($("#mb-menu_panel").length != 0)){
+    if(($(window).width() <= 1024) && ($("#mb-menu_panel").length != 0)){
         $("#mb-menu_panel").height = window.screen.height;
         var mb_menu = $("#mb-menu");
         var mb_menu_toggle = 0;
@@ -72,12 +86,12 @@ $(window).on("load resize",function(){
 //      mobile search action start
 /////////////////////////////////////////////////////////
 $(window).on("load resize",function(){
-    if((windowWidth <= 1024) && ($("#mb-menu_panel").length != 0)){
+    if(($(window).width() <= 1024) && ($("#mb-menu_panel").length != 0)){
         var searchBt = $("#mb-search"),
             searchInBt = $("#main_search_btn"),
             searchBox = $("#main_search_bar"),
             searchText = $("#main_search_text"),
-            searchTextWidth = (windowWidth - searchInBt.outerWidth(true) - 25).toString(),
+            searchTextWidth = ($(window).width() - searchInBt.outerWidth(true) - 25).toString(),
             darkOverlay = $(".dark_overlay"),
             mainHeader = $("#main_header"),
             icon1 = $("#mb-search .icon1"),
@@ -123,7 +137,7 @@ $(function(){
     if($(window).width() < 1025){//It will be activate in only mobile
         $(".mb-view_more").on("click touchend",function(event){
             eventHandler(event,$(this));
-            if(!mbDragging){
+            if(!MOBILE_DRAGGING){
                 var id = $(this).attr("id"),
                 hostURL = location.host,
                 url = "";
@@ -143,7 +157,7 @@ $(function(){
                     default: return; break;
                 }
             }
-            else if(mbDragging){
+            else if(MOBILE_DRAGGING){
                 return;
             } 
         });

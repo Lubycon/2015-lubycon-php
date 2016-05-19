@@ -1,43 +1,4 @@
 ﻿/*----------------------------common js----------------------------*/
-var windowWidth = $(window).width(),
-    windowHeight = $(window).height();
-/////////////////////////////////////////////////////////
-//      mbDragging sensor start(touch)
-/////////////////////////////////////////////////////////
-var mbDragging = false;
-$(function(){
-    $(window).on("touchmove", function(){
-        mbDragging = true;
-    });
-    $(window).on("touchstart", function(){
-        mbDragging = false;
-    });
-});
-/////////////////////////////////////////////////////////
-//      mbDragging sensor end(touch)
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      loading icon start
-/////////////////////////////////////////////////////////
-/*$(function(){
-    var $loading = $("<div/>",{"id":"loading_icon"}),
-    $icon = $("<i/>",{"class":"fa fa-spinner fa-spin"}),
-    objectY = (windowHeight*0.5) - 40;
-    $(document)
-      .ajaxStart(function() {
-        $loading.prependTo("body").show(),
-        $icon.css("margin-top",objectY).appendTo($loading);
-      })
-      .ajaxStop(function() {
-        $loading.fadeOut(200,function(){
-            $loading.remove();
-        });
-      });
-});*/
-
-/////////////////////////////////////////////////////////
-//      loading icon end
-/////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 //      event handler start
 /////////////////////////////////////////////////////////
@@ -65,25 +26,21 @@ $(function (){ //gnb hover event
     });
 });
 
-function getUrlParameter(sParam) //get parameter
-{
+function getUrlParameter(sParam){
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) 
-    {
+    for (var i = 0; i < sURLVariables.length; i++){
         var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) 
-        {
+        if (sParameterName[0] == sParam){
             return sParameterName[1];
         }
     }
 }
 
-function replaceUrlParameter(sParam,value) //get parameter
-{
+function replaceUrlParameter(sParam,value){
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) {
+    for (var i = 0; i < sURLVariables.length; i++){
         var sParameterName = sURLVariables[i].split('=');
         if (sParameterName[0] == sParam) {
             history.pushState(null, "", location.pathname +'?'+ sPageURL.replace(sParameterName[1], value) );
@@ -91,15 +48,15 @@ function replaceUrlParameter(sParam,value) //get parameter
     }
 }
 
-var cate_param = getUrlParameter('cate');
-var connum_param = getUrlParameter('conno');
-var bno_param = getUrlParameter('bno');
-var page_param = getUrlParameter('page');
+var CATE_PARAM = getUrlParameter('cate');
+var CONNUM_PARAM = getUrlParameter('conno');
+var BNO_PARAM = getUrlParameter('bno');
+var PAGE_PARAM = getUrlParameter('page');
 
 $(function () //selcted change
 {
-    $('.lnb_nav ul').children('#' + cate_param).addClass('selected');
-    $('#subnav ul').children('#' + cate_param).addClass('selected');
+    $('.lnb_nav ul').children('#' + CATE_PARAM).addClass('selected');
+    $('#subnav ul').children('#' + CATE_PARAM).addClass('selected');
     $(".selected").children("a").click(function(){
         return false;//disabled anchor tag
     });
@@ -231,8 +188,12 @@ $(function () { //search box click value reset start
 /////////////////////////////////////////////////////////
 //      index page slide switch start
 /////////////////////////////////////////////////////////
-
 $(function(){
+    $('.la_bt').on("click", function (){
+        $('.la_bt').removeClass('selected');
+        $(this).addClass('selected');
+    });
+
 	$('#artwork_bt').click(function(){
 		$('#slider1').stop().fadeIn(150);
 		$('#slider2').hide();
@@ -247,7 +208,7 @@ $(function(){
 		$('#slider1').hide();
 		$('#slider2').hide();
 		$('#slider3').stop().fadeIn(150);
-	})
+	});
 	$('.slider_item ul li').hover(function (){
 	    $(this).stop().animate({opacity:0.3},100);
 	}, function (){
@@ -257,25 +218,13 @@ $(function(){
 /////////////////////////////////////////////////////////
 //      index page slide switch end
 /////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      index page triple bt event start
-/////////////////////////////////////////////////////////
-$(function(){
-	$('.la_bt').on("click", function (){
-	    $('.la_bt').removeClass('selected');
-	    $(this).addClass('selected');
-	});
-});
-/////////////////////////////////////////////////////////
-//      index page triple bt event end
-/////////////////////////////////////////////////////////
 /*----------------------------index page slider end----------------------------*/
 /*----------------------------contents page----------------------------*/
 /////////////////////////////////////////////////////////
 //      contents card hover overlay view start
 /////////////////////////////////////////////////////////
 $(function (){
-    if(windowWidth >= 1025){
+    if($(window).width() >= 1025){
         $(document).on({
             mouseenter: function() {
                 $(this).children('.contents_overlay').stop().fadeIn(300);
@@ -304,7 +253,7 @@ $(function (){
 //      contents view con_left hovering start
 /////////////////////////////////////////////////////////
 $(function(){
-    if(($("#contents_main").length != 0) && windowWidth >= 1025){
+    if(($("#contents_main").length !== 0) && $(window).width() >= 1025){
         floating_bt_action();
     }
     else{
@@ -337,22 +286,23 @@ function floating_bt_action(){
 /////////////////////////////////////////////////////////
 //      comment write box auto height start
 /////////////////////////////////////////////////////////
-function Expander() {
+function InputExpander(selector) {
     this.start = function () {
-        $("#comment_text").keydown(function(event) {
+        var object = $(selector);
+        object.keydown(function(event) {
             this.style.height = 0;
             var newHeight = this.scrollHeight + 5;
             
             if( this.scrollHeight >= this.clientHeight ){
                 newHeight += 5;
                 this.style.height= newHeight + 'px';
-            }//if end
-        });//keydown end
-    }//function end
-}//expander function end
+            }
+        });
+    }
+}
 
 $(function() {
-    window.app = new Expander();
+    window.app = new InputExpander("#comment_text");
     window.app.start();
 });
 /////////////////////////////////////////////////////////
@@ -363,7 +313,7 @@ $(function() {
 /////////////////////////////////////////////////////////
 $(function (){
     var $this = $(document).find("#contents_info_wrap"),
-    notMobile = windowWidth >= 1024;
+    notMobile = $(window).width() >= 1024;
     $(document).scroll(function(event){
         var scrollTop = $(document).scrollTop();
         if(notMobile && scrollTop >= 50){
@@ -378,29 +328,6 @@ $(function (){
 //      contents view title box end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//      contents view descript box toggle start
-/////////////////////////////////////////////////////////
-$(function(){
-    var $button = $("#view_descript"),
-    $object = $button.next("#descript_box");
-    $button.click(function(){
-        var $this = $(this);
-        if($button.hasClass("selected")){
-            $button.removeClass("selected");
-            $object.stop().fadeOut(200);
-            $object.off("hideAnywhere")
-        }
-        else{
-            $object.stop().fadeIn(200);
-            $button.addClass("selected");
-            $object.hideAnywhere($this);
-        }
-    })
-});
-/////////////////////////////////////////////////////////
-//      contents view descript box toggle end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 //      community mainboard start
 /////////////////////////////////////////////////////////
 $(window).on("load resize",function(){
@@ -413,10 +340,10 @@ $(window).on("load resize",function(){
         subject = $(".table_subject");
         var list_padding = list.innerWidth() - list.width();
         var resWidth;
-        if(windowWidth >= 1025){
+        if($(window).width() >= 1025){
             resWidth = (wholeList.width() - list_padding - userimg.width() - number.outerWidth(true) - count.width() - 100).toString() + "px";
         }
-        else if(windowWidth < 1025){
+        else if($(window).width() < 1025){
             resWidth = (wholeList.width() - list_padding - userimg.width() - 50).toString() + "px";
         }
         subject.css({ "max-width" : resWidth });
