@@ -15,10 +15,10 @@
             </div>
             <div id="chart_selector">
                 <ul>
-                    <li id="showlike" class="chart_list"><i class="fa fa-heart"></i>Like</li>
-                    <li id="showview" class="chart_list"><i class="fa fa-eye"></i>View</li>
-                    <li id="showupload" class="chart_list"><i class="fa fa-cloud-upload"></i>Uploaded</li>
-                    <li id="showdownload" class="chart_list"><i class="fa fa-cloud-download"></i>Downloaded</li>
+                    <li class="chart_list" data-target="chartdiv1"><i class="fa fa-heart"></i>Like</li>
+                    <li class="chart_list" data-target="chartdiv2"><i class="fa fa-eye"></i>View</li>
+                    <li class="chart_list" data-target="chartdiv3"><i class="fa fa-cloud-upload"></i>Uploaded</li>
+                    <li class="chart_list" data-target="chartdiv4"><i class="fa fa-cloud-download"></i>Downloaded</li>
                 </ul>
             </div><!--select chart-->
             <div class="chartboxes" id="chartdiv1" style="width: 100%; height: 450px;"></div>

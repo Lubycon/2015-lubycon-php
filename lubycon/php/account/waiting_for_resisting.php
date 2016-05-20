@@ -29,11 +29,36 @@
 	<article id="thanks2">
 		<p>Thank you <font color="#48cfad">!</font></p>
 	</article>
-		<div id="circle">
-			<a href="../../index.php">
-				<img id="lubyicon" src="../../CH/img/logo/lubycon_logo_big.png" width="60" height="60" />
-				<p id="gotomain">Go to the main</p>
-			</a>
-		</div>
+	<div id="circle">
+		<a href="../../index.php">
+			<img id="lubyicon" src="../../CH/img/logo/lubycon_logo_big.png" width="60" height="60" />
+			<p id="gotomain">Go to the main</p>
+		</a>
+	</div>
+	<script>
+		$(function(){
+		    $("#thanks").animate({opacity:1},500);
+		    $("#thanks").queue(function(){
+		        $("#thanks2").animate({opacity:1},500);//
+		        $("#thanks2").queue(function(){
+		            $("#circle").animate({opacity:1},800); 
+		        });
+		    }); 
+		});
+
+		$(function(){
+		    $('#circle').hover(
+		        function (){
+		            $(this).stop().animate({opacity:0.7},200);
+		            $('#gotomain').stop().animate({opacity:1},500);
+		        },
+		        function (){
+		            stop();
+		            $(this).stop().animate({opacity:1},200);
+		            $('#gotomain').stop().animate({opacity:0},500);
+		        }
+		    );
+		});
+	</script>
 </body>
 </html>

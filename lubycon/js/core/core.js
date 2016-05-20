@@ -8,10 +8,10 @@ function eventHandler(event, selector) {
     }
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////parameter
-var CATE_PARAM = getUrlParameter('cate');
-var CONNUM_PARAM = getUrlParameter('conno');
-var BNO_PARAM = getUrlParameter('bno');
-var PAGE_PARAM = getUrlParameter('page');
+var CATE_PARAM = getUrlParameter('cate'); // GLOBAL
+var CONNUM_PARAM = getUrlParameter('conno'); // GLOBAL
+var BNO_PARAM = getUrlParameter('bno'); //GLOBAL
+var PAGE_PARAM = getUrlParameter('page'); //GLOBAL
 
 function getUrlParameter(sParam){
     var sPageURL = window.location.search.substring(1);
@@ -93,19 +93,18 @@ function LanguageValue(lang){
 $(function(){
     var $personalMenu = $("#after_signin"),
     $menuList = $personalMenu.find("ul");
-	$personalMenu.click(function (){
+	$personalMenu.on("click",toggle.single).on("click",personalMenuToggle);
+    function personalMenuToggle(){
         var $this = $(this);
         if($this.hasClass("selected")){
-            $this.removeClass("selected");
-            $menuList.stop().fadeOut(200);
-            $menuList.off("hideAnywhere");
-        }
-        else{
-            $this.addClass("selected");
             $menuList.stop().fadeIn(200);
             $menuList.hideAnywhere($this);
         }
-	});
+        else{
+            $menuList.stop().fadeOut(200);
+            $menuList.off("hideAnywhere");
+        }
+    }
 });
 /////////////////////////////////////////////////////////
 //      after signin child hover show and hide end
@@ -155,26 +154,18 @@ $(function () { //search box click value reset start
 //      index page slide switch start
 /////////////////////////////////////////////////////////
 $(function(){
-    $('.la_bt').on("click", function (){
-        $('.la_bt').removeClass('selected');
-        $(this).addClass('selected');
-    });
+    $('.la_bt').on("click", toggle.group);
+    $(".slide-radio").on("change",slideChecker);
 
-	$('#artwork_bt').click(function(){
-		$('#slider1').stop().fadeIn(150);
-		$('#slider2').hide();
-		$('#slider3').hide();
-	});
-	$('#vector_bt').click(function(){
-		$('#slider1').hide();
-		$('#slider2').stop().fadeIn(150);
-		$('#slider3').hide();
-	});
-	$('#3d_bt').click(function(){
-		$('#slider1').hide();
-		$('#slider2').hide();
-		$('#slider3').stop().fadeIn(150);
-	});
+    function slideChecker(){
+        var $this = $("." + $(this).attr("class") + ":checked"),
+        data = $this.data("value"),
+        $sliders = $("#slide_section > .slider-wrapper");
+        $target = $("#slider" + data);
+
+        $sliders.hide();
+        $target.stop().fadeIn(150);
+    }
 });
 /////////////////////////////////////////////////////////
 //      index page slide switch end
@@ -247,21 +238,6 @@ function floating_bt_action(){
 /////////////////////////////////////////////////////////
 //      comment write box auto height start
 /////////////////////////////////////////////////////////
-function InputExpander(selector) {
-    this.start = function () {
-        var object = $(selector);
-        object.keydown(function(event) {
-            this.style.height = 0;
-            var newHeight = this.scrollHeight + 5;
-            
-            if( this.scrollHeight >= this.clientHeight ){
-                newHeight += 5;
-                this.style.height= newHeight + 'px';
-            }
-        });
-    }
-}
-
 $(function() {
     window.app = new InputExpander("#comment_text");
     window.app.start();
@@ -318,55 +294,23 @@ $(window).on("load resize",function(){
 //      community mainboard end
 /////////////////////////////////////////////////////////
 /*----------------------------contents page----------------------------*/
-/*----------------------------waiting for resisting start----------------------------*/
-/////////////////////////////////////////////////////////
-//      waiting for resisting animate
-/////////////////////////////////////////////////////////
-$(function(){
-    $("#thanks").animate({opacity:1},500);
-    $("#thanks").queue(function(){
-        $("#thanks2").animate({opacity:1},500);//
-        $("#thanks2").queue(function(){
-            $("#circle").animate({opacity:1},800); 
-        });
-    }); 
-});
-
-$(function(){
-    $('#circle').hover(
-        function (){
-            $(this).stop().animate({opacity:0.7},200);
-            $('#gotomain').stop().animate({opacity:1},500);
-        },
-        function (){
-            stop();
-            $(this).stop().animate({opacity:1},200);
-            $('#gotomain').stop().animate({opacity:0},500);
-        }
-    );
-});
-/////////////////////////////////////////////////////////
-//      waiting for resisting animate
-/////////////////////////////////////////////////////////
-/*----------------------------waiting for resisting end----------------------------*/
 /*--------------------my info setting in creator_page toggle start------------*/
 $(function(){
     if($("#myinfo_setting").length != 0){
         var $button = $("#myinfo_setting"),
         $menu = $button.next("#myinfo_menu_list");
-        $button.click(function(){
+        $button.on("click",toggle.single).on("click",myinfoToggle);
+
+        function myinfoToggle(){
             var $this = $(this);
             if($this.hasClass("selected")){
-                $menu.stop().fadeOut(200);
-                $this.removeClass("selected");
-                $menu.off("hideAnywhere");
-            }
-            else{
-                $this.addClass("selected");
                 $menu.stop().fadeIn(200);
                 $menu.hideAnywhere($this);
-            };
-        });
+            }else{
+                $menu.stop().fadeOut(200);
+                $menu.off("hideAnywhere");
+            }
+        }
     };
 });
 /*--------------------my info setting in creator_page toggle end----------------------*/
@@ -376,20 +320,18 @@ $(function(){
         var $this = $(this),
         $button = $(".creator_menu"),
         $menu = $this.children(".creator_menu_list");
-        $this.click(function (event){
-            event = event || window.event//for IE
-            if($this.hasClass("selected")){
-                $this.removeClass("selected");
-                $menu.stop().fadeOut(200);
-                $menu.off("hideAnywhere");
-            }
-            else{
+        $this.on("click",toggle.single).on("click",creatorMenuToggle);
 
-                $this.addClass("selected");
+        function creatorMenuToggle(){
+            if($this.hasClass("selected")){
                 $menu.stop().fadeIn(200);
                 $menu.hideAnywhere($this);
             }
-        });
+            else{
+                $menu.stop().fadeOut(200);
+                $menu.off("hideAnywhere");
+            }
+        }
     });
 });
 

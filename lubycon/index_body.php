@@ -173,13 +173,13 @@ $(function(){
 <!-- index page slider plugin -->
 <section id="slide_section" class="hidden-mb-b">
     <nav id="slide_lnb">
-        <input class="slide-radio" id="artwork_bt" type="radio" name="tap" checked="checked" />
-        <input class="slide-radio" id="vector_bt" type="radio" name="tap" />
-        <input class="slide-radio" id="3d_bt" type="radio" name="tap" />
+        <input class="slide-radio" data-value="1" id="artwork_bt" type="radio" name="tap" checked="checked" />
+        <input class="slide-radio" data-value="2" id="vector_bt" type="radio" name="tap" />
+        <input class="slide-radio" data-value="3" id="3d_bt" type="radio" name="tap" />
         <nav>
-            <label for="artwork_bt" class="la_bt selected">ARTWORK</label>
-            <label for="vector_bt" class="la_bt">VECTOR</label>
-            <label for="3d_bt" class="la_bt">3D MODEL</label>
+            <label for="artwork_bt" class="la_bt btn selected">ARTWORK</label>
+            <label for="vector_bt" class="la_bt btn">VECTOR</label>
+            <label for="3d_bt" class="la_bt btn">3D MODEL</label>
         </nav>
         <!-- end nav -->
     </nav>
@@ -201,7 +201,7 @@ $(function(){
             $db->query = "select boardCode,preview from `$kind` order by `viewCount` desc limit 30";
 		    $db->askQuery();
 
-            echo "<div id='slider$i' style='width: 980px; height: 363px;'>";
+            echo "<div class='slider-wrapper' id='slider$i' style='width: 980px; height: 363px;'>";
             echo "<div class='slides' u='slides'><div><ul>";
             $index = 1;
             while($row = mysqli_fetch_array($db->result))

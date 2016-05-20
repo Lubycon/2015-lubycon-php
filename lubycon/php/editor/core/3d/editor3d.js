@@ -420,7 +420,7 @@
                     $changebt = $("<p/>",{
                         "class" : "cc-setting-bt",
                         "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
-                    }).on("click",pac.singleToggle),
+                    }).on("click",toggle.single),
                     
                     insertCCicons = function(){
                         var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
@@ -442,24 +442,6 @@
 
                     return modal;
                 }
-            },
-            groupToggle: function(){
-                var $this = $(this),
-                radioType = $this.hasClass("radioType"),
-                $btns = $this.siblings(".btn");
-
-                if($this.hasClass("selected")){
-                    if(!radioType) $this.removeClass("selected");
-                } 
-                else {
-                    $btns.removeClass("selected");
-                    $this.addClass("selected");
-                }
-            },
-            singleToggle: function(){
-                var $this = $(this);
-                if($this.hasClass("selected")) $this.removeClass("selected");
-                else $this.addClass("selected");
             },
             tabAction: function(){
                 var $this = $(this),
@@ -1014,7 +996,7 @@
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
-                button.on("click").on("click",pac.groupToggle).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
+                button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
 
                 function disableCamelCase(text){ //camelCase -> Camel Case
                     var result = text.replace( /([A-Z])/g, " $1" ),
@@ -1204,7 +1186,7 @@
                     "class" : "toolbox-tab btn",
                     "html" : "Texture",
                     "data-target" : "texture-window"
-                }).on("click",pac.groupToggle).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
+                }).on("click",toggle.group).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
                 $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-target","color-window").removeClass("selected").appendTo($tabBtWrap);
                 $tabLeftBt.on("click",firstMaterialCheck);
 
@@ -1381,7 +1363,7 @@
                     }
                 },
                 addTextureObject: function(src,name){
-                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45, "left" : 0}).on("click",pac.groupToggle),
+                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45, "left" : 0}).on("click",toggle.group),
                     textureImg = $("<img/>",{"class" : "texture-img", "src" : src}).appendTo(wrapper),
                     selectedTexture = $(".modal.texture-modal").find(".texture-list.btn.selected");
 
@@ -1429,7 +1411,7 @@
                 var $this = $(document).find(".toolbox-wrap[data-value='backgroundTool']");
 
                 var $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }),
-                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",pac.groupToggle).on("click",pac.tabAction);
+                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",toggle.group).on("click",pac.tabAction);
 
                 var $3dBt = $tabBt.clone(true).html("3D").attr("data-target","3d").addClass("selected").appendTo($tabBtWrap),
                 $2dBt = $tabBt.clone(true).html("Image").attr("data-target","2d").appendTo($tabBtWrap),
