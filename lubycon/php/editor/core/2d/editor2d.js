@@ -415,11 +415,13 @@
                 var $this = $(this),
                 $aside = $this.parents(".editor-aside"),
                 value = $this.data("target"),
+                title = $this.data("tip").split(" ")[0],
                 $toolboxWrap = $("<div/>",{
                     "class" : "toolbox-wrap tab-target",
-                    "data-value" : value
+                    "data-value" : value,
+                    "html" : "<p class='toolbox-title'>" + title + "</p>"
                 }).appendTo($aside).hide();
-                if(value == "gridTool") $toolboxWrap.addClass("modal");
+                if(value == "gridTool") $toolboxWrap.addClass("modal").find(".toolbox-title").remove();
             },
             objMenu: function(selector){
                 var $object = selector,
@@ -464,6 +466,11 @@
                    case keyCode.esc : $cancel.trigger("click"); break;
                    default : return; break;
                 }
+            },
+            disableCamelCase: function(text){ //camelCase -> Camel Case
+                var result = text.replace( /([A-Z])/g, " $1" ),
+                result = result.charAt(0).toUpperCase() + result.slice(1);
+                return result;
             }
         },
         upload = {
@@ -1181,17 +1188,12 @@
         },
         toolbar = {
             createButton: function(data,iconData){
-                var tipData = disableCamelCase(data);
+                var tipData = pac.disableCamelCase(data);
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
                 button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
 
-                function disableCamelCase(text){ //camelCase -> Camel Case
-                    var result = text.replace( /([A-Z])/g, " $1" ),
-                    result = result.charAt(0).toUpperCase() + result.slice(1);
-                    return result;
-                }
                 return button;
             },
             createRadioButton: function(data,iconData){
