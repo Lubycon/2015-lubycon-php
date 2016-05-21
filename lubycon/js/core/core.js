@@ -9,6 +9,7 @@ function eventHandler(event, selector) {
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////parameter
 var CATE_PARAM = getUrlParameter('cate'); // GLOBAL
+var MID_CATE_PARAM = getUrlParameter('mid_cate'); // GLOBAL
 var CONNUM_PARAM = getUrlParameter('conno'); // GLOBAL
 var BNO_PARAM = getUrlParameter('bno'); //GLOBAL
 var PAGE_PARAM = getUrlParameter('page'); //GLOBAL
@@ -30,7 +31,7 @@ function replaceUrlParameter(sParam,value){
     for (var i = 0; i < sURLVariables.length; i++){
         var sParameterName = sURLVariables[i].split('=');
         if (sParameterName[0] == sParam) {
-            history.pushState(null, "", location.pathname +'?'+ sPageURL.replace(sParameterName[1], value) );
+            history.pushState(null, "", location.pathname + '?' + sPageURL.replace(sParameterName[0] + '=' + sParameterName[1], sParameterName[0] + '=' + value));
         }
     }
 }

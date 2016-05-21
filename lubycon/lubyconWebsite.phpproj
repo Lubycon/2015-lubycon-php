@@ -1114,6 +1114,7 @@
     <Compile Include="php\class\certifiMail_class.php" />
     <Compile Include="php\class\cookie_class.php" />
     <Compile Include="php\class\database_class.php" />
+    <Compile Include="php\class\infinite_scroll_class.php" />
     <Compile Include="php\class\json_class.php" />
     <Compile Include="php\class\regex_class.php" />
     <Compile Include="php\class\session_class.php" />
