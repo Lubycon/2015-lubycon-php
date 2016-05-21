@@ -353,12 +353,14 @@
         display: inline-block;
         top: 50px;
         left: 50px;
-        padding: 20px;
+        padding: 10px;
         margin-top: 50px;
         padding-top: 20px;
         min-width: 250px;
+        height: 100%;
         background: #282828;
         z-index: 90;
+        overflow-y: auto;
         box-shadow: 3px 5px 10px -3px rgba(0,0,0,0.6);
         text-align: left;
         box-sizing: border-box;
@@ -377,15 +379,24 @@
         z-index: 10000;
         min-width: 450px;
         min-height: 300px;
+        height: auto;
         border-radius: 5px;
         box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
+        .editor-body > .editor-aside > .toolbox-wrap > .toolbox-title {
+            font-size: 18px;
+            color: #48cfad;
+            margin-bottom: 10px;
+        }
         .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner {
             position: relative;
-            margin-bottom: 20px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #444444;
         }
         .editor-body > .editor-aside > .toolbox-wrap.modal > .toolbox-inner {
             position: relative;
