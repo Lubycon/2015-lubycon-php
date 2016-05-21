@@ -48,17 +48,17 @@
             <option>Most Comment</option>
         </select>
         <div id="sub_search_bar" class="search-bar">
-                <div class="select-box">
-                    <select class="searchFilter">
-                        <option value="Name">Name</option>
-                        <option value="Country">Country</option>
-                    </select>
-                </div>
-                <input type="text" class="search-bar-text" value="Enter the Keyword" />
-                <button class="search-btn">
-                    <i class="fa fa-search"></i>
-                </button>
+            <div class="select-box">
+                <select class="searchFilter">
+                    <option value="Name">Name</option>
+                    <option value="Country">Country</option>
+                </select>
             </div>
+            <input type="text" class="search-bar-text" value="Enter the Keyword" />
+            <button class="search-btn">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
     </section>
     <!-- end nav_guide -->
     <section class="con_wrap">

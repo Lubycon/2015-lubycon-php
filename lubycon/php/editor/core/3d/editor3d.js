@@ -1031,73 +1031,8 @@
                     return body
                 }
             },
-            createMenuTest: function(option){
-                var initOption = {
-                    id : null,
-                    data : null,
-                    content : null,
-                    name : "Menu",
-                    labelSwitch : true,
-                    mainTap : null, //or Array
-                    mainTapSwitch : true,
-                    subTap : null //or Array
-                },
-                opt = $.extend({},initOption,option);
-
-                var body = $("<div/>",{ "class" : "toolbox-inner" });
-                if(opt.id !== null) body.attr("id",opt.id);
-                if(opt.data !== null) body.attr("data-value",opt.data);
-
-                var labelWrapper = $("<div/>",{ "class" : "toolbox-label-wrapper" }).appendTo(body),
-                label = $("<div/>",{ "class" : "toolbox-label", "html" : opt.name }).appendTo(labelWrapper),
-                labelCheckbox = opt.labelSwitch ? $("<input/>",{ "type" : "checkbox" }).appendTo(labelWrapper) : null;
-
-                if(opt.mainTap !== null){
-                    var mainTap = $("<ul/>",{"class" : "toolbox-main-tap"}),
-                    mainTapList = $("<li/>",{ "class" : "toolbox-main-tap-list" }),
-                    mainTapCheckbox = opt.mainTapSwitch ? $("<input/>",{ "type" : "checkbox" }).appendTo(mainTapList) : null;
-
-                    for(var i = 0, l = opt.mainTap.length; i < l; i++){
-                        var list = mainTapList.clone(true).text(opt.mainTap[i]).appendTo(mainTap);
-                        if(mainTapCheckbox !== null) mainTapCheckbox.clone(true).appendTo(list);
-                    }
-
-                    mainTap.appendTo(body);
-                }
-
-                var contentWrapper = $("<div/>",{"class" : "toolbox-content-wrapper"}).appendTo(body);
-
-                if(opt.subTap !== null){
-                    var subTap = $("<ul/>",{"class" : "toolbox-sub-tap"}),
-                    subTapList = $("<li/>",{ "class" : "toolbox-sub-tap-list" });
-
-                    for(var i = 0, l = opt.mainTap.length; i < l; i++){
-                        subTapList.clone(true).text(opt.subTap[i]).appendTo(subTap);
-                    }
-
-                    subTap.appendTo(contentWrapper);
-                }
-
-                var content = $("<div/>",{"class" : "toolbox-content"}).append(opt.content).appendTo(contentWrapper);
-                
-                return body;
-            },
             lightTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
-
-                var testContent = $("<div/>",{"html" : "It is test content"});
-                var testTool = new toolbar.createMenuTest({
-                    name: "Test",
-                    id : "lightTestTool",
-                    data : "add-light",
-                    mainTap : ["TestTap1","TestTap2","TestTap3"],
-                    subTap : ["subTestTap1","subTestTap2","subTestTap3"],
-                    content : testContent
-                }).appendTo($this);
-                testTool.find("input").lubyCheckbox();
-
-
-                //lightTool.find(".toolbox-label").addClass("inlineBlock");
 
             },
             lightFn: {
