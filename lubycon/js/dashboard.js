@@ -1,28 +1,23 @@
 var windowWidth = $(window).width();
-function eventHandler(event, selector) {//
-    event.stopPropagation();
-    event.preventDefault();
-    if (event.type === 'touchend'){
-        selector.off('click');
-    }
-};
+
 $(document).ready(function(){
-    $(".toggle_info").on("click touchend",function (){
-        eventHandler(event,$(this));
-        var $this = $(this),
-        $body = $this.parent().next(".dash_body");
-        if($this.hasClass("selected")){
-            $this.attr("class","fa fa-angle-down toggle_info");
-            $this.removeClass("opened");
-            $body.css("min-height","0px").stop().slideUp(300);
-        }else{
-            $this.attr("class","fa fa-angle-up toggle_info");
-            $this.addClass("selected");
-            $body.stop().slideDown(300,function(){
-                $body.css("min-height","150px");
-            });
+    $(".toggle_info").on("click",toggle.single).on("click touchend",infoToggle);
+        
+        function infoToggle(){
+            eventHandler(event,$(this));
+            var $this = $(this),
+            $body = $this.parent().next(".dash_body");
+
+            if($this.hasClass("selected")){
+                $this.attr("class","fa fa-angle-down toggle_info");
+                $body.css("min-height","0px").stop().slideUp(300);
+            }else{
+                $this.attr("class","fa fa-angle-up toggle_info");
+                $body.stop().slideDown(300,function(){
+                    $body.css("min-height","150px");
+                });
+            }
         }
-    });//click end
 })
 /*----------------------------toggle section button start------------------------------*/
 
@@ -429,71 +424,59 @@ $(document).ready(function(){
     var chart_icon = $("#chart_icon");
     var chart_name = $("#chart_name");
     var chartboxes = $(".chartboxes");
-    var chartbox1 = $("#chartdiv1");
-    var chartbox2 = $("#chartdiv2");
-    var chartbox3 = $("#chartdiv3");
-    var chartbox4 = $("#chartdiv4");
-    var chartlist_toggle = 0;
 
-    $(".chart_title").on("click touchend",function (event){
-        eventHandler(event,$(this));
-        switch(chartlist_toggle){
-            case 0 : 
-                selectorStart();
-            break;
-            case 1 :
-                selectorEnd();
-            break;
-        }
-    });
+    $(".chart_title").on("click",toggle.single).on("click touchend",chartToggle);
     $(".chart_list").on("click touchend",function (event){
         eventHandler(event,$(this));
-        switch(event.target.id){
-            case "showlike" :
+        var data = $(this).data("target"),
+        targetChart = $("#" + data);
+        switch(data){
+            case "chartdiv1" :
                 chart_icon.attr("class","fa fa-heart");
                 chart_icon.css("color","#48cfad");
                 chart_name.text("Like");
                 chartboxes.hide();
-                chartbox1.show();
-                selectorEnd();
+                targetChart.show();
             break;
-            case "showview" :
+            case "chartdiv2" :
                 chart_icon.attr("class","fa fa-eye");
                 chart_icon.css("color","#ec6446");
                 chart_name.text("View");
                 chartboxes.hide();
-                chartbox2.show();
-                selectorEnd();
+                targetChart.show();
             break;
-            case "showupload" :
+            case "chartdiv3" :
                 chart_icon.attr("class","fa fa-cloud-upload");
                 chart_icon.css("color","#488ccb");
                 chart_name.text("Uploaded");
                 chartboxes.hide();
-                chartbox3.show();
-                selectorEnd();
+                targetChart.show();
             break;
-            case "showdownload" :
+            case "chartdiv4" :
                 chart_icon.attr("class","fa fa-cloud-download");
                 chart_icon.css("color","#ffbe54");
                 chart_name.text("Downloaded");
                 chartboxes.hide();
-                chartbox4.show();
-                selectorEnd();
+                targetChart.show();
             break;
             default : return;
         }//swtich end
     });
 
-    function selectorStart(){
-        $("#toggle_arrow").attr("class","fa fa-caret-up");
-        $("#chart_selector").stop().fadeIn(200);
-        chartlist_toggle = 1;
-    };
-    function selectorEnd(){
-        $("#toggle_arrow").attr("class","fa fa-caret-down");
-        $("#chart_selector").stop().fadeOut(200);
-        chartlist_toggle = 0;
+    function chartToggle(){
+        eventHandler(event,$(this));
+        var $this = $(this),
+        $menuList = $("#chart_selector");
+        if($this.hasClass("selected")){
+            $("#toggle_arrow").attr("class","fa fa-caret-up");
+            $menuList.stop().fadeIn(200);
+            $menuList.hideAnywhere($this);
+        }
+        else{
+            $("#toggle_arrow").attr("class","fa fa-caret-down");
+            $menuList.stop().fadeOut(200);
+        }
+        
     };
 });
 /*----------------select chart action end------------------------------*/

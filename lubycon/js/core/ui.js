@@ -6,6 +6,7 @@
 //4. hideAnywhere
 //5. modal
 //6. toggle
+//7. input height expander
 /////////////////////////////////////////////////////////
 //      lubySelector enable
 /////////////////////////////////////////////////////////
@@ -114,7 +115,7 @@ $(window).on("load resize", function(){
     else{
         return;
     }
-})
+});
 /////////////////////////////////////////////////////////
 //      visible goToTheTop button end
 /////////////////////////////////////////////////////////
@@ -162,14 +163,14 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
 $.fn.hideAnywhere = function(){
     this.each(function(){
         var $menu = $(this),
-        $button = $menu.parents(".selected").length == 0 ? $menu.siblings(".selected") : $menu.parents(".selected");
+        $button = $menu.parents(".selected").length === 0 ? $menu.siblings(".selected") : $menu.parents(".selected");
 
         $("html").off("click").on("click",hideMenu);
 
         function hideMenu(event){
             event.stopPropagation();
             var $this = $(event.target),
-            checkElement = !$this.is($menu) && !$this.is($button) && $button.has($this).length == 0;
+            checkElement = !$this.is($menu) && !$this.is($button) && $button.has($this).length === 0;
 
             console.log(checkElement);
             if(checkElement) {
@@ -222,4 +223,50 @@ $(function(){
 })
 /////////////////////////////////////////////////////////
 //      modalClose end
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      toggle button start
+/////////////////////////////////////////////////////////
+var toggle = {
+    group: function(){
+        var $this = $(this),
+        radioType = $this.hasClass("radioType"),
+        $btns = $this.siblings(".btn");
+
+        if($this.hasClass("selected")){
+            if(!radioType) $this.removeClass("selected");
+        } 
+        else {
+            $btns.removeClass("selected");
+            $this.addClass("selected");
+        }
+    },
+    single: function(){
+        var $this = $(this);
+        if($this.hasClass("selected")) $this.removeClass("selected");
+        else $this.addClass("selected");
+    }
+}
+/////////////////////////////////////////////////////////
+//      toggle button start
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+//      input height expander start
+/////////////////////////////////////////////////////////
+function InputExpander(selector) {
+    this.start = function () {
+        var object = $(selector);
+        object.keydown(function(event) {
+            this.style.height = 0;
+            var newHeight = this.scrollHeight + 5;
+            
+            if( this.scrollHeight >= this.clientHeight ){
+                newHeight += 5;
+                this.style.height= newHeight + 'px';
+            }
+        });
+    }
+}
+/////////////////////////////////////////////////////////
+//      input height expander end
 /////////////////////////////////////////////////////////

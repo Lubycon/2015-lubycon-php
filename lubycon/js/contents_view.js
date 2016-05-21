@@ -25,7 +25,7 @@ function like_count_up(countkind, like_stat){
     $.ajax({
         type: "POST",
         url: "../ajax/increase_like_ajax.php",
-        data: 'countkind=' + countkind + '&conno=' + connum_param + '&cate=' + cate_param + '&like=' + like_stat,// data send
+        data: 'countkind=' + countkind + '&conno=' + CONNUM_PARAM + '&cate=' + CATE_PARAM + '&like=' + like_stat,// data send
         cache: false,
         success: function (data) {
             like_number = $("#"+countkind+"Count");

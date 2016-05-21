@@ -247,7 +247,7 @@
                     helpText = $("<p/>",{ 
                         "class" : "embed-help",
                         "html" : "What can I embed?"
-                    }).on("click",pac.singleToggle).on("click",modalFunc.embedHelp).appendTo(content),
+                    }).on("click",toggle.single).on("click",modalFunc.embedHelp).appendTo(content),
                     errorText = $("<p/>",{ 
                         "class" : "embed-error",
                         "html" : "Please insert iframe tag only."
@@ -349,7 +349,7 @@
                     $changebt = $("<p/>",{
                         "class" : "cc-setting-bt",
                         "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
-                    }).on("click",pac.singleToggle),
+                    }).on("click",toggle.single),
                     
                     insertCCicons = function(){
                         var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
@@ -371,24 +371,6 @@
 
                     return modal;
                 }
-            },
-            groupToggle: function(){
-                var $this = $(this),
-                radioType = $this.hasClass("radioType"),
-                $btns = $this.siblings(".btn");
-
-                if($this.hasClass("selected")){
-                    if(!radioType) $this.removeClass("selected");
-                } 
-                else {
-                    $btns.removeClass("selected");
-                    $this.addClass("selected");
-                }
-            },
-            singleToggle: function(){
-                var $this = $(this);
-                if($this.hasClass("selected")) $this.removeClass("selected");
-                else $this.addClass("selected");
             },
             tabAction: function(){
                 var $this = $(this),
@@ -1203,7 +1185,7 @@
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
-                button.on("click").on("click",pac.groupToggle).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
+                button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
 
                 function disableCamelCase(text){ //camelCase -> Camel Case
                     var result = text.replace( /([A-Z])/g, " $1" ),
@@ -1278,26 +1260,26 @@
 
                 $decobtns = $btWrap.clone(),
                 $boldBt = $btn.clone().addClass("boldbt").attr("data-value","bold").append($("<i/>",{"class" : icons.bold}))
-                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",toggle.single).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
                 $italicBt = $btn.clone().addClass("italicbt").attr("data-value","italic").append($("<i/>",{"class" : icons.italic}))
-                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",toggle.single).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
                 $underBt = $btn.clone().addClass("underbt").attr("data-value","underline").append($("<i/>",{"class" : icons.underline}))
-                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",toggle.single).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
                 $strikeBt = $btn.clone().addClass("strikebt").attr("data-value","strike").append($("<i/>",{"class" : icons.strike}))
-                .on("click",pac.singleToggle).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
+                .on("click",toggle.single).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
 
                 $fontDeco = new toolbar.createMenu($decobtns,"Font Decorations").attr({"id" : "fontDeco-tool","data-value" : "font-dece"}).appendTo($this);
 
                 //font align start
                 var $alignbtns = $btWrap.clone(),
                 $alignLeft = $btn.clone().addClass("align-left-bt").attr("data-value","left").append($("<i/>",{"class" : icons.alignLeft}))
-                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",toggle.group).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignCenter = $btn.clone().addClass("align-center-bt").attr("data-value","center").append($("<i/>",{"class" : icons.alignCenter}))
-                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",toggle.group).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignRight = $btn.clone().addClass("align-right-bt").attr("data-value","right").append($("<i/>",{"class" : icons.alignRight}))
-                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",toggle.group).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
                 $alignRight = $btn.clone().addClass("align-justify-bt").attr("data-value","justify").append($("<i/>",{"class" : icons.alignJustify}))
-                .on("click",pac.groupToggle).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
+                .on("click",toggle.group).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
 
                 $fontAlign = new toolbar.createMenu($alignbtns,"Align").attr({"id" : "fontAlign-tool","data-value" : "font-align"}).appendTo($this);
             },
@@ -1450,7 +1432,7 @@
                 $gridInnerWrap = $("<div/>",{ "class" : "toolbox-inner" }).appendTo($gridWrap),
                 $editWindow = $("<div/>",{ "class" : "grid-edit-window" }).appendTo($gridInnerWrap),
                 $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
-                $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",pac.groupToggle).on("click",toolbar.gridFn.makeGrid),
+                $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",toggle.group).on("click",toolbar.gridFn.makeGrid),
                 $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",ModalKit.cancel).appendTo($gridWrap),
                 $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
                 $gridCancel = $("<div/>",{

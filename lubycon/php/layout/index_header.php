@@ -370,13 +370,13 @@
         </div>	<!-- end lang_select_bt -->
         <div id="mb-search" class="visible-mb"><i class="fa fa-search icon1"></i><i class="fa fa-angle-up icon2"></i></div>
     </header><!---------------- header end ---------------->
-    <div id="main_search_bar"><!---------------- search bar start ---------------->
-        <input type="text" id="main_search_text" value="Enter The Keyword" />
-        <button id="main_search_btn" class="out">
+    <div id="main_search_bar" class="search-bar"><!---------------- search bar start ---------------->
+        <input type="text" class="search-bar-text" value="Enter The Keyword" />
+        <button class="out search-btn">
             <i class="fa fa-search"></i>
         </button>
 
-        <div id="select_box">|
+        <div class="select-box">|
             <select class="searchFilter">
                 <option data-value="All">All</option>
                 <option data-value="Contents">Contents</option>

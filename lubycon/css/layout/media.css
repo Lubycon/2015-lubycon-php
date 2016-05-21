@@ -836,16 +836,12 @@
         margin: 50px auto;
     }
     #main_search_bar{
-        display: none;
         position: absolute;
         width: 600px;
         height: 35px;
-        background: none;
         left: 50%;
         margin-left: -301px;
         line-height: 35px;
-        border: 1px solid #ffffff;
-        border-radius: 5px;
         margin-top: 180px;
         z-index: 2;
     }
@@ -1016,15 +1012,7 @@
             line-height: 40px;
             font-size: 20px;
         }
-    #cc_total_wrap{
-        margin-top: 20px;
-    }
-        #cc_wrap{
-            background: #282828;
-            margin: 10px;
-            border-radius: 5px;
-            box-shadow: inset -1px 2px 5px 0px rgba(0,0,0,0.3);
-        }
+
     #contents_subject {
         display: inline-block;
     }

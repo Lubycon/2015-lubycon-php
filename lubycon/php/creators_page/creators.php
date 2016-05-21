@@ -47,18 +47,18 @@
             <option>Most Download</option>
             <option>Most Comment</option>
         </select>
-        <div id="sub_search_bar" class="hidden-mb-ib">
-            <div class="select_box">
-                <select class="searchFilter">
-                    <option value="Name">Name</option>
-                    <option value="Country">Country</option>
-                </select>
+        <div id="sub_search_bar" class="search-bar">
+                <div class="select-box">
+                    <select class="searchFilter">
+                        <option value="Name">Name</option>
+                        <option value="Country">Country</option>
+                    </select>
+                </div>
+                <input type="text" class="search-bar-text" value="Enter the Keyword" />
+                <button class="search-btn">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
-            <input type="text" id="sub_search_text" value="Enter the Keyword" />
-            <button id="sub_search_btn">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
     </section>
     <!-- end nav_guide -->
     <section class="con_wrap">

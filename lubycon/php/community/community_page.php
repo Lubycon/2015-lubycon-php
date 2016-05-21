@@ -53,15 +53,15 @@
                 <option>Chinese</option>
                 <option>French</option>
             </select>
-            <div id="sub_search_bar">
-                <div class="select_box">
+            <div id="sub_search_bar" class="search-bar">
+                <div class="select-box">
                     <select class="searchFilter">
                         <option value="Title">Title</option>
                         <option value="Creator">Creator</option>
                     </select>
                 </div>
-                <input type="text" id="sub_search_text" value="Enter the Keyword" />
-                <button id="sub_search_btn">
+                <input type="text" class="search-bar-text" value="Enter the Keyword" />
+                <button class="search-btn">
                     <i class="fa fa-search"></i>
                 </button>
             </div>

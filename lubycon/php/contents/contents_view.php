@@ -68,7 +68,7 @@ $my_country_origin_select = $country_decode[$row['countryCode']];
 $contents_name = $row['title'];
 $contents_html = $row['contents'];
 $user_img_url = $row['profileImg'];
-$category0 = $cate_name;
+$category0 = $cate_name == "threed" ? "3D" : $cate_name;
 $category1 = "Category1";
 $category2 = "Category2";
 
@@ -188,10 +188,10 @@ $file_like = $row['likeCount'];
                     <h5 class="user_location" data-tip="<?=$usercity?>, <?=$usercountry?>"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
             </div>
-            <div id="content_down" class="hidden-mb-b"><i class="fa fa-cloud-download"></i></div>
-            <div id="tag_wrap" class="hidden-mb-b">
-                <p id="tag_title"><i class="fa fa-tag"></i>Tags</p>
-                <div id="tagbox_wrap">
+            <!--<div id="content_down" class="hidden-mb-b"><i class="fa fa-cloud-download"></i></div>-->
+            <div id="tag_wrap" class="info-wrap hidden-mb-b">
+                <p id="tag_title" class="info-title"><i class="fa fa-tag"></i>Tags</p>
+                <div id="tagbox_wrap" class="info-content">
                     <ul id="tagbox_wrap_inner">
                         <li class="tagbox">javascript</li>
                         <li class="tagbox">html</li>
@@ -201,9 +201,9 @@ $file_like = $row['likeCount'];
                     </ul>                       
                 </div>
             </div>
-            <div id="cc_total_wrap" class="hidden-mb-b">
-                <p id="cc_title"><i class="fa fa-creative-commons fa-lg"></i>Creative Commons</p>
-                <div id="cc_wrap">
+            <div id="cc_total_wrap" class="info-wrap hidden-mb-b">
+                <p id="cc_title" class="info-title"><i class="fa fa-creative-commons fa-lg"></i>Creative Commons</p>
+                <div id="cc_wrap" class="info-content">
                     <ul id="cc_wrap_inner">
                         <a href="#" id="cc_desc_link" target="_brank">
                         <li class="cc_icon" id="cc_main" data-tip="Creative Commons License">
@@ -225,10 +225,10 @@ $file_like = $row['likeCount'];
                     </ul>                       
                 </div>
             </div>
-            <div id="file_descript" class="hidden-mb-b">
-                <p id="view_descript">ABOUT THIS CONTENT</p>
-                <div id="descript_box">
-                    <p><?=$file_descript?></p>
+            <div id="descript_wrap" class="info-wrap hidden-mb-b">
+                <p id="descript_title" class="info-title"><i class="fa fa-info-circle"></i>Description</p>
+                <div id="descript_content" class="info-content">
+                    <p>zsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqizsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqizsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqizsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqi</p>
                 </div>
             </div>
         </div><!--end con_aside-->

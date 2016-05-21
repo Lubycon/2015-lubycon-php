@@ -25,7 +25,7 @@
         bgPreset3d = backgroundPreset3d,
         bgPreset2d = backgroundPreset2d,
         d = {},
-        scene, camera, dirLight, spotLight, ambLight, renderer, controls, stats,
+        scene, camera, dirLight, spotLight, hemiLight, renderer, controls, stats,
         group, object, mtl, geometry, material, mesh, skybox
         loadedMaterials = [],
         pac = {
@@ -129,15 +129,16 @@
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
                     camera.position.z = 3;
-                spotLight = new THREE.SpotLight(0xffffff,0.05); //spot light color (lightColor,brightness)
+                spotLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
                     spotLight.castShadow = true;
                     spotLight.receiveShadow = true;
                 dirLight = new THREE.DirectionalLight(0xffd689,0.5); //direction light color (lightColor,brightness)
                    dirLight.position.set(-3,3,3) //direction light position (x,y,z)
 
-                ambLight = new THREE.HemisphereLight(0xffd689,0xffffff,1); //hemisphere light color(skyColor,groundColor,brightness)
+                hemiLight = new THREE.HemisphereLight(0xffd689,0xffffff,1); //hemisphere light color(skyColor,groundColor,brightness)
 
-                scene.add(camera, spotLight, ambLight, dirLight);
+                scene.add(camera, spotLight, hemiLight, dirLight);
+
                 spotLight.target.position.set( 0, 1, -1 );
                 spotLight.position.copy( camera.position );
 
@@ -419,7 +420,7 @@
                     $changebt = $("<p/>",{
                         "class" : "cc-setting-bt",
                         "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
-                    }).on("click",pac.singleToggle),
+                    }).on("click",toggle.single),
                     
                     insertCCicons = function(){
                         var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
@@ -441,24 +442,6 @@
 
                     return modal;
                 }
-            },
-            groupToggle: function(){
-                var $this = $(this),
-                radioType = $this.hasClass("radioType"),
-                $btns = $this.siblings(".btn");
-
-                if($this.hasClass("selected")){
-                    if(!radioType) $this.removeClass("selected");
-                } 
-                else {
-                    $btns.removeClass("selected");
-                    $this.addClass("selected");
-                }
-            },
-            singleToggle: function(){
-                var $this = $(this);
-                if($this.hasClass("selected")) $this.removeClass("selected");
-                else $this.addClass("selected");
             },
             tabAction: function(){
                 var $this = $(this),
@@ -577,9 +560,9 @@
                 var size = file.size, // 10MB
                 type = file.type, //jpg||jpeg, png, bmg, gif, zip
                 name = file.name,
-                typeCheck = /(^image)\/(jpeg|png|gif|bmp)/i.test(type) && /.*\.(jpg|jpeg|png|gif|bmp)/i.test(name),
+                typeCheck = /(^image)\/(jpeg|png|gif|bmp|targa)/i.test(type) && /.*\.(jpg|jpeg|png|gif|bmp|tga)/i.test(name),
                 alertKey = $(document).find(".alertKey").off("click");
-                if(size < 10485760){
+                if(size < 20971520){
                     if(typeCheck) return true;
                     else {
                         alertKey.lubyAlert({
@@ -610,7 +593,7 @@
                         height: 180,
                         textSize: 14,
                         customIcon: icons.box,
-                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 10MB.",
+                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 20MB.",
                         inSpeed: 600,
                         stoptime: 800,
                         outSpeed: 1000
@@ -640,12 +623,10 @@
                     upload.loaders(object[0]);
                     $inputModal.remove();
                     $darkOverlay.fadeOut(400);
-                    console.log(true);
                 }
                 else {
                     $this.val(null);
                     $fileViewer.val("");
-                    console.log(false);
                 }
 
                 return;
@@ -654,12 +635,16 @@
                 var $inputFile = $(this), 
                 object = event.target.files,
                 target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn"),
+                tgaCheck = /(^image)\/(targa)/i.test(object[0].type) && /.*\.(tga)/i.test(object[0].name);
                 $loading_icon = $(document).find("#loading_icon");
                 if(upload.imgCheck(object[0])){
                     $loading_icon.show();
                     $.each(object, function(i,file){
                         var reader = new FileReader();
-                        var textureLoader = new THREE.TextureLoader();
+                        var textureLoader;
+
+                        if(tgaCheck) textureLoader = new THREE.TGALoader();
+                        else textureLoader = new THREE.TextureLoader();
            
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
@@ -799,14 +784,17 @@
                 vertices = modelInfo.vertices
 
                 var text = 
-                    "Vertices : " + convertToK(modelInfo.vertices) + "<br/>" +
-                    "Faces : " + convertToK(modelInfo.triFaces+modelInfo.quadFaces);
+                    "Vertices : " + convertToKM(modelInfo.vertices) + "<br/>" +
+                    "Faces : " + convertToKM(modelInfo.triFaces+modelInfo.quadFaces);
                     
                 content.html(text).appendTo(wrapper);
 
-                function convertToK(number){
+                function convertToKM(number){
                     var result = number;
-                    if(number > 1000) result = (number*0.001).toFixed(2) + "K";
+                    if(number >= 1000) {
+                        if(number >= 100000) result = (number*0.00001).toFixed(2) + "M";
+                        else result = (number*0.001).toFixed(2) + "K";
+                    }
                     return result;
                 }
 
@@ -1008,7 +996,7 @@
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
                 icon = $("<i/>",{"class" : iconData}).appendTo(button);
 
-                button.on("click").on("click",pac.groupToggle).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
+                button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
 
                 function disableCamelCase(text){ //camelCase -> Camel Case
                     var result = text.replace( /([A-Z])/g, " $1" ),
@@ -1043,6 +1031,7 @@
             },
             lightTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
+
                 
             },
             lightFn: {
@@ -1197,7 +1186,7 @@
                     "class" : "toolbox-tab btn",
                     "html" : "Texture",
                     "data-target" : "texture-window"
-                }).on("click",pac.groupToggle).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
+                }).on("click",toggle.group).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
                 $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-target","color-window").removeClass("selected").appendTo($tabBtWrap);
                 $tabLeftBt.on("click",firstMaterialCheck);
 
@@ -1374,7 +1363,7 @@
                     }
                 },
                 addTextureObject: function(src,name){
-                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45, "left" : 0}).on("click",pac.groupToggle),
+                    var wrapper = $("<li/>",{"class" : "texture-list btn custom", "data-tip" : name }).tooltip({"top" : 45, "left" : 0}).on("click",toggle.group),
                     textureImg = $("<img/>",{"class" : "texture-img", "src" : src}).appendTo(wrapper),
                     selectedTexture = $(".modal.texture-modal").find(".texture-list.btn.selected");
 
@@ -1422,7 +1411,7 @@
                 var $this = $(document).find(".toolbox-wrap[data-value='backgroundTool']");
 
                 var $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }),
-                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",pac.groupToggle).on("click",pac.tabAction);
+                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",toggle.group).on("click",pac.tabAction);
 
                 var $3dBt = $tabBt.clone(true).html("3D").attr("data-target","3d").addClass("selected").appendTo($tabBtWrap),
                 $2dBt = $tabBt.clone(true).html("Image").attr("data-target","2d").appendTo($tabBtWrap),
@@ -1526,9 +1515,18 @@
                     });
                     //light
                     switch(id){
-                        case 0 : spotLight.color = new THREE.Color(0xffd689); break;//desert
-                        case 1 : spotLight.color = new THREE.Color(0xffffff); break;//room
-                        case 2 : spotLight.color = new THREE.Color(0xb9ffff); break;//snow mountain
+                        case 0 : 
+                            dirLight.color = new THREE.Color(0xffd689);
+                            hemiLight.skyColor = new THREE.Color(0xffd689);
+                        break;//desert
+                        case 1 : 
+                            dirLight.color = new THREE.Color(0xffffff); 
+                            hemiLight.skyColor = new THREE.Color(0xffffff);
+                        break;//room
+                        case 2 : 
+                            dirLight.color = new THREE.Color(0xb9ffff); 
+                            hemiLight.skyColor = new THREE.Color(0xb9fffff);
+                        break;//snow mountain
                     }
                 },
                 background2d: function(){
@@ -1556,7 +1554,8 @@
                     skybox.material.needsUpdate = true;
                     skybox.material.dispose();
 
-                    spotLight.color = new THREE.Color(0xffffff);
+                    dirLight.color = new THREE.Color(0xffffff);
+                    hemiLight.skyColor = new THREE.Color(0xffffff);
 
                     renderer.setClearColor(0x222222, 0);
                 }
