@@ -7,7 +7,7 @@ function up_call_contents(pageNumber) {
     ({
         type: "POST",
         url: "../ajax/infinite_scroll_ajax.php", //이페이지에서 중복체크를 한다
-        data: 'cate_param=' + cate_param + '&page_param=' + pageNumber,
+        data: 'cate_param=' + CATE_PARAM + '&page_param=' + pageNumber,
         cache: false,
         success: function (data)
         {
@@ -24,7 +24,7 @@ function down_call_contents(pageNumber) {
     ({
         type: "POST",
         url: "../ajax/infinite_scroll_ajax.php", //이페이지에서 중복체크를 한다
-        data: 'cate_param=' + cate_param + '&page_param=' + pageNumber,//test.asp에 id 값을 보낸다
+        data: 'cate_param=' + CATE_PARAM + '&page_param=' + pageNumber,//test.asp에 id 값을 보낸다
         cache: false,
         success: function (data) {
             $("#contents_box > ul:nth-child(2)").append(data);
