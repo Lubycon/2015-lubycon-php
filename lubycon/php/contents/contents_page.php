@@ -16,7 +16,8 @@ if( in_array($_GET['cate'] , $allow_array) )
 
     $query;
     $cate_name;
-    $page = ($_GET['page'] - 1) * 30;
+    $page_param = $_GET['page'];
+    $page = ($page_param - 1) * 30;
     $contents_limit = 30;
     $query_all = "SELECT SQL_CALC_FOUND_ROWS * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC limit $page,$contents_limit";
     $query_one = "SELECT SQL_CALC_FOUND_ROWS * FROM lubyconboard.`$cate_name` , lubyconuser.`userbasic` , lubyconuser.`userinfo` WHERE lubyconboard.`$cate_name`.`userCode` = lubyconuser.`userbasic`.`userCode` AND lubyconuser.`userbasic`.`userCode` = lubyconuser.`userinfo`.`userCode`ORDER BY lubyconboard.`$cate_name`.`boardCode` DESC limit $page,$contents_limit";
@@ -127,25 +128,30 @@ if( in_array($_GET['cate'] , $allow_array) )
             <?php
                 if($contents_data->num_rows != 0)
                 {
+                    //echo "<div class='scroll_checker page_top_$page_param'></div>";
                     while( $row = mysqli_fetch_array($contents_data) )
                     {
                         $top_category = $top_cate_decode[$row['CategoryCode']];
                         include('../layout/content_card.php');
                     }   
+                    echo "<div class='scroll_checker page_bottom_$page_param'></div>";
                 }else
                 {
                     echo "<p class='finish_contents'>no more contents :)</p>";
                 }
                 
-                $cookie_string = $_COOKIE['contents_history'];
-                parse_str ($cookie_string , $cookie_parse );
-                $cookie_contents_number = $cookie_parse['cate'].'_'.$cookie_parse['conno'];
-                if( $cate_name == $cookie_parse['cate'] && $_GET['page'] == $cookie_parse['page'])
+                if($_COOKIE['contents_history'])
                 {
-                    echo "<script>scroll_from_cookie('$cookie_contents_number');</script>";
-                }else
-                {
-                    setCookie('contents_history','',time()-3600,"/");  // cookie delete
+                    $cookie_string = $_COOKIE['contents_history'];
+                    parse_str ($cookie_string , $cookie_parse );
+                    $cookie_contents_number = $cookie_parse['concate'].'_'.$cookie_parse['conno'];
+                    if( $cate_name == $cookie_parse['cate'] && $_GET['page'] == $cookie_parse['page'])
+                    {
+                        echo "<script>scroll_from_cookie('$cookie_contents_number');</script>";
+                    }else
+                    {
+                        //setCookie('contents_history','',time()-3600,"/");  // cookie delete
+                    }
                 }
 
             ?>
