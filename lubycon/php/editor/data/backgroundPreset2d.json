@@ -1,0 +1,23 @@
+var backgroundPreset2d = [
+	{
+		"id" : "0",
+		"name" : "None",
+		"image" : "#",
+		"preview" : "#",
+		"descript" : ""
+	},
+	{
+		"id" : "1",
+		"name" : "Lubycon Text",
+		"image" : "../../../../ch/img/logo/Lubycon_Title.svg",
+		"preview" : "../../../../ch/img/logo/Lubycon_Title.svg",
+		"descript" : ""
+	},
+	{
+		"id" : "2",
+		"name" : "Lubycon Logo",
+		"image" : "../../../../ch/img/logo/Lubycon_logo_black.svg",
+		"preview" : "../../../../ch/img/logo/Lubycon_logo_black.svg",
+		"descript": ""
+	}
+]
