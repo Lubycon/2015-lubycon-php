@@ -1,8 +1,9 @@
 <?php
 $number = $_GET["conno"]; //contenst number form url
+$cate = $_GET['cate'];
 $url_parse = parse_url($_SERVER['HTTP_REFERER']);
 $devide_query = (string)$url_parse['query'];
-setcookie('contents_history', $devide_query.'&conno='.$number, time()+(60*60*3)); //3 hour cookie (for infinite scroll)
+setcookie('contents_history', $devide_query.'&conno='.$number.'&concate='.$cate, time()+(60*60*3)); //3 hour cookie (for infinite scroll)
 //echo $_COOKIE['contents_history'];
 //echo $_SERVER['HTTP_REFERER'];
 //echo $url_parse['query'];
@@ -13,7 +14,6 @@ include_once('../layout/index_header.php');
 
 
 
-$cate = $_GET['cate'];
 $allow_array = ['all','artwork','vector','threed'];
 if( in_array($cate , $allow_array) )
 {
