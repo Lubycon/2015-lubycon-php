@@ -1013,9 +1013,11 @@
 
                 return button;
             },
-            createMenu: function(content,name){
+            createMenu: function(content,name,switchs){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
-                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
+                labelWrap = $("<div/>",{"class" : "toolbox-label-wrapper"}).appendTo(body)
+                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(labelWrap),
+                labelSwitch = switchs ? $("<input/>",{ "type" : "checkbox", "class" : "toolbox-label-checkbox" }).appendTo(labelWrap) : null;
                 if(content !== null && typeof content === "object"){
                     if(content.length === 1){
                         content.appendTo(body);
@@ -1034,19 +1036,97 @@
             lightTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
 
+                var light1 = new toolbar.createMenu(null,"Light1",true).attr("data-value",0).appendTo($this),
+                lightCheckbox1 = light1.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
+
+                var light2 = new toolbar.createMenu(null,"Light2",true).attr("data-value",1).appendTo($this),
+                lightCheckbox2 = light2.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
+
+                var light3 = new toolbar.createMenu(null,"Light3",true).attr("data-value",2).appendTo($this),
+                lightCheckbox3 = light3.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
+
+                /*--------light setting---------*/
+                var settingWrapper = $("<div/>",{"class" : "toolbox-tab-wrapper"});
+
+                var $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo(settingWrapper),
+                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",toggle.group).on("click",pac.tabAction);
+
+                var $directionBtn = $tabBt.clone(true).html("Direction").attr("data-target","direction").addClass("selected").appendTo($tabBtWrap),
+                $spotLightBtn = $tabBt.clone(true).html("Spot").attr("data-target","spot").appendTo($tabBtWrap),
+                $pointBtn = $tabBt.clone(true).html("Point").attr("data-target","point").appendTo($tabBtWrap);
+
+                var $directionSetting = new toolbar.lightFn.LightSetting("direction").appendTo(settingWrapper),
+                $spotSetting = new toolbar.lightFn.LightSetting("spot").appendTo(settingWrapper).hide(),
+                $pointSetting = new toolbar.lightFn.LightSetting("point").appendTo(settingWrapper).hide();
+
+                var settingWindow = new toolbar.createMenu(settingWrapper,"Setting",false).appendTo($this);
+
+                settingWrapper.find(".colorKey").spectrum({
+                    replacerClassName: "color-viewer light-viewer",
+                    color: "#ffffff",
+                    showInput: true,
+                    showAlpha: true,
+                    showInitial: true,
+                    preferredFormat: "hex3",
+                    showPalette: true,
+                    palette: [],
+                    showSelectionPalette: true,
+                    selectionPalette: [],
+                    move: toolbar.materialFn.materialColor,
+                    change: toolbar.materialFn.materialColor
+                });
+                settingWrapper.find(".sliderKey").slider();
+                /*--------light setting---------*/
+
             },
             lightFn: {
-                lightOnOff: function(){
-                    console.log("on/off");
+                LightSetting: function(light){
+                    var body = $("<div/>",{"class" : "light-setting-wrapper toolbox-controller tab-target", "data-value" : light});
+
+                    assembleList("Color",true,true).appendTo(body);
+
+                    switch(light){
+                        case "spot" : 
+                            assembleList("Fall Off",false,true).appendTo(body);
+                            assembleList("Angle",false,true).appendTo(body);
+                            assembleList("Softness",false,true).appendTo(body);
+                        break;
+                        case "point" : 
+                            assembleList("Fall Off",false,true).appendTo(body);
+                        break;
+                    }
+
+                    function assembleList(title,colorBool,sliderBool){
+                        var listWrap = $("<div/>",{"class" : "light-setting-list-wrapper"}),
+                        listLabel = $("<div/>",{"class" : "light-setting-list-label"}),
+                        list = $("<div/>",{ "class" : "light-setting-list" }),
+
+                        color = $("<input/>",{ "class" : "colorKey" }),
+                        slider = $("<input/>",{ "type" : "range", "class" : "lightSlider sliderKey" });
+
+                        listLabel.text(title).appendTo(listWrap);
+
+                        if(colorBool) color.appendTo(list);
+                        if(sliderBool) slider.appendTo(list);
+
+                        list.appendTo(listWrap);
+
+                        return listWrap;
+                        
+                    }
+                    return body;
+                },
+                onOff: function(){
+                    var $this = $(this),
+                    data = $this.parents(".toolbox-inner").data("value");
+                    console.log(data,$this.prop("checked"));
                 }
             },
             geometryTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']");
 
-                var $rotateCheckbox =  $("<input/>",{ "type" : "checkbox", "class" : "toolbox-checkbox", "id" : "rotate-check" })
-                .on("change",toolbar.geometryFn.transform),
-                rotateTool = new toolbar.createMenu($rotateCheckbox,"Rotate").appendTo($this);
-                rotateTool.find(".toolbox-label").addClass("inlineBlock");
+                var rotateTool = new toolbar.createMenu(null,"Rotate",true).appendTo($this);
+                $rotateCheckbox = rotateTool.find(".toolbox-label-checkbox").attr("id","rotate-check").on("change",toolbar.geometryFn.transform);
                 $rotateCheckbox.lubyCheckbox();
 
                 var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper toolbox-btns" }),
@@ -1253,7 +1333,7 @@
                             selectionPalette: [],
                             move: toolbar.materialFn.materialColor,
                             change: toolbar.materialFn.materialColor
-                        }).hide();
+                        });
                         $(".color-viewer.material-viewer.tab-target").attr("data-value","color-window")
                         $(this).find(".sliderKey").slider({
                             callback: toolbar.materialFn.sliderAction

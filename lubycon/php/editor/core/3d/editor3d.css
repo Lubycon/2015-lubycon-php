@@ -410,12 +410,6 @@
                     float: right;
                 }
 
-
-
-
-
-
-
                 .toolbox-btns > .btn {
                     display: inline-block;
                     width: 35px;
@@ -448,6 +442,9 @@
                 .toolbox-wrap[data-value='backgroundTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
                     width: 33.3%;
                 }
+                .toolbox-wrap[data-value='lightTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
+                    width: 33.3%;
+                }
      
             .toolbox-inner input[type="range"] {
                 width: 150px;
@@ -458,8 +455,13 @@
                 .toolbox-inner > .lubySelector > .ls_optionWrap {
                     overflow: visible;
                 }
-            .toolbox-inner > .toolbox-controller > .sp-replacer {
-                margin: 7px 0px;
+            .toolbox-inner .toolbox-controller .sp-replacer {
+                width: 30px;
+                height: 30px;
+                margin: 7px 14px 7px 0px;
+            }
+            .toolbox-inner .toolbox-controller .material-control-viewer .sp-replacer {
+                display: none;
             }
         .toolbox-inner > .toolbox-controller {
             position: relative;
@@ -473,7 +475,6 @@
             .toolbox-inner > .toolbox-controller > .material-control-inner > .material-control-panel > .material-control-viewer {
                 position: relative;
                 display: inline-block;
-                margin-right: 10px;
                 vertical-align: middle;
             }
                 .material-control-viewer > img {
@@ -486,11 +487,11 @@
                     .material-control-viewer > img:hover {
                         opacity: 0.6;
                     }
-                .material-control-viewer > .sp-replacer {
-                    width: 30px;
-                    height: 30px;
-                    display: none;
-                }
+            .toolbox-controller .light-setting-list-label {
+                color: #dddddd;
+                font-size: 12px;
+                font-weight: 200;
+            }
 
         
     .editor-body > .editing-background{
@@ -662,9 +663,11 @@
     }
 /*--------------editortool end------------------*/
 .slider-wrapper{
-    width: 210px !important;
-    display: none;
+    width: 200px !important;
 }
     .slider-wrapper > .slider-text {
         display: none;
     }
+.material-control-panel .slider-wrapper {
+    display: none;
+}
