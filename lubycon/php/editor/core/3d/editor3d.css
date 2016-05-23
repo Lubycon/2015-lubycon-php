@@ -418,10 +418,13 @@
                 .toolbox-inner .toolbox-label {
                     display: inline-block;
                     font-size: 15px;
-                    color: #dddddd;
+                    color: #555555;
                     font-weight: 200;
                     margin-bottom: 10px;
                 }
+                    .toolbox-inner.btn.radioType .toolbox-label {
+                        color: #dddddd;
+                    }
                 .toolbox-inner .checkbox-wrapper{
                     float: right;
                 }

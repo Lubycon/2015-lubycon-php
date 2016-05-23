@@ -1000,12 +1000,11 @@
 
                 return button;
             },
-            createMenu: function(content,name,switchs,btn){
+            createMenu: function(content,name,switchs){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
                 labelWrap = $("<div/>",{"class" : "toolbox-label-wrapper"}).appendTo(body)
                 label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(labelWrap),
-                labelSwitch = switchs ? $("<input/>",{ "type" : "checkbox", "class" : "toolbox-label-checkbox" }).appendTo(labelWrap) : null,
-                wrapButton = btn ? body.addClass("btn").on("click",toggle.group) : null;
+                labelSwitch = switchs ? $("<input/>",{ "type" : "checkbox", "class" : "toolbox-label-checkbox" }).appendTo(labelWrap) : null;
 
                 if(content !== null && typeof content === "object"){
                     if(content.length === 1){
@@ -1025,13 +1024,13 @@
             lightTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
 
-                var light1 = new toolbar.createMenu(null,"Light1",true,true).attr("data-value",0).appendTo($this),
+                var light1 = new toolbar.createMenu(null,"Light1",true).attr("data-value",0).appendTo($this),
                 lightCheckbox1 = light1.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light2 = new toolbar.createMenu(null,"Light2",true,true).attr("data-value",1).appendTo($this),
+                var light2 = new toolbar.createMenu(null,"Light2",true).attr("data-value",1).appendTo($this),
                 lightCheckbox2 = light2.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light3 = new toolbar.createMenu(null,"Light3",true,true).attr("data-value",2).appendTo($this),
+                var light3 = new toolbar.createMenu(null,"Light3",true).attr("data-value",2).appendTo($this),
                 lightCheckbox3 = light3.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
                 /*--------light setting---------*/
@@ -1043,7 +1042,7 @@
                     .on("click",pac.tabAction)
                     .on("click",toolbar.lightFn.changeLight);
 
-                var $directionBtn = $tabBt.clone(true).html("Direction").attr("data-target","directional").addClass("selected").appendTo($tabBtWrap),
+                var $directionBtn = $tabBt.clone(true).html("Directional").attr("data-target","directional").addClass("selected").appendTo($tabBtWrap),
                 $spotLightBtn = $tabBt.clone(true).html("Spot").attr("data-target","spot").appendTo($tabBtWrap),
                 $pointBtn = $tabBt.clone(true).html("Point").attr("data-target","point").appendTo($tabBtWrap);
 
@@ -1051,7 +1050,7 @@
                 $spotSetting = new toolbar.lightFn.LightSetting("spot").appendTo(settingWrapper).hide(),
                 $pointSetting = new toolbar.lightFn.LightSetting("point").appendTo(settingWrapper).hide();
 
-                var settingWindow = new toolbar.createMenu(settingWrapper,"Setting",false,false).appendTo($this);
+                var settingWindow = new toolbar.createMenu(settingWrapper,"Setting",false).appendTo($this);
 
                 settingWrapper.find(".colorKey").spectrum({
                     replacerClassName: "color-viewer light-viewer",
@@ -1122,7 +1121,8 @@
                 },
                 onOff: function(event){
                     var $this = $(this),
-                    data = $this.parents(".toolbox-inner").data("value"),
+                    toolboxInner = $this.parents(".toolbox-inner"),
+                    data = toolboxInner.data("value"),
                     kind = $this.parents(".toolbox-wrap").find(".toolbox-tab.btn.selected").data("target"),
                     checked = $this.prop("checked"),
                     name = "newLight" + data,
@@ -1134,14 +1134,22 @@
                         newLight[0].name = name;
                         newLight[0].position.y = 3;
                         newLight[1].name = helperName;
-                        console.log(newLight);
+                        
                         scene.add(newLight[0],newLight[1]);
+
+                        toolboxInner.addClass("btn radioType").on("click",toggle.group);
                     }
                     else{ //Off
                         if(exist) {
                             scene.remove(scene.getObjectByName(name));
                             scene.remove(scene.getObjectByName(helperName));
                         }
+                        //This function is test function
+                        setTimeout(function(){
+                            $this.parents(".toolbox-inner").removeClass("btn radioType selected").off("click",toggle.group);
+                        },200);
+                        //This function is test function
+                        
                     }
                 },
                 changeLight: function(){
@@ -1246,7 +1254,7 @@
             geometryTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']");
 
-                var rotateTool = new toolbar.createMenu(null,"Rotate",true,false).appendTo($this);
+                var rotateTool = new toolbar.createMenu(null,"Rotate",true).appendTo($this);
                 $rotateCheckbox = rotateTool.find(".toolbox-label-checkbox").attr("id","rotate-check").on("change",toolbar.geometryFn.transform);
                 $rotateCheckbox.lubyCheckbox();
 
@@ -1257,7 +1265,7 @@
                 wireMode = new toolbar.createRadioButton("wireframe",icons.usd).attr("data-value","wireframe").appendTo($viewmodeWrapper),
                 wireCleanMode = new toolbar.createRadioButton("wireframeAndClean",icons.usd).attr("data-value","wireclean").appendTo($viewmodeWrapper),
 
-                viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode",false,false).appendTo($this)
+                viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode",false).appendTo($this)
                 .find(".btn.radioType").on("click",toolbar.geometryFn.viewModeChecker);
             },
             geometryFn: {
@@ -1380,9 +1388,9 @@
                 var $selectBox = $("<select/>",{ "id" : "material-selector" }).hide(),
                 $materialSelector = new toolbar.createMenu($selectBox,"Materials").attr({"id" : "materialSelect-tool","data-value" : "material-select"}).appendTo($this);
                 
-                var $materialDiffuse = new toolbar.createMenu(null,"Diffuse",false,false).attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
-                var $materialSpecular = new toolbar.createMenu(null,"Specular",false,false).attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
-                var $materialNormal = new toolbar.createMenu(null,"Normal",false,false).attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
+                var $materialDiffuse = new toolbar.createMenu(null,"Diffuse",false).attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
+                var $materialSpecular = new toolbar.createMenu(null,"Specular",false).attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
+                var $materialNormal = new toolbar.createMenu(null,"Normal",false).attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
 
                 var $controllerBody = $("<div/>",{ "class" : "toolbox-controller" }),
                 $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo($controllerBody),
@@ -1620,7 +1628,7 @@
                 $2dBt = $tabBt.clone(true).html("Image").attr("data-target","2d").appendTo($tabBtWrap),
                 $colorBt = $tabBt.clone(true).html("Color").attr("data-target","color").appendTo($tabBtWrap);
 
-                var $backgroundSelect = new toolbar.createMenu($tabBtWrap,"Background",false,false).appendTo($this);
+                var $backgroundSelect = new toolbar.createMenu($tabBtWrap,"Background",false).appendTo($this);
 
                 var $controllerBody = $("<div/>",{ "class" : "toolbox-controller tab-target" });
                 var $3DSelector = $("<select/>",{"id" : "bg-3d-selector","class" : "backgroundSelector","data-value" : "3d"}),
