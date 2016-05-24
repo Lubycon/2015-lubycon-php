@@ -128,7 +128,9 @@
 
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
-                    camera.position.z = 3;
+                    camera.position.x = -2;
+                    camera.position.y = 0.7;
+                    camera.position.z = 2.5;
                 spotLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
                     spotLight.castShadow = true;
                     spotLight.receiveShadow = true;
@@ -190,9 +192,9 @@
             initCamera: function(event){
                 var existSetting = $(".modal.setting-modal.prog.setting-window").css("display") === "none";
                 if((event.which == keyCode.space) && existSetting){
-                    camera.position.x = 0;
-                    camera.position.y = 0;
-                    camera.position.z = 3;
+                    camera.position.x = -2;
+                    camera.position.y = 0.7;
+                    camera.position.z = 2.5;
                     console.log("init Camera");
                 };
             },
@@ -1024,13 +1026,13 @@
             lightTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
 
-                var light1 = new toolbar.createMenu(null,"Light1",true).attr("data-value",0).appendTo($this),
+                var light1 = new toolbar.createMenu(null,"Light1",true).attr({"data-value" : 0, "data-type" : "DirectionalLight"}).appendTo($this),
                 lightCheckbox1 = light1.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light2 = new toolbar.createMenu(null,"Light2",true).attr("data-value",1).appendTo($this),
+                var light2 = new toolbar.createMenu(null,"Light2",true).attr({"data-value" : 1, "data-type" : "DirectionalLight"}).appendTo($this),
                 lightCheckbox2 = light2.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light3 = new toolbar.createMenu(null,"Light3",true).attr("data-value",2).appendTo($this),
+                var light3 = new toolbar.createMenu(null,"Light3",true).attr({"data-value" : 2, "data-type" : "DirectionalLight"}).appendTo($this),
                 lightCheckbox3 = light3.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
                 /*--------light setting---------*/
@@ -1132,21 +1134,24 @@
                     if(checked){ //On
                         newLight = toolbar.lightFn.lightChecker(kind);
                         newLight[0].name = name;
-                        newLight[0].position.y = 3;
+                        newLight[0].position.y = 1;
                         newLight[1].name = helperName;
                         
                         scene.add(newLight[0],newLight[1]);
 
-                        toolboxInner.addClass("btn radioType").on("click",toggle.group);
+                        toolboxInner.addClass("btn radioType").on("click",toolbar.lightFn.lightControls).on("click",toggle.group);
                     }
                     else{ //Off
                         if(exist) {
                             scene.remove(scene.getObjectByName(name));
                             scene.remove(scene.getObjectByName(helperName));
+
+                            scene.getObjectByName("lightControls").dispose();
+                            scene.remove(scene.getObjectByName("lightControls"));
                         }
                         //This function is test function
                         setTimeout(function(){
-                            $this.parents(".toolbox-inner").removeClass("btn radioType selected").off("click",toggle.group);
+                            $this.parents(".toolbox-inner").removeClass("btn radioType selected").off("click",toggle.group).off("click",toolbar.lightFn.lightControls);
                         },200);
                         //This function is test function
                         
@@ -1154,10 +1159,12 @@
                 },
                 changeLight: function(){
                     $this = $(this),
-                    lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
+                    selector = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected"),
+                    lightIndex = selector.data("value"),
                     kind = $this.data("target"),
                     name = "newLight" + lightIndex,
-                    helperName = "newLightHelper" + lightIndex
+                    helperName = "newLightHelper" + lightIndex,
+                    lightControls = scene.getObjectByName("lightControls"),
                     exist = scene.getObjectByName("newLight" + lightIndex) !== undefined;
                     
                     if(exist){
@@ -1166,9 +1173,15 @@
 
                         var newLight = toolbar.lightFn.lightChecker(kind);
                         newLight[0].name = name;
-                        newLight[0].position.y = 3;
+                        newLight[0].position.y = 1;
                         newLight[1].name = helperName;
+
                         scene.add(newLight[0],newLight[1]);
+
+                        lightControls.detach();
+                        lightControls.attach(newLight[0]);
+
+                        selector.attr("data-type",newLight[0].type);
                     }
                     else return false;
                 },
@@ -1192,6 +1205,34 @@
                     }
 
                     return result;
+                },
+                lightControls: function(){
+                    var $this = $(this),
+                    lightIndex = $this.data("value"),
+                    light = scene.getObjectByName("newLight" + lightIndex),
+                    helper = scene.getObjectByName("newLightHelper" + lightIndex),
+                    exist = scene.getObjectByName("lightControls") === undefined,
+                    lightControls = exist ? new THREE.TransformControls(camera,renderer.domElement) : scene.getObjectByName("lightControls");
+
+                    console.log(light);
+                    if($this.hasClass("selected")) return false;
+                    else {
+                        if(exist){
+                            lightControls.name = "lightControls";
+                            lightControls.addEventListener( 'change', pac.renderGL );
+
+                            scene.add(lightControls);
+                            lightControls.setMode("translate");
+                            lightControls.space = "world";
+                            lightControls.setSize(1);
+                            lightControls.attach(light);
+                        }
+                        else{
+                            lightControls.detach();
+                            lightControls.attach(light);
+                        }
+                        
+                    }
                 },
                 lightColor: function(color){
                     var $this = $(this),
@@ -1282,9 +1323,7 @@
                         axisHelper.name = "axisHelper";
 
                     if($this.prop("checked")){
-                        controls.enabled = false;
                         scene.add(objectControls,gridHelper,axisHelper);
-                        controlsIndecies = scene.children.length;
                         objectControls.setMode("rotate");
                         objectControls.space = "world";
                         objectControls.update();
@@ -1295,7 +1334,6 @@
                         scene.remove(scene.getObjectByName("objectControls"));
                         scene.remove(scene.getObjectByName("gridHelper"));
                         scene.remove(scene.getObjectByName("axisHelper"));
-                        controls.enabled = true;
                     }
                 },
                 viewModeChecker: function(result){
