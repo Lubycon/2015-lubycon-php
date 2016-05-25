@@ -1026,13 +1026,13 @@
             lightTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
 
-                var light1 = new toolbar.createMenu(null,"Light1",true).attr({"data-value" : 0, "data-type" : "DirectionalLight"}).appendTo($this),
+                var light1 = new toolbar.createMenu(null,"Light1",true).attr({"data-value" : 0}).appendTo($this),
                 lightCheckbox1 = light1.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light2 = new toolbar.createMenu(null,"Light2",true).attr({"data-value" : 1, "data-type" : "DirectionalLight"}).appendTo($this),
+                var light2 = new toolbar.createMenu(null,"Light2",true).attr({"data-value" : 1}).appendTo($this),
                 lightCheckbox2 = light2.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light3 = new toolbar.createMenu(null,"Light3",true).attr({"data-value" : 2, "data-type" : "DirectionalLight"}).appendTo($this),
+                var light3 = new toolbar.createMenu(null,"Light3",true).attr({"data-value" : 2}).appendTo($this),
                 lightCheckbox3 = light3.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
                 /*--------light setting---------*/
@@ -1139,22 +1139,34 @@
                         
                         scene.add(newLight[0],newLight[1]);
 
-                        toolboxInner.addClass("btn radioType").on("click",toolbar.lightFn.lightControls).on("click",toggle.group);
+                        toolboxInner
+                            .on("click",toolbar.lightFn.lightControls)
+                            .addClass("btn radioType")
+                            .on("click",toggle.group)
+                            .on("click",toolbar.lightFn.refreshLightSetting);
+                        toolboxInner.attr("data-type", kind);
                     }
                     else{ //Off
                         if(exist) {
                             scene.remove(scene.getObjectByName(name));
                             scene.remove(scene.getObjectByName(helperName));
 
+                            scene.getObjectByName("lightControls").detach();
                             scene.getObjectByName("lightControls").dispose();
                             scene.remove(scene.getObjectByName("lightControls"));
                         }
                         //This function is test function
                         setTimeout(function(){
-                            $this.parents(".toolbox-inner").removeClass("btn radioType selected").off("click",toggle.group).off("click",toolbar.lightFn.lightControls);
-                        },200);
+                            $this.parents(".toolbox-inner")
+                                .removeClass("btn radioType selected")
+                                .off("click",toggle.group)
+                                .off("click",toolbar.lightFn.lightControls)
+                                .off("click",toolbar.lightFn.refreshLightSetting);
+                            if($(document).find(".toolbox-inner.btn.radioType").length !== 0){
+                                $(".toolbox-inner.btn.radioType").first().trigger("click");
+                            }
+                        },1);
                         //This function is test function
-                        
                     }
                 },
                 changeLight: function(){
@@ -1166,7 +1178,7 @@
                     helperName = "newLightHelper" + lightIndex,
                     lightControls = scene.getObjectByName("lightControls"),
                     exist = scene.getObjectByName("newLight" + lightIndex) !== undefined;
-                    
+
                     if(exist){
                         scene.remove(scene.getObjectByName(name));
                         scene.remove(scene.getObjectByName(helperName));
@@ -1181,9 +1193,40 @@
                         lightControls.detach();
                         lightControls.attach(newLight[0]);
 
-                        selector.attr("data-type",newLight[0].type);
+                        selector.attr("data-type",kind);
+                        console.log("changeLight to " + kind);
                     }
                     else return false;
+                },
+                refreshLightSetting: function(){
+                    var $this = $(this),
+                    kind = $this.attr("data-type"),
+                    light = scene.getObjectByName("newLight" + $this.data("value")),
+                    tabs = $this.parents(".toolbox-wrap").find(".toolbox-tab.btn"),
+                    currentTab = $this.parents(".toolbox-wrap").find(".toolbox-tab.btn[data-target='" + kind + "']"),
+
+                    settingWindows = $(".light-setting-wrapper"),
+                    currentSettingWindow = $(".light-setting-wrapper[data-value='" + kind + "']"),
+
+                    colorViewer = currentSettingWindow.find(".colorKey"),
+                    colorSlider = currentSettingWindow.find(".lightSlider[data-value='color']").siblings(".slider-text"),
+                    fallOffSlider = currentSettingWindow.find(".lightSlider[data-value='falloff']").siblings(".slider-text"),
+                    angleSlider = currentSettingWindow.find(".lightSlider[data-value='angle']").siblings(".slider-text"),
+                    softnessSlider = currentSettingWindow.find(".lightSlider[data-value='softness']").siblings(".slider-text");
+
+                    colorViewer.spectrum("set", "#" + light.color.getHexString());
+                    colorSlider.val(light.intensity*100).trigger("change");
+                    if(fallOffSlider.length !== 0) fallOffSlider.val((light.decay-1)*100).trigger("change");
+                    if(angleSlider.length !== 0) angleSlider.val(light.angle*100).trigger("change");
+                    if(softnessSlider.length !== 0) softnessSlider.val(light.penumbra*100).trigger("change");
+
+                    //test code
+                    tabs.removeClass("selected");
+                    currentTab.addClass("selected");
+                    settingWindows.hide();
+                    currentSettingWindow.show();
+
+                    //test code
                 },
                 lightChecker: function(kind){
                     var result = [];
@@ -1194,11 +1237,14 @@
                         break;
                         case "spot" : 
                             result[0] = new THREE.SpotLight(0xffffff,0.5);
+                            result[0].angle = Math.PI/6;
+                            result[0].decay = 1.5;
                             result[0].penumbra = 0.5;
                             result[1] = new THREE.SpotLightHelper(result[0]);
                         break;
                         case "point" : 
                             result[0] = new THREE.PointLight(0xffffff,0.5,100);
+                            result[0].decay = 1.5;
                             result[1] = new THREE.PointLightHelper(result[0],1);
                         break;
                         default : return false;
@@ -1206,7 +1252,8 @@
 
                     return result;
                 },
-                lightControls: function(){
+                lightControls: function(event){
+                    event.stopPropagation();
                     var $this = $(this),
                     lightIndex = $this.data("value"),
                     light = scene.getObjectByName("newLight" + lightIndex),
@@ -1214,12 +1261,11 @@
                     exist = scene.getObjectByName("lightControls") === undefined,
                     lightControls = exist ? new THREE.TransformControls(camera,renderer.domElement) : scene.getObjectByName("lightControls");
 
-                    console.log(light);
                     if($this.hasClass("selected")) return false;
                     else {
                         if(exist){
                             lightControls.name = "lightControls";
-                            lightControls.addEventListener( 'change', pac.renderGL );
+                            lightControls.addEventListener("change",pac.renderGL);
 
                             scene.add(lightControls);
                             lightControls.setMode("translate");
