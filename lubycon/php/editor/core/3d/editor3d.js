@@ -719,6 +719,7 @@
                                 material = object[i].material;
                                 if(material.type == "MeshPhongMaterial"){
                                     material.specular = new THREE.Color(0xffffff);
+                                    material.shininess = 0.06;
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
@@ -727,6 +728,7 @@
                                     var materials = material.materials;
                                     for(var j = 0, ml = materials.length; j < ml; j++){
                                         materials[j].specular = new THREE.Color(0xffffff);
+                                        materials[j].shininess = 0.06;
                                         materials[j].side = THREE.DoubleSide;
                                         materials[j].transparent = true;
                                         materials[j].needsUpdate = true;
@@ -1117,7 +1119,6 @@
                         list.appendTo(listWrap);
 
                         return listWrap;
-                        
                     }
                     return body;
                 },
@@ -1132,7 +1133,7 @@
                     exist = scene.getObjectByName(name) !== undefined;
 
                     if(checked){ //On
-                        newLight = toolbar.lightFn.lightChecker(kind);
+                        newLight = toolbar.lightFn.createLight(kind);
                         newLight[0].name = name;
                         newLight[0].position.y = 1;
                         newLight[1].name = helperName;
@@ -1145,6 +1146,7 @@
                             .on("click",toggle.group)
                             .on("click",toolbar.lightFn.refreshLightSetting);
                         toolboxInner.attr("data-type", kind);
+                        $(document).on("keydown",toolbar.lightFn.lightControlKeyAction);
                     }
                     else{ //Off
                         if(exist) {
@@ -1155,6 +1157,7 @@
                             scene.getObjectByName("lightControls").dispose();
                             scene.remove(scene.getObjectByName("lightControls"));
                         }
+                        else $(document).off("keydown",toolbar.lightFn.lightControlKeyAction);
                         //This function is test function
                         setTimeout(function(){
                             $this.parents(".toolbox-inner")
@@ -1169,7 +1172,23 @@
                         //This function is test function
                     }
                 },
-                changeLight: function(){
+                lightControlKeyAction: function(event){
+                    //this shortcut is same is 3dmax
+                    var input = event.which,
+                    _mode = null,
+                    lightControls = scene.getObjectByName("lightControls");
+
+                    if(lightControls === undefined) return;
+
+                    switch(input){
+                        case keyCode.w : _mode = "translate"; break;
+                        case keyCode.e : _mode = "rotate"; break;
+                        default: return; break;
+                    }
+                    console.log(input,_mode);
+                    lightControls.setMode(_mode);
+                },
+                changeLight: function(){ //direction <-> spot <-> point
                     $this = $(this),
                     selector = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected"),
                     lightIndex = selector.data("value"),
@@ -1183,7 +1202,8 @@
                         scene.remove(scene.getObjectByName(name));
                         scene.remove(scene.getObjectByName(helperName));
 
-                        var newLight = toolbar.lightFn.lightChecker(kind);
+                        var newLight = toolbar.lightFn.createLight(kind);
+
                         newLight[0].name = name;
                         newLight[0].position.y = 1;
                         newLight[1].name = helperName;
@@ -1225,15 +1245,15 @@
                     currentTab.addClass("selected");
                     settingWindows.hide();
                     currentSettingWindow.show();
-
                     //test code
                 },
-                lightChecker: function(kind){
+                createLight: function(kind){
                     var result = [];
                     switch(kind){
                         case "directional" : 
                             result[0] = new THREE.DirectionalLight(0xffffff,0.5);
                             result[1] = new THREE.DirectionalLightHelper(result[0],1);
+                            result[0].helper = result[1];
                         break;
                         case "spot" : 
                             result[0] = new THREE.SpotLight(0xffffff,0.5);
@@ -1241,11 +1261,13 @@
                             result[0].decay = 1.5;
                             result[0].penumbra = 0.5;
                             result[1] = new THREE.SpotLightHelper(result[0]);
+                            result[0].helper = result[1];
                         break;
                         case "point" : 
                             result[0] = new THREE.PointLight(0xffffff,0.5,100);
                             result[0].decay = 1.5;
                             result[1] = new THREE.PointLightHelper(result[0],1);
+                            result[0].helper = result[1];
                         break;
                         default : return false;
                     }
@@ -1276,8 +1298,7 @@
                         else{
                             lightControls.detach();
                             lightControls.attach(light);
-                        }
-                        
+                        }     
                     }
                 },
                 lightColor: function(color){
@@ -1289,6 +1310,7 @@
 
                     light.color = new THREE.Color(color);
                     helper.update();
+                    console.log(light,helper);
                 },
                 intensity: function(val,selector){
                     console.log("intensity");
@@ -1699,6 +1721,7 @@
                             case "specular" : $material.shininess = val; break;
                             default : $.error("opacity Error"); break;
                         }
+                        console.log(val);
                     }
                 }
             },
