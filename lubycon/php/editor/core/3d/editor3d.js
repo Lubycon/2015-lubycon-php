@@ -795,7 +795,6 @@
                     }
                     return result;
                 }
-
                 return body;
             },
             cropped: function(event){
@@ -1026,7 +1025,8 @@
                 }
             },
             lightTool: function(){
-                var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
+                var $this = $(document).find(".toolbox-wrap[data-value='lightTool']"),
+                $triggerButton = $(".editor-aside").children(".btn[data-target='lightTool']").on("click",toolbar.lightFn.initLightTool);
 
                 var light1 = new toolbar.createMenu(null,"Light1",true).attr({"data-value" : 0}).appendTo($this),
                 lightCheckbox1 = light1.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
@@ -1171,6 +1171,28 @@
                         },1);
                         //This function is test function
                     }
+                },
+                initLightTool: function(){
+                    var $this = $(this), //toolbox-btn
+                    selected = $this.hasClass("selected"),
+                    toolboxWrap = $(document).find(".toolbox-wrap[data-value='lightTool']"),
+                    onLights = toolboxWrap.find(".toolbox-inner.btn.radioType"),
+                    lightControls = scene.getObjectByName("lightControls"),
+                    lastAttachedLight = lightControls !== undefined ? lightControls.object : null;
+                    
+                    onLights.each(function(){
+                        var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
+                        if(selected){
+                            console.log("on");
+                            helper.visible = true;
+                            lightControls.visible = true;
+                        }
+                        else{
+                            console.log("off");
+                            helper.visible = false;
+                            lightControls.visible = false;
+                        }
+                    });
                 },
                 lightControlKeyAction: function(event){
                     //this shortcut is same is 3dmax
@@ -1361,7 +1383,8 @@
                 }
             },
             geometryTool: function(){
-                var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']");
+                var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
+                $triggerButton = $(".editor-aside").children(".btn[data-target='geometryTool']").on("click",toolbar.geometryFn.initRotateTool);
 
                 var rotateTool = new toolbar.createMenu(null,"Rotate",true).appendTo($this);
                 $rotateCheckbox = rotateTool.find(".toolbox-label-checkbox").attr("id","rotate-check").on("change",toolbar.geometryFn.transform);
@@ -1378,30 +1401,50 @@
                 .find(".btn.radioType").on("click",toolbar.geometryFn.viewModeChecker);
             },
             geometryFn: {
+                initRotateTool: function(){
+                    var $this = $(this), //toolbox-btn
+                    selected = $this.hasClass("selected"),
+                    toolboxWrap = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
+                    onRotateTool = toolboxWrap.find(".checkbox-label.switch"),
+                    switchOn = onRotateTool.hasClass("selected");
+
+                    if(selected) return;
+                    else {
+                        if(switchOn) onRotateTool.trigger("click");
+                    }
+                },
                 transform: function(){
-                    var $this = $(this);
-                    var objectControls = new THREE.TransformControls(camera,renderer.domElement);
+                    var $this = $(this),
+                    checked = $this.prop("checked"),
+                    objectControls,gridHelper,axisHelper;
+                    
+                    if(checked){
+                        objectControls = new THREE.TransformControls(camera,renderer.domElement);
+                        gridHelper = new THREE.GridHelper(3,0.5);
+                        axisHelper = new THREE.AxisHelper(50);
+
                         objectControls.name = "objectControls";
                         objectControls.addEventListener( 'change', pac.renderGL );
                         objectControls.attach(group);
-                        console.log(objectControls);
-                    var gridHelper = new THREE.GridHelper(3,0.5);
                         gridHelper.name = "gridHelper";
-                    var axisHelper = new THREE.AxisHelper(50);
                         axisHelper.name = "axisHelper";
 
-                    if($this.prop("checked")){
                         scene.add(objectControls,gridHelper,axisHelper);
                         objectControls.setMode("rotate");
                         objectControls.space = "world";
                         objectControls.update();
                     }
-                    else{
-                        objectControls.dispose();
+                    else{ 
+                        objectControls = scene.getObjectByName("objectControls");
+                        gridHelper = scene.getObjectByName("gridHelper");
+                        axisHelper = scene.getObjectByName("axisHelper");
+
                         objectControls.detach(group);
-                        scene.remove(scene.getObjectByName("objectControls"));
-                        scene.remove(scene.getObjectByName("gridHelper"));
-                        scene.remove(scene.getObjectByName("axisHelper"));
+                        objectControls.dispose();
+
+                        scene.remove(objectControls);
+                        scene.remove(gridHelper);
+                        scene.remove(axisHelper);
                     }
                 },
                 viewModeChecker: function(result){

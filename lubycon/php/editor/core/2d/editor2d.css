@@ -357,7 +357,7 @@
         margin-top: 50px;
         padding-top: 20px;
         min-width: 250px;
-        height: 100%;
+        height: auto;
         background: #282828;
         z-index: 90;
         overflow-y: auto;
