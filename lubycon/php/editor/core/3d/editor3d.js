@@ -80,10 +80,10 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $lightTool = new toolbar.createButton("lightTool",icons.bulb).appendTo($aside),
-                        $geometryTool = new toolbar.createButton("geometryTool",icons.circle).appendTo($aside),
-                        $materialTool = new toolbar.createButton("materialTool",icons.football).appendTo($aside),
-                        $backgroundTool = new toolbar.createButton("backgroundTool",icons.image).appendTo($aside);
+                        var $lightTool = new toolbar.createButton("lightTool",icons.bulb).appendTo($aside).on("click",toolbar.disableTools),
+                        $geometryTool = new toolbar.createButton("geometryTool",icons.circle).appendTo($aside).on("click",toolbar.disableTools),
+                        $materialTool = new toolbar.createButton("materialTool",icons.football).appendTo($aside).on("click",toolbar.disableTools),
+                        $backgroundTool = new toolbar.createButton("backgroundTool",icons.image).appendTo($aside).on("click",toolbar.disableTools);
                         //input files
                         var $inputFile = $("<input/>",{
                             "class":"fileUploader editor-hidden",
@@ -1023,6 +1023,26 @@
                 else {
                     return body
                 }
+            },
+            disableTools: function(){
+                var lightToolboxWrap = $(document).find(".toolbox-wrap[data-value='lightTool']"),
+                onLights = lightToolboxWrap.find(".toolbox-inner.btn.radioType"),
+                lightControls = scene.getObjectByName("lightControls"),
+                lastAttachedLight = lightControls !== undefined ? lightControls.object : null;
+                
+                onLights.each(function(){
+                    var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
+
+                    console.log("init");
+                    helper.visible = false;
+                    lightControls.visible = false; 
+                });
+                //lighttool init
+                var geometryToolboxWrap = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
+                onRotateTool = geometryToolboxWrap.find(".checkbox-label.switch"),
+                switchOn = onRotateTool.hasClass("selected");
+            
+                if(switchOn) onRotateTool.trigger("click");
             },
             lightTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']"),

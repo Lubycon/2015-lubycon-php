@@ -31,7 +31,7 @@
 <script type="text/javascript" src="../../module/js/html2canvas.js"></script>
 <script type="text/javascript" src="../../module/js/resizeObject.js"></script>
 
-<script type="text/javascript" src="../../module/js/3d/three.min.js"></script>
+<script type="text/javascript" src="../../module/js/3d/three.js"></script>
 
 <script type="text/javascript" src="../../module/js/3d/3dLoader.js"></script>
 <script type="text/javascript" src="../../module/js/3d/TGALoader.js"></script>
