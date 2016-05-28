@@ -158,6 +158,10 @@
                     renderer.setSize(windowWidth, windowHeight);
                     renderer.setPixelRatio(window.devicePixelRatio*1.5);
                     renderer.setClearColor(0x222222, 1);
+                    renderer.shadowMap.enabled = true;
+                    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                    renderer.gammaInput = true;
+                    renderer.gammaOutput = true;
                 gl.addEventListener("webglcontextlost", function(event){
                     event.preventDefault();
                     alert("context is lost");
@@ -1371,7 +1375,7 @@
                     light = scene.getObjectByName("newLight" + lightIndex),
                     helper = scene.getObjectByName("newLightHelper" + lightIndex);
 
-                    light.decay = val*0.01+1;
+                    light.distance = val;
                     helper.update();
                     console.log(light.decay);
                     //0~1.0(float)

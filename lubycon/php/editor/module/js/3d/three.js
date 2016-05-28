@@ -39607,7 +39607,17 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 
 	size = size || 1;
 
-	var geometry = new THREE.CircleGeometry(size,32);
+	var lightPointTexture = new THREE.TextureLoader().load("../../img/lightPoint.png");
+
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(new THREE.Vector3(0,0,0));
+	var material = new THREE.PointsMaterial({ size: 30, map: lightPointTexture, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
+	material.color.setHSL( 1.0, 0.3, 0.7 );
+	this.particle = new THREE.Points(geometry,material);
+
+	this.add(this.particle);
+
+	geometry = new THREE.CircleGeometry(size,32);
 	/*geometry.vertices.push(
 		new THREE.Vector3( - size,   size, 0 ),
 		new THREE.Vector3(   size,   size, 0 ),
@@ -39616,7 +39626,7 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 		new THREE.Vector3( - size,   size, 0 )
 	);*/
 
-	var material = new THREE.LineBasicMaterial( { fog: false } );
+	material = new THREE.LineBasicMaterial( { fog: false } );
 	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
 
 	this.lightPlane = new THREE.Line( geometry, material );
@@ -39926,56 +39936,65 @@ THREE.HemisphereLightHelper.prototype.update = function () {
  */
 
 THREE.PointLightHelper = function ( light, sphereSize ) {
-
+	/*
 	this.light = light;
 	this.light.updateMatrixWorld();
 
-	var geometry = new THREE.SphereGeometry( sphereSize, 4, 2 );
-	var material = new THREE.MeshBasicMaterial( { wireframe: true, fog: false } );
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(new THREE.Vector3(0,0,0));
+	var material = new THREE.PointsMaterial({ size: 20, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
+	material.color =  0x48cfad;
+	this.particle = new THREE.Points(geometry,material);
+	//this.add(this.particle);
+
+	geometry = new THREE.SphereGeometry( sphereSize, 24, 8 );
+	material = new THREE.MeshBasicMaterial( { wireframe: true, fog: false } );
 	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
 
 	THREE.Mesh.call( this, geometry, material );
 
 	this.matrix = this.light.matrixWorld;
 	this.matrixAutoUpdate = false;
-
-	/*
-	var distanceGeometry = new THREE.IcosahedronGeometry( 1, 2 );
-	var distanceMaterial = new THREE.MeshBasicMaterial( { color: hexColor, fog: false, wireframe: true, opacity: 0.1, transparent: true } );
-
-	this.lightSphere = new THREE.Mesh( bulbGeometry, bulbMaterial );
-	this.lightDistance = new THREE.Mesh( distanceGeometry, distanceMaterial );
-
-	var d = light.distance;
-
-	if ( d === 0.0 ) {
-
-		this.lightDistance.visible = false;
-
-	} else {
-
-		this.lightDistance.scale.set( d, d, d );
-
-	}
-
-	this.add( this.lightDistance );
 	*/
+	THREE.Object3D.call( this );
 
+	this.light = light;
+	this.light.updateMatrixWorld();
+
+	this.matrix = light.matrixWorld;
+	this.matrixAutoUpdate = false;
+
+	var lightPointTexture = new THREE.TextureLoader().load("../../img/lightPoint.png");
+
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(new THREE.Vector3(0,0,0));
+	var material = new THREE.PointsMaterial({ size: 30, map: lightPointTexture, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
+	material.color.setHSL( 1.0, 0.3, 0.7 );
+	this.particle = new THREE.Points(geometry,material);
+	this.add(this.particle);
+
+	geometry = new THREE.OctahedronGeometry(sphereSize*0.3, 2);
+	material = new THREE.MeshBasicMaterial( { wireframe: true, fog: false } );
+
+	this.sphere = new THREE.Mesh( geometry, material );
+	this.add( this.sphere );
+
+	this.update();
 };
 
-THREE.PointLightHelper.prototype = Object.create( THREE.Mesh.prototype );
+THREE.PointLightHelper.prototype = Object.create( THREE.Object3D.prototype );
 THREE.PointLightHelper.prototype.constructor = THREE.PointLightHelper;
 
 THREE.PointLightHelper.prototype.dispose = function () {
 
-	this.geometry.dispose();
-	this.material.dispose();
+	this.sphere.geometry.dispose();
+	this.sphere.material.dispose();
 
 };
 
 THREE.PointLightHelper.prototype.update = function () {
 
-	this.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+	this.sphere.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
 
 	/*
 	var d = this.light.distance;
@@ -40115,18 +40134,26 @@ THREE.SpotLightHelper = function ( light ) {
 	this.matrix = light.matrixWorld;
 	this.matrixAutoUpdate = false;
 
-	var geometry = new THREE.CylinderGeometry( 0, 1, 1, 8, 1, true );
+	var lightPointTexture = new THREE.TextureLoader().load("../../img/lightPoint.png");
+
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(new THREE.Vector3(0,0,0));
+	var material = new THREE.PointsMaterial({ size: 30, map: lightPointTexture, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
+	material.color.setHSL( 1.0, 0.3, 0.7 );
+	this.particle = new THREE.Points(geometry,material);
+	this.add(this.particle);
+
+	geometry = new THREE.CylinderGeometry( 0, 1, 1, 20, 1, true );
 
 	geometry.translate( 0, - 0.5, 0 );
 	geometry.rotateX( - Math.PI / 2 );
 
-	var material = new THREE.MeshBasicMaterial( { wireframe: true, fog: false } );
+	material = new THREE.MeshBasicMaterial( { wireframe: true, fog: false } );
 
 	this.cone = new THREE.Mesh( geometry, material );
 	this.add( this.cone );
 
 	this.update();
-
 };
 
 THREE.SpotLightHelper.prototype = Object.create( THREE.Object3D.prototype );
@@ -40146,7 +40173,7 @@ THREE.SpotLightHelper.prototype.update = function () {
 
 	return function () {
 
-		var coneLength = this.light.distance ? this.light.distance : 10000;
+		var coneLength = this.light.distance ? this.light.distance*0.5 : 10000;
 		var coneWidth = coneLength * Math.tan( this.light.angle );
 
 		this.cone.scale.set( coneWidth, coneWidth, coneLength );
