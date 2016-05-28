@@ -39618,14 +39618,6 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 	this.add(this.particle);
 
 	geometry = new THREE.CircleGeometry(size,32);
-	/*geometry.vertices.push(
-		new THREE.Vector3( - size,   size, 0 ),
-		new THREE.Vector3(   size,   size, 0 ),
-		new THREE.Vector3(   size, - size, 0 ),
-		new THREE.Vector3( - size, - size, 0 ),
-		new THREE.Vector3( - size,   size, 0 )
-	);*/
-
 	material = new THREE.LineBasicMaterial( { fog: false } );
 	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
 
@@ -39973,12 +39965,22 @@ THREE.PointLightHelper = function ( light, sphereSize ) {
 	this.particle = new THREE.Points(geometry,material);
 	this.add(this.particle);
 
-	geometry = new THREE.OctahedronGeometry(sphereSize*0.3, 2);
-	material = new THREE.MeshBasicMaterial( { wireframe: true, fog: false } );
+	geometry = new THREE.CircleGeometry(sphereSize*0.3, 32);
+	material = new THREE.LineBasicMaterial( { fog: false } );
+	this.sphere0 = new THREE.Line( geometry, material );
+	this.add( this.sphere0 );
 
-	this.sphere = new THREE.Mesh( geometry, material );
-	this.add( this.sphere );
+	geometry = new THREE.CircleGeometry(sphereSize*0.3, 32);
+	geometry.rotateX( - Math.PI / 2 );
+	material = new THREE.LineBasicMaterial( { fog: false } );
+	this.sphere1 = new THREE.Line( geometry, material );
+	this.add( this.sphere1 );
 
+	geometry = new THREE.CircleGeometry(sphereSize*0.3, 32);
+	geometry.rotateY( - Math.PI / 2 );
+	material = new THREE.LineBasicMaterial( { fog: false } );
+	this.sphere2 = new THREE.Line( geometry, material );
+	this.add( this.sphere2 );
 	this.update();
 };
 
@@ -39994,7 +39996,9 @@ THREE.PointLightHelper.prototype.dispose = function () {
 
 THREE.PointLightHelper.prototype.update = function () {
 
-	this.sphere.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+	this.sphere0.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+	this.sphere1.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+	this.sphere2.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
 
 	/*
 	var d = this.light.distance;
