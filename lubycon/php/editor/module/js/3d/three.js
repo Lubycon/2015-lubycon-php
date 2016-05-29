@@ -39623,18 +39623,24 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 
 	this.lightPlane = new THREE.Line( geometry, material );
 	this.add( this.lightPlane );
-
+	
 	geometry = new THREE.Geometry();
 	geometry.vertices.push(
 		new THREE.Vector3(),
 		new THREE.Vector3()
 	);
-
 	material = new THREE.LineBasicMaterial( { fog: false } );
 	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
 
 	this.targetLine = new THREE.Line( geometry, material );
 	this.add( this.targetLine );
+	
+	geometry = new THREE.CircleGeometry(size,32);
+	material = new THREE.LineBasicMaterial( { fog: false } );
+	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+
+	this.targetPlane = new THREE.Line( geometry, material );
+	this.add( this.targetPlane );
 
 	this.update();
 
@@ -39649,6 +39655,8 @@ THREE.DirectionalLightHelper.prototype.dispose = function () {
 	this.lightPlane.material.dispose();
 	this.targetLine.geometry.dispose();
 	this.targetLine.material.dispose();
+	this.targetPlane.geometry.dispose();
+	this.targetPlane.material.dispose();
 
 };
 
@@ -39670,6 +39678,10 @@ THREE.DirectionalLightHelper.prototype.update = function () {
 		this.targetLine.geometry.vertices[ 1 ].copy( v3 );
 		this.targetLine.geometry.verticesNeedUpdate = true;
 		this.targetLine.material.color.copy( this.lightPlane.material.color );
+
+		this.targetPlane.position.copy(v3);
+		this.targetPlane.lookAt( v3.multiplyScalar( -1 ) );
+		this.targetPlane.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
 
 	};
 
@@ -39928,26 +39940,7 @@ THREE.HemisphereLightHelper.prototype.update = function () {
  */
 
 THREE.PointLightHelper = function ( light, sphereSize ) {
-	/*
-	this.light = light;
-	this.light.updateMatrixWorld();
 
-	var geometry = new THREE.Geometry();
-	geometry.vertices.push(new THREE.Vector3(0,0,0));
-	var material = new THREE.PointsMaterial({ size: 20, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
-	material.color =  0x48cfad;
-	this.particle = new THREE.Points(geometry,material);
-	//this.add(this.particle);
-
-	geometry = new THREE.SphereGeometry( sphereSize, 24, 8 );
-	material = new THREE.MeshBasicMaterial( { wireframe: true, fog: false } );
-	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
-
-	THREE.Mesh.call( this, geometry, material );
-
-	this.matrix = this.light.matrixWorld;
-	this.matrixAutoUpdate = false;
-	*/
 	THREE.Object3D.call( this );
 
 	this.light = light;
@@ -39965,18 +39958,18 @@ THREE.PointLightHelper = function ( light, sphereSize ) {
 	this.particle = new THREE.Points(geometry,material);
 	this.add(this.particle);
 
-	geometry = new THREE.CircleGeometry(sphereSize*0.3, 32);
+	geometry = new THREE.CircleGeometry(sphereSize, 32);
 	material = new THREE.LineBasicMaterial( { fog: false } );
 	this.sphere0 = new THREE.Line( geometry, material );
 	this.add( this.sphere0 );
 
-	geometry = new THREE.CircleGeometry(sphereSize*0.3, 32);
+	geometry = new THREE.CircleGeometry(sphereSize, 32);
 	geometry.rotateX( - Math.PI / 2 );
 	material = new THREE.LineBasicMaterial( { fog: false } );
 	this.sphere1 = new THREE.Line( geometry, material );
 	this.add( this.sphere1 );
 
-	geometry = new THREE.CircleGeometry(sphereSize*0.3, 32);
+	geometry = new THREE.CircleGeometry(sphereSize, 32);
 	geometry.rotateY( - Math.PI / 2 );
 	material = new THREE.LineBasicMaterial( { fog: false } );
 	this.sphere2 = new THREE.Line( geometry, material );
@@ -39989,8 +39982,12 @@ THREE.PointLightHelper.prototype.constructor = THREE.PointLightHelper;
 
 THREE.PointLightHelper.prototype.dispose = function () {
 
-	this.sphere.geometry.dispose();
-	this.sphere.material.dispose();
+	this.sphere0.geometry.dispose();
+	this.sphere0.material.dispose();
+	this.sphere1.geometry.dispose();
+	this.sphere1.material.dispose();
+	this.sphere2.geometry.dispose();
+	this.sphere2.material.dispose();
 
 };
 
