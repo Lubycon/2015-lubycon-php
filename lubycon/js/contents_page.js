@@ -1,25 +1,20 @@
 ﻿function scroll_from_cookie(contents_number)
 {
-    console.log(contents_number);
     //console.log($('.' + contents_number));
     var contents_offsetTop = $('.' + contents_number).offset().top;
-    //console.log(contents_offsetTop);
-    $(document).scrollTop(contents_offsetTop - 100);
+    $("html,body").animate({ scrollTop: contents_offsetTop - 200 }, "slow");
     $('.' + contents_number).css('background', '#ccc')
     
 }
 
-function scroll_from_param(prev_page)
+function scroll_from_param(now_page)
 {
-    var now_page = prev_page--;
+    console.log($(".page_bottom_" + now_page));
 
-    // now page = p
-
-    if (now_page <= 1)
-    {
-        $(document).scrollTop(0);
+    if (now_page <= 1) {
+        $("html,body").animate({ scrollTop: 0 }, "slow");
     } else
     {
-        $(document).scrollTop($(".page_bottom_" + prev_page).offset().top);
+        $("html,body").animate({ scrollTop: $(".page_bottom_" + now_page).offset().top - 200 }, "slow");
     }
 }
