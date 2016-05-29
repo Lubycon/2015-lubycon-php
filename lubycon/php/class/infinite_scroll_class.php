@@ -8,8 +8,11 @@ class infinite_scroll extends json_control
     private $now_page;
     private $target_page;
     private $call_page;
+    private $start_page;
     private $page_boundary;
     private $page_limit = 30;
+
+    //페이지 리프레쉬했을때 스크롤체커 value 1씩 올라가서 적용되는것 고치기
 
     private $allow_array_list;
     private $allow_array_content = ['all','artwork','vector','threed'];
@@ -59,7 +62,7 @@ class infinite_scroll extends json_control
         $this->now_page = $page_number;
         if($ajax_boolean) //ajax
         {
-            if( $this->now_page >= 1 )
+            if( $this->now_page >= 0 )
             {
                 $this->target_page = $ajax_page;
                 $this->call_page = $page_number * $this->page_limit;
@@ -70,10 +73,12 @@ class infinite_scroll extends json_control
             $this->target_page = $this->now_page;
             if( $this->now_page > 1 )
             {
-                $this->call_page = ( $this->now_page - 1 ) * $this->page_limit;
+                $this->start_page = $this->now_page - 1;
+                $this->call_page = ( $this->now_page - 2 ) * $this->page_limit;
                 $this->page_boundary = $this->page_limit * 3; //call 3page (prev,now,next page)
             }else if($this->now_page == 1)
             {
+                $this->start_page = 1;
                 $this->call_page = 0; //page 1
                 $this->page_boundary = $this->page_limit * 2; //call 2page (now,next page)
             }
@@ -100,17 +105,41 @@ class infinite_scroll extends json_control
     }
 
 
-    public function spread_contents($contents_result,$one_depth)
+    public function spread_contents($contents_result,$one_depth,$ajax_boolean)
     {
         if($contents_result->num_rows != 0)
         {
             //echo "<div class='scroll_checker page_top_$page_param'></div>";
+            $i = 1;
             while( $row = mysqli_fetch_array($contents_result) )
             {
                 $top_category = $this->top_cate_decode[$row['CategoryCode']];
                 include('../layout/content_card.php');
+
+                /*page load*/
+                if($i == $this->page_limit && !$ajax_boolean)
+                {
+                    echo "<div class='scroll_checker page_bottom_$this->start_page'></div>";
+                    $i = 1;
+                    $this->start_page++;
+                }else
+                {
+                    $i++;
+                }
+                /*page load*/
             }   
-            echo "<div class='scroll_checker page_bottom_$this->target_page'></div>";
+            /*ajax*/
+            if($ajax_boolean)
+            {
+                echo "<div class='scroll_checker page_bottom_$this->target_page'></div>";
+            }
+            /*ajax*/
+
+            if($this->all_page_count == $this->target_page)
+            {
+                echo "<p class='finish_contents'>no more contents :)</p>";
+            }
+
         }else
         {
             echo "<p class='finish_contents'>no more contents :)</p>";
@@ -124,12 +153,14 @@ class infinite_scroll extends json_control
             $cookie_string = $_COOKIE['contents_history'];
             parse_str ($cookie_string , $cookie_parse );
             $cookie_contents_number = $cookie_parse['concate'].'_'.$cookie_parse['conno'];
+
             if( $this->top_category == $cookie_parse['cate'] && $this->now_page == $cookie_parse['page'])
             {
                 echo "<script>scroll_from_cookie('$cookie_contents_number');</script>"; //find pre click contents
             }else
             {
                 unset($_COOKIE['contents_history']); //delete cookie
+                echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
             }
         }
     }

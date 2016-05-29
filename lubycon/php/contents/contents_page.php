@@ -16,11 +16,12 @@
     $page_param = $_GET['page'];
     $middle_category = $_GET['mid_cate'];
     $sortlist = [];
+    $ajax_boolean = false;
     /* require class */
     
     $infinite_scroll = new infinite_scroll('content',$cate_name);
     $infinite_scroll->validate_category();
-    $infinite_scroll->set_option($page_param,$middle_category,false,null);
+    $infinite_scroll->set_option($page_param,$middle_category,$ajax_boolean,null);
     $infinite_scroll->set_query();
     $db->query = $infinite_scroll->query;
     $db->askQuery();
@@ -116,7 +117,7 @@
         </p>
         <ul>
             <?php
-                $infinite_scroll->spread_contents($contents_result,$one_depth);
+                $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);
                 $infinite_scroll->check_cookie();
             ?>
         </ul>

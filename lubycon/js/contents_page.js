@@ -8,3 +8,18 @@
     $('.' + contents_number).css('background', '#ccc')
     
 }
+
+function scroll_from_param(prev_page)
+{
+    var now_page = prev_page--;
+
+    // now page = p
+
+    if (now_page <= 1)
+    {
+        $(document).scrollTop(0);
+    } else
+    {
+        $(document).scrollTop($(".page_bottom_" + prev_page).offset().top);
+    }
+}

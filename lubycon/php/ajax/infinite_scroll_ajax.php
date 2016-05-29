@@ -14,11 +14,12 @@
     $now_page_param = $_POST['now_page_param']; //form infinite scroll js post ajax
     $middle_category = $_POST['mid_cate_param']; //form infinite scroll js post ajax
     $sortlist = []; //form infinite scroll js post ajax and not yet...
+    $ajax_boolean = true; 
     /* require class */
     
     $infinite_scroll = new infinite_scroll('content',$cate_name);
     $infinite_scroll->validate_category();
-    $infinite_scroll->set_option($now_page_param,$middle_category,true,$page_param);
+    $infinite_scroll->set_option($now_page_param,$middle_category,$ajax_boolean,$page_param);
     $infinite_scroll->set_query();
     $db->query = $infinite_scroll->query;
     $db->askQuery();
@@ -27,8 +28,7 @@
     $db->askQuery();
     $foundRow_result = $db->result; //row count
     $infinite_scroll->count_page($foundRow_result);
-
-    $infinite_scroll->spread_contents($contents_result,$one_depth);
+    $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);
     $infinite_scroll->check_cookie();
     sleep(0.5);
 ?>
