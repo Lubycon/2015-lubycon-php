@@ -39612,7 +39612,7 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push(new THREE.Vector3(0,0,0));
 	var material = new THREE.PointsMaterial({ size: 30, map: lightPointTexture, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
-	material.color.setHSL( 1.0, 0.3, 0.7 );
+	material.color.setHSL( 1.0, 0.3, 1 );
 	this.particle = new THREE.Points(geometry,material);
 
 	this.add(this.particle);
@@ -39634,6 +39634,17 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 
 	this.targetLine = new THREE.Line( geometry, material );
 	this.add( this.targetLine );
+
+	geometry = new THREE.Geometry();
+	geometry.vertices.push(
+		new THREE.Vector3(),
+		new THREE.Vector3()
+	);
+	material = new THREE.LineBasicMaterial( { fog: false } );
+	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+
+	this.testLine = new THREE.Line( geometry, material );
+	this.add( this.testLine );
 	
 	geometry = new THREE.CircleGeometry(size,32);
 	material = new THREE.LineBasicMaterial( { fog: false } );
@@ -39667,13 +39678,15 @@ THREE.DirectionalLightHelper.prototype.update = function () {
 	var v3 = new THREE.Vector3();
 
 	return function () {
-
+		var r = this.lightPlane.geometry.parameters.radius;
+	
 		v1.setFromMatrixPosition( this.light.matrixWorld );
 		v2.setFromMatrixPosition( this.light.target.matrixWorld );
 		v3.subVectors( v2, v1 );
 
 		this.lightPlane.lookAt( v3 );
 		this.lightPlane.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+		console.log(this);
 
 		this.targetLine.geometry.vertices[ 1 ].copy( v3 );
 		this.targetLine.geometry.verticesNeedUpdate = true;
@@ -39954,7 +39967,7 @@ THREE.PointLightHelper = function ( light, sphereSize ) {
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push(new THREE.Vector3(0,0,0));
 	var material = new THREE.PointsMaterial({ size: 30, map: lightPointTexture, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
-	material.color.setHSL( 1.0, 0.3, 0.7 );
+	material.color.setHSL( 1.0, 0.3, 1 );
 	this.particle = new THREE.Points(geometry,material);
 	this.add(this.particle);
 
@@ -40140,7 +40153,7 @@ THREE.SpotLightHelper = function ( light ) {
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push(new THREE.Vector3(0,0,0));
 	var material = new THREE.PointsMaterial({ size: 30, map: lightPointTexture, sizeAttenuation: false, alphaTest: 0.5, transparent: true });
-	material.color.setHSL( 1.0, 0.3, 0.7 );
+	material.color.setHSL( 1.0, 0.3, 1 );
 	this.particle = new THREE.Points(geometry,material);
 	this.add(this.particle);
 
