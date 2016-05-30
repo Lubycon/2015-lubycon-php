@@ -39635,16 +39635,9 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 	this.targetLine = new THREE.Line( geometry, material );
 	this.add( this.targetLine );
 
-	geometry = new THREE.Geometry();
-	geometry.vertices.push(
-		new THREE.Vector3(),
-		new THREE.Vector3()
-	);
-	material = new THREE.LineBasicMaterial( { fog: false } );
-	material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
+	//guideLine start
 
-	this.testLine = new THREE.Line( geometry, material );
-	this.add( this.testLine );
+	//guideLine end
 	
 	geometry = new THREE.CircleGeometry(size,32);
 	material = new THREE.LineBasicMaterial( { fog: false } );
@@ -39686,7 +39679,6 @@ THREE.DirectionalLightHelper.prototype.update = function () {
 
 		this.lightPlane.lookAt( v3 );
 		this.lightPlane.material.color.copy( this.light.color ).multiplyScalar( this.light.intensity );
-		console.log(this);
 
 		this.targetLine.geometry.vertices[ 1 ].copy( v3 );
 		this.targetLine.geometry.verticesNeedUpdate = true;

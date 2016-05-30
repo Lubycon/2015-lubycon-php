@@ -562,6 +562,7 @@
                 inputFile.off("change").on("change",upload.fileUpload);
             },
             fileUpload: function(event){
+                console.log(event.target.files);
                 var $this = $(this),
                 object = event.target.files,
                 path = $this.val().replace(/^C:\\fakepath\\/i," ").trim(),
