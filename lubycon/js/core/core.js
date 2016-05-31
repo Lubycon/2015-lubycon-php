@@ -131,15 +131,15 @@ $(function () { //search box click value reset start
     var searchBar = $(document).find(".search-bar"),
     searchBarInput = searchBar.find(".search-bar-text");
     searchBar.on("keypress",enterPressed);
-    searchBarInput.on("focus",onFocus).on("blur",onBlur);
+    searchBarInput.on("focus",onFocus).on("blur",onBlur).on("keyup",defendQueryInjection);;
     
     function enterPressed(event){
-        console.log(true);
+        //console.log(true);
         if(event.which === 13) $(this).find(".search_btn").trigger("click");
     }
     function onFocus(){
-        console.log($(this).val());
-        if($(this).val() !== "") $(this).val("");
+        //console.log($(this).val());
+        if($(this).val() == "Enter the keyword") $(this).val("");
     }
     function onBlur(){
         if($(this).val() === "") $(this).val("Enter the keyword");
@@ -337,3 +337,41 @@ $(function(){
 });
 
 /*----------------------------creator card menu toggle end--------------------------*/
+/*----------------------------creator card menu toggle start--------------------------*/
+function defendQueryInjection(){
+    var $this = $(this),
+    elementCheck = $this.is("input") || $this.is("textarea"),
+    input = elementCheck ? $this.val() : $this.text(),
+    pattern = /[`;/\?~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
+
+    if(pattern.test(input)) {
+        var alertKey = $(document).find(".alertKey").off("click");
+        input = input.replace(pattern,"");
+        alertKey.lubyAlert({
+            kind: "custom",
+            okButton: false,
+            okAlert: false,
+            cancelButton: false,
+            cancelAlert: false,
+            width: 400,
+            height: 120,
+            textSize: 20,
+            customIcon: "",
+            customText: "you should use [a-zA-Z0-9]",
+            inSpeed: 600,
+            stoptime: 1000,
+            outSpeed: 600
+        });
+        alertKey.trigger("click");
+
+        if(elementCheck) $this.val(input);
+        else $this.text(input);
+        return false;
+    }
+    else {
+        console.log(1);
+        return true;
+    }
+}
+
+/*----------------------------creator card menu toggle start--------------------------*/

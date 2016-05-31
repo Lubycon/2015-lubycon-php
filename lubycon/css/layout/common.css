@@ -119,6 +119,9 @@ body{
     left: 0;
     display: inline-block;
 }
+.alertKey.hidden {
+    display: none;
+}
 
 .btn {
     border: none;

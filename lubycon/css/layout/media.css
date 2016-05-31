@@ -1260,9 +1260,6 @@
     .history_data {
         background: #ffffff;
     }
-        .history_data > .history_text {
-            margin-top: 10px;
-        }
     /*-------------login------------*/
     #loginWrap{
         top: 50%;

@@ -32,6 +32,7 @@
         .setting_card label{
             display: block;
             margin-top: 20px;
+            margin-bottom: 10px;
             color:#444444;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -42,7 +43,6 @@
             height: 40px;
             border:1px solid #aaa;
             border-radius: 3px;
-            margin-top: 10px;
             padding: 10px;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -177,6 +177,7 @@
     }
     .public_option{
         position:relative;
+        vertical-align: top;
     }
     .fa-lock{
         position:absolute;
@@ -269,11 +270,16 @@
     .refresh:hover {
         color: #48cfad;
     }
+.history_cell {
+    margin-top: 10px;
+}
 .history_data .history_text {
     height: 37px;
     border: 1px solid #aaa;
     border-radius: 3px;
     padding: 10px;
+    margin-top: 0;
+    vertical-align: top;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -281,7 +287,6 @@
     .history_data .history_text:focus {
         border: 1px solid #48cfad;
         box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
-
     }
 #history_plus {
     background: transparent;

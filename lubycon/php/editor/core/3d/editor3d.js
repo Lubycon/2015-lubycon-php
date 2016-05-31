@@ -96,8 +96,6 @@
                             "type":"file"
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox);
-
-                        var alertKey = $("<div/>",{"class" : "alertKey"}).appendTo($header).hide();
                         //initModals
                         pac.initModal.fileSelector().appendTo($this).hide();
                         pac.initModal.textureWindow().appendTo($this).hide();
@@ -369,13 +367,13 @@
                     $inputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
                     $inputInner = $("<div/>",{ "class" : "setting-input" }),
                     $label = $("<p/>",{ "class" : "setting-input-label"}),
-                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }),
+                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }).on("keyup",defendQueryInjection),
                     $select = $("<select>", { "class" : "setting-select" }),
                     $option = $("<option/>",{"class" : "select-option"}),
 
                     $contentName = $inputWrap.clone()
                     .append($label.clone().html("Content Name"))
-                    .append($input.clone().attr("name","content-name")).appendTo($innerLeft),
+                    .append($input.clone(true).attr("name","content-name")).appendTo($innerLeft),
 
                     $categoryName = $inputWrap.clone()
                     .append($label.clone().html("Categories")).appendTo($innerLeft),
@@ -394,20 +392,22 @@
                             option.appendTo(categoryBox);
                         }
                         categoryBox.chosen({  max_selected_options: 3 });
-                    }(),
+                    }();
 
-                    $hashtagName = $inputWrap.clone()
-                    .append($label.clone().html("Hash Tag"))
+                    var $hashtagName = $inputWrap.clone()
+                    .append($label.clone().html("Tag"))
                     .append($inputInner.clone().addClass("hashTag-input-wrap")
                         .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
-                    .appendTo($innerLeft),
+                    .appendTo($innerLeft);
+                    $hashtagName.find(".hashTag-input").on("keyup",defendQueryInjection);
 
-                    $descriptName = $inputWrap.clone()
+                    var $descriptName = $inputWrap.clone()
                     .append($label.clone().html("Description"))
-                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft),
+                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft);
+                    $descriptName.find(".descript-input").on("keyup",defendQueryInjection);
 
                     //creative commons
-                    $ccName = $inputWrap.clone(),
+                    var $ccName = $inputWrap.clone(),
                     $ccLabel = $label.clone().html("Creative Commons"),
                     $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
                     
@@ -1546,7 +1546,7 @@
                 },
                 wireframeControl: function(bool,helper){
                     if(bool){
-                        var exist = scene.getObjectByName("objectControls");
+                        var exist = scene.getObjectByName("wireframeHelper");
                         if(exist === undefined){
                             var wireframeHelper = new THREE.WireframeHelper(mesh,0x48cfad);
                             wireframeHelper.name = "wireframeHelper";

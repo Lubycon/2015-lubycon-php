@@ -12,7 +12,6 @@ $(function (){ //account setting script
         }
     });
 
-    
     $(document).ready(function (){
         $("#lang_minus_id").hide();
         $(".privacyFilter").lubySelector({
@@ -39,7 +38,9 @@ $(function (){ //account setting script
             theme: "white",
             "float":"none"
         });
+        $("input[type='text']").on("keyup",defendQueryInjection);
     });
+
     var i = 1;
     $(document).on("click touchend", "#lang_plus", function (event){
         eventHandler(event, $(this));

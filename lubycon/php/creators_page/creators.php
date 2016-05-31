@@ -54,7 +54,7 @@
                     <option value="Country">Country</option>
                 </select>
             </div>
-            <input type="text" class="search-bar-text" value="Enter the Keyword" />
+            <input type="text" class="search-bar-text" value="Enter the keyword" />
             <button class="search-btn">
                 <i class="fa fa-search"></i>
             </button>

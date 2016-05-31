@@ -86,6 +86,7 @@
     <div id="loading_icon"><i class="fa fa-spinner fa-spin"></i></div>
     <div class="dark_overlay" data-value="dark_overlay"></div>
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
+    <div class="alertKey hidden"></div>
     <aside id="mb-menu_panel" class="visible-mb"><!--mobile panel menu-->
         <header id="mb-user_section">
             <div id="mb-signin">
@@ -371,7 +372,7 @@
         <div id="mb-search" class="visible-mb"><i class="fa fa-search icon1"></i><i class="fa fa-angle-up icon2"></i></div>
     </header><!---------------- header end ---------------->
     <div id="main_search_bar" class="search-bar"><!---------------- search bar start ---------------->
-        <input type="text" class="search-bar-text" value="Enter The Keyword" />
+        <input type="text" class="search-bar-text" value="Enter the keyword" />
         <button class="out search-btn">
             <i class="fa fa-search"></i>
         </button>
