@@ -8,6 +8,12 @@ var iconPack = {
       "grid5" : "../../img/grid_icons/5.png",
       "grid6" : "../../img/grid_icons/6.png",
 
+      "realistic" : "../../img/3dviewport/1.png",
+      "clean" : "../../img/3dviewport/2.png",
+      "transparency" : "../../img/3dviewport/3.png",
+      "wireframe" : "../../img/3dviewport/4.png",
+      "wireclean" : "../../img/3dviewport/5.png",
+
       "charge" : "fa fa-credit-card",
       "camera" : "fa fa-camera",
       "loading" : "fa fa-spinner fa-spin",

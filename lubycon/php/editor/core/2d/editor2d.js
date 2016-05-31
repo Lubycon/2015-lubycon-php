@@ -95,11 +95,11 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $textTool = d.toolbar.textTool ? new toolbar.createButton("textTool",icons.font).appendTo($aside) : "",
-                        $colorTool = d.toolbar.colorTool ? new toolbar.createButton("colorTool",icons.paint).appendTo($aside) : "",
-                        $gridTool = d.toolbar.gridTool ? new toolbar.createButton("gridTool",icons.grid).appendTo($aside) : "",
-                        $marginTool = d.toolbar.marginTool ? new toolbar.createButton("marginTool",icons.margin).appendTo($aside) : "",
-                        $sortTool = d.toolbar.sortTool ? new toolbar.createButton("sortTool",icons.sorts).appendTo($aside) : "";
+                        var $textTool = d.toolbar.textTool ? new toolbar.createButton("textTool","icon",icons.font,true).appendTo($aside) : "",
+                        $colorTool = d.toolbar.colorTool ? new toolbar.createButton("colorTool","icon",icons.paint,true).appendTo($aside) : "",
+                        $gridTool = d.toolbar.gridTool ? new toolbar.createButton("gridTool","icon",icons.grid,true).appendTo($aside) : "",
+                        $marginTool = d.toolbar.marginTool ? new toolbar.createButton("marginTool","icon",icons.margin,true).appendTo($aside) : "",
+                        $sortTool = d.toolbar.sortTool ? new toolbar.createButton("sortTool","icon",icons.sorts,true).appendTo($aside) : "";
 
                         //input files
                         var $inputFile = $("<input/>",{
@@ -1188,17 +1188,20 @@
             }
         },
         toolbar = {
-            createButton: function(data,iconData){
+            createButton: function(data,type,iconData,tooltip){
                 var tipData = pac.disableCamelCase(data);
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
-                icon = $("<i/>",{"class" : iconData}).appendTo(button);
+                icon = type === "icon" ? $("<i/>",{"class" : iconData}) : $("<img/>",{"src" : iconData});
 
-                button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
+                icon.appendTo(button);
+
+                button.on("click").on("click",toggle.group).on("click",pac.tabAction);
+                if(tooltip) button.tooltip({"top":5,"left":50});
 
                 return button;
             },
-            createRadioButton: function(data,iconData){
-                var button = new toolbar.createButton(data,iconData);
+            createRadioButton: function(data,type,iconData,tooltip){
+                var button = new toolbar.createButton(data,type,iconData,tooltip);
                 button.addClass("radioType");
 
                 return button;
@@ -1435,7 +1438,6 @@
                 $gridInnerWrap = $("<div/>",{ "class" : "toolbox-inner" }).appendTo($gridWrap),
                 $editWindow = $("<div/>",{ "class" : "grid-edit-window" }).appendTo($gridInnerWrap),
                 $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
-                $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",toggle.group).on("click",toolbar.gridFn.makeGrid),
                 $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",ModalKit.cancel).appendTo($gridWrap),
                 $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
                 $gridCancel = $("<div/>",{
@@ -1449,19 +1451,12 @@
                     "html" : "Insert",
                 }).on("click",modalFunc.addGrid).appendTo($gridBtWrap),
 
-                $btnIcon = $("<img/>"),
-                $btn1 = $btn.clone(true).attr("data-value","n-1-1")
-                .append($btnIcon.clone().attr("src",icons.grid1)).appendTo($btnWrap),
-                $btn2 = $btn.clone(true).attr("data-value","v-1-2")
-                .append($btnIcon.clone().attr("src",icons.grid2)).appendTo($btnWrap),
-                $btn3 = $btn.clone(true).attr("data-value","v-2-1")
-                .append($btnIcon.clone().attr("src",icons.grid3)).appendTo($btnWrap),
-                $btn4 = $btn.clone(true).attr("data-value","h-1-2")
-                .append($btnIcon.clone().attr("src",icons.grid4)).appendTo($btnWrap),
-                $btn5 = $btn.clone(true).attr("data-value","h-2-1")
-                .append($btnIcon.clone().attr("src",icons.grid5)).appendTo($btnWrap),
-                $btn6 = $btn.clone(true).attr("data-value","n-2-2")
-                .append($btnIcon.clone().attr("src",icons.grid6)).appendTo($btnWrap);
+                $btn1 = new toolbar.createButton("v-1-1","img",icons.grid1,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn2 = new toolbar.createButton("v-1-2","img",icons.grid2,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn3 = new toolbar.createButton("v-2-1","img",icons.grid3,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn4 = new toolbar.createButton("h-1-2","img",icons.grid4,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn5 = new toolbar.createButton("h-2-1","img",icons.grid5,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn6 = new toolbar.createButton("n-2-2","img",icons.grid6,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap);
                 ModalKit.align($this);
             },
             gridFn: {
@@ -1469,7 +1464,7 @@
                     var $this = $(this),
                     $editWindow = $(".grid-edit-window"),
                     selected = $this.hasClass("selected"),
-                    value = $this.data("value"),
+                    value = $this.data("target"),
                     valueArray = value.split("-"),
                     direction = valueArray[0],
                     firstArea = parseInt(valueArray[1]),

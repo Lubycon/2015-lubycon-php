@@ -80,10 +80,10 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $lightTool = new toolbar.createButton("lightTool",icons.bulb).appendTo($aside).on("click",toolbar.disableTools),
-                        $geometryTool = new toolbar.createButton("geometryTool",icons.circle).appendTo($aside).on("click",toolbar.disableTools),
-                        $materialTool = new toolbar.createButton("materialTool",icons.football).appendTo($aside).on("click",toolbar.disableTools),
-                        $backgroundTool = new toolbar.createButton("backgroundTool",icons.image).appendTo($aside).on("click",toolbar.disableTools);
+                        var $lightTool = new toolbar.createButton("lightTool","icon",icons.bulb,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $geometryTool = new toolbar.createButton("geometryTool","icon",icons.circle,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $materialTool = new toolbar.createButton("materialTool","icon",icons.football,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $backgroundTool = new toolbar.createButton("backgroundTool","icon",icons.image,true).appendTo($aside).on("click",toolbar.disableTools);
                         //input files
                         var $inputFile = $("<input/>",{
                             "class":"fileUploader editor-hidden",
@@ -207,12 +207,7 @@
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
-                contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { "contentID": 'content' + val[0], "ext": val[1] };
-                    imgData.push(innerVal)
-                }),
+                contentData = scene.children.map(threeToJson),
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
@@ -222,7 +217,15 @@
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
-                }),
+                });
+
+                console.log(contentData);
+
+                function threeToJson(obj,index){
+                    var result = obj.toJSON();
+                    return result;
+                }
+                /*
                 $form = $("<form/>", {
                     "id": "finalForm",
                     "enctype": "multipart/form-data",
@@ -240,8 +243,8 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl('cate')),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
-
-                $("#finalForm").submit();
+                */
+                //$("#finalForm").submit();
             },
             autoSave: function () {
                 var imgData = [],
@@ -992,17 +995,20 @@
             }  
         },
         toolbar = {
-            createButton: function(data,iconData){
+            createButton: function(data,type,iconData,tooltip){
                 var tipData = data !== null ? pac.disableCamelCase(data) : null;
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
-                icon = $("<i/>",{"class" : iconData}).appendTo(button);
+                icon = type === "icon" ? $("<i/>",{"class" : iconData}) : $("<img/>",{"src" : iconData});
 
-                button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
+                icon.appendTo(button);
+
+                button.on("click").on("click",toggle.group).on("click",pac.tabAction)
+                if(tooltip) button.tooltip({"top":5,"left" : 50});
 
                 return button;
             },
-            createRadioButton: function(data,iconData){
-                var button = new toolbar.createButton(data,iconData);
+            createRadioButton: function(data,type,iconData,tooltip){
+                var button = new toolbar.createButton(data,type,iconData,tooltip);
                 button.addClass("radioType");
 
                 return button;
@@ -1415,11 +1421,11 @@
                 $rotateCheckbox.lubyCheckbox();
 
                 var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper toolbox-btns" }),
-                smoothMode = new toolbar.createRadioButton("realistic",icons.usd).addClass("selected").attr("data-value","realistic").appendTo($viewmodeWrapper),
-                cleanMode = new toolbar.createRadioButton("cleanSurface",icons.usd).attr("data-value","clean").appendTo($viewmodeWrapper),
-                transparentMode = new toolbar.createRadioButton("transparency",icons.usd).attr("data-value","transparent").appendTo($viewmodeWrapper),
-                wireMode = new toolbar.createRadioButton("wireframe",icons.usd).attr("data-value","wireframe").appendTo($viewmodeWrapper),
-                wireCleanMode = new toolbar.createRadioButton("wireframeAndClean",icons.usd).attr("data-value","wireclean").appendTo($viewmodeWrapper),
+                realisticMode = new toolbar.createRadioButton("realistic","img",icons.realistic,true).addClass("selected").attr("data-value","realistic").appendTo($viewmodeWrapper),
+                cleanMode = new toolbar.createRadioButton("cleanSurface","img",icons.clean,true).attr("data-value","clean").appendTo($viewmodeWrapper),
+                transparentMode = new toolbar.createRadioButton("transparency","img",icons.transparency,true).attr("data-value","transparent").appendTo($viewmodeWrapper),
+                wireMode = new toolbar.createRadioButton("wireframe","img",icons.wireframe,true).attr("data-value","wireframe").appendTo($viewmodeWrapper),
+                wireCleanMode = new toolbar.createRadioButton("wireframeAndClean","img",icons.wireclean,true).attr("data-value","wireclean").appendTo($viewmodeWrapper),
 
                 viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode",false).appendTo($this)
                 .find(".btn.radioType").on("click",toolbar.geometryFn.viewModeChecker);
