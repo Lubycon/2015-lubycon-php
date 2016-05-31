@@ -37,9 +37,13 @@
                         theme = $this.data("theme") ? $this.data("theme") : d.theme,
                         optGroup = $this.data("optGroup") ? $this.data("optGroup") : d.optGroup,
                         searchBar = $this.data("searchBar") ? $this.data("searchBar") : d.searchBar,
-                        label = $this.val(),
+                        label = $this.val();
+                        if ($this.val() === null) {
+                            $this.val($this.find("option").first().text());
+                            label = $this.val();
+                        }
 
-                        $wrapper = $("<span/>", {
+                        var $wrapper = $("<span/>", {
                             "id": d.id,
                             "class": "lubySelector",
                             "optGroup": optGroup,
