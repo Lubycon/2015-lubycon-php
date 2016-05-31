@@ -77,7 +77,7 @@
             ?>
             </select>
             <select class="preferFilter">
-                <option>Featured</option>
+                <option selected="selected">Featured</option>
                 <option>Recent</option>
                 <option>Most Like</option>
                 <option>Most Download</option>

@@ -150,22 +150,22 @@ class infinite_scroll extends json_control
     {
         if( isset($_COOKIE['contents_history']))
         {
+            //print_r( $_COOKIE['contents_history']);
             $cookie_string = $_COOKIE['contents_history'];
             parse_str ($cookie_string , $cookie_parse );
             $cookie_contents_number = $cookie_parse['concate'].'_'.$cookie_parse['conno'];
 
             if( $this->top_category == $cookie_parse['cate'] && $this->now_page == $cookie_parse['page'])
             {
-                echo "<script>$(document).ready(function(){scroll_from_cookie('$cookie_contents_number')});</script>"; //find pre click contents
+                echo "<script>scroll_from_cookie('$cookie_contents_number');</script>"; //find pre click contents
             }else
             {
                 echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
             }
+        }else
+        {
+            echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
         }
-        unset($_COOKIE['contents_history']);
-        $cookie_parse=''; //delete cookie
-        $cookie_contents_number='';
-        print_r( $cookie_parse);
     }
 }
 ?>

@@ -5,7 +5,7 @@ $url_parse = parse_url($_SERVER['HTTP_REFERER']);
 if( isset($url_parse['query']) )
 {
     $devide_query = (string)$url_parse['query'];
-    setcookie('contents_history', $devide_query.'&conno='.$number.'&concate='.$cate, time()+(60*60*3)); //3 hour cookie (for infinite scroll)
+    setcookie('contents_history', $devide_query.'&conno='.$number.'&concate='.$cate, time()+(60*60*3),'/'); //3 hour cookie (for infinite scroll)
 }
 //echo $_COOKIE['contents_history'];
 //echo $_SERVER['HTTP_REFERER'];

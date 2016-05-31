@@ -29,6 +29,6 @@
     $foundRow_result = $db->result; //row count
     $infinite_scroll->count_page($foundRow_result);
     $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);
-    $infinite_scroll->check_cookie();
+    //$infinite_scroll->check_cookie();
     sleep(0.5);
 ?>
