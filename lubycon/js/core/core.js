@@ -337,7 +337,7 @@ $(function(){
 });
 
 /*----------------------------creator card menu toggle end--------------------------*/
-/*----------------------------creator card menu toggle start--------------------------*/
+/*----------------------------query injection defend start--------------------------*/
 function defendQueryInjection(){
     var $this = $(this),
     elementCheck = $this.is("input") || $this.is("textarea"),
@@ -354,9 +354,9 @@ function defendQueryInjection(){
             cancelButton: false,
             cancelAlert: false,
             width: 400,
-            height: 120,
-            textSize: 20,
-            customIcon: "",
+            height: 145,
+            textSize: 15,
+            customIcon: "fa fa-server",
             customText: "you should use [a-zA-Z0-9]",
             inSpeed: 600,
             stoptime: 1000,
@@ -373,5 +373,15 @@ function defendQueryInjection(){
         return true;
     }
 }
-
-/*----------------------------creator card menu toggle start--------------------------*/
+/*----------------------------query injection defend end--------------------------*/
+/*----------------------------array clean method start--------------------------*/
+Array.prototype.clean = function(deleteValue) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == deleteValue) {         
+            this.splice(i, 1);
+            i--;
+        }
+    }
+    return this;
+};
+/*----------------------------array clean method end--------------------------*/

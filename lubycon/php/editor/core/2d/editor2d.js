@@ -168,7 +168,9 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
 
-                $("#finalForm").submit();
+
+                console.log(contentName,contentData,categories,tags,cc);
+                //$("#finalForm").submit();
             },
             autoSave: function () {
                 var imgData = [],
@@ -177,7 +179,7 @@
                         url = $this.find('img').attr("src"),
                         val = $this.attr("data-value").split("-"),
                         innerVal = { 'type': 'editor_content', 'data64': url, "index": val[0] };
-                    imgData.push(innerVal)
+                    	imgData.push(innerVal);
                     }),
                     html_Data = $('.editing-canvas').html();
                 $.ajax({

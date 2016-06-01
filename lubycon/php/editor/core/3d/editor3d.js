@@ -148,6 +148,7 @@
                 });
                     skyMaterial.side = THREE.BackSide;
                 skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.name = "skybox";
                 skybox.material.dispose();
 
                 scene.add(skybox);
@@ -205,7 +206,7 @@
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
-                contentData = scene.children.map(threeToJson),
+                contentData = scene.children.map(threeToJson).clean(null), //map,maplight,object,newLight1,2,3
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
@@ -217,11 +218,26 @@
                     cc[data] = $(this).prop("checked");
                 });
 
-                console.log(contentData);
+                console.log(contentName,contentData,categories,tags,cc,descript);
 
-                function threeToJson(obj,index){
-                    var result = obj.toJSON();
-                    return result;
+                function threeToJson(obj,index,array){
+                    var result,
+                    bool = false;
+                    switch(obj.name){
+                        case "mainObject" : bool = true; break;
+                        case "newLight0" : bool = true; break;
+                        case "newLight1" : bool = true; break;
+                        case "newLight2" : bool = true; break;
+                        case "skybox" : bool = true; break;
+                        default : bool = false;
+                    }
+
+                    if(bool) {
+                        result = obj.toJSON();
+                        console.log(obj.name);
+                        return result;
+                    }
+                    else return null; 
                 }
                 /*
                 $form = $("<form/>", {
@@ -245,27 +261,7 @@
                 //$("#finalForm").submit();
             },
             autoSave: function () {
-                var imgData = [],
-                    contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        url = $this.find('img').attr("src"),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { 'type': 'editor_content', 'data64': url, "index": val[0] };
-                    imgData.push(innerVal)
-                    }),
-                    html_Data = $('.editing-canvas').html();
-                $.ajax({
-                    type: "POST",
-                    url: "../../../ajax/editor_ajax_upload_test.php", // temp image file ajax post
-                    data:
-                    {
-                        'ajax_data': imgData
-                    },
-                    cache: false,
-                    success: function (data) {
-                        console.log('auto save succece');
-                    }
-                })
+                //empty
             },
             initTools: function(){
                 //toolbar data bind start
@@ -749,6 +745,7 @@
                                     mesh.receiveShadow = true;
                                     mesh.scale.set(1,1,1);   
                                 group.add(mesh);
+                                group.name = "mainObject";
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
