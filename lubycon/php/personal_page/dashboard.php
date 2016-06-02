@@ -1,7 +1,3 @@
-<script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <?php
     require_once "../class/json_class.php";
     $json_control = new json_control;
@@ -12,6 +8,7 @@
     $json_control->json_decode('country',"$one_depth/data/country.json");
     $country_origin_select = $json_control->json_decode_code[$row['countryCode']];
     $usercountry = $country_origin_select;
+    $utc = 0; echo "<script>var UTC = $utc</script>"; //connect to js
 
     $user_position = $row['company'];
     $usercity = $row['city'];
@@ -29,6 +26,10 @@
     $localcity = $usercity;
     $localcountry = $usercountry;
 ?>
+<script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <div id="information_inbody">
     <ul id="dashboard_wrap">
         <li class="dash_section" id="creator_month">
@@ -202,7 +203,7 @@
                     <div class="time_location" id="user_location">
                         <?=$usercity?>, <?=$usercountry?>
                     </div>
-                    <div class="clock_wrap">
+                    <div class="clock_wrap" data-value="world">
                         <div class="ampm" id="user_ampm"></div>
                         <div class="clock" id="userclock"></div>
                     </div>
@@ -212,7 +213,7 @@
                     <div class="time_location" id="local_location">
                         <?=$localcity?>, <?=$localcountry?>
                     </div>
-                    <div class="clock_wrap">
+                    <div class="clock_wrap" data-value="local">
                         <div class="ampm" id="local_ampm"></div>
                         <div class="clock" id="localclock"></div>
                     </div>

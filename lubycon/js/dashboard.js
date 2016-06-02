@@ -23,7 +23,8 @@ $(document).ready(function(){
 
 /*----------------------------toggle section button end------------------------------*/
 /*----------------------------time card in dashboard page start------------------------*/
-function localTime() {
+console.log(UTC);
+function localTime(){
     var localtime = new Date();
     var local_h = localtime.getHours();
     var local_m = localtime.getMinutes();
@@ -48,6 +49,10 @@ function localTime() {
     $("#local_ampm").text(mid);
     $("#localclock").html(local_h + "<span class='colon'>:</span>" + local_m);
 };
+
+function worldTime(){
+
+}
 
 function checkTime(i) {
     if (i < 10){
