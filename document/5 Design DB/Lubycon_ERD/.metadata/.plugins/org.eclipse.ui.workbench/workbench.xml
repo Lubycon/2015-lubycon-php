@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="13" version="2.0">
 <workbenchAdvisor/>
-<window height="860" maximized="true" width="779" x="821" y="0">
+<window height="860" maximized="true" width="779" x="56" y="157">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -30,8 +30,8 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="Lubycon.exerd" partName="Lubycon.exerd" title="Lubycon.exerd" tooltip="C:\Bitnami\wampstack-5.5.30-0\apache2\htdocs\Lubycon_Website\document\5 Design DB\Lubycon_ERD\Lubycon.exerd" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.exerd"/>
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="Lubycon.exerd" partName="Lubycon.exerd" title="Lubycon.exerd" tooltip="C:\Bitnami\wampstack-5.5.28-0\apache2\htdocs\Lubycon_Website\document\5 Design DB\Lubycon_ERD\Lubycon.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Bitnami/wampstack-5.5.28-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.exerd"/>
 </editor>
 </editors>
 <views>
@@ -45,7 +45,9 @@
 </filters>
 </viewState>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="콘솔"/>
+<view id="org.eclipse.ui.console.ConsoleView" partName="콘솔">
+<viewState/>
+</view>
 <view id="org.eclipse.gef.ui.palette_view" partName="Palette">
 <viewState/>
 </view>
@@ -61,14 +63,14 @@
 <perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
-<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
-<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
-<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
 <alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
 <alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
-<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
-<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
 <show_view_action id="org.eclipse.gef.ui.palette_view"/>
 <show_view_action id="com.tomato.exerd.ui.views.domain"/>
 <show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
@@ -103,16 +105,15 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@1ea817f" ratio="0.75" ratioLeft="750" ratioRight="250" relationship="2" relative="leftFolder">
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1434" ratioRight="478" relationship="2" relative="leftFolder">
 <folder appearance="2" expanded="2">
 <page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.066708624" ratioLeft="106" ratioRight="1483" relationship="2" relative="leftFolder"/>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@52f73e" ratio="0.9283784" ratioLeft="1374" ratioRight="106" relationship="2" relative="org.eclipse.ui.editorss">
+<info part="org.eclipse.ui.editorss" ratio="0.12991095" ratioLeft="248" ratioRight="1661" relationship="2" relative="leftFolder"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1ee2c5" ratio="0.8303457" ratioLeft="1297" ratioRight="265" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.tomato.exerd.ui.views.thumbnail" appearance="2" expanded="2">
 <page content="com.tomato.exerd.ui.views.thumbnail" label="썸네일"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -120,7 +121,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="rightFolder" ratio="0.24884081" ratioLeft="161" ratioRight="486" relationship="4" relative="org.eclipse.ui.internal.ViewStack@52f73e">
+<info folder="true" part="rightFolder" ratio="0.24946466" ratioLeft="233" ratioRight="701" relationship="4" relative="org.eclipse.ui.internal.ViewStack@1ee2c5">
 <folder activePageID="com.tomato.exerd.modelview3.ModelView3" appearance="2" expanded="2">
 <page content="com.tomato.exerd.modelview3.ModelView3" label="모델"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="아웃라인"/>
@@ -130,7 +131,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="bottomFolder" ratio="0.89228725" ratioLeft="671" ratioRight="81" relationship="4" relative="org.eclipse.ui.editorss">
+<info folder="true" part="bottomFolder" ratio="0.7905478" ratioLeft="736" ratioRight="195" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.tomato.exerd.ui.views.domain" appearance="2" expanded="2">
 <page content="com.tomato.exerd.ui.views.domain" label="도메인"/>
 <page content="com.tomato.exerd.validate.ui.ValidateView" label="검토"/>
@@ -143,7 +144,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@46a658" ratio="0.29984543" ratioLeft="194" ratioRight="453" relationship="4" relative="leftFolder">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1bd871" ratio="0.29978585" ratioLeft="280" ratioRight="654" relationship="4" relative="leftFolder">
 <folder activePageID="org.eclipse.gef.ui.palette_view" appearance="2" expanded="2">
 <page content="org.eclipse.gef.ui.palette_view" label="Palette"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -158,30 +159,9 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.erdx"/>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.exerd"/>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/untitled.exerd"/>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/gnu5.exerd"/>
-<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.erdx"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Bitnami/wampstack-5.5.28-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.exerd"/>
 </editors>
-<item historyLabel="Lubycon.erdx" index="0"/>
-<item historyLabel="Lubycon.exerd" index="1"/>
-<item historyLabel="Lubycon.erdx" index="0"/>
-<item historyLabel="untitled.exerd" index="2"/>
-<item historyLabel="Lubycon.erdx" index="0"/>
-<item historyLabel="Lubycon.exerd" index="1"/>
-<item historyLabel="Lubycon.erdx" index="0"/>
-<item historyLabel="Lubycon.exerd" index="1"/>
-<item historyLabel="Lubycon.erdx" index="0"/>
-<item historyLabel="Lubycon.exerd" index="1"/>
-<item historyLabel="Lubycon.erdx" index="0"/>
-<item historyLabel="Lubycon.exerd" index="1"/>
-<item historyLabel="Lubycon.erdx" index="0"/>
-<item historyLabel="Lubycon.exerd" index="1"/>
-<item historyLabel="gnu5.exerd" index="3"/>
-<item historyLabel="Lubycon.exerd" index="1"/>
-<item historyLabel="Lubycon.erdx" index="4"/>
-<item active="true" historyLabel="Lubycon.exerd" index="1"/>
+<item active="true" historyLabel="Lubycon.exerd" index="0"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -199,6 +179,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="Lubycon.exerd" tooltip="C:\Bitnami\wampstack-5.5.28-0\apache2\htdocs\Lubycon_Website\document\5 Design DB\Lubycon_ERD\Lubycon.exerd">
+<persistable uri="file:/C:/Bitnami/wampstack-5.5.28-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="Lubycon.erdx" tooltip="C:\Bitnami\wampstack-5.5.30-0\apache2\htdocs\Lubycon_Website\document\5 Design DB\Lubycon_ERD\Lubycon.erdx">
 <persistable uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.erdx"/>
 </file>
