@@ -154,7 +154,7 @@
 
                 scene.add(skybox);
 
-                renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true });
+                renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true, antialias: true });
                     renderer.setSize(windowWidth, windowHeight);
                     renderer.setPixelRatio(window.devicePixelRatio);
                     renderer.setClearColor(0x222222, 1);
