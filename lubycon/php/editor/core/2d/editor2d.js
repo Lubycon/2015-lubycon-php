@@ -105,12 +105,19 @@
                         var $inputFile = $("<input/>",{
                             "class":"fileUploader editor-hidden",
                             "name":"fileUploader",
-                            "type":"file"
+                            "type":"file",
+                            "multiple" : "multiple"
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
                             "class":"imgUploader editor-hidden",
                             "name":"imgUploader",
-                            "type":"file"
+                            "type":"file",
+                        }).insertAfter($header);
+                        $inputContentImage = $("<input/>",{
+                            "class":"content-imgUploader editor-hidden",
+                            "name":"contentImgUploader",
+                            "type":"file",
+                            "multiple" : "multiple"
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox);
                         
@@ -592,8 +599,8 @@
             imgUpTrigger: function(){
                 var $this = $(this),
                 $document = $("body"),
-                $inputFile = $(document).find(".imgUploader"),
                 dataValue = $this.data("value"),
+                $inputFile = dataValue === "newImgUpload" ? $(document).find(".content-imgUploader") : $(document).find(".imgUploader"),
                 $uploading = $(document).find(".uploading");
                 
                 switch(dataValue){
@@ -631,18 +638,18 @@
                 $body = $(".obj-body"),
                 $footer = $(".obj-footer"),
                 $placeHolder = $body.find(".placeHolder"),
+                $loading_icon = $(document).find("#loading_icon").show(),
 
-                fileValue = $inputFile.val(),
-                indexNum = fileValue.lastIndexOf("."),
-                fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "",
-
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"}),
                 $object = event.target.files;
                 
-                if(upload.imgCheck($object[0])){
-                    if($placeHolder.length!=0) $placeHolder.hide();
+                $.each($object, function(i,file){
+                    if(upload.imgCheck(file)){
+                        if($placeHolder.length != 0) $placeHolder.hide();
+                        var fileValue = file.name,
+                        indexNum = fileValue.lastIndexOf("."),
+                        fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "";
 
-                    $.each($object, function(i,file){
+                        var $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"});
                         var reader = new FileReader();
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
@@ -655,10 +662,10 @@
                             $(".uploading").removeClass("uploading") // init target object  
                             $inputFile.val(null); // init input value
                             pac.objMenu($objectWrap);
+                            $loading_icon.hide();
                         };
-                    });
-                }
-                else $inputFile.val(null);
+                    }
+                });
             },
             gridUpload: function(event){
                 var $this = $(".uploading"),
@@ -666,7 +673,8 @@
                 $target = $this.parent(".grid-img-wrapper"),
                 $object = event.target.files,
                 cropBoxWidth = $target.width(),
-                cropBoxHeight = $target.height();
+                cropBoxHeight = $target.height(),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if(upload.imgCheck($object[0])){
                     $.each($object, function(i,file){
@@ -696,6 +704,7 @@
                             $this.attr("data-value","grid-replace").hide();
                             $(".uploading").removeClass("uploading");
                             toolbar.sortFn.refresh();
+                            $loading_icon.hide();
                         }
                     });
                 }
@@ -718,12 +727,14 @@
                 $body = $(".obj-body"),
                 $placeHolder = $body.find("placeHolder"),
                 $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-embed", "data-index" : "", "data-value" : "embed"}),
-                $media = $(val);
+                $media = $(val),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$mediaWrap,$media);
                 $this.removeClass(".uploading");
                 pac.objMenu($mediaWrap);
+                $loading_icon.hide();
             }, 
             thumbUpload: function(event){
                 var $this = $(".thumb-editor-wrapper"),
@@ -732,7 +743,8 @@
                 $target = $this.find(".thumb-origin-img"),
                 $previewer = $this.siblings(".thumb-preview-wrapper"),
                 $object = event.target.files,
-                $changeThumb = $(document).find(".thumb-img-change");
+                $changeThumb = $(document).find(".thumb-img-change"),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if(upload.imgCheck($object[0])){
                     $placeHolder.hide();
@@ -754,6 +766,7 @@
                             }).show();
                             $inputFile.val(null);
                             $changeThumb.show();
+                            $loading_icon.hide();
                         }
                     });
                     setTimeout(function(){
@@ -768,6 +781,8 @@
                 $target = $button.parents(".obj-menu-btn").siblings("img"),
                 $objectWrap = $target.parents(".object-img").removeClass("large").css("margin","0 7%"),
                 $inputFile = $(document).find(".imgUploader"),
+                $loading_icon = $(document).find("#loading_icon").show();
+
                 $object = event.target.files;
                 if(upload.imgCheck($object[0])){
                     $.each($object, function(i,file){
@@ -784,6 +799,8 @@
 
                             $inputFile.val(null);
                             toolbar.sortFn.refresh();
+
+                            $loading_icon.hide();
                         };
                     });
                 }
@@ -793,7 +810,8 @@
                 var $this = $(".uploading");
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files,
-                $cropper = $this.siblings("img");
+                $cropper = $this.siblings("img"),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 $.each($object, function(i,file){
                     var reader = new FileReader();
@@ -802,6 +820,7 @@
                         console.log(event.target.result);
                         $cropper.cropper("replace",event.target.result),false;
                         $inputFile.val(null);
+                        $loading_icon.hide();
                     }
                 });
             },
@@ -809,7 +828,8 @@
                 var $this = $(this);
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files,
-                $cropper = $(document).find(".thumb-origin-img");
+                $cropper = $(document).find(".thumb-origin-img"),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if(upload.imgCheck($object[0])){
                     $.each($object, function(i,file){
@@ -819,6 +839,7 @@
                             console.log(event.target.result);
                             $cropper.cropper("replace",event.target.result);
                             $inputFile.val(null);
+                            $loading_icon.hide();
                         }
                     });
                     setTimeout(function(){
