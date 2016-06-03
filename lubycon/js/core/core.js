@@ -366,6 +366,7 @@ function defendQueryInjection(){
 
         if(elementCheck) $this.val(input);
         else $this.text(input);
+        
         return false;
     }
     else {
@@ -385,3 +386,47 @@ Array.prototype.clean = function(deleteValue) {
     return this;
 };
 /*----------------------------array clean method end--------------------------*/
+/*----------------------------get 12 Hour method start------------------------*/
+Date.prototype.get12HourTime = function(iso8601){
+    var result = {
+        "ampm" : null,
+        "hour" : null,
+        "minute" : null,
+        "second" : null
+    };
+
+    var h = this.getHours();
+    var m = this.getMinutes();
+    var s = this.getSeconds();
+
+    if(h <= 12){
+        result.ampm = "am";
+    }
+    else if(h > 12){
+        h -= 12;
+        result.ampm = "pm";
+    }
+    else console.log("Time error in get12HourTime");
+
+    if(iso8601){
+        h = getISO8601(h);
+        m = getISO8601(m);
+        s = getISO8601(s);
+    }
+    else{
+        h = h; m = m; s = s;
+    }
+
+    function getISO8601(num){
+        if(num < 10) num = "0" + num;
+        else num = num.toString();
+        return num;
+    }
+
+    result.hour = h;
+    result.minute = m;
+    result.second = s;
+
+    return result;
+}
+/*----------------------------get 12 Hour method end------------------------*/

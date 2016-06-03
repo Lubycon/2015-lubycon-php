@@ -185,6 +185,7 @@
 			color: #444444;
 			font-size: 28px;
 			text-align: center;
+			overflow: hidden;
 		}
 			.x2_inner .dash_body_content {
 				display: block;
@@ -195,6 +196,10 @@
 			.x2_inner a:hover {
 				opacity: 0.7;
 			}
+		#user_location .dash_body_content {
+			line-height: 40px;
+			margin-top: 20px;
+		}
 		#user_language .dash_body_content {
 			font-size: 25px;
 			line-height: 40px;
@@ -525,10 +530,10 @@
 		font-size: 50px;
 		font-weight: 200;
 	}
-		#userclock {
+		#usertime .clock {
 			color: #48cfad;
 		}
-		#localclock {
+		#localtime .clock {
 			color: #48cfad;
 		}
 	.colon {

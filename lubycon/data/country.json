@@ -1,486 +1,245 @@
-{
-    "country": {
-
-        "1": "Afghanistan",
-
-        "2": "Albania",
-
-        "3": "Algeria",
-
-        "4": "American Samoa",
-
-        "5": "Andorra",
-
-        "6": "Angola",
-
-        "7": "Anguilla",
-
-        "8": "Antarctica",
-
-        "9": "Antigua and Barbuda",
-
-        "10": "Argentina",
-
-        "11": "Armenia",
-
-        "12": "Aruba",
-
-        "13": "Australia",
-
-        "14": "Austria",
-
-        "15": "Azerbaijan",
-
-        "16": "Bahamas",
-
-        "17": "Bahrain",
-
-        "18": "Bangladesh",
-
-        "19": "Barbados",
-
-        "20": "Belarus",
-
-        "21": "Belgium",
-
-        "22": "Belize",
-
-        "23": "Benin",
-
-        "24": "Bermuda",
-
-        "25": "Bhutan",
-
-        "26": "Bolivia",
-
-        "27": "Bosnia and Herzegovina",
-
-        "28": "Botswana",
-
-        "29": "Brazil",
-
-        "30": "British Indian Ocean Territory",
-
-        "31": "British Virgin Islands",
-
-        "32": "Brunei",
-
-        "33": "Bulgaria",
-
-        "34": "Burkina Faso",
-
-        "35": "Burundi",
-
-        "36": "Cambodia",
-
-        "37": "Cameroon",
-
-        "38": "Canada",
-
-        "39": "Cape Verde",
-
-        "40": "Cayman Islands",
-
-        "41": "Central African Republic",
-
-        "42": "Chad",
-
-        "43": "Chile",
-
-        "44": "China",
-
-        "45": "Christmas Island",
-
-        "46": "Cocos Islands",
-
-        "47": "Colombia",
-
-        "48": "Comoros",
-
-        "49": "Cook Islands",
-
-        "50": "Costa Rica",
-
-        "51": "Croatia",
-
-        "52": "Cuba",
-
-        "53": "Curacao",
-
-        "54": "Cyprus",
-
-        "55": "Czech Republic",
-
-        "56": "Democratic Republic of the Congo",
-
-        "57": "Denmark",
-
-        "58": "Djibouti",
-
-        "59": "Dominica",
-
-        "60": "Dominican Republic",
-
-        "61": "East Timor",
-
-        "62": "Ecuador",
-
-        "63": "Egypt",
-
-        "64": "El Salvador",
-
-        "65": "Equatorial Guinea",
-
-        "66": "Eritrea",
-
-        "67": "Estonia",
-
-        "68": "Ethiopia",
-
-        "69": "Falkland Islands",
-
-        "70": "Faroe Islands",
-
-        "71": "Fiji",
-
-        "72": "Finland",
-
-        "73": "France",
-
-        "74": "French Guiana",
-
-        "75": "French polynesia",
-
-        "76": "Gabon",
-
-        "77": "Gambia",
-
-        "78": "Georgia",
-
-        "79": "Germany",
-
-        "80": "Ghana",
-
-        "81": "Gibraltar",
-
-        "82": "Greece",
-
-        "83": "Greenland",
-
-        "84": "Grenada",
-
-        "85": "Guam",
-
-        "86": "Guatemala",
-
-        "87": "Guernsey",
-
-        "88": "Guinea",
-
-        "89": "Guinea-Bissau",
-
-        "90": "Guyana",
-
-        "91": "Haiti",
-
-        "92": "Honduras",
-
-        "93": "Hong Kong",
-
-        "94": "Hungary",
-
-        "95": "Iceland",
-
-        "96": "India",
-
-        "97": "Indonesia",
-
-        "98": "Iran",
-
-        "99": "Iraq",
-
-        "100": "Ireland",
-
-        "101": "Isle of Man",
-
-        "102": "Israel",
-
-        "103": "Italy",
-
-        "104": "Ivory Coast",
-
-        "105": "Jamaica",
-
-        "106": "Japan",
-
-        "107": "Jersey",
-
-        "108": "Jordan",
-
-        "109": "Kazakhstan",
-
-        "110": "Kenya",
-
-        "111": "Kiribati",
-
-        "112": "Kosovo",
-
-        "113": "Kuwait",
-
-        "114": "Kyrgyzstan",
-
-        "115": "Laos",
-
-        "116": "Latvia",
-
-        "117": "Lebanon",
-
-        "118": "Lesotho",
-
-        "119": "Liberia",
-
-        "120": "Libya",
-
-        "121": "Liechtenstein",
-
-        "122": "Lithuania",
-
-        "123": "Luxembourg",
-
-        "124": "Macao",
-
-        "125": "Macedonia",
-
-        "126": "Madagascar",
-
-        "127": "Malawi",
-
-        "128": "Malaysia",
-
-        "129": "Maldives",
-
-        "130": "Mali",
-
-        "131": "Malta",
-
-        "132": "Marshall Islands",
-
-        "133": "Mauritania",
-
-        "134": "Mauritius",
-
-        "135": "Mayotte",
-
-        "136": "Mexico",
-
-        "137": "Micronesia",
-
-        "138": "Moldova",
-
-        "139": "Monaco",
-
-        "140": "Mongolia",
-
-        "141": "Montenegro",
-
-        "142": "Montserrat",
-
-        "143": "Morocco",
-
-        "144": "Mozambique",
-
-        "145": "Myanmar",
-
-        "146": "Namibia",
-
-        "147": "Nauru",
-
-        "148": "Nepal",
-
-        "149": "Netherlands",
-
-        "150": "Netherlands Antilles",
-
-        "151": "New Caledonia",
-
-        "152": "New Zealand",
-
-        "153": "Nicaragua",
-
-        "154": "Niger",
-
-        "155": "Nigeria",
-
-        "156": "Niue",
-
-        "157": "North Korea",
-
-        "158": "Northern Mariana Islands",
-
-        "159": "Norway",
-
-        "160": "Oman",
-
-        "161": "Pakistan",
-
-        "162": "Palau",
-
-        "163": "Palestine",
-
-        "164": "Panama",
-
-        "165": "Papua New Guinea",
-
-        "166": "Paraguay",
-
-        "167": "Peru",
-
-        "168": "Philippines",
-
-        "169": "Pitcairn",
-
-        "170": "Poland",
-
-        "171": "Portugal",
-
-        "172": "Puerto Rico",
-
-        "173": "Qatar",
-
-        "174": "Republic of the Congo",
-
-        "175": "Reunion",
-
-        "176": "Romania",
-
-        "177": "Russia",
-
-        "178": "Rwanda",
-
-        "179": "Saint Barthelemy",
-
-        "180": "Saint Helena",
-
-        "181": "Saint Kitts and Nevis",
-
-        "182": "Saint Lucia",
-
-        "183": "Saint Martin",
-
-        "184": "Saint Pierre and Miquelon",
-
-        "185": "Saint Vincent and the Grenadines",
-
-        "186": "Samoa",
-
-        "187": "San Marino",
-
-        "188": "Sao Tome and Principe",
-
-        "189": "Saudi Arabia",
-
-        "190": "Senegal",
-
-        "191": "Serbia",
-
-        "192": "Seychelles",
-
-        "193": "Sierra Leone",
-
-        "194": "Singapore",
-
-        "195": "Sint Maarten",
-
-        "196": "Slovakia",
-
-        "197": "Slovenia",
-
-        "198": "Solomon Islands",
-
-        "199": "Somalia",
-
-        "200": "South Africa",
-
-        "201": "South Korea",
-
-        "202": "South Sudan",
-
-        "203": "Spain",
-
-        "204": "Sri Lanka",
-
-        "205": "Sudan",
-
-        "206": "Suriname",
-
-        "207": "Svalbard and Jan Mayen",
-
-        "208": "Swaziland",
-
-        "209": "Sweden",
-
-        "210": "Switzerland",
-
-        "211": "Syria",
-
-        "212": "Taiwan",
-
-        "213": "Tajikistan",
-
-        "214": "Tanzania",
-
-        "215": "Thailand",
-
-        "216": "Togo",
-
-        "217": "Tokelau",
-
-        "218": "Tonga",
-
-        "219": "Trinidad and Tobago",
-
-        "220": "Tunisia",
-
-        "221": "Turkey",
-
-        "222": "Turkmenistan",
-
-        "223": "Turks and Caicos Islands",
-
-        "224": "Tuvalu",
-
-        "225": "U.S. Virgin Islands",
-
-        "226": "Uganda",
-
-        "227": "Ukraine",
-
-        "228": "United Arab Emirates",
-
-        "229": "United Kingdom",
-
-        "230": "United States",
-
-        "231": "Uruguay",
-
-        "232": "Uzbekistan",
-
-        "233": "Vanuatu",
-
-        "234": "Vatican",
-
-        "235": "Venezuela",
-
-        "236": "Vietnam",
-
-        "237": "Wallis and Futuna",
-
-        "238": "Western Sahara",
-
-        "239": "Yemen",
-
-        "240": "Zambia",
-
-        "241": "Zimbabwe"
-    }
+{ "country" :
+[
+    { "name" : "Afghanistan", "utc" : 4, "continent":"asia", "region":"south_asia" },
+    { "name" : "Albania", "utc" : 1, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Algeria", "utc" : 1, "continent":"africa", "region":"northern_africa" },
+    { "name" : "American Samoa", "utc" : -11, "continent":"oceania", "region":"pacific" },
+    { "name" : "Andorra", "utc" : 1, "continent":"europe", "region":"south_west_europe" },
+    { "name" : "Angola", "utc" : 1, "continent":"africa", "region":"southern_africa" },
+    { "name" : "Anguilla", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Antarctica", "utc" : 0, "continent":"undecided", "region":"undecided" },
+    { "name" : "Antigua and Barbuda", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Argentina", "utc" : -3, "continent":"americas", "region":"south_america" },
+    { "name" : "Armenia", "utc" : 4, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Aruba", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Australia", "utc" : 10, "continent":"oceania", "region":"pacific" },
+    { "name" : "Austria", "utc" : 1, "continent":"europe", "region":"central_europe" },
+    { "name" : "Azerbaijan", "utc" : 4, "continent":"asia", "region":"south_asia" },
+    { "name" : "Bahamas", "utc" : -5, "continent":"americas", "region":"west_indies" },
+    { "name" : "Bahrain", "utc" : 3, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Bangladesh", "utc" : 6, "continent":"asia", "region":"south_asia" },
+    { "name" : "Barbados", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Belarus", "utc" : 3, "continent":"europe", "region":"eastern_europe" },
+    { "name" : "Belgium", "utc" : 1, "continent":"europe", "region":"western_europe" },
+    { "name" : "Belize", "utc" : -6, "continent":"americas", "region":"central_america" },
+    { "name" : "Benin", "utc" : 1, "continent":"africa", "region":"western_africa" },
+    { "name" : "Bermuda", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Bhutan", "utc" : 6, "continent":"asia", "region":"south_asia" },
+    { "name" : "Bolivia", "utc" : -4, "continent":"americas", "region":"south_america" },
+    { "name" : "Bosnia and Herzegovina","utc" : 1, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Botswana", "utc" : 2, "continent":"africa", "region":"southern_africa" },
+    { "name" : "Brazil", "utc" : -3, "continent":"americas", "region":"south_america" },
+    { "name" : "British Indian Ocean Territory", "utc" : 6, "continent":"asia", "region":"south_asia" },
+    { "name" : "British Virgin Islands", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Brunei", "utc" : 8, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Bulgaria", "utc" : 2, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Burkina Faso", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Burundi", "utc" : 2, "continent":"africa", "region":"central_africa" },
+    { "name" : "Cambodia", "utc" : 7, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Cameroon", "utc" : 1, "continent":"africa", "region":"western_africa" },
+    { "name" : "Canada", "utc" : -5, "continent":"americas", "region":"north_america" },
+    { "name" : "Cape Verde", "utc" : -1, "continent":"africa", "region":"western_africa" },
+    { "name" : "Cayman Islands", "utc" : -5, "continent":"americas", "region":"west_indies" },
+    { "name" : "Central African Republic", "utc" : 1, "continent":"africa", "region":"central_africa" },
+    { "name" : "Chad", "utc" : 1, "continent":"africa", "region":"central_africa" },
+    { "name" : "Chile", "utc" : -4, "continent":"americas", "region":"south_america" },
+    { "name" : "China", "utc" : 8, "continent":"asia", "region":"east_asia" },
+    { "name" : "Christmas Island", "utc" : 7, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Cocos Islands", "utc" : 6, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Colombia", "utc" : -5, "continent":"americas", "region":"south_america" },
+    { "name" : "Comoros", "utc" : 3, "continent":"africa", "region":"indian_ocean" },
+    { "name" : "Cook Islands", "utc" : -10, "continent":"oceania", "region":"pacific" },
+    { "name" : "Costa Rica", "utc" : -6, "continent":"americas", "region":"central_america" },
+    { "name" : "Croatia", "utc" : 1, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Cuba", "utc" : -5, "continent":"americas", "region":"west_indies" },
+    { "name" : "Curacao", "utc" : -4, "continent":"americas", "region":"south_america" },
+    { "name" : "Cyprus", "utc" : 2, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Czech Republic", "utc" : 1, "continent":"europe", "region":"central_europe" },
+    { "name" : "Democratic Republic of the Congo", "utc" : 1, "continent":"americas", "region":"west_indies" },
+    { "name" : "Denmark", "utc" : 1, "continent":"europe", "region":"northern_europe" },
+    { "name" : "Djibouti", "utc" : 3, "continent":"africa", "region":"eastern_africa" },
+    { "name" : "Dominica", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Dominican Republic", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "East Timor", "utc" : 9, "continent":"oceania", "region":"pacific" },
+    { "name" : "Ecuador", "utc" : -5, "continent":"americas", "region":"south_america" },
+    { "name" : "Egypt", "utc" : 2, "continent":"africa", "region":"northern_africa" },
+    { "name" : "El Salvador", "utc" : -6, "continent":"americas", "region":"central_america" },
+    { "name" : "Equatorial Guinea", "utc" : 1, "continent":"africa", "region":"western_africa" },
+    { "name" : "Eritrea", "utc" : 3, "continent":"africa", "region":"eastern_africa" },
+    { "name" : "Estonia", "utc" : 2, "continent":"europe", "region":"eastern_europe" },
+    { "name" : "Ethiopia", "utc" : 3, "continent":"africa", "region":"eastern_africa" },
+    { "name" : "Falkland Islands", "utc" : -3, "continent":"americas", "region":"south_america" },
+    { "name" : "Faroe Islands", "utc" : 0, "continent":"europe", "region":"northern_europe" },
+    { "name" : "Fiji", "utc" : 12, "continent":"oceania", "region":"pacific" },
+    { "name" : "Finland", "utc" : 2, "continent":"europe", "region":"northern_europe" },
+    { "name" : "France", "utc" : 1, "continent":"europe", "region":"western_europe" },
+    { "name" : "French Guiana", "utc" : -3, "continent":"americas", "region":"south_america" },
+    { "name" : "French polynesia", "utc" : -10, "continent":"oceania", "region":"pacific" },
+    { "name" : "Gabon", "utc" : 1, "continent":"africa", "region":"western_africa" },
+    { "name" : "Gambia", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Georgia", "utc" : 4, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Germany", "utc" : 1, "continent":"europe", "region":"western_europe" },
+    { "name" : "Ghana", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Gibraltar", "utc" : 1, "continent":"europe", "region":"south_west_europe" },
+    { "name" : "Greece", "utc" : 2, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Greenland", "utc" : -4, "continent":"americas", "region":"north_america" },
+    { "name" : "Grenada", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Guam", "utc" : 10, "continent":"oceania", "region":"pacific" },
+    { "name" : "Guatemala", "utc" : -6, "continent":"americas", "region":"central_america" },
+    { "name" : "Guernsey", "utc" : 0, "continent":"europe", "region":"western_europe" },
+    { "name" : "Guinea", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Guinea-Bissau", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Guyana", "utc" : -4, "continent":"americas", "region":"south_america" },
+    { "name" : "Haiti", "utc" : -5, "continent":"americas", "region":"west_indies" },
+    { "name" : "Honduras", "utc" : -6, "continent":"americas", "region":"central_america" },
+    { "name" : "Hong Kong", "utc" : 8, "continent":"asia", "region":"east_asia" },
+    { "name" : "Hungary", "utc" : 1, "continent":"europe", "region":"central_europe" },
+    { "name" : "Iceland", "utc" : 0, "continent":"europe", "region":"northern_europe" },
+    { "name" : "India", "utc" : 5, "continent":"asia", "region":"south_asia" },
+    { "name" : "Indonesia", "utc" : 7, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Iran", "utc" : 3, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Iraq", "utc" : 3, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Ireland", "utc" : 0, "continent":"europe", "region":"western_europe" },
+    { "name" : "Isle of Man", "utc" : 0, "continent":"europe", "region":"western_europe" },
+    { "name" : "Israel", "utc" : 2, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Italy", "utc" : 1, "continent":"europe", "region":"southern_europe" },
+    { "name" : "Ivory Coast", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Jamaica", "utc" : -5, "continent":"americas", "region":"west_indies" },
+    { "name" : "Japan", "utc" : 9, "continent":"asia", "region":"east_asia" },
+    { "name" : "Jersey", "utc" : 0, "continent":"europe", "region":"western_europe" },
+    { "name" : "Jordan", "utc" : 2, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Kazakhstan", "utc" : 5, "continent":"asia", "region":"central_asia" },
+    { "name" : "Kenya", "utc" : 3, "continent":"africa", "region":"eastern_africa" },
+    { "name" : "Kiribati", "utc" : 12, "continent":"oceania", "region":"pacific" },
+    { "name" : "Kosovo", "utc" : 1, "continent":"europe", "region":"southern_europe" },
+    { "name" : "Kuwait", "utc" : 3, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Kyrgyzstan", "utc" : 6, "continent":"asia", "region":"central_asia" },
+    { "name" : "Laos", "utc" : 7, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Latvia", "utc" : 2, "continent":"europe", "region":"eastern_europe" },
+    { "name" : "Lebanon", "utc" : 2, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Lesotho", "utc" : 2, "continent":"africa", "region":"southern_africa" },
+    { "name" : "Liberia", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Libya", "utc" : 2, "continent":"africa", "region":"northern_africa" },
+    { "name" : "Liechtenstein", "utc" : 1, "continent":"europe", "region":"central_europe" },
+    { "name" : "Lithuania", "utc" : 2, "continent":"europe", "region":"eastern_europe" },
+    { "name" : "Luxembourg", "utc" : 1, "continent":"europe", "region":"western_europe" },
+    { "name" : "Macao", "utc" : 8, "continent":"asia", "region":"east_asia" },
+    { "name" : "Macedonia", "utc" : 1, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Madagascar", "utc" : 3, "continent":"africa", "region":"indian_ocean" },
+    { "name" : "Malawi", "utc" : 2, "continent":"africa", "region":"southern_africa" },
+    { "name" : "Malaysia", "utc" : 8, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Maldives", "utc" : 5, "continent":"asia", "region":"south_asia" },
+    { "name" : "Mali", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Malta", "utc" : 1, "continent":"europe", "region":"southern_europe" },
+    { "name" : "Marshall Islands", "utc" : 12, "continent":"oceania", "region":"pacific" },
+    { "name" : "Mauritania", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Mauritius", "utc" : 4, "continent":"africa", "region":"indian_ocean" },
+    { "name" : "Mayotte", "utc" : 3, "continent":"africa", "region":"indian_ocean" },
+    { "name" : "Mexico", "utc" : -6, "continent":"americas", "region":"central_america" },
+    { "name" : "Micronesia", "utc" : 11, "continent":"oceania", "region":"pacific" },
+    { "name" : "Moldova", "utc" : 2, "continent":"europe", "region":"eastern_europe" },
+    { "name" : "Monaco", "utc" : 1, "continent":"europe", "region":"western_europe" },
+    { "name" : "Mongolia", "utc" : 7, "continent":"asia", "region":"northern_asia" },
+    { "name" : "Montenegro", "utc" : 1, "continent":"europe", "region":"southern_europe" },
+    { "name" : "Montserrat", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Morocco", "utc" : 0, "continent":"africa", "region":"northern_africa" },
+    { "name" : "Mozambique", "utc" : 2, "continent":"africa", "region":"southern_africa" },
+    { "name" : "Myanmar", "utc" : 6, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Namibia", "utc" : 1, "continent":"africa", "region":"southern_africa" },
+    { "name" : "Nauru", "utc" : 12, "continent":"oceania", "region":"pacific" },
+    { "name" : "Nepal", "utc" : 6, "continent":"asia", "region":"south_asia" },
+    { "name" : "Netherlands", "utc" : 1, "continent":"europe", "region":"western_europe" },
+    { "name" : "Netherlands Antilles", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "New Caledonia", "utc" : 11, "continent":"oceania", "region":"pacific" },
+    { "name" : "New Zealand", "utc" : -11, "continent":"oceania", "region":"pacific" },
+    { "name" : "Nicaragua", "utc" : -6, "continent":"americas", "region":"central_america" },
+    { "name" : "Niger", "utc" : 1, "continent":"africa", "region":"western_africa" },
+    { "name" : "Nigeria", "utc" : 1, "continent":"africa", "region":"western_africa" },
+    { "name" : "Niue", "utc" : -11, "continent":"oceania", "region":"pacific" },
+    { "name" : "North Korea", "utc" : 8, "continent":"asia", "region":"east_asia" },
+    { "name" : "Northern Mariana Islands", "utc" : 10, "continent":"oceania", "region":"pacific" },
+    { "name" : "Norway", "utc" : 1, "continent":"europe", "region":"northern_europe" },
+    { "name" : "Oman", "utc" : 4, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Pakistan", "utc" : 5, "continent":"asia", "region":"central_asia" },
+    { "name" : "Palau", "utc" : 9, "continent":"oceania", "region":"pacific" },
+    { "name" : "Palestine", "utc" : 2, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Panama", "utc" : -5, "continent":"americas", "region":"central_america" },
+    { "name" : "Papua New Guinea", "utc" : 10, "continent":"oceania", "region":"pacific" },
+    { "name" : "Paraguay", "utc" : -4, "continent":"americas", "region":"south_america" },
+    { "name" : "Peru", "utc" : -5, "continent":"americas", "region":"south_america" },
+    { "name" : "Philippines", "utc" : 8, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Pitcairn", "utc" : -8, "continent":"oceania", "region":"pacific" },
+    { "name" : "Poland", "utc" : 1, "continent":"europe", "region":"eastern_europe" },
+    { "name" : "Portugal", "utc" : -1, "continent":"europe", "region":"south_west_europe" },
+    { "name" : "Puerto Rico", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Qatar", "utc" : 3, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Republic of the Congo", "utc" : 1, "continent":"africa", "region":"central_africa" },
+    { "name" : "Reunion", "utc" : 4, "continent":"africa", "region":"indian_ocean" },
+    { "name" : "Romania", "utc" : 2, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Russia", "utc" : 3, "continent":"asia", "region":"northern_asia" },
+    { "name" : "Rwanda", "utc" : 2, "continent":"africa", "region":"central_asia" },
+    { "name" : "Saint Barthelemy", "utc" : -4, "continent":"americas", "region":"central_america" },
+    { "name" : "Saint Helena", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Saint Kitts and Nevis", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Saint Lucia", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Saint Martin", "utc" : -4, "continent":"americas", "region":"central_america" },
+    { "name" : "Saint Pierre and Miquelon", "utc" : -3, "continent":"americas", "region":"northern_america" },
+    { "name" : "Saint Vincent and the Grenadines", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Samoa", "utc" : 13, "continent":"oceania", "region":"pacific" },
+    { "name" : "San Marino", "utc" : 1, "continent":"europe", "region":"southern_europe" },
+    { "name" : "Sao Tome and Principe", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Saudi Arabia", "utc" : 3, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Senegal", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Serbia", "utc" : 1, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Seychelles", "utc" : 4, "continent":"africa", "region":"indian_ocean" },
+    { "name" : "Sierra Leone", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Singapore", "utc" : 8, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Sint Maarten", "utc" : -4, "continent":"americas", "region":"central_america" },
+    { "name" : "Slovakia", "utc" : 1, "continent":"europe", "region":"central_europe" },
+    { "name" : "Slovenia", "utc" : 1, "continent":"europe", "region":"south_east_europe" },
+    { "name" : "Solomon Islands", "utc" : 11, "continent":"oceania", "region":"pacific" },
+    { "name" : "Somalia", "utc" : 3, "continent":"africa", "region":"eastern_africa" },
+    { "name" : "South Africa", "utc" : 2, "continent":"africa", "region":"southern_africa" },
+    { "name" : "South Korea", "utc" : 9, "continent":"asia", "region":"east_asia" },
+    { "name" : "South Sudan", "utc" : 3, "continent":"africa", "region":"northern_africa" },
+    { "name" : "Spain", "utc" : 1, "continent":"europe", "region":"south_west_europe" },
+    { "name" : "Sri Lanka", "utc" : 5, "continent":"asia", "region":"south_asia" },
+    { "name" : "Sudan", "utc" : 3, "continent":"africa", "region":"northern_africa" },
+    { "name" : "Suriname", "utc" : -3, "continent":"americas", "region":"south_america" },
+    { "name" : "Svalbard and Jan Mayen", "utc" : 1, "continent":"europe", "region":"northern_europe" },
+    { "name" : "Swaziland", "utc" : 2, "continent":"africa", "region":"northern_africa" },
+    { "name" : "Sweden", "utc" : 1, "continent":"europe", "region":"northern_europe" },
+    { "name" : "Switzerland", "utc" : 1, "continent":"europe", "region":"central_europe" },
+    { "name" : "Syria", "utc" : 2, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Taiwan", "utc" : 8, "continent":"asia", "region":"east_asia" },
+    { "name" : "Tajikistan", "utc" : 5, "continent":"asia", "region":"central_asia" },
+    { "name" : "Tanzania", "utc" : 3, "continent":"africa", "region":"eastern_africa" },
+    { "name" : "Thailand", "utc" : 7, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Togo", "utc" : 0, "continent":"africa", "region":"western_africa" },
+    { "name" : "Tokelau", "utc" : 13, "continent":"oceania", "region":"pacific" },
+    { "name" : "Tonga", "utc" : 13, "continent":"oceania", "region":"pacific" },
+    { "name" : "Trinidad and Tobago", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Tunisia", "utc" : 1, "continent":"africa", "region":"northern_africa" },
+    { "name" : "Turkey", "utc" : 2, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Turkmenistan", "utc" : 5, "continent":"asia", "region":"central_asia" },
+    { "name" : "Turks and Caicos Islands", "utc" : -4, "continent":"americas", "region":"west_indies" },
+    { "name" : "Tuvalu", "utc" : 12, "continent":"oceania", "region":"pacific" },
+    { "name" : "U.S. Virgin Islands", "utc" : -4, "continent":"americas", "region":"central_america" },
+    { "name" : "Uganda", "utc" : 3, "continent":"africa", "region":"eastern_africa" },
+    { "name" : "Ukraine", "utc" : 3, "continent":"europe", "region":"eastern_europe" },
+    { "name" : "United Arab Emirates", "utc" : 4, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "United Kingdom", "utc" : 0, "continent":"europe", "region":"western_europe" },
+    { "name" : "United States", "utc" : -5, "continent":"americas", "region":"north_america" },
+    { "name" : "Uruguay", "utc" : -3, "continent":"americas", "region":"south_america" },
+    { "name" : "Uzbekistan", "utc" : 5, "continent":"asia", "region":"central_asia" },
+    { "name" : "Vanuatu", "utc" : 11, "continent":"oceania", "region":"pacific" },
+    { "name" : "Vatican", "utc" : 1, "continent":"europe", "region":"southern_europe" },
+    { "name" : "Venezuela", "utc" : -4, "continent":"americas", "region":"south_america" },
+    { "name" : "Vietnam", "utc" : 7, "continent":"asia", "region":"south_east_asia" },
+    { "name" : "Wallis and Futuna", "utc" : 12, "continent":"oceania", "region":"pacific" },
+    { "name" : "Western Sahara", "utc" : 0, "continent":"africa", "region":"northern_africa" },
+    { "name" : "Yemen", "utc" : 3, "continent":"asia", "region":"south_west_asia" },
+    { "name" : "Zambia", "utc" : 2, "continent":"africa", "region":"southern_africa" },
+    { "name" : "Zimbabwe", "utc" : 2, "continent":"africa", "region":"southern_africa" }
+]
 }

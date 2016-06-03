@@ -1,7 +1,7 @@
 var windowWidth = $(window).width();
 
 $(document).ready(function(){
-    $(".toggle_info").on("click",toggle.single).on("click touchend",infoToggle);
+    $(".toggle_info").on("click touchend",infoToggle);
         
         function infoToggle(){
             eventHandler(event,$(this));
@@ -9,10 +9,10 @@ $(document).ready(function(){
             $body = $this.parent().next(".dash_body");
 
             if($this.hasClass("selected")){
-                $this.attr("class","fa fa-angle-down toggle_info");
+                $this.attr("class","fa fa-angle-up toggle_info");
                 $body.css("min-height","0px").stop().slideUp(300);
             }else{
-                $this.attr("class","fa fa-angle-up toggle_info");
+                $this.attr("class","fa fa-angle-down toggle_info selected");
                 $body.stop().slideDown(300,function(){
                     $body.css("min-height","150px");
                 });
@@ -23,136 +23,93 @@ $(document).ready(function(){
 
 /*----------------------------toggle section button end------------------------------*/
 /*----------------------------time card in dashboard page start------------------------*/
-console.log(UTC);
-function localTime(){
-    var localtime = new Date();
-    var local_h = localtime.getHours();
-    var local_m = localtime.getMinutes();
-    var local_s = localtime.getSeconds();
-    var mid = "";
-    var clock = setTimeout(localTime, 1000);
+
+$(function(){
+
+    var userClock = $("#usertime").find(".clock_wrap"),
+    localClock = $("#localtime").find(".clock_wrap");
+
+    setInterval(syncTime(userClock,localClock),1000);
+    blinkColon();
+
+    function syncTime(user,local){
+        var time = initTime(),
+        colon = "<span class='colon'>:</span>";
+
+        var localTime = time.local.hour + colon + time.local.minute,
+        userTime = time.user.hour + colon + time.user.minute;
+
+        user.find(".clock").html(userTime);
+        user.find(".ampm").text(time.user.ampm);
+
+        local.find(".clock").html(localTime);
+        local.find(".ampm").text(time.local.ampm);
+    }(userClock,localClock);
     
-    if(local_h <= 12){ //At 00 hours we need to show 12 am
-    	mid = "am";
+    
+    function initTime(){
+        var localTime = new Date(),
+        timezone = localTime.getTime() + (localTime.getTimezoneOffset() * 60000); //min -> ms
+
+        var utcTime = new Date();
+        utcTime.setTime(timezone);
+
+        var userTime = new Date();
+        UTC *= 3600000, //hour -> ms
+        timezone = utcTime.getTime() + UTC;
+        userTime.setTime(timezone);
+
+        return {
+            "local" : localTime.get12HourTime(true),
+            "user" : userTime.get12HourTime(true),
+            "utc" : utcTime.get12HourTime(true)
+        };
     }
-    else if(local_h > 12){ // pm
-    	local_h = local_h - 12;
-    	mid = "pm";
+
+    function blinkColon(){
+        var colon_count = 0;
+        var blink_time = setInterval(function(){
+            var colon = $(".colon");
+            if(colon_count == 0){
+                colon.css("visibility","hidden");
+                colon_count = 1;
+                //console.log(colon_count);
+            }
+            else if(colon_count == 1){
+                colon_count = 0;
+                colon.css("visibility","visible");
+                //console.log(colon_count);
+            }
+        },500);
     };
-    //console.log("<"+mid+">"+local_h+":"+local_m+":"+local_s);
-
-    local_h = checkTime(local_h);
-    local_m = checkTime(local_m);
-    local_s = checkTime(local_s);
-    $("#user_ampm").text(mid);
-    $("#userclock").html(local_h + "<span class='colon'>:</span>" + local_m);
-    $("#local_ampm").text(mid);
-    $("#localclock").html(local_h + "<span class='colon'>:</span>" + local_m);
-};
-
-function worldTime(){
-
-}
-
-function checkTime(i) {
-    if (i < 10){
-    	i = "0" + i
-	};  // add zero in front of numbers < 10
-
-    return i;
-};
-
-function blinkColon() {
-	var colon_count = 0;
-    var blink_time = setInterval(function(){
-        var colon = $(".colon");
-    	if(colon_count == 0){
-    		colon.css("visibility","hidden");
-    		colon_count = 1;
-    		//console.log(colon_count);
-    	}
-    	else if(colon_count == 1){
-    		colon_count = 0;
-    		colon.css("visibility","visible");
-    		//console.log(colon_count);
-    	}
-    },500);
-};
-
-localTime();
-blinkColon();
+});
 /*----------------------------time card in dashboard page end--------------------------*/
 /*----------------------------chart in dashboard page start--------------------------*/
-///////////////loader start
-var likeChart;
-var viewChart;
-var upChart;
-var downChart;
 
-var likedata = [];
-var viewdata = [];
-var updata = [];
-var downdata = [];
+var likeChartRender = chartLoader("chartdiv1","likeChart","../../js/chart/data/likedata.json"),
+viewChartRender = chartLoader("chartdiv2","viewChart","../../js/chart/data/viewdata.json"),
+upChartRender = chartLoader("chartdiv3","upChart","../../js/chart/data/updata.json"),
+downChartRender = chartLoader("chartdiv4","downChart","../../js/chart/data/downdata.json");
 
-var likedata_loader = 
-$.getJSON("../../js/chart/data/likedata.json", function(data) {
-    $.each(data, function(i, v) {
-        console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
-        likedata.push({
-            date: v["date"],
-            value: v["value"]
-        });
-    });
-    likedata.splice(0,likedata.length-7);//last 7 days
-    console.log("loaded likedata"); 
-    success : likeChart(); console.log("likeChart complete");  
-});
-var viewdata_loader = 
-$.getJSON("../../js/chart/data/viewdata.json", function(data) {
-    $.each(data, function(i, v) {
-        console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
-        viewdata.push({
-            date: v["date"],
-            value: v["value"]
-        });
-    });
-    viewdata.splice(0,viewdata.length-7);//last 7 days
-    console.log("loaded viewdata"); 
-    success : viewChart(); console.log("viewChart complete");  
-});
-var updata_loader = 
-$.getJSON("../../js/chart/data/updata.json", function(data) {
-    $.each(data, function(i, v) {
-        console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
-        updata.push({
-            date: v["date"],
-            value: v["value"]
-        });
-    });
-    updata.splice(0,updata.length-7);//last 7 days
-    console.log("loaded updata"); 
-    success : upChart(); console.log("upChart complete");  
-});
-var downdata_loader = 
-$.getJSON("../../js/chart/data/downdata.json", function(data) {
-    $.each(data, function(i, v) {
-        console.log("date :" + v["date"] +", "+ "value :" + v["value"]);
-        downdata.push({
-            date: v["date"],
-            value: v["value"]
-        });
-    });
-    downdata.splice(0,downdata.length-7);//last 7 days
-    console.log("loaded downdata"); 
-    success : downChart(); console.log("downChart complete");  
-});
+function chartLoader(target,theme,json){
+    var dataArray = [];
 
-///////////////loader end
+    $.getJSON(json,function(data){
+        $.each(data, function(i,v){
+            dataArray.push({
+                date: v["date"],
+                value: v["value"]
+            })
+        })
+        dataArray.splice(0,dataArray.length-7);
+        success : initChart(target,theme,dataArray);
+    })
+}
 
-function likeChart(){
-    likeChart = AmCharts.makeChart("chartdiv1", {
+function initChart(target,theme,data){
+    var chart = AmCharts.makeChart(target, {
         "type": "serial",
-        "theme": "likeChart",
+        "theme": theme,
         "marginRight": 40,
         "marginLeft": 40,
         "autoMarginOffset": 20,
@@ -209,221 +166,14 @@ function likeChart(){
         "export": {
             "enabled": false
         },
-        "dataProvider": likedata
+        "dataProvider": data
     });
-    likeChart.addListener("rendered", zoomChart);
-    zoomChart();
+    chart.addListener("rendered", zoomChart);
     function zoomChart(){
-        likeChart.zoomToIndexes(likeChart.dataProvider.length - 40, likeChart.dataProvider.length - 1);
-    };    
-};
-function viewChart(){
-    viewChart = AmCharts.makeChart("chartdiv2", {
-        "type": "serial",
-        "theme": "viewChart",
-        "marginRight": 40,
-        "marginLeft": 40,
-        "autoMarginOffset": 20,
-        "dataDateFormat": "YYYY-MM-DD",
-        "valueAxes": [{
-            "id": "v2",
-            "axisAlpha": 0,
-            "position": "left",
-            "ignoreAxisWidth":true,
-            "color": "#444444",
-            "gridColor": "#444444",
-            "gridAlpha": 0.3
-        }],
-        "balloon": {
-            "borderThickness": 1,
-            "shadowAlpha": 0
-        },
-        "graphs": [{
-            "id": "g2",
-            "balloon":{
-              "drop":true,
-              "adjustBorderColor":false,
-              "color":"#ffffff"
-            },
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "title": "red line",
-            "useLineColorForBulletBorder": true,
-            "valueField": "value",
-            "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
-        }],
-        "chartCursor": {
-            "pan": true,
-            "valueLineEnabled": true,
-            "valueLineBalloonEnabled": true,
-            "cursorAlpha":1,
-            "cursorColor":"#ec6446",//navigation bar color
-            "limitToGraph":"g1",
-            "valueLineAlpha":1
-        },
-        "categoryField": "date",
-        "categoryAxis": {
-            "parseDates": true,
-            "dashLength": 1,
-            "minorGridEnabled": true,
-            "color": "#444444",
-            "gridColor": "#444444",
-            "gridAlpha": 0.3
-        },
-        "export": {
-            "enabled": false
-        },
-        "dataProvider": viewdata
-    });
-    viewChart.addListener("rendered", zoomChart);
-    zoomChart();
-    function zoomChart(){
-        viewChart.zoomToIndexes(viewChart.dataProvider.length - 40, viewChart.dataProvider.length - 1);
-    }
-}; 
-/*---------------------------------------------------------------------------------------------------------------------------*/
-function upChart(){
-    upChart = AmCharts.makeChart("chartdiv3", {
-        "type": "serial",
-        "theme": "upChart",
-        "marginRight": 40,
-        "marginLeft": 40,
-        "autoMarginOffset": 20,
-        "dataDateFormat": "YYYY-MM-DD",
-        "valueAxes": [{
-            "id": "v3",
-            "axisAlpha": 0,
-            "position": "left",
-            "ignoreAxisWidth":true,
-            "color": "#444444",
-            "gridColor": "#444444",
-            "gridAlpha": 0.3
-        }],
-        "balloon": {
-            "borderThickness": 1,
-            "shadowAlpha": 0
-        },
-        "graphs": [{
-            "id": "g3",
-            "balloon":{
-              "drop":true,
-              "adjustBorderColor":false,
-              "color":"#ffffff"
-            },
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "title": "red line",
-            "useLineColorForBulletBorder": true,
-            "valueField": "value",
-            "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
-        }],
-        "chartCursor": {
-            "pan": true,
-            "valueLineEnabled": true,
-            "valueLineBalloonEnabled": true,
-            "cursorAlpha":1,
-            "cursorColor":"#488ccb",//navigation bar color
-            "limitToGraph":"g1",
-            "valueLineAlpha":1
-        },
-        "categoryField": "date",
-        "categoryAxis": {
-            "parseDates": true,
-            "dashLength": 1,
-            "minorGridEnabled": true,
-            "color": "444444",
-            "gridColor": "#444444",
-            "gridAlpha": 0.3
-        },
-        "export": {
-            "enabled": false
-        },
-        "dataProvider": updata
-    });
-    upChart.addListener("rendered", zoomChart);
-    zoomChart();
-    function zoomChart(){
-        upChart.zoomToIndexes(upChart.dataProvider.length - 40, upChart.dataProvider.length - 1);
-    }
-} 
-/*---------------------------------------------------------------------------------------------------------------------------*/
-function downChart(){
-    downChart = AmCharts.makeChart("chartdiv4", {
-        "type": "serial",
-        "theme": "downChart",
-        "marginRight": 40,
-        "marginLeft": 40,
-        "autoMarginOffset": 20,
-        "dataDateFormat": "YYYY-MM-DD",
-        "valueAxes": [{
-            "id": "v4",
-            "axisAlpha": 0,
-            "position": "left",
-            "ignoreAxisWidth":true,
-            "color": "#444444",
-            "gridColor": "#444444",
-            "gridAlpha": 0.3
-        }],
-        "balloon": {
-            "borderThickness": 1,
-            "shadowAlpha": 0
-        },
-        "graphs": [{
-            "id": "g4",
-            "balloon":{
-              "drop":true,
-              "adjustBorderColor":false,
-              "color":"#ffffff"
-            },
-            "bullet": "round",
-            "bulletBorderAlpha": 1,
-            "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
-            "hideBulletsCount": 50,
-            "lineThickness": 2,
-            "title": "red line",
-            "useLineColorForBulletBorder": true,
-            "valueField": "value",
-            "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
-        }],
-        "chartCursor": {
-            "pan": true,
-            "valueLineEnabled": true,
-            "valueLineBalloonEnabled": true,
-            "cursorAlpha":1,
-            "cursorColor":"#ffbe54",
-            "limitToGraph":"g1",
-            "valueLineAlpha":1
-        },
-        "categoryField": "date",
-        "categoryAxis": {
-            "parseDates": true,
-            "dashLength": 1,
-            "minorGridEnabled": true,
-            "color": "#444444",
-            "gridColor": "#444444",
-            "gridAlpha": 0.3
-        },
-        "export": {
-            "enabled": false
-        },
-        "dataProvider": downdata
-    });
-    downChart.addListener("rendered", zoomChart);
-    zoomChart();
-    function zoomChart(){
-        downChart.zoomToIndexes(downChart.dataProvider.length - 40, downChart.dataProvider.length - 1);
-    }
-};   
-/*-------------------------make chart end-------------------------------*/
+        chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
+    };  
+}
+
 /*------------------------select chart action start---------------------*/
 $(document).ready(function(){
     var chart_icon = $("#chart_icon");

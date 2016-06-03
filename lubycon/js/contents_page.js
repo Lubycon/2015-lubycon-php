@@ -5,7 +5,10 @@ function scroll_from_cookie(contents_number)
     //console.log($('.' + contents_number));
     var contents_offsetTop = $('.' + contents_number).offset().top;
     $("html,body").animate({ scrollTop: contents_offsetTop - 200 }, "slow");
-    $('.' + contents_number).css('background', '#ccc');
+    $('.' + contents_number).css({
+        "border" : "1px solid #48cfad",
+        "box-shadow" : "0px 0px 20px 0px rgb(72,207,173)"
+    });
     deleteCookie('contents_history');
 }
 
