@@ -1,60 +1,69 @@
-var ajax_eventing = false; //ajax bubbling banned
-var down_page_finish = false; //check last page valuable
-var up_page_finish = false; // check fist page valuabel
-var now_page;//
-var all_page_count;
+var AJAX_EVENTING = false; //ajax bubbling banned
+var DOWN_PAGE_FINISH = false; //check last page valuable
+var UP_PAGE_FINISH = false; // check fist page valuabel
+var NOW_PAGE;//
+var ALL_PAGE_COUNT;
 
 $(document).ready(function () // paege ready to check
 {
-    now_page = parseInt(getUrlParameter('page')); // set param
-    all_page_count = $("#contents_pager option:last-child").val();
+    NOW_PAGE = parseInt(getUrlParameter('page')); // set param
+    ALL_PAGE_COUNT = parseInt($(".sliderKey").attr('max'));
     finish_check(); //check final function
 });
 $(document).scroll(function () //scroll handler
 {
-    now_page = parseInt(getUrlParameter('page')); // set param
+    NOW_PAGE = parseInt(getUrlParameter('page')); // set param
     var window_position = $(document).height() - $(document).scrollTop();
     var ajax_call_boundary = 150; //ajax start boundary
-    var pageCountUp = now_page + 1;
-    var pageCountDown = now_page - 1;
+    var pageCountUp = NOW_PAGE + 1;
+    var pageCountDown = NOW_PAGE - 1;
 
     finish_check(); // check last page function
-    page_checker(now_page); // url page param reset function
+    page_checker(NOW_PAGE); // url page param reset function
 
-    if (window_position <= ($(window).height() + ajax_call_boundary) && ajax_eventing == false && down_page_finish == false) {
+    if (window_position <= ($(window).height() + ajax_call_boundary) && AJAX_EVENTING == false && DOWN_PAGE_FINISH == false) {
         console.log('down ajax call');
-        ajax_eventing = true; //bubbleing banned
-        down_call_contents(now_page, pageCountUp); //down ajax call
+        AJAX_EVENTING = true; //bubbleing banned
+        down_call_contents(NOW_PAGE, pageCountUp); //down ajax call
 
     }
 });
 $(document).on('click',".prev_page_call", function ()
 {
-    var up_ajax_now_page = now_page - 2;
-    var up_ajax_target_page = now_page - 1;
+    var up_ajax_NOW_PAGE = NOW_PAGE - 2;
+    var up_ajax_target_page = NOW_PAGE - 1;
 
-    up_call_contents(up_ajax_now_page, up_ajax_target_page);
+    up_call_contents(up_ajax_NOW_PAGE, up_ajax_target_page);
     console.log('up ajax call');
 });
-$(document).on('change', '#contents_pager', function () // °íÀå ¤Ð¤Ð
-{
-    $("#contents_box > ul:nth-child(2)").html('');
-    down_call_contents($(this).val()-1, $(this).val());
-    replaceUrlParameter('page', $(this).val());
-    now_page = parseInt(getUrlParameter('page')); // set param
+
+
+$(document).ready(function () {
+    $(".sliderKey").slider({
+        mouseUpEvent: function (a) { slider_by_paging(a) }
+    });
 });
 
 
-function up_call_contents(now_page, pageNumber) //up scroll ajax
+function slider_by_paging(page_number)
+{
+    $(".contents_wrap").html('');
+    down_call_contents(page_number-1, page_number);
+    replaceUrlParameter('page', page_number);
+    NOW_PAGE = parseInt(getUrlParameter('page')); // set param
+};
+
+
+function up_call_contents(NOW_PAGE, pageNumber) //up scroll ajax
 {
     //var top_bound = ($("#main_header").height() + $("#nav_guide").height() + $("#lnb_nav > ul:nth-child(1)").height());
-    var remember_scroll = $('#contents_box > ul:nth-child(2) > li:nth-child(2)');
+    var remember_scroll = $('.contents_wrap > li:nth-child(2)');
     var remember_scroll_value = remember_scroll.offset().top;
     $.ajax
     ({
         type: "POST",
         url: "../ajax/infinite_scroll_ajax.php",
-        data: 'cate_param=' + CATE_PARAM + '&mid_cate_param=' + MID_CATE_PARAM + '&page_param=' + pageNumber + '&now_page_param=' + now_page,
+        data: 'cate_param=' + CATE_PARAM + '&mid_cate_param=' + MID_CATE_PARAM + '&page_param=' + pageNumber + '&now_page_param=' + NOW_PAGE,
         cache: false,
         success: function (data)
         {
@@ -62,38 +71,38 @@ function up_call_contents(now_page, pageNumber) //up scroll ajax
             $(document).scrollTop(remember_scroll.offset().top - remember_scroll_value);
             $(".prev_page_call").remove(); //reset button
             finish_check();
-            ajax_eventing = false;
+            AJAX_EVENTING = false;
            
         }
     })
 };
-function down_call_contents(now_page, pageNumber) //down scroll ajax
+function down_call_contents(NOW_PAGE, pageNumber) //down scroll ajax
 {
     $.ajax
     ({
         type: "POST",
         url: "../ajax/infinite_scroll_ajax.php",
-        data: 'cate_param=' + CATE_PARAM + '&mid_cate_param=' + MID_CATE_PARAM + '&page_param=' + pageNumber + '&now_page_param=' + now_page,
+        data: 'cate_param=' + CATE_PARAM + '&mid_cate_param=' + MID_CATE_PARAM + '&page_param=' + pageNumber + '&now_page_param=' + NOW_PAGE,
         cache: false,
         success: function (data) {
-            $("#contents_box > ul:nth-child(2)").append(data);
+            $(".contents_wrap").append(data);
             finish_check();
-            ajax_eventing = false;
+            AJAX_EVENTING = false;
         }
     })
 };
 
 
-function page_checker(now_page) //page url changer by scroll
+function page_checker(NOW_PAGE) //page url changer by scroll
 {
-    var up_count_page = now_page + 1;
-    var down_count_page = now_page - 1;
+    var up_count_page = NOW_PAGE + 1;
+    var down_count_page = NOW_PAGE - 1;
     var scrolltop = $(document).scrollTop();
     var window_height = $(window).height();
     var scrollbottom;
     var scroll_prev;
-    if ($('.page_bottom_' + now_page).length) //valuable set
-    { scrollbottom = $('.page_bottom_' + now_page).offset().top - window_height - 1; }
+    if ($('.page_bottom_' + NOW_PAGE).length) //valuable set
+    { scrollbottom = $('.page_bottom_' + NOW_PAGE).offset().top - window_height - 1; }
     if ($('.page_bottom_' + down_count_page).length) // if element exists
     {
         scroll_prev = $('.page_bottom_' + down_count_page).offset().top - window_height - 1;
@@ -102,11 +111,11 @@ function page_checker(now_page) //page url changer by scroll
     //console.log($('.page_bottom_' + down_count_page));
     //console.log(scroll_prev);
     //console.log(scrolltop);
-    //console.log(down_page_finish);
-    //console.log($('.page_bottom_' + now_page));
-    //console.log(all_page_count);
+    //console.log(DOWN_PAGE_FINISH);
+    //console.log($('.page_bottom_' + NOW_PAGE));
+    //console.log(ALL_PAGE_COUNT);
 
-    if (scrolltop > scrollbottom && now_page < all_page_count) //page ++
+    if (scrolltop > scrollbottom && NOW_PAGE < ALL_PAGE_COUNT) //page ++
     {
         replaceUrlParameter('page', up_count_page);
         console.log('page checker up');
@@ -120,18 +129,18 @@ function page_checker(now_page) //page url changer by scroll
 function finish_check() // check it last page
 {
     if ($("#contents_box > ul > .finish_contents").hasClass('finish_contents')) {
-        down_page_finish = true; //finish bottom page
+        DOWN_PAGE_FINISH = true; //finish bottom page
     } else
     {
-        down_page_finish = false; //more next page
+        DOWN_PAGE_FINISH = false; //more next page
     }
 
 
     if ($(".page_bottom_1").hasClass('page_bottom_1')) {
-        up_page_finish = true; //finish prev page
+        UP_PAGE_FINISH = true; //finish prev page
     } else {
-        up_page_finish = false; //more prev page
-        $('#contents_box > ul:nth-child(2) > li:nth-child(1)').before('<p class="prev_page_call">call more prev contents</p>');
+        UP_PAGE_FINISH = false; //more prev page
+        $('.contents_wrap > li:nth-child(1)').before('<p class="prev_page_call">call more prev contents</p>');
     }
 
 }

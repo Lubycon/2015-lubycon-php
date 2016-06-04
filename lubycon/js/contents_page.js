@@ -1,11 +1,4 @@
-﻿$(document).ready(function ()
-{
-    $(".sliderKey").slider({
-        mouseUpEvent: function(a){ console.log(a)}
-    });
-});
-
-function scroll_from_cookie(contents_number)
+﻿function scroll_from_cookie(contents_number)
 {
     //console.log($('.' + contents_number));
     var contents_offsetTop = $('.' + contents_number).offset().top;
@@ -21,7 +14,7 @@ function scroll_from_param(now_page)
 {
     var prev_page = now_page - 1;
 
-    console.log($(".page_bottom_" + prev_page));
+    //console.log($(".page_bottom_" + prev_page));
     //$("html,body").animate({ scrollTop: 0 }, 0);
     if (now_page <= 1) {
         $("html,body").animate({ scrollTop: 0 }, "fast");
