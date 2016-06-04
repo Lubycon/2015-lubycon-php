@@ -9,7 +9,7 @@
     $two_depth = '../../..'; // php load
     include_once('../../../layout/index_header.php');
 ?>
-<link href="../../module/css/lubySlider.css" rel="stylesheet" type="text/css" />
+<link href="../../../../css/module/lubySlider.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/cropper.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/chosen.css" rel="stylesheet" type="text/css" />
@@ -23,7 +23,7 @@
 <script type="text/javascript" src="../../data/backgroundPreset3d.json"></script>
 <script type="text/javascript" src="../../data/backgroundPreset2d.json"></script>
 
-<script type="text/javascript" src="../../module/js/jquery.lubySlider.js"></script>
+<script type="text/javascript" src="../../../../js/module/jquery.lubySlider.js"></script>
 <script type="text/javascript" src="../../module/js/modalClass.js"></script>
 <script type="text/javascript" src="../../module/js/spectrum.js"></script>
 <script type="text/javascript" src="../../module/js/cropper.js"></script>

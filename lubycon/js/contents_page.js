@@ -1,4 +1,9 @@
-﻿
+﻿$(document).ready(function ()
+{
+    $(".sliderKey").slider({
+        mouseUpEvent: function(a){ console.log(a)}
+    });
+});
 
 function scroll_from_cookie(contents_number)
 {

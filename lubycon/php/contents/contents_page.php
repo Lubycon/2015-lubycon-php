@@ -34,13 +34,19 @@
 ?>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
 <script type="text/javascript" src="<?=$one_depth?>/js/contents_page.js"></script> <!-- scroll js -->
+<script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySlider.js"></script>
+
+
+<link href="<?=$one_depth?>/css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+<link href="<?=$one_depth?>/css/module/lubySlider.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+
+
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
         <div class="dark_overlay_small"></div>
         <h2>CONTENTS</h2>
     </figure>	<!-- end main_figure -->
 </div>
-<link href="<?=$one_depth?>/css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 <section class="container">
     <section class="navsel hidden-mb-b">
         <nav class="lnb_nav">
@@ -102,6 +108,10 @@
         </div><!--subnav_box end-->
     </section>
     <section id="contents_box" class="con_wrap">
+
+    <input type="range" class="sliderKey" value="1" width="100" min='1' max='100'></div>
+
+
         <p>
             <select id="contents_pager" class="searchFilter">
             <?php

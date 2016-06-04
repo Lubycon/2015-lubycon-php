@@ -179,7 +179,7 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
 
                 console.log(contentName,contentData,categories,tags,cc);
-                //$("#finalForm").submit();
+                $("#finalForm").submit();
             },
             autoSave: function () {
                 var imgData = [],

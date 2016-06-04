@@ -809,7 +809,7 @@
                     //console.log(dataURL); // for ajax
 
                     var dataArray = new Array;
-                    dataArray[0] = { 'type': 'editor_thumb', 'data64': dataURL ,'index': null};
+                    dataArray[0] = { 'type': 'editor_thumb', 'base64': dataURL ,'index': null};
 
                     $.ajax({
                         type: "POST",
