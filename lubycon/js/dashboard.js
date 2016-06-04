@@ -3,7 +3,7 @@ var windowWidth = $(window).width();
 $(document).ready(function(){
     $(".toggle_info").on("click touchend",infoToggle);
         
-        function infoToggle(){
+        function infoToggle(event){
             eventHandler(event,$(this));
             var $this = $(this),
             $body = $this.parent().next(".dash_body");

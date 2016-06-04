@@ -56,17 +56,16 @@ if( !is_array($row) )
     include_once('../../404.php');
 }
 
-
-
 require_once "../class/json_class.php";
 $json_control = new json_control;
-$json_control->json_decode('jobCode',"$one_depth/data/job.json");
+
+$json_control->json_decode('job',"$one_depth/data/job.json");
 $job_decode = $json_control->json_decode_code;
 $json_control->json_decode('country',"$one_depth/data/country.json");
 $country_decode = $json_control->json_decode_code;
 
-$my_job_origin_select = $job_decode[$row['jobCode']];
-$my_country_origin_select = $country_decode[$row['countryCode']];
+$my_job_origin_select = $job_decode[$row["jobCode"]]['name'];
+$my_country_origin_select = $country_decode[$row["countryCode"]]['name'];
 
 $contents_name = $row['title'];
 $contents_html = $row['contents'];

@@ -1,21 +1,20 @@
 <?php
-
     require_once "../class/json_class.php";
     $json_control = new json_control;
-    $json_control->json_decode('jobCode',"$one_depth/data/job.json");
-    $job_origin_select = $json_control->json_decode_code[0];
-    $userjob = $job_origin_select["name"];
-    
+    $json_control->json_decode('job',"$one_depth/data/job.json");
+    $job_json_Code = $json_control->json_decode_code;
     $json_control->json_decode('country',"$one_depth/data/country.json");
-    $country_origin_select = $json_control->json_decode_code[0]; //country code
-    $usercountry = $country_origin_select["name"];
-    $utc = $country_origin_select["utc"]; echo "<script>var UTC = $utc</script>";
+    $country_json_Code = $json_control->json_decode_code;
+    
+    //target user data
+    $userjob = $job_json_Code[$userdata_row["jobCode"]]['name'];
+    
+    $usercountry = $country_json_Code[$userdata_row["countryCode"]]['name'];
+    $utc = $country_json_Code[$userdata_row["countryCode"]]["utc"]; 
+    echo "<script>var UTC = $utc</script>"; //for watch
 
-    $my_country_origin_select = $json_control->json_decode_code[200];
-    $mycountry = $my_country_origin_select["name"];
-
-    $user_position = "TestPosition";
-    $usercity = "TestCity";
+    $user_position = $userdata_row["company"];
+    $usercity = $userdata_row["city"];
     $language1 = "Language1"; //not yet
     $language2 = "Language2"; //not yet
 
@@ -24,11 +23,20 @@
     $total_up = 0;
     $total_down = 0;   
     
-    $username = "John";
-    $userWebsite = "www.lubycon.com";
-    $userEmail = $userid;
-    $localcity = $usercity;
-    $localcountry = $mycountry;
+    $username = $userdata_row["nick"];
+    $userWebsite = $userdata_row["web"];
+    $userEmail = $userdata_row["email"];
+    //target user data
+
+    //login user data
+    $usernumber = $_SESSION['lubycon_code'];
+    $db->query = "SELECT `countryCode`,`city` FROM `userinfo` WHERE `userinfo`.`userCode` = $usernumber ";
+    $db->askQuery();
+    $localuserdata_row = mysqli_fetch_array($db->result);
+
+    $localcountry = $country_json_Code[$localuserdata_row["countryCode"]]['name'];
+    $localcity = $localuserdata_row["city"];
+    //login user data
 ?>
 <script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
 <script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
@@ -36,6 +44,7 @@
 <script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <div id="information_inbody">
     <ul id="dashboard_wrap">
+    
         <li class="dash_section" id="creator_month">
             <div class="dash_header">
                 <h4>CREATOR OF THE MONTH</h4>

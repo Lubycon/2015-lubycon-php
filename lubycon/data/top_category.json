@@ -1,10 +1,11 @@
 {
-    "top_category": {
-        "1": "artwork",
-        "2": "vector",
-        "3": "threed",
-        "4": "forum",
-        "5": "tutorial",
-        "6": "qaa"
-    }
+    "top_category": 
+    [
+        { "topCateCode" : 0 ,"name": "artwork" },
+        { "topCateCode" : 1 ,"name": "vector" },
+        { "topCateCode" : 2 ,"name": "threed" },
+        { "topCateCode" : 3 ,"name": "forum" },
+        { "topCateCode" : 4 ,"name": "tutorial" },
+        { "topCateCode" : 5 ,"name": "qaa" }
+    ]
 }

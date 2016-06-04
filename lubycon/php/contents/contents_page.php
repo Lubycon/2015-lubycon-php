@@ -66,14 +66,11 @@
         <div class="nav-wrapper">
             <select class="categoryFilter">
             <?php
-                $current_url = $_GET["cate"];//change to db query later
+                $current_url = $_GET["cate"];
                 $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
                 $middle_cate_decode = $json_control->json_decode_code;
-                foreach ($middle_cate_decode AS $index=>$value)
-                {
-                    $loop_value = $value;
-                    echo "<option value='$loop_value' data-value='$index'>$loop_value</option>";
-                }
+                $json_control->json_spread_option($middle_cate_decode);
+                echo $json_control->json_spread_wrap;
             ?>
             </select>
             <select class="preferFilter">
