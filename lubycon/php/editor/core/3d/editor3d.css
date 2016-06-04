@@ -76,6 +76,7 @@
     height: 250px;
     padding: 10px 20px 10px 10px;
     border-right: 1px solid #333333;
+    background: url(../../img/transparent-repeat.png) 0% 0%;
     margin-right: 20px;
     overflow: hidden;
 }
@@ -106,10 +107,11 @@
         width: 100%;
         height: 270px;
         line-height: 270px;
-        background : #aaaaaa;
-        color: #444444;
-        font-size: 12px;
+        background : transparent;
+        color: #aaaaaa;
+        font-size: 14px;
         text-align: center;
+        border: 1px dashed #aaaaaa;
         cursor: pointer;
     }
         .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder:hover {

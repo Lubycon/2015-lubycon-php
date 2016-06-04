@@ -28,6 +28,7 @@
         keyCode = keycodePac, //keycode.json
         categoryData = categoryPac, //categories.json
         ccData = ccPac, //creative_commons.json
+        formData = new FormData(),
         d = {},
         pac = {
             init: function (option) {
@@ -105,8 +106,8 @@
                         var $inputFile = $("<input/>",{
                             "class":"fileUploader editor-hidden",
                             "name":"fileUploader",
-                            "type":"file",
-                            "multiple" : "multiple"
+                            "type":"file"
+                            //"multiple" : "multiple"
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
                             "class":"imgUploader editor-hidden",
@@ -133,6 +134,8 @@
                         setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
                         $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
+
+                        formData.files = [];
                     }
                 })
             },
@@ -175,7 +178,6 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
 
-
                 console.log(contentName,contentData,categories,tags,cc);
                 //$("#finalForm").submit();
             },
@@ -194,11 +196,12 @@
                     url: "../../../ajax/editor_ajax_upload_test.php", // temp image file ajax post
                     data:
                     {
-                        'ajax_data': imgData
+                        'ajax_data': imgData,
                     },
                     cache: false,
                     success: function (data) {
                         console.log('auto save succece');
+                        console.log(data);
                     }
                 });
             },
@@ -228,14 +231,14 @@
                 fileSelector: function(){
                     var modal = new ModalKit.create(pac.autoSave,"file-selector-modal"),
                     wrapper = modal.find(".modal-wrapper"),
-                    title = modal.find(".modal-title").text("File Select"),
+                    title = modal.find(".modal-title").text("Attached Files"),
                     content = modal.find(".modal-content"),
                     okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
                     cancelbt = modal.find(".modal-cancelbt").on("click",initInput);
 
-                    fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content);
-                    fileViewer = $("<input/>",{ "type" : "text", "class" : "modal-fileViewer", "readonly": "true" }).appendTo(fileInputWrap);
-                    uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
+                    var fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content),
+                    fileViewer = $("<ul/>",{ "class" : "modal-fileViewer" }).appendTo(fileInputWrap),
+                    uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap),
                     fileSelectHelp = $("<i/>",{ 
                         "class" : icons.help + " file-selector-help",
                         "data-tip" : "Your file size must be 30MB. The file extension must be ZIP,JPEG,PNG, or BMP"
@@ -572,28 +575,30 @@
                 inputFile.off("change").on("change",upload.fileUpload);
             },
             fileUpload: function(event){
-                console.log(event.target.files);
                 var $this = $(this),
-                object = event.target.files,
-                path = $this.val().replace(/^C:\\fakepath\\/i," ").trim(),
-                size = (object[0].size/1024/1024).toFixed(2),
                 $inputModal = $(document).find(".modal.file-selector-modal"),
                 $fileViewer = $inputModal.find(".modal-fileViewer"),
                 $fileInfo = $(document).find(".fileinfo");
-                console.log(object[0].size,size);
+                object = event.target.files;
 
-                if(upload.fileCheck(object[0])) {
-                    fileViewer.val(path);
-                    if($fileInfo.length === 0){
-                        var fileInfo = new modalFunc.showFileInfo(path,size).appendTo(".editor-wrapper").stop().fadeIn(300);
+                $.each(object,function(i,file){
+                    var name = file.name,
+                    indexNum = name.lastIndexOf("."),
+                    fileEXT = indexNum > -1 ? name.substring(indexNum + 1) : "",
+                    size = (file.size/1024/1024).toFixed(2);
+                    if(upload.fileCheck(file)){
+                        fileViewer.val(fileViewer.val() + name);
+                        formData.files.push(file);
+                        console.log(formData);
+                        if($fileInfo.length === 0){
+                            var fileInfo = new modalFunc.showFileInfo(name,size).appendTo(".editor-wrapper").stop().fadeIn(300);
+                        }
+                        else {
+                            $fileInfo.remove();
+                            var fileInfo = new modalFunc.showFileInfo(name,size).appendTo(".editor-wrapper").stop().fadeIn(300);
+                        }
                     }
-                    else {
-                        $fileInfo.remove();
-                        var fileInfo = new modalFunc.showFileInfo(path,size).appendTo(".editor-wrapper").stop().fadeIn(300);
-                    }
-                }
-                else $this.val(null);
-
+                });
                 return;
             },
             imgUpTrigger: function(){

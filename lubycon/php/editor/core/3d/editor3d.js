@@ -329,7 +329,7 @@
                     $editWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($innerWrap),
                     $placeholder = $("<div/>", { 
                         "class" : "thumb-placeHolder",
-                        "html" : "Click and upload your thumbnail Image",
+                        "html" : "Please Capture in WebGL Viewer",
                         "data-value" : "thumbnail"
                     }).on("click",upload.imgUpTrigger).appendTo($editWrap),
                     $img = $("<img/>", { 
