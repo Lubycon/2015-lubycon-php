@@ -93,7 +93,8 @@
                         $inputImage = $("<input/>",{
                             "class":"imgUploader editor-hidden",
                             "name":"imgUploader",
-                            "type":"file"
+                            "type":"file",
+                            "multiple" : "multiple"
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox);
                         //initModals
@@ -153,9 +154,9 @@
 
                 scene.add(skybox);
 
-                renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true });
+                renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true, antialias: true });
                     renderer.setSize(windowWidth, windowHeight);
-                    renderer.setPixelRatio(window.devicePixelRatio*1.5);
+                    renderer.setPixelRatio(window.devicePixelRatio);
                     renderer.setClearColor(0x222222, 1);
                     renderer.shadowMap.enabled = true;
                     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -634,11 +635,11 @@
                 var $inputFile = $(this), 
                 object = event.target.files,
                 target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn"),
-                tgaCheck = /(^image)\/(targa)/i.test(object[0].type) && /.*\.(tga)/i.test(object[0].name);
-                $loading_icon = $(document).find("#loading_icon");
-                if(upload.imgCheck(object[0])){
-                    $loading_icon.show();
-                    $.each(object, function(i,file){
+                $loading_icon = $(document).find("#loading_icon").show();
+                    
+                $.each(object, function(i,file){
+                    if(upload.imgCheck(file)){
+                        var tgaCheck = /(^image)\/(targa)/i.test(object[0].type) && /.*\.(tga)/i.test(file.name);
                         var reader = new FileReader();
                         var textureLoader;
 
@@ -656,11 +657,8 @@
                             pac.setIndex(".texture-list");
                             $inputFile.val(null); // init input value
                         };
-                    });
-                }
-                else {
-                    $inputFile.val(null);
-                }
+                    }
+                });
             },
             textureApply: function(){
                 var targetID = $("#material-selector").find("option:selected").data("value"),

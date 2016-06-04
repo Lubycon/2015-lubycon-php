@@ -29,6 +29,7 @@
     <script type="text/javascript" src="js/module/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/module/jquery.lubyAlert.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/module/checkBox.js"></script>
+    <script type="text/javascript" src="js/core/core.js"></script>
     <script type="text/javascript" src="js/core/ui.js"></script>
     <script type="text/javascript" src="js/login_page.js"></script> <!--login_page interation js-->
     <script type="text/javascript" src="js/module/account.js"></script> <!-- account file js -->
