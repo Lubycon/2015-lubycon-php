@@ -185,16 +185,57 @@ body{
     .modal-fileViewer {
         width: 100%;
         min-height: 30px;
+        max-height: 200px;
+        overflow: auto;
         margin: 10px auto;
         background: #222222;
         border: none;
         border-radius: 3px;
         color: #aaaaaa;
-        padding: 5px;
+        padding: 5px 10px;
+        text-align: left;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
+        .modal-fileViewer > .file-list {
+            position: relative;
+            padding: 5px;
+            background: #666666;
+            color: #aaaaaa;
+            margin: 5px 0px;
+        }
+            .modal-fileViewer > .file-list > .file-list-name {
+                font-weight: 200;
+                font-size: 15px;
+            }
+            .modal-fileViewer > .file-list > .file-list-size {
+                font-weight: 200;
+                font-size: 14px;
+                float: right;
+                padding-top: 2px;
+            }
+            .modal-fileViewer > .file-list > .fa-times {
+                position: absolute;
+                top: 8px;
+                right: 5px;
+            }
+    .modal-fileViewer-total {
+        background: #444444;
+        font-size: 15px;
+        color: #48cfad;
+        border: 1px solid #222222;
+        text-align: left;
+        padding: 5px;
+        margin: 10px 0px;
+    }
+        .modal-fileViewer-total > .file-count-total {
+
+        }
+        .modal-fileViewer-total > .file-size-total {
+            float: right;
+            padding-top: 2px;
+        }
     .modal-bt-wrapper {
         text-align: center;
         margin-top: 20px;

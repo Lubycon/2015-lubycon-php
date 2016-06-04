@@ -238,13 +238,20 @@
 
                     var fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content),
                     fileViewer = $("<ul/>",{ "class" : "modal-fileViewer" }).appendTo(fileInputWrap),
+                    fileViewerTotal = $("<div/>",{ "class" : "modal-fileViewer-total" }).appendTo(fileInputWrap),
+                    totalFileCount = $("<span/>",{ "class" : "file-count-total", "html" : "0 Files"}).appendTo(fileViewerTotal),
+                    totalFileSize = $("<span/>",{ "class" : "file-size-total", "html" : "0MB"}).appendTo(fileViewerTotal),
+
                     uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap),
                     fileSelectHelp = $("<i/>",{ 
                         "class" : icons.help + " file-selector-help",
                         "data-tip" : "Your file size must be 30MB. The file extension must be ZIP,JPEG,PNG, or BMP"
                     }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
 
-                    function initInput(){ fileViewer.val(""); };
+                    function initInput(){
+                        $(document).find(".fileUploader").val(null);
+                        fileViewer.empty();
+                    };
 
                     return modal;
                 },
@@ -578,34 +585,49 @@
                 var $this = $(this),
                 $inputModal = $(document).find(".modal.file-selector-modal"),
                 $fileViewer = $inputModal.find(".modal-fileViewer"),
-                $fileInfo = $(document).find(".fileinfo"),
-                object = event.target.files;
+                object = event.target.files,
+                totalCount = 0, totalSize = 0;
+
+                if(object.length > 10) {
+                    alert("Too many files");
+                    $this.val(null);
+                    return false;
+                }
+
+                if($this.val() !== "") $fileViewer.empty();
 
                 $.each(object,function(i,file){
                     var name = file.name,
                     indexNum = name.lastIndexOf("."),
                     fileEXT = indexNum > -1 ? name.substring(indexNum + 1) : "",
-                    size = (file.size/1024/1024).toFixed(2);
+                    size = (file.size/1024/1024);
+
                     if(upload.fileCheck(file)){
                         var fileList = new FileList(name,size,i).appendTo($fileViewer);
-
-                        if($fileInfo.length === 0){
-                            var fileInfo = new modalFunc.showFileInfo(name,size).appendTo(".editor-wrapper").stop().fadeIn(300);
-                        }
-                        else {
-                            $fileInfo.remove();
-                            var fileInfo = new modalFunc.showFileInfo(name,size).appendTo(".editor-wrapper").stop().fadeIn(300);
-                        }
+                        totalSize += parseFloat(size);
+                        totalCount = i + 1;
                     }
                 });
+
+                refreshFileTotal(totalCount,totalSize);
+                ModalKit.align($inputModal);
+
 
                 function FileList(name,size,index){
                     var body = $("<li/>",{"class" : "file-list", "data-value" : name, "data-index" : index}),
                     fileNameWrap = $("<span/>",{"class" : "file-list-name", "html" : name}).appendTo(body),
-                    fileSizeWrap = $("<span/>",{"class" : "file-list-size", "html" : size + "MB"}).appendTo(body),
-                    deleteButton = $("<i/>",{"class" : icons.times}).appendTo(body);
+                    fileSizeWrap = $("<span/>",{"class" : "file-list-size", "html" : size + "MB"}).appendTo(body);
+                    //deleteButton = $("<i/>",{"class" : icons.times}).appendTo(body).on("click",removeFile);
 
                     return body;
+                }
+                function refreshFileTotal(count,size){
+                    var totalInfoWrap = $(document).find(".modal-fileViewer-total"),
+                    countWrap = totalInfoWrap.find(".file-count-total"),
+                    sizeWrap = totalInfoWrap.find(".file-size-total");
+
+                    countWrap.text(count + " Files");
+                    sizeWrap.text(size.toFixed(2) + " MB");
                 }
 
                 return;
@@ -915,15 +937,6 @@
                 $(document).find(".dark_overlay").fadeIn(200);
                 $(document).find(".modal").fadeOut(200);
                 $(document).find(".modal.file-selector-modal").fadeIn(200);
-            },
-            showFileInfo: function(name,size){
-                var body = $("<div/>",{"class" : "tooltip tip-body fileinfo"}),
-                wrapper = $("<div/>",{"class" : "tooltip tip-wraper fileinfo"}).appendTo(body),
-                content = $("<p/>",{"class" : "tooltip tip-content fileinfo"}),
-                title = $("<p/>",{"class" : "tooltip tip-title fileinfo"}).text("Attached File").appendTo(wrapper)
-                content.html("File name : " + name + "<br/>" + "Size : " + size + "MB" ).appendTo(wrapper);
-
-                return body;
             },
             addGrid: function(){
                 var $this = $(this),
