@@ -8,6 +8,7 @@ $(document).ready(function () // paege ready to check
 {
     NOW_PAGE = parseInt(getUrlParameter('page')); // set param
     ALL_PAGE_COUNT = parseInt($(".sliderKey").attr('max'));
+    $(".sliderKey").val(NOW_PAGE);
     finish_check(); //check final function
 });
 $(document).scroll(function () //scroll handler
@@ -39,18 +40,25 @@ $(document).on('click',".prev_page_call", function ()
 
 
 $(document).ready(function () {
-    $(".sliderKey").slider({
-        mouseUpEvent: function (a) { slider_by_paging(a) }
-    });
+    $(".sliderKey").slider(
+    {
+        mouseUpEvent: function (a)
+        {
+            if (!AJAX_EVENTING && NOW_PAGE != a)
+            {
+                slider_by_paging(a);
+            }
+        }
+    })
 });
-
 
 function slider_by_paging(page_number)
 {
+    AJAX_EVENTING = true; //bubbleing banned
     $(".contents_wrap").html('');
     down_call_contents(page_number-1, page_number);
     replaceUrlParameter('page', page_number);
-    NOW_PAGE = parseInt(getUrlParameter('page')); // set param
+    NOW_PAGE = parseInt(page_number); // set param
 };
 
 
@@ -112,18 +120,23 @@ function page_checker(NOW_PAGE) //page url changer by scroll
     //console.log(scroll_prev);
     //console.log(scrolltop);
     //console.log(DOWN_PAGE_FINISH);
+
+    //console.log(NOW_PAGE);
     //console.log($('.page_bottom_' + NOW_PAGE));
     //console.log(ALL_PAGE_COUNT);
 
     if (scrolltop > scrollbottom && NOW_PAGE < ALL_PAGE_COUNT) //page ++
     {
         replaceUrlParameter('page', up_count_page);
+        $(".sliderKey").val(up_count_page);
         console.log('page checker up');
     } else if (scroll_prev > scrolltop)
     {
         replaceUrlParameter('page', down_count_page);
+        $(".sliderKey").val(down_count_page);
         console.log('page cound up');
     }
+
 }
 
 function finish_check() // check it last page

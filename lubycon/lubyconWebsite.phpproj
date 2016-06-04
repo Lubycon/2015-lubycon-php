@@ -1573,6 +1573,8 @@
     <Folder Include="php" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\module\lubySlider.css" />
     <Content Include="js\contents_page.js" />
+    <Content Include="js\module\jquery.lubySlider.js" />
   </ItemGroup>
 </Project>

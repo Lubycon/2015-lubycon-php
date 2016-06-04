@@ -12,8 +12,6 @@ class infinite_scroll extends json_control
     private $page_boundary;
     private $page_limit = 30;
 
-    //페이지 리프레쉬했을때 스크롤체커 value 1씩 올라가서 적용되는것 고치기
-
     private $allow_array_list;
     private $allow_array_content = ['all','artwork','vector','threed'];
     private $allow_array_community = ['all','forum','tutorial','qaa'];
