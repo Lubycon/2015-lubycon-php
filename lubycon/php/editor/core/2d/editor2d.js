@@ -106,8 +106,8 @@
                         var $inputFile = $("<input/>",{
                             "class":"fileUploader editor-hidden",
                             "name":"fileUploader",
-                            "type":"file"
-                            //"multiple" : "multiple"
+                            "type":"file",
+                            "multiple" : "multiple"
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
                             "class":"imgUploader editor-hidden",
@@ -578,7 +578,7 @@
                 var $this = $(this),
                 $inputModal = $(document).find(".modal.file-selector-modal"),
                 $fileViewer = $inputModal.find(".modal-fileViewer"),
-                $fileInfo = $(document).find(".fileinfo");
+                $fileInfo = $(document).find(".fileinfo"),
                 object = event.target.files;
 
                 $.each(object,function(i,file){
@@ -587,9 +587,8 @@
                     fileEXT = indexNum > -1 ? name.substring(indexNum + 1) : "",
                     size = (file.size/1024/1024).toFixed(2);
                     if(upload.fileCheck(file)){
-                        fileViewer.val(fileViewer.val() + name);
-                        formData.files.push(file);
-                        console.log(formData);
+                        var fileList = new FileList(name,size,i).appendTo($fileViewer);
+
                         if($fileInfo.length === 0){
                             var fileInfo = new modalFunc.showFileInfo(name,size).appendTo(".editor-wrapper").stop().fadeIn(300);
                         }
@@ -599,6 +598,16 @@
                         }
                     }
                 });
+
+                function FileList(name,size,index){
+                    var body = $("<li/>",{"class" : "file-list", "data-value" : name, "data-index" : index}),
+                    fileNameWrap = $("<span/>",{"class" : "file-list-name", "html" : name}).appendTo(body),
+                    fileSizeWrap = $("<span/>",{"class" : "file-list-size", "html" : size + "MB"}).appendTo(body),
+                    deleteButton = $("<i/>",{"class" : icons.times}).appendTo(body);
+
+                    return body;
+                }
+
                 return;
             },
             imgUpTrigger: function(){
