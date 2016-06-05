@@ -4,6 +4,7 @@
     require_once '../database/database_class.php';
     require_once "../class/regex_class.php";
     require_once "../class/json_class.php";
+    $json_control = new json_control;
     $db = new Database();
     $db->query = "SELECT * FROM `userinfo` WHERE `userCode` = $usercode";
     $db->askQuery(); // viewcount up
@@ -65,16 +66,12 @@
                 <div class="job_option">
                     <select class="jobFilter" name="job">
                         <?php
-                            $json_control = new json_control;
-                            $json_control->json_decode('jobCode',"$one_depth/data/job.json");
-                            $origin_select = $json_control->json_decode_code[$row['jobCode']];
-
-                            foreach ($json_control->json_decode_code AS $index=>$value)
-                            {
-                                $loop_value = $value;
-                                echo "<option value='$loop_value' data-value='$loop_value'>$loop_value</option>";
-                            }
-                            echo "<script>luby_selcetor_val_change('.job_option','$origin_select');</script>";
+                            $job_json = $json_control->json_decode('job',"$one_depth/data/job.json");
+                            $job_decode = $json_control->json_decode_code;
+                            $job_origin_select = $job_decode[$row['jobCode']]['name'];
+                            $json_control->json_spread_option($job_decode);
+                            echo $json_control->json_spread_wrap;
+                            $json_control->json_find_option_original('.job_option',$job_origin_select);
                         ?>
                     </select>
                 </div>
@@ -85,13 +82,12 @@
                     <select class="locationFilter" name="location">
                          <?php
                             $json_control->json_decode('country',"$one_depth/data/country.json");
-                            $origin_select = $json_control->json_decode_code[$row['countryCode']];
-                            foreach ($json_control->json_decode_code AS $index=>$value)
-                            {
-                                $loop_value = $json_control->json_decode_code[$index];
-                                echo "<option value='$loop_value' data-value='$loop_value'>$loop_value</option>";
-                            }
-                            echo "<script>luby_selcetor_val_change('.location_option','$origin_select');</script>";
+                            $country_decode = $json_control->json_decode_code;
+                            $json_control->json_search_original($country_decode,$row['countryCode'],'name');
+                            $country_origin_select = $json_control->search_key_origin;
+                            $json_control->json_spread_option($country_decode);
+                            echo $json_control->json_spread_wrap;
+                            $json_control->json_find_option_original('.location_option',$country_origin_select);
                         ?>
                     </select>
                 </div>

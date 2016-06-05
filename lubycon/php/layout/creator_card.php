@@ -4,6 +4,7 @@
         $user_img_url = "$one_depth/../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg";
         $user_location_img = "$one_depth/ch/img/flag_icons/".$row['countryCode'].'.png';
         $usercity = $row['city'];
+
         $usercountry = $country_origin_select;
         $username = $row['nick'];
         $userjob = $job_origin_select;

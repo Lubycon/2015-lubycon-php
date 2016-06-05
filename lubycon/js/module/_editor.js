@@ -527,7 +527,7 @@ $(function(){
             data:
             {
                 'type':'thumb', // choise 'thumb' or 'contents'
-                'data64': data_array
+                'base64': data_array
             },
             cache: false,
             success: function (data) 

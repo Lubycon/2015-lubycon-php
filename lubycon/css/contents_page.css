@@ -1,5 +1,11 @@
 ﻿@charset "utf-8";
-
+/*------test--------*/
+#contents_box > p {
+    position: fixed;
+    top: 240px;
+    right: 0;
+}
+/*------test--------*/
 
 #category{
     width:100%;

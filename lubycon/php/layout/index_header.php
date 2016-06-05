@@ -86,6 +86,7 @@
     <div id="loading_icon"><i class="fa fa-spinner fa-spin"></i></div>
     <div class="dark_overlay" data-value="dark_overlay"></div>
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
+    <div class="alertKey hidden"></div>
     <aside id="mb-menu_panel" class="visible-mb"><!--mobile panel menu-->
         <header id="mb-user_section">
             <div id="mb-signin">
@@ -268,18 +269,18 @@
         <nav id="main_gnb" class="hidden-mb-b">
             <ul id="gnb">
                 <li class="bigsub">
-                    <a href="<?=$two_depth?>/contents/contents_page.php?cate=all&page=1" class="bigsub_link">
+                    <a href="<?=$two_depth?>/contents/contents_page.php?cate=all&mid_cate=1&page=1" class="bigsub_link">
                         Contents
                     </a>
                     <ul class="sub">
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&page=1"><i class="fa fa-font fa-1x"></i><p>Artwork</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1"><i class="fa fa-font fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&page=1"><i class="fa fa-square fa-1x"></i><p>Vector</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1"><i class="fa fa-square fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&mid_cate=1&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
                         </li>
                     </ul>	<!--end Contents menu-->
                 </li>
@@ -371,7 +372,7 @@
         <div id="mb-search" class="visible-mb"><i class="fa fa-search icon1"></i><i class="fa fa-angle-up icon2"></i></div>
     </header><!---------------- header end ---------------->
     <div id="main_search_bar" class="search-bar"><!---------------- search bar start ---------------->
-        <input type="text" class="search-bar-text" value="Enter The Keyword" />
+        <input type="text" class="search-bar-text" value="Enter the keyword" />
         <button class="out search-btn">
             <i class="fa fa-search"></i>
         </button>

@@ -29,6 +29,7 @@
     <script type="text/javascript" src="js/module/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/module/jquery.lubyAlert.js"></script><!--lubySelector-->
     <script type="text/javascript" src="js/module/checkBox.js"></script>
+    <script type="text/javascript" src="js/core/core.js"></script>
     <script type="text/javascript" src="js/core/ui.js"></script>
     <script type="text/javascript" src="js/login_page.js"></script> <!--login_page interation js-->
     <script type="text/javascript" src="js/module/account.js"></script> <!-- account file js -->
@@ -49,11 +50,11 @@
                 </div> <!-- end login_input div --> 
                 <button type="submit" id="login_lubycon" class="animate_width"><i class="fa fa-unlock-alt"></i></button><!--submit bt-->
             </form><!--end login_input form-->
-            <div id="login_submit">
+            <!--<div id="login_submit">
                 <p id="loginWith_title">Login with</p>
                 <button id="login_facebook"><i class="fa fa-facebook"></i><span>Facebook</span></button>
                 <button id="login_google"><i class="fa fa-google-plus"></i><span>Google+</span></button>
-            </div>     <!-- end login_submit div -->
+            </div>-->     <!-- end login_submit div -->
             <p id="create_acc">Create An Account</p> 
             <a href="./php/account/forgot_password.php" target="_self"><p id="forgot_pass">Forgot your password?</p></a>          
         </div>  <!-- end login_box div -->

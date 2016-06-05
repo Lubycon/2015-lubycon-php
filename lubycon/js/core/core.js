@@ -9,6 +9,7 @@ function eventHandler(event, selector) {
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////parameter
 var CATE_PARAM = getUrlParameter('cate'); // GLOBAL
+var MID_CATE_PARAM = getUrlParameter('mid_cate'); // GLOBAL
 var CONNUM_PARAM = getUrlParameter('conno'); // GLOBAL
 var BNO_PARAM = getUrlParameter('bno'); //GLOBAL
 var PAGE_PARAM = getUrlParameter('page'); //GLOBAL
@@ -30,7 +31,7 @@ function replaceUrlParameter(sParam,value){
     for (var i = 0; i < sURLVariables.length; i++){
         var sParameterName = sURLVariables[i].split('=');
         if (sParameterName[0] == sParam) {
-            history.pushState(null, "", location.pathname +'?'+ sPageURL.replace(sParameterName[1], value) );
+            history.pushState(null, "", location.pathname + '?' + sPageURL.replace(sParameterName[0] + '=' + sParameterName[1], sParameterName[0] + '=' + value));
         }
     }
 }
@@ -130,15 +131,15 @@ $(function () { //search box click value reset start
     var searchBar = $(document).find(".search-bar"),
     searchBarInput = searchBar.find(".search-bar-text");
     searchBar.on("keypress",enterPressed);
-    searchBarInput.on("focus",onFocus).on("blur",onBlur);
+    searchBarInput.on("focus",onFocus).on("blur",onBlur).on("keyup",defendQueryInjection);;
     
     function enterPressed(event){
-        console.log(true);
+        //console.log(true);
         if(event.which === 13) $(this).find(".search_btn").trigger("click");
     }
     function onFocus(){
-        console.log($(this).val());
-        if($(this).val() !== "") $(this).val("");
+        //console.log($(this).val());
+        if($(this).val() == "Enter the keyword") $(this).val("");
     }
     function onBlur(){
         if($(this).val() === "") $(this).val("Enter the keyword");
@@ -205,33 +206,33 @@ $(function (){
 //      contents view con_left hovering start
 /////////////////////////////////////////////////////////
 $(function(){
+    var button = $(".floating_bt"),
+    contentsMain = $("#contents_main");
     if(($("#contents_main").length !== 0) && $(window).width() >= 1025){
-        floating_bt_action();
+        $(document).on("scroll",floatingButtonScroll);
+    };
+
+    function floatingButtonScroll(){
+        if(floatingButtonChecker()) contentsMain.on("mousemove",floatingButtonShow).on("mouseleave",floatingButtonHide);
+        else {
+            button.fadeOut(200);
+            contentsMain.off("mousemove",floatingButtonShow).off("mouseleave",floatingButtonHide);
+        }
     }
-    else{
-        return;
+    function floatingButtonShow(){
+        button.fadeIn(200);
+    }
+    function floatingButtonHide(){
+        button.fadeOut(200);
+    }
+    function floatingButtonChecker(){
+        var contentTitleVisible = $("#contents_info_wrap").css("display") === "none" && $(document).scrollTop() !== 0,
+        scrollEnd = button.offset().top < $("#comment_box").offset().top - 50;
+
+        if(contentTitleVisible && scrollEnd ) return true;
+        else return false;
     }
 });
-function floating_bt_action(){
-    $("#contents_main").hover(function(){
-        $(".floating_bt").stop().fadeIn(200);
-        $(document).scroll(function(){
-            if($(".floating_bt").offset().top > $("#comment_box").offset().top - 50){
-                $(".floating_bt").stop().fadeOut(200);
-            }
-            else{
-                $(".floating_bt").stop().fadeIn(200);
-                return;
-            }
-        });
-    },function(){
-        $(".floating_bt").stop().fadeOut(200);
-        $(document).scroll(function(){
-            $(".floating_bt").stop().fadeOut(200);
-            return;
-        });
-    });
-}
 /////////////////////////////////////////////////////////
 //      contents view con_left hovering end
 /////////////////////////////////////////////////////////
@@ -336,3 +337,96 @@ $(function(){
 });
 
 /*----------------------------creator card menu toggle end--------------------------*/
+/*----------------------------query injection defend start--------------------------*/
+function defendQueryInjection(){
+    var $this = $(this),
+    elementCheck = $this.is("input") || $this.is("textarea"),
+    input = elementCheck ? $this.val() : $this.text(),
+    pattern = /[`;/\?~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
+
+    if(pattern.test(input)) {
+        var alertKey = $(document).find(".alertKey").off("click");
+        input = input.replace(pattern,"");
+        alertKey.lubyAlert({
+            kind: "custom",
+            okButton: false,
+            okAlert: false,
+            cancelButton: false,
+            cancelAlert: false,
+            width: 400,
+            height: 145,
+            textSize: 15,
+            customIcon: "fa fa-server",
+            customText: "you should use [a-zA-Z0-9]",
+            inSpeed: 600,
+            stoptime: 1000,
+            outSpeed: 600
+        });
+        alertKey.trigger("click");
+
+        if(elementCheck) $this.val(input);
+        else $this.text(input);
+        
+        return false;
+    }
+    else {
+        console.log(1);
+        return true;
+    }
+}
+/*----------------------------query injection defend end--------------------------*/
+/*----------------------------array clean method start--------------------------*/
+Array.prototype.clean = function(deleteValue) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == deleteValue) {         
+            this.splice(i, 1);
+            i--;
+        }
+    }
+    return this;
+};
+/*----------------------------array clean method end--------------------------*/
+/*----------------------------get 12 Hour method start------------------------*/
+Date.prototype.get12HourTime = function(iso8601){
+    var result = {
+        "ampm" : null,
+        "hour" : null,
+        "minute" : null,
+        "second" : null
+    };
+
+    var h = this.getHours();
+    var m = this.getMinutes();
+    var s = this.getSeconds();
+
+    if(h <= 12){
+        result.ampm = "am";
+    }
+    else if(h > 12){
+        h -= 12;
+        result.ampm = "pm";
+    }
+    else console.log("Time error in get12HourTime");
+
+    if(iso8601){
+        h = getISO8601(h);
+        m = getISO8601(m);
+        s = getISO8601(s);
+    }
+    else{
+        h = h; m = m; s = s;
+    }
+
+    function getISO8601(num){
+        if(num < 10) num = "0" + num;
+        else num = num.toString();
+        return num;
+    }
+
+    result.hour = h;
+    result.minute = m;
+    result.second = s;
+
+    return result;
+}
+/*----------------------------get 12 Hour method end------------------------*/

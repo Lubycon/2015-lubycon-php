@@ -6,10 +6,6 @@
     $db = new Database();
     require_once "../class/json_class.php";
     $json_control = new json_control;
-    $json_control->json_decode('jobCode',"$one_depth/data/job.json");
-    $job_decode = $json_control->json_decode_code;
-    $json_control->json_decode('country',"$one_depth/data/country.json");
-    $country_decode = $json_control->json_decode_code;
 ?>
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
@@ -33,13 +29,12 @@
             <option>Oceania</option>
         </select>
         <select class="jobFilter hidden-mb-ib">
-            <option>All Jobs</option>
-            <option>Artist</option>
-            <option>Creator</option>
-            <option>Designer</option>
-            <option>Engineer</option>
-            <option>Student</option>
-            <option>Other</option>
+            <?php
+                $job_json = $json_control->json_decode('job',"$one_depth/data/job.json");
+                $job_decode = $json_control->json_decode_code;
+                $json_control->json_spread_option($job_decode);
+                echo $json_control->json_spread_wrap;
+            ?>
         </select>
         <select class="userFilter hidden-mb-ib">
             <option>New</option>
@@ -48,17 +43,17 @@
             <option>Most Comment</option>
         </select>
         <div id="sub_search_bar" class="search-bar">
-                <div class="select-box">
-                    <select class="searchFilter">
-                        <option value="Name">Name</option>
-                        <option value="Country">Country</option>
-                    </select>
-                </div>
-                <input type="text" class="search-bar-text" value="Enter the Keyword" />
-                <button class="search-btn">
-                    <i class="fa fa-search"></i>
-                </button>
+            <div class="select-box">
+                <select class="searchFilter">
+                    <option value="Name">Name</option>
+                    <option value="Country">Country</option>
+                </select>
             </div>
+            <input type="text" class="search-bar-text" value="Enter the keyword" />
+            <button class="search-btn">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
     </section>
     <!-- end nav_guide -->
     <section class="con_wrap">
@@ -69,8 +64,11 @@
                     $db->askQuery();
                     $myrow = mysqli_fetch_array($db->result);
                     
-                    $my_job_origin_select = $job_decode[$myrow['jobCode']];
-                    $my_country_origin_select = $country_decode[$myrow['countryCode']];
+                    
+                    $country_json = $json_control->json_decode('country',"$one_depth/data/country.json");
+                    $country_decode = $json_control->json_decode_code;
+                    $my_job_origin_select = $job_decode[$myrow['jobCode']]['name'];
+                    $my_country_origin_select = $country_decode[$myrow['countryCode']]['name'];
 
                     $user_img_url = "$two_depth/../../../Lubycon_Contents/user/$usercode/profile.jpg";
                     $userjob = $my_job_origin_select;
@@ -149,8 +147,8 @@
                     $db->askQuery();
                     while( $row = mysqli_fetch_array($db->result) )
                     {
-                        $job_origin_select = $job_decode[$row['jobCode']];
-                        $country_origin_select = $country_decode[$row['countryCode']];
+                        $job_origin_select = $job_decode[$row['jobCode']]['name'];
+                        $country_origin_select = $country_decode[$row['countryCode']]['name'];
                         include("$two_depth/layout/creator_card.php");
                     }
             ?>

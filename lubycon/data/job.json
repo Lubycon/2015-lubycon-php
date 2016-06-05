@@ -1,11 +1,10 @@
-{
-	"jobCode": 
-	{
-	  "0": "Artist",
-	  "1": "Creator",
-	  "2": "Designer",
-	  "3": "Engineer",
-	  "4": "Student",
-      "5": "Other"
-    }
+{"job": 
+	[
+	  {"jobCode" : 0, "name" : "Artist"},
+	  {"jobCode" : 1, "name" : "Creator"},
+	  {"jobCode" : 2, "name" : "Designer"},
+	  {"jobCode" : 3, "name" : "Engineer"},
+	  {"jobCode" : 4, "name" : "Student"},
+	  {"jobCode" : 5, "name" : "Other"}
+    ]
 }

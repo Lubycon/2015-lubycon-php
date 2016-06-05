@@ -28,7 +28,9 @@
         keyCode = keycodePac, //keycode.json
         categoryData = categoryPac, //categories.json
         ccData = ccPac, //creative_commons.json
+        formData = new FormData(),
         d = {},
+        attachedFiles = [],
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
@@ -62,7 +64,7 @@
                         var $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "Attach File",
+                            "html" : "File manager",
                             "data-tip" : "Attach your files"
                         }).prepend($("<i/>",{"class":icons.upload}))
                         .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55, "left" : 0}),
@@ -95,26 +97,32 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $textTool = d.toolbar.textTool ? new toolbar.createButton("textTool",icons.font).appendTo($aside) : "",
-                        $colorTool = d.toolbar.colorTool ? new toolbar.createButton("colorTool",icons.paint).appendTo($aside) : "",
-                        $gridTool = d.toolbar.gridTool ? new toolbar.createButton("gridTool",icons.grid).appendTo($aside) : "",
-                        $marginTool = d.toolbar.marginTool ? new toolbar.createButton("marginTool",icons.margin).appendTo($aside) : "",
-                        $sortTool = d.toolbar.sortTool ? new toolbar.createButton("sortTool",icons.sorts).appendTo($aside) : "";
+                        var $textTool = d.toolbar.textTool ? new toolbar.createButton("textTool","icon",icons.font,true).appendTo($aside) : "",
+                        $colorTool = d.toolbar.colorTool ? new toolbar.createButton("colorTool","icon",icons.paint,true).appendTo($aside) : "",
+                        $gridTool = d.toolbar.gridTool ? new toolbar.createButton("gridTool","icon",icons.grid,true).appendTo($aside) : "",
+                        $marginTool = d.toolbar.marginTool ? new toolbar.createButton("marginTool","icon",icons.margin,true).appendTo($aside) : "",
+                        $sortTool = d.toolbar.sortTool ? new toolbar.createButton("sortTool","icon",icons.sorts,true).appendTo($aside) : "";
 
                         //input files
                         var $inputFile = $("<input/>",{
                             "class":"fileUploader editor-hidden",
                             "name":"fileUploader",
-                            "type":"file"
+                            "type":"file",
+                            "multiple" : "multiple"
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
                             "class":"imgUploader editor-hidden",
                             "name":"imgUploader",
-                            "type":"file"
+                            "type":"file",
+                        }).insertAfter($header);
+                        $inputContentImage = $("<input/>",{
+                            "class":"content-imgUploader editor-hidden",
+                            "name":"contentImgUploader",
+                            "type":"file",
+                            "multiple" : "multiple"
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox);
-
-                        var alertKey = $("<div/>",{"class" : "alertKey"}).appendTo($header).hide();
+                        
                         //initModals
                         pac.initModal.file().appendTo($this).hide();
                         pac.initModal.fileSelector().appendTo($this).hide();
@@ -124,13 +132,15 @@
                         // right : {project team}
 
                         pac.initTools();//data binding
-                        setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
                         $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
                     }
                 })
             },
             submit: function(){
+                var formData = new FormData();
+                $.each(attachedFiles,function(i,file){ formData.append("file"+i,file); }); //attached files append to form data object.
+
                 var rootElement = $(".initEditor"),
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
@@ -169,30 +179,7 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
 
-                $("#finalForm").submit();
-            },
-            autoSave: function () {
-                var imgData = [],
-                    contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        url = $this.find('img').attr("src"),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { 'type': 'editor_content', 'data64': url, "index": val[0] };
-                    imgData.push(innerVal)
-                    }),
-                    html_Data = $('.editing-canvas').html();
-                $.ajax({
-                    type: "POST",
-                    url: "../../../ajax/editor_ajax_upload_test.php", // temp image file ajax post
-                    data:
-                    {
-                        'ajax_data': imgData
-                    },
-                    cache: false,
-                    success: function (data) {
-                        console.log('auto save succece');
-                    }
-                });
+                console.log(contentName,contentData,categories,tags,cc);
             },
             initTools: function(){
                 //toolbar data bind start
@@ -220,20 +207,27 @@
                 fileSelector: function(){
                     var modal = new ModalKit.create(pac.autoSave,"file-selector-modal"),
                     wrapper = modal.find(".modal-wrapper"),
-                    title = modal.find(".modal-title").text("File Select"),
+                    title = modal.find(".modal-title").text("File Manager"),
                     content = modal.find(".modal-content"),
                     okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
                     cancelbt = modal.find(".modal-cancelbt").on("click",initInput);
 
-                    fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content);
-                    fileViewer = $("<input/>",{ "type" : "text", "class" : "modal-fileViewer", "readonly": "true" }).appendTo(fileInputWrap);
-                    uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
+                    var fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content),
+                    fileViewer = $("<ul/>",{ "class" : "modal-fileViewer" }).appendTo(fileInputWrap),
+                    fileViewerTotal = $("<div/>",{ "class" : "modal-fileViewer-total" }).appendTo(fileInputWrap),
+                    totalFileCount = $("<span/>",{ "class" : "file-count-total", "html" : "0 Files"}).appendTo(fileViewerTotal),
+                    totalFileSize = $("<span/>",{ "class" : "file-size-total", "html" : "0MB"}).appendTo(fileViewerTotal),
+
+                    uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap),
                     fileSelectHelp = $("<i/>",{ 
                         "class" : icons.help + " file-selector-help",
                         "data-tip" : "Your file size must be 30MB. The file extension must be ZIP,JPEG,PNG, or BMP"
                     }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
 
-                    function initInput(){ fileViewer.val(""); };
+                    function initInput(){
+                        $(document).find(".fileUploader").val(null);
+                        fileViewer.empty();
+                    };
 
                     return modal;
                 },
@@ -302,13 +296,13 @@
                     $inputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
                     $inputInner = $("<div/>",{ "class" : "setting-input" }),
                     $label = $("<p/>",{ "class" : "setting-input-label"}),
-                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }),
+                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }).on("keyup",defendQueryInjection),
                     $select = $("<select>", { "class" : "setting-select" }),
                     $option = $("<option/>",{"class" : "select-option"}),
 
                     $contentName = $inputWrap.clone()
                     .append($label.clone().html("Content Name"))
-                    .append($input.clone().attr("name","content-name")).appendTo($innerLeft),
+                    .append($input.clone(true).attr("name","content-name")).appendTo($innerLeft),
 
                     $categoryName = $inputWrap.clone()
                     .append($label.clone().html("Categories")).appendTo($innerLeft),
@@ -327,20 +321,22 @@
                             option.appendTo(categoryBox);
                         }
                         categoryBox.chosen({  max_selected_options: 3 });
-                    }(),
+                    }();
 
-                    $hashtagName = $inputWrap.clone()
-                    .append($label.clone().html("Hash Tag"))
+                    var $hashtagName = $inputWrap.clone()
+                    .append($label.clone().html("Tag"))
                     .append($inputInner.clone().addClass("hashTag-input-wrap")
                         .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
-                    .appendTo($innerLeft),
+                    .appendTo($innerLeft);
+                    $hashtagName.find(".hashTag-input").on("keyup",defendQueryInjection);
 
-                    $descriptName = $inputWrap.clone()
+                    var $descriptName = $inputWrap.clone()
                     .append($label.clone().html("Description"))
-                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft),
+                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft);
+                    $descriptName.find(".descript-input").on("keyup",defendQueryInjection);
 
                     //creative commons
-                    $ccName = $inputWrap.clone(),
+                    var $ccName = $inputWrap.clone(),
                     $ccLabel = $label.clone().html("Creative Commons"),
                     $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
                     
@@ -415,11 +411,13 @@
                 var $this = $(this),
                 $aside = $this.parents(".editor-aside"),
                 value = $this.data("target"),
+                title = $this.data("tip").split(" ")[0],
                 $toolboxWrap = $("<div/>",{
                     "class" : "toolbox-wrap tab-target",
-                    "data-value" : value
+                    "data-value" : value,
+                    "html" : "<p class='toolbox-title'>" + title + "</p>"
                 }).appendTo($aside).hide();
-                if(value == "gridTool") $toolboxWrap.addClass("modal");
+                if(value == "gridTool") $toolboxWrap.addClass("modal").find(".toolbox-title").remove();
             },
             objMenu: function(selector){
                 var $object = selector,
@@ -464,6 +462,11 @@
                    case keyCode.esc : $cancel.trigger("click"); break;
                    default : return; break;
                 }
+            },
+            disableCamelCase: function(text){ //camelCase -> Camel Case
+                var result = text.replace( /([A-Z])/g, " $1" ),
+                result = result.charAt(0).toUpperCase() + result.slice(1);
+                return result;
             }
         },
         upload = {
@@ -556,33 +559,74 @@
             },
             fileUpload: function(event){
                 var $this = $(this),
-                object = event.target.files,
-                path = $this.val().replace(/^C:\\fakepath\\/i," ").trim(),
-                size = (object[0].size/1024/1024).toFixed(2),
                 $inputModal = $(document).find(".modal.file-selector-modal"),
                 $fileViewer = $inputModal.find(".modal-fileViewer"),
-                $fileInfo = $(document).find(".fileinfo");
-                console.log(object[0].size,size);
+                object = event.target.files;
 
-                if(upload.fileCheck(object[0])) {
-                    fileViewer.val(path);
-                    if($fileInfo.length === 0){
-                        var fileInfo = new modalFunc.showFileInfo(path,size).appendTo(".editor-wrapper").stop().fadeIn(300);
-                    }
-                    else {
-                        $fileInfo.remove();
-                        var fileInfo = new modalFunc.showFileInfo(path,size).appendTo(".editor-wrapper").stop().fadeIn(300);
-                    }
+                if(object.length > 10) {
+                    alert("Too many files");
+                    $this.val("");
+                    return false;
                 }
-                else $this.val(null);
+
+                $.each(object,function(i,file){
+                    var name = file.name,
+                    indexNum = name.lastIndexOf("."),
+                    fileEXT = indexNum > -1 ? name.substring(indexNum + 1) : "",
+                    size = (file.size/1024/1024).toFixed(2);
+
+                    if(upload.fileCheck(file)){
+                        var fileList = new FileList(name,size,i).appendTo($fileViewer);
+                        attachedFiles.push(file);
+                    }
+                    upload.setIndex(".file-list");
+                    console.log(attachedFiles);
+                });
+
+                initTotalFileInfo();
+                ModalKit.align($inputModal);
+
+                function FileList(name,size,index){
+                    var body = $("<li/>",{"class" : "file-list", "data-value" : name, "data-index" : ""}),
+                    fileNameWrap = $("<span/>",{"class" : "file-list-name", "html" : name}).appendTo(body),
+                    fileSizeWrap = $("<span/>",{"class" : "file-list-size", "html" : size + "MB"}).appendTo(body);
+                    removeButton = $("<i/>",{"class" : icons.times}).appendTo(body).on("click",fileRemove);
+
+                    return body;
+                }
+                function initTotalFileInfo(){
+                    var totalInfoWrap = $(document).find(".modal-fileViewer-total"),
+                    countWrap = totalInfoWrap.find(".file-count-total"),
+                    sizeWrap = totalInfoWrap.find(".file-size-total"),
+
+                    count = attachedFiles.length,
+                    size = 0;
+                    $.each(attachedFiles,function(i,file){
+                        size += file.size;
+                    });
+
+                    countWrap.text(count + " Files");
+                    sizeWrap.text((size/1024/1024).toFixed(2) + " MB");
+                }
+                function fileRemove(){
+                    var body = $(this).parent(".file-list"),
+                    i = body.data("index");
+                    attachedFiles.splice(i,1);
+                    console.log("FILE NUMBER " + i + " IS REMOVED");
+                    console.log(i,attachedFiles);
+                    body.remove();
+                    ModalKit.align($inputModal);
+                    upload.setIndex(".file-list");
+                    initTotalFileInfo();
+                }
 
                 return;
             },
             imgUpTrigger: function(){
                 var $this = $(this),
                 $document = $("body"),
-                $inputFile = $(document).find(".imgUploader"),
                 dataValue = $this.data("value"),
+                $inputFile = dataValue === "newImgUpload" ? $(document).find(".content-imgUploader") : $(document).find(".imgUploader"),
                 $uploading = $(document).find(".uploading");
                 
                 switch(dataValue){
@@ -620,18 +664,18 @@
                 $body = $(".obj-body"),
                 $footer = $(".obj-footer"),
                 $placeHolder = $body.find(".placeHolder"),
+                $loading_icon = $(document).find("#loading_icon").show(),
 
-                fileValue = $inputFile.val(),
-                indexNum = fileValue.lastIndexOf("."),
-                fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "",
-
-                $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"}),
                 $object = event.target.files;
                 
-                if(upload.imgCheck($object[0])){
-                    if($placeHolder.length!=0) $placeHolder.hide();
+                $.each($object, function(i,file){
+                    if(upload.imgCheck(file)){
+                        if($placeHolder.length != 0) $placeHolder.hide();
+                        var fileValue = file.name,
+                        indexNum = fileValue.lastIndexOf("."),
+                        fileEXT = indexNum > -1 ? fileValue.substring(indexNum + 1) : "";
 
-                    $.each($object, function(i,file){
+                        var $objectWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : fileEXT + "-image"});
                         var reader = new FileReader();
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
@@ -644,10 +688,10 @@
                             $(".uploading").removeClass("uploading") // init target object  
                             $inputFile.val(null); // init input value
                             pac.objMenu($objectWrap);
+                            $loading_icon.hide();
                         };
-                    });
-                }
-                else $inputFile.val(null);
+                    }
+                });
             },
             gridUpload: function(event){
                 var $this = $(".uploading"),
@@ -655,7 +699,8 @@
                 $target = $this.parent(".grid-img-wrapper"),
                 $object = event.target.files,
                 cropBoxWidth = $target.width(),
-                cropBoxHeight = $target.height();
+                cropBoxHeight = $target.height(),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if(upload.imgCheck($object[0])){
                     $.each($object, function(i,file){
@@ -685,6 +730,7 @@
                             $this.attr("data-value","grid-replace").hide();
                             $(".uploading").removeClass("uploading");
                             toolbar.sortFn.refresh();
+                            $loading_icon.hide();
                         }
                     });
                 }
@@ -696,7 +742,7 @@
                 $placeHolder = $body.find(".placeHolder"),
                 $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text", "data-index" : "", "data-value" : "text"})
                 .on("focusin",toolbar.textFn.focusAction),
-                $input = $("<p/>",{"class" : "canvas-input", "contenteditable" : "true"});
+                $input = $("<p/>",{"class" : "canvas-input", "contenteditable" : "true"}).on("keyup",defendQueryInjection);
 
                 if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$textWrap,$input);
@@ -707,12 +753,14 @@
                 $body = $(".obj-body"),
                 $placeHolder = $body.find("placeHolder"),
                 $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-embed", "data-index" : "", "data-value" : "embed"}),
-                $media = $(val);
+                $media = $(val),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$mediaWrap,$media);
                 $this.removeClass(".uploading");
                 pac.objMenu($mediaWrap);
+                $loading_icon.hide();
             }, 
             thumbUpload: function(event){
                 var $this = $(".thumb-editor-wrapper"),
@@ -721,7 +769,8 @@
                 $target = $this.find(".thumb-origin-img"),
                 $previewer = $this.siblings(".thumb-preview-wrapper"),
                 $object = event.target.files,
-                $changeThumb = $(document).find(".thumb-img-change");
+                $changeThumb = $(document).find(".thumb-img-change"),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if(upload.imgCheck($object[0])){
                     $placeHolder.hide();
@@ -743,6 +792,7 @@
                             }).show();
                             $inputFile.val(null);
                             $changeThumb.show();
+                            $loading_icon.hide();
                         }
                     });
                     setTimeout(function(){
@@ -757,6 +807,8 @@
                 $target = $button.parents(".obj-menu-btn").siblings("img"),
                 $objectWrap = $target.parents(".object-img").removeClass("large").css("margin","0 7%"),
                 $inputFile = $(document).find(".imgUploader"),
+                $loading_icon = $(document).find("#loading_icon").show();
+
                 $object = event.target.files;
                 if(upload.imgCheck($object[0])){
                     $.each($object, function(i,file){
@@ -773,6 +825,8 @@
 
                             $inputFile.val(null);
                             toolbar.sortFn.refresh();
+
+                            $loading_icon.hide();
                         };
                     });
                 }
@@ -782,7 +836,8 @@
                 var $this = $(".uploading");
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files,
-                $cropper = $this.siblings("img");
+                $cropper = $this.siblings("img"),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 $.each($object, function(i,file){
                     var reader = new FileReader();
@@ -791,6 +846,7 @@
                         console.log(event.target.result);
                         $cropper.cropper("replace",event.target.result),false;
                         $inputFile.val(null);
+                        $loading_icon.hide();
                     }
                 });
             },
@@ -798,7 +854,8 @@
                 var $this = $(this);
                 $inputFile = $(document).find(".imgUploader"),
                 $object = event.target.files,
-                $cropper = $(document).find(".thumb-origin-img");
+                $cropper = $(document).find(".thumb-origin-img"),
+                $loading_icon = $(document).find("#loading_icon").show();
 
                 if(upload.imgCheck($object[0])){
                     $.each($object, function(i,file){
@@ -808,6 +865,7 @@
                             console.log(event.target.result);
                             $cropper.cropper("replace",event.target.result);
                             $inputFile.val(null);
+                            $loading_icon.hide();
                         }
                     });
                     setTimeout(function(){
@@ -816,12 +874,12 @@
                 }
                 else $inputFile.val(null);
             },
-            setIndex: function(){
-            	var $contents = $(document).find(".canvas-content");
-            	$contents.each(function(){
-            		var $this = $(this),
-            		index = $this.index(".canvas-content");
-            		if(!$this.is(".placeHolder")) $this.attr("data-index",index);
+            setIndex: function(element){
+                console.log("SET INDEX",element);
+            	$(element).each(function(i,object){
+                    i = $(object).is(".canvas-obj") ? i-1 : i;
+                    console.log(i);
+            		if(!$(object).is(".placeHolder"))$(object).attr("data-index",i);
             	});
             },
             imgCount : 0,
@@ -857,7 +915,7 @@
                 if($(".canvas-devider").length != 0) $deviderSlider.slider("enable");
 
                 canvasTool.addObjBt();
-                upload.setIndex();
+
                 upload.setId(object);
                 toolbar.sortFn.refresh();
 
@@ -869,15 +927,6 @@
                 $(document).find(".dark_overlay").fadeIn(200);
                 $(document).find(".modal").fadeOut(200);
                 $(document).find(".modal.file-selector-modal").fadeIn(200);
-            },
-            showFileInfo: function(name,size){
-                var body = $("<div/>",{"class" : "tooltip tip-body fileinfo"}),
-                wrapper = $("<div/>",{"class" : "tooltip tip-wraper fileinfo"}).appendTo(body),
-                content = $("<p/>",{"class" : "tooltip tip-content fileinfo"}),
-                title = $("<p/>",{"class" : "tooltip tip-title fileinfo"}).text("Attached File").appendTo(wrapper)
-                content.html("File name : " + name + "<br/>" + "Size : " + size + "MB" ).appendTo(wrapper);
-
-                return body;
             },
             addGrid: function(){
                 var $this = $(this),
@@ -972,7 +1021,6 @@
                     if(wrapperExist) $tagWrap.prependTo($wrapper);
                     $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalFunc.deleteTag).appendTo(".hashtag-wrapper");
                     $this.val(null);
-                
                 }
                 else if(deleteCommand && value == ""){
                     $(".hashtag-list:last-child").remove();
@@ -1127,7 +1175,7 @@
                 }
                 if(objects == 2) $placeHolder.show() && $objBts.remove();
                 if(objects == 3) $deviderSlider.slider("disable");
-                upload.setIndex();
+
                 toolbar.sortFn.refresh();
                 console.log("image was deleted");
             },
@@ -1180,22 +1228,20 @@
             }
         },
         toolbar = {
-            createButton: function(data,iconData){
-                var tipData = disableCamelCase(data);
+            createButton: function(data,type,iconData,tooltip){
+                var tipData = pac.disableCamelCase(data);
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
-                icon = $("<i/>",{"class" : iconData}).appendTo(button);
+                icon = type === "icon" ? $("<i/>",{"class" : iconData}) : $("<img/>",{"src" : iconData});
 
-                button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
+                icon.appendTo(button);
 
-                function disableCamelCase(text){ //camelCase -> Camel Case
-                    var result = text.replace( /([A-Z])/g, " $1" ),
-                    result = result.charAt(0).toUpperCase() + result.slice(1);
-                    return result;
-                }
+                button.on("click").on("click",toggle.group).on("click",pac.tabAction);
+                if(tooltip) button.tooltip({"top":5,"left":50});
+
                 return button;
             },
-            createRadioButton: function(data,iconData){
-                var button = new toolbar.createButton(data,iconData);
+            createRadioButton: function(data,type,iconData,tooltip){
+                var button = new toolbar.createButton(data,type,iconData,tooltip);
                 button.addClass("radioType");
 
                 return button;
@@ -1432,7 +1478,6 @@
                 $gridInnerWrap = $("<div/>",{ "class" : "toolbox-inner" }).appendTo($gridWrap),
                 $editWindow = $("<div/>",{ "class" : "grid-edit-window" }).appendTo($gridInnerWrap),
                 $btnWrap = $("<ul/>",{ "class" : "grid-btns toolbox-btns" }).appendTo($gridInnerWrap),
-                $btn = $("<li/>",{ "class" : "grid-btn btn" }).on("click",toggle.group).on("click",toolbar.gridFn.makeGrid),
                 $modalClose = $("<div/>",{ "class" : "modal-closebt", "data-value" : "modal-closebt" }).on("click",ModalKit.cancel).appendTo($gridWrap),
                 $gridBtWrap = $("<div/>",{ "class" : "grid-bt-wrapper modal-bt-wrapper" }).appendTo($gridWrap),
                 $gridCancel = $("<div/>",{
@@ -1446,19 +1491,12 @@
                     "html" : "Insert",
                 }).on("click",modalFunc.addGrid).appendTo($gridBtWrap),
 
-                $btnIcon = $("<img/>"),
-                $btn1 = $btn.clone(true).attr("data-value","n-1-1")
-                .append($btnIcon.clone().attr("src",icons.grid1)).appendTo($btnWrap),
-                $btn2 = $btn.clone(true).attr("data-value","v-1-2")
-                .append($btnIcon.clone().attr("src",icons.grid2)).appendTo($btnWrap),
-                $btn3 = $btn.clone(true).attr("data-value","v-2-1")
-                .append($btnIcon.clone().attr("src",icons.grid3)).appendTo($btnWrap),
-                $btn4 = $btn.clone(true).attr("data-value","h-1-2")
-                .append($btnIcon.clone().attr("src",icons.grid4)).appendTo($btnWrap),
-                $btn5 = $btn.clone(true).attr("data-value","h-2-1")
-                .append($btnIcon.clone().attr("src",icons.grid5)).appendTo($btnWrap),
-                $btn6 = $btn.clone(true).attr("data-value","n-2-2")
-                .append($btnIcon.clone().attr("src",icons.grid6)).appendTo($btnWrap);
+                $btn1 = new toolbar.createButton("v-1-1","img",icons.grid1,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn2 = new toolbar.createButton("v-1-2","img",icons.grid2,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn3 = new toolbar.createButton("v-2-1","img",icons.grid3,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn4 = new toolbar.createButton("h-1-2","img",icons.grid4,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn5 = new toolbar.createButton("h-2-1","img",icons.grid5,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn6 = new toolbar.createButton("n-2-2","img",icons.grid6,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap);
                 ModalKit.align($this);
             },
             gridFn: {
@@ -1466,7 +1504,7 @@
                     var $this = $(this),
                     $editWindow = $(".grid-edit-window"),
                     selected = $this.hasClass("selected"),
-                    value = $this.data("value"),
+                    value = $this.data("target"),
                     valueArray = value.split("-"),
                     direction = valueArray[0],
                     firstArea = parseInt(valueArray[1]),
@@ -1634,6 +1672,8 @@
                             toolbar.sortFn.objType(objType,$dummy);
                         }
                     });
+                    upload.setIndex(".sort-obj");
+                    upload.setIndex(".canvas-content");
                 },
                 objType: function(val, selector){
                     var icon = $("<i/>");
@@ -1643,6 +1683,7 @@
                     else return false;
                 },
                 sortable: function(event){
+                    console.log("SORTABLE");
                     sortedObj = $(".sort-obj"),
                     sortedArray = [],
                     $originObj = $(document).find(".canvas-content"),
@@ -1657,10 +1698,10 @@
                         var $obj = $(sortedObj[i]),
                         index = $obj.data("index"),
                         $target = $(".canvas-content[data-index='" + index + "']");
-                        sortedArray.push($target.clone(true)[0]);
+                        sortedArray.push($target.clone(true)[0]); 
                     }
 
-                    for(i in originArray){
+                    for(var i = 0; i<  originArray.length; i++){
                         var $original = $(originArray[i]),
                         $sorted = $(sortedArray[i]);
                         $original.replaceWith($sorted);
@@ -1675,7 +1716,8 @@
                             $(this).find(".obj-menu").hide();
                         })
                     }
-                    upload.setIndex();
+                    console.log("SORTABLE IS END");
+                    
                     toolbar.sortFn.refresh();
                 }
             }

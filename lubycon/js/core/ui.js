@@ -72,11 +72,15 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".bookmark_bt").lubyAlert({
         kind: "bookmark",
-        toggle: true
+        toggle: true,
+        okButton: false,
+        cancelButton: false
     });
     $(".like_bt").lubyAlert({
         kind: "like",
-        toggle: true
+        toggle: true,
+        okButton: false,
+        cancelButton: false
     });
     $("#delete_bt").lubyAlert({
         width: 430,

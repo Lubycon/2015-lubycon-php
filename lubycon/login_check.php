@@ -13,7 +13,7 @@
 		$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode']);
 		header('location:index.php');
 	}else{
-		echo "false <br/>";
+		header('location:login_page.php?login=0');
 	}
 
 ?>

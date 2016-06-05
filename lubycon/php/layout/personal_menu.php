@@ -6,11 +6,11 @@
         $usernumber = $_GET['usernum'];
         $db->query = "SELECT * FROM `userbasic` INNER JOIN `userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = $usernumber ";
         $db->askQuery();
-        $row = mysqli_fetch_array($db->result);
+        $userdata_row = mysqli_fetch_array($db->result);
 
-        $username = $row['nick'];
+        $username = $userdata_row['nick'];
         $user_pic = "$one_depth/../../Lubycon_Contents/user/$usernumber/profile.jpg";
-        $user_intro = $row['description'];
+        $user_intro = $userdata_row['description'];
     ?>
     <div id="user_information">
         <div id="userinfo_main">

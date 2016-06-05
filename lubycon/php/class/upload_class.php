@@ -248,7 +248,7 @@ class upload
     {
         foreach($post_data as $key => $value) 
         {
-            $this->_data = explode(',', $post_data[$key]['data64']);
+            $this->_data = explode(',', $post_data[$key]['base64']);
 
             if( in_array($this->_data[0] , $this->_ajax_white_list ))
             {
@@ -271,7 +271,7 @@ class upload
     {
         foreach($post_data as $key => $value) 
         {
-            $this->_string_length = strlen($post_data[$key]['data64']);
+            $this->_string_length = strlen($post_data[$key]['base64']);
 
             if( $this->_string_length >= $this->_ajax_limit_size * 1024 )
             {
@@ -292,7 +292,7 @@ class upload
         {
             $save_path = $user_path.'/'.$this->_ajax_save_name.$post_data[$key]['index'].$this->_ajax_ext[$key];
 
-	        $this->_img = str_replace($this->_ajax_ext[$key], '', $post_data[$key]['data64']);
+	        $this->_img = str_replace($this->_ajax_ext[$key], '', $post_data[$key]['base64']);
 	        $this->_img = str_replace(' ', '+', $this->_img);
 	        $this->_img_data = base64_decode($this->_img);
             
@@ -300,17 +300,17 @@ class upload
             is_dir($user_path) ? chmod($user_path,0777) : mkdir($user_path,0777); //user path making
             if ( $this->_ajax_ext[$key] == '.jpg' )
             {
-                $image = imagecreatefromjpeg($post_data[$key]['data64']);
+                $image = imagecreatefromjpeg($post_data[$key]['base64']);
                 imagejpeg($image, $save_path, 100);
                 imagedestroy($image);
             }else if ( $this->_ajax_ext[$key] == '.png' )
             {
-                $image = imagecreatefrompng($post_data[$key]['data64']);
+                $image = imagecreatefrompng($post_data[$key]['base64']);
                 imagepng($image, $save_path);
                 imagedestroy($image);
             }else if ( $this->_ajax_ext[$key] == '.gif' )
             {
-                $image = imagecreatefrompng($post_data[$key]['data64']);
+                $image = imagecreatefrompng($post_data[$key]['base64']);
                 Imagegif ($image , $save_path);
 			    ImageDestroy ($image);
             }

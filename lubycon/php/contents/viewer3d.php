@@ -2,7 +2,7 @@
 <?php
 	$path = "../editor/module/js/3d/"
 ?>
-<script src="<?=$path?>three.min.js"></script>
+<script src="<?=$path?>three.js"></script>
 <script src="<?=$path?>OrbitControls.js"></script>
 <script src="<?=$path?>3dLoader.js"></script>
 <script src="./testGL.js"></script>

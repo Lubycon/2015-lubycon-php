@@ -1,20 +1,20 @@
-<script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <?php
     require_once "../class/json_class.php";
     $json_control = new json_control;
-    $json_control->json_decode('jobCode',"$one_depth/data/job.json");
-    $job_origin_select = $json_control->json_decode_code[$row['jobCode']];
-    $userjob = $job_origin_select;
-    
+    $json_control->json_decode('job',"$one_depth/data/job.json");
+    $job_json_Code = $json_control->json_decode_code;
     $json_control->json_decode('country',"$one_depth/data/country.json");
-    $country_origin_select = $json_control->json_decode_code[$row['countryCode']];
-    $usercountry = $country_origin_select;
+    $country_json_Code = $json_control->json_decode_code;
+    
+    //target user data
+    $userjob = $job_json_Code[$userdata_row["jobCode"]]['name'];
+    
+    $usercountry = $country_json_Code[$userdata_row["countryCode"]]['name'];
+    $utc = $country_json_Code[$userdata_row["countryCode"]]["utc"]; 
+    echo "<script>var UTC = $utc</script>"; //for watch
 
-    $user_position = $row['company'];
-    $usercity = $row['city'];
+    $user_position = $userdata_row["company"];
+    $usercity = $userdata_row["city"];
     $language1 = "Language1"; //not yet
     $language2 = "Language2"; //not yet
 
@@ -23,18 +23,32 @@
     $total_up = 0;
     $total_down = 0;   
     
-    $username = $username;
-    $userWebsite = $row['web'];
-    $userEmail = $userid;
-    $localcity = $usercity;
-    $localcountry = $usercountry;
+    $username = $userdata_row["nick"];
+    $userWebsite = $userdata_row["web"];
+    $userEmail = $userdata_row["email"];
+    //target user data
+
+    //login user data
+    $usernumber = $_SESSION['lubycon_code'];
+    $db->query = "SELECT `countryCode`,`city` FROM `userinfo` WHERE `userinfo`.`userCode` = $usernumber ";
+    $db->askQuery();
+    $localuserdata_row = mysqli_fetch_array($db->result);
+
+    $localcountry = $country_json_Code[$localuserdata_row["countryCode"]]['name'];
+    $localcity = $localuserdata_row["city"];
+    //login user data
 ?>
+<script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <div id="information_inbody">
     <ul id="dashboard_wrap">
+    
         <li class="dash_section" id="creator_month">
             <div class="dash_header">
                 <h4>CREATOR OF THE MONTH</h4>
-                <i class="fa fa-angle-down toggle_info"></i>
+                <i class="fa fa-angle-up toggle_info"></i>
             </div>
             <div class="dash_body" id="creator_month_body">
                 <div class="dash_body_sector" id="dash_creator_infobox">
@@ -65,7 +79,7 @@
         <li class="dash_section" id="basic_information">
             <div class="dash_header">
                 <h4>BASIC INFORMATION</h4>
-                <i class="fa fa-angle-up toggle_info selected"></i>
+                <i class="fa fa-angle-down toggle_info selected"></i>
             </div>
             <div class="dash_body">
                 <div class="dash_body_sector" id="userjob">
@@ -89,7 +103,7 @@
         <li class="dash_section" id="history">
             <div class="dash_header">
                 <h4>HISTORY</h4>
-                <i class="fa fa-angle-up toggle_info selected"></i>
+                <i class="fa fa-angle-down toggle_info selected"></i>
             </div>
             <div class="dash_body">
                 <ul class="history_wrap">
@@ -138,7 +152,7 @@
         <li class="dash_section" id="insight">
             <div class="dash_header">
                 <h4>INSIGHT</h4>
-                <i class="fa fa-angle-up toggle_info selected"></i>
+                <i class="fa fa-angle-down toggle_info selected"></i>
             </div>
             <div class="dash_body">
                 <div id="total_counts">
@@ -184,7 +198,7 @@
         <li class="dash_section" id="contact">
             <div class="dash_header">
                 <h4>CONTACT</h4>
-                <i class="fa fa-angle-up toggle_info selected"></i>
+                <i class="fa fa-angle-down toggle_info selected"></i>
             </div>
             <div class="dash_body">
                 <div class="dash_body_sector x2" id="useremail">
@@ -198,23 +212,23 @@
                     </div> 
                 </div>
                 <div class="dash_body_sector" id="usertime">
-                    <p class="dash_body_title"><?=$username?>&nbsp;Time</p>
+                    <p class="dash_body_title"><?=$username?>`s&nbsp;Time</p>
                     <div class="time_location" id="user_location">
                         <?=$usercity?>, <?=$usercountry?>
                     </div>
-                    <div class="clock_wrap">
-                        <div class="ampm" id="user_ampm"></div>
-                        <div class="clock" id="userclock"></div>
+                    <div class="clock_wrap" data-value="world">
+                        <div class="ampm"></div>
+                        <div class="clock"></div>
                     </div>
                 </div>
                 <div class="dash_body_sector" id="localtime">
-                    <p class="dash_body_title">Local Time</p>
+                    <p class="dash_body_title">Your Time</p>
                     <div class="time_location" id="local_location">
                         <?=$localcity?>, <?=$localcountry?>
                     </div>
-                    <div class="clock_wrap">
-                        <div class="ampm" id="local_ampm"></div>
-                        <div class="clock" id="localclock"></div>
+                    <div class="clock_wrap" data-value="local">
+                        <div class="ampm"></div>
+                        <div class="clock"></div>
                     </div>
                 </div>
             </div>

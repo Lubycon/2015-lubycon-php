@@ -803,6 +803,8 @@
 
 			eye.copy( camPosition ).sub( worldPosition ).normalize();
 
+			if(scope.object.helper !== undefined) scope.object.helper.update();
+
 			if ( scope.space === "local" ) {
 
 				_gizmo[ _mode ].update( worldRotation, eye );

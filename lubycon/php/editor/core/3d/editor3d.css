@@ -76,6 +76,7 @@
     height: 250px;
     padding: 10px 20px 10px 10px;
     border-right: 1px solid #333333;
+    background: url(../../img/transparent-repeat.png) 0% 0%;
     margin-right: 20px;
     overflow: hidden;
 }
@@ -106,10 +107,11 @@
         width: 100%;
         height: 270px;
         line-height: 270px;
-        background : #aaaaaa;
-        color: #444444;
-        font-size: 12px;
+        background : transparent;
+        color: #aaaaaa;
+        font-size: 14px;
         text-align: center;
+        border: 1px dashed #aaaaaa;
         cursor: pointer;
     }
         .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder:hover {
@@ -342,10 +344,11 @@
         display: inline-block;
         top: 50px;
         left: 50px;
-        padding: 20px;
+        padding: 10px;
         margin-top: 50px;
         padding-top: 20px;
         min-width: 300px;
+        height: auto;
         background: #282828;
         z-index: 90;
         box-shadow: 3px 5px 10px -3px rgba(0,0,0,0.6);
@@ -363,21 +366,46 @@
         z-index: 10000;
         min-width: 450px;
         min-height: 300px;
+        height: auto;
         border-radius: 5px;
         box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
+        .editor-body > .editor-aside > .toolbox-wrap > .toolbox-title {
+            font-size: 18px;
+            color: #48cfad;
+            margin-bottom: 10px;
+        }
         .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner {
             position: relative;
-            margin-bottom: 20px;
+            background: transparent;
+            text-align: left;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #444444;
         }
         .editor-body > .editor-aside > .toolbox-wrap.modal > .toolbox-inner {
             position: relative;
             width: 100%;
             margin-top: 20px;
         }
+            .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner.btn {
+                width: 100%;
+                height: auto;
+                line-height: normal;
+                margin: 0px;
+                margin-bottom: 10px;
+            }
+                .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner.btn:hover {
+                    box-shadow: none;
+                    background: #444444;
+                }
+                .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner.btn.selected {
+                    border: 1px solid #48cfad;
+                }
         .editor-body > .editor-aside > .toolbox-wrap.modal > .modal-wrapper > .toolbox-inner {
             width: 100%;
             box-sizing: border-box;
@@ -385,18 +413,24 @@
             -moz-box-sizing: border-box;
             margin: 15px auto;
         }
-            .toolbox-inner > .toolbox-label {
-                font-size: 15px;
-                color: #dddddd;
-                font-weight: 200;
-                margin-bottom: 10px;
+
+            .toolbox-inner .toolbox-label-wrapper {
+                position: relative;
             }
-                .toolbox-label.inlineBlock {
+                .toolbox-inner .toolbox-label {
                     display: inline-block;
+                    font-size: 15px;
+                    color: #555555;
+                    font-weight: 200;
+                    margin-bottom: 10px;
                 }
-                    .toolbox-label.inlineBlock+.checkbox-wrapper {
-                        float: right;
+                    .toolbox-inner.btn.radioType .toolbox-label {
+                        color: #dddddd;
                     }
+                .toolbox-inner .checkbox-wrapper{
+                    float: right;
+                }
+
                 .toolbox-btns > .btn {
                     display: inline-block;
                     width: 35px;
@@ -429,6 +463,9 @@
                 .toolbox-wrap[data-value='backgroundTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
                     width: 33.3%;
                 }
+                .toolbox-wrap[data-value='lightTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
+                    width: 33.3%;
+                }
      
             .toolbox-inner input[type="range"] {
                 width: 150px;
@@ -439,8 +476,13 @@
                 .toolbox-inner > .lubySelector > .ls_optionWrap {
                     overflow: visible;
                 }
-            .toolbox-inner > .toolbox-controller > .sp-replacer {
-                margin: 7px 0px;
+            .toolbox-inner .toolbox-controller .sp-replacer {
+                width: 30px;
+                height: 30px;
+                margin: 7px 14px 7px 0px;
+            }
+            .toolbox-inner .toolbox-controller .material-control-viewer .sp-replacer {
+                display: none;
             }
         .toolbox-inner > .toolbox-controller {
             position: relative;
@@ -454,12 +496,12 @@
             .toolbox-inner > .toolbox-controller > .material-control-inner > .material-control-panel > .material-control-viewer {
                 position: relative;
                 display: inline-block;
-                margin-right: 10px;
                 vertical-align: middle;
             }
                 .material-control-viewer > img {
                     width: 30px;
                     height: 30px;
+                    margin: 7px 14px 7px 0px;
                     vertical-align: middle;
                     cursor: pointer;
                     transition: opacity 0.2s;
@@ -467,11 +509,20 @@
                     .material-control-viewer > img:hover {
                         opacity: 0.6;
                     }
-                .material-control-viewer > .sp-replacer {
-                    width: 30px;
-                    height: 30px;
-                    display: none;
-                }
+            .toolbox-controller .light-setting-list-wrapper {
+                margin-bottom: 10px;
+            }
+            .toolbox-controller .light-setting-list-label {
+                display: inline-block;
+                width: 42px;
+                margin-right: 10px;
+                color: #dddddd;
+                font-size: 12px;
+                font-weight: 200;
+            }
+            .toolbox-controller .light-setting-list {
+                display: inline-block;
+            }
 
         
     .editor-body > .editing-background{
@@ -641,11 +692,16 @@
     .btn > i {
         font-size: 18px;
     }
+    .btn > img {
+        width: 100%;
+    }
 /*--------------editortool end------------------*/
 .slider-wrapper{
-    width: 210px !important;
-    display: none;
+    width: 200px !important;
 }
     .slider-wrapper > .slider-text {
         display: none;
     }
+.material-control-panel .slider-wrapper {
+    display: none;
+}

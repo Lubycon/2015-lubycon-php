@@ -80,10 +80,10 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $lightTool = new toolbar.createButton("lightTool",icons.bulb).appendTo($aside),
-                        $geometryTool = new toolbar.createButton("geometryTool",icons.circle).appendTo($aside),
-                        $materialTool = new toolbar.createButton("materialTool",icons.football).appendTo($aside),
-                        $backgroundTool = new toolbar.createButton("backgroundTool",icons.image).appendTo($aside);
+                        var $lightTool = new toolbar.createButton("lightTool","icon",icons.bulb,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $geometryTool = new toolbar.createButton("geometryTool","icon",icons.circle,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $materialTool = new toolbar.createButton("materialTool","icon",icons.football,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $backgroundTool = new toolbar.createButton("backgroundTool","icon",icons.image,true).appendTo($aside).on("click",toolbar.disableTools);
                         //input files
                         var $inputFile = $("<input/>",{
                             "class":"fileUploader editor-hidden",
@@ -93,11 +93,10 @@
                         $inputImage = $("<input/>",{
                             "class":"imgUploader editor-hidden",
                             "name":"imgUploader",
-                            "type":"file"
+                            "type":"file",
+                            "multiple" : "multiple"
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox);
-
-                        var alertKey = $("<div/>",{"class" : "alertKey"}).appendTo($header).hide();
                         //initModals
                         pac.initModal.fileSelector().appendTo($this).hide();
                         pac.initModal.textureWindow().appendTo($this).hide();
@@ -109,7 +108,6 @@
 
                         pac.initTools();//data binding
                         pac.initGL();
-                        //setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
                         $(window).on("load",function(){ 
                             $(".modal.file-selector-modal").fadeIn(400);
@@ -128,14 +126,16 @@
 
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
-                    camera.position.z = 3;
+                    camera.position.x = -2;
+                    camera.position.y = 0.7;
+                    camera.position.z = 2.5;
                 spotLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
                     spotLight.castShadow = true;
                     spotLight.receiveShadow = true;
-                dirLight = new THREE.DirectionalLight(0xffd689,0.5); //direction light color (lightColor,brightness)
-                   dirLight.position.set(-3,3,3) //direction light position (x,y,z)
+                dirLight = new THREE.DirectionalLight(0xffffff,0.3); //direction light color (lightColor,brightness)
+                   dirLight.position.set(100,100,100) //direction light position (x,y,z)
 
-                hemiLight = new THREE.HemisphereLight(0xffd689,0xffffff,1); //hemisphere light color(skyColor,groundColor,brightness)
+                hemiLight = new THREE.HemisphereLight(0xffffff,0xffbe54,1); //hemisphere light color(skyColor,groundColor,brightness)
 
                 scene.add(camera, spotLight, hemiLight, dirLight);
 
@@ -148,14 +148,19 @@
                 });
                     skyMaterial.side = THREE.BackSide;
                 skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.name = "skybox";
                 skybox.material.dispose();
 
                 scene.add(skybox);
 
-                renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true });
+                renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true, antialias: true });
                     renderer.setSize(windowWidth, windowHeight);
-                    renderer.setPixelRatio(window.devicePixelRatio*1.5);
+                    renderer.setPixelRatio(window.devicePixelRatio);
                     renderer.setClearColor(0x222222, 1);
+                    renderer.shadowMap.enabled = true;
+                    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                    renderer.gammaInput = true;
+                    renderer.gammaOutput = true;
                 gl.addEventListener("webglcontextlost", function(event){
                     event.preventDefault();
                     alert("context is lost");
@@ -170,7 +175,7 @@
                     controls.zoomSpeed = 0.5;
                     controls.maxDistance = 100;
 
-                window.addEventListener("resize", pac.windowResizeGl, false);
+                window.addEventListener("resize", pac.windowResizeGL, false);
                 pac.animateGL();
             },
             animateGL: function(){
@@ -182,20 +187,7 @@
                 renderer.render(scene, camera);
                 spotLight.position.copy( camera.position );
             },
-            getSceneChild: function(name){
-                var children = scene.children,
-                result = -1;
-
-                for(var i = 0, l = children.length; i < l; i++){
-                    if(name === children[i].name){
-                        result = i;
-                        break;
-                    }
-                }
-
-                return result;
-            },
-            windowResizeGl: function(){
+            windowResizeGL: function(){
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -203,9 +195,9 @@
             initCamera: function(event){
                 var existSetting = $(".modal.setting-modal.prog.setting-window").css("display") === "none";
                 if((event.which == keyCode.space) && existSetting){
-                    camera.position.x = 0;
-                    camera.position.y = 0;
-                    camera.position.z = 3;
+                    camera.position.x = -2;
+                    camera.position.y = 0.7;
+                    camera.position.z = 2.5;
                     console.log("init Camera");
                 };
             },
@@ -214,12 +206,7 @@
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
-                contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { "contentID": 'content' + val[0], "ext": val[1] };
-                    imgData.push(innerVal)
-                }),
+                contentData = scene.children.map(threeToJson).clean(null), //map,maplight,object,newLight1,2,3
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
@@ -229,7 +216,30 @@
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
-                }),
+                });
+
+                console.log(contentName,contentData,categories,tags,cc,descript);
+
+                function threeToJson(obj,index,array){
+                    var result,
+                    bool = false;
+                    switch(obj.name){
+                        case "mainObject" : bool = true; break;
+                        case "newLight0" : bool = true; break;
+                        case "newLight1" : bool = true; break;
+                        case "newLight2" : bool = true; break;
+                        case "skybox" : bool = true; break;
+                        default : bool = false;
+                    }
+
+                    if(bool) {
+                        result = obj.toJSON();
+                        console.log(obj.name);
+                        return result;
+                    }
+                    else return null; 
+                }
+                /*
                 $form = $("<form/>", {
                     "id": "finalForm",
                     "enctype": "multipart/form-data",
@@ -247,31 +257,8 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl('cate')),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
-
-                $("#finalForm").submit();
-            },
-            autoSave: function () {
-                var imgData = [],
-                    contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        url = $this.find('img').attr("src"),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { 'type': 'editor_content', 'data64': url, "index": val[0] };
-                    imgData.push(innerVal)
-                    }),
-                    html_Data = $('.editing-canvas').html();
-                $.ajax({
-                    type: "POST",
-                    url: "../../../ajax/editor_ajax_upload_test.php", // temp image file ajax post
-                    data:
-                    {
-                        'ajax_data': imgData
-                    },
-                    cache: false,
-                    success: function (data) {
-                        console.log('auto save succece');
-                    }
-                });
+                */
+                //$("#finalForm").submit();
             },
             initTools: function(){
                 //toolbar data bind start
@@ -338,7 +325,7 @@
                     $editWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($innerWrap),
                     $placeholder = $("<div/>", { 
                         "class" : "thumb-placeHolder",
-                        "html" : "Click and upload your thumbnail Image",
+                        "html" : "Please Capture in WebGL Viewer",
                         "data-value" : "thumbnail"
                     }).on("click",upload.imgUpTrigger).appendTo($editWrap),
                     $img = $("<img/>", { 
@@ -373,13 +360,13 @@
                     $inputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
                     $inputInner = $("<div/>",{ "class" : "setting-input" }),
                     $label = $("<p/>",{ "class" : "setting-input-label"}),
-                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }),
+                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }).on("keyup",defendQueryInjection),
                     $select = $("<select>", { "class" : "setting-select" }),
                     $option = $("<option/>",{"class" : "select-option"}),
 
                     $contentName = $inputWrap.clone()
                     .append($label.clone().html("Content Name"))
-                    .append($input.clone().attr("name","content-name")).appendTo($innerLeft),
+                    .append($input.clone(true).attr("name","content-name")).appendTo($innerLeft),
 
                     $categoryName = $inputWrap.clone()
                     .append($label.clone().html("Categories")).appendTo($innerLeft),
@@ -398,20 +385,22 @@
                             option.appendTo(categoryBox);
                         }
                         categoryBox.chosen({  max_selected_options: 3 });
-                    }(),
+                    }();
 
-                    $hashtagName = $inputWrap.clone()
-                    .append($label.clone().html("Hash Tag"))
+                    var $hashtagName = $inputWrap.clone()
+                    .append($label.clone().html("Tag"))
                     .append($inputInner.clone().addClass("hashTag-input-wrap")
                         .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
-                    .appendTo($innerLeft),
+                    .appendTo($innerLeft);
+                    $hashtagName.find(".hashTag-input").on("keyup",defendQueryInjection);
 
-                    $descriptName = $inputWrap.clone()
+                    var $descriptName = $inputWrap.clone()
                     .append($label.clone().html("Description"))
-                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft),
+                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft);
+                    $descriptName.find(".descript-input").on("keyup",defendQueryInjection);
 
                     //creative commons
-                    $ccName = $inputWrap.clone(),
+                    var $ccName = $inputWrap.clone(),
                     $ccLabel = $label.clone().html("Creative Commons"),
                     $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
                     
@@ -486,9 +475,11 @@
                 var $this = $(this),
                 $aside = $this.parents(".editor-aside"),
                 value = $this.data("target"),
+                title = $this.data("tip").split(" ")[0],
                 $toolboxWrap = $("<div/>",{
                     "class" : "toolbox-wrap tab-target",
-                    "data-value" : value
+                    "data-value" : value,
+                    "html" : "<p class='toolbox-title'>" + title + "</p>"
                 }).appendTo($aside).hide();
             },
             keyEvent: function(event){
@@ -509,6 +500,11 @@
                     index = $this.index(element) - 1;
                     if(!$this.is(".default")) $this.attr("data-index",index);
                 });
+            },
+            disableCamelCase: function(text){ //camelCase -> Camel Case
+                var result = text.replace( /([A-Z])/g, " $1" ),
+                result = result.charAt(0).toUpperCase() + result.slice(1);
+                return result;
             }
         },
         upload = {
@@ -635,11 +631,11 @@
                 var $inputFile = $(this), 
                 object = event.target.files,
                 target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn"),
-                tgaCheck = /(^image)\/(targa)/i.test(object[0].type) && /.*\.(tga)/i.test(object[0].name);
-                $loading_icon = $(document).find("#loading_icon");
-                if(upload.imgCheck(object[0])){
-                    $loading_icon.show();
-                    $.each(object, function(i,file){
+                $loading_icon = $(document).find("#loading_icon").show();
+                    
+                $.each(object, function(i,file){
+                    if(upload.imgCheck(file)){
+                        var tgaCheck = /(^image)\/(targa)/i.test(object[0].type) && /.*\.(tga)/i.test(file.name);
                         var reader = new FileReader();
                         var textureLoader;
 
@@ -657,11 +653,8 @@
                             pac.setIndex(".texture-list");
                             $inputFile.val(null); // init input value
                         };
-                    });
-                }
-                else {
-                    $inputFile.val(null);
-                }
+                    }
+                });
             },
             textureApply: function(){
                 var targetID = $("#material-selector").find("option:selected").data("value"),
@@ -723,6 +716,7 @@
                                 material = object[i].material;
                                 if(material.type == "MeshPhongMaterial"){
                                     material.specular = new THREE.Color(0xffffff);
+                                    material.shininess = 0.06;
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
@@ -731,6 +725,7 @@
                                     var materials = material.materials;
                                     for(var j = 0, ml = materials.length; j < ml; j++){
                                         materials[j].specular = new THREE.Color(0xffffff);
+                                        materials[j].shininess = 0.06;
                                         materials[j].side = THREE.DoubleSide;
                                         materials[j].transparent = true;
                                         materials[j].needsUpdate = true;
@@ -744,6 +739,7 @@
                                     mesh.receiveShadow = true;
                                     mesh.scale.set(1,1,1);   
                                 group.add(mesh);
+                                group.name = "mainObject";
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
@@ -797,7 +793,6 @@
                     }
                     return result;
                 }
-
                 return body;
             },
             cropped: function(event){
@@ -810,7 +805,7 @@
                     //console.log(dataURL); // for ajax
 
                     var dataArray = new Array;
-                    dataArray[0] = { 'type': 'editor_thumb', 'data64': dataURL ,'index': null};
+                    dataArray[0] = { 'type': 'editor_thumb', 'base64': dataURL ,'index': null};
 
                     $.ajax({
                         type: "POST",
@@ -991,29 +986,30 @@
             }  
         },
         toolbar = {
-            createButton: function(data,iconData){
-                var tipData = data !== null ? disableCamelCase(data) : null;
+            createButton: function(data,type,iconData,tooltip){
+                var tipData = data !== null ? pac.disableCamelCase(data) : null;
                 var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
-                icon = $("<i/>",{"class" : iconData}).appendTo(button);
+                icon = type === "icon" ? $("<i/>",{"class" : iconData}) : $("<img/>",{"src" : iconData});
 
-                button.on("click").on("click",toggle.group).on("click",pac.tabAction).tooltip({"top":5,"left" : 50});
+                icon.appendTo(button);
 
-                function disableCamelCase(text){ //camelCase -> Camel Case
-                    var result = text.replace( /([A-Z])/g, " $1" ),
-                    result = result.charAt(0).toUpperCase() + result.slice(1);
-                    return result;
-                }
+                button.on("click").on("click",toggle.group).on("click",pac.tabAction)
+                if(tooltip) button.tooltip({"top":5,"left" : 50});
+
                 return button;
             },
-            createRadioButton: function(data,iconData){
-                var button = new toolbar.createButton(data,iconData);
+            createRadioButton: function(data,type,iconData,tooltip){
+                var button = new toolbar.createButton(data,type,iconData,tooltip);
                 button.addClass("radioType");
 
                 return button;
             },
-            createMenu: function(content,name){
+            createMenu: function(content,name,switchs){
                 var body = $("<div>",{ "class" : "toolbox-inner" }),
-                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
+                labelWrap = $("<div/>",{"class" : "toolbox-label-wrapper"}).appendTo(body)
+                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(labelWrap),
+                labelSwitch = switchs ? $("<input/>",{ "type" : "checkbox", "class" : "toolbox-label-checkbox" }).appendTo(labelWrap) : null;
+
                 if(content !== null && typeof content === "object"){
                     if(content.length === 1){
                         content.appendTo(body);
@@ -1029,61 +1025,447 @@
                     return body
                 }
             },
-            lightTool: function(){
-                var $this = $(document).find(".toolbox-wrap[data-value='lightTool']");
-
+            disableTools: function(){
+                var lightToolboxWrap = $(document).find(".toolbox-wrap[data-value='lightTool']"),
+                onLights = lightToolboxWrap.find(".toolbox-inner.btn.radioType"),
+                lightControls = scene.getObjectByName("lightControls"),
+                lastAttachedLight = lightControls !== undefined ? lightControls.object : null;
                 
+                onLights.each(function(){
+                    var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
+
+                    console.log("init");
+                    helper.visible = false;
+                    lightControls.visible = false; 
+                });
+                //lighttool init
+                var geometryToolboxWrap = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
+                onRotateTool = geometryToolboxWrap.find(".checkbox-label.switch"),
+                switchOn = onRotateTool.hasClass("selected");
+            
+                if(switchOn) onRotateTool.trigger("click");
+            },
+            lightTool: function(){
+                var $this = $(document).find(".toolbox-wrap[data-value='lightTool']"),
+                $triggerButton = $(".editor-aside").children(".btn[data-target='lightTool']").on("click",toolbar.lightFn.initLightTool);
+
+                var light1 = new toolbar.createMenu(null,"Light1",true).attr({"data-value" : 0}).appendTo($this),
+                lightCheckbox1 = light1.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
+
+                var light2 = new toolbar.createMenu(null,"Light2",true).attr({"data-value" : 1}).appendTo($this),
+                lightCheckbox2 = light2.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
+
+                var light3 = new toolbar.createMenu(null,"Light3",true).attr({"data-value" : 2}).appendTo($this),
+                lightCheckbox3 = light3.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
+
+                /*--------light setting---------*/
+                var settingWrapper = $("<div/>",{"class" : "toolbox-tab-wrapper"});
+
+                var $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo(settingWrapper),
+                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn radioType" })
+                    .on("click",toggle.group)
+                    .on("click",pac.tabAction)
+                    .on("click",toolbar.lightFn.changeLight);
+
+                var $directionBtn = $tabBt.clone(true).html("Directional").attr("data-target","directional").addClass("selected").appendTo($tabBtWrap),
+                $spotLightBtn = $tabBt.clone(true).html("Spot").attr("data-target","spot").appendTo($tabBtWrap),
+                $pointBtn = $tabBt.clone(true).html("Point").attr("data-target","point").appendTo($tabBtWrap);
+
+                var $directionSetting = new toolbar.lightFn.LightSetting("directional").appendTo(settingWrapper),
+                $spotSetting = new toolbar.lightFn.LightSetting("spot").appendTo(settingWrapper).hide(),
+                $pointSetting = new toolbar.lightFn.LightSetting("point").appendTo(settingWrapper).hide();
+
+                var settingWindow = new toolbar.createMenu(settingWrapper,"Setting",false).appendTo($this);
+
+                settingWrapper.find(".colorKey").spectrum({
+                    replacerClassName: "color-viewer light-viewer",
+                    color: "#ffffff",
+                    showInput: true,
+                    showInitial: true,
+                    preferredFormat: "hex3",
+                    showPalette: true,
+                    palette: [],
+                    showSelectionPalette: true,
+                    selectionPalette: [],
+                    move: toolbar.lightFn.lightColor,
+                    change: toolbar.lightFn.lightColor
+                });
+
+                settingWrapper.find(".sliderKey[data-value='color']").slider({
+                    callback: toolbar.lightFn.intensity
+                });
+                settingWrapper.find(".sliderKey[data-value='falloff']").slider({
+                    callback: toolbar.lightFn.falloff
+                });
+                settingWrapper.find(".sliderKey[data-value='angle']").slider({
+                    callback: toolbar.lightFn.angle
+                });
+                settingWrapper.find(".sliderKey[data-value='softness']").slider({
+                    callback: toolbar.lightFn.softness
+                });
+                /*--------light setting---------*/
+
             },
             lightFn: {
-                
+                LightSetting: function(light){
+                    var body = $("<div/>",{"class" : "light-setting-wrapper toolbox-controller tab-target", "data-value" : light});
+
+                    assembleList("Color",true,true).appendTo(body);
+
+                    switch(light){
+                        case "spot" : 
+                            assembleList("Fall Off",false,true).appendTo(body);
+                            assembleList("Angle",false,true).appendTo(body);
+                            assembleList("Softness",false,true).appendTo(body);
+                        break;
+                        case "point" : 
+                            assembleList("Fall Off",false,true).appendTo(body);
+                        break;
+                    }
+
+                    function assembleList(title,colorBool,sliderBool){
+                        var listWrap = $("<div/>",{"class" : "light-setting-list-wrapper"}),
+                        listLabel = $("<div/>",{"class" : "light-setting-list-label"}),
+                        list = $("<div/>",{ "class" : "light-setting-list" }),
+                        sliderData = title.replace(/\s+/g,"").toLowerCase();
+
+                        color = $("<input/>",{ "class" : "colorKey" }),
+                        slider = $("<input/>",{ "type" : "range", "value" : 50, "max" : 100, "min" : 0, "data-value" : sliderData, "class" : "lightSlider sliderKey" });
+
+                        listLabel.text(title).appendTo(listWrap);
+
+                        if(colorBool) color.appendTo(list);
+                        if(sliderBool) slider.appendTo(list);
+
+                        list.appendTo(listWrap);
+
+                        return listWrap;
+                    }
+                    return body;
+                },
+                onOff: function(event){
+                    var $this = $(this),
+                    toolboxInner = $this.parents(".toolbox-inner"),
+                    data = toolboxInner.data("value"),
+                    kind = $this.parents(".toolbox-wrap").find(".toolbox-tab.btn.selected").data("target"),
+                    checked = $this.prop("checked"),
+                    name = "newLight" + data,
+                    helperName = "newLightHelper" + data,
+                    exist = scene.getObjectByName(name) !== undefined;
+
+                    if(checked){ //On
+                        newLight = toolbar.lightFn.createLight(kind);
+                        newLight[0].name = name;
+                        newLight[0].position.y = 1;
+                        newLight[1].name = helperName;
+                        
+                        scene.add(newLight[0],newLight[1]);
+
+                        toolboxInner
+                            .on("click",toolbar.lightFn.lightControls)
+                            .addClass("btn radioType")
+                            .on("click",toggle.group)
+                            .on("click",toolbar.lightFn.refreshLightSetting);
+                        toolboxInner.attr("data-type", kind);
+                        $(document).on("keydown",toolbar.lightFn.lightControlKeyAction);
+                    }
+                    else{ //Off
+                        if(exist) {
+                            scene.remove(scene.getObjectByName(name));
+                            scene.remove(scene.getObjectByName(helperName));
+
+                            scene.getObjectByName("lightControls").detach();
+                            scene.getObjectByName("lightControls").dispose();
+                            scene.remove(scene.getObjectByName("lightControls"));
+                        }
+                        else $(document).off("keydown",toolbar.lightFn.lightControlKeyAction);
+                        //This function is test function
+                        setTimeout(function(){
+                            $this.parents(".toolbox-inner")
+                                .removeClass("btn radioType selected")
+                                .off("click",toggle.group)
+                                .off("click",toolbar.lightFn.lightControls)
+                                .off("click",toolbar.lightFn.refreshLightSetting);
+                            if($(document).find(".toolbox-inner.btn.radioType").length !== 0){
+                                $(".toolbox-inner.btn.radioType").first().trigger("click");
+                            }
+                        },1);
+                        //This function is test function
+                    }
+                },
+                initLightTool: function(){
+                    var $this = $(this), //toolbox-btn
+                    selected = $this.hasClass("selected"),
+                    toolboxWrap = $(document).find(".toolbox-wrap[data-value='lightTool']"),
+                    onLights = toolboxWrap.find(".toolbox-inner.btn.radioType"),
+                    lightControls = scene.getObjectByName("lightControls"),
+                    lastAttachedLight = lightControls !== undefined ? lightControls.object : null;
+                    
+                    onLights.each(function(){
+                        var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
+                        if(selected){
+                            console.log("on");
+                            helper.visible = true;
+                            lightControls.visible = true;
+                        }
+                        else{
+                            console.log("off");
+                            helper.visible = false;
+                            lightControls.visible = false;
+                        }
+                    });
+                },
+                lightControlKeyAction: function(event){
+                    //this shortcut is same is 3dmax
+                    var input = event.which,
+                    _mode = null,
+                    lightControls = scene.getObjectByName("lightControls");
+
+                    if(lightControls === undefined) return;
+
+                    switch(input){
+                        case keyCode.w : _mode = "translate"; break;
+                        case keyCode.e : _mode = "rotate"; break;
+                        default: return; break;
+                    }
+                    console.log(input,_mode);
+                    lightControls.setMode(_mode);
+                },
+                changeLight: function(){ //direction <-> spot <-> point
+                    $this = $(this),
+                    selector = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected"),
+                    lightIndex = selector.data("value"),
+                    kind = $this.data("target"),
+                    name = "newLight" + lightIndex,
+                    helperName = "newLightHelper" + lightIndex,
+                    lightControls = scene.getObjectByName("lightControls"),
+                    exist = scene.getObjectByName("newLight" + lightIndex) !== undefined;
+
+                    if(exist){
+                        scene.remove(scene.getObjectByName(name));
+                        scene.remove(scene.getObjectByName(helperName));
+
+                        var newLight = toolbar.lightFn.createLight(kind);
+
+                        newLight[0].name = name;
+                        newLight[0].position.y = 1;
+                        newLight[1].name = helperName;
+
+                        scene.add(newLight[0],newLight[1]);
+
+                        lightControls.detach();
+                        lightControls.attach(newLight[0]);
+
+                        selector.attr("data-type",kind);
+                        console.log("changeLight to " + kind);
+                    }
+                    else return false;
+                },
+                refreshLightSetting: function(){
+                    var $this = $(this),
+                    kind = $this.attr("data-type"),
+                    light = scene.getObjectByName("newLight" + $this.data("value")),
+                    tabs = $this.parents(".toolbox-wrap").find(".toolbox-tab.btn"),
+                    currentTab = $this.parents(".toolbox-wrap").find(".toolbox-tab.btn[data-target='" + kind + "']"),
+
+                    settingWindows = $(".light-setting-wrapper"),
+                    currentSettingWindow = $(".light-setting-wrapper[data-value='" + kind + "']"),
+
+                    colorViewer = currentSettingWindow.find(".colorKey"),
+                    colorSlider = currentSettingWindow.find(".lightSlider[data-value='color']").siblings(".slider-text"),
+                    fallOffSlider = currentSettingWindow.find(".lightSlider[data-value='falloff']").siblings(".slider-text"),
+                    angleSlider = currentSettingWindow.find(".lightSlider[data-value='angle']").siblings(".slider-text"),
+                    softnessSlider = currentSettingWindow.find(".lightSlider[data-value='softness']").siblings(".slider-text");
+
+                    colorViewer.spectrum("set", "#" + light.color.getHexString());
+                    colorSlider.val(light.intensity*100).trigger("change");
+                    if(fallOffSlider.length !== 0) fallOffSlider.val((light.decay-1)*100).trigger("change");
+                    if(angleSlider.length !== 0) angleSlider.val(light.angle*100).trigger("change");
+                    if(softnessSlider.length !== 0) softnessSlider.val(light.penumbra*100).trigger("change");
+
+                    //test code
+                    tabs.removeClass("selected");
+                    currentTab.addClass("selected");
+                    settingWindows.hide();
+                    currentSettingWindow.show();
+                    //test code
+                },
+                createLight: function(kind){
+                    var result = [];
+                    switch(kind){
+                        case "directional" : 
+                            result[0] = new THREE.DirectionalLight(0xffffff,0.5);
+                            result[1] = new THREE.DirectionalLightHelper(result[0],1);
+                            result[0].helper = result[1];
+                        break;
+                        case "spot" : 
+                            result[0] = new THREE.SpotLight(0xffffff,0.5);
+                            result[0].angle = Math.PI/6;
+                            result[0].decay = 1.5;
+                            result[0].penumbra = 0.5;
+                            result[1] = new THREE.SpotLightHelper(result[0]);
+                            result[0].helper = result[1];
+                        break;
+                        case "point" : 
+                            result[0] = new THREE.PointLight(0xffffff,0.5,100);
+                            result[0].decay = 1.5;
+                            result[1] = new THREE.PointLightHelper(result[0],1);
+                            result[0].helper = result[1];
+                        break;
+                        default : return false;
+                    }
+
+                    return result;
+                },
+                lightControls: function(event){
+                    event.stopPropagation();
+                    var $this = $(this),
+                    lightIndex = $this.data("value"),
+                    light = scene.getObjectByName("newLight" + lightIndex),
+                    helper = scene.getObjectByName("newLightHelper" + lightIndex),
+                    exist = scene.getObjectByName("lightControls") === undefined,
+                    lightControls = exist ? new THREE.TransformControls(camera,renderer.domElement) : scene.getObjectByName("lightControls");
+
+                    if($this.hasClass("selected")) return false;
+                    else {
+                        if(exist){
+                            lightControls.name = "lightControls";
+                            lightControls.addEventListener("change",pac.renderGL);
+
+                            scene.add(lightControls);
+                            lightControls.setMode("translate");
+                            lightControls.space = "world";
+                            lightControls.setSize(1);
+                            lightControls.attach(light);
+                        }
+                        else{
+                            lightControls.detach();
+                            lightControls.attach(light);
+                        }     
+                    }
+                },
+                lightColor: function(color){
+                    var $this = $(this),
+                    color = color.toRgbString();
+                    lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
+                    light = scene.getObjectByName("newLight" + lightIndex),
+                    helper = scene.getObjectByName("newLightHelper" + lightIndex);
+
+                    light.color = new THREE.Color(color);
+                    helper.update();
+                    console.log(light,helper);
+                },
+                intensity: function(val,selector){
+                    console.log("intensity");
+                    var $this = selector,
+                    lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
+                    light = scene.getObjectByName("newLight" + lightIndex),
+                    helper = scene.getObjectByName("newLightHelper" + lightIndex);
+
+                    light.intensity = val*0.01;
+                    helper.update();
+                },
+                falloff: function(val,selector){
+                    console.log("falloff");
+                    var $this = selector;
+                    lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
+                    light = scene.getObjectByName("newLight" + lightIndex),
+                    helper = scene.getObjectByName("newLightHelper" + lightIndex);
+
+                    light.distance = val;
+                    helper.update();
+                    console.log(light.decay);
+                    //0~1.0(float)
+                    //spot,point
+                },
+                angle: function(val,selector){
+                    console.log("angle");
+                    var $this = selector;
+                    lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
+                    light = scene.getObjectByName("newLight" + lightIndex),
+                    helper = scene.getObjectByName("newLightHelper" + lightIndex);
+
+                    light.angle = val*0.01;
+                    helper.update();
+                    //0~90 dgree(float)
+                    //spot
+                },
+                softness: function(val,selector){
+                    console.log("softness");
+                    var $this = selector;
+                    lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
+                    light = scene.getObjectByName("newLight" + lightIndex),
+                    helper = scene.getObjectByName("newLightHelper" + lightIndex);
+
+                    light.penumbra = val*0.01;
+                    helper.update();
+                    //0~1.0(float)
+                    //spot
+                }
             },
             geometryTool: function(){
-                var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']");
+                var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
+                $triggerButton = $(".editor-aside").children(".btn[data-target='geometryTool']").on("click",toolbar.geometryFn.initRotateTool);
 
-                var $rotateCheckbox =  $("<input/>",{ "type" : "checkbox", "class" : "toolbox-checkbox", "id" : "rotate-check" })
-                .on("change",toolbar.geometryFn.transform),
-                rotateTool = new toolbar.createMenu($rotateCheckbox,"Rotate").appendTo($this);
-                rotateTool.find(".toolbox-label").addClass("inlineBlock");
+                var rotateTool = new toolbar.createMenu(null,"Rotate",true).appendTo($this);
+                $rotateCheckbox = rotateTool.find(".toolbox-label-checkbox").attr("id","rotate-check").on("change",toolbar.geometryFn.transform);
                 $rotateCheckbox.lubyCheckbox();
 
                 var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper toolbox-btns" }),
-                smoothMode = new toolbar.createRadioButton("realistic",icons.usd).addClass("selected").attr("data-value","realistic").appendTo($viewmodeWrapper),
-                cleanMode = new toolbar.createRadioButton("cleanSurface",icons.usd).attr("data-value","clean").appendTo($viewmodeWrapper),
-                transparentMode = new toolbar.createRadioButton("transparency",icons.usd).attr("data-value","transparent").appendTo($viewmodeWrapper),
-                wireMode = new toolbar.createRadioButton("wireframe",icons.usd).attr("data-value","wireframe").appendTo($viewmodeWrapper),
-                wireCleanMode = new toolbar.createRadioButton("wireframeAndClean",icons.usd).attr("data-value","wireclean").appendTo($viewmodeWrapper),
+                realisticMode = new toolbar.createRadioButton("realistic","img",icons.realistic,true).addClass("selected").attr("data-value","realistic").appendTo($viewmodeWrapper),
+                cleanMode = new toolbar.createRadioButton("cleanSurface","img",icons.clean,true).attr("data-value","clean").appendTo($viewmodeWrapper),
+                transparentMode = new toolbar.createRadioButton("transparency","img",icons.transparency,true).attr("data-value","transparent").appendTo($viewmodeWrapper),
+                wireMode = new toolbar.createRadioButton("wireframe","img",icons.wireframe,true).attr("data-value","wireframe").appendTo($viewmodeWrapper),
+                wireCleanMode = new toolbar.createRadioButton("wireframeAndClean","img",icons.wireclean,true).attr("data-value","wireclean").appendTo($viewmodeWrapper),
 
-                viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode").appendTo($this)
+                viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode",false).appendTo($this)
                 .find(".btn.radioType").on("click",toolbar.geometryFn.viewModeChecker);
             },
             geometryFn: {
+                initRotateTool: function(){
+                    var $this = $(this), //toolbox-btn
+                    selected = $this.hasClass("selected"),
+                    toolboxWrap = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
+                    onRotateTool = toolboxWrap.find(".checkbox-label.switch"),
+                    switchOn = onRotateTool.hasClass("selected");
+
+                    if(selected) return;
+                    else {
+                        if(switchOn) onRotateTool.trigger("click");
+                    }
+                },
                 transform: function(){
-                    var $this = $(this);
-                    var objectControls = new THREE.TransformControls(camera,renderer.domElement);
+                    var $this = $(this),
+                    checked = $this.prop("checked"),
+                    objectControls,gridHelper,axisHelper;
+                    
+                    if(checked){
+                        objectControls = new THREE.TransformControls(camera,renderer.domElement);
+                        gridHelper = new THREE.GridHelper(3,0.5);
+                        axisHelper = new THREE.AxisHelper(50);
+
                         objectControls.name = "objectControls";
                         objectControls.addEventListener( 'change', pac.renderGL );
                         objectControls.attach(group);
-                    var gridHelper = new THREE.GridHelper(3,0.5);
                         gridHelper.name = "gridHelper";
-                    var axisHelper = new THREE.AxisHelper(50);
                         axisHelper.name = "axisHelper";
-                    var controlsIndecies = 0;
 
-                    if($this.prop("checked")){
-                        controls.enabled = false;
                         scene.add(objectControls,gridHelper,axisHelper);
-                        controlsIndecies = scene.children.length;
                         objectControls.setMode("rotate");
                         objectControls.space = "world";
                         objectControls.update();
                     }
-                    else{
-                        objectControls.dispose();
+                    else{ 
+                        objectControls = scene.getObjectByName("objectControls");
+                        gridHelper = scene.getObjectByName("gridHelper");
+                        axisHelper = scene.getObjectByName("axisHelper");
+
                         objectControls.detach(group);
-                        scene.remove(scene.children[pac.getSceneChild("objectControls")]);
-                        scene.remove(scene.children[pac.getSceneChild("gridHelper")]);
-                        scene.remove(scene.children[pac.getSceneChild("axisHelper")]);
-                        controls.enabled = true;
+                        objectControls.dispose();
+
+                        scene.remove(objectControls);
+                        scene.remove(gridHelper);
+                        scene.remove(axisHelper);
                     }
                 },
                 viewModeChecker: function(result){
@@ -1155,8 +1537,8 @@
                 },
                 wireframeControl: function(bool,helper){
                     if(bool){
-                        var exist = pac.getSceneChild("wireframeHelper");
-                        if(exist === -1){
+                        var exist = scene.getObjectByName("wireframeHelper");
+                        if(exist === undefined){
                             var wireframeHelper = new THREE.WireframeHelper(mesh,0x48cfad);
                             wireframeHelper.name = "wireframeHelper";
                             scene.add(wireframeHelper);  
@@ -1166,7 +1548,7 @@
                     }
                     else{
                         mesh.material.visible = true;
-                        scene.remove(scene.children[pac.getSceneChild("wireframeHelper")]);
+                        scene.remove(scene.getObjectByName("wireframeHelper"));
                     }
                 }
             },
@@ -1176,9 +1558,9 @@
                 var $selectBox = $("<select/>",{ "id" : "material-selector" }).hide(),
                 $materialSelector = new toolbar.createMenu($selectBox,"Materials").attr({"id" : "materialSelect-tool","data-value" : "material-select"}).appendTo($this);
                 
-                var $materialDiffuse = new toolbar.createMenu(null,"Diffuse").attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
-                var $materialSpecular = new toolbar.createMenu(null,"Specular").attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
-                var $materialNormal = new toolbar.createMenu(null,"Normal").attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
+                var $materialDiffuse = new toolbar.createMenu(null,"Diffuse",false).attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
+                var $materialSpecular = new toolbar.createMenu(null,"Specular",false).attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
+                var $materialNormal = new toolbar.createMenu(null,"Normal",false).attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
 
                 var $controllerBody = $("<div/>",{ "class" : "toolbox-controller" }),
                 $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo($controllerBody),
@@ -1241,7 +1623,6 @@
                             replacerClassName: "color-viewer material-viewer tab-target",
                             color: "#ffffff",
                             showInput: true,
-                            showAlpha: true,
                             showInitial: true,
                             preferredFormat: "hex3",
                             showPalette: true,
@@ -1250,7 +1631,7 @@
                             selectionPalette: [],
                             move: toolbar.materialFn.materialColor,
                             change: toolbar.materialFn.materialColor
-                        }).hide();
+                        });
                         $(".color-viewer.material-viewer.tab-target").attr("data-value","color-window")
                         $(this).find(".sliderKey").slider({
                             callback: toolbar.materialFn.sliderAction
@@ -1404,6 +1785,7 @@
                             case "specular" : $material.shininess = val; break;
                             default : $.error("opacity Error"); break;
                         }
+                        console.log(val);
                     }
                 }
             },
@@ -1417,7 +1799,7 @@
                 $2dBt = $tabBt.clone(true).html("Image").attr("data-target","2d").appendTo($tabBtWrap),
                 $colorBt = $tabBt.clone(true).html("Color").attr("data-target","color").appendTo($tabBtWrap);
 
-                var $backgroundSelect = new toolbar.createMenu($tabBtWrap,"Background").appendTo($this);
+                var $backgroundSelect = new toolbar.createMenu($tabBtWrap,"Background",false).appendTo($this);
 
                 var $controllerBody = $("<div/>",{ "class" : "toolbox-controller tab-target" });
                 var $3DSelector = $("<select/>",{"id" : "bg-3d-selector","class" : "backgroundSelector","data-value" : "3d"}),
@@ -1516,16 +1898,16 @@
                     //light
                     switch(id){
                         case 0 : 
-                            dirLight.color = new THREE.Color(0xffd689);
-                            hemiLight.skyColor = new THREE.Color(0xffd689);
+                            //dirLight.color = new THREE.Color(0xffd689);
+                            hemiLight.groundColor = new THREE.Color(0xffbe54);
                         break;//desert
                         case 1 : 
-                            dirLight.color = new THREE.Color(0xffffff); 
-                            hemiLight.skyColor = new THREE.Color(0xffffff);
+                            //dirLight.color = new THREE.Color(0xffffff); 
+                            hemiLight.groundColor = new THREE.Color(0xffffff);
                         break;//room
                         case 2 : 
-                            dirLight.color = new THREE.Color(0xb9ffff); 
-                            hemiLight.skyColor = new THREE.Color(0xb9fffff);
+                            //dirLight.color = new THREE.Color(0xb9ffff); 
+                            hemiLight.groundColor = new THREE.Color(0xd9edff);
                         break;//snow mountain
                     }
                 },
@@ -1555,7 +1937,7 @@
                     skybox.material.dispose();
 
                     dirLight.color = new THREE.Color(0xffffff);
-                    hemiLight.skyColor = new THREE.Color(0xffffff);
+                    hemiLight.groundColor = new THREE.Color(0xffffff);
 
                     renderer.setClearColor(0x222222, 0);
                 }
