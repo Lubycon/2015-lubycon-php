@@ -214,12 +214,18 @@ body{
                 font-size: 14px;
                 float: right;
                 padding-top: 2px;
+                padding-right: 23px;
             }
             .modal-fileViewer > .file-list > .fa-times {
                 position: absolute;
                 top: 8px;
                 right: 5px;
+                cursor: pointer;
+                transition: color 0.2s;
             }
+                .modal-fileViewer > .file-list > .fa-times:hover {
+                    color: #eeeeee;
+                }
     .modal-fileViewer-total {
         background: #444444;
         font-size: 15px;

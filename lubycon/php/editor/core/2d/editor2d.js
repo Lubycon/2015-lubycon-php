@@ -30,6 +30,7 @@
         ccData = ccPac, //creative_commons.json
         formData = new FormData(),
         d = {},
+        attachedFiles = [],
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
@@ -131,13 +132,15 @@
                         // right : {project team}
 
                         pac.initTools();//data binding
-                        setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
                         $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
                     }
                 })
             },
             submit: function(){
+                var formData = new FormData();
+                $.each(attachedFiles,function(i,file){ formData.append("file"+i,file); }); //attached files append to form data object.
+
                 var rootElement = $(".initEditor"),
                 content = rootElement.find(".editing-canvas").html(), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
@@ -558,53 +561,63 @@
                 var $this = $(this),
                 $inputModal = $(document).find(".modal.file-selector-modal"),
                 $fileViewer = $inputModal.find(".modal-fileViewer"),
-                object = event.target.files,
-                totalCount = 0, totalSize = 0;
+                object = event.target.files;
 
                 if(object.length > 10) {
                     alert("Too many files");
-                    $this.val(null);
+                    $this.val("");
                     return false;
                 }
-
-                if($this.val() !== "") $fileViewer.empty();
-
-                
 
                 $.each(object,function(i,file){
                     var name = file.name,
                     indexNum = name.lastIndexOf("."),
                     fileEXT = indexNum > -1 ? name.substring(indexNum + 1) : "",
-                    size = (file.size/1024/1024);
+                    size = (file.size/1024/1024).toFixed(2);
 
                     if(upload.fileCheck(file)){
                         var fileList = new FileList(name,size,i).appendTo($fileViewer);
-                        totalSize += parseFloat(size);
-                        totalCount = i + 1;
-
-                        testForm.file = file;
+                        attachedFiles.push(file);
                     }
+                    upload.setIndex(".file-list");
+                    console.log(attachedFiles);
                 });
 
-                refreshFileTotal(totalCount,totalSize);
+                initTotalFileInfo();
                 ModalKit.align($inputModal);
 
-
                 function FileList(name,size,index){
-                    var body = $("<li/>",{"class" : "file-list", "data-value" : name, "data-index" : index}),
+                    var body = $("<li/>",{"class" : "file-list", "data-value" : name, "data-index" : ""}),
                     fileNameWrap = $("<span/>",{"class" : "file-list-name", "html" : name}).appendTo(body),
                     fileSizeWrap = $("<span/>",{"class" : "file-list-size", "html" : size + "MB"}).appendTo(body);
-                    //deleteButton = $("<i/>",{"class" : icons.times}).appendTo(body).on("click",removeFile);
+                    removeButton = $("<i/>",{"class" : icons.times}).appendTo(body).on("click",fileRemove);
 
                     return body;
                 }
-                function refreshFileTotal(count,size){
+                function initTotalFileInfo(){
                     var totalInfoWrap = $(document).find(".modal-fileViewer-total"),
                     countWrap = totalInfoWrap.find(".file-count-total"),
-                    sizeWrap = totalInfoWrap.find(".file-size-total");
+                    sizeWrap = totalInfoWrap.find(".file-size-total"),
+
+                    count = attachedFiles.length,
+                    size = 0;
+                    $.each(attachedFiles,function(i,file){
+                        size += file.size;
+                    });
 
                     countWrap.text(count + " Files");
-                    sizeWrap.text(size.toFixed(2) + " MB");
+                    sizeWrap.text((size/1024/1024).toFixed(2) + " MB");
+                }
+                function fileRemove(){
+                    var body = $(this).parent(".file-list"),
+                    i = body.data("index");
+                    attachedFiles.splice(i,1);
+                    console.log("FILE NUMBER " + i + " IS REMOVED");
+                    console.log(i,attachedFiles);
+                    body.remove();
+                    ModalKit.align($inputModal);
+                    upload.setIndex(".file-list");
+                    initTotalFileInfo();
                 }
 
                 return;
@@ -861,12 +874,12 @@
                 }
                 else $inputFile.val(null);
             },
-            setIndex: function(){
-            	var $contents = $(document).find(".canvas-content");
-            	$contents.each(function(){
-            		var $this = $(this),
-            		index = $this.index(".canvas-content");
-            		if(!$this.is(".placeHolder")) $this.attr("data-index",index);
+            setIndex: function(element){
+                console.log("SET INDEX",element);
+            	$(element).each(function(i,object){
+                    i = $(object).is(".canvas-obj") ? i-1 : i;
+                    console.log(i);
+            		if(!$(object).is(".placeHolder"))$(object).attr("data-index",i);
             	});
             },
             imgCount : 0,
@@ -902,7 +915,7 @@
                 if($(".canvas-devider").length != 0) $deviderSlider.slider("enable");
 
                 canvasTool.addObjBt();
-                upload.setIndex();
+
                 upload.setId(object);
                 toolbar.sortFn.refresh();
 
@@ -1162,7 +1175,7 @@
                 }
                 if(objects == 2) $placeHolder.show() && $objBts.remove();
                 if(objects == 3) $deviderSlider.slider("disable");
-                upload.setIndex();
+
                 toolbar.sortFn.refresh();
                 console.log("image was deleted");
             },
@@ -1659,6 +1672,8 @@
                             toolbar.sortFn.objType(objType,$dummy);
                         }
                     });
+                    upload.setIndex(".sort-obj");
+                    upload.setIndex(".canvas-content");
                 },
                 objType: function(val, selector){
                     var icon = $("<i/>");
@@ -1668,6 +1683,7 @@
                     else return false;
                 },
                 sortable: function(event){
+                    console.log("SORTABLE");
                     sortedObj = $(".sort-obj"),
                     sortedArray = [],
                     $originObj = $(document).find(".canvas-content"),
@@ -1682,10 +1698,10 @@
                         var $obj = $(sortedObj[i]),
                         index = $obj.data("index"),
                         $target = $(".canvas-content[data-index='" + index + "']");
-                        sortedArray.push($target.clone(true)[0]);
+                        sortedArray.push($target.clone(true)[0]); 
                     }
 
-                    for(i in originArray){
+                    for(var i = 0; i<  originArray.length; i++){
                         var $original = $(originArray[i]),
                         $sorted = $(sortedArray[i]);
                         $original.replaceWith($sorted);
@@ -1700,7 +1716,8 @@
                             $(this).find(".obj-menu").hide();
                         })
                     }
-                    upload.setIndex();
+                    console.log("SORTABLE IS END");
+                    
                     toolbar.sortFn.refresh();
                 }
             }

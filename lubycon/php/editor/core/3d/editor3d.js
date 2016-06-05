@@ -108,7 +108,6 @@
 
                         pac.initTools();//data binding
                         pac.initGL();
-                        //setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
                         $(window).on("load",function(){ 
                             $(".modal.file-selector-modal").fadeIn(400);
