@@ -2,6 +2,7 @@
 	include_once '../class/database_class.php';
     include_once '../class/regex_class.php';
     include_once '../class/certifiMail_class.php';
+    include_once '../commonFunc.php';
 
     $regex_vali = new regex_validate;
 
@@ -34,34 +35,51 @@
 	echo $_POST['email'];
 
 	if($email_validation && $pass_validation && $nick_validation && $private_validation && $terms_validation){
+
+		$to = $_POST['email'];
 		$from = "Lubycon@gmail.com";
 		$subject = "Confirmation Mail for Lubycon account";
-		$pass = "hmdwdgdhkr2015";
-		$certifimail = new CertifiMail($from, $_POST['email'], $subject, $pass);
-		$certifimail->makeToken(12);
+		$password = "hmdwdgdhkr2015";
+
+		
+		$token = makeToken(12);
+		$certifimail = new CertifiMail($token);
+		
 		$certifimail->makeHtml();
 
-		if($certifimail->sendMail()){
+		if(mailer($from, $to, $subject, $password))
+		{
 			$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken,validation)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$certifimail->token."', 'inactive')";
 
 			$db->askQuery();
-		
-			if(!$db->result){
-				echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.";
+
+			if(!$db->result)
+			{
+				echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.2";
 				$db->disconnectDb();
 				sleep(5);
-				//echo("<script>history.back();</script>");
-			}else{
+				echo("<script>history.back();</script>");
+			}
+			else
+			{
 				echo '<script>document.location.href="./waiting_for_resisting.php"</script>';
 			}
-		}else{
-			echo "전송 실패";
+		}
+		else
+		{
+			echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.1";
+			echo("<script>history.back();</script>");
 		}
 	}
-	else{
-		echo "안맞니?";
+	else
+	{
+		echo "유효하지 않은 데이터가 입력되었습니다";
+		echo "<br />";
+		echo "5초 후에 이전 페이지로 이동합니다.";
+		echo("<script>history.back();</script>");
 	}
-	/*
+/*	
+	#-------------
 		
 		$feed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 		$size = 6;
@@ -162,7 +180,7 @@
 			$mail = new PHPMailer;
 			$mail->isSMTP();
 			$mail->CharSet='UTF-8';
-			//$mail->SMTPDebug=1;
+			$mail->SMTPDebug=4;
 			//$mail->Debugoutput='html';
 			$mail->Host='smtp.gmail.com';
 			$mail->SMTPSecure='ssl';
@@ -188,8 +206,8 @@
 		//'<script>document.location.href="./waiting_for_resisting.php"</script>'  
 		exit;
 		}
-	}
 	*/
+	
 	/*
 	else{
 		echo "registration fail back to the website.";
