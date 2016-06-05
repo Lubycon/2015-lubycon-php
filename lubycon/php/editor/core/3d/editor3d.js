@@ -261,9 +261,6 @@
                 */
                 //$("#finalForm").submit();
             },
-            autoSave: function () {
-                //empty
-            },
             initTools: function(){
                 //toolbar data bind start
                 toolbar.lightTool();

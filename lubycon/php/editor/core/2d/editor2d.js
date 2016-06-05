@@ -63,7 +63,7 @@
                         var $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "Attach File",
+                            "html" : "File manager",
                             "data-tip" : "Attach your files"
                         }).prepend($("<i/>",{"class":icons.upload}))
                         .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55, "left" : 0}),
@@ -134,8 +134,6 @@
                         setInterval(pac.autoSave, 5 * 60000); // 5min to auto save temp all images
 
                         $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
-
-                        formData.files = [];
                     }
                 })
             },
@@ -179,31 +177,6 @@
                 $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
 
                 console.log(contentName,contentData,categories,tags,cc);
-                $("#finalForm").submit();
-            },
-            autoSave: function () {
-                var imgData = [],
-                    contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        url = $this.find('img').attr("src"),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { 'type': 'editor_content', 'data64': url, "index": val[0] };
-                    	imgData.push(innerVal);
-                    }),
-                    html_Data = $('.editing-canvas').html();
-                $.ajax({
-                    type: "POST",
-                    url: "../../../ajax/editor_ajax_upload_test.php", // temp image file ajax post
-                    data:
-                    {
-                        'ajax_data': imgData,
-                    },
-                    cache: false,
-                    success: function (data) {
-                        console.log('auto save succece');
-                        console.log(data);
-                    }
-                });
             },
             initTools: function(){
                 //toolbar data bind start
@@ -231,7 +204,7 @@
                 fileSelector: function(){
                     var modal = new ModalKit.create(pac.autoSave,"file-selector-modal"),
                     wrapper = modal.find(".modal-wrapper"),
-                    title = modal.find(".modal-title").text("Attached Files"),
+                    title = modal.find(".modal-title").text("File Manager"),
                     content = modal.find(".modal-content"),
                     okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
                     cancelbt = modal.find(".modal-cancelbt").on("click",initInput);
@@ -596,6 +569,8 @@
 
                 if($this.val() !== "") $fileViewer.empty();
 
+                
+
                 $.each(object,function(i,file){
                     var name = file.name,
                     indexNum = name.lastIndexOf("."),
@@ -606,6 +581,8 @@
                         var fileList = new FileList(name,size,i).appendTo($fileViewer);
                         totalSize += parseFloat(size);
                         totalCount = i + 1;
+
+                        testForm.file = file;
                     }
                 });
 
