@@ -312,4 +312,38 @@
             word-break: break-all;
         }
         /*descript*/
+
+/*----------------------viewer---------------------*/
+.editing-canvas{
+    width: 100%;
+    position: relative;
+    background: #ffffff;
+}
+.editing-canvas > .canvas-obj {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    .editing-canvas > .canvas-obj.obj-header {
+        height: 45px;
+        padding: 0;
+    }
+    .editing-canvas > .canvas-obj.obj-footer {
+        height: 50px;
+        padding: 0;
+    }
+    .editing-canvas > .canvas-obj.obj-body {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .editing-canvas > .obj-body > .canvas-obj.canvas-content{
+        position: relative;
+        margin: 0 7%;
+        transition: margin 0.2s;
+    }
+
         
