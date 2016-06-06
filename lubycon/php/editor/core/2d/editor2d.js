@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          editor2d.js
- *  Updated:       2016-05-04
+ *  Updated:       2016-06-06
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -73,7 +73,13 @@
                             "html" : "Save to PC",
                             "data-tip" : "Your canvas will be saved to your PC"
                         }).prepend($("<i/>",{"class":icons.download}))
-                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55, "left" : 0});
+                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55, "left" : 0}),
+                        $previewbtn = $("<div/>",{
+                            "class" : "header-btn preview",
+                            "html" : "Preview",
+                            "data-tip" : "Preview"
+                        }).prepend($("<i/>",{"class":icons.grid}))
+                        .appendTo($headerBtWrap).on("click",pac.showPreview).tooltip({"top" : 55, "left" : 0});
 
                         //in header progress
                         var $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
@@ -137,13 +143,18 @@
                     }
                 })
             },
+            showPreview: function(){
+                var $canvas = $(document).find(".editing-canvas");
+                var $previewWrap = $("<div/>",{"id" : "previewer" }).appendTo("body");
+                var result = pac.clearContent($canvas,false);
+                $previewWrap.html(result);
+            },
             submit: function(){
                 var formData = new FormData();
                 
                 var rootElement = $(".initEditor"),
-                content = clearContent(rootElement.find(".editing-canvas")), //data
+                content = pac.clearContent(rootElement.find(".editing-canvas"),true), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
-                imgData = [],
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
@@ -157,7 +168,7 @@
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
                 }),
-                download = false;
+                download = attachedFiles.length === 0 ? false : true;
 
                 console.log(content);
 
@@ -176,20 +187,9 @@
                 /*3*/formData.append("contentHTML",content);
                 /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
                 /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
-                console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
 
                 function objectToJSON(object){
                     return JSON.stringify(object);
-                }
-                function clearContent(object){
-                    var result = object.clone();
-                    result.find(".canvas-uploader-bt").remove();
-                    result.find(".canvas-devider-wrap > .canvas-uploader-bt").remove();
-                    result.find(".placeHolder").remove();
-                    result.find(".obj-menu-btn").remove();
-                    result.find("img").attr("src","/lubycon_path/");
-
-                    return result[0].outerHTML;
                 }
             },
             initTools: function(){
@@ -203,6 +203,17 @@
                 $(window).on("load resize",function(){
                     $(".modal").each(function(){ ModalKit.align($(this)); });
                 })
+            },
+            clearContent: function(object,submit){
+                var result = object.clone();
+                result.find(".canvas-uploader-bt").remove();
+                result.find(".canvas-devider-wrap > .canvas-uploader-bt").remove();
+                result.find(".canvas-input").attr("contenteditable",false);
+                result.find(".placeHolder").remove();
+                result.find(".obj-menu-btn").remove();
+                if(submit) result.find("img").attr("src","/lubycon_path/");
+
+                return result[0].outerHTML;
             },
             initModal: {
                 file: function(){
