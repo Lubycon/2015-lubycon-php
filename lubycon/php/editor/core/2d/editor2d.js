@@ -30,7 +30,7 @@
         ccData = ccPac, //creative_commons.json
         formData = new FormData(),
         d = {},
-        attachedFiles = [],
+        attachedFiles = [], attachedImage = [], finalThumbnail,
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
@@ -139,47 +139,58 @@
             },
             submit: function(){
                 var formData = new FormData();
-                $.each(attachedFiles,function(i,file){ formData.append("file"+i,file); }); //attached files append to form data object.
-
+                
                 var rootElement = $(".initEditor"),
-                content = rootElement.find(".editing-canvas").html(), //data
+                content = clearContent(rootElement.find(".editing-canvas")), //data
                 contentName = rootElement.find("input[name='content-name']").val(), //data
                 imgData = [],
-                contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { "contentID": 'content' + val[0], "ext": val[1] };
-                    imgData.push(innerVal)
-                }),
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
-                category = rootElement.find(".search-choice > span").each(function () { categories.push($(this).text()) }),
+                category = rootElement.find(".search-choice").each(function () { 
+                    var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
+                    categories.push(index);
+                }),
                 tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
                 descript = rootElement.find(".descript-input").text(),
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
                 }),
-                $form = $("<form/>", {
-                    "id": "finalForm",
-                    "enctype": "multipart/form-data",
-                    "method": "post",
-                    "action": "./test.php"
-                }),
-                wrap = rootElement.wrapInner($form),
+                download = false;
 
-                geturl = function (key) {
-                    var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
-                    return result && result[1] || "";
+                console.log(content);
+
+                var settingObject = {
+                    name : contentName,
+                    topCategory : CATE_PARAM,
+                    category : categories, // int
+                    tag : tags,
+                    cc : cc,
+                    descript : descript,
+                    download : download
                 };
 
-                $dummy = $("<input/>", { "type": "hidden", "id": "userid", "name": "userid" }).appendTo($("#finalForm")).val($("user_id").text()),
-                $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl('cate')),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
+                /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
+                /*2*/$.each(attachedImage,function(i,file){ formData.append("image_"+i,file); }); //used images append to formdata
+                /*3*/formData.append("contentHTML",content);
+                /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
+                /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
+                console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
 
-                console.log(contentName,contentData,categories,tags,cc);
+                function objectToJSON(object){
+                    return JSON.stringify(object);
+                }
+                function clearContent(object){
+                    var result = object.clone();
+                    result.find(".canvas-uploader-bt").remove();
+                    result.find(".canvas-devider-wrap > .canvas-uploader-bt").remove();
+                    result.find(".placeHolder").remove();
+                    result.find(".obj-menu-btn").remove();
+                    result.find("img").attr("src","/lubycon_path/");
+
+                    return result[0].outerHTML;
+                }
             },
             initTools: function(){
                 //toolbar data bind start
@@ -689,6 +700,9 @@
                             $inputFile.val(null); // init input value
                             pac.objMenu($objectWrap);
                             $loading_icon.hide();
+
+                            attachedImage.splice($objectWrap.data("index"),0,file);
+                            console.log(attachedImage);
                         };
                     }
                 });
@@ -827,6 +841,7 @@
                             toolbar.sortFn.refresh();
 
                             $loading_icon.hide();
+                            attachedImage[$objectWrap.data("index")] = file;
                         };
                     });
                 }
@@ -878,7 +893,6 @@
                 console.log("SET INDEX",element);
             	$(element).each(function(i,object){
                     i = $(object).is(".canvas-obj") ? i-1 : i;
-                    console.log(i);
             		if(!$(object).is(".placeHolder"))$(object).attr("data-index",i);
             	});
             },
@@ -945,6 +959,8 @@
                         $media = $("<img/>", { "src" : dataURL }).appendTo($canvas);
                         upload.insertPosition($this,$mediaWrap,$media);
                         $grid.empty();
+                        attachedImage.splice($mediaWrap.data("index"),0,dataURL);
+                        console.log(attachedImage);
                     },
                     allowTaint: true
                 });
@@ -986,6 +1002,7 @@
                     var $this = $(this),
                     $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
+                    finalThumbnail = dataURL;
                     //console.log($object);
                     //console.log(dataURL); // for ajax
 
@@ -1177,6 +1194,8 @@
                 if(objects == 3) $deviderSlider.slider("disable");
 
                 toolbar.sortFn.refresh();
+                if($target.hasClass("object-img")) attachedImage.splice($target.data("index"),1);
+                console.log(attachedImage);
                 console.log("image was deleted");
             },
             addObjBt: function(selector){
@@ -1689,16 +1708,19 @@
                     $originObj = $(document).find(".canvas-content"),
                     originArray = [],
                     $menu = $originObj.find(".obj-menu-btn"),
-                    $menulist = $menu.find(".obj-menu");
+                    $menulist = $menu.find(".obj-menu"),
+                    sortedAttachedImage = [];
 
                     for(var i = 0; i < $originObj.length; i++) originArray.push($originObj[i]);
-                    originArray.shift();
+                    originArray.shift();//deleted placeholder
                     
                     for(var i = 0; i < sortedObj.length; i++){
                         var $obj = $(sortedObj[i]),
                         index = $obj.data("index"),
                         $target = $(".canvas-content[data-index='" + index + "']");
                         sortedArray.push($target.clone(true)[0]); 
+                        
+                        sortedAttachedImage[i] = attachedImage[index];
                     }
 
                     for(var i = 0; i<  originArray.length; i++){
@@ -1714,9 +1736,12 @@
                             $(this).find(".obj-menu").show();
                         },function(){
                             $(this).find(".obj-menu").hide();
-                        })
+                        });
                     }
                     console.log("SORTABLE IS END");
+
+                    attachedImage = sortedAttachedImage;
+                    console.log(attachedImage);
                     
                     toolbar.sortFn.refresh();
                 }
