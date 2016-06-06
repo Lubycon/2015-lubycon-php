@@ -1092,16 +1092,16 @@
                 });
 
                 settingWrapper.find(".sliderKey[data-value='color']").slider({
-                    callback: toolbar.lightFn.intensity
+                    dragEvent: toolbar.lightFn.intensity
                 });
                 settingWrapper.find(".sliderKey[data-value='falloff']").slider({
-                    callback: toolbar.lightFn.falloff
+                    dragEvent: toolbar.lightFn.falloff
                 });
                 settingWrapper.find(".sliderKey[data-value='angle']").slider({
-                    callback: toolbar.lightFn.angle
+                    dragEvent: toolbar.lightFn.angle
                 });
                 settingWrapper.find(".sliderKey[data-value='softness']").slider({
-                    callback: toolbar.lightFn.softness
+                    dragEvent: toolbar.lightFn.softness
                 });
                 /*--------light setting---------*/
 
@@ -1634,7 +1634,7 @@
                         });
                         $(".color-viewer.material-viewer.tab-target").attr("data-value","color-window")
                         $(this).find(".sliderKey").slider({
-                            callback: toolbar.materialFn.sliderAction
+                            dragEvent: toolbar.materialFn.sliderAction
                         });
                     });
                 },
@@ -1780,12 +1780,13 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".toolbox-controller").data("value");
+                        console.log(kind);
                         switch(kind){
                             case "diffuse" : $material.opacity = val*0.01; break;
                             case "specular" : $material.shininess = val; break;
-                            default : $.error("opacity Error"); break;
+                            case "normal" : $material.normalScale = new THREE.Vector2(val*0.01,val*0.01); break;
+                            default : $.error("slider Error"); break;
                         }
-                        console.log(val);
                     }
                 }
             },
