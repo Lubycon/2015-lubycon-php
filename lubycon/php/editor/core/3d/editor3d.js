@@ -15,8 +15,7 @@
             height: $(window).height(),
             minHeight: null,
             fileUpload: true,
-            imageUpload: true,
-            submit: $.noop()
+            imageUpload: true
         },
         icons = iconPack, //icons.json
         keyCode = keycodePac, //keycode.json
@@ -26,7 +25,8 @@
         bgPreset2d = backgroundPreset2d,
         d = {},
         scene, camera, dirLight, spotLight, hemiLight, renderer, controls, stats,
-        group, object, mtl, geometry, material, mesh, skybox
+        group, object, mtl, geometry, material, mesh, skybox,
+        attachedFiles = [], finalThumbnail,
         loadedMaterials = [],
         pac = {
             init: function (option) {
@@ -132,10 +132,14 @@
                 spotLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
                     spotLight.castShadow = true;
                     spotLight.receiveShadow = true;
+
+
                 dirLight = new THREE.DirectionalLight(0xffffff,0.3); //direction light color (lightColor,brightness)
                    dirLight.position.set(100,100,100) //direction light position (x,y,z)
+                   dirLight.name = "PresetLight0";
 
                 hemiLight = new THREE.HemisphereLight(0xffffff,0xffbe54,1); //hemisphere light color(skyColor,groundColor,brightness)
+                    hemiLight.name = "PresetLight1";
 
                 scene.add(camera, spotLight, hemiLight, dirLight);
 
@@ -148,6 +152,7 @@
                 });
                     skyMaterial.side = THREE.BackSide;
                 skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.index = 0;
                 skybox.name = "skybox";
                 skybox.material.dispose();
 
@@ -202,63 +207,87 @@
                 };
             },
             submit: function(){
-                var rootElement = $(".initEditor"),
-                content = rootElement.find(".editing-canvas").html(), //data
-                contentName = rootElement.find("input[name='content-name']").val(), //data
-                imgData = [],
-                contentData = scene.children.map(threeToJson).clean(null), //map,maplight,object,newLight1,2,3
+                var formData = new FormData();
+                var rootElement = $(".initEditor");
+           
+                /////////////////////////////////////////////////////////////////models
+                var model = objectToJSON(scene.getObjectByName("mainObject"),true),
+                newLights = scene.children.map(exportLights).clean(null);
+                /////////////////////////////////////////////////////////////////models
+
+                /////////////////////////////////////////////////////////////////settings
+                var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
-                category = rootElement.find(".search-choice > span").each(function () { categories.push($(this).text()) }),
+                category = rootElement.find(".search-choice").each(function () { 
+                    var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
+                    categories.push(index);
+                }),
                 tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
                 descript = rootElement.find(".descript-input").text(),
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
-                });
-
-                console.log(contentName,contentData,categories,tags,cc,descript);
-
-                function threeToJson(obj,index,array){
-                    var result,
-                    bool = false;
-                    switch(obj.name){
-                        case "mainObject" : bool = true; break;
-                        case "newLight0" : bool = true; break;
-                        case "newLight1" : bool = true; break;
-                        case "newLight2" : bool = true; break;
-                        case "skybox" : bool = true; break;
-                        default : bool = false;
-                    }
-
-                    if(bool) {
-                        result = obj.toJSON();
-                        console.log(obj.name);
-                        return result;
-                    }
-                    else return null; 
-                }
-                /*
-                $form = $("<form/>", {
-                    "id": "finalForm",
-                    "enctype": "multipart/form-data",
-                    "method": "post",
-                    "action": "./test.php"
                 }),
-                wrap = rootElement.wrapInner($form),
+                download = attachedFiles.length === 0 ? false : true;
+                /////////////////////////////////////////////////////////////////settings
 
-                geturl = function (key) {
-                    var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
-                    return result && result[1] || "";
+                var mapInfo = {
+                    threed : skybox.material.visible,
+                    skymap : skybox.index,
+                    image : $("#bg-2d-selector").find("option:selected").data("value"),
+                    color : $("#canvas-background").css("background-color")
+                }
+
+                var settingObject = {
+                    name : contentName,
+                    topCategory : CATE_PARAM,
+                    category : categories, // int
+                    tag : tags,
+                    cc : cc,
+                    descript : descript,
+                    download : download
                 };
+                
+                /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
+                /*2*/formData.append("map",JSON.stringify(mapInfo));
+                /*3*/formData.append("model",model);
+                /*4*/formData.append("lights",JSON.stringify(newLights));
+                /*5*/formData.append("thumbnail",finalThumbnail); //add thumbnail
+                /*6*/formData.append("setting",objectToJSON(settingObject,false)); //add setting value
 
-                $dummy = $("<input/>", { "type": "hidden", "id": "userid", "name": "userid" }).appendTo($("#finalForm")).val($("user_id").text()),
-                $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl('cate')),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
-                */
-                //$("#finalForm").submit();
+                function exportLights(obj){
+                    var isLight = obj.name === "newLight0" || obj.name === "newLight1" || obj.name === "newLight2";
+                    if(isLight) {
+                        return {
+                            "type" : obj.type,
+                            "name" : obj.name,
+                            "position" : {
+                                "x" : obj.position.x,
+                                "y" : obj.position.y,
+                                "z" : obj.position.z
+                            },
+                            "target" : {
+                                "x" : obj.target.position.x,
+                                "y" :obj.target.position.y,
+                                "z" : obj.target.position.z
+                            },
+                            "castShadow" : obj.castShadow,
+                            "color" : {
+                                "r" : obj.color.r,
+                                "g" : obj.color.g,
+                                "b" : obj.color.b
+                            },
+                            "intensity" : obj.intensity
+                        };
+                    }
+                    else return null;
+                }
+                function objectToJSON(obj,three){
+                    var result = three ? obj.toJSON() : obj; 
+                    return JSON.stringify(result);
+                }
             },
             initTools: function(){
                 //toolbar data bind start
@@ -801,6 +830,7 @@
                     var $this = $(this),
                     $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
+                    finalThumbnail = dataURL;
                     //console.log($object);
                     //console.log(dataURL); // for ajax
 
@@ -1155,6 +1185,7 @@
 
                     if(checked){ //On
                         newLight = toolbar.lightFn.createLight(kind);
+                        console.log(newLight,name);
                         newLight[0].name = name;
                         newLight[0].position.y = 1;
                         newLight[1].name = helperName;
@@ -1889,9 +1920,9 @@
                     background2d.css("background-image","none");
 
                     loader.load(bgPreset3d[id].image,function(texture){
+                        skybox.index = id;
                         skybox.material.map = texture;
-                        skybox.material.opacity = 1.0;
-                        skybox.material.transparent = false;
+                        skybox.material.visible = true;
                         skybox.material.needsUpdate = true;
                         skybox.material.dispose();
                         $loading_icon.hide();
@@ -1932,8 +1963,7 @@
                 },
                 clearRendererColor: function(){
                     skybox.material.map = null;
-                    skybox.material.transparent = true;
-                    skybox.material.opacity = 0.0;
+                    skybox.material.visible = false;
                     skybox.material.needsUpdate = true;
                     skybox.material.dispose();
 

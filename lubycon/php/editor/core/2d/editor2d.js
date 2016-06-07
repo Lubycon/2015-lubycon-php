@@ -151,10 +151,11 @@
             },
             submit: function(){
                 var formData = new FormData();
-                
-                var rootElement = $(".initEditor"),
-                content = pac.clearContent(rootElement.find(".editing-canvas"),true), //data
-                contentName = rootElement.find("input[name='content-name']").val(), //data
+                var rootElement = $(".initEditor");
+
+                var content = pac.clearContent(rootElement.find(".editing-canvas"),true); //data
+
+                var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
@@ -169,8 +170,6 @@
                     cc[data] = $(this).prop("checked");
                 }),
                 download = attachedFiles.length === 0 ? false : true;
-
-                console.log(content);
 
                 var settingObject = {
                     name : contentName,
