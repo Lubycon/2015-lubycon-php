@@ -15,8 +15,7 @@
             height: $(window).height(),
             minHeight: null,
             fileUpload: true,
-            imageUpload: true,
-            submit: $.noop()
+            imageUpload: true
         },
         icons = iconPack, //icons.json
         keyCode = keycodePac, //keycode.json
@@ -25,8 +24,9 @@
         bgPreset3d = backgroundPreset3d,
         bgPreset2d = backgroundPreset2d,
         d = {},
-        scene, camera, dirLight, spotLight, hemiLight, renderer, controls, stats,
-        group, object, mtl, geometry, material, mesh, skybox
+        scene, camera, cameraLight, renderer, controls, stats,
+        group, object, mtl, geometry, material, mesh, skybox,
+        attachedFiles = [], finalThumbnail,
         loadedMaterials = [],
         pac = {
             init: function (option) {
@@ -129,29 +129,14 @@
                     camera.position.x = -2;
                     camera.position.y = 0.7;
                     camera.position.z = 2.5;
-                spotLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
-                    spotLight.castShadow = true;
-                    spotLight.receiveShadow = true;
-                dirLight = new THREE.DirectionalLight(0xffffff,0.3); //direction light color (lightColor,brightness)
-                   dirLight.position.set(100,100,100) //direction light position (x,y,z)
+                cameraLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
+                    cameraLight.castShadow = true;
+                    cameraLight.receiveShadow = true;
+                    cameraLight.target.position.set( 0, 1, -1 );
+                    cameraLight.position.copy( camera.position );
+                scene.add(camera,cameraLight);
 
-                hemiLight = new THREE.HemisphereLight(0xffffff,0xffbe54,1); //hemisphere light color(skyColor,groundColor,brightness)
-
-                scene.add(camera, spotLight, hemiLight, dirLight);
-
-                spotLight.target.position.set( 0, 1, -1 );
-                spotLight.position.copy( camera.position );
-
-                var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
-                var skyMaterial = new THREE.MeshBasicMaterial({
-                    map: new THREE.TextureLoader().load(bgPreset3d[0].image)
-                });
-                    skyMaterial.side = THREE.BackSide;
-                skybox = new THREE.Mesh(skyGeometry,skyMaterial);
-                skybox.name = "skybox";
-                skybox.material.dispose();
-
-                scene.add(skybox);
+                pac.initSkybox(0);
 
                 renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true, antialias: true });
                     renderer.setSize(windowWidth, windowHeight);
@@ -178,6 +163,71 @@
                 window.addEventListener("resize", pac.windowResizeGL, false);
                 pac.animateGL();
             },
+            initSkybox: function(index){
+                var skymapIndex = index;
+                var lights = bgPreset3d[index].light;
+                console.log(lights);
+
+                var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
+                var skyMaterial = new THREE.MeshBasicMaterial({
+                    map : new THREE.TextureLoader().load(bgPreset3d[index].image)
+                });
+                    skyMaterial.side = THREE.BackSide;
+                skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.index = index;
+                skybox.name = "skybox";
+                skybox.material.dispose();
+
+                for(var i = 0, l = lights.length; i < l; i++){
+                    var newLight = initPresetLight(lights[i],i);
+                    scene.add(newLight);
+                }
+
+                scene.add(skybox);
+
+                function initPresetLight(light,i){
+                    var type = light.type,
+                    newLight = null;
+                    console.log(type,light.color,light.intensity);
+                    switch(type){
+                        case "directional" : 
+                            newLight = new THREE.DirectionalLight(light.color,light.intensity);
+
+                            newLight.target.position.set(
+                                light.target.x,
+                                light.target.y,
+                                light.target.z
+                            );   
+                        break;
+                        case "spot" : 
+                            newLight = new THREE.SpotLight(light.color,light.intensity);
+                            newLight.angel = light.angle;
+                            newLight.penumbra = light.penumbra;
+                            newLight.target.position.set(
+                                light.target.x,
+                                light.target.y,
+                                light.target.z
+                            );
+                        break;
+                        case "hemisphere" : 
+                            newLight = new THREE.HemisphereLight(light.skyColor,light.groundColor,light.intensity);
+                        break;
+                        case "point" :
+                            newLight = new THREE.PointLight(light.color,light,intensity,light.radius);
+                        break;
+                        default : return false; break;
+                    }
+
+                    newLight.position.set(
+                        light.position.x,
+                        light.position.y,
+                        light.position.z
+                    );
+                    newLight.name = "presetLight"+i;
+
+                    return newLight;
+                }
+            },
             animateGL: function(){
                 controls.update();
                 requestAnimationFrame(pac.animateGL);
@@ -185,7 +235,7 @@
             },
             renderGL: function(){
                 renderer.render(scene, camera);
-                spotLight.position.copy( camera.position );
+                cameraLight.position.copy( camera.position );
             },
             windowResizeGL: function(){
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -202,63 +252,87 @@
                 };
             },
             submit: function(){
-                var rootElement = $(".initEditor"),
-                content = rootElement.find(".editing-canvas").html(), //data
-                contentName = rootElement.find("input[name='content-name']").val(), //data
-                imgData = [],
-                contentData = scene.children.map(threeToJson).clean(null), //map,maplight,object,newLight1,2,3
+                var formData = new FormData();
+                var rootElement = $(".initEditor");
+           
+                /////////////////////////////////////////////////////////////////models
+                var model = objectToJSON(scene.getObjectByName("mainObject"),true),
+                newLights = scene.children.map(exportLights).clean(null);
+                /////////////////////////////////////////////////////////////////models
+
+                /////////////////////////////////////////////////////////////////settings
+                var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
-                category = rootElement.find(".search-choice > span").each(function () { categories.push($(this).text()) }),
+                category = rootElement.find(".search-choice").each(function () { 
+                    var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
+                    categories.push(index);
+                }),
                 tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
                 descript = rootElement.find(".descript-input").text(),
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
-                });
-
-                console.log(contentName,contentData,categories,tags,cc,descript);
-
-                function threeToJson(obj,index,array){
-                    var result,
-                    bool = false;
-                    switch(obj.name){
-                        case "mainObject" : bool = true; break;
-                        case "newLight0" : bool = true; break;
-                        case "newLight1" : bool = true; break;
-                        case "newLight2" : bool = true; break;
-                        case "skybox" : bool = true; break;
-                        default : bool = false;
-                    }
-
-                    if(bool) {
-                        result = obj.toJSON();
-                        console.log(obj.name);
-                        return result;
-                    }
-                    else return null; 
-                }
-                /*
-                $form = $("<form/>", {
-                    "id": "finalForm",
-                    "enctype": "multipart/form-data",
-                    "method": "post",
-                    "action": "./test.php"
                 }),
-                wrap = rootElement.wrapInner($form),
+                download = attachedFiles.length === 0 ? false : true;
+                /////////////////////////////////////////////////////////////////settings
 
-                geturl = function (key) {
-                    var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
-                    return result && result[1] || "";
+                var mapInfo = {
+                    threed : skybox.material.visible,
+                    skymap : skybox.index,
+                    image : $("#bg-2d-selector").find("option:selected").data("value"),
+                    color : $("#canvas-background").css("background-color")
+                }
+
+                var settingObject = {
+                    name : contentName,
+                    topCategory : CATE_PARAM,
+                    category : categories, // int
+                    tag : tags,
+                    cc : cc,
+                    descript : descript,
+                    download : download
                 };
+                
+                /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
+                /*2*/formData.append("map",JSON.stringify(mapInfo));
+                /*3*/formData.append("model",model);
+                /*4*/formData.append("lights",JSON.stringify(newLights));
+                /*5*/formData.append("thumbnail",finalThumbnail); //add thumbnail
+                /*6*/formData.append("setting",objectToJSON(settingObject,false)); //add setting value
 
-                $dummy = $("<input/>", { "type": "hidden", "id": "userid", "name": "userid" }).appendTo($("#finalForm")).val($("user_id").text()),
-                $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl('cate')),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
-                */
-                //$("#finalForm").submit();
+                function exportLights(obj){
+                    var isLight = obj.name === "newLight0" || obj.name === "newLight1" || obj.name === "newLight2";
+                    if(isLight) {
+                        return {
+                            "type" : obj.type,
+                            "name" : obj.name,
+                            "position" : {
+                                "x" : obj.position.x,
+                                "y" : obj.position.y,
+                                "z" : obj.position.z
+                            },
+                            "target" : {
+                                "x" : obj.target.position.x,
+                                "y" :obj.target.position.y,
+                                "z" : obj.target.position.z
+                            },
+                            "castShadow" : obj.castShadow,
+                            "color" : {
+                                "r" : obj.color.r,
+                                "g" : obj.color.g,
+                                "b" : obj.color.b
+                            },
+                            "intensity" : obj.intensity
+                        };
+                    }
+                    else return null;
+                }
+                function objectToJSON(obj,three){
+                    var result = three ? obj.toJSON() : obj; 
+                    return JSON.stringify(result);
+                }
             },
             initTools: function(){
                 //toolbar data bind start
@@ -801,6 +875,7 @@
                     var $this = $(this),
                     $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
+                    finalThumbnail = dataURL;
                     //console.log($object);
                     //console.log(dataURL); // for ajax
 
@@ -1092,16 +1167,16 @@
                 });
 
                 settingWrapper.find(".sliderKey[data-value='color']").slider({
-                    callback: toolbar.lightFn.intensity
+                    dragEvent: toolbar.lightFn.intensity
                 });
                 settingWrapper.find(".sliderKey[data-value='falloff']").slider({
-                    callback: toolbar.lightFn.falloff
+                    dragEvent: toolbar.lightFn.falloff
                 });
                 settingWrapper.find(".sliderKey[data-value='angle']").slider({
-                    callback: toolbar.lightFn.angle
+                    dragEvent: toolbar.lightFn.angle
                 });
                 settingWrapper.find(".sliderKey[data-value='softness']").slider({
-                    callback: toolbar.lightFn.softness
+                    dragEvent: toolbar.lightFn.softness
                 });
                 /*--------light setting---------*/
 
@@ -1155,6 +1230,7 @@
 
                     if(checked){ //On
                         newLight = toolbar.lightFn.createLight(kind);
+                        console.log(newLight,name);
                         newLight[0].name = name;
                         newLight[0].position.y = 1;
                         newLight[1].name = helperName;
@@ -1634,7 +1710,7 @@
                         });
                         $(".color-viewer.material-viewer.tab-target").attr("data-value","color-window")
                         $(this).find(".sliderKey").slider({
-                            callback: toolbar.materialFn.sliderAction
+                            dragEvent: toolbar.materialFn.sliderAction
                         });
                     });
                 },
@@ -1780,12 +1856,13 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".toolbox-controller").data("value");
+                        console.log(kind);
                         switch(kind){
                             case "diffuse" : $material.opacity = val*0.01; break;
                             case "specular" : $material.shininess = val; break;
-                            default : $.error("opacity Error"); break;
+                            case "normal" : $material.normalScale = new THREE.Vector2(val*0.01,val*0.01); break;
+                            default : $.error("slider Error"); break;
                         }
-                        console.log(val);
                     }
                 }
             },
@@ -1887,29 +1964,13 @@
 
                     background2d.css("background-image","none");
 
-                    loader.load(bgPreset3d[id].image,function(texture){
-                        skybox.material.map = texture;
-                        skybox.material.opacity = 1.0;
-                        skybox.material.transparent = false;
-                        skybox.material.needsUpdate = true;
-                        skybox.material.dispose();
-                        $loading_icon.hide();
-                    });
-                    //light
-                    switch(id){
-                        case 0 : 
-                            //dirLight.color = new THREE.Color(0xffd689);
-                            hemiLight.groundColor = new THREE.Color(0xffbe54);
-                        break;//desert
-                        case 1 : 
-                            //dirLight.color = new THREE.Color(0xffffff); 
-                            hemiLight.groundColor = new THREE.Color(0xffffff);
-                        break;//room
-                        case 2 : 
-                            //dirLight.color = new THREE.Color(0xb9ffff); 
-                            hemiLight.groundColor = new THREE.Color(0xd9edff);
-                        break;//snow mountain
+                    for(var i = 0, l = bgPreset3d[id].light.length; i < l; i++){
+                        scene.remove(scene.getObjectByName("presetLight"+i));
                     }
+                    scene.remove(scene.getObjectByName("skybox"));
+
+                    pac.initSkybox(id);
+                    $loading_icon.hide();
                 },
                 background2d: function(){
                     var selected = $("#bg-2d-selector").find("option:selected"),
@@ -1919,7 +1980,7 @@
                     $img = $background.find("#canvas-background-logo");
                     
                     $img.css("background-image","url(" + bgPreset2d[id].image + ")");
-                    toolbar.backgroundFn.clearRendererColor();
+                    toolbar.backgroundFn.clearRendererMap();
                     $loading_icon.hide();
                 },
                 backgroundColor: function(color){
@@ -1927,17 +1988,13 @@
                     logo = background.find("#canvas-background-logo");
 
                     background.css("background-color",color.toHexString());
-                    toolbar.backgroundFn.clearRendererColor();
+                    toolbar.backgroundFn.clearRendererMap();
                 },
-                clearRendererColor: function(){
-                    skybox.material.map = null;
-                    skybox.material.transparent = true;
-                    skybox.material.opacity = 0.0;
-                    skybox.material.needsUpdate = true;
-                    skybox.material.dispose();
-
-                    dirLight.color = new THREE.Color(0xffffff);
-                    hemiLight.groundColor = new THREE.Color(0xffffff);
+                clearRendererMap: function(){             
+                    for(var i = 0, l = bgPreset3d[skybox.index].length; i < l; i++){
+                        scene.remove(scene.getObjectByName("presetLight"+i));
+                    }
+                    scene.remove(scene.getObjectByName("skybox"));
 
                     renderer.setClearColor(0x222222, 0);
                 }

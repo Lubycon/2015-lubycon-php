@@ -1,0 +1,87 @@
+var backgroundPreset3d = [
+	{
+		"id" : 0,
+		"name" : "Desert",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/desert_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/desert.jpg",
+		"descript": "",
+		"light" : [
+			{
+				"type" : "directional",
+				"color" : 0xffffff,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"intensity" : 0.3
+			},
+			{
+				"type" : "hemisphere",
+				"skyColor" : 0xffffff,
+				"groundColor" : 0xffbe54,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"intensity" : 1
+			},
+			/*{
+				"type" : "spot",
+				"color" : 0xffffff,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"intetnsity" : "0.3",
+				"angle" : 1,
+				"penumbra" : 1
+			},
+			{
+				"type" : "point",
+				"color" : 0xffffff,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"intensity" : 1,
+				"radius" : 100
+			}*/
+		]
+	},
+	{
+		"id" : 1,
+		"name" : "Room",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/room_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/room.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "directional",
+				"color" : 0xffffff,
+				"position" : { "x" : 200, "y" : 0, "z" : 0 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"intensity" : 0.5
+			},
+			{
+				"type" : "directional",
+				"color" : 0xffffff,
+				"position" : { "x" : -200, "y" : 0, "z" : 0 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"intensity" : 0.5
+			},
+			{
+				"type" : "hemisphere",
+				"skyColor" : 0xffffff,
+				"groundColor" : 0xffffff,
+				"position" : { "x" : 0, "y" : 100, "z" : 0 },
+				"intensity" : 1
+			},
+		]
+	},
+	{
+		"id" : 2,
+		"name" : "Snow Mountain",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/snow_mountain_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/snow_mountain.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "directional",
+				"color" : 0x48cfad,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"intensity" : 0.3
+			},
+		]
+	}
+]

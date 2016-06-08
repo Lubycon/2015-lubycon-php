@@ -7,8 +7,11 @@
     //}
     $one_depth = '../../../..'; //css js load
     $two_depth = '../../..'; // php load
+    $preset_depth = '../../../../';
     include_once('../../../layout/index_header.php');
 ?>
+<script>var PRESET_DEPTH = '<?= $preset_depth ?>'</script>
+
 <link href="../../../../css/module/lubySlider.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/cropper.css" rel="stylesheet" type="text/css" />
@@ -20,8 +23,8 @@
 <script type="text/javascript" src="../../data/keyCode.json"></script>
 <script type="text/javascript" src="../../data/categories.json"></script>
 <script type="text/javascript" src="../../data/creative_commons.json"></script>
-<script type="text/javascript" src="../../data/backgroundPreset3d.json"></script>
-<script type="text/javascript" src="../../data/backgroundPreset2d.json"></script>
+<script type="text/javascript" src="<?=$preset_depth?>data/webGLmap_Preset/backgroundPreset3d.json"></script>
+<script type="text/javascript" src="<?=$preset_depth?>data/webGLmap_Preset/backgroundPreset2d.json"></script>
 
 <script type="text/javascript" src="../../../../js/module/jquery.lubySlider.js"></script>
 <script type="text/javascript" src="../../module/js/modalClass.js"></script>
