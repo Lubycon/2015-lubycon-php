@@ -24,7 +24,7 @@
         bgPreset3d = backgroundPreset3d,
         bgPreset2d = backgroundPreset2d,
         d = {},
-        scene, camera, dirLight, spotLight, hemiLight, renderer, controls, stats,
+        scene, camera, cameraLight, renderer, controls, stats,
         group, object, mtl, geometry, material, mesh, skybox,
         attachedFiles = [], finalThumbnail,
         loadedMaterials = [],
@@ -129,34 +129,14 @@
                     camera.position.x = -2;
                     camera.position.y = 0.7;
                     camera.position.z = 2.5;
-                spotLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
-                    spotLight.castShadow = true;
-                    spotLight.receiveShadow = true;
+                cameraLight = new THREE.SpotLight(0xffffff,0.1); //spot light color (lightColor,brightness)
+                    cameraLight.castShadow = true;
+                    cameraLight.receiveShadow = true;
+                    cameraLight.target.position.set( 0, 1, -1 );
+                    cameraLight.position.copy( camera.position );
+                scene.add(camera,cameraLight);
 
-
-                dirLight = new THREE.DirectionalLight(0xffffff,0.3); //direction light color (lightColor,brightness)
-                   dirLight.position.set(100,100,100) //direction light position (x,y,z)
-                   dirLight.name = "PresetLight0";
-
-                hemiLight = new THREE.HemisphereLight(0xffffff,0xffbe54,1); //hemisphere light color(skyColor,groundColor,brightness)
-                    hemiLight.name = "PresetLight1";
-
-                scene.add(camera, spotLight, hemiLight, dirLight);
-
-                spotLight.target.position.set( 0, 1, -1 );
-                spotLight.position.copy( camera.position );
-
-                var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
-                var skyMaterial = new THREE.MeshBasicMaterial({
-                    map: new THREE.TextureLoader().load(bgPreset3d[0].image)
-                });
-                    skyMaterial.side = THREE.BackSide;
-                skybox = new THREE.Mesh(skyGeometry,skyMaterial);
-                skybox.index = 0;
-                skybox.name = "skybox";
-                skybox.material.dispose();
-
-                scene.add(skybox);
+                pac.initSkybox(0);
 
                 renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true, antialias: true });
                     renderer.setSize(windowWidth, windowHeight);
@@ -183,6 +163,71 @@
                 window.addEventListener("resize", pac.windowResizeGL, false);
                 pac.animateGL();
             },
+            initSkybox: function(index){
+                var skymapIndex = index;
+                var lights = bgPreset3d[index].light;
+                console.log(lights);
+
+                var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
+                var skyMaterial = new THREE.MeshBasicMaterial({
+                    map : new THREE.TextureLoader().load(bgPreset3d[index].image)
+                });
+                    skyMaterial.side = THREE.BackSide;
+                skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.index = index;
+                skybox.name = "skybox";
+                skybox.material.dispose();
+
+                for(var i = 0, l = lights.length; i < l; i++){
+                    var newLight = initPresetLight(lights[i],i);
+                    scene.add(newLight);
+                }
+
+                scene.add(skybox);
+
+                function initPresetLight(light,i){
+                    var type = light.type,
+                    newLight = null;
+                    console.log(type,light.color,light.intensity);
+                    switch(type){
+                        case "directional" : 
+                            newLight = new THREE.DirectionalLight(light.color,light.intensity);
+
+                            newLight.target.position.set(
+                                light.target.x,
+                                light.target.y,
+                                light.target.z
+                            );   
+                        break;
+                        case "spot" : 
+                            newLight = new THREE.SpotLight(light.color,light.intensity);
+                            newLight.angel = light.angle;
+                            newLight.penumbra = light.penumbra;
+                            newLight.target.position.set(
+                                light.target.x,
+                                light.target.y,
+                                light.target.z
+                            );
+                        break;
+                        case "hemisphere" : 
+                            newLight = new THREE.HemisphereLight(light.skyColor,light.groundColor,light.intensity);
+                        break;
+                        case "point" :
+                            newLight = new THREE.PointLight(light.color,light,intensity,light.radius);
+                        break;
+                        default : return false; break;
+                    }
+
+                    newLight.position.set(
+                        light.position.x,
+                        light.position.y,
+                        light.position.z
+                    );
+                    newLight.name = "presetLight"+i;
+
+                    return newLight;
+                }
+            },
             animateGL: function(){
                 controls.update();
                 requestAnimationFrame(pac.animateGL);
@@ -190,7 +235,7 @@
             },
             renderGL: function(){
                 renderer.render(scene, camera);
-                spotLight.position.copy( camera.position );
+                cameraLight.position.copy( camera.position );
             },
             windowResizeGL: function(){
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -1919,29 +1964,13 @@
 
                     background2d.css("background-image","none");
 
-                    loader.load(bgPreset3d[id].image,function(texture){
-                        skybox.index = id;
-                        skybox.material.map = texture;
-                        skybox.material.visible = true;
-                        skybox.material.needsUpdate = true;
-                        skybox.material.dispose();
-                        $loading_icon.hide();
-                    });
-                    //light
-                    switch(id){
-                        case 0 : 
-                            //dirLight.color = new THREE.Color(0xffd689);
-                            hemiLight.groundColor = new THREE.Color(0xffbe54);
-                        break;//desert
-                        case 1 : 
-                            //dirLight.color = new THREE.Color(0xffffff); 
-                            hemiLight.groundColor = new THREE.Color(0xffffff);
-                        break;//room
-                        case 2 : 
-                            //dirLight.color = new THREE.Color(0xb9ffff); 
-                            hemiLight.groundColor = new THREE.Color(0xd9edff);
-                        break;//snow mountain
+                    for(var i = 0, l = bgPreset3d[id].light.length; i < l; i++){
+                        scene.remove(scene.getObjectByName("presetLight"+i));
                     }
+                    scene.remove(scene.getObjectByName("skybox"));
+
+                    pac.initSkybox(id);
+                    $loading_icon.hide();
                 },
                 background2d: function(){
                     var selected = $("#bg-2d-selector").find("option:selected"),
@@ -1951,7 +1980,7 @@
                     $img = $background.find("#canvas-background-logo");
                     
                     $img.css("background-image","url(" + bgPreset2d[id].image + ")");
-                    toolbar.backgroundFn.clearRendererColor();
+                    toolbar.backgroundFn.clearRendererMap();
                     $loading_icon.hide();
                 },
                 backgroundColor: function(color){
@@ -1959,16 +1988,13 @@
                     logo = background.find("#canvas-background-logo");
 
                     background.css("background-color",color.toHexString());
-                    toolbar.backgroundFn.clearRendererColor();
+                    toolbar.backgroundFn.clearRendererMap();
                 },
-                clearRendererColor: function(){
-                    skybox.material.map = null;
-                    skybox.material.visible = false;
-                    skybox.material.needsUpdate = true;
-                    skybox.material.dispose();
-
-                    dirLight.color = new THREE.Color(0xffffff);
-                    hemiLight.groundColor = new THREE.Color(0xffffff);
+                clearRendererMap: function(){             
+                    for(var i = 0, l = bgPreset3d[skybox.index].length; i < l; i++){
+                        scene.remove(scene.getObjectByName("presetLight"+i));
+                    }
+                    scene.remove(scene.getObjectByName("skybox"));
 
                     renderer.setClearColor(0x222222, 0);
                 }
