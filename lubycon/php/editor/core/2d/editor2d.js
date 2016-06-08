@@ -169,13 +169,7 @@
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
                 }),
-<<<<<<< HEAD
-                download = false;
-
-                //console.log(content);
-=======
                 download = attachedFiles.length === 0 ? false : true;
->>>>>>> d668e1e33b2f2a25e63043b3d061b2669811e488
 
                 var settingObject = {
                     name : contentName,
@@ -192,7 +186,6 @@
                 /*3*/formData.append("contentHTML",content);
                 /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
                 /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
-<<<<<<< HEAD
                 //console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
 
                 $.ajax({
@@ -205,9 +198,6 @@
                         console.log(result);
                     }
                 });
-
-=======
->>>>>>> d668e1e33b2f2a25e63043b3d061b2669811e488
 
                 function objectToJSON(object){
                     return JSON.stringify(object);
