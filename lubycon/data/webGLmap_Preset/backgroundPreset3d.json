@@ -11,29 +11,29 @@ var backgroundPreset3d = [
 				"color" : 0xffffff,
 				"position" : { "x" : 100, "y" : 100, "z" : 100 },
 				"target" : { "x" : 0, "y" : 0, "z" : 0 },
-				"intensity" : 0.3
+				"intensity" : 0.5 //0~1
 			},
 			{
 				"type" : "hemisphere",
 				"skyColor" : 0xffffff,
 				"groundColor" : 0xffbe54,
 				"position" : { "x" : 100, "y" : 100, "z" : 100 },
-				"intensity" : 1
-			},
+				"intensity" : 0.9 //0~1
+			}
 			/*{
 				"type" : "spot",
 				"color" : 0xffffff,
 				"position" : { "x" : 100, "y" : 100, "z" : 100 },
 				"target" : { "x" : 0, "y" : 0, "z" : 0 },
 				"intetnsity" : "0.3",
-				"angle" : 1,
-				"penumbra" : 1
+				"angle" : 1, //0~1
+				"penumbra" : 1 //0~1
 			},
 			{
 				"type" : "point",
 				"color" : 0xffffff,
 				"position" : { "x" : 100, "y" : 100, "z" : 100 },
-				"intensity" : 1,
+				"intensity" : 1, //0~1
 				"radius" : 100
 			}*/
 		]
@@ -50,12 +50,12 @@ var backgroundPreset3d = [
 				"color" : 0xffffff,
 				"position" : { "x" : 200, "y" : 0, "z" : 0 },
 				"target" : { "x" : 0, "y" : 0, "z" : 0 },
-				"intensity" : 0.5
+				"intensity" : 0.3
 			},
 			{
 				"type" : "directional",
 				"color" : 0xffffff,
-				"position" : { "x" : -200, "y" : 0, "z" : 0 },
+				"position" : { "x" : -100, "y" : 50, "z" : 100 },
 				"target" : { "x" : 0, "y" : 0, "z" : 0 },
 				"intensity" : 0.5
 			},
@@ -64,8 +64,8 @@ var backgroundPreset3d = [
 				"skyColor" : 0xffffff,
 				"groundColor" : 0xffffff,
 				"position" : { "x" : 0, "y" : 100, "z" : 0 },
-				"intensity" : 1
-			},
+				"intensity" : 0.5
+			}
 		]
 	},
 	{
@@ -77,11 +77,64 @@ var backgroundPreset3d = [
 		"light" : [
 			{
 				"type" : "directional",
-				"color" : 0x48cfad,
+				"color" : 0xf3cc96,
+				"position" : { "x" : 100, "y" : 30, "z" : 50 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"intensity" : 0.7
+			},
+			{
+				"type" : "hemisphere",
+				"skyColor" : 0xb5cedf,
+				"groundColor" : 0xc7d0d5,
+				"position" : { "x" : 0, "y" : 100, "z" : 0 },
+				"intensity" : 0.5
+			}
+		]
+	},
+	{
+		"id" : 3,
+		"name" : "mountain",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/mountain_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/mountain.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "directional",
+				"color" : 0xffffff,
 				"position" : { "x" : 100, "y" : 100, "z" : 100 },
 				"target" : { "x" : 0, "y" : 0, "z" : 0 },
-				"intensity" : 0.3
+				"intensity" : 0.5
 			},
+			{
+				"type" : "hemisphere",
+				"skyColor" : 0xc3d0d9,
+				"groundColor" : 0xb1a286,
+				"position" : { "x" : 0, "y" : 100, "z" : 0 },
+				"intensity" : 1
+			}
+		]
+	},
+	{
+		"id" : 4,
+		"name" : "Rock Beach",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/rock_beach_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/rock_beach.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "directional",
+				"color" : 0xebb8bb,
+				"position" : { "x" : 200, "y" : 100, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"intensity" : 0.5
+			},
+			{
+				"type" : "hemisphere",
+				"skyColor" : 0xc3d0d9,
+				"groundColor" : 0x878f93,
+				"position" : { "x" : 0, "y" : 100, "z" : 0 },
+				"intensity" : 0.8
+			}
 		]
 	}
 ]

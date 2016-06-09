@@ -186,6 +186,18 @@
                 /*3*/formData.append("contentHTML",content);
                 /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
                 /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
+                //console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
+
+                $.ajax({
+                    url: '../../../ajax/upload_ajax.php',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    type: 'POST',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
 
                 function objectToJSON(object){
                     return JSON.stringify(object);
@@ -1013,24 +1025,6 @@
                     $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
                     finalThumbnail = dataURL;
-                    //console.log($object);
-                    //console.log(dataURL); // for ajax
-
-                    var dataArray = new Array;
-                    dataArray[0] = { 'type': 'editor_thumb', 'data64': dataURL ,'index': null};
-
-                    $.ajax({
-                        type: "POST",
-                        url: "../../../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
-                        data:
-                        {
-                            'ajax_data': dataArray
-                        },
-                        cache: false,
-                        success: function (data) {
-                            console.log(data);
-                        }
-                    })
                 }
                 else $.error("There is no Image");                
             },

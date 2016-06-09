@@ -6,6 +6,10 @@
     $db = new Database();
     require_once "../class/json_class.php";
     $json_control = new json_control;
+    $job_json = $json_control->json_decode('job',"$one_depth/data/job.json");
+    $job_decode = $json_control->json_decode_code;
+    $country_json = $json_control->json_decode('country',"$one_depth/data/country.json");
+    $country_decode = $json_control->json_decode_code;
 ?>
 <div class="main_figure_wrap hidden-mb-b">
     <figure id="main_figure">
@@ -30,8 +34,6 @@
         </select>
         <select class="jobFilter hidden-mb-ib">
             <?php
-                $job_json = $json_control->json_decode('job',"$one_depth/data/job.json");
-                $job_decode = $json_control->json_decode_code;
                 $json_control->json_spread_option($job_decode);
                 echo $json_control->json_spread_wrap;
             ?>
@@ -65,8 +67,6 @@
                     $myrow = mysqli_fetch_array($db->result);
                     
                     
-                    $country_json = $json_control->json_decode('country',"$one_depth/data/country.json");
-                    $country_decode = $json_control->json_decode_code;
                     $my_job_origin_select = $job_decode[$myrow['jobCode']]['name'];
                     $my_country_origin_select = $country_decode[$myrow['countryCode']]['name'];
 

@@ -25,6 +25,8 @@ SET time_zone = "+00:00";
 --
 -- 테이블 구조 `country`
 --
+USE LubyconUser;
+
 
 DROP TABLE IF EXISTS `country`;
 CREATE TABLE IF NOT EXISTS `country` (
