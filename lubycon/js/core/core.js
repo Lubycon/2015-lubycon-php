@@ -444,30 +444,29 @@ String.prototype.isEmail = function(){
 String.prototype.isPassword = function(){
     // <Error Code>
     //
-    // length < 10                        //error code : 1
-    // Hasn't Alphabet                    //error code : 2
-    // Has specialchar                    //error code : 3
-    // Empty or Null                      //error code : 4
+    // Empty or Null                      //error code : 1
+    // length < 10                        //error code : 2
+    // Hasn't Alphabet                    //error code : 3
+    // Has specialchar                    //error code : 4
     // Repeat 3 word                      //error code : 5
     // used "Null" string                 //error code : 6
     //
     //
     // True                               // return 0
-    var lengthTest = this.length >= 10;
+    var lengthTest = this.length < 10;
     var notUseAlphabet = this.match(/[^0-9]/g) === null;
     var useSpecialChar = this.isSpecialChar();
     var emptyWord = this.isNullString();
     var nullString = this.match("null");
     var repeat3Word = this.isRepeatWord(3);
 
-    if(!lengthTest) return 1;
-    else if(notUseAlphabet) return 2;
-    else if(useSpecialChar) return 3;
-    else if(emptyWord) return 4;
+    if(emptyWord) return 1;
+    else if(lengthTest) return 2;
+    else if(notUseAlphabet) return 3;
+    else if(useSpecialChar) return 4;  
     else if(repeat3Word) return 5;
     else if(nullString) return 6;
     else return 0;
-
 }
 String.prototype.isNullString = function(){
     //Null => true Or false

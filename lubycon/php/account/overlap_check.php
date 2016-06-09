@@ -6,7 +6,7 @@
 	// object instance
 	$db = new Database();
 
-	($_POST['id'] == "email")?$id="email": $id="nick";
+	($_POST['id'] == "email") ? $id="email" : $id="nick";
 
 	//overlap check
 	$db->query = "select exists(select * from userbasic where ".$id." = '".$_POST['data']."')";

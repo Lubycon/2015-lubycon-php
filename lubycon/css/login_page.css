@@ -412,15 +412,14 @@ form
     line-height: 25px;
 }
 
-#create_account_area #account_box #account_idpass .account_submit {
+#account_idpass .account_submit {
     width: 210px;
     height: 45px;
     margin: 20px;
     padding: 0px;
     border: none;
-    background: #cccccc;
+    background: #48cfad;
     border-radius: 100px;
-    /*background:#47bf7e; apply */
     color: #fff;
     font-size: 18px;
     font-weight: 400;
@@ -428,6 +427,9 @@ form
 }
     #account_idpass .account_submit:hover{
         opacity: 0.7;
+    }
+    #account_idpass .account_submit:disabled{
+        background: #cccccc;
     }
 
 #create_account_area #checkIcon {

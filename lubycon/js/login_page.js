@@ -4,7 +4,7 @@ var windowHeight = $(window).height();
 
 $(document).ready(function(){
     var loginTest = getUrlParameter("login");
-    console.log(typeof loginTest);
+    //console.log(typeof loginTest);
     if(loginTest === "0") alert("Please Login again");
 
 	$("#bodyer").fadeIn(500);
