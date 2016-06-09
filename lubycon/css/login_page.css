@@ -345,7 +345,7 @@ form
             display: inline-block;
         }
 
-.form_check {
+.check-message {
     color: #ec6446;
     font-size: 12px;
     margin-left: 140px;

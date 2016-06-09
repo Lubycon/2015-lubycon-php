@@ -341,10 +341,9 @@ $(function(){
 function defendQueryInjection(){
     var $this = $(this),
     elementCheck = $this.is("input") || $this.is("textarea"),
-    input = elementCheck ? $this.val() : $this.text(),
-    pattern = /[`;/\?~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
+    input = elementCheck ? $this.val() : $this.text();
 
-    if(pattern.test(input)) {
+    if(input.specialChar()) {
         var alertKey = $(document).find(".alertKey").off("click");
         input = input.replace(pattern,"");
         alertKey.lubyAlert({
@@ -375,7 +374,9 @@ function defendQueryInjection(){
     }
 }
 /*----------------------------query injection defend end--------------------------*/
-/*----------------------------array clean method start--------------------------*/
+
+
+/*----------------------------array prototypes--------------------------*/
 Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] == deleteValue) {         
@@ -385,9 +386,11 @@ Array.prototype.clean = function(deleteValue) {
     }
     return this;
 };
-/*----------------------------array clean method end--------------------------*/
-/*----------------------------get 12 Hour method start------------------------*/
-Date.prototype.get12HourTime = function(iso8601){
+/*----------------------------array prototypes--------------------------*/
+
+
+/*----------------------------date prototypes------------------------*/
+Date.prototype.get12HourTime = function(iso8601){ //iso8601 = boolean
     var result = {
         "ampm" : null,
         "hour" : null,
@@ -429,4 +432,93 @@ Date.prototype.get12HourTime = function(iso8601){
 
     return result;
 }
-/*----------------------------get 12 Hour method end------------------------*/
+/*----------------------------data prototypes------------------------*/
+
+/*----------------------------string prototypes------------------------*/
+
+String.prototype.isEmail = function(){
+    //if It is email => true Or false
+    var reg = /^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/;
+    return reg.test(this);
+}
+String.prototype.isPassword = function(){
+    // <Error Code>
+    //
+    // length < 10                        //error code : 1
+    // Hasn't Alphabet                    //error code : 2
+    // Has specialchar                    //error code : 3
+    // Empty or Null                      //error code : 4
+    // Repeat 3 word                      //error code : 5
+    // used "Null" string                 //error code : 6
+    //
+    //
+    // True                               // return 0
+    var lengthTest = this.length >= 10;
+    var notUseAlphabet = this.match(/[^0-9]/g) === null;
+    var useSpecialChar = this.isSpecialChar();
+    var emptyWord = this.isNullString();
+    var nullString = this.match("null");
+    var repeat3Word = this.isRepeatWord(3);
+
+    if(!lengthTest) return 1;
+    else if(notUseAlphabet) return 2;
+    else if(useSpecialChar) return 3;
+    else if(emptyWord) return 4;
+    else if(repeat3Word) return 5;
+    else if(nullString) return 6;
+    else return 0;
+
+}
+String.prototype.isNullString = function(){
+    //Null => true Or false
+    return this.valueOf() === "" || this.valueOf() === null || this.valueOf() === undefined || this.valueOf() === " ";
+}
+String.prototype.isAbuseWord = function(){
+    //if It is abuse word => true Or false
+    var abuseWords = [
+        "sex", "fuck", "bitch",
+        "cunt", "dick", "fucker"
+    ];
+    return abuseWords.indexOf(this.valueOf()) !== -1;
+}
+String.prototype.isRepeatWord = function(limit){
+    //limit = int
+    var ch = '';
+    var cnt = 0;
+    for (var i = 0 ; i < this.length; i++){
+        if(ch === this.charAt(i)){
+            cnt++;
+            if (cnt >= limit){
+                return true;
+            }
+        }
+        else{
+            ch = this.charAt(i);
+            cnt = 1;
+        }
+    };
+
+    return false;
+}
+String.prototype.isSpecialChar = function(){
+    //if Is is specialChar => true Or false
+    var reg = /[`;/\?~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
+
+    return reg.test(this);
+}
+String.prototype.isAlphabetNumber = function(){
+    var reg = /^[A-Za-z0-9+]*$/;
+    return reg.test(this);
+}
+/*----------------------------string prototypes------------------------*/
+
+
+
+
+
+
+
+
+
+
+
