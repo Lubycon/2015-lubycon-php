@@ -1120,6 +1120,7 @@
     <Compile Include="php\class\regex_class.php" />
     <Compile Include="php\class\session_class.php" />
     <Compile Include="php\class\upload_class.php" />
+    <Compile Include="php\class\_upload_class.php" />
     <Compile Include="php\community\community_page.php" />
     <Compile Include="php\community\community_view.php" />
     <Compile Include="php\community\community_write.php" />
