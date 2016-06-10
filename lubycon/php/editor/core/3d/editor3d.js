@@ -434,7 +434,7 @@
                     $inputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
                     $inputInner = $("<div/>",{ "class" : "setting-input" }),
                     $label = $("<p/>",{ "class" : "setting-input-label"}),
-                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }).on("keyup",defendQueryInjection),
+                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }),
                     $select = $("<select>", { "class" : "setting-select" }),
                     $option = $("<option/>",{"class" : "select-option"}),
 
@@ -466,12 +466,10 @@
                     .append($inputInner.clone().addClass("hashTag-input-wrap")
                         .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
                     .appendTo($innerLeft);
-                    $hashtagName.find(".hashTag-input").on("keyup",defendQueryInjection);
 
                     var $descriptName = $inputWrap.clone()
                     .append($label.clone().html("Description"))
                     .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft);
-                    $descriptName.find(".descript-input").on("keyup",defendQueryInjection);
 
                     //creative commons
                     var $ccName = $inputWrap.clone(),

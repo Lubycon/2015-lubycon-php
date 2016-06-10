@@ -28,22 +28,39 @@
     <section id="account_section">
         <section id="account_setting_section" class="setting_card">
             <p class="setting_title">Account Setting</p>
-                <label>E-mail</label><input type="text" value="<?=$userid?>" disabled />
-                <div class="public_option">
-                    <select class="privacyFilter" name="email_public">
-                        <option value="Public">Public</option>
-                        <option value="Followers">Followers</option>
-                        <option value="Private">Private</option>
-                    </select>
+                <div class="account_input_wrap userinfo">
+                    <label>E-mail</label><input type="text" value="<?=$userid?>" disabled />
+                    <div class="public_option">
+                        <select class="privacyFilter" name="email_public">
+                            <option value="Public">Public</option>
+                            <option value="Followers">Followers</option>
+                            <option value="Private">Private</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="account_input_wrap userinfo">
+                    <label>Nickname</label><input type="text" value="<?=$username?>" disabled />
+                </div>
+                <div class="account_input_wrap userinfo">
+                    <label>Password</label>
+                    <input type="password" name="now_pass" data-value="current-password" disabled />
+                    <i class="check-icon"></i>
+                    <span id="change_pass">Change Password</span><br /><!--change password button-->
+                    <p class="check-message"></p>
+                </div>
+                <div class="account_input_wrap userinfo">
+                    <label>New Password</label>
+                    <input type="password" name="pass" data-value="password" disabled />
+                    <i class="check-icon"></i>
+                    <p class="check-message"></p>
+                </div>
+                <div class="account_input_wrap userinfo">
+                    <label>Repeat Password</label>
+                    <input type="password" name="repass" data-value="re-password" disabled />
+                    <i class="check-icon"></i>
+                    <p class="check-message"></p>
                 </div>
                 <!-- end select box -->
-                <label>Nickname</label><input type="text" value="<?=$username?>" disabled />
-                <label>Password</label><input type="password" name="now_pass" id="now_pass_id" disabled /><i></i><span id="change_pass">Change Password</span><br />
-                <p id="now_pass_check" class="form_check"></p>
-                <label>New Password</label><input type="password" name="pass" id="pass_id" disabled /><i></i>
-                <p id="pass_check" class="form_check"></p>
-                <label>Repeat Password</label><input type="password" name="repass" id="re_pass_id" disabled /><i></i>
-                <p id="re_pass_check" class="form_check"></p>
         </section>
         <section id="basic_info_section" class="setting_card">
             <p class="setting_title">Basic Infomation</p>
@@ -118,14 +135,14 @@
             <i class="fa fa-refresh refresh"></i>
             <div class="history_cell">
                 <div class="history_data">
-                    <select class="accountFilter" name="history_year[]">
+                    <select class="accountFilter" name="history_year[]" data-value="year">
                     <?php
                         for( $i=2016 ; $i > 1939 ; $i-- ){
                             echo '<option data-value='.$i.'>'.$i.'</option>';
                         }
                     ?>
                     </select>               
-                    <select class="accountFilter" name="history_month[]">
+                    <select class="accountFilter" name="history_month[]" data-value="month">
                         <option data-value="1">January</option>
                         <option data-value="2">February</option>
                         <option data-value="3">March</option>
@@ -139,7 +156,7 @@
                         <option data-value="11">November</option>
                         <option data-value="12">December</option>
                     </select>
-                    <select class="accountFilter" name="history_kind[]">
+                    <select class="accountFilter" name="history_kind[]" data-value="kind">
                         <option data-value="work_expierence">Work Experience</option>
                         <option data-value="studied">Education</option>
                         <option data-value="contest_prized">Awards</option>

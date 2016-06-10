@@ -277,6 +277,16 @@ body{
                 line-height: 20px;
             }
 
+.error-message-window {
+    position: absolute;
+    background: rgba(0,0,0,0.7);
+}
+    .error-message-content {
+        font-size: 12px;
+        font-weight: 200;
+        color: #ffffff;
+        text-align: center;
+    }
 
 #gotop_bt{
     display: none;

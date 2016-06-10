@@ -1,7 +1,7 @@
 ﻿/* ===========================================================
  *
  *  Name:          lubySelector.min.js
- *  Updated:       2016-04-30
+ *  Updated:       2016-06-10
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -245,6 +245,13 @@
                     .on("click", pac.boxClick).on("focusin", pac.boxFocus)
                     .on("click", ".ls_option", pac.optionClick)
                     .on("change","select",pac.changeOption);
+                })
+            },
+            setValue: function(index){
+                return this.each(function(){
+                    var $this = $(this);
+                    var target = $($this.find(".ls_option")[index]);
+                    target.trigger("click");
                 })
             }
         }

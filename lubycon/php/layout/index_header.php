@@ -70,10 +70,9 @@
     <script type="text/javascript" src="<?=$one_depth?>/js/module/resizeObject.js"></script>
     <script type="text/javascript" src="<?=$one_depth?>/js/module/sticky.js"></script>
     <script type="text/javascript" src="<?=$one_depth?>/js/module/checkBox.js"></script>
+    <script type="text/javascript" src="<?=$one_depth?>/js/core/core.js"></script> <!-- index file js -->
     <script type="text/javascript" src="<?=$one_depth?>/js/core/ui.js"></script><!-- ui file js -->
     <script type="text/javascript" src="<?=$one_depth?>/js/core/mobile.js"></script><!--mobile file js-->
-    <script type="text/javascript" src="<?=$one_depth?>/js/core/core.js"></script> <!-- index file js -->
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/account.js"></script> <!-- account file js -->
     
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"><!--responsive design enable-->
     <meta name="theme-color" content="#222222"><!--mobile web browser address window will be changed to #222-->

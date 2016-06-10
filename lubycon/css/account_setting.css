@@ -74,12 +74,9 @@
             vertical-align: middle;
             margin-left: 10px;
         }
-    .form_check{
+    .check-message{
         color:#ea4126;
-        font-size: 12px !important;
-        margin-left: 140px;
-        margin-top: -16px;
-        margin-bottom:0px !important;
+        font-size: 12px;
         display:none;
         height: 16px;
         line-height: 13px;
@@ -298,7 +295,7 @@
     }
 #history_minus{
     background: transparent;
-    display: block;
+    display: none;
 }
     #history_minus i {
         font-size: 23px;

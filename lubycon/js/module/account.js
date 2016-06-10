@@ -1,7 +1,7 @@
 $(function(){
     var emailCheck = false; //for submit able
     var passwordCheck = false;
-    var passwordCheck = false;
+    var passwordCheck2 = false;
     var currentPasswordCheck = false; //account setting page check
     var nicknameCheck = false;
 
@@ -11,7 +11,7 @@ $(function(){
             var $checkIcon = $this.siblings(".check-icon");
             var $checkMessage = $this.siblings(".check-message");
 
-            $this.css({ "border-left" : "none", "width" : "190px" });
+            $this.css({ "border-left" : "none" });
             $checkIcon.attr("class","check-icon");
             $checkMessage.text("").show();
             console.log("blank");
@@ -20,7 +20,7 @@ $(function(){
             var $this = element;
             var $checkIcon = $this.siblings(".check-icon");
 
-            $this.css({ 'border-left': '5px solid #48cfad', 'width': '187px' });
+            $this.css({ 'border-left': '5px solid #48cfad' });
             $checkIcon.attr("class","check-icon");
             $checkIcon.addClass('fa fa-check');
             console.log("true input");
@@ -29,7 +29,7 @@ $(function(){
             var $this = element;
             var $checkIcon = $this.siblings(".check-icon");
 
-            $this.css({ 'border-left': '5px solid #ec6446', 'width': '187px' });
+            $this.css({ 'border-left': '5px solid #ec6446' });
             $checkIcon.attr("class","check-icon");
             $checkIcon.addClass('fa fa-times');
             console.log("false input");
@@ -41,8 +41,7 @@ $(function(){
         $(document).on("blur",".account_input_wrap.userinfo > input",function(){
             var $this = $(this);
             var type = $this.data("value");
-            switch (type)
-            {
+            switch (type){
                 case "email" : checkEmail.call($this); break;
                 case "password" : checkPassword.call($this); break;
                 case "re-password" : checkPasswordAgain.call($this); break;
