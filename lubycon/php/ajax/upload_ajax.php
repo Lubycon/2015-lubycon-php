@@ -3,6 +3,14 @@
 
 require_once '../session/session_class.php';
 $session = new Session();
+require_once "../class/json_class.php";
+$json_control = new json_control;
+$json_control->json_decode('top_category',"../../data/top_category.json");
+require_once "../class/upload_class.php";
+$uploader = new upload($_FILES,$_POST);
+include_once '../class/database_class.php';
+$db = new Database();
+
 if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 $LoginState = false;
 }else{
@@ -20,24 +28,24 @@ $LoginState = false;
 // variable
 // variable
 
-require_once "../class/upload_class.php";
-$uploader = new upload($_FILES,$_POST);
 $uploader->fill_array_data(); // fill array data for validate things // preview image able , thumb image able
 $uploader->validate_extension_and_size();
 $uploader->file_upload_control();
 $uploader->html_image_path(); //only 2d editor . modified html src
-$uploader->zip_attach('attach'); // folder name
+if($uploader->top_category != 'threed') $uploader->zip_attach('attach'); // folder name
 
-$twod_query = "INSERT INTO `lubyconboard`.`$uploader->top_category` 
+$topCate_json_Code = $json_control->json_decode_code;
+$json_control->json_search($topCate_json_Code,'topCateCode',$uploader->top_category);
+$topCate_code = $json_control->search_key;
+
+$query = "INSERT INTO `lubyconboard`.`$uploader->top_category` 
 (`boardCode`, `userCode`, `title`, `date`, `description`, `contents`, `userDirectory`,`downloadPermission`, `downloadCount`, `viewCount`, `likeCount`, `CategoryCode`) 
 VALUES 
-(null,'$usercode','$uploader->subject','$uploader->upload_date','$uploader->desc','$uploader->contentHTML','$uploader->upload_path','free',0,0,0,0)";
+(null,'$usercode','$uploader->subject','$uploader->upload_date','$uploader->desc','$uploader->contentHTML','$uploader->upload_path','free',0,0,0,$topCate_code)";
 //need category code by json
-echo $twod_query;
+echo $query;
 
-include_once '../class/database_class.php';
-$db = new Database();
-$db->query = $twod_query;
+$db->query = $query;
 $db->askQuery();
 
 ?>

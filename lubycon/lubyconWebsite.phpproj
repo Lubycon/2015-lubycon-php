@@ -1130,6 +1130,8 @@
     <Compile Include="php\company\terms_of_service.php" />
     <Compile Include="php\contents\contents_page.php" />
     <Compile Include="php\contents\contents_view.php" />
+    <Compile Include="php\contents\viewer2d.php" />
+    <Compile Include="php\contents\viewer3d.php" />
     <Compile Include="php\cookie\cookie_class.php" />
     <Compile Include="php\cookie\cookie_test.php" />
     <Compile Include="php\creators_page\creators.php" />
@@ -1578,5 +1580,6 @@
     <Content Include="css\module\lubySlider.css" />
     <Content Include="js\contents_page.js" />
     <Content Include="js\module\jquery.lubySlider.js" />
+    <Content Include="php\contents\viewer3d.js" />
   </ItemGroup>
 </Project>

@@ -86,13 +86,11 @@ CREATE TABLE IF NOT EXISTS `Vector`
 	`date` DATETIME NOT NULL,
 	`description` TEXT,
 	`contents` TEXT,
-	`imgDirectory` TEXT,
-	`downDirectory` TEXT,
+	`userDirectory` TEXT,
 	`downloadPermission` ENUM('Free','Qualified','View') NOT NULL,
 	`downloadCount` INT UNSIGNED NOT NULL,
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
-	`preview` TEXT NOT NULL,
 	`CategoryCode` INT UNSIGNED NOT NULL,
 
 	PRIMARY KEY(`boardCode`)
@@ -122,13 +120,11 @@ CREATE TABLE IF NOT EXISTS `ArtWork`
 	`date` DATETIME NOT NULL,
 	`description` TEXT,
 	`contents` TEXT,
-	`imgDirectory` TEXT,
-	`downDirectory` TEXT,
+	`userDirectory` TEXT,
 	`downloadPermission` ENUM('Free','Qualified','View') NOT NULL,
 	`downloadCount` INT UNSIGNED NOT NULL,
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
-	`preview` TEXT NOT NULL,
 	`CategoryCode` INT UNSIGNED NOT NULL,
 
 	PRIMARY KEY(`boardCode`)
@@ -158,13 +154,11 @@ CREATE TABLE IF NOT EXISTS `ThreeD`
 	`date` DATETIME NOT NULL,
 	`description` TEXT,
 	`contents` TEXT,
-	`imgDirectory` TEXT,
-	`downDirectory` TEXT,
+	`userDirectory` TEXT,
 	`downloadPermission` ENUM('Free','Qualified','View') NOT NULL,
 	`downloadCount` INT UNSIGNED NOT NULL,
 	`viewCount` INT UNSIGNED NOT NULL,
 	`likeCount` INT UNSIGNED NOT NULL,
-	`preview` TEXT NOT NULL,
 	`CategoryCode` INT UNSIGNED NOT NULL,
 
 	PRIMARY KEY(`boardCode`)

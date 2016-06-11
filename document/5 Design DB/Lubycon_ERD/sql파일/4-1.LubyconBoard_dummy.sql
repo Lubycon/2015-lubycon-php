@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 --
 -- 테이블 구조 `artwork`
 --
-
+USE LubyconBoard;
 DROP TABLE IF EXISTS `artwork`;
 CREATE TABLE IF NOT EXISTS `artwork` (
   `boardCode` int(10) unsigned NOT NULL,
