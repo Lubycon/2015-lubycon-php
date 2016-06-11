@@ -300,7 +300,18 @@
                 /*3*/formData.append("model",model);
                 /*4*/formData.append("lights",JSON.stringify(newLights));
                 /*5*/formData.append("thumbnail",finalThumbnail); //add thumbnail
-                /*6*/formData.append("setting",objectToJSON(settingObject,false)); //add setting value
+                /*6*/formData.append("setting", objectToJSON(settingObject, false)); //add setting value
+
+                $.ajax({
+                    url: '../../../ajax/upload_ajax.php',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    type: 'POST',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
 
                 function exportLights(obj){
                     var isLight = obj.name === "newLight0" || obj.name === "newLight1" || obj.name === "newLight2";
@@ -874,23 +885,6 @@
                     $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
                     finalThumbnail = dataURL;
-                    //console.log($object);
-                    //console.log(dataURL); // for ajax
-
-                    var dataArray = new Array;
-                    dataArray[0] = { 'type': 'editor_thumb', 'base64': dataURL ,'index': null};
-
-                    $.ajax({
-                        type: "POST",
-                        url: "../../../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
-                        data: {
-                            'ajax_data': dataArray
-                        },
-                        cache: false,
-                        success: function (data) {
-                            console.log(data);
-                        }
-                    })
                 }
                 else $.error("There is no Image");                
             },

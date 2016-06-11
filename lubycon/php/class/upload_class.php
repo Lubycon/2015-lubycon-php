@@ -67,8 +67,9 @@ class upload
     //2d val
 
     //3d val
-    // i dont know~~~ fuckfuck~
+    public $threed_json_array; // 3d json decode array
     //3d val
+
 
     public function __construct( $FILES_data , $POST_data ) //basic set
     {
@@ -79,7 +80,7 @@ class upload
         $this->user_code = $_SESSION['lubycon_code'];
         
         $this->post_thumb = $POST_data['thumbnail'];
-        if( isset($POST_data['setting']) ) //only editor use
+        if( count($POST_data['setting']) > 0 ) //only editor use
         {
             $this->post_setting = json_decode($POST_data['setting']);
             $this->subject = $this->post_setting->name; // contents subject string
@@ -89,6 +90,7 @@ class upload
             $this->cc = $this->post_setting->cc; // stdClass Object
             $this->desc = $this->post_setting->descript; // string
             $this->downable = $this->post_setting->download; // boolean
+
             if( $this->top_category == 'artwork' || $this->top_category == 'vector' ) //check board type
             {
                 $this->editor_kind = '2d';
@@ -96,17 +98,27 @@ class upload
             }else if($this->top_category == 'threed')
             {
                 $this->editor_kind = '3d';
+                $this->threed_json_array = array 
+                (
+                    ['map' , $POST_data['map']],
+                    ['model' , $POST_data['model']],
+                    ['lights' , count($POST_data['lights']) ? $POST_data['lights'] : '[]']
+                );
+                //$this->threed_json_array[0] = json_decode($POST_data['map']); // 3d map json file
+                //$this->threed_json_array[1] = json_decode($POST_data['model']); // 3d model json file
+                //$this->threed_json_array[2] = count(json_decode($POST_data['lights'])) ? json_decode($POST_data['lights']) : '[]'; // 3d light json file
             }
             $this->upload_path = $this->Lubycon_Contents_folder.'contents/'.$this->top_category.'/'.$this->upload_date.'_'.$this->user_code.'/'; //set upload path
             is_dir($this->upload_path) ? chmod($this->upload_path,0777) : mkdir($this->upload_path,0777); //make user folder
             // need devied path 1.editor 2.user profile 3.community
         }
         //basic set
+        
     }
 
     public function fill_array_data()
     {
-        if( isset($this->_upload_file_data) ) //validate user uploaded
+        if( count($this->_upload_file_data) > 0 ) //validate user uploaded
         {
             foreach( $this->_upload_file_data as $key => $value )
             {
@@ -141,7 +153,7 @@ class upload
                 }
             }
         }
-        if( isset($this->post_thumb) )
+        if( count($this->post_thumb) > 0 )
         {
             $result = $this->base64_original_size_calculation($this->post_thumb);
             $this->thumb_array[0] = array 
@@ -165,16 +177,16 @@ class upload
     public function validate_extension_and_size()
     {
         // extension check
-        if( isset($this->file_array) ) //validate user uploaded
+        if( count($this->file_array) > 0 ) //validate user uploaded
         {$this->validate_extension_file($this->file_array,$this->white_list_media);}
 
-        if( isset($this->img_array) ) //validate image ext
+        if( count($this->img_array) > 0 ) //validate image ext
         {$this->validate_extension_file($this->img_array,$this->white_list_image);}
 
-        if( isset($this->base64_array) ) //validate base64 upload ext
+        if( count($this->base64_array) > 0 ) //validate base64 upload ext
         {$this->validate_extension_base64($this->base64_array,$this->white_list_base64);}
 
-        if( isset($this->post_thumb) ) //validate thumbnail ext
+        if( count($this->post_thumb) > 0 ) //validate thumbnail ext
         {$this->validate_extension_base64($this->thumb_array,$this->white_list_base64);}
         // extension check
 
@@ -184,23 +196,23 @@ class upload
         //$preview_image_upload_limit = 100000;
         //$thumbnail_image_upload_limit = 10000;
         // file size check
-        if( isset($this->file_array) ) //validate user uploaded
+        if( count($this->file_array) > 0 ) //validate user uploaded
         {$this->validate_size_calculation($this->file_array,$this->file_upload_limit);}
 
-        if( isset($this->img_array) ) //validate image ext
+        if( count($this->img_array) > 0 ) //validate image ext
         {$this->validate_size_calculation($this->img_array,$this->preview_image_upload_limit);}
 
-        if( isset($this->base64_array) ) //validate base64 upload ext
+        if( count($this->base64_array) > 0 ) //validate base64 upload ext
         {$this->validate_size_calculation($this->base64_array,$this->preview_image_upload_limit);}
 
-        if( isset($this->post_thumb) ) //validate thumbnail ext
+        if( count($this->post_thumb) > 0 ) //validate thumbnail ext
         {$this->validate_size_calculation($this->thumb_array,$this->thumbnail_image_upload_limit);}
         // file size check
     }
 
     public function validate_size_calculation($array,$limit_size)
     {
-        if( isset($array) ) //validate user uploaded
+        if( count($array) > 0 ) //validate user uploaded
         {
             foreach( $array as $key => $value )
             {
@@ -217,7 +229,7 @@ class upload
 
     public function validate_extension_file($array,$white_list)
     {
-        if( isset($array) ) //validate user uploaded
+        if( count($array) > 0 ) //validate user uploaded
         {
             foreach( $array as $key => $value )
             {
@@ -229,7 +241,7 @@ class upload
                     echo 'file upload class validate_extension error';
                     die($filename.' not allow extension // banded extension is '.$ext); //error meseage
                 }
-                if( $white_list == $this->white_list_image && !isset($image_file_info) ) //check normal image file form getimagesize
+                if( $white_list == $this->white_list_image && !count($image_file_info) > 0 ) //check normal image file form getimagesize
                 {
                     echo 'file upload class validate_extension error';
                     echo('it is not normal file!!!!!!!!'); //error meseage
@@ -249,7 +261,7 @@ class upload
                 echo 'file upload class validate_extension error';
                 die('it is not allow extension // banded extension is '.$ext_devide[0]); //error meseage
             }
-            if( !isset($image_file_info) ) //check normal image file form getimagesize
+            if( !count($image_file_info) > 0 ) //check normal image file form getimagesize
             {
                 echo 'file upload class validate_extension error';
                 die('it is not normal file'); //error meseage
@@ -268,22 +280,25 @@ class upload
 
     public function file_upload_control()
     {
-        if( isset($this->file_array) ) //validate user uploaded
+        if( count($this->file_array) > 0 ) //validate user uploaded
         {$this->files_upload($this->file_array,'attach');}
 
-        if( isset($this->img_array) ) //validate image ext
+        if( count($this->img_array) > 0 ) //validate image ext
         {$this->files_upload($this->img_array,'preview');}
 
-        if( isset($this->base64_array) ) //validate base64 upload ext
+        if( count($this->base64_array) > 0 ) //validate base64 upload ext
         {$this->base64_upload($this->base64_array,'preview');}
 
-        if( isset($this->post_thumb) ) //validate thumbnail ext
+        if( count($this->post_thumb) > 0 ) //validate thumbnail ext
         {$this->base64_upload($this->thumb_array,'thumbnail');}
+
+        if( count($this->threed_json_array) > 0 ) //validate thumbnail ext
+        {$this->json_upload($this->threed_json_array);}
     }
 
     public function files_upload($array,$kind)
     {
-        if( isset($array) )
+        if( count($array) > 0 )
         {
             $final_save_path = $this->upload_path."$kind/"; //final save path set
             is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
@@ -325,7 +340,7 @@ class upload
     }
     public function base64_upload($array,$kind)
     {
-        if( isset($array) )
+        if( count($array) > 0 )
         {
             $final_save_path = $this->upload_path."$kind/"; //final save path set
             is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
@@ -344,8 +359,18 @@ class upload
             }
         }
     }
-    public function json_upload($array,$kind)
+    public function json_upload($array)
     {
+        if( count($array) > 0 )
+        {
+            $final_save_path = $this->upload_path."json/"; //final save path set
+            is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
+            foreach( $array as $key => $value )
+            {
+                print_r($value);
+                file_put_contents($final_save_path.$value[0].'.json',$value[1]);
+            }
+        }
     }
 
     public function zip_attach($kind)

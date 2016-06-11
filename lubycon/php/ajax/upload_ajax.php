@@ -1,5 +1,6 @@
 <?php
 // session
+
 require_once '../session/session_class.php';
 $session = new Session();
 if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
@@ -24,6 +25,6 @@ $uploader = new upload($_FILES,$_POST);
 $uploader->fill_array_data(); // fill array data for validate things // preview image able , thumb image able
 $uploader->validate_extension_and_size();
 $uploader->file_upload_control();
-$uploader->zip_attach('attach'); // folder name
+//$uploader->zip_attach('attach'); // folder name
 
 ?>
