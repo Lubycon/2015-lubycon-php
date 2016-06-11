@@ -31,7 +31,7 @@
                     include "viewer3d.php";
                 }
                 else{
-                    echo $contents_html;
+                    echo htmlspecialchars_decode($contents_html);
                 };
             ?>
             <div class="floating_bt">
