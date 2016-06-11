@@ -113,7 +113,6 @@ class upload
             // need devied path 1.editor 2.user profile 3.community
         }
         //basic set
-        
     }
 
     public function fill_array_data()
@@ -165,6 +164,7 @@ class upload
 
             $this->merge_image_array = array_merge($this->img_array, $this->base64_array); //merge img array and base64 img array
             ksort($this->merge_image_array); //sory by key merged array
+            
         }
         
         //print_r($this->img_array);
@@ -172,6 +172,22 @@ class upload
         //print_r($this->base64_array);
         //print_r($this->merge_image_array);
         //print_r($this->file_array);
+    }
+
+    public function html_image_path($html_data)
+    {
+        if( $this->editor_kind == '2d' )
+        {
+            //print_r($this->contentHTML);
+            $i = 1;
+            foreach( $this->merge_image_array as $key => $value )
+            {
+                //print_r($key );
+                preg_replace("/lubycon_path/", $this->upload_path."preview/".$key.'.'.$this->merge_image_array[$key]['ext'], $this->contentHTML, $i);
+                $i++;
+            }
+            print_r($this->contentHTML);
+        }
     }
 
     public function validate_extension_and_size()
@@ -226,7 +242,6 @@ class upload
         }
     }
 
-
     public function validate_extension_file($array,$white_list)
     {
         if( count($array) > 0 ) //validate user uploaded
@@ -246,7 +261,7 @@ class upload
                     echo 'file upload class validate_extension error';
                     echo('it is not normal file!!!!!!!!'); //error meseage
                 }
-                if( $white_list == $this->white_list_image){$this->img_array[$key]['ext'] = $ext;} //add array ext cut from file
+                if( $white_list == $this->white_list_image){$this->img_array[$key]['ext'] = $ext;$this->merge_image_array[$key]['ext'] = $ext;} //add array ext cut from file
             }
         }
     }
@@ -266,6 +281,9 @@ class upload
                 echo 'file upload class validate_extension error';
                 die('it is not normal file'); //error meseage
             }
+
+            if( key($array) != '0' )
+            {$this->merge_image_array[$key]['ext'] = 'jpg';}
         }
     }
 
@@ -367,7 +385,6 @@ class upload
             is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
             foreach( $array as $key => $value )
             {
-                print_r($value);
                 file_put_contents($final_save_path.$value[0].'.json',$value[1]);
             }
         }
@@ -398,6 +415,5 @@ class upload
             unlink( $file[0] ); //delete original file
         }
     }
-
 }
 ?>
