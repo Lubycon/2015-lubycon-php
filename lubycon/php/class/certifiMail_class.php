@@ -1,78 +1,60 @@
 <?php
+
+# For Certificate Mail
+
+#--------------------------------------------------------------------------
+# Send Certificate Mail using PHPMailer(plugin) #--------------------------------------------------------------------------
+
 include_once '../plugin/PHPMailer/PHPMailerAutoload.php';
 
-Class Mail{
-	
-	private $mailer;
-	private $fromaddress;
-	private $toaddress;
-	private $subject;
-	private $password;
+function mailer($fromaddress, $toaddress, $subject, $password)
+{
+	date_default_timezone_set('Etc/UTC');
 
-	public function __construct($fromaddress, $toaddress, $subject, $password){
-		$this->fromaddress = $fromaddress;
-		$this->toaddress = $toaddress;
-		$this->subject = $subject;
-		$this->password = $password;
+	$mail = new PHPMailer();
+
+	$mail->isSMTP();
+	$mail->CharSet = 'UTF-8';
+	//$mail->SMTPDebug = 1;
+	$mail->Host = 'smtp.gmail.com';
+	$mail->SMTPSecure = 'ssl';
+	$mail->Port = 465;
+	$mail->SMTPAuth = true;
+	$mail->Username = $fromaddress;
+	$mail->Password = $password;
+	$mail->setFrom($fromaddress, $fromaddress);
+	$mail->addAddress($toaddress, $toaddress);
+	$mail->Subject = $subject;
+	$mail->msgHTML(file_get_contents("mail.php"));
+	$mail->Altbody = 'This is a plain-text message body';
+
+	if(!$mail->send())
+	{
+		echo "Mailer Error : ".$mail->ErrorInfo;
+		return false;
 	}
-
-	public function sendMail(){
-		try{
-			date_default_timezone_set('Etc/UTC');
-			$this->mailer = new PHPMailer;
-			$this->mailer->isSMTP();
-			$this->mailer->CharSet='UTF-8';
-			$this->mailer->Host='smtp.gmail.com';
-			$this->mailer->SMTPSecure='ssl';
-			$this->mailer->Port=465;
-			$this->mailer->SMTPAuth=true;
-			$this->mailer->Username = $this->fromaddress;
-			$this->mailer->password = $this->password;
-			$this->mailer->setFrom($this->fromaddress, $this->fromaddress);
-			$this->mailer->addAddress($this->toaddress, $this->toaddress);
-			$this->mailer->Subject=$this->subject;
-			$this->mailer->msgHTML(file_get_contents("mail.php"));
-			$this->mailer->Altbody = 'This is a plain-texxt message body';
-
-			if(!$this->mailer->send()){
-				echo $this->mailer->ErrorInfo;
-				throw new Exception($this->mailer->ErrorInfo);
-				return false;
-			}else{
-				return true;
-			}
-		}catch(Exception $e){
-
-		}
+	else
+	{
+		return true;
 	}
+		
 }
 
-# Certification Email Handler Class
+
+#--------------------------------------------------------------------------
+# Make Certificate Mail using file I/O Stream
+#--------------------------------------------------------------------------
+
 Class CertifiMail{
 
-	public $token;
 	private $host;
 	private $relativePath;
-	private $mail;
+	public $token;
 
-	public function __construct($fromaddress = "Lubycon@gmail.com", $toaddress, $subject = "Confirmation Mail for Lubycon account", $password = "hmdwdgdhkr2015"){
-		$this->mail = new Mail($fromaddress, $toaddress, $subject, $password);
+	public function __construct($token){
+		$this->token = $token;
 		$this->host = $_SERVER['HTTP_HOST'];
 		$this->relativePath = preg_replace("`\/[^/]*\.php$`i", "/", $_SERVER['PHP_SELF']);
-	}
-
-	public function sendMail(){
-		return $this->mail->sendMail();
-
-	}
-
-	public function makeToken($size){
-		static $feed = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		$randStr = null;
-		for($i=0; $i< $size; $i++){
-			$randStr .= substr($feed, rand(0, strlen($feed)-1), 1);
-		}
-		$this->token = $randStr;
 	}
 
 	public function makeHtml(){
