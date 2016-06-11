@@ -2,7 +2,6 @@
 require_once '../database/database_class.php';
 
 $db = new Database();
-
 $db->query = "SELECT validation FROM userbasic WHERE (validationToken = '".$_GET['Token']."')";
 
 if($db->askQuery() != false){

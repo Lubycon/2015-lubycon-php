@@ -33,7 +33,6 @@ function mailer($fromaddress, $toaddress, $subject, $password)
 		echo "Mailer Error : ".$mail->ErrorInfo;
 		return false;
 	}
-	
 	else
 	{
 		return true;

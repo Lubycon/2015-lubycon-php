@@ -12,7 +12,6 @@
 function MakeToken($size){
 	
 	static $feed = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	
 	$randStr = null;
 
 	for($i=0; $i< $size; $i++)
