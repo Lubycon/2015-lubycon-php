@@ -164,12 +164,18 @@
                     categories.push(index);
                 }),
                 tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
-                descript = rootElement.find(".descript-input").text(),
+                descript = rootElement.find(".descript-input").val(),
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
                 }),
-                download = attachedFiles.length === 0 ? false : true;
+                download = attachedFiles.length !== 0;
+
+                var checkList = {
+                    name : !contentName.isNullString() && !rootElement.find("input[name='content-name']").hasClass(".error"),
+                    categories : categories.length !== 0
+                }
+                console.log(checkList);
 
                 var settingObject = {
                     name : contentName,
@@ -181,23 +187,30 @@
                     download : download
                 };
 
-                /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
-                /*2*/$.each(attachedImage,function(i,file){ formData.append("image_"+i,file); }); //used images append to formdata
-                /*3*/formData.append("contentHTML",content);
-                /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
-                /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
-                //console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
+                submitFinal();
 
-                $.ajax({
-                    url: '../../../ajax/upload_ajax.php',
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    type: 'POST',
-                    success: function (result) {
-                        console.log(result);
+                function submitFinal(){
+                    console.log(checkList.name,checkList.categories);
+                    if(checkList.name && checkList.categories){
+                        /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
+                        /*2*/$.each(attachedImage,function(i,file){ formData.append("image_"+i,file); }); //used images append to formdata
+                        /*3*/formData.append("contentHTML",content);
+                        /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
+                        /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
+                        //console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
+
+                        $.ajax({
+                            url: '../../../ajax/upload_ajax.php',
+                            processData: false,
+                            contentType: false,
+                            data: formData,
+                            type: 'POST',
+                            success: function (result) {
+                                console.log(result);
+                            }
+                        });
                     }
-                });
+                }
 
                 function objectToJSON(object){
                     return JSON.stringify(object);
@@ -329,72 +342,108 @@
                     $inputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
                     $inputInner = $("<div/>",{ "class" : "setting-input" }),
                     $label = $("<p/>",{ "class" : "setting-input-label"}),
-                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }),
+                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }).on("keyup",errorCheck),
                     $select = $("<select>", { "class" : "setting-select" }),
-                    $option = $("<option/>",{"class" : "select-option"}),
+                    $option = $("<option/>",{"class" : "select-option"});
 
-                    $contentName = $inputWrap.clone()
-                    .append($label.clone().html("Content Name"))
-                    .append($input.clone(true).attr("name","content-name")).appendTo($innerLeft),
+                    initContentName();
+                    initCategory();
+                    initTag();
+                    initDescript();
+                    initCC();
 
-                    $categoryName = $inputWrap.clone()
-                    .append($label.clone().html("Categories")).appendTo($innerLeft),
-                    $categorySelect = $select.clone().addClass("chosen-select category").attr({
-                        "data-placeholder" : "Choose your contents categories",
-                        "multiple" : "",
-                        "tabindex" : "8",
-                        "name" : "contents_category[]"
-                    }).appendTo($categoryName);
+                    function initContentName(){
+                        var $contentName = $inputWrap.clone()
+                        .append($label.clone().html("Content Name"))
+                        .append($input.clone(true).attr("name","content-name")).appendTo($innerLeft);
+                    }
+                    function initCategory(){
+                        var $categoryName = $inputWrap.clone()
+                        .append($label.clone().html("Categories")).appendTo($innerLeft),
+                        $categorySelect = $select.clone().addClass("chosen-select category").attr({
+                            "data-placeholder" : "Choose your contents categories",
+                            "multiple" : "multiple",
+                            "tabindex" : "8",
+                            "name" : "contents_category[]"
+                        }).appendTo($categoryName);
 
-                    categories = categoryData,
-                    insertOption = function(){
-                        var categoryBox = $categorySelect;
-                        for(i in categories){ //categoryData is json
-                            var option = $option.clone().html(categories[i]).attr("data-index",i);
-                            option.appendTo(categoryBox);
+                        categories = categoryData;
+                        insertOption();
+
+                        function insertOption(){
+                            var categoryBox = $categorySelect;
+                            for(i in categories){ //categoryData is json
+                                var option = $option.clone().html(categories[i]).attr("data-index",i);
+                                option.appendTo(categoryBox);
+                            }
+                            categoryBox.chosen({  max_selected_options: 3 });
+                        };
+                    }
+                    function initTag(){
+                        var $hashtagName = $inputWrap.clone()
+                        .append($label.clone().html("Tag"))
+                        .append($inputInner.clone().addClass("hashTag-input-wrap")
+                            .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag).on("keyup",errorCheck)))
+                        .appendTo($innerLeft);
+                    }
+                    function initDescript(){
+                        var $descriptName = $inputWrap.clone()
+                        .append($label.clone().html("Description"))
+                        .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" }).on("keyup",errorCheck)).appendTo($innerLeft);
+                    }
+                    function initCC(){
+                        var $ccName = $inputWrap.clone(),
+                        $ccLabel = $label.clone().html("Creative Commons"),
+                        $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
+                        
+                        $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper" }),
+                        getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "http://creativecommons.org/licenses/by-nc-nd/4.0", "target" : "_blank" }),
+                        $changebt = $("<p/>",{
+                            "class" : "cc-setting-bt",
+                            "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
+                        }).on("click",toggle.single);
+
+                        insertCCicons();
+
+                        function insertCCicons(){
+                            var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
+                            $target = $ccIconWrap,
+                            $img = $("<img/>",{ "src" : "#" });
+                            for(var i = 0, l = ccData.length; i < l; i++){
+                                var list = ccIconLi.clone().attr({"data-value":ccData[i].id, "data-tip":ccData[i].name})
+                                .append($img.clone().attr("src",ccData[i].icon))
+                                .appendTo($target).tooltip({"top":40, "left" : 0});
+                                if(ccData[i].id == "sa"){
+                                    list.hide();
+                                }
+                            }
+                            $ccInner.append(getLink.append($target));
                         }
-                        categoryBox.chosen({  max_selected_options: 3 });
-                    }();
 
-                    var $hashtagName = $inputWrap.clone()
-                    .append($label.clone().html("Tag"))
-                    .append($inputInner.clone().addClass("hashTag-input-wrap")
-                        .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
-                    .appendTo($innerLeft);
-
-                    var $descriptName = $inputWrap.clone()
-                    .append($label.clone().html("Description"))
-                    .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft);
-
-                    //creative commons
-                    var $ccName = $inputWrap.clone(),
-                    $ccLabel = $label.clone().html("Creative Commons"),
-                    $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
-                    
-                    $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper" }),
-                    getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "http://creativecommons.org/licenses/by-nc-nd/4.0", "target" : "_blank" }),
-                    $changebt = $("<p/>",{
-                        "class" : "cc-setting-bt",
-                        "html" : "<i class='fa " + icons.refresh + "'></i>Change your license"
-                    }).on("click",toggle.single),
-                    
-                    insertCCicons = function(){
-                        var ccIconLi = $("<li/>",{ "class" : "cc-list"}),
-                        $target = $ccIconWrap,
-                        $img = $("<img/>",{ "src" : "#" });
-                        for(var i = 0, l = ccData.length; i < l; i++){
-                            var list = ccIconLi.clone().attr({"data-value":ccData[i].id, "data-tip":ccData[i].name})
-                            .append($img.clone().attr("src",ccData[i].icon))
-                            .appendTo($target).tooltip({"top":40, "left" : 0});
-                            if(ccData[i].id == "sa"){
-                                list.hide();
+                        $ccName.append($ccLabel).append($ccInner).append($changebt)
+                        .on("click",modalFunc.showCCsetting).appendTo($innerRight);
+                    }
+                    function errorCheck(){
+                        var $this = $(this);
+                        var value = $(this).val();
+                        var errorCode = value.inputErrorCheck();
+                        
+                        if(!value.isNullString()){
+                            switch(errorCode){
+                                case 0 : 
+                                    $this.removeClass("error"); 
+                                break;
+                                case 1 : 
+                                    $this.addClass("error");
+                                    console.log("This is special character"); 
+                                break;
+                                case 2 : 
+                                    $this.addClass("error"); 
+                                    console.log("This is abuse word"); 
+                                break;
                             }
                         }
-                        $ccInner.append(getLink.append($target));
-                    }();
-
-                    $ccName.append($ccLabel).append($ccInner).append($changebt)
-                    .on("click",modalFunc.showCCsetting).appendTo($innerRight);
+                    }
 
                     return modal;
                 }
@@ -1035,8 +1084,9 @@
                 value = $this.val().trim(),
                 endCommand = inKeyCode == keyCode.enter || inKeyCode == keyCode.space,
                 deleteCommand = inKeyCode == keyCode.delete,
-                wrapperExist = $this.prev("ul").length == 0;
-                if(endCommand && value != ""){
+                wrapperExist = $this.prev("ul").length == 0,
+                errorCheck = !$this.hasClass("error");
+                if(endCommand && value !== "" && errorCheck){
                     if(wrapperExist) $tagWrap.prependTo($wrapper);
                     $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalFunc.deleteTag).appendTo(".hashtag-wrapper");
                     $this.val(null);

@@ -107,10 +107,12 @@ $(function () { //search box click value reset start
         var value = $(this).val();
         var errorCode = value.inputErrorCheck();
         
-        switch(errorCode){
-            case 0 : if(!value.isNullString()) errorCheck = true; break;
-            case 1 : console.log("This is special character"); break;
-            case 2 : console.log("This is abuse word"); break;
+        if(!value.isNullString()){
+            switch(errorCode){
+                case 0 : errorCheck = true; break;
+                case 1 : console.log("This is special character"); break;
+                case 2 : console.log("This is abuse word"); break;
+            }
         }
         console.log(errorCheck);
     }
