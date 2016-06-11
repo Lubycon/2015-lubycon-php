@@ -25,15 +25,15 @@ $uploader = new upload($_FILES,$_POST);
 $uploader->fill_array_data(); // fill array data for validate things // preview image able , thumb image able
 $uploader->validate_extension_and_size();
 $uploader->file_upload_control();
-$uploader->html_image_path($uploader->contentHTML); //only 2d editor
+$uploader->html_image_path(); //only 2d editor . modified html src
 $uploader->zip_attach('attach'); // folder name
 
 $twod_query = "INSERT INTO `lubyconboard`.`$uploader->top_category` 
-(`boardCode`, `userCode`, `title`, `date`, `description`, `contents`, `imgDirectory`, `downDirectory`, `downloadPermission`, `downloadCount`, `viewCount`, `likeCount`, `preview`, `CategoryCode`) 
+(`boardCode`, `userCode`, `title`, `date`, `description`, `contents`, `userDirectory`,`downloadPermission`, `downloadCount`, `viewCount`, `likeCount`, `CategoryCode`) 
 VALUES 
-(null,'$usercode','$uploader->subject','$uploader->upload_date','$uploader->desc','$uploader->contentHTML',null,null,1111111,0,0,0,'','')";
-
-//echo $twod_query;
+(null,'$usercode','$uploader->subject','$uploader->upload_date','$uploader->desc','$uploader->contentHTML','$uploader->upload_path','free',0,0,0,0)";
+//need category code by json
+echo $twod_query;
 
 include_once '../class/database_class.php';
 $db = new Database();

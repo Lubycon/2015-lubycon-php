@@ -1,8 +1,12 @@
 <li>
     <?php
         $usercode = $row['userCode'];
+        $user_dir = $row['userDirectory'];
+        $contents_thumb_url = $user_dir.'/thumbnail/thumbnail.jpg';
+
+
+
         $price = $row['downloadPermission'];
-        $contents_thumb_url = $row['preview'];
         $title = $row['title'];
         $user_img_url = $row['profileImg'];
         $user_name = $row['nick'];

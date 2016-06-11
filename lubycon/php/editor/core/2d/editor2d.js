@@ -235,7 +235,7 @@
                 result.find(".canvas-input").attr("contenteditable",false);
                 result.find(".placeHolder").remove();
                 result.find(".obj-menu-btn").remove();
-                if(submit) result.find("img").attr("src","/lubycon_path/");
+                if(submit) result.find("img").attr("src","lubycon_path");
 
                 return result[0].outerHTML;
             },

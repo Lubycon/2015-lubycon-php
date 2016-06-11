@@ -139,7 +139,7 @@
             <div id="descript_wrap" class="info-wrap hidden-mb-b">
                 <p id="descript_title" class="info-title"><i class="fa fa-info-circle"></i>Description</p>
                 <div id="descript_content" class="info-content">
-                    <p>zsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqizsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqizsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqizsakjflksajflskajflskajlfksalfskaklfksajflksajflksajflksajflksajlfksajlfksajlfkjsalkfjlsakfjlsaifjliwjlfkjaslkfjlskafjlskajflsakjfisalfisajifljsaifliwpqpqpwjfpiwjfpiwqnonwcqpnjdwqpidjpwqidpwijdpiqwjdpwjdiwjpqwidjpwqi</p>
+                    <p><?=$file_descript?></p>
                 </div>
             </div>
         </div><!--end con_aside-->

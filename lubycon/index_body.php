@@ -198,7 +198,7 @@ $(function(){
                 default : break;
             };
             $db->changeDb('lubyconboard');
-            $db->query = "select boardCode,preview from `$kind` order by `viewCount` desc limit 30";
+            $db->query = "select boardCode,userDirectory from `$kind` order by `viewCount` desc limit 30";
 		    $db->askQuery();
 
             echo "<div class='slider-wrapper' id='slider$i' style='width: 980px; height: 363px;'>";
@@ -207,7 +207,7 @@ $(function(){
             while($row = mysqli_fetch_array($db->result))
             {
                 $contents_number = $row['boardCode'];
-                $contents_thumb = $row['preview'];
+                $contents_thumb = $row['userDirectory']."/thumbnail/thumbnail.jpg";
                 echo "<li class='load_view'><a href='./php/contents/contents_view.php?cate=$kind&conno=$contents_number'><img src='$contents_thumb'></a></li>";
                 if($index == 10 || $index == 20)
                 {

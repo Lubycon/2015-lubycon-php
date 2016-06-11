@@ -174,19 +174,12 @@ class upload
         //print_r($this->file_array);
     }
 
-    public function html_image_path($html_data)
+    public function html_image_path()
     {
         if( $this->editor_kind == '2d' )
         {
-            //print_r($this->contentHTML);
-            $i = 1;
             foreach( $this->merge_image_array as $key => $value )
-            {
-                //print_r($key );
-                preg_replace("/lubycon_path/", $this->upload_path."preview/".$key.'.'.$this->merge_image_array[$key]['ext'], $this->contentHTML, $i);
-                $i++;
-            }
-            print_r($this->contentHTML);
+            {$this->contentHTML=preg_replace("/lubycon_path/", $this->upload_path."preview/".$key.'.'.$this->merge_image_array[$key]['ext'], $this->contentHTML,1);}
         }
     }
 
