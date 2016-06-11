@@ -32,11 +32,11 @@ $uploader->fill_array_data(); // fill array data for validate things // preview 
 $uploader->validate_extension_and_size();
 $uploader->file_upload_control();
 $uploader->html_image_path(); //only 2d editor . modified html src
-if($uploader->top_category != 'threed') $uploader->zip_attach('attach'); // folder name
+if($uploader->downable){$uploader->zip_attach('attach');} // if user didn't upload attach files and zip attach option is saved folder name
 
 $topCate_json_Code = $json_control->json_decode_code;
 $json_control->json_search($topCate_json_Code,'topCateCode',$uploader->top_category);
-$topCate_code = $json_control->search_key;
+$topCate_code = $json_control->search_key; // search top category name to index form json files
 
 $query = "INSERT INTO `lubyconboard`.`$uploader->top_category` 
 (`boardCode`, `userCode`, `title`, `date`, `description`, `contents`, `userDirectory`,`downloadPermission`, `downloadCount`, `viewCount`, `likeCount`, `CategoryCode`) 
@@ -47,5 +47,4 @@ echo $query;
 
 $db->query = $query;
 $db->askQuery();
-
 ?>

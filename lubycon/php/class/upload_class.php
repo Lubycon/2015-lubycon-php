@@ -19,7 +19,7 @@ class upload
     public $tag; // array
     public $cc; // stdClass Object
     public $desc; // string
-    public $downable; // boolean
+    public $downable = false; // boolean
     // post setting valualbe
 
     //basic set
@@ -89,7 +89,7 @@ class upload
             $this->tag = $this->post_setting->tag; // array
             $this->cc = $this->post_setting->cc; // stdClass Object
             $this->desc = $this->post_setting->descript; // string
-            $this->downable = $this->post_setting->download; // boolean
+            //$this->downable = $this->post_setting->download; // boolean
 
             if( $this->top_category == 'artwork' || $this->top_category == 'vector' ) //check board type
             {
@@ -127,6 +127,7 @@ class upload
                     $this->img_array[$key] = $this->_upload_file_data[$key]; 
                 }else if( $key_explode[0] == 'file' ) //if attached files
                 {
+                    $this->downable = true; // for zip attach function
                     array_push($this->file_array,$this->_upload_file_data[$key]);
                 }
             }
@@ -385,27 +386,30 @@ class upload
 
     public function zip_attach($kind)
     {
-        $dir = $this->upload_path.$kind;
-        $handle  = opendir($dir);
-        while (false !== ($filename = readdir($handle))) 
+        if($this->downable)
         {
-            if(is_file($dir . "/" . $filename)){
-                $this->attatch_file_list[] = [$dir.'/'.$filename,$filename];
+            $dir = $this->upload_path.$kind;
+            $handle  = opendir($dir);
+            while (false !== ($filename = readdir($handle))) 
+            {
+                if(is_file($dir . "/" . $filename)){
+                    $this->attatch_file_list[] = [$dir.'/'.$filename,$filename];
+                }
             }
-        }
-        closedir($handle);
+            closedir($handle);
 
-        $this->_zip = new ZipArchive;
-        $upload_zip = $dir.'/attatch.zip';
-        $this->_zip->open( $upload_zip , file_exists($upload_zip) ? ZipArchive::OVERWRITE : ZipArchive::CREATE ); 
-        foreach( $this->attatch_file_list as $index => $file )
-        {
-            $this->_zip->addFile($file[0],$file[1]);
-        }
-        $this->_zip->close();
-        foreach( $this->attatch_file_list as $index => $file )
-        {
-            unlink( $file[0] ); //delete original file
+            $this->_zip = new ZipArchive;
+            $upload_zip = $dir.'/attatch.zip';
+            $this->_zip->open( $upload_zip , file_exists($upload_zip) ? ZipArchive::OVERWRITE : ZipArchive::CREATE ); 
+            foreach( $this->attatch_file_list as $index => $file )
+            {
+                $this->_zip->addFile($file[0],$file[1]);
+            }
+            $this->_zip->close();
+            foreach( $this->attatch_file_list as $index => $file )
+            {
+                unlink( $file[0] ); //delete original file
+            }
         }
     }
 }
