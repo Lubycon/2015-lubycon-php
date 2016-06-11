@@ -1,320 +1,378 @@
 <?php
 class upload
 {
-    private $_temp_path = '../../../../Lubycon_Contents/temp/';
-    private $_user_name;
+    //basic set
+    public $_upload_file_data; 
+    public $_upload_post_data;
+    public $user_code;
 
-    private $_filesize_array = array();
-    private $_filepath_array = array();
-    private $_filename_array = array();
-    private $_zip;
-    private $_profile_name = 'profile.';
+    // post setting valualbe
+    public $editor_kind; // 2d or 3d
+    public $_zip; //for zip compress
+    public $upload_date;
 
-    private $_white_list_media = ['jpg', 'jpeg', 'png', 'psd', 'pdf', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst', 'alz', 'zip', 'rar', 'jar', '7z', 'hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
-    private $_white_list_img = ['jpg', 'jpeg', 'png', 'psd', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst'];
-    private $_white_list_zip = ['alz', 'zip', 'rar', 'jar', '7z'];
-    private $_white_list_txt = ['hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
-    private $_white_list_all = ['all'];
+    public $post_thumb; //base64 data
+    public $post_setting; // json decoded
+    public $subject; // contents subject string
+    public $top_category; // artwork , vector , threed
+    public $mid_category; // array
+    public $tag; // array
+    public $cc; // stdClass Object
+    public $desc; // string
+    public $downable; // boolean
+    // post setting valualbe
 
-    private $_ajax_save_path;
-    private $_ajax_limit_size;
-    private $_ajax_white_list;
-    private $_ajax_file_name;
-    private $_ajax_ext = [];
+    //basic set
     
-    private $_thumb_size = 100;
-    private $_contents_size = 3000;
+    // setting array
+    public $file_array = []; //for upload attachfiles zip
+    public $attatch_file_list = [];
+    public $img_array = []; //for validate image files
+    public $thumb_array = []; //upload thumbnail base64 file
+    public $base64_array = []; //for validate base64 image
+    public $json_array = []; //for json file upload
+    public $merge_image_array = []; //for upload image file
+    // setting array
+
+    // extension information
+    public $white_list_media = ['jpg', 'jpeg', 'png', 'psd', 'pdf', 'gif', 'bmp', 'pdd', 'tif', 'raw', 'ai', 'esp', 'svg', 'svgz', 'iff', 'fpx', 'frm', 'pcx', 'pct', 'pic', 'pxr', 'sct', 'tga', 'vda', 'icb', 'vst', 'alz', 'zip', 'rar', 'jar', '7z', 'hwp', 'txt', 'doc', 'xls', 'xlsx', 'docx', 'pptx', 'pdf', 'ppt', 'me'];
+    public $white_list_image = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    public $white_list_base64 = ['data:image/jpeg;base64'];
+    // media = image , text , compress file , 3d files -> 3d ext need add array
+    // img = only web view use images
+    // img = only base64 use images ex) croped profile , thumbnail , editor grid
+    // extension information
+    
+    // limit size variable
+    public $file_upload_limit = 31457280; // 30mb
+    public $preview_image_upload_limit = 10485760; // 10mb
+    public $thumbnail_image_upload_limit = 524288; // 0.5mb
+    // limit size variable
+
+    // save path
+
+    public $Lubycon_Contents_folder = "../../../../Lubycon_Contents/";
+    public $upload_path;
 
     private $_thumb_save_path = 'editor/thumb';
     private $_contents_save_path = 'editor/contents';
     private $_community_save_path = 'community';
     private $_profile_save_path = 'profile';
 
-    private $_thumb_file_name = 'thumb';
-    private $_contents_file_name = 'content';
-    private $_community_file_name = 'community';
-    private $_profile_file_name = 'profile';
 
+    // save path
 
-    private $_jpg_white_list = ['data:image/jpeg;base64'];
-    private $_contents_white_list = ['data:image/jpeg;base64','data:image/gif;base64','data:image/bmp;base64','data:image/png;base64'];
+    //2d val
+    public $contentHTML; //htmlspecialchars data
+    //2d val
 
-    private $_img;
-    private $_img_data;
-    private $_data;
-    private $_string_length;
+    //3d val
+    // i dont know~~~ fuckfuck~
+    //3d val
 
-    private $_ajax_upload_type;
-
-
-    public function __construct($user_code)
+    public function __construct( $FILES_data , $POST_data ) //basic set
     {
-        $this->_user_name = $user_code;
-    }
-
-
-    public function validate_size($files,$limit_size)
-    {
-        //print_r($files);
-        if(is_array($files))
+        //basic set
+        $this->_upload_file_data = $FILES_data;
+        $this->_upload_post_data = $POST_data;
+        $this->upload_date = date("YmdHis");
+        $this->user_code = $_SESSION['lubycon_code'];
+        
+        $this->post_thumb = $POST_data['thumbnail'];
+        if( isset($POST_data['setting']) ) //only editor use
         {
-            for($i=0; $i<count($files['name']); $i++) 
+            $this->post_setting = json_decode($POST_data['setting']);
+            $this->subject = $this->post_setting->name; // contents subject string
+            $this->top_category = $this->post_setting->topCategory; // artwork , vector , threed
+            $this->mid_category = $this->post_setting->category; // array
+            $this->tag = $this->post_setting->tag; // array
+            $this->cc = $this->post_setting->cc; // stdClass Object
+            $this->desc = $this->post_setting->descript; // string
+            $this->downable = $this->post_setting->download; // boolean
+            if( $this->top_category == 'artwork' || $this->top_category == 'vector' ) //check board type
             {
-                $_filesize_array[$i] = $files['size'][$i]; // 각 파일사이즈 크기 배열에 푸시
+                $this->editor_kind = '2d';
+                $this->contentHTML = htmlspecialchars( $POST_data['contentHTML'] );
+            }else if($this->top_category == 'threed')
+            {
+                $this->editor_kind = '3d';
             }
-            if( intval(array_sum($_filesize_array)) <= intval($limit_size)) // 파일크기 검사
-            {
-                echo array_sum($_filesize_array) . ' file size validate done <br/>';
-                echo 'file size check done<hr/>';
-            }else
-            {
-                die('over limit size');
-            }
-        }else
-        {
-            die('nothing submit');
+            $this->upload_path = $this->Lubycon_Contents_folder.'contents/'.$this->top_category.'/'.$this->upload_date.'_'.$this->user_code.'/'; //set upload path
+            is_dir($this->upload_path) ? chmod($this->upload_path,0777) : mkdir($this->upload_path,0777); //make user folder
+            // need devied path 1.editor 2.user profile 3.community
         }
+        //basic set
     }
 
-    public function validate_ext($files,$white_list)
+    public function fill_array_data()
     {
-        if(is_array($files))
+        if( isset($this->_upload_file_data) ) //validate user uploaded
         {
-            switch ($white_list) 
+            foreach( $this->_upload_file_data as $key => $value )
             {
-                case 'media': $white_list = $this->_white_list_media; break;
-                case 'img': $white_list = $this->_white_list_img; break;
-                case 'zip': $white_list = $this->_white_list_zip; break;
-                case 'txt': $white_list = $this->_white_list_txt; break;
-                case 'all': $white_list = $this->_white_list_all; break;
-                default: $white_list = $this->_white_list_all; break;
-            }
-            for($i=0; $i<count($files['name']); $i++) 
-            {
-                $filename = $files['name'][$i]; // 오리지날 파일이름
-                $ext = substr(strrchr($filename, '.'), 1); // 확장자 추출
-                if ( !in_array($ext, $white_list) && $white_list != ['all'] )  // 확장자 검사
+                $key_explode = explode('_',$key); //devide array name for validate image or attach file
+                if( $key_explode[0] == 'image' ) //if image files
                 {
-                    die($filename.' not allow<br/>');
+                    $this->img_array[$key] = $this->_upload_file_data[$key]; 
+                }else if( $key_explode[0] == 'file' ) //if attached files
+                {
+                    array_push($this->file_array,$this->_upload_file_data[$key]);
                 }
-                echo $filename . ' is in white list<br/>';
             }
-            echo 'file ext check done<hr/>';
-        }else
+        }
+
+        if( 1 )
         {
-            die('nothing submit');
+            $i = 0; //grid name set count
+            foreach( $this->_upload_post_data as $key => $value ) //2d editor grid file and thumbnail
+            {
+                $key_explode = explode('_',$key); //devide array name
+                if( $key_explode[0] == 'image' ) //if image files
+                {
+                    $result = $this->base64_original_size_calculation($value);
+                    $base64_array = array 
+                    (
+                        'name' => "grid_$i.jpg", //temp name need change name in last save function
+                        'data' => $value,
+                        'size' => $result
+                    );
+                    $this->base64_array[$key] = $base64_array; 
+                    $i++; //grid name set count up
+                }
+            }
+        }
+        if( isset($this->post_thumb) )
+        {
+            $result = $this->base64_original_size_calculation($this->post_thumb);
+            $this->thumb_array[0] = array 
+            (
+                'name' => "thumb.jpg", //temp name need change name in last save function
+                'data' => $this->post_thumb,
+                'size' => $result
+            );
+
+            $this->merge_image_array = array_merge($this->img_array, $this->base64_array); //merge img array and base64 img array
+            ksort($this->merge_image_array); //sory by key merged array
+        }
+        
+        //print_r($this->img_array);
+        //print_r($this->thumb_array);
+        //print_r($this->base64_array);
+        //print_r($this->merge_image_array);
+        //print_r($this->file_array);
+    }
+
+    public function validate_extension_and_size()
+    {
+        // extension check
+        if( isset($this->file_array) ) //validate user uploaded
+        {$this->validate_extension_file($this->file_array,$this->white_list_media);}
+
+        if( isset($this->img_array) ) //validate image ext
+        {$this->validate_extension_file($this->img_array,$this->white_list_image);}
+
+        if( isset($this->base64_array) ) //validate base64 upload ext
+        {$this->validate_extension_base64($this->base64_array,$this->white_list_base64);}
+
+        if( isset($this->post_thumb) ) //validate thumbnail ext
+        {$this->validate_extension_base64($this->thumb_array,$this->white_list_base64);}
+        // extension check
+
+
+        
+        //$file_upload_limit = 100000;
+        //$preview_image_upload_limit = 100000;
+        //$thumbnail_image_upload_limit = 10000;
+        // file size check
+        if( isset($this->file_array) ) //validate user uploaded
+        {$this->validate_size_calculation($this->file_array,$this->file_upload_limit);}
+
+        if( isset($this->img_array) ) //validate image ext
+        {$this->validate_size_calculation($this->img_array,$this->preview_image_upload_limit);}
+
+        if( isset($this->base64_array) ) //validate base64 upload ext
+        {$this->validate_size_calculation($this->base64_array,$this->preview_image_upload_limit);}
+
+        if( isset($this->post_thumb) ) //validate thumbnail ext
+        {$this->validate_size_calculation($this->thumb_array,$this->thumbnail_image_upload_limit);}
+        // file size check
+    }
+
+    public function validate_size_calculation($array,$limit_size)
+    {
+        if( isset($array) ) //validate user uploaded
+        {
+            foreach( $array as $key => $value )
+            {
+                $filesize = $array[$key]['size']; // original file name
+                if ( $filesize > $limit_size )  // file array validate media extension
+                {
+                    echo 'file size bigger than limit size';
+                    die($filesize.' > '.$limit_size); //error meseage
+                }
+            }
         }
     }
 
-    public function file_move($files,$upload_path,$zip_compress)
+
+    public function validate_extension_file($array,$white_list)
     {
-        if( is_dir($upload_path) ? chmod($upload_path,0777) : mkdir($upload_path,0777) ) // make final save dir
+        if( isset($array) ) //validate user uploaded
         {
-            if( @is_uploaded_file($files['tmp_name'][0])) // check is uploaded file or ajax file
+            foreach( $array as $key => $value )
             {
-               foreach ($files["error"] as $key => $error)  // for each as files (key is error code)
-               {    
-                    echo '1';
-                    $tmp_name = $files["tmp_name"][$key]; // uploaded temp name validate 
-                    $name = iconv("UTF-8","EUC-KR",$files['name'][$key]); // uploaded file name validate
+                $filename = $array[$key]['name']; // original file name
+                $image_file_info = getimagesize($array[$key]['tmp_name']);
+                $ext = substr(strrchr($filename, '.'), 1); // extraction file extension
+                if ( !in_array($ext, $white_list) )  // file array validate media extension
+                {
+                    echo 'file upload class validate_extension error';
+                    die($filename.' not allow extension // banded extension is '.$ext); //error meseage
+                }
+                if( $white_list == $this->white_list_image && !isset($image_file_info) ) //check normal image file form getimagesize
+                {
+                    echo 'file upload class validate_extension error';
+                    echo('it is not normal file!!!!!!!!'); //error meseage
+                }
+                if( $white_list == $this->white_list_image){$this->img_array[$key]['ext'] = $ext;} //add array ext cut from file
+            }
+        }
+    }
+    public function validate_extension_base64($array,$white_list)
+    {
+        foreach( $array as $key => $value )
+        {
+            $ext_devide = explode(',', $array[$key]['data']);
+            $image_file_info = getimagesize($array[$key]['data']);
+            if ( !in_array($ext_devide[0], $white_list) ) // file array validate media extension
+            {
+                echo 'file upload class validate_extension error';
+                die('it is not allow extension // banded extension is '.$ext_devide[0]); //error meseage
+            }
+            if( !isset($image_file_info) ) //check normal image file form getimagesize
+            {
+                echo 'file upload class validate_extension error';
+                die('it is not normal file'); //error meseage
+            }
+        }
+    }
 
-                    if ( $error == UPLOAD_ERR_OK && $zip_compress ) // check well upload and compress or not
-                    {
-                        move_uploaded_file($tmp_name, $this->_temp_path.$name); // move to temp folder
-                        $this->_filepath_array[$key] = $this->_temp_path.$name; // push array temp file path
-                        $this->_filename_array[$key] = $name; // push array only filename
-                    
-                        echo "move to uploaded file temp folder, ready to zip<br/>";
+    public function base64_original_size_calculation($value) //don't trust this value, it is Approximation
+    {
+        $org = $value;
+        $enc = base64_encode($org);
+        $enc_len = strlen($org);
+        $org_add_len = substr_count($enc,'=');
+        return $result = $enc_len/4*3-$org_add_len; // calculation file original size
+    }
 
-                    }else if( $error == UPLOAD_ERR_OK && !$zip_compress ) // not compress and move files
+    public function file_upload_control()
+    {
+        if( isset($this->file_array) ) //validate user uploaded
+        {$this->files_upload($this->file_array,'attach');}
+
+        if( isset($this->img_array) ) //validate image ext
+        {$this->files_upload($this->img_array,'preview');}
+
+        if( isset($this->base64_array) ) //validate base64 upload ext
+        {$this->base64_upload($this->base64_array,'preview');}
+
+        if( isset($this->post_thumb) ) //validate thumbnail ext
+        {$this->base64_upload($this->thumb_array,'thumbnail');}
+    }
+
+    public function files_upload($array,$kind)
+    {
+        if( isset($array) )
+        {
+            $final_save_path = $this->upload_path."$kind/"; //final save path set
+            is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
+            if( $kind == 'attach' )
+            {
+                foreach( $array as $key => $value )
+                {
+                    $tmp_name = $array[$key]["tmp_name"];
+                    $name = $array[$key]["name"];
+                    if( file_exists($tmp_name) && $array[$key]['error'] == UPLOAD_ERR_OK )
                     {
-                        move_uploaded_file($tmp_name, $upload_path.$name); // move file to save place
-                        $this->_filepath_array[$key] = $upload_path.$name; // final uploaded file name
-                    
-                        echo "succece upload<br/>";
+                        move_uploaded_file($tmp_name, "$final_save_path/$name");
+                        //echo 'upload succes';
                     }else
                     {
-                        die('file_move _ something was wrong... check the logic');
+                        echo 'last upload error attach file';
+                        die('loss the file, or file upload error try! again file name : '.$name);
                     }
                 }
-                print_r($this->_filepath_array); // move uploaded files path
-                return;
-            }
-        }
-    }
-
-    public function zipfile($files,$zip_compress, $upload_path = null , $upload_zip)
-    {
-        if($zip_compress) // zip
-        {
-            $this->_zip = new ZipArchive;
-
-            if( count($this->_filepath_array) && $upload_zip )
+            }else if($kind == 'preview')
             {
-                foreach( $this->_filepath_array as $index => $file )
+                foreach( $array as $key => $value )
                 {
-                    if( !file_exists($file) )
+                    $tmp_name = $array[$key]["tmp_name"];
+                    $name = $array[$key]["name"];
+                    $ext = $array[$key]["ext"];
+                    if( file_exists($tmp_name) && $array[$key]['error'] == UPLOAD_ERR_OK )
                     {
-                        unset( $this->_filepath_array[$index] );
+                        move_uploaded_file($tmp_name, "$final_save_path/$key.$ext");
+                        //echo 'upload succes';
+                    }else
+                    {
+                        echo 'last upload error previewfiles';
+                        die('loss the file, or file upload error try! again file name : '.$name);
                     }
                 }
-
-                if( $this->_zip-> open( $upload_zip , file_exists($upload_zip) ? ZipArchive::OVERWRITE : ZipArchive::CREATE ))
-                {
-                    foreach( $this->_filepath_array as $index => $file )
-                    {
-                        $this->_zip->addFile($file,$this->_filename_array[$index]);
-                    }
-                    $this->_zip->close();
-
-                    foreach ($files["name"] as $key => $name)  // 파일 갯수만큼 foreach 하며 에러 상태메세지 
-                    {
-                        unlink( $this->_filepath_array[$key] ); //임시파일 제거
-                    }
-                    echo "succece zip<br/>";
-                }
-            }
-        }else // not zip
-        {
-            echo '<br/>do not zip just save';
-        }
-    }
-
-    public function ajax_move($files , $temp_path , $save_path)   /////// tnstjeofh wjwkd
-    {
-        if( is_dir($save_path) ? chmod($save_path,0777) : mkdir($save_path,0777)  ) // maybe ajax
-        {
-             foreach ( $files as $key => $value) 
-             {
-                $file_name = $files[$key]['contentID'].'.'.$files[$key]['ext'];
-                
-                echo $file_name;
-
-                if( file_exists( $this->_temp_path.$temp_path.$file_name ) )
-                {
-                    if(!copy($this->_temp_path.$temp_path.$file_name, $save_path.$file_name)) 
-                    {
-                        die( "ajax file move fail" );
-                    } else if(file_exists($save_path.$file_name)) 
-                    {
-                        unlink($this->_temp_path.$temp_path.$file_name);
-                        echo $save_path.$file_name . "<br/>"; //uploaded file path
-                    }
-                }else
-                {
-                    die('file is unexists');
-                }
-            };
-        }
-    }
-
-    public function ajax_check_type($post_data)
-    {
-        foreach( $post_data as $key => $value )
-        {
-            echo $key;
-            switch($post_data[$key]['type'])
-            {
-                case 'editor_thumb': 
-                    $this->_ajax_save_path = $this->_thumb_save_path; 
-                    $this->_ajax_limit_size = $this->_thumb_size;
-                    $this->_ajax_white_list = $this->_jpg_white_list;
-                    $this->_ajax_save_name = $this->_thumb_file_name;
-                    break;
-                case 'editor_content': 
-                    $this->_ajax_save_path = $this->_contents_save_path; 
-                    $this->_ajax_limit_size = $this->_contents_size;
-                    $this->_ajax_white_list = $this->_contents_white_list;
-                    $this->_ajax_save_name = $this->_contents_file_name;
-                    break;
-                case 'community': 
-                    $this->_ajax_save_path = $this->_community_save_path; 
-                    $this->_ajax_limit_size = $this->_contents_size;
-                    $this->_ajax_white_list = $this->_jpg_white_list;
-                    $this->_ajax_save_name = $this->_community_file_name;
-                    break;
-                case 'profile': 
-                    $this->_ajax_save_path = $this->_profile_save_path; 
-                    $this->_ajax_limit_size = $this->_contents_size;
-                    $this->_ajax_white_list = $this->_jpg_white_list;
-                    $this->_ajax_save_name = $this->_profile_file_name;
-                    break;
-                default : die('ajax_check_type _ something was wrong') ; break;
             }
         }
     }
-
-    public function ajax_validate_ext($post_data)
+    public function base64_upload($array,$kind)
     {
-        foreach($post_data as $key => $value) 
+        if( isset($array) )
         {
-            $this->_data = explode(',', $post_data[$key]['base64']);
-
-            if( in_array($this->_data[0] , $this->_ajax_white_list ))
+            $final_save_path = $this->upload_path."$kind/"; //final save path set
+            is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
+            foreach( $array as $key => $value )
             {
-                switch($this->_data[0])
-                {
-                    case 'data:image/gif;base64' : $this->_ajax_ext[$key] = '.gif' ; break;
-                    case 'data:image/jpeg;base64' : $this->_ajax_ext[$key] = '.jpg'; break;
-                    case 'data:image/png;base64' : $this->_ajax_ext[$key] = '.png' ; break;
-                    case 'data:image/bmp;base64' : $this->_ajax_ext[$key] = '.bmp' ; break;
-                    default : die('ajax_validate_ext _ something was wrong') ; break;
-                }
-            }else
-            {
-                die( 'it is not allow image file');
+                $ext_devide = explode(',', $array[$key]['data']);
+                $imageData = base64_decode($ext_devide[1]); // <-- **Change is here for variable name only**
+                $photo = imagecreatefromstring($imageData); // <-- **Change is here**
+                if($kind=='preview')
+                {$filename = $key;}else 
+                if($kind=='thumbnail')
+                {$filename = 'thumbnail';}else 
+                if($kind=='profile')
+                {$filename = 'profile';}
+                imagejpeg($photo,"$final_save_path/$filename.jpg",100); // <-- **Change is here**
             }
         }
     }
-
-    public function ajax_validate_size($post_data)
+    public function json_upload($array,$kind)
     {
-        foreach($post_data as $key => $value) 
-        {
-            $this->_string_length = strlen($post_data[$key]['base64']);
+    }
 
-            if( $this->_string_length >= $this->_ajax_limit_size * 1024 )
-            {
-                die( 'it is over limit size');
-            }else
-            {
-                echo 'size validate done';
+    public function zip_attach($kind)
+    {
+        $dir = $this->upload_path.$kind;
+        $handle  = opendir($dir);
+        while (false !== ($filename = readdir($handle))) 
+        {
+            if(is_file($dir . "/" . $filename)){
+                $this->attatch_file_list[] = [$dir.'/'.$filename,$filename];
             }
+        }
+        closedir($handle);
+
+        $this->_zip = new ZipArchive;
+        $upload_zip = $dir.'/attatch.zip';
+        $this->_zip->open( $upload_zip , file_exists($upload_zip) ? ZipArchive::OVERWRITE : ZipArchive::CREATE ); 
+        foreach( $this->attatch_file_list as $index => $file )
+        {
+            $this->_zip->addFile($file[0],$file[1]);
+        }
+        $this->_zip->close();
+        foreach( $this->attatch_file_list as $index => $file )
+        {
+            unlink( $file[0] ); //delete original file
         }
     }
 
-    public function ajax_saveto_temp($post_data)
-    {
-        $temp_path = $this->_temp_path.$this->_ajax_save_path;
-        $user_path = $temp_path.'/'.$this->_user_name;
-
-        foreach($post_data as $key => $value) 
-        {
-            $save_path = $user_path.'/'.$this->_ajax_save_name.$post_data[$key]['index'].$this->_ajax_ext[$key];
-
-	        $this->_img = str_replace($this->_ajax_ext[$key], '', $post_data[$key]['base64']);
-	        $this->_img = str_replace(' ', '+', $this->_img);
-	        $this->_img_data = base64_decode($this->_img);
-            
-            is_dir($temp_path) ? chmod($temp_path,0777) : mkdir($temp_path,0777); //temp path making
-            is_dir($user_path) ? chmod($user_path,0777) : mkdir($user_path,0777); //user path making
-            if ( $this->_ajax_ext[$key] == '.jpg' )
-            {
-                $image = imagecreatefromjpeg($post_data[$key]['base64']);
-                imagejpeg($image, $save_path, 100);
-                imagedestroy($image);
-            }else if ( $this->_ajax_ext[$key] == '.png' )
-            {
-                $image = imagecreatefrompng($post_data[$key]['base64']);
-                imagepng($image, $save_path);
-                imagedestroy($image);
-            }else if ( $this->_ajax_ext[$key] == '.gif' )
-            {
-                $image = imagecreatefrompng($post_data[$key]['base64']);
-                Imagegif ($image , $save_path);
-			    ImageDestroy ($image);
-            }
-        }
-    }
 }
 ?>

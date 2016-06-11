@@ -1,13 +1,11 @@
-﻿//This function will be canceled the click event when users touch in mobile devices
-//So if you want use any function in mobile, This eventHandler must be called to your function//
-function eventHandler(event, selector) {
-    event.stopPropagation();
-    event.preventDefault();
-    if (event.type === 'touchend'){
-        selector.off('click');
-    }
-};
-/////////////////////////////////////////////////////////////////////////////////////////////////parameter
+﻿// TITLE : core.js
+// File for global functions or classes or variables
+
+
+///////////////////////////////////
+// GLOBAL FUNCTION AND VARIABLES //
+///////////////////////////////////
+
 var CATE_PARAM = getUrlParameter('cate'); // GLOBAL
 var MID_CATE_PARAM = getUrlParameter('mid_cate'); // GLOBAL
 var CONNUM_PARAM = getUrlParameter('conno'); // GLOBAL
@@ -35,347 +33,58 @@ function replaceUrlParameter(sParam,value){
         }
     }
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////parameter
-$(function (){ //gnb hover event
-    $('.bigsub').hover(function () {
-        $(this).children("ul").stop().fadeIn(300);
-    }, function () {
-        $(this).children("ul").stop().fadeOut(300);
-    });
-});
 
-$(function (){
-    $('.lnb_nav ul').children('#' + CATE_PARAM).addClass('selected');
-    $('#subnav ul').children('#' + CATE_PARAM).addClass('selected');
-    $(".selected").children("a").click(function(){
-        return false;//disabled anchor tag
-    });
-});       
-/////////////////////////////////////////////////////////
-//      gloval navigation button hover event end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      change language start
-/////////////////////////////////////////////////////////
-$(function (){
-    $("#lang_select_bt").hover(function(){
-        $(this).find(".lang_list").stop().slideDown(300);
-    },function(){
-        $(this).find(".lang_list").stop().slideUp(300);
-    });
-    $('.lang_list li').click(function(event){
-        var selectedLangText = $(this).text();
-        $('.lang_selected').text(selectedLangText);
-        $('.lang_list').stop().slideUp(300);
-        $('.lang_list li').removeClass();
-        $(event.target).addClass("selected_language");
-        LanguageValue(selectedLangText);
-    });
-});
-function LanguageValue(lang){
-    switch(lang){
-        case "CHI" : console.log("Chinese"); break;
-        case "ENG" : console.log("English"); break;
-        case "FRA" : console.log("French"); break;
-        case "GER" : console.log("German"); break;
-        case "JPN" : console.log("Japanese"); break;
-        case "KOR" : console.log("Korean"); break;
-        case "RUS" : console.log("Russian"); break;
-        case "SPA" : console.log("Spanish"); break;
-        default : return; break;
+//This function will be canceled the click event when users touch in mobile devices
+//So if you want use any function in mobile, This eventHandler must be called to your function//
+function eventHandler(event, selector) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (event.type === 'touchend'){
+        selector.off('click');
     }
-}
-/////////////////////////////////////////////////////////
-//      change language end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      after signin child hover show and hide start
-/////////////////////////////////////////////////////////
-$(function(){
-    var $personalMenu = $("#after_signin"),
-    $menuList = $personalMenu.find("ul");
-	$personalMenu.on("click",toggle.single).on("click",personalMenuToggle);
-    function personalMenuToggle(){
-        var $this = $(this);
-        if($this.hasClass("selected")){
-            $menuList.stop().fadeIn(200);
-            $menuList.hideAnywhere($this);
-        }
-        else{
-            $menuList.stop().fadeOut(200);
-            $menuList.off("hideAnywhere");
-        }
-    }
-});
-/////////////////////////////////////////////////////////
-//      after signin child hover show and hide end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      add contents bt popup event start
-/////////////////////////////////////////////////////////
-$(function () { //add contents button start
-    var $editorModal = $(".editor_popup.modal"),
-    $darkOverlay = $(".dark_overlay");
-    $('#addcontent_bt').click(function () {
-        $darkOverlay.stop().fadeIn(100);
-        $editorModal.css("display","block").attr("class","editor_popup modal fadeInDown animated");
-    });
-});
-/////////////////////////////////////////////////////////
-//      add contents bt popup event end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//     search bar input reset start
-/////////////////////////////////////////////////////////
-$(function () { //search box click value reset start
-    var searchBar = $(document).find(".search-bar"),
-    searchBarInput = searchBar.find(".search-bar-text");
-    searchBar.on("keypress",enterPressed);
-    searchBarInput.on("focus",onFocus).on("blur",onBlur).on("keyup",defendQueryInjection);;
-    
-    function enterPressed(event){
-        //console.log(true);
-        if(event.which === 13) $(this).find(".search_btn").trigger("click");
-    }
-    function onFocus(){
-        //console.log($(this).val());
-        if($(this).val() == "Enter the keyword") $(this).val("");
-    }
-    function onBlur(){
-        if($(this).val() === "") $(this).val("Enter the keyword");
-    }
+};
 
-});
-/////////////////////////////////////////////////////////
-//     search bar input reset end
-/////////////////////////////////////////////////////////
-/*----------------------------common js----------------------------*/
-/*----------------------------index page slider----------------------------*/
-/////////////////////////////////////////////////////////
-//      index page slide switch start
-/////////////////////////////////////////////////////////
-$(function(){
-    $('.la_bt').on("click", toggle.group);
-    $(".slide-radio").on("change",slideChecker);
-
-    function slideChecker(){
-        var $this = $("." + $(this).attr("class") + ":checked"),
-        data = $this.data("value"),
-        $sliders = $("#slide_section > .slider-wrapper");
-        $target = $("#slider" + data);
-
-        $sliders.hide();
-        $target.stop().fadeIn(150);
-    }
-});
-/////////////////////////////////////////////////////////
-//      index page slide switch end
-/////////////////////////////////////////////////////////
-/*----------------------------index page slider end----------------------------*/
-/*----------------------------contents page----------------------------*/
-/////////////////////////////////////////////////////////
-//      contents card hover overlay view start
-/////////////////////////////////////////////////////////
-$(function (){
-    if($(window).width() >= 1025){
-        $(document).on({
-            mouseenter: function() {
-                $(this).children('.contents_overlay').stop().fadeIn(300);
-                $(this).find(".contents_title").css({
-                    "text-decoration":"underline",
-                    "color":"#48cfad"
-                });
-            },
-            mouseleave: function() {
-                $(this).children('.contents_overlay').stop().fadeOut(300);
-                $(this).find(".contents_title").css({
-                    "text-decoration":"none",
-                    "color":"#444444"
-                });
+function InputExpander(selector) {
+    this.start = function () {
+        var object = $(selector);
+        object.keydown(function(event) {
+            this.style.height = 0;
+            var newHeight = this.scrollHeight + 5;
+            
+            if( this.scrollHeight >= this.clientHeight ){
+                newHeight += 5;
+                this.style.height= newHeight + 'px';
             }
-        }, '.contents_card');
-    }
-    else{
-        return;
-    }
-});
-/////////////////////////////////////////////////////////
-//      contents card hover overlay view end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      contents view con_left hovering start
-/////////////////////////////////////////////////////////
-$(function(){
-    var button = $(".floating_bt"),
-    contentsMain = $("#contents_main");
-    if(($("#contents_main").length !== 0) && $(window).width() >= 1025){
-        $(document).on("scroll",floatingButtonScroll);
-    };
-
-    function floatingButtonScroll(){
-        if(floatingButtonChecker()) contentsMain.on("mousemove",floatingButtonShow).on("mouseleave",floatingButtonHide);
-        else {
-            button.fadeOut(200);
-            contentsMain.off("mousemove",floatingButtonShow).off("mouseleave",floatingButtonHide);
-        }
-    }
-    function floatingButtonShow(){
-        button.fadeIn(200);
-    }
-    function floatingButtonHide(){
-        button.fadeOut(200);
-    }
-    function floatingButtonChecker(){
-        var contentTitleVisible = $("#contents_info_wrap").css("display") === "none" && $(document).scrollTop() !== 0,
-        scrollEnd = button.offset().top < $("#comment_box").offset().top - 50;
-
-        if(contentTitleVisible && scrollEnd ) return true;
-        else return false;
-    }
-});
-/////////////////////////////////////////////////////////
-//      contents view con_left hovering end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      comment write box auto height start
-/////////////////////////////////////////////////////////
-$(function() {
-    window.app = new InputExpander("#comment_text");
-    window.app.start();
-});
-/////////////////////////////////////////////////////////
-//      comment write box auto height end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      contents view title box start
-/////////////////////////////////////////////////////////
-$(function (){
-    var $this = $(document).find("#contents_info_wrap"),
-    notMobile = $(window).width() >= 1024;
-    $(document).scroll(function(event){
-        var scrollTop = $(document).scrollTop();
-        if(notMobile && scrollTop >= 50){
-            $this.fadeOut(400);
-        }
-        else if(notMobile && scrollTop < 50){
-            $this.stop().fadeIn(400);
-        }
-    })
-})
-/////////////////////////////////////////////////////////
-//      contents view title box end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      community mainboard start
-/////////////////////////////////////////////////////////
-$(window).on("load resize",function(){
-    if($("#main_board").length != 0){
-        var wholeList = $(".table_list"),
-        list = $(".table_list_inner"),
-        userimg = $(".table_user_img"),
-        number = $(".table_number_wrap"),            
-        count = $(".table_counts"),
-        subject = $(".table_subject");
-        var list_padding = list.innerWidth() - list.width();
-        var resWidth;
-        if($(window).width() >= 1025){
-            resWidth = (wholeList.width() - list_padding - userimg.width() - number.outerWidth(true) - count.width() - 100).toString() + "px";
-        }
-        else if($(window).width() < 1025){
-            resWidth = (wholeList.width() - list_padding - userimg.width() - 50).toString() + "px";
-        }
-        subject.css({ "max-width" : resWidth });
-        return;
-    }
-    else{
-        return;
-    }
-});
-/////////////////////////////////////////////////////////
-//      community mainboard end
-/////////////////////////////////////////////////////////
-/*----------------------------contents page----------------------------*/
-/*--------------------my info setting in creator_page toggle start------------*/
-$(function(){
-    if($("#myinfo_setting").length != 0){
-        var $button = $("#myinfo_setting"),
-        $menu = $button.next("#myinfo_menu_list");
-        $button.on("click",toggle.single).on("click",myinfoToggle);
-
-        function myinfoToggle(){
-            var $this = $(this);
-            if($this.hasClass("selected")){
-                $menu.stop().fadeIn(200);
-                $menu.hideAnywhere($this);
-            }else{
-                $menu.stop().fadeOut(200);
-                $menu.off("hideAnywhere");
-            }
-        }
-    };
-});
-/*--------------------my info setting in creator_page toggle end----------------------*/
-/*----------------------------creator card menu toggle start--------------------------*/
-$(function(){
-    $(".creator_menu").each(function(){
-        var $this = $(this),
-        $button = $(".creator_menu"),
-        $menu = $this.children(".creator_menu_list");
-        $this.on("click",toggle.single).on("click",creatorMenuToggle);
-
-        function creatorMenuToggle(){
-            if($this.hasClass("selected")){
-                $menu.stop().fadeIn(200);
-                $menu.hideAnywhere($this);
-            }
-            else{
-                $menu.stop().fadeOut(200);
-                $menu.off("hideAnywhere");
-            }
-        }
-    });
-});
-
-/*----------------------------creator card menu toggle end--------------------------*/
-/*----------------------------query injection defend start--------------------------*/
-function defendQueryInjection(){
-    var $this = $(this),
-    elementCheck = $this.is("input") || $this.is("textarea"),
-    input = elementCheck ? $this.val() : $this.text(),
-    pattern = /[`;/\?~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
-
-    if(pattern.test(input)) {
-        var alertKey = $(document).find(".alertKey").off("click");
-        input = input.replace(pattern,"");
-        alertKey.lubyAlert({
-            kind: "custom",
-            okButton: false,
-            okAlert: false,
-            cancelButton: false,
-            cancelAlert: false,
-            width: 400,
-            height: 145,
-            textSize: 15,
-            customIcon: "fa fa-server",
-            customText: "you should use [a-zA-Z0-9]",
-            inSpeed: 600,
-            stoptime: 1000,
-            outSpeed: 600
         });
-        alertKey.trigger("click");
-
-        if(elementCheck) $this.val(input);
-        else $this.text(input);
-        
-        return false;
-    }
-    else {
-        console.log(1);
-        return true;
     }
 }
-/*----------------------------query injection defend end--------------------------*/
-/*----------------------------array clean method start--------------------------*/
+
+var toggle = {
+    group: function(){
+        var $this = $(this),
+        radioType = $this.hasClass("radioType"),
+        $btns = $this.siblings(".btn");
+
+        if($this.hasClass("selected")){
+            if(!radioType) $this.removeClass("selected");
+        } 
+        else {
+            $btns.removeClass("selected");
+            $this.addClass("selected");
+        }
+    },
+    single: function(){
+        var $this = $(this);
+        if($this.hasClass("selected")) $this.removeClass("selected");
+        else $this.addClass("selected");
+    }
+}
+
+//////////////////////////
+// javaScript Prototype //
+//////////////////////////
+
+
 Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
         if (this[i] == deleteValue) {         
@@ -385,9 +94,8 @@ Array.prototype.clean = function(deleteValue) {
     }
     return this;
 };
-/*----------------------------array clean method end--------------------------*/
-/*----------------------------get 12 Hour method start------------------------*/
-Date.prototype.get12HourTime = function(iso8601){
+
+Date.prototype.get12HourTime = function(iso8601){ //iso8601 = boolean
     var result = {
         "ampm" : null,
         "hour" : null,
@@ -429,4 +137,156 @@ Date.prototype.get12HourTime = function(iso8601){
 
     return result;
 }
-/*----------------------------get 12 Hour method end------------------------*/
+
+String.prototype.isEmail = function(){
+    //if It is email => true Or false
+    var reg = /^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/;
+    return reg.test(this);
+}
+String.prototype.isPassword = function(){
+    // <Error Code>
+    //
+    // Empty or Null                      //error code : 1
+    // length < 10                        //error code : 2
+    // Hasn't Alphabet                    //error code : 3
+    // Has specialchar                    //error code : 4
+    // Repeat 3 word                      //error code : 5
+    // used "Null" string                 //error code : 6
+    //
+    //
+    // True                               // return 0
+    var lengthTest = this.length < 10;
+    var notUseAlphabet = this.match(/[^0-9]/g) === null;
+    var useSpecialChar = this.isSpecialChar();
+    var emptyWord = this.isNullString();
+    var nullString = this.match(/ null /gi);
+    var repeat3Word = this.isRepeatWord(3);
+
+    if(emptyWord) return 1;
+    else if(lengthTest) return 2;
+    else if(notUseAlphabet) return 3;
+    else if(useSpecialChar) return 4;  
+    else if(repeat3Word) return 5;
+    else if(nullString) return 6;
+    else return 0;
+}
+String.prototype.isNullString = function(){
+    //Null => true Or false
+    return this.valueOf() === "" || this.valueOf() === null || this.valueOf() === undefined || this.valueOf() === " ";
+}
+String.prototype.isAbuseWord = function(){
+    //if It is abuse word => true Or false
+    var abuseWords = [
+        "sex", "fuck", "bitch",
+        "cunt", "dick", "fucker", "null"
+    ];
+    return abuseWords.indexOf(this.valueOf()) !== -1;
+}
+String.prototype.isRepeatWord = function(limit){
+    //limit = int
+    var ch = '';
+    var cnt = 0;
+    for (var i = 0 ; i < this.length; i++){
+        if(ch === this.charAt(i)){
+            cnt++;
+            if (cnt >= limit){
+                return true;
+            }
+        }
+        else{
+            ch = this.charAt(i);
+            cnt = 1;
+        }
+    };
+
+    return false;
+}
+String.prototype.isSpecialChar = function(){
+    //if Is is specialChar => true Or false
+    var reg = /[\,\.`;/\?~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
+
+    return reg.test(this);
+}
+String.prototype.isAlphabetNumber = function(){
+    var reg = /^[A-Za-z0-9+]*$/;
+    return reg.test(this);
+}
+
+String.prototype.inputErrorCheck = function(){
+    // 1. isSpecialChar()
+    // 2. isAbuseWord()
+    // 0. TRUE
+    if(this.isSpecialChar()) return 1;
+    else if(this.isAbuseWord() || this.match(/ null /gi)) return 2;
+    else return 0;
+}
+
+//////////////////////
+// jQuery Prototype //
+//////////////////////
+
+$.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!!!
+    var defaults = { top: 0, left: null, right: null, appendTo: null },
+    d = $.extend({}, defaults, option);
+
+    this.each(function(){
+        var $this = $(this),
+        data = $this.data("tip");
+
+        var tooltipBody = $("<div/>",{"class" : "tooltip tip-body"}),
+        tooltipWrap = $("<div/>",{"class" : "tooltip tip-wrapper"}).appendTo(tooltipBody),
+        tooltipContent = $("<p/>",{"class" : "tooltip tip-content","html" : data}).appendTo(tooltipWrap);
+        
+        tooltipBody.css("top",d.top);
+        d.left !== null ? tooltipBody.css("left",d.left) : "";
+        d.right !== null ? tooltipBody.css("right",d.right) : "";
+
+        if(d.left == null && d.right == null) alert("Tooltip Error(ui.js) : Please insert value about X coordinate(left or right)");
+
+        $this.on("mouseenter",showTooltip).on("mouseleave",hideTooltip);
+
+        function showTooltip(){
+            var $this = $(this);
+            if(d.appendTo === null ) tooltipBody.appendTo($this).stop().fadeIn(300);
+            else tooltipBody.appendTo(d.appendTo).stop().fadeIn(300);
+        }
+        function hideTooltip(){
+            var $this = $(this);
+            tooltipBody.hide().remove();
+        }
+    });
+    return this;
+}
+
+$.fn.hideAnywhere = function(){
+    this.each(function(){
+        var $menu = $(this),
+        $button = $menu.parents(".selected").length === 0 ? $menu.siblings(".selected") : $menu.parents(".selected");
+
+        $("html").off("click").on("click",hideMenu);
+
+        function hideMenu(event){
+            event.stopPropagation();
+            var $this = $(event.target),
+            checkElement = !$this.is($menu) && !$this.is($button) && $button.has($this).length === 0;
+
+            console.log(checkElement);
+            if(checkElement) {
+                $menu.fadeOut(200);
+                $button.removeClass("selected");
+            }
+        }
+    });
+    return this;
+};
+
+
+
+
+
+
+
+
+
+
+

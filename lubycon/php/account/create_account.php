@@ -10,22 +10,28 @@
      <div id="account_box">
           <form id="account_idpass" name="form" action="./php/account/registration.php" method="post">
                <div id="account_inputs">
-                    <div class="account_input_wrap">
-                         <label>E-mail</label><input type="text" name="email" id="email_id" /><i></i>
-                         <p id="email_id_check" class="form_check"></p>
+               
+                    <div class="account_input_wrap userinfo">
+                         <label>E-mail</label><input type="text" name="email" data-value="email" />
+                         <i class="check-icon"></i>
+                         <p class="check-message"></p>
                     </div>
-                    <div class="account_input_wrap">
-                         <label>Password</label><input type="password" name="pass" id="pass_id" /><i></i>
-                         <p id="pass_id_check" class="form_check"></p>
+                    <div class="account_input_wrap userinfo">
+                         <label>Password</label><input type="password" name="pass" data-value="password" />
+                         <i class="check-icon"></i>
+                         <p class="check-message"></p>
                     </div>
-                    <div class="account_input_wrap">
-                         <label>Repeat Password</label><input type="password" name="repass" id="re_pass_id" /><i></i>
-                         <p id="re_pass_id_check" class="form_check"></p>
+                    <div class="account_input_wrap userinfo">
+                         <label>Repeat Password</label><input type="password" name="repass" data-value="re-password" />
+                         <i class="check-icon"></i>
+                         <p class="check-message"></p>
                     </div>
-                    <div class="account_input_wrap">
-                         <label>Nickname</label><input type="text" name="nick" id="nick_id" /><i></i>
-                         <p id="nick_id_check" class="form_check"></p>
+                    <div class="account_input_wrap userinfo">
+                         <label>Nickname</label><input type="text" name="nick" data-value="nickname" />
+                         <i class="check-icon"></i>
+                         <p class="check-message"></p>
                     </div>
+
                     <div class="account_input_wrap">
                          <label>Location</label>
                          <div class="location_option_ca">

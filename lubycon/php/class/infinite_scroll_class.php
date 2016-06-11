@@ -135,12 +135,12 @@ class infinite_scroll extends json_control
 
             if($this->all_page_count == $this->target_page)
             {
-                echo "<p class='finish_contents'>no more contents :)</p>";
+                echo "<p class='finish_contents'>no more contents :/<br>Go to Upload Your Creations!<br><i class='fa fa-plus'></i></p>";
             }
 
         }else
         {
-            echo "<p class='finish_contents'>no more contents :)</p>";
+            echo "<p class='finish_contents'>no more contents :/<br>Go to Upload Your Creations!<br><i class='fa fa-plus'></i></p>";
         }
     }
 

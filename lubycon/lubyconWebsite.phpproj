@@ -1110,6 +1110,7 @@
     <Compile Include="php\ajax\infinite_scroll_ajax.php" />
     <Compile Include="php\ajax\login_check.php" />
     <Compile Include="php\ajax\subnav_check.php" />
+    <Compile Include="php\ajax\upload_ajax.php" />
     <Compile Include="php\class\ajax_upload_class.php" />
     <Compile Include="php\class\certifiMail_class.php" />
     <Compile Include="php\class\cookie_class.php" />
@@ -1119,6 +1120,7 @@
     <Compile Include="php\class\regex_class.php" />
     <Compile Include="php\class\session_class.php" />
     <Compile Include="php\class\upload_class.php" />
+    <Compile Include="php\class\_upload_class.php" />
     <Compile Include="php\community\community_page.php" />
     <Compile Include="php\community\community_view.php" />
     <Compile Include="php\community\community_write.php" />

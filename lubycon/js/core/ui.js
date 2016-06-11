@@ -1,12 +1,277 @@
-//This file is only one separate classification codes associated with the UI of the Lubycon.
-//0. lubySelector
-//1. lubyAlert
-//2. go to top button
-//3. tooltip
-//4. hideAnywhere
-//5. modal
-//6. toggle
-//7. input height expander
+// TITLE : ui.js
+// For UI init
+
+$(function (){ //gnb hover event
+    $('.bigsub').hover(function () {
+        $(this).children("ul").stop().fadeIn(300);
+    }, function () {
+        $(this).children("ul").stop().fadeOut(300);
+    });
+});
+
+$(function (){
+    $('.lnb_nav ul').children('#' + CATE_PARAM).addClass('selected');
+    $('#subnav ul').children('#' + CATE_PARAM).addClass('selected');
+    $(".selected").children("a").click(function(){
+        return false;
+    });
+}); 
+
+$(function (){
+    $("#lang_select_bt").hover(function(){
+        $(this).find(".lang_list").stop().slideDown(300);
+    },function(){
+        $(this).find(".lang_list").stop().slideUp(300);
+    });
+    $('.lang_list li').click(function(event){
+        var selectedLangText = $(this).text();
+        $('.lang_selected').text(selectedLangText);
+        $('.lang_list').stop().slideUp(300);
+        $('.lang_list li').removeClass();
+        $(event.target).addClass("selected_language");
+        LanguageValue(selectedLangText);
+    });
+});
+function LanguageValue(lang){
+    switch(lang){
+        case "CHI" : console.log("Chinese"); break;
+        case "ENG" : console.log("English"); break;
+        case "FRA" : console.log("French"); break;
+        case "GER" : console.log("German"); break;
+        case "JPN" : console.log("Japanese"); break;
+        case "KOR" : console.log("Korean"); break;
+        case "RUS" : console.log("Russian"); break;
+        case "SPA" : console.log("Spanish"); break;
+        default : return; break;
+    }
+}
+
+$(function(){
+    var $personalMenu = $("#after_signin"),
+    $menuList = $personalMenu.find("ul");
+    $personalMenu.on("click",toggle.single).on("click",personalMenuToggle);
+    function personalMenuToggle(){
+        var $this = $(this);
+        if($this.hasClass("selected")){
+            $menuList.stop().fadeIn(200);
+            $menuList.hideAnywhere($this);
+        }
+        else{
+            $menuList.stop().fadeOut(200);
+            $menuList.off("hideAnywhere");
+        }
+    }
+});
+
+$(function () { //add contents button start
+    var $editorModal = $(".editor_popup.modal"),
+    $darkOverlay = $(".dark_overlay");
+    $('#addcontent_bt').click(function () {
+        $darkOverlay.stop().fadeIn(100);
+        $editorModal.css("display","block").attr("class","editor_popup modal fadeInDown animated");
+    });
+});
+
+$(function () { //search box click value reset start
+
+    // #WORK PROGRESS              //
+    //-----------------------------//
+    // 0. USER WRITE SOME WORDS    //
+    // 1. errorCheck               //
+    // 2. USER CLICK SUBMIT BT     //
+    // 3. enterPressed             //
+    // 4. checking value           //
+    // 5. if true, call queryStart //
+    
+    var searchBar = $(document).find(".search-bar"),
+    searchBarInput = searchBar.find(".search-bar-text"),
+    submitBt = searchBar.find(".search-btn");
+
+    searchBar.on("keyup",enterPressed);
+    searchBarInput.on("focus",onFocus).on("blur",onBlur).on("keyup",errorCheck);
+    submitBt.on("click",queryStart);
+
+    var errorCheck = false;
+    
+    function queryStart(){ //SUBMIT
+        alert("SUBMIT");
+        submitBt.off("click",queryStart);
+    }
+    function enterPressed(event){
+        if(event.which === 13 && errorCheck) {
+            submitBt.trigger("click"); 
+        }
+    }
+    function errorCheck(){
+        errorCheck = false;
+        var value = $(this).val();
+        var errorCode = value.inputErrorCheck();
+        
+        switch(errorCode){
+            case 0 : if(!value.isNullString()) errorCheck = true; break;
+            case 1 : console.log("This is special character"); break;
+            case 2 : console.log("This is abuse word"); break;
+        }
+        console.log(errorCheck);
+    }
+    function onFocus(){
+        if($(this).val() == "Enter the keyword") $(this).val("");
+    }
+    function onBlur(){
+        if($(this).val() === "") $(this).val("Enter the keyword");
+    }
+});
+
+$(function(){ //for main slider
+    $('.la_bt').on("click", toggle.group);
+    $(".slide-radio").on("change",slideChecker);
+
+    function slideChecker(){
+        var $this = $("." + $(this).attr("class") + ":checked"),
+        data = $this.data("value"),
+        $sliders = $("#slide_section > .slider-wrapper");
+        $target = $("#slider" + data);
+
+        $sliders.hide();
+        $target.stop().fadeIn(150);
+    }
+});
+
+$(function (){ //content card link action
+    if($(window).width() >= 1025){
+        $(document).on({
+            mouseenter: function() {
+                $(this).children('.contents_overlay').stop().fadeIn(300);
+                $(this).find(".contents_title").css({
+                    "text-decoration":"underline",
+                    "color":"#48cfad"
+                });
+            },
+            mouseleave: function() {
+                $(this).children('.contents_overlay').stop().fadeOut(300);
+                $(this).find(".contents_title").css({
+                    "text-decoration":"none",
+                    "color":"#444444"
+                });
+            }
+        }, '.contents_card');
+    }
+    else{
+        return;
+    }
+});
+
+$(function(){ //floatinrg button action in content view page
+    var button = $(".floating_bt"),
+    contentsMain = $("#contents_main");
+    if(($("#contents_main").length !== 0) && $(window).width() >= 1025){
+        $(document).on("scroll",floatingButtonScroll);
+    };
+
+    function floatingButtonScroll(){
+        if(floatingButtonChecker()) contentsMain.on("mousemove",floatingButtonShow).on("mouseleave",floatingButtonHide);
+        else {
+            button.fadeOut(200);
+            contentsMain.off("mousemove",floatingButtonShow).off("mouseleave",floatingButtonHide);
+        }
+    }
+    function floatingButtonShow(){
+        button.fadeIn(200);
+    }
+    function floatingButtonHide(){
+        button.fadeOut(200);
+    }
+    function floatingButtonChecker(){
+        var contentTitleVisible = $("#contents_info_wrap").css("display") === "none" && $(document).scrollTop() !== 0,
+        scrollEnd = button.offset().top < $("#comment_box").offset().top - 50;
+
+        if(contentTitleVisible && scrollEnd ) return true;
+        else return false;
+    }
+});
+
+$(function() { //comment input box
+    window.app = new InputExpander("#comment_text");
+    window.app.start();
+});
+
+$(function (){
+    var $this = $(document).find("#contents_info_wrap"),
+    notMobile = $(window).width() >= 1024;
+    $(document).scroll(function(event){
+        var scrollTop = $(document).scrollTop();
+        if(notMobile && scrollTop >= 50){
+            $this.fadeOut(400);
+        }
+        else if(notMobile && scrollTop < 50){
+            $this.stop().fadeIn(400);
+        }
+    })
+});
+
+$(window).on("load resize",function(){ //for main board
+    if($("#main_board").length != 0){
+        var wholeList = $(".table_list"),
+        list = $(".table_list_inner"),
+        userimg = $(".table_user_img"),
+        number = $(".table_number_wrap"),            
+        count = $(".table_counts"),
+        subject = $(".table_subject");
+        var list_padding = list.innerWidth() - list.width();
+        var resWidth;
+        if($(window).width() >= 1025){
+            resWidth = (wholeList.width() - list_padding - userimg.width() - number.outerWidth(true) - count.width() - 100).toString() + "px";
+        }
+        else if($(window).width() < 1025){
+            resWidth = (wholeList.width() - list_padding - userimg.width() - 50).toString() + "px";
+        }
+        subject.css({ "max-width" : resWidth });
+        return;
+    }
+    else{
+        return;
+    }
+});
+
+$(function(){
+    if($("#myinfo_setting").length != 0){
+        var $button = $("#myinfo_setting"),
+        $menu = $button.next("#myinfo_menu_list");
+        $button.on("click",toggle.single).on("click",myinfoToggle);
+
+        function myinfoToggle(){
+            var $this = $(this);
+            if($this.hasClass("selected")){
+                $menu.stop().fadeIn(200);
+                $menu.hideAnywhere($this);
+            }else{
+                $menu.stop().fadeOut(200);
+                $menu.off("hideAnywhere");
+            }
+        }
+    };
+});
+
+$(function(){
+    $(".creator_menu").each(function(){
+        var $this = $(this),
+        $button = $(".creator_menu"),
+        $menu = $this.children(".creator_menu_list");
+        $this.on("click",toggle.single).on("click",creatorMenuToggle);
+
+        function creatorMenuToggle(){
+            if($this.hasClass("selected")){
+                $menu.stop().fadeIn(200);
+                $menu.hideAnywhere($this);
+            }
+            else{
+                $menu.stop().fadeOut(200);
+                $menu.off("hideAnywhere");
+            }
+        }
+    });
+});
+
 /////////////////////////////////////////////////////////
 //      lubySelector enable
 /////////////////////////////////////////////////////////
@@ -124,71 +389,6 @@ $(window).on("load resize", function(){
 //      visible goToTheTop button end
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
-//      tooltip start
-/////////////////////////////////////////////////////////
-$.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!!!
-    var defaults = { top: 0, left: null, right: null, appendTo: null },
-    d = $.extend({}, defaults, option);
-
-    this.each(function(){
-        var $this = $(this),
-        data = $this.data("tip");
-
-        var tooltipBody = $("<div/>",{"class" : "tooltip tip-body"}),
-        tooltipWrap = $("<div/>",{"class" : "tooltip tip-wrapper"}).appendTo(tooltipBody),
-        tooltipContent = $("<p/>",{"class" : "tooltip tip-content","html" : data}).appendTo(tooltipWrap);
-        
-        tooltipBody.css("top",d.top);
-        d.left !== null ? tooltipBody.css("left",d.left) : "";
-        d.right !== null ? tooltipBody.css("right",d.right) : "";
-
-        if(d.left == null && d.right == null) alert("Tooltip Error(ui.js) : Please insert value about X coordinate(left or right)");
-
-        $this.on("mouseenter",showTooltip).on("mouseleave",hideTooltip);
-
-        function showTooltip(){
-            var $this = $(this);
-            if(d.appendTo === null ) tooltipBody.appendTo($this).stop().fadeIn(300);
-            else tooltipBody.appendTo(d.appendTo).stop().fadeIn(300);
-        }
-        function hideTooltip(){
-            var $this = $(this);
-            tooltipBody.hide().remove();
-        }
-    });
-    return this;
-}
-/////////////////////////////////////////////////////////
-//      toottip_end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      hideAnywhere start
-/////////////////////////////////////////////////////////
-$.fn.hideAnywhere = function(){
-    this.each(function(){
-        var $menu = $(this),
-        $button = $menu.parents(".selected").length === 0 ? $menu.siblings(".selected") : $menu.parents(".selected");
-
-        $("html").off("click").on("click",hideMenu);
-
-        function hideMenu(event){
-            event.stopPropagation();
-            var $this = $(event.target),
-            checkElement = !$this.is($menu) && !$this.is($button) && $button.has($this).length === 0;
-
-            console.log(checkElement);
-            if(checkElement) {
-                $menu.fadeOut(200);
-                $button.removeClass("selected");
-            }
-        }
-    });
-    return this;
-};
-/////////////////////////////////////////////////////////
-//      hideAnywhere end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
 //      modalClose start
 /////////////////////////////////////////////////////////
 $(function(){
@@ -227,50 +427,4 @@ $(function(){
 })
 /////////////////////////////////////////////////////////
 //      modalClose end
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      toggle button start
-/////////////////////////////////////////////////////////
-var toggle = {
-    group: function(){
-        var $this = $(this),
-        radioType = $this.hasClass("radioType"),
-        $btns = $this.siblings(".btn");
-
-        if($this.hasClass("selected")){
-            if(!radioType) $this.removeClass("selected");
-        } 
-        else {
-            $btns.removeClass("selected");
-            $this.addClass("selected");
-        }
-    },
-    single: function(){
-        var $this = $(this);
-        if($this.hasClass("selected")) $this.removeClass("selected");
-        else $this.addClass("selected");
-    }
-}
-/////////////////////////////////////////////////////////
-//      toggle button start
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-//      input height expander start
-/////////////////////////////////////////////////////////
-function InputExpander(selector) {
-    this.start = function () {
-        var object = $(selector);
-        object.keydown(function(event) {
-            this.style.height = 0;
-            var newHeight = this.scrollHeight + 5;
-            
-            if( this.scrollHeight >= this.clientHeight ){
-                newHeight += 5;
-                this.style.height= newHeight + 'px';
-            }
-        });
-    }
-}
-/////////////////////////////////////////////////////////
-//      input height expander end
 /////////////////////////////////////////////////////////

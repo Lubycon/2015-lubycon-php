@@ -1,7 +1,7 @@
 /* ===========================================================
  *
  *  Name:          editor2d.js
- *  Updated:       2016-05-04
+ *  Updated:       2016-06-06
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -30,7 +30,7 @@
         ccData = ccPac, //creative_commons.json
         formData = new FormData(),
         d = {},
-        attachedFiles = [],
+        attachedFiles = [], attachedImage = [], finalThumbnail,
         pac = {
             init: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
@@ -73,7 +73,13 @@
                             "html" : "Save to PC",
                             "data-tip" : "Your canvas will be saved to your PC"
                         }).prepend($("<i/>",{"class":icons.download}))
-                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55, "left" : 0});
+                        .appendTo($headerBtWrap).on("click",headerTool.downToPc).tooltip({"top" : 55, "left" : 0}),
+                        $previewbtn = $("<div/>",{
+                            "class" : "header-btn preview",
+                            "html" : "Preview",
+                            "data-tip" : "Preview"
+                        }).prepend($("<i/>",{"class":icons.grid}))
+                        .appendTo($headerBtWrap).on("click",pac.showPreview).tooltip({"top" : 55, "left" : 0});
 
                         //in header progress
                         var $progressWrap = $("<div/>",{"class" : "header-prog-wrapper"}).appendTo($header),
@@ -137,49 +143,65 @@
                     }
                 })
             },
+            showPreview: function(){
+                var $canvas = $(document).find(".editing-canvas");
+                var $previewWrap = $("<div/>",{"id" : "previewer" }).appendTo("body");
+                var result = pac.clearContent($canvas,false);
+                $previewWrap.html(result);
+            },
             submit: function(){
                 var formData = new FormData();
-                $.each(attachedFiles,function(i,file){ formData.append("file"+i,file); }); //attached files append to form data object.
+                var rootElement = $(".initEditor");
 
-                var rootElement = $(".initEditor"),
-                content = rootElement.find(".editing-canvas").html(), //data
-                contentName = rootElement.find("input[name='content-name']").val(), //data
-                imgData = [],
-                contentData = $(".obj-body .object-img").each(function () {
-                    var $this = $(this),
-                        val = $this.attr("data-value").split("-"),
-                        innerVal = { "contentID": 'content' + val[0], "ext": val[1] };
-                    imgData.push(innerVal)
-                }),
+                var content = pac.clearContent(rootElement.find(".editing-canvas"),true); //data
+
+                var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
                 cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
-                category = rootElement.find(".search-choice > span").each(function () { categories.push($(this).text()) }),
+                category = rootElement.find(".search-choice").each(function () { 
+                    var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
+                    categories.push(index);
+                }),
                 tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
                 descript = rootElement.find(".descript-input").text(),
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
                     cc[data] = $(this).prop("checked");
                 }),
-                $form = $("<form/>", {
-                    "id": "finalForm",
-                    "enctype": "multipart/form-data",
-                    "method": "post",
-                    "action": "./test.php"
-                }),
-                wrap = rootElement.wrapInner($form),
+                download = attachedFiles.length === 0 ? false : true;
 
-                geturl = function (key) {
-                    var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search);
-                    return result && result[1] || "";
+                var settingObject = {
+                    name : contentName,
+                    topCategory : CATE_PARAM,
+                    category : categories, // int
+                    tag : tags,
+                    cc : cc,
+                    descript : descript,
+                    download : download
                 };
 
-                $dummy = $("<input/>", { "type": "hidden", "id": "userid", "name": "userid" }).appendTo($("#finalForm")).val($("user_id").text()),
-                $dummy = $("<input/>", { "type": "hidden", "id": "contents_cate", "name": "contents_cate" }).appendTo($("#finalForm")).val(geturl('cate')),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummy" ,"name" : "content_html"}).appendTo($("#finalForm")).val(JSON.stringify(content)),
-                $dummy = $("<input/>", { "type": "hidden", "id": "submitDummyImg", "name": "content_img" }).appendTo($("#finalForm")).val(JSON.stringify(imgData));
+                /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
+                /*2*/$.each(attachedImage,function(i,file){ formData.append("image_"+i,file); }); //used images append to formdata
+                /*3*/formData.append("contentHTML",content);
+                /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
+                /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
+                //console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
 
-                console.log(contentName,contentData,categories,tags,cc);
+                $.ajax({
+                    url: '../../../ajax/upload_ajax.php',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    type: 'POST',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                });
+
+                function objectToJSON(object){
+                    return JSON.stringify(object);
+                }
             },
             initTools: function(){
                 //toolbar data bind start
@@ -192,6 +214,17 @@
                 $(window).on("load resize",function(){
                     $(".modal").each(function(){ ModalKit.align($(this)); });
                 })
+            },
+            clearContent: function(object,submit){
+                var result = object.clone();
+                result.find(".canvas-uploader-bt").remove();
+                result.find(".canvas-devider-wrap > .canvas-uploader-bt").remove();
+                result.find(".canvas-input").attr("contenteditable",false);
+                result.find(".placeHolder").remove();
+                result.find(".obj-menu-btn").remove();
+                if(submit) result.find("img").attr("src","/lubycon_path/");
+
+                return result[0].outerHTML;
             },
             initModal: {
                 file: function(){
@@ -296,7 +329,7 @@
                     $inputWrap = $("<div/>", { "class" : "setting-input-wrapper"}),
                     $inputInner = $("<div/>",{ "class" : "setting-input" }),
                     $label = $("<p/>",{ "class" : "setting-input-label"}),
-                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }).on("keyup",defendQueryInjection),
+                    $input = $("<input>", { "class" : "setting-input", "type" : "text" }),
                     $select = $("<select>", { "class" : "setting-select" }),
                     $option = $("<option/>",{"class" : "select-option"}),
 
@@ -328,12 +361,10 @@
                     .append($inputInner.clone().addClass("hashTag-input-wrap")
                         .append($("<input/>",{ "class" : "hashTag-input" }).on("keydown",modalFunc.detectTag)))
                     .appendTo($innerLeft);
-                    $hashtagName.find(".hashTag-input").on("keyup",defendQueryInjection);
 
                     var $descriptName = $inputWrap.clone()
                     .append($label.clone().html("Description"))
                     .append($("<textarea/>",{ "class" : "descript-input" ,"name" : "contenst_description" })).appendTo($innerLeft);
-                    $descriptName.find(".descript-input").on("keyup",defendQueryInjection);
 
                     //creative commons
                     var $ccName = $inputWrap.clone(),
@@ -689,6 +720,9 @@
                             $inputFile.val(null); // init input value
                             pac.objMenu($objectWrap);
                             $loading_icon.hide();
+
+                            attachedImage.splice($objectWrap.data("index"),0,file);
+                            console.log(attachedImage);
                         };
                     }
                 });
@@ -742,7 +776,7 @@
                 $placeHolder = $body.find(".placeHolder"),
                 $textWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-text", "data-index" : "", "data-value" : "text"})
                 .on("focusin",toolbar.textFn.focusAction),
-                $input = $("<p/>",{"class" : "canvas-input", "contenteditable" : "true"}).on("keyup",defendQueryInjection);
+                $input = $("<p/>",{"class" : "canvas-input", "contenteditable" : "true"});
 
                 if($placeHolder.length!=0) $placeHolder.hide();
                 upload.insertPosition($this,$textWrap,$input);
@@ -827,6 +861,7 @@
                             toolbar.sortFn.refresh();
 
                             $loading_icon.hide();
+                            attachedImage[$objectWrap.data("index")] = file;
                         };
                     });
                 }
@@ -878,7 +913,6 @@
                 console.log("SET INDEX",element);
             	$(element).each(function(i,object){
                     i = $(object).is(".canvas-obj") ? i-1 : i;
-                    console.log(i);
             		if(!$(object).is(".placeHolder"))$(object).attr("data-index",i);
             	});
             },
@@ -945,6 +979,8 @@
                         $media = $("<img/>", { "src" : dataURL }).appendTo($canvas);
                         upload.insertPosition($this,$mediaWrap,$media);
                         $grid.empty();
+                        attachedImage.splice($mediaWrap.data("index"),0,dataURL);
+                        console.log(attachedImage);
                     },
                     allowTaint: true
                 });
@@ -986,24 +1022,7 @@
                     var $this = $(this),
                     $object = $originImg.cropper("getCroppedCanvas",{width:250,height:215}), //croped image size fix
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
-                    //console.log($object);
-                    //console.log(dataURL); // for ajax
-
-                    var dataArray = new Array;
-                    dataArray[0] = { 'type': 'editor_thumb', 'data64': dataURL ,'index': null};
-
-                    $.ajax({
-                        type: "POST",
-                        url: "../../../ajax/editor_ajax_upload_test.php", //ÀÌÆäÀÌÁö¿¡¼­ Áßº¹Ã¼Å©¸¦ ÇÑ´Ù
-                        data:
-                        {
-                            'ajax_data': dataArray
-                        },
-                        cache: false,
-                        success: function (data) {
-                            console.log(data);
-                        }
-                    })
+                    finalThumbnail = dataURL;
                 }
                 else $.error("There is no Image");                
             },
@@ -1177,6 +1196,8 @@
                 if(objects == 3) $deviderSlider.slider("disable");
 
                 toolbar.sortFn.refresh();
+                if($target.hasClass("object-img")) attachedImage.splice($target.data("index"),1);
+                console.log(attachedImage);
                 console.log("image was deleted");
             },
             addObjBt: function(selector){
@@ -1689,16 +1710,19 @@
                     $originObj = $(document).find(".canvas-content"),
                     originArray = [],
                     $menu = $originObj.find(".obj-menu-btn"),
-                    $menulist = $menu.find(".obj-menu");
+                    $menulist = $menu.find(".obj-menu"),
+                    sortedAttachedImage = [];
 
                     for(var i = 0; i < $originObj.length; i++) originArray.push($originObj[i]);
-                    originArray.shift();
+                    originArray.shift();//deleted placeholder
                     
                     for(var i = 0; i < sortedObj.length; i++){
                         var $obj = $(sortedObj[i]),
                         index = $obj.data("index"),
                         $target = $(".canvas-content[data-index='" + index + "']");
                         sortedArray.push($target.clone(true)[0]); 
+                        
+                        sortedAttachedImage[i] = attachedImage[index];
                     }
 
                     for(var i = 0; i<  originArray.length; i++){
@@ -1714,9 +1738,12 @@
                             $(this).find(".obj-menu").show();
                         },function(){
                             $(this).find(".obj-menu").hide();
-                        })
+                        });
                     }
                     console.log("SORTABLE IS END");
+
+                    attachedImage = sortedAttachedImage;
+                    console.log(attachedImage);
                     
                     toolbar.sortFn.refresh();
                 }

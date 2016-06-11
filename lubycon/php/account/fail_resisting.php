@@ -19,6 +19,8 @@
 	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
 
 	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
+    <script type="text/javascript" src="../../js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
+    <script type="text/javascript" src="../../js/core/ui.js"></script>
     <script type="text/javascript" src="../../js/core/core.js"></script>
 
 </head>
