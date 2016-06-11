@@ -24,7 +24,7 @@ function mailer($fromaddress, $toaddress, $subject, $password)
 	$mail->Password = $password;
 	$mail->setFrom($fromaddress, $fromaddress);
 	$mail->addAddress($toaddress, $toaddress);
-	$mail->Subejct = $subject;
+	$mail->Subject = $subject;
 	$mail->msgHTML(file_get_contents("mail.php"));
 	$mail->Altbody = 'This is a plain-text message body';
 
