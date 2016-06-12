@@ -53,9 +53,10 @@
                         var $headerBtWrap = $("<div/>",{"class" : "header-btn-wrapper"}).appendTo($header),
                         $fileUpbtn = $("<div/>",{
                             "class" : "header-btn fileUpload",
-                            "html" : "File",
-                            "data-tip" : "Upload your OBJ files"
-                        }).prepend($("<i/>",{"class":icons.upload})).hide()
+                            "html" : "File manager",
+                            "data-value" : "newFileUpload",
+                            "data-tip" : "Attach your files"
+                        }).prepend($("<i/>",{"class":icons.upload}))
                         .appendTo($headerBtWrap).on("click",modalFunc.showFileSelector).tooltip({"top" : 55, "left" : 0});
 
                         //in header progress
@@ -86,9 +87,9 @@
                         $backgroundTool = new toolbar.createButton("backgroundTool","icon",icons.image,true).appendTo($aside).on("click",toolbar.disableTools);
                         //input files
                         var $inputFile = $("<input/>",{
-                            "class":"fileUploader editor-hidden",
-                            "name":"fileUploader",
-                            "type":"file"
+                            "class" : "fileUploader editor-hidden",
+                            "name" : "fileUploader",
+                            "type" : "file"
                         }).insertAfter($header),
                         $inputImage = $("<input/>",{
                             "class":"imgUploader editor-hidden",
@@ -188,7 +189,6 @@
                 function initPresetLight(light,i){
                     var type = light.type,
                     newLight = null;
-                    console.log(type,light.color,light.intensity);
                     switch(type){
                         case "directional" : 
                             newLight = new THREE.DirectionalLight(light.color,light.intensity);
@@ -371,21 +371,21 @@
                 fileSelector: function(){
                     var modal = new ModalKit.create(null,"file-selector-modal"),
                     wrapper = modal.find(".modal-wrapper"),
-                    closebt = modal.find(".modal-closebt").remove(),
+                    closebt = modal.find(".modal-closebt").hide(),
                     title = modal.find(".modal-title").text("File Select"),
-                    content = modal.find(".modal-content"),
-                    okbt = modal.find(".modal-okbt").text("Upload").attr("data-value","modal-closebt"),
-                    cancelbt = modal.find(".modal-cancelbt").on("click",initInput);
+                    content = modal.find(".modal-content");
 
                     var fileInputWrap = $("<div/>",{ "class" : "modal-input-wrapper" }).appendTo(content);
-                    fileViewer = $("<input/>",{ "type" : "text", "class" : "modal-fileViewer", "readonly": "true" }).appendTo(fileInputWrap);
-                    uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find", "data-value" : "newOBJUpload" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
+                    fileViewer = $("<ul/>",{ "class" : "modal-fileViewer" }).appendTo(fileInputWrap),
+                    fileViewerTotal = $("<div/>",{ "class" : "modal-fileViewer-total" }).appendTo(fileInputWrap),
+                    totalFileCount = $("<span/>",{ "class" : "file-count-total", "html" : "0 Files"}).appendTo(fileViewerTotal),
+                    totalFileSize = $("<span/>",{ "class" : "file-size-total", "html" : "0MB"}).appendTo(fileViewerTotal);
+
+                    var uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find", "data-value" : "newOBJUpload" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
                     fileSelectHelp = $("<i/>",{ 
                         "class" : icons.help + " file-selector-help",
                         "data-tip" : "Your file size must be under 30MB. The file extension must be OBJ"
                     }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
-
-                    function initInput(){ fileViewer.val(""); };
 
                     return modal;
                 },
@@ -638,102 +638,54 @@
             }
         },
         upload = {
+            objectCheck: function(file){
+                var alertKey = $(document).find(".alertKey");
+                var parameter = {
+                    file : file,
+                    isExist : false,
+                    kind : "3d",
+                    type : "object",
+                    parentArray : null,
+                    alertKey : alertKey,
+                    icons : icons
+                };
+                return editorFileChecker(parameter);
+            },
             fileCheck: function(file){
-                var size = file.size, // 30MB
-                name = file.name,
-                typeCheck = /.*\.obj/i.test(name),
-                alertKey = $(document).find(".alertKey").off("click");
-                if(size < 31457280){
-                    if(typeCheck) return true;
-                    else {
-                        alertKey.lubyAlert({
-                            kind: "confirm",
-                            okAlert: false,
-                            cancelButton: false,
-                            cancelAlert: false,
-                            width: 300,
-                            height: 170,
-                            textSize: 14,
-                            customIcon: icons.box,
-                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
-                            inSpeed: 600,
-                            stoptime: 1000,
-                            outSpeed: 600
-                        });
-                        alertKey.trigger("click");
-                    }
-                } 
-                else {
-                    alertKey.lubyAlert({
-                        kind: "confirm",
-                        okAlert: false,
-                        cancelButton: false,
-                        cancelAlert: false,
-                        width: 450,
-                        height: 180,
-                        textSize: 14,
-                        customIcon: icons.box,
-                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 30MB.",
-                        inSpeed: 600,
-                        stoptime: 1000,
-                        outSpeed: 600
-                    });
-                    alertKey.trigger("click");
-                    return false;
-                }
+                console.log(1);
+                var alertKey = $(document).find(".alertKey");
+                var parameter = {
+                    file : file,
+                    isExist : true,
+                    kind : "3d",
+                    type : "file",
+                    parentArray : attachedFiles,
+                    alertKey : alertKey,
+                    icons : icons
+                };
+                return editorFileChecker(parameter);
             },
             imgCheck: function(file){
-                var size = file.size, // 10MB
-                type = file.type, //jpg||jpeg, png, bmg, gif, zip
-                name = file.name,
-                typeCheck = /(^image)\/(jpeg|png|gif|bmp|targa)/i.test(type) && /.*\.(jpg|jpeg|png|gif|bmp|tga)/i.test(name),
-                alertKey = $(document).find(".alertKey").off("click");
-                if(size < 20971520){
-                    if(typeCheck) return true;
-                    else {
-                        alertKey.lubyAlert({
-                            kind: "confirm",
-                            okAlert: false,
-                            cancelButton: false,
-                            cancelAlert: false,
-                            width: 300,
-                            height: 170,
-                            textSize: 14,
-                            customIcon: icons.box,
-                            customText: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
-                            inSpeed: 600,
-                            stoptime: 1000,
-                            outSpeed: 600
-                        });
-                        alertKey.trigger("click");
-                        return false;
-                    }
-                } 
-                else {
-                    alertKey.lubyAlert({
-                        kind: "confirm",
-                        okAlert: false,
-                        cancelButton: false,
-                        cancelAlert: false,
-                        width: 450,
-                        height: 180,
-                        textSize: 14,
-                        customIcon: icons.box,
-                        customText: "This file exceeds the recommended size.</br>The file currently sits at " + parseInt(size/1024/1024) + "MB.<br/>Please make sure your file size is under 20MB.",
-                        inSpeed: 600,
-                        stoptime: 800,
-                        outSpeed: 1000
-                    });
-                    alertKey.trigger("click");
-                    return false;
-                }
+                var alertKey = $(document).find(".alertKey");
+                var parameter = {
+                    file : file,
+                    isExist : false,
+                    kind : "3d",
+                    type : "img",
+                    parentArray : null,
+                    alertKey : alertKey,
+                    icons : icons
+                };
+                return editorFileChecker(parameter);
             },
             fileUpTrigger: function(){
-                var data = $(this).data("value"),
-                inputFile = data === "newOBJUpload" ? $(document).find(".fileUploader") : $(document).find(".imgUploader");
+                var data = $(this).attr("data-value"),
+                inputFile = data === "newTexUpload" ? $(document).find(".imgUploader") : $(document).find(".fileUploader");
                 inputFile.trigger("click");
+                console.log($(this),data);
                 switch(data){
                     case "newOBJUpload" : inputFile.off("change").on("change",upload.objectUpload); break;
+                    case "newFileUpload" : inputFile.off("change").on("change",upload.fileUpload); break;
                     case "newTexUpload" : inputFile.off("change").on("change",upload.textureUpload); break;
                     default : $.error("This is not upload button"); break;
                 }  
@@ -745,14 +697,82 @@
                 $fileViewer = $inputModal.find(".modal-fileViewer"),
                 $darkOverlay = $(document).find(".dark_overlay");
 
-                if(upload.fileCheck(object[0])) {
+                if(upload.objectCheck(object[0])) {
                     upload.loaders(object[0]);
-                    $inputModal.remove();
+                    $inputModal.hide().find(".modal-bt.modal-filebt").attr("data-value","newFileUpload");
+                    $inputModal.find(".modal-closebt").show();
+                    $inputModal.find(".file-selector-help").attr("data-tip","NULL!!!!");
+                    console.log($inputModal);
                     $darkOverlay.fadeOut(400);
                 }
                 else {
                     $this.val(null);
                     $fileViewer.val("");
+                }
+
+                return;
+            },
+            fileUpload : function(event){
+                var $this = $(this),
+                $inputModal = $(document).find(".modal.file-selector-modal"),
+                $fileViewer = $inputModal.find(".modal-fileViewer"),
+                object = event.target.files;
+
+                if(object.length > 10) {
+                    alert("Too many files");
+                    $this.val("");
+                    return false;
+                }
+
+                $.each(object,function(i,file){
+                    var name = file.name,
+                    indexNum = name.lastIndexOf("."),
+                    fileEXT = indexNum > -1 ? name.substring(indexNum + 1) : "",
+                    size = file.calcUnit();
+
+                    if(upload.fileCheck(file)){
+                        var fileList = new FileList(name,size[0],size[1],i).appendTo($fileViewer);
+                        attachedFiles.push(file);
+                    }
+                    setIndex(".file-list");
+                    console.log(attachedFiles);
+                });
+
+                initTotalFileInfo();
+                ModalKit.align($inputModal);
+
+                function FileList(name,size,unit,index){
+                    var body = $("<li/>",{"class" : "file-list", "data-value" : name, "data-index" : ""}),
+                    fileNameWrap = $("<span/>",{"class" : "file-list-name", "html" : name}).appendTo(body),
+                    fileSizeWrap = $("<span/>",{"class" : "file-list-size", "html" : size + unit}).appendTo(body);
+                    removeButton = $("<i/>",{"class" : icons.times}).appendTo(body).on("click",fileRemove);
+
+                    return body;
+                }
+                function initTotalFileInfo(){
+                    var totalInfoWrap = $(document).find(".modal-fileViewer-total"),
+                    countWrap = totalInfoWrap.find(".file-count-total"),
+                    sizeWrap = totalInfoWrap.find(".file-size-total"),
+
+                    count = attachedFiles.length,
+                    size = 0;
+                    $.each(attachedFiles,function(i,file){
+                        size += file.size;
+                    });
+
+                    countWrap.text(count + " Files");
+                    sizeWrap.text((size/1024/1024).toFixed(2) + " MB");
+                }
+                function fileRemove(){
+                    var body = $(this).parent(".file-list"),
+                    i = body.data("index");
+                    attachedFiles.splice(i,1);
+                    console.log("FILE NUMBER " + i + " IS REMOVED");
+                    console.log(i,attachedFiles);
+                    body.remove();
+                    ModalKit.align($inputModal);
+                    setIndex(".file-list");
+                    initTotalFileInfo();
                 }
 
                 return;
@@ -784,6 +804,7 @@
                             $inputFile.val(null); // init input value
                         };
                     }
+                    else $loading_icon.hide();
                 });
             },
             textureApply: function(){

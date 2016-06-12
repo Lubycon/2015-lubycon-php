@@ -41,8 +41,8 @@
 <script type="text/javascript" src="../../module/js/3d/ShadowMaterial.js"></script>
 <script type="text/javascript" src="../../module/js/3d/OrbitControls.js"></script>
 <script type="text/javascript" src="../../module/js/3d/TransformControls.js"></script>
-<script tpye="text/javascript" src="../../module/js/3d/threex.domevents.js"></script>
-
+<script type="text/javascript" src="../../module/js/3d/threex.domevents.js"></script>
+<script type="text/javascript" src="../../module/js/editorClasses.js"></script>
 <script type="text/javascript" src="./editor3d.js"></script> 
 
 <!-- editor css -->

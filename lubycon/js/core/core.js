@@ -83,7 +83,43 @@ var toggle = {
 //////////////////////////
 // javaScript Prototype //
 //////////////////////////
+File.prototype.checkSize = function(size){
+    return this.size < size;
+}
 
+File.prototype.calcUnit = function(){
+    //////////////////////////////
+    // This method will return  //
+    // 0. converted size(String)//
+    // 1. unit                  //
+    // 2. original size         //
+    //////////////////////////////
+    var unit = " byte", size = this.size;
+
+    if(this.size > 1024){ // 1024 1pow
+        size /= 1024; unit = " KB";
+        if(this.size > 1048576){ // 1024 2pow
+            size /= 1024; unit = " MB";
+            if(this.size > 1073741824){ // 1024 3pow
+                size /= 1024; unit = " GB";
+                if(this.size > 1099511627776){ // 1024 4pow
+                    size /= 1024; unit = " TB";
+                }
+            }
+        }
+    }
+    return [size.toFixed(2),unit,this.size];
+}
+
+
+File.prototype.checkExt = function(array){ //this method will be check to file name only
+    var reg = new RegExp(".*\.(" + array.join("|") + ")","i");
+    return reg.test(this.name);
+}
+File.prototype.isExistInArray = function(array){
+    var names = array.map(function(v){ return v.name });
+    return names.indexOf(this.name);
+}
 
 Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
@@ -226,6 +262,7 @@ String.prototype.getByteLength = function(b,i,c){
     return b;
 }
 
+
 //////////////////////
 // jQuery Prototype //
 //////////////////////
@@ -284,7 +321,6 @@ $.fn.hideAnywhere = function(){
     });
     return this;
 };
-
 
 
 

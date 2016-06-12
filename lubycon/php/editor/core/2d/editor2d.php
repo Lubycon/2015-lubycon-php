@@ -28,6 +28,7 @@
 <script type="text/javascript" src="../../module/js/chosen.jquery.js"></script>
 <script type="text/javascript" src="../../module/js/html2canvas.js"></script>
 <script type="text/javascript" src="../../module/js/resizeObject.js"></script>
+<script type="text/javascript" src="../../module/js/editorClasses.js"></script>
 <script type="text/javascript" src="./editor2d.js"></script> 
 
 <!-- editor css -->

@@ -278,9 +278,9 @@ THREE.OBJLoader.prototype = {
 					if(materials.length !== 0){
 						materials[materials.length-1].shading = THREE.SmoothShading;
 					}
-					console.log(materials[materials.length-1]);
+					//console.log(materials[materials.length-1]);
 				}
-				console.log("smooth : " + line.substring(2));
+				//console.log("smooth : " + line.substring(2));
 			}
 			else if((result = patterns.mtllib.exec(line)) !== null){
 				//console.log("material library " + line.substring(7).trim());
@@ -312,10 +312,10 @@ THREE.OBJLoader.prototype = {
 						materialCount++;
 					} 
 				}
-				console.log("Loaded material_" + materialIndex + " : " + line.substring(7).trim());
+				//console.log("Loaded material_" + materialIndex + " : " + line.substring(7).trim());
 			}
 			else{
-				console.log("Load Error : " + line);
+				//console.log("Load Error : " + line);
 			}
 		}
 
