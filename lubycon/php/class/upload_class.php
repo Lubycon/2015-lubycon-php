@@ -19,7 +19,7 @@ class upload
     public $tag; // array
     public $cc; // stdClass Object
     public $desc; // string
-    public $downable = false; // boolean
+    public $downable; // boolean
     // post setting valualbe
 
     //basic set
@@ -89,7 +89,7 @@ class upload
             $this->tag = $this->post_setting->tag; // array
             $this->cc = $this->post_setting->cc; // stdClass Object
             $this->desc = $this->post_setting->descript; // string
-            //$this->downable = $this->post_setting->download; // boolean
+            $this->downable = 0;
 
             if( $this->top_category == 'artwork' || $this->top_category == 'vector' ) //check board type
             {
@@ -104,14 +104,12 @@ class upload
                     ['model' , $POST_data['model']],
                     ['lights' , count($POST_data['lights']) ? $POST_data['lights'] : '[]']
                 );
-                //$this->threed_json_array[0] = json_decode($POST_data['map']); // 3d map json file
-                //$this->threed_json_array[1] = json_decode($POST_data['model']); // 3d model json file
-                //$this->threed_json_array[2] = count(json_decode($POST_data['lights'])) ? json_decode($POST_data['lights']) : '[]'; // 3d light json file
             }
             $this->upload_path = $this->Lubycon_Contents_folder.'contents/'.$this->top_category.'/'.$this->upload_date.'_'.$this->user_code.'/'; //set upload path
             is_dir($this->upload_path) ? chmod($this->upload_path,0777) : mkdir($this->upload_path,0777); //make user folder
-            // need devied path 1.editor 2.user profile 3.community
         }
+
+        
         //basic set
     }
 
@@ -386,7 +384,7 @@ class upload
 
     public function zip_attach($kind)
     {
-        if($this->downable)
+        if($this->downable === true)
         {
             $dir = $this->upload_path.$kind;
             $handle  = opendir($dir);

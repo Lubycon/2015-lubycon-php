@@ -1,6 +1,6 @@
 <?php
 // session
-
+echo '1';
 require_once '../session/session_class.php';
 $session = new Session();
 require_once "../class/json_class.php";
@@ -38,10 +38,11 @@ $topCate_json_Code = $json_control->json_decode_code;
 $json_control->json_search($topCate_json_Code,'topCateCode',$uploader->top_category);
 $topCate_code = $json_control->search_key; // search top category name to index form json files
 
+
 $query = "INSERT INTO `lubyconboard`.`$uploader->top_category` 
-(`boardCode`, `userCode`, `title`, `date`, `description`, `contents`, `userDirectory`,`downloadPermission`, `downloadCount`, `viewCount`, `likeCount`, `CategoryCode`) 
+(`boardCode`, `userCode`, `title`, `date`, `description`, `contents`, `userDirectory`,`downloadPermission`, `downloadCount`, `viewCount`, `likeCount`, `CategoryCode`,`downloadAble`) 
 VALUES 
-(null,'$usercode','$uploader->subject','$uploader->upload_date','$uploader->desc','$uploader->contentHTML','$uploader->upload_path','free',0,0,0,$topCate_code)";
+(null,'$usercode','$uploader->subject','$uploader->upload_date','$uploader->desc','$uploader->contentHTML','$uploader->upload_path','free',0,0,0,$topCate_code,$uploader->downable)";
 //need category code by json
 echo $query;
 
