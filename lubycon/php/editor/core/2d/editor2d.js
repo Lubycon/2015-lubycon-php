@@ -945,28 +945,55 @@
             },
             addGrid: function(){
                 var $this = $(this),
+                $loading_icon = $(document).find("#loading_icon"),
                 $window = $this.parents(".modal"),
                 $grid = $window.find(".grid-edit-window"),
+                $gridBody = $grid.find(".grid-inner-wrapper"),
+                $cropper = $gridBody.find(".cropper-container"),
                 width = $grid.width(),
                 height = $grid.height()
                 $dummy = $grid.clone(),
                 $canvas = $(document).find(".obj-body"),
                 $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "jpg-image"}),
                 $placeHolder = $(document).find(".canvas-content.placeHolder");
+
+                ///////////////
+                // EXCEPTION //
+                ///////////////
+                if($gridBody.length !== 0){
+                    var currentGrid = $this.parents(".grid-wrapper.modal-wrapper").find(".btn.grid-btn.selected").data("target"),
+                    calcGrid = currentGrid.split("-"),
+                    totalGrid = parseInt(calcGrid[1]) + parseInt(calcGrid[2]);
+                    console.log($cropper,totalGrid);
+                    if($cropper.length < totalGrid){
+                        alert("You must upload imgs");
+                        return false;
+                    }
+                }
+                else return false;     
+                ///////////////
+                // EXCEPTION //
+                ///////////////
+
+                $window.fadeOut(200);
                 $dummy.appendTo("body");
+                $grid.empty();
+                $loading_icon.show();
+
                 html2canvas($dummy, {
                     onrendered: function(canvas) {
                         var dataURL = canvas.toDataURL("image/jpeg"),
                         $media = $("<img/>", { "src" : dataURL }).appendTo($canvas);
                         upload.insertPosition($this,$mediaWrap,$media);
-                        $grid.empty();
                         attachedImage.splice($mediaWrap.data("index"),0,dataURL);
-                        console.log(attachedImage);
+                        $loading_icon.hide();
+                        $dummy.remove();
+                        console.log($dummy.width());
+                        return false;
                     },
                     allowTaint: true
                 });
                 if($placeHolder.length != 0) $placeHolder.hide();
-                $window.fadeOut(200);
                 $(".btn.selected").removeClass("selected");
                 pac.objMenu($mediaWrap);
                 console.log("grid is added");
@@ -1667,7 +1694,7 @@
                     objs.each(function(){
                         var $this = $(this);
                         if(!$this.hasClass("placeHolder")){
-                            $dummy = $this.clone().removeClass("canvas-obj canvas-content").addClass("sort-obj"),
+                            var $dummy = $this.clone().removeClass("canvas-obj canvas-content").addClass("sort-obj"),
                             objType = $this.data("value"),
                             $wrapper = $sortli.clone().append($dummy);
                             $wrapper.appendTo($sortul);

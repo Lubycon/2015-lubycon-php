@@ -289,6 +289,8 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
 
         function showTooltip(){
             var $this = $(this);
+            data = $this.attr("data-tip");
+            tooltipContent.text(data);
             if(d.appendTo === null ) tooltipBody.appendTo($this).stop().fadeIn(300);
             else tooltipBody.appendTo(d.appendTo).stop().fadeIn(300);
         }

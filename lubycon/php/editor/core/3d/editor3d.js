@@ -701,7 +701,7 @@
                     upload.loaders(object[0]);
                     $inputModal.hide().find(".modal-bt.modal-filebt").attr("data-value","newFileUpload");
                     $inputModal.find(".modal-closebt").show();
-                    $inputModal.find(".file-selector-help").attr("data-tip","NULL!!!!");
+                    $inputModal.find(".file-selector-help").attr("data-tip","Your file size must be 30MB. The file extension must be ZIP,OBJ,MTL or Image Format");
                     console.log($inputModal);
                     $darkOverlay.fadeOut(400);
                 }
