@@ -188,7 +188,8 @@ INSERT INTO `userbasic` (`userCode`, `date`, `email`, `nick`, `pass`, `validatio
 
 delete from `userinfo`;
 INSERT INTO `userinfo` (`userCode`, `jobCode`, `countryCode`, `languageCode`, `logCode`, `profileImg`, `description`, `company`, `city`, `telNumber`, `fax`, `web`, `languageLevel`, `permission`) VALUES
-(1, 3, 201, 3, NULL, '../../../../Lubycon_Contents/user/1/profile.jpg', 'hello i am daniel\r\nnice to meet you :)\r\nsee you next time', 'Lubycon', 'Seoul', '01089954868', '010444', '4212', 'beginer', 11111111),
+(0, 3, 200, 3, NULL, '../../../../Lubycon_Contents/user/0/profile.jpg', 'i am admin', 'Lubycon', 'Seoul', '1004', '1004', '1004', 'beginer', 11111111),
+(1, 3, 200, 3, NULL, '../../../../Lubycon_Contents/user/1/profile.jpg', 'hello i am daniel\r\nnice to meet you :)\r\nsee you next time', 'Lubycon', 'Seoul', '01089954868', '010444', '4212', 'beginer', 11111111),
 (2, 2, 141, 1, NULL, '../../../../lubycon_Contents/user/1/profile.jpg', 'non, egestas a, dui. Cras pellentesque. Sed dictum. Proin', 'At Pede Cras Limited', 'Grand Falls', '(391) 783-3046', '(123) 742-7453', 'volutpat.nunc.sit@mattissemperdui.edu', 'native', 11111111),
 (3, 3, 160, 2, NULL, '../../../../lubycon_Contents/user/2/profile.jpg', 'est,', 'Libero Integer In Industries', 'Los Andes', '(778) 705-9461', '(362) 702-3716', 'interdum.Sed@elit.com', 'native', 11111111),
 (4, 5, 154, 1, NULL, '../../../../lubycon_Contents/user/3/profile.jpg', 'nulla at sem molestie sodales. Mauris blandit enim consequat', 'Rutrum Non Company', 'Ponti', '(482) 891-9612', '(755) 761-9737', 'eleifend.egestas@enimnisl.com', 'native', 11111111),
