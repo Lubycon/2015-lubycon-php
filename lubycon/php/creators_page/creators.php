@@ -18,7 +18,7 @@
     </figure>   <!-- end main_figure -->
 </div>
 <!-- end main_figure -->
-
+<script type="text/javascript" src="../../js/creators.js"></script>
 <link href="<?=$one_depth?>/css/creators_page.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
 <section class="container">
@@ -96,18 +96,7 @@
                 $user_content2 = "$one_depth/../../../Lubycon_Contents/contents/threed/Anushree_Dhar20160414050808/thumb.jpg";
                 $user_content3 = "$one_depth/../../../Lubycon_Contents/contents/threed/Caroline_Davies20160414050808/thumb.jpg";
             ?><!--you should change to mySQL later-->
-            <div id="bestCreator" class="creators_card">
-                <div class="creator_menu">
-                    <i class="fa fa-bars creator_menu_icon hidden-mb-b"></i>
-                    <div class="creator_menu_list">
-                        <ul>
-                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=$usernumber"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents&usernum=<?=$usercode?>"><i class="fa fa-eye"></i>View Contents</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>"><i class="fa fa-bar-chart"></i>View Insight</a></li>
-                            <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_forums&usernum=<?=$usercode?>"><i class="fa fa-table"></i>View Forums</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div id="bestCreator" class="creators_card" data-index="1">
                 <div class="creator_info_wrap">
                     <div class="creator_top_info">
                         <div class="creator_pic">

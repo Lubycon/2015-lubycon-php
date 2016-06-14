@@ -19,7 +19,7 @@
         $commentCount = $randCount1 < 1000 ? $randCount1 : (string)(round((double)($randCount1/1000),1))."K";
         $likeCount = $randCount2 < 1000 ? $randCount2 : (string)(round((double)($randCount2/1000),1))."K";
     ?><!--you should change to mySQL later-->
-    <div class="contents_card <?=$cate.'_'.$board_code?>">
+    <div class="contents_card <?=$cate.'_'.$board_code?>" data-index="<?=$usercode?>">
         <div class="contents_pic">
             <img src="<?=$contents_thumb_url?>" class="load_view" alt="contents thumbnail"/>
         </div>

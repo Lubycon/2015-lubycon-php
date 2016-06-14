@@ -1,3 +1,4 @@
+<script type="text/javascript" src="../../js/my_contents.js"></script>
 <ul>
     <?php
         for($i=0;$i<60;$i++)

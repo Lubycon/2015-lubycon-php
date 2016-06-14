@@ -276,6 +276,57 @@ body{
                 font-size: 14px;
                 line-height: 20px;
             }
+.card_menu{
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    cursor: pointer;
+    z-index : 2;
+}
+    .card_menu .card_menu_icon{
+        font-size: 20px;
+        color: #aaaaaa;
+        transition: color 0.2s;
+    }
+        .card_menu.selected .card_menu_icon{
+            color: #48cfad;
+        }
+        .card_menu .menu_icon:hover{
+            color: #ffbe54;
+        }
+    .card_menu_list{
+        width: 150px;
+        top: 10px;
+        left: -140px;
+        position: absolute;
+        border-radius: 5px;
+        z-index: 1;
+        border: 1px solid #aaaaaa;
+        background: rgba(255,255,255,0.9);
+        display: none;  
+    }
+    .card_menu_list ul{
+        line-height: 35px;
+    }
+        .card_menu_list ul li{
+            text-align: left;
+            font-size: 14px;
+        }
+        .card_menu_list ul li:hover{
+            background: rgba(200,200,200,0.5);
+        }
+            .card_menu_list ul li i{
+                display: inline-block;
+                width: 35px;
+                color: #444444;
+                text-align: center;
+                float: left;
+                margin-top: 8px;
+                font-size: 17px;
+            }
+            .card_menu_list ul li a{
+                color: #444444;
+            }
 
 .error-message-window {
     position: absolute;

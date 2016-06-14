@@ -17,18 +17,7 @@
         $user_content3 = $row['preview'];
         $user_content3_num = $row['boardCode'];
     ?><!--you should change to mySQL later-->
-    <div class="creators_card">
-        <div class="creator_menu">
-            <i class="fa fa-bars creator_menu_icon hidden-mb-b"></i>
-            <div class="creator_menu_list">
-                <ul>
-                    <li><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><i class="fa fa-tachometer"></i>View Dashboard</a></li>
-                    <li><a href="../personal_page/personal_page.php?cate=my_contents&usernum=<?=$usercode?>"><i class="fa fa-eye"></i>View Contents</a></li>
-                    <li><a href="../personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>"><i class="fa fa-bar-chart"></i>View Insight</a></li>
-                    <li><a href="../personal_page/personal_page.php?cate=my_forums&usernum=<?=$usercode?>"><i class="fa fa-table"></i>View Forums</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="creators_card" data-index="<?=$usercode?>">
         <div class="creator_info_wrap">
             <div class="creator_top_info">
                 <div class="creator_pic">

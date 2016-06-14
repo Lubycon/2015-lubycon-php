@@ -253,27 +253,6 @@ $(function(){
         }
     };
 });
-
-$(function(){
-    $(".creator_menu").each(function(){
-        var $this = $(this),
-        $button = $(".creator_menu"),
-        $menu = $this.children(".creator_menu_list");
-        $this.on("click",toggle.single).on("click",creatorMenuToggle);
-
-        function creatorMenuToggle(){
-            if($this.hasClass("selected")){
-                $menu.stop().fadeIn(200);
-                $menu.hideAnywhere($this);
-            }
-            else{
-                $menu.stop().fadeOut(200);
-                $menu.off("hideAnywhere");
-            }
-        }
-    });
-});
-
 /////////////////////////////////////////////////////////
 //      lubySelector enable
 /////////////////////////////////////////////////////////
