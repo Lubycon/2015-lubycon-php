@@ -13,33 +13,29 @@
 
     <title>Lubycon</title>
 	
-	<link rel="shortcut icon" href="./ch/img/logo/lubycon.ico" />  <!-- favicon -->
-	<link rel="stylesheet" href="../../css/success_account.css">
+	<link rel="shortcut icon" href="../../ch/img/logo/lubycon.ico" />  <!-- favicon -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
-	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' />
+	<link rel="stylesheet" href="../../css/layout/animate.css" />
+	<link rel="stylesheet" href="../../css/messagePage.css" />
 
 	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="../../js/success_account.js"></script>
-
+	<script type="text/javascript" src="../../js/core/core.js"></script>
+	<script type="text/javascript" src="../../js/messagePage.js"></script>
 </head>
-<body>
-	<article id="thanks">
-		<p>Welcome !</p>
-	</article>
-	<article id="thanks2">
-		<p>You have created Lubycon account <font color="#ffbe54">:)</font></p>
-	</article>
-	<div id="circle">
-		<i class="fa fa-check"></i>
-		<canvas width="130" height="130" id="cir_body"></canvas>
-	</div>
-	
-	<div id="timer">
-		<ul>
-			<li class="timer_rect"></li>
-			<li class="timer_rect"></li>
-			<li class="timer_rect"></li>
-		</ul>
-	</div>
+<body ondragstart="return false" onselectstart="return false">
+	<?php
+		$username = "Admin";
+	?>
+	<section class="message message-wrapper bounceInDown animated">
+		<i class="message-icon fa fa-thumbs-o-up mint-color"></i>
+		<div class="message-box">
+			<article class="main-message">Welcome to LUBYCON! <?=$username?>.</article>
+			<article class="sub-message">Your account is activated</article>
+		</div>
+		<div class="message-box">
+			<div class="btn other-bt" data-value="gotoIndex">Enjoy LUBYCON</div>
+		</div>
+	</section>
 </body>
 </html>

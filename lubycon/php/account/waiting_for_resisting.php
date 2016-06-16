@@ -14,51 +14,43 @@
     <title>Lubycon</title>
 	
 	<link rel="shortcut icon" href="../../CH/img/logo/lubycon.ico" />  <!-- favicon -->
-	<link rel="stylesheet" href="../../css/waiting_for_resisting.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
-	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' />
+	<link rel="stylesheet" href="../../css/layout/animate.css" />
+	<link rel="stylesheet" href="../../css/messagePage.css" />
 
 	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
     <script type="text/javascript" src="../../js/core/core.js"></script>
-
+    <script type="text/javascript" src="../../js/messagePage.js"></script>
 </head>
 <body ondragstart="return false" onselectstart="return false">
-	<article id="thanks">
-		<p>Please check your E-mail for account confirmation</p>
-	</article>
-	<article id="thanks2">
-		<p>Thank you <font color="#48cfad">!</font></p>
-	</article>
-	<div id="circle">
-		<a href="../../index.php">
-			<img id="lubyicon" src="../../CH/img/logo/lubycon_logo_big.png" width="60" height="60" />
-			<p id="gotomain">Go to the main</p>
-		</a>
-	</div>
-	<script>
-		$(function(){
-		    $("#thanks").animate({opacity:1},500);
-		    $("#thanks").queue(function(){
-		        $("#thanks2").animate({opacity:1},500);//
-		        $("#thanks2").queue(function(){
-		            $("#circle").animate({opacity:1},800); 
-		        });
-		    }); 
-		});
-
-		$(function(){
-		    $('#circle').hover(
-		        function (){
-		            $(this).stop().animate({opacity:0.7},200);
-		            $('#gotomain').stop().animate({opacity:1},500);
-		        },
-		        function (){
-		            stop();
-		            $(this).stop().animate({opacity:1},200);
-		            $('#gotomain').stop().animate({opacity:0},500);
-		        }
-		    );
-		});
-	</script>
+	<?php
+		$username = "Admin";
+	?>
+	<section class="message message-wrapper bounceInDown animated">
+		<div class="message-box">
+			<article class="sub-message mint-color">Hello, <?=$username?></article>
+			<article class="main-message">Your Account is ready</article>
+			<article class="sub-message">Plesase check your E-mail</article>
+		</div>
+		<div class="message-box">
+			<article class="time-wrapper">
+				<span class="time-box day-box">0</span> Days
+				<span class="time-box hour-box">0</span> Hours
+				<span class="time-box minute-box">0</span> Minute
+			</article>
+		</div>
+		<div class="message-box">
+			<form id="certification" enctype="multipart/form-data" method="post" action="#">
+				<label class="label-message">Certification Code</label>
+				<input name="certificationCode" class="input-message" type="text"></div>
+			<form>
+		</div>
+		<div class="message-box">
+			<div class="btn cancel-bt"">Not now</div>
+			<div class="btn submit-bt">SUBMIT</div>
+			<div class="btn other-bt" data-value="resend">Resend</div>
+		</div>
+	</section>
 </body>
 </html>

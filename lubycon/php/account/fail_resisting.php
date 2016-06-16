@@ -13,19 +13,27 @@
 
     <title>Lubycon</title>
 	
-	<link rel="shortcut icon" href="../../CH/img/logo/lubycon.ico" />  <!-- favicon -->
-	<link rel="stylesheet" href="../../css/waiting_for_resisting.css">
+	<link rel="shortcut icon" href="../../ch/img/logo/lubycon.ico" />  <!-- favicon -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
-	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' />
+    <link rel="stylesheet" href="../../css/layout/animate.css" />
+    <link rel="stylesheet" href="../../css/messagePage.css" />
 
 	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="../../js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
-    <script type="text/javascript" src="../../js/core/ui.js"></script>
     <script type="text/javascript" src="../../js/core/core.js"></script>
-
+    <script type="text/javascript" src="../../js/messagePage.js"></script>
 </head>
-<body>
-	<p>Lubycon tried to deliver your message for resist, but it was rejected by the server</p>
-	<a href="#">Go to the main page</a>
+<body ondragstart="return false" onselectstart="return false">
+	<section class="message message-wrapper bounceInDown animated">
+        <i class="message-icon fa fa-chain-broken red-color"></i>
+        <div class="message-box">
+            <article class="main-message">Sorry. We lost connection</article>
+            <article class="sub-message">Please resend again</article>
+        </div>
+        <div class="message-box">
+            <div class="btn cancel-bt"">Not now</div>   
+            <div class="btn other-bt" data-value="resend">Resend</div>
+        </div>
+    </section>
 </body>
 </html>

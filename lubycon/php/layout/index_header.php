@@ -111,16 +111,7 @@
         </header>
         <ul class="mb-menu_group">
             <li class="mb-menu_list">
-                <i class="fa fa-font fa-1x"></i><a href="<?=$two_depth?>/contents/
-
-
-
-
-
-
-
-
-?cate=artwork">Artwork</a>
+                <i class="fa fa-font fa-1x"></i><a href="<?=$two_depth?>/contents/?cate=artwork">Artwork</a>
             </li>
             <li class="mb-menu_list">
                 <i class="fa fa-square fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=vector">Vector</a>

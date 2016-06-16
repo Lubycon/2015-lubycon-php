@@ -1950,3 +1950,24 @@ body{
 #beta_version:hover{
     transform: scale(1.2,1.2);
 };
+/*--------------------------coming_soon--------------------------------*/
+.coming_soon{
+    width:100%;
+}
+    .coming_soon_img{
+        width:400px;
+        margin:0px auto;
+        margin-top:40px;
+    }
+        .coming_soon_img img{
+            width:400px;
+        }
+    .coming_soon_bt{
+        width:270px;
+        margin:0px auto;
+        margin-top:10px;
+        margin-bottom: 50px;
+    }
+        .coming_soon_bt a img{
+            width:270px;
+        }

@@ -1,0 +1,162 @@
+@charset "utf-8";
+/*CSS RESET*/
+body {
+    width: 100%;
+    position: relative;
+    background: #fff;
+    display: block;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: none; /*hold font-size in moblie*/
+}
+
+article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    display: block;
+}
+
+body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    font-family: 'Source Sans Pro';
+    /*font-size: 1em;*/
+    font-weight: 400;
+    outline: 0;
+}
+*:focus{
+    outline: 0;
+}
+/*-------------------------------------------------------------------------*/
+body {
+    background: #282828;
+}
+
+.image-background {
+    width: 100%;
+}
+    .image-background > img {
+        width: 100%;
+    }
+
+.message {
+    
+}
+
+.message.message-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background: #ffffff;
+    text-align: center;
+}
+.message.message-wrapper > .message-icon {
+    margin-top: 40px;
+    font-size: 100px;
+}
+.message.message-wrapper > .message-box {
+    position: relative;
+    text-align: center;
+    padding: 30px 150px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    color: #444444;
+}
+    .main-message {
+        font-size: 50px;
+        color: #444444;
+        font-weight: 600;
+        padding: 10px;
+    }
+    .sub-message {
+        font-size: 24px;
+        color: #444444;
+    }
+    .label-message {
+        color: #444444;
+        font-size: 20px;
+        margin-right: 10px;    
+    }
+    .input-message {
+        width: 280px;
+        height: 40px;
+        border: 1px solid #aaaaaa;
+        border-radius: 3px;
+        padding: 3px 3px 3px 10px;
+        color: #444444;
+        font-size: 23px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        .input-message:focus {
+            border: 1px solid #48cfad;
+            box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
+        }
+    .time-wrapper {
+        font-size: 15px;
+        color: #444444;
+        padding: 12px;
+        border: 2px dashed #48cfad;
+    }
+        .time-box {
+            color: #444444;
+            font-size: 20px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+.message-box > .btn {
+    display: inline-block;
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    color: #ffffff;
+    background: #aaaaaa;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+    .message-box > .btn:hover {
+        opacity: 0.7;
+    }
+    .message-box > .btn.submit-bt {
+        background: #48cfad;
+    }
+    .message-box > .btn.cancel-bt {
+        background: #ec6446;
+    }
+
+.black-color {
+    color: #444444;
+}
+.mint-color {
+    color: #48cfad;
+}
+.red-color {
+    color: #ec6446;
+}
+.blue-color {
+    color: #488ccb;
+}
+.orange-color {
+    color: #ffbe54;
+}

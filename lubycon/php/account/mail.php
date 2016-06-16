@@ -34,7 +34,7 @@
             </tr>
             <tr id='confirm_bt'>
                 <td align='center'>
-                	<a href='localhost:8080/Lubycon_Website/lubycon/php/account/certificateEmail.php?Token=ZgeIvRcLz2Un'>
+                	<a href='localhost/Lubycon_Website/lubycon/php/account/certificateEmail.php?Token=qQUKqYG9ntXw'>
                 		<img src='../../CH/img/resist_mail/mail_bt.png'>
                     </a>
                 </td>

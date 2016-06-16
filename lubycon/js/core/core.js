@@ -287,6 +287,10 @@ String.prototype.isAlphabetNumber = function(){
     var reg = /^[A-Za-z0-9+]*$/;
     return reg.test(this);
 }
+String.prototype.isNumber = function(){
+    var reg = /^[0-9]*$/;
+    return reg.test(this);
+}
 
 String.prototype.inputErrorCheck = function(){
     // 1. isSpecialChar()
