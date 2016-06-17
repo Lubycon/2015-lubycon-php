@@ -111,10 +111,10 @@
         </header>
         <ul class="mb-menu_group">
             <li class="mb-menu_list">
-                <i class="fa fa-font fa-1x"></i><a href="<?=$two_depth?>/contents/?cate=artwork">Artwork</a>
+                <i class="fa fa-picture-o fa-1x"></i><a href="<?=$two_depth?>/contents/?cate=artwork">Artwork</a>
             </li>
             <li class="mb-menu_list">
-                <i class="fa fa-square fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=vector">Vector</a>
+                <i class="fa fa-object-group fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=vector">Vector</a>
             </li>
             <li class="mb-menu_list">
                 <i class="fa fa-cube fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=threed">3D Model</a>
@@ -148,13 +148,13 @@
         <ul>
             <li>
                 <a href="<?=$two_depth?>/editor/core/2d/editor2d.php?cate=artwork">
-                <i class="fa fa-font"></i>
+                <i class="fa fa-picture-o"></i>
                 <p>Artwork</p>
                 </a>
             </li>
             <li>
                 <a href="<?=$two_depth?>/editor/core/2d/editor2d.php?cate=vector">
-                <i class="fa fa-stop"></i>
+                <i class="fa fa-object-group"></i>
                 <p>Vector</p>
                 </a>
             </li>
@@ -264,10 +264,10 @@
                     </a>
                     <ul class="sub">
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1"><i class="fa fa-font fa-1x"></i><p>Artwork</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1"><i class="fa fa-square fa-1x"></i><p>Vector</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
                             <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&mid_cate=1&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
