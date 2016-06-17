@@ -75,7 +75,7 @@
                         <span id="profile-upload-bt" class="cropper-bt"><i class="fa fa-cloud-upload"></i></span>
                         <span id="crop-bt" class="cropper-bt"><i class="fa fa-crop"></i></span>
                     </div>
-                    <div id="cropper-wrapper"><img id="cropper_img"/></div>
+                    <div id="cropper-wrapper"><img id="cropper_img" /></div>
                     <input type="file" id="profile_uploader" />
                 </div>
 

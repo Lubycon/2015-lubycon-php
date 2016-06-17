@@ -6,9 +6,6 @@ function luby_selcetor_val_change(selector_name , origin_selcet){
 /////////////////////////////////////////////////////////////////////////////
 //please remove this daniel
 
-
-
-
 $(function (){ //account setting script
     $(document).ready(function(){
         initAccountSetting();
@@ -376,15 +373,30 @@ $(function (){ //account setting script
 
     function initProfileCropper(){
         $("#profile-upload-bt").click(function () {
-            $("#profile_uploader").click();
+            $("#profile_uploader").trigger("click");
         });
 
-        $(document).on("change","#profile_uploader",function () {
-            showImage(this);
+        $(document).on("change","#profile_uploader",function (event) {
+            var object = event.target.files;
+
+            $.each(object,function(i,file){
+                if(file.checkSize(10485760)){
+                    if(file.checkExt(["jpg","jpeg","png","gif","bmp"])){
+                        showImage(file);
+                    }
+                    else alert("extension error");
+                }
+                else alert("size error");
+            });
+
+            
             $(this).val(null);
         });
 
         $(document).on("click", "#crop-bt", function () {
+            var isNotExist = $("#cropper_img").attr("src") === undefined;
+            if(isNotExist) return false;
+
             var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 });
 
             $("#croped").html('');
@@ -397,7 +409,7 @@ $(function (){ //account setting script
             var dataArray = new Array;
             dataArray[0] = { 'type': 'profile', 'base64': dataURL  , 'index':''};
 
-            $.ajax({
+            /*$.ajax({
                 type: "POST",
                 url: "../ajax/account_setting_profile_upload.php", //path
                 data:
@@ -408,12 +420,14 @@ $(function (){ //account setting script
                 success: function (data) {
                     console.log(data);
                 }
-            })
+            });*/
         })
 
-        function showImage(input) {
-            if (input.files && input.files[0]) {
+        function showImage(file) {
+            var $loading_icon = $(document).find("#loading_icon").show();
+            if (file) {
                 var reader = new FileReader();
+                reader.readAsDataURL(file);
                 reader.onload = function (e) {
                     $('#cropper_img').attr('src', e.target.result);
 
@@ -435,8 +449,8 @@ $(function (){ //account setting script
                     $("#cropper-window-wrapper > i").show().css("display","inline-block");
                     $("#cropper-wrapper").show();
                     $("#cropper_img").cropper("replace", e.target.result);
+                    $loading_icon.hide();
                 }
-                reader.readAsDataURL(input.files[0]);
             }
         }
     }

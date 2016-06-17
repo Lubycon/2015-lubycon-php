@@ -1,0 +1,528 @@
+@charset "utf-8";
+
+.dark_overlay {
+    z-index: 29999;
+}
+.editor-hidden {
+    display: none;
+}
+.modal {
+    top: 40px;
+    left: 40px;
+    background: #444444;
+}
+    .modal.file-selector-modal .file-selector-help {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        border-radius: 50%;
+        margin-left: 10px;
+        background: #333333;
+        color: #eeeeee;
+        font-size: 12px;
+    }
+
+
+.modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+}
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-preview-wrapper {
+        display: inline-block;
+        position: relative;
+        width: 250px;
+        height: 250px;
+        padding: 10px 20px 10px 10px;
+        border-right: 1px solid #333333;
+        background: url(../../img/transparent-repeat.png) 0% 0%;
+        margin-right: 20px;
+        overflow: hidden;
+    }
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-img-change {
+        position: absolute;
+        top: -25px;
+        right: 0;
+        color: #eeeeee;
+        font-size: 14px;
+        font-weight: 200;
+        cursor: pointer;
+    }
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-img-change > .fa-refresh {
+        margin-right: 5px;
+    }
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-img-change:hover {
+        text-decoration: underline;
+    }
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper {
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        max-width: 420px;
+        min-width: 420px;
+        max-height: 500px;
+    }
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder {
+        width: 100%;
+        height: 270px;
+        line-height: 270px;
+        background : transparent;
+        color: #aaaaaa;
+        font-size: 14px;
+        text-align: center;
+        border: 1px dashed #aaaaaa;
+        cursor: pointer;
+    }
+        .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper > .thumb-placeHolder:hover {
+            opacity: 0.8;
+        }
+    .modal.thumbnail-modal > .modal-wrapper > .modal-content > .thumb-inner-wrapper > .thumb-editor-wrapper img.thumb-origin-img {
+        width: 100%;
+    }
+.modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper {
+    width: 700px;
+    text-align: left;
+    margin-top: 20px;
+}
+.setting-inner-wrapper .setting-input-label {
+    font-size: 14px;
+    color: #eeeeee;
+    font-weight: 200;
+    margin-bottom: 10px;
+}
+.setting-inner-wrapper .setting-input {
+    width: 300px;
+    padding: 5px 10px;
+    background: #222222;
+    color: #eeeeee;
+    font-weight: 200;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.7);
+}
+.setting-inner-wrapper .setting-input.cc-inner-wrapper {
+    text-align: center;
+    height: 44px;
+    padding: 10px;
+}
+.setting-inner-wrapper textarea {
+    width: 300px;
+    height: 130px;
+    padding: 5px 10px;
+    background: #222222;
+    color: #eeeeee;
+    font-weight: 200;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.7);
+    resize: none;
+}
+    .setting-inner-wrapper .setting-input > * {
+        color: #eeeeee;
+        font-weight: 200;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+    .setting-input > input {
+        width: 100px;
+        background: transparent;
+        color: #eeeeee;
+        font-weight: 200;
+        font-size: 14px;
+        border: none;
+    }
+.modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper > .setting-inner-left {
+    display: inline-block;
+    width: 50%;
+    min-height: 100px;
+    padding: 0px 15px;
+    border-right: 1px solid #333333;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    vertical-align: top;
+}
+.modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper > .setting-inner-right {
+    display: inline-block;
+    width: 50%;
+    min-height: 100px;
+    padding: 0px 15px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper {
+        margin: 10px 0px;
+    }
+    .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt {
+        color: #eeeeee;
+        font-size: 13px;
+        font-weight: 200;
+        cursor: pointer;
+        text-align: right;
+        margin-top: 8px;
+    }
+        .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt > i {
+            margin-right: 5px;
+        }
+        .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-input-wrapper > .cc-setting-bt:hover {
+            text-decoration: underline;
+        }
+    .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-inner-right .cc-list-wrapper {
+        margin-top: 5px;
+    }
+    .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-inner-right .cc-list {
+        position: relative;
+        width: 35px;
+        display: inline-block;
+        margin: 0px 8px;
+    }
+        .modal.setting-modal > .modal-wrapper > .modal-content > .setting-inner-wrapper .setting-inner-right .cc-list > img {
+            width: 100%;
+        }
+.hashTag-input-wrap .hashtag-wrapper {
+    display: inline-block;
+    text-align: left;
+}  
+.hashTag-input-wrap .hashtag-wrapper > .hashtag-list {
+    position: relative;
+    display: inline-block;
+    max-width: 80px;
+    height: 16px;
+    color: #eeeeee;
+    font-size: 13px;
+    font-weight: 200;
+    padding: 3px 20px 3px 5px;
+    margin-right: 4px;
+    border-radius: 3px;
+    border: 1px solid #111111;
+    background: #222222;
+    box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    word-wrap: break-word;
+    overflow: hidden;
+    cursor: default;
+}
+    .hashTag-input-wrap .hashtag-wrapper > .hashtag-list > i {
+        position: absolute;
+        top: 6px;
+        right: 5px;
+        color: #cccccc;
+        font-size: 12px;
+        margin-left: 6px;
+        cursor: pointer;
+    }
+.modal.cc-setting-wrapper {
+    width: 580px;
+    padding: 15px;
+    padding-top: 32px;
+}
+.modal.cc-setting-wrapper > .cc-setting-inner-wrapper {
+    padding: 0px;
+    border: 1px solid #222222;
+    border-radius: 5px;
+    overflow: hidden;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-title-wrapper {
+    padding: 10px;
+    background: #666666;
+}
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .checkbox-wrapper {
+        margin-right: 10px;
+    }
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-title-wrapper > input[type="radio"] {
+        margin-top: 6px;
+        margin-right: 12px;
+        vertical-align: top;
+    }
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-title-wrapper > .cc-title {
+        color: #eeeeee;
+        font-size: 20px;
+        font-weight: 200;
+    }
+.modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper {
+    padding: 10px;
+    background: #333333;
+    box-shadow: inset 0px 0px 200px 0px rgba(0,0,0,0.7);
+}
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper > .cc-checklist {
+        margin: 10px 0px;
+    }
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper > .cc-checklist > .cc-checkbox {
+        margin-right: 12px;
+    }
+    .modal.cc-setting-wrapper > .cc-setting-inner-wrapper .cc-checklist-wrapper > .cc-checklist > .cc-desc {
+        color: #eeeeee;
+        font-size: 14px;
+        font-weight: 200;
+    }
+input.error, textarea.error {
+    box-shadow: 0px 0px 10px 0px rgba(255,0,0,0.7) !important;
+}
+
+.editor-wrapper{
+    position: relative;
+    width: 100%;
+}
+.editor-wrapper > .editor-header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    background: #4a4a4a;
+    z-index: 202;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+}
+.editor-wrapper > .editor-body{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #222222;
+}
+    .editor-body > .editor-aside{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 50px;
+        height: 100%;
+        margin-top: 50px;
+        padding-top: 20px;
+        background: #333333;
+        z-index: 201;
+        box-shadow: 0px 5px 6px 0px rgba(0,0,0,0.5);
+        text-align: center;
+        border-right: 1px solid #222222;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .editor-body > .editor-aside > .toolbox-wrap {
+        position: fixed;
+        display: inline-block;
+        top: 50px;
+        left: 50px;
+        padding: 10px;
+        margin-top: 50px;
+        padding-top: 20px;
+        min-width: 300px;
+        height: auto;
+        background: #282828;
+        z-index: 90;
+        box-shadow: 3px 5px 10px -3px rgba(0,0,0,0.6);
+        text-align: left;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .editor-body > .editor-aside > .toolbox-wrap.modal {
+        position: fixed;
+        display: inline-block;
+        top: 40px;
+        left: 40px;
+        padding: 0;
+        z-index: 10000;
+        min-width: 450px;
+        min-height: 300px;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+        .editor-body > .editor-aside > .toolbox-wrap > .toolbox-title {
+            font-size: 18px;
+            color: #48cfad;
+            margin-bottom: 10px;
+        }
+        .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner {
+            position: relative;
+            background: transparent;
+            text-align: left;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #444444;
+        }
+        .editor-body > .editor-aside > .toolbox-wrap.modal > .toolbox-inner {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+        }
+            .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner.btn {
+                width: 100%;
+                height: auto;
+                line-height: normal;
+                margin: 0px;
+                margin-bottom: 10px;
+            }
+                .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner.btn:hover {
+                    box-shadow: none;
+                    background: #444444;
+                }
+                .editor-body > .editor-aside > .toolbox-wrap > .toolbox-inner.btn.selected {
+                    border: 1px solid #48cfad;
+                }
+        .editor-body > .editor-aside > .toolbox-wrap.modal > .modal-wrapper > .toolbox-inner {
+            width: 100%;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            margin: 15px auto;
+        }
+
+            .toolbox-inner .toolbox-label-wrapper {
+                position: relative;
+            }
+                .toolbox-inner .toolbox-label {
+                    display: block;
+                    font-size: 15px;
+                    color: #aaaaaa;
+                    font-weight: 200;
+                    margin-bottom: 10px;
+                }
+                    .toolbox-inner.btn.radioType .toolbox-label {
+                        color: #dddddd;
+                    }
+                .toolbox-inner .checkbox-wrapper{
+                    float: right;
+                }
+
+                .toolbox-btns > .btn {
+                    display: inline-block;
+                    width: 35px;
+                    height: 35px;
+                    line-height: 35px;
+                    vertical-align: middle;
+                    margin: 0px 5px
+                }
+                    .toolbox-btns > .btn > i {
+                        font-size: 13px;
+                        color: #ffffff;
+                    }
+            .toolbox-inner .toolbox-tab-bt-wrapper {
+                margin-bottom: 10px;
+            }
+            .toolbox-inner .toolbox-btns {
+                text-align: center;
+            }
+                .toolbox-tab-bt-wrapper .toolbox-tab.btn {
+                    display: inline-block;
+                    width: 50%;
+                    height: 30px;
+                    line-height: 30px;
+                    font-size: 14px;
+                    font-weight: 200;
+                    border-radius: 0px;
+                    color: #aaaaaa;
+                }
+            .toolbox-inner input[type="range"] {
+                width: 150px;
+            }
+            .toolbox-inner .lubySelector {
+                margin: 7px 0px;
+            }
+                .toolbox-inner > .lubySelector > .ls_optionWrap {
+                    overflow: visible;
+                }
+
+.header-btn-wrapper {
+    display: inline-block;
+    float: left;
+}
+.header-prog-wrapper {
+    display: inline-block;
+    float: right;
+}
+    .current-prog {
+        color: #ffffff !important;
+        border-bottom: 3px solid #48cfad;
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
+    }
+        .current-prog > i {
+            color: #ffffff !important;
+        }
+.header-btn {
+    position: relative;
+    display: inline-block;
+    min-width: 100px;
+    height: 50px;
+    line-height: 53px;
+    padding: 0px 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 200;
+    color: #aaaaaa;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+    .header-btn-wrapper > .header-btn {
+        border-right: 1px solid #333333;
+    }
+    .header-prog-wrapper > .header-btn {
+        border-left: 1px solid #333333;
+        letter-spacing: 0.01px;
+    }
+    .header-btn:hover {
+        background: #5a5a5a;
+    }
+    .header-btn > i {
+        margin-top: -3px;
+        margin-right: 10px;
+        color: #222222;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+
+
+.btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    line-height: 45px;
+    margin: 0px auto;
+    padding: 0;
+    border: none;
+    background: #333333;
+    color: #5a5a5a;
+    text-align: center;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    cursor: pointer;
+}
+    .btn.selected {
+        background: #222222 !important;
+        box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.5) !important;
+        color: #ffffff !important;
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
+    }
+    .btn:hover{
+        background: #444444;
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+    }
+    .btn:active{
+        background: #222222;
+        box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.5);
+    }
+    .btn > p {
+        color: #ffffff;
+        font-weight: 200;
+    }
+    .btn > i {
+        font-size: 18px;
+    }
+    .btn > img {
+        width: 100%;
+        vertical-align: middle;
+        margin-top: -3px;
+    }
+

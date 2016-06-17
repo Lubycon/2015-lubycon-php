@@ -2,7 +2,7 @@
 
 .lubySelector{
     margin: 0;
-    
+    vertical-align: middle;
 }
 
 #confirm_alert {
@@ -201,10 +201,9 @@
         box-shadow:none;
     }
 
-
 .cropper-bt{
     display: inline-block;
-    width: 150px;
+    width: 145px;
     height: 40px;
     line-height: 40px;
     text-align: center;

@@ -306,6 +306,12 @@ String.prototype.getByteLength = function(b,i,c){
     return b;
 }
 
+String.prototype.disableCamelCase = function(text){ //camelCase -> Camel Case
+    var result = this.replace( /([A-Z])/g, " $1" ),
+    result = result.charAt(0).toUpperCase() + result.slice(1);
+    return result;
+}
+
 
 //////////////////////
 // jQuery Prototype //

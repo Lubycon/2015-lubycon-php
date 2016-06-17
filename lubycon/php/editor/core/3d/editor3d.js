@@ -81,10 +81,10 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $lightTool = new toolbar.createButton("lightTool","icon",icons.bulb,true).appendTo($aside).on("click",toolbar.disableTools),
-                        $geometryTool = new toolbar.createButton("geometryTool","icon",icons.circle,true).appendTo($aside).on("click",toolbar.disableTools),
-                        $materialTool = new toolbar.createButton("materialTool","icon",icons.football,true).appendTo($aside).on("click",toolbar.disableTools),
-                        $backgroundTool = new toolbar.createButton("backgroundTool","icon",icons.image,true).appendTo($aside).on("click",toolbar.disableTools);
+                        var $lightTool = new UImodule.createButton("lightTool","icon",icons.bulb,true,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $geometryTool = new UImodule.createButton("geometryTool","icon",icons.circle,true,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $materialTool = new UImodule.createButton("materialTool","icon",icons.football,true,true).appendTo($aside).on("click",toolbar.disableTools),
+                        $backgroundTool = new UImodule.createButton("backgroundTool","icon",icons.image,true,true).appendTo($aside).on("click",toolbar.disableTools);
                         //input files
                         var $inputFile = $("<input/>",{
                             "class" : "fileUploader editor-hidden",
@@ -562,21 +562,6 @@
                     return modal;
                 }
             },
-            tabAction: function(){
-                var $this = $(this),
-                data = $this.data("target"),
-
-                depthTest = $this.parent().find(".tab-target").length === 0,
-                parent = depthTest ? $this.parent().parent() : $this.parent(),
-                target = parent.find(".tab-target[data-value='" + data + "']"),
-                elements = target.siblings(".tab-target");
-
-                if($this.hasClass("selected")){
-                    elements.hide();
-                    target.show();
-                }
-                else target.hide();
-            },
             currentProg: function(){
                 var $this = $(this),
                 $modals = $(document).find(".modal"),
@@ -630,11 +615,6 @@
                     index = $this.index(element) - 1;
                     if(!$this.is(".default")) $this.attr("data-index",index);
                 });
-            },
-            disableCamelCase: function(text){ //camelCase -> Camel Case
-                var result = text.replace( /([A-Z])/g, " $1" ),
-                result = result.charAt(0).toUpperCase() + result.slice(1);
-                return result;
             }
         },
         upload = {
@@ -888,7 +868,8 @@
                                 mesh = new THREE.Mesh(geometry,material);
                                     mesh.castShadow = true;
                                     mesh.receiveShadow = true;
-                                    mesh.scale.set(1,1,1);   
+                                    mesh.scale.set(1,1,1);
+                                    mesh.initMatrix = mesh.matrixWorld.clone();   
                                 group.add(mesh);
                                 group.name = "mainObject";
                             }
@@ -1122,45 +1103,6 @@
             }  
         },
         toolbar = {
-            createButton: function(data,type,iconData,tooltip){
-                var tipData = data !== null ? pac.disableCamelCase(data) : null;
-                var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
-                icon = type === "icon" ? $("<i/>",{"class" : iconData}) : $("<img/>",{"src" : iconData});
-
-                icon.appendTo(button);
-
-                button.on("click").on("click",toggle.group).on("click",pac.tabAction)
-                if(tooltip) button.tooltip({"top":5,"left" : 50});
-
-                return button;
-            },
-            createRadioButton: function(data,type,iconData,tooltip){
-                var button = new toolbar.createButton(data,type,iconData,tooltip);
-                button.addClass("radioType");
-
-                return button;
-            },
-            createMenu: function(content,name,switchs){
-                var body = $("<div>",{ "class" : "toolbox-inner" }),
-                labelWrap = $("<div/>",{"class" : "toolbox-label-wrapper"}).appendTo(body)
-                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(labelWrap),
-                labelSwitch = switchs ? $("<input/>",{ "type" : "checkbox", "class" : "toolbox-label-checkbox" }).appendTo(labelWrap) : null;
-
-                if(content !== null && typeof content === "object"){
-                    if(content.length === 1){
-                        content.appendTo(body);
-                    }
-                    else{
-                        for(var i = 0, l = content.length; i < l; i++){
-                            content[i].appendTo(body);
-                        }
-                    }
-                    return body;
-                }
-                else {
-                    return body
-                }
-            },
             disableTools: function(){
                 var lightToolboxWrap = $(document).find(".toolbox-wrap[data-value='lightTool']"),
                 onLights = lightToolboxWrap.find(".toolbox-inner.btn.radioType"),
@@ -1185,13 +1127,13 @@
                 var $this = $(document).find(".toolbox-wrap[data-value='lightTool']"),
                 $triggerButton = $(".editor-aside").children(".btn[data-target='lightTool']").on("click",toolbar.lightFn.initLightTool);
 
-                var light1 = new toolbar.createMenu(null,"Light1",true).attr({"data-value" : 0}).appendTo($this),
+                var light1 = new UImodule.createMenu(null,"Light1",true).attr({"data-value" : 0}).appendTo($this),
                 lightCheckbox1 = light1.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light2 = new toolbar.createMenu(null,"Light2",true).attr({"data-value" : 1}).appendTo($this),
+                var light2 = new UImodule.createMenu(null,"Light2",true).attr({"data-value" : 1}).appendTo($this),
                 lightCheckbox2 = light2.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
-                var light3 = new toolbar.createMenu(null,"Light3",true).attr({"data-value" : 2}).appendTo($this),
+                var light3 = new UImodule.createMenu(null,"Light3",true).attr({"data-value" : 2}).appendTo($this),
                 lightCheckbox3 = light3.find(".toolbox-label-checkbox").on("change",toolbar.lightFn.onOff).lubyCheckbox();
 
                 /*--------light setting---------*/
@@ -1200,7 +1142,7 @@
                 var $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo(settingWrapper),
                 $tabBt = $("<div/>",{ "class" : "toolbox-tab btn radioType" })
                     .on("click",toggle.group)
-                    .on("click",pac.tabAction)
+                    .on("click",UImodule.tabAction)
                     .on("click",toolbar.lightFn.changeLight);
 
                 var $directionBtn = $tabBt.clone(true).html("Directional").attr("data-target","directional").addClass("selected").appendTo($tabBtWrap),
@@ -1211,7 +1153,7 @@
                 $spotSetting = new toolbar.lightFn.LightSetting("spot").appendTo(settingWrapper).hide(),
                 $pointSetting = new toolbar.lightFn.LightSetting("point").appendTo(settingWrapper).hide();
 
-                var settingWindow = new toolbar.createMenu(settingWrapper,"Setting",false).appendTo($this);
+                var settingWindow = new UImodule.createMenu(settingWrapper,"Setting",false).appendTo($this);
 
                 settingWrapper.find(".colorKey").spectrum({
                     replacerClassName: "color-viewer light-viewer",
@@ -1544,18 +1486,28 @@
                 var $this = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
                 $triggerButton = $(".editor-aside").children(".btn[data-target='geometryTool']").on("click",toolbar.geometryFn.initRotateTool);
 
-                var rotateTool = new toolbar.createMenu(null,"Rotate",true).appendTo($this);
+                var rotateTool = new UImodule.createMenu(null,"Rotate",true).appendTo($this);
                 $rotateCheckbox = rotateTool.find(".toolbox-label-checkbox").attr("id","rotate-check").on("change",toolbar.geometryFn.transform);
                 $rotateCheckbox.lubyCheckbox();
 
-                var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper toolbox-btns" }),
-                realisticMode = new toolbar.createRadioButton("realistic","img",icons.realistic,true).addClass("selected").attr("data-value","realistic").appendTo($viewmodeWrapper),
-                cleanMode = new toolbar.createRadioButton("cleanSurface","img",icons.clean,true).attr("data-value","clean").appendTo($viewmodeWrapper),
-                transparentMode = new toolbar.createRadioButton("transparency","img",icons.transparency,true).attr("data-value","transparent").appendTo($viewmodeWrapper),
-                wireMode = new toolbar.createRadioButton("wireframe","img",icons.wireframe,true).attr("data-value","wireframe").appendTo($viewmodeWrapper),
-                wireCleanMode = new toolbar.createRadioButton("wireframeAndClean","img",icons.wireclean,true).attr("data-value","wireclean").appendTo($viewmodeWrapper),
+                var resetButtons = $("<div/>",{ "class" : "toolbox-btns" }),
+                resetX = new UImodule.createButton("x","text","X",false,false).appendTo(resetButtons).on("click",toolbar.geometryFn.initEuler),
+                resetY = new UImodule.createButton("y","text","Y",false,false).appendTo(resetButtons).on("click",toolbar.geometryFn.initEuler),
+                resetZ = new UImodule.createButton("z","text","Z",false,false).appendTo(resetButtons).on("click",toolbar.geometryFn.initEuler),
+                resetRotateTool = new UImodule.createMenu(resetButtons,"Reset",false).appendTo($this);
 
-                viewmodeTool = new toolbar.createMenu($viewmodeWrapper,"View mode",false).appendTo($this)
+                var $viewmodeWrapper = $("<div/>",{ "class" : "viewmode-wrapper toolbox-btns" }),
+                realisticMode = new UImodule.createRadioButton("realistic","image",icons.realistic,true,true)
+                    .addClass("selected").attr("data-value","realistic").appendTo($viewmodeWrapper),
+                cleanMode = new UImodule.createRadioButton("cleanSurface","image",icons.clean,true,true)
+                    .attr("data-value","clean").appendTo($viewmodeWrapper),
+                transparentMode = new UImodule.createRadioButton("transparency","image",icons.transparency,true,true).attr("data-value","transparent").appendTo($viewmodeWrapper),
+                wireMode = new UImodule.createRadioButton("wireframe","image",icons.wireframe,true,true)
+                    .attr("data-value","wireframe").appendTo($viewmodeWrapper),
+                wireCleanMode = new UImodule.createRadioButton("wireframeAndClean","image",icons.wireclean,true,true)
+                    .attr("data-value","wireclean").appendTo($viewmodeWrapper),
+
+                viewmodeTool = new UImodule.createMenu($viewmodeWrapper,"View mode",false).appendTo($this)
                 .find(".btn.radioType").on("click",toolbar.geometryFn.viewModeChecker);
             },
             geometryFn: {
@@ -1570,6 +1522,20 @@
                     else {
                         if(switchOn) onRotateTool.trigger("click");
                     }
+                },
+                initEuler: function(event){
+                    event.stopPropagation();
+                    
+                    var $this = $(this),
+                    axis = $this.data("target"),
+                    newEuler = new THREE.Euler().copy(group.rotation);
+                    switch(axis){
+                        case "x" : newEuler.x = 0 ; break;
+                        case "y" : newEuler.y = 0; break;
+                        case "z" : newEuler.z = 0; break;
+                        default : return false; break;
+                    }
+                    group.setRotationFromEuler(newEuler);
                 },
                 transform: function(){
                     var $this = $(this),
@@ -1589,7 +1555,7 @@
 
                         scene.add(objectControls,gridHelper,axisHelper);
                         objectControls.setMode("rotate");
-                        objectControls.space = "world";
+                        objectControls.space = "local";
                         objectControls.update();
                     }
                     else{ 
@@ -1693,11 +1659,11 @@
                 var $this = $(document).find(".toolbox-wrap[data-value='materialTool']");
 
                 var $selectBox = $("<select/>",{ "id" : "material-selector" }).hide(),
-                $materialSelector = new toolbar.createMenu($selectBox,"Materials").attr({"id" : "materialSelect-tool","data-value" : "material-select"}).appendTo($this);
+                $materialSelector = new UImodule.createMenu($selectBox,"Materials").attr({"id" : "materialSelect-tool","data-value" : "material-select"}).appendTo($this);
                 
-                var $materialDiffuse = new toolbar.createMenu(null,"Diffuse",false).attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
-                var $materialSpecular = new toolbar.createMenu(null,"Specular",false).attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
-                var $materialNormal = new toolbar.createMenu(null,"Normal",false).attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
+                var $materialDiffuse = new UImodule.createMenu(null,"Diffuse",false).attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
+                var $materialSpecular = new UImodule.createMenu(null,"Specular",false).attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
+                var $materialNormal = new UImodule.createMenu(null,"Normal",false).attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
 
                 var $controllerBody = $("<div/>",{ "class" : "toolbox-controller" }),
                 $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo($controllerBody),
@@ -1705,7 +1671,7 @@
                     "class" : "toolbox-tab btn",
                     "html" : "Texture",
                     "data-target" : "texture-window"
-                }).on("click",toggle.group).on("click",pac.tabAction).on("click",showSlider).appendTo($tabBtWrap),
+                }).on("click",toggle.group).on("click",UImodule.tabAction).on("click",showSlider).appendTo($tabBtWrap),
                 $tabRightBt = $tabLeftBt.clone(true).html("Color").attr("data-target","color-window").removeClass("selected").appendTo($tabBtWrap);
                 $tabLeftBt.on("click",firstMaterialCheck);
 
@@ -1931,13 +1897,13 @@
                 var $this = $(document).find(".toolbox-wrap[data-value='backgroundTool']");
 
                 var $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }),
-                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",toggle.group).on("click",pac.tabAction);
+                $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",toggle.group).on("click",UImodule.tabAction);
 
                 var $3dBt = $tabBt.clone(true).html("3D").attr("data-target","3d").addClass("selected").appendTo($tabBtWrap),
                 $2dBt = $tabBt.clone(true).html("Image").attr("data-target","2d").appendTo($tabBtWrap),
                 $colorBt = $tabBt.clone(true).html("Color").attr("data-target","color").appendTo($tabBtWrap);
 
-                var $backgroundSelect = new toolbar.createMenu($tabBtWrap,"Background",false).appendTo($this);
+                var $backgroundSelect = new UImodule.createMenu($tabBtWrap,"Background",false).appendTo($this);
 
                 var $controllerBody = $("<div/>",{ "class" : "toolbox-controller tab-target" });
                 var $3DSelector = $("<select/>",{"id" : "bg-3d-selector","class" : "backgroundSelector","data-value" : "3d"}),

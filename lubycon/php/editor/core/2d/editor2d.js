@@ -103,11 +103,11 @@
                         .appendTo($progressWrap).on("click",pac.currentProg);
 
                         //in toolbar
-                        var $textTool = d.toolbar.textTool ? new toolbar.createButton("textTool","icon",icons.font,true).appendTo($aside) : "",
-                        $colorTool = d.toolbar.colorTool ? new toolbar.createButton("colorTool","icon",icons.paint,true).appendTo($aside) : "",
-                        $gridTool = d.toolbar.gridTool ? new toolbar.createButton("gridTool","icon",icons.grid,true).appendTo($aside) : "",
-                        $marginTool = d.toolbar.marginTool ? new toolbar.createButton("marginTool","icon",icons.margin,true).appendTo($aside) : "",
-                        $sortTool = d.toolbar.sortTool ? new toolbar.createButton("sortTool","icon",icons.sorts,true).appendTo($aside) : "";
+                        var $textTool = d.toolbar.textTool ? new UImodule.createButton("textTool","icon",icons.font,true,true).appendTo($aside) : "",
+                        $colorTool = d.toolbar.colorTool ? new UImodule.createButton("colorTool","icon",icons.paint,true,true).appendTo($aside) : "",
+                        $gridTool = d.toolbar.gridTool ? new UImodule.createButton("gridTool","icon",icons.grid,true,true).appendTo($aside) : "",
+                        $marginTool = d.toolbar.marginTool ? new UImodule.createButton("marginTool","icon",icons.margin,true,true).appendTo($aside) : "",
+                        $sortTool = d.toolbar.sortTool ? new UImodule.createButton("sortTool","icon",icons.sorts,true,true).appendTo($aside) : "";
 
                         //input files
                         var $inputFile = $("<input/>",{
@@ -1258,43 +1258,6 @@
             }
         },
         toolbar = {
-            createButton: function(data,type,iconData,tooltip){
-                var tipData = pac.disableCamelCase(data);
-                var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
-                icon = type === "icon" ? $("<i/>",{"class" : iconData}) : $("<img/>",{"src" : iconData});
-
-                icon.appendTo(button);
-
-                button.on("click").on("click",toggle.group).on("click",pac.tabAction);
-                if(tooltip) button.tooltip({"top":5,"left":50});
-
-                return button;
-            },
-            createRadioButton: function(data,type,iconData,tooltip){
-                var button = new toolbar.createButton(data,type,iconData,tooltip);
-                button.addClass("radioType");
-
-                return button;
-            },
-            createMenu: function(content,name){
-                var body = $("<div>",{ "class" : "toolbox-inner" }),
-                label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(body);
-                if(content !== null && typeof content === "object"){
-                    if(content.length === 1){
-                        content.appendTo(body);
-                    }
-                    else{
-                        for(var i = 0, l = content.length; i < l; i++){
-                            content[i].appendTo(body);
-                        }
-                    }
-                    return body;
-                }
-                else {
-                    return body
-                }
-
-            },
             textTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='textTool']");
                 
@@ -1306,7 +1269,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $fontSize = new toolbar.createMenu($sizeInput,"Font Size").attr({"id" : "fontSize-tool","data-value" : "font-size"}).appendTo($this);
+                $fontSize = new UImodule.createMenu($sizeInput,"Font Size",false).attr({"id" : "fontSize-tool","data-value" : "font-size"}).appendTo($this);
                 $sizeInput.slider({
                     customID: "fontSize-slider",
                     disabled: true, 
@@ -1315,7 +1278,7 @@
 
                 //font color start
                 var $colorInput = $("<input/>",{ "type" : "text","id" : "fontColorKey" }),
-                $fontColor = new toolbar.createMenu($colorInput,"Font Color").attr({"id" : "fontColor-tool","data-value" : "font-color"}).appendTo($this);
+                $fontColor = new UImodule.createMenu($colorInput,"Font Color",false).attr({"id" : "fontColor-tool","data-value" : "font-color"}).appendTo($this);
                 $colorInput.spectrum({
                     color: "#ffffff",
                     showInput: true,
@@ -1344,7 +1307,7 @@
                 $strikeBt = $btn.clone().addClass("strikebt").attr("data-value","strike").append($("<i/>",{"class" : icons.strike}))
                 .on("click",toggle.single).on("click",toolbar.textFn.fontDeco).appendTo($decobtns),
 
-                $fontDeco = new toolbar.createMenu($decobtns,"Font Decorations").attr({"id" : "fontDeco-tool","data-value" : "font-dece"}).appendTo($this);
+                $fontDeco = new UImodule.createMenu($decobtns,"Font Decorations",false).attr({"id" : "fontDeco-tool","data-value" : "font-dece"}).appendTo($this);
 
                 //font align start
                 var $alignbtns = $btWrap.clone(),
@@ -1357,7 +1320,7 @@
                 $alignRight = $btn.clone().addClass("align-justify-bt").attr("data-value","justify").append($("<i/>",{"class" : icons.alignJustify}))
                 .on("click",toggle.group).on("click",toolbar.textFn.fontAlign).appendTo($alignbtns),
 
-                $fontAlign = new toolbar.createMenu($alignbtns,"Align").attr({"id" : "fontAlign-tool","data-value" : "font-align"}).appendTo($this);
+                $fontAlign = new UImodule.createMenu($alignbtns,"Align",false).attr({"id" : "fontAlign-tool","data-value" : "font-align"}).appendTo($this);
             },
             textFn: {
                 focusAction: function(){
@@ -1475,7 +1438,7 @@
                 var $this = $(document).find(".toolbox-wrap[data-value='colorTool']");
 
                 var $colorInput = $("<input/>",{"type" : "text","id" : "bgColorKey"}),
-                $bgColor = new toolbar.createMenu($colorInput,"Background Color").attr({"id" : "bgColor-tool","data-value" : "bg-color"}).appendTo($this);
+                $bgColor = new UImodule.createMenu($colorInput,"Background Color",false).attr({"id" : "bgColor-tool","data-value" : "bg-color"}).appendTo($this);
                 $colorInput.spectrum({
                     color: "#ffffff",
                     showInput: true,
@@ -1521,12 +1484,12 @@
                     "html" : "Insert",
                 }).on("click",modalFunc.addGrid).appendTo($gridBtWrap),
 
-                $btn1 = new toolbar.createButton("v-1-1","img",icons.grid1,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
-                $btn2 = new toolbar.createButton("v-1-2","img",icons.grid2,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
-                $btn3 = new toolbar.createButton("v-2-1","img",icons.grid3,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
-                $btn4 = new toolbar.createButton("h-1-2","img",icons.grid4,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
-                $btn5 = new toolbar.createButton("h-2-1","img",icons.grid5,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
-                $btn6 = new toolbar.createButton("n-2-2","img",icons.grid6,false).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap);
+                $btn1 = new UImodule.createButton("v-1-1","image",icons.grid1,false,true).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn2 = new UImodule.createButton("v-1-2","image",icons.grid2,false,true).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn3 = new UImodule.createButton("v-2-1","image",icons.grid3,false,true).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn4 = new UImodule.createButton("h-1-2","image",icons.grid4,false,true).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn5 = new UImodule.createButton("h-2-1","image",icons.grid5,false,true).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap),
+                $btn6 = new UImodule.createButton("n-2-2","image",icons.grid6,false,true).addClass("grid-btn").on("click",toolbar.gridFn.makeGrid).appendTo($btnWrap);
                 ModalKit.align($this);
             },
             gridFn: {
@@ -1631,7 +1594,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $headerMargin = new toolbar.createMenu($headerInput,"Header").attr({"id" : "header-tool","data-value" : "header"}).appendTo($this);
+                $headerMargin = new UImodule.createMenu($headerInput,"Header",false).attr({"id" : "header-tool","data-value" : "header"}).appendTo($this);
                 $headerInput.slider({ callback: toolbar.marginFn.headerMargin });
 
                 var $footerInput = $("<input/>",{
@@ -1641,7 +1604,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $footerMargin = new toolbar.createMenu($footerInput,"Footer").attr({"id" : "footer-tool","data-value" : "footer"}).appendTo($this);
+                $footerMargin = new UImodule.createMenu($footerInput,"Footer",false).attr({"id" : "footer-tool","data-value" : "footer"}).appendTo($this);
                 $footerInput.slider({ callback: toolbar.marginFn.footerMargin });
 
                 var $deviderInput = $("<input/>",{ //input
@@ -1651,7 +1614,7 @@
                     "min" : 0,
                     "max" : 100
                 }),
-                $deviderMargin = new toolbar.createMenu($deviderInput,"Contents Spacing").attr({"id" : "devider-tool","data-value" : "devider"}).appendTo($this);
+                $deviderMargin = new UImodule.createMenu($deviderInput,"Contents Spacing",false).attr({"id" : "devider-tool","data-value" : "devider"}).appendTo($this);
                 $deviderInput.slider({
                     customID: "contentSpace-slider",
                     disabled: true, 
@@ -1680,7 +1643,7 @@
 
                 var $sortul = $("<ul/>",{ "class" : "sort-ul"}),
                 $sortbt = $("<div/>",{ "class" : "sort-btn", "html" : "Sort"}).on("click",toolbar.sortFn.sortable),
-                $sortWrap = new toolbar.createMenu([$sortul,$sortbt],"Sort").attr({"id" : "sort-tool","data-value" : "sort"}).appendTo($this);
+                $sortWrap = new UImodule.createMenu([$sortul,$sortbt],"Sort",false).attr({"id" : "sort-tool","data-value" : "sort"}).appendTo($this);
                 toolbar.sortFn.refresh();
                 $sortul.sortable();
                 $this.disableSelection();

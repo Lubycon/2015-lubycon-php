@@ -9,6 +9,70 @@ var setIndex = function(element){
     });
 };
 
+var UImodule = {
+    createButton: function(data,type,iconData,tooltip,isToggle){
+        var tipData = data !== null ? data.disableCamelCase() : null;
+        var button = $("<div/>",{"class" : "btn", "data-target" : data, "data-tip" : tipData }),
+        icon = null;
+        switch(type){
+            case "icon" : icon = $("<i/>",{"class" : iconData}); break;
+            case "image" : icon = $("<img/>",{"src" : iconData}); break;
+            case "text" : icon = $("<p/>",{ "html" : iconData }); break;
+            default : icon = $("<i/>",{"class" : "fa fa-filter"}); break;
+        }
+
+        icon.appendTo(button);
+
+        if(isToggle) button.on("click",toggle.group).on("click",UImodule.tabAction);
+        if(tooltip) button.tooltip({"top":5,"left" : 50});
+
+        return button;
+    },
+    createRadioButton: function(data,type,iconData,tooltip,isToggle){
+        var button = new UImodule.createButton(data,type,iconData,tooltip,isToggle);
+        button.addClass("radioType");
+
+        return button;
+    },
+    createMenu: function(content,name,switchs){
+        var body = $("<div>",{ "class" : "toolbox-inner" }),
+        labelWrap = $("<div/>",{"class" : "toolbox-label-wrapper"}).appendTo(body)
+        label = $("<div/>",{ "class" : "toolbox-label", "html" : name }).appendTo(labelWrap),
+        labelSwitch = switchs ? $("<input/>",{ "type" : "checkbox", "class" : "toolbox-label-checkbox" }).appendTo(labelWrap) : null;
+
+        if(content !== null && typeof content === "object"){
+            if(content.length === 1){
+                content.appendTo(body);
+            }
+            else{
+                for(var i = 0, l = content.length; i < l; i++){
+                    content[i].appendTo(body);
+                }
+            }
+            return body;
+        }
+        else {
+            label.css({"display" : "inline-block"});
+            return body;
+        }
+    },
+    tabAction: function(){
+        var $this = $(this),
+        data = $this.data("target"),
+
+        depthTest = $this.parent().find(".tab-target").length === 0,
+        parent = depthTest ? $this.parent().parent() : $this.parent(),
+        target = parent.find(".tab-target[data-value='" + data + "']"),
+        elements = target.siblings(".tab-target");
+
+        if($this.hasClass("selected")){
+            elements.hide();
+            target.show();
+        }
+        else target.hide();
+    }
+}
+
 var editorFileChecker = function(params){
     //file,kind,type,parentArray,alertKey
     var size = params.file.size,

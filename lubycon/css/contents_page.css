@@ -5,6 +5,9 @@
     top: 240px;
     right: 0;
 }
+.slider-wrapper {
+    display: none !important;
+}
 /*------test--------*/
 
 #category{
