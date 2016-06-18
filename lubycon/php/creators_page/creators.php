@@ -92,9 +92,9 @@
                 $userjob = "Gangster";
                 $randCount = rand(200,1500);
                 $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
-                $user_content1 = "$one_depth/../../../Lubycon_Contents/contents/threed/Alasdair_Munro20160414050808/thumb.jpg";
-                $user_content2 = "$one_depth/../../../Lubycon_Contents/contents/threed/Anushree_Dhar20160414050808/thumb.jpg";
-                $user_content3 = "$one_depth/../../../Lubycon_Contents/contents/threed/Caroline_Davies20160414050808/thumb.jpg";
+                $user_content1 = "../../../../lubycon_Contents/contents/artwork/Hortencia_Puccio20160414050808/thumbnail/thumbnail.jpg";
+                $user_content2 = "../../../../lubycon_Contents/contents/threed/Anushree_Dhar20160414050808/thumbnail/thumbnail.jpg";
+                $user_content3 = "../../../../lubycon_Contents/contents/threed/Caroline_Davies20160414050808/thumbnail/thumbnail.jpg";
             ?><!--you should change to mySQL later-->
             <div id="bestCreator" class="creators_card" data-index="1">
                 <div class="creator_info_wrap">
@@ -132,7 +132,7 @@
             </div>
             <ul id="creator_card_wrap">
             <?php
-                    $db->query = "SELECT  `userbasic`.`userCode`, preview , nick , jobCode , boardCode , city , countryCode FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC";
+                    $db->query = "SELECT  `userbasic`.`userCode` , `nick` , `jobCode` , `boardCode` , `city` , `countryCode` , `userDirectory` FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC";
                     $db->askQuery();
                     while( $row = mysqli_fetch_array($db->result) )
                     {

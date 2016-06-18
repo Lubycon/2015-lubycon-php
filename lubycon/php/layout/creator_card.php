@@ -10,11 +10,16 @@
         $userjob = $job_origin_select;
         $randCount = rand(200,1500);
         $contents_count = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
-        $user_content1 = $row['preview'];
+
+
+        
+        $user_dir = $row['userDirectory'];
+
+        $user_content1 = $user_dir.'/thumbnail/thumbnail.jpg';
         $user_content1_num = $row['boardCode'];
-        $user_content2 = $row['preview'];
+        $user_content2 = $user_dir.'/thumbnail/thumbnail.jpg';
         $user_content2_num = $row['boardCode'];
-        $user_content3 = $row['preview'];
+        $user_content3 = $user_dir.'/thumbnail/thumbnail.jpg';
         $user_content3_num = $row['boardCode'];
     ?><!--you should change to mySQL later-->
     <div class="creators_card" data-index="<?=$usercode?>">
