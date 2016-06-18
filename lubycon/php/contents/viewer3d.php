@@ -13,7 +13,7 @@
 <script src="./viewer3d.js"></script>
 <style>
 	#web-gl {
-		width: 90%;
+		width: 95%;
 		height: 90%;
 		margin: 0px auto;
 	}

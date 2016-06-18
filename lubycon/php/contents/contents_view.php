@@ -15,8 +15,6 @@ $one_depth = '../..'; //css js load
 $two_depth = '..'; // php load
 include_once('../layout/index_header.php');
 
-
-
 $allow_array = ['all','artwork','vector','threed'];
 if( in_array($cate , $allow_array) )
 {
@@ -88,6 +86,13 @@ $file_view = $row['viewCount'];
 $file_down = $row['downloadCount'];
 $file_like = $row['likeCount'];
 
+$file_path = $row['userDirectory'];
+$skymapJSON = file_get_contents($file_path."json/map.json");
+$lightJSON = file_get_contents($file_path."json/lights.json");
+$modelJSON = file_get_contents($file_path."json/model.json");
+
 include_once("viewer2d.php");
 include_once($two_depth.'/layout/index_footer.php');
+
+echo "<script>var skymapJSON = $skymapJSON; var lightJSON = $lightJSON; var modelJSON = $modelJSON; </script>";
 ?>
