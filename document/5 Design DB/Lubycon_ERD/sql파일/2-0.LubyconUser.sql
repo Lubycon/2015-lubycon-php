@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS `Job`;
 CREATE TABLE IF NOT EXISTS `Job`
 (
 	`jobCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255) NOT NULL,
+	`jobName` VARCHAR(255) NOT NULL,
 	
 	PRIMARY KEY(`jobCode`)
 	
@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS `Country`;
 CREATE TABLE IF NOT EXISTS `Country`
 (
 	`countryCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`utc` TINYINT SIGNED NOT NULL,
-	`continent` ENUM('asia', 'europe', 'africa', 'americas', 'oceania','undecided') NOT NULL,
-	`region` ENUM('east_asia', 'central_asia', 'south_asia', 'northern_asia', 'south_east_asia', 'south_west_asia', 'eastern_europe', 'central_europe', 'western_europe', 'southern_europe', 'northern_europe', 'south_east_europe','south_west_europe', 'eastern_africa', 'central_africa', 'western_africa', 'southern_africa', 'northern_africa', 'indian_ocean', 'pacific', 'central_america', 'south_america', 'north_america', 'west_indies','undecided') NOT NULL,
-	`name` VARCHAR(255) NOT NULL,
+	`countryUtc` TINYINT SIGNED NOT NULL,
+	`countryContinent` ENUM('asia', 'europe', 'africa', 'americas', 'oceania','undecided') NOT NULL,
+	`countryRegion` ENUM('east_asia', 'central_asia', 'south_asia', 'northern_asia', 'south_east_asia', 'south_west_asia', 'eastern_europe', 'central_europe', 'western_europe', 'southern_europe', 'northern_europe', 'south_east_europe','south_west_europe', 'eastern_africa', 'central_africa', 'western_africa', 'southern_africa', 'northern_africa', 'indian_ocean', 'pacific', 'central_america', 'south_america', 'north_america', 'west_indies','undecided') NOT NULL,
+	`countryName` VARCHAR(255) NOT NULL,
 	
 	PRIMARY KEY(`countryCode`)
 	
@@ -56,20 +56,21 @@ CREATE TABLE IF NOT EXISTS `UserBasic`
 DROP TABLE IF EXISTS `UserInfo`;
 CREATE TABLE IF NOT EXISTS `UserInfo`
 (
-	`userCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`jobCode` INT UNSIGNED NOT NULL,
+	`userCode` INT UNSIGNED NOT NULL,
 	`countryCode` INT UNSIGNED NOT NULL,
-	`languageCode` INT UNSIGNED NOT NULL,
+	`jobCode` INT UNSIGNED,
 	`logCode` INT UNSIGNED,
 	`profileImg` TEXT,
-	`description` VARCHAR(160),
+	`userDescription` VARCHAR(160),
 	`company` VARCHAR(255),
 	`city` VARCHAR(255),
 	`telNumber` VARCHAR(20),
 	`fax` VARCHAR(20),
 	`web` TEXT,
-	`languageLevel` ENUM('beginer','advanced','fluent','native'),
-	`permission` INT UNSIGNED NOT NULL DEFAULT 11111111,
+	`emailPublic` ENUM('Public','Private'),
+	`mobilePublic` ENUM('Public','Private'),
+	`faxPublic` ENUM('Public','Private'),
+	`webPublic` ENUM('Public','Private'),
 	
 	PRIMARY KEY (`userCode`)
 	
@@ -80,50 +81,27 @@ CREATE TABLE IF NOT EXISTS `UserInfo`
 DROP TABLE IF EXISTS `UserHistory`;
 CREATE TABLE IF NOT EXISTS `UserHistory`
 (
-	`userCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`history` INT UNSIGNED NOT NULL,
-	`date` INT UNSIGNED NOT NULL,
-	`category` ENUM('work experience', 'education', 'awards'),
+	`historyId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userCode` INT UNSIGNED NOT NULL,
+	`historyContents` VARCHAR(255),
+	`historyDateYear` VARCHAR(255),
+	`historyDateMonth` VARCHAR(255),
+	`historyCategory` ENUM('work_experience', 'education', 'awards'),
 	
-	PRIMARY KEY (`userCode`)
-	
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
--- Bookmark --
-DROP TABLE IF EXISTS `Bookmark`;
-CREATE TABLE IF NOT EXISTS `Bookmark`
-(
-	`memberCode` INT UNSIGNED NOT NULL,
-	`boardCode` VARCHAR(255),
-	`bookmarkBoolean` INT UNSIGNED NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
-	
-	INDEX bookmarkIndex (`memberCode`)
-	
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
--- like --
-DROP TABLE IF EXISTS `Like`;
-CREATE TABLE IF NOT EXISTS `Like`
-(
-	`memberCode` INT UNSIGNED NOT NULL,
-	`boardCode` INT UNSIGNED NOT NULL,
-	`likeBoolean` INT UNSIGNED NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
-	
-	INDEX likeIndex (`memberCode`)
+	PRIMARY KEY (`historyId`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- Language --
-DROP TABLE IF EXISTS `Language`;
-CREATE TABLE IF NOT EXISTS `Language`
+DROP TABLE IF EXISTS `UserLanguage`;
+CREATE TABLE IF NOT EXISTS `UserLanguage`
 (
-	`languageCode` INT UNSIGNED NOT NULL,
-	`language` VARCHAR(255),
-	`level` ENUM('beginer', 'advanced', 'fluent'),
+	`languageId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userCode` INT UNSIGNED NOT NULL,
+	`languageLevel` ENUM('Beginer','Advanced','Fluent'),
+	`languageName` VARCHAR(255),
 	
-	PRIMARY KEY(`languageCode`)
+	PRIMARY KEY(`languageId`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 

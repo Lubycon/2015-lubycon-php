@@ -15,8 +15,8 @@
 
     $user_position = $userdata_row["company"];
     $usercity = $userdata_row["city"];
-    $language1 = "Language1"; //not yet
-    $language2 = "Language2"; //not yet
+    $language1 = $lang_name[0]; //not yet
+    $language2 = $lang_name[1]; //not yet
 
     $total_like = 0;
     $total_view = 0;
@@ -107,6 +107,22 @@
             </div>
             <div class="dash_body">
                 <ul class="history_wrap">
+                    <?php
+                        while( $row = mysqli_fetch_array($history_row))
+                        {
+                            $historyYear = $row['historyDateYear'];
+                            $historyMonth = $row['historyDateMonth'];
+                            $historyCategory = str_replace ( ' ' , '_' , $row['historyCategory'] );
+                            $historyContents = $row['historyContents'];
+                            echo "<li class='history_list'>
+                            <div class='history_date'>$historyYear $historyMonth</div>
+                            <div class='history_kind' id='$historyCategory'><i class='fa fa-circle'></i></div>
+                            <div class='history_content'>'$historyContents</div>
+                            </li>";
+                        }
+                    ?>
+
+                    <!--
                     <li class="history_list">
                         <div class="history_date">2016 Jan</div>
                         <div class="history_kind" id="work_expierence"><i class="fa fa-circle"></i></div>
@@ -131,18 +147,18 @@
                         <div class="history_date">2018 Jan</div>
                         <div class="history_kind" id="studied"><i class="fa fa-circle"></i><span></span></div>
                         <div class="history_content">Lorem ipsum dolor sit amet, consec tetur adipisicing elit.</div>
-                    </li>
+                    </li>-->
                 </ul>
                 <aside id="history_desc" class="hidden-mb-ib">
                     <p class="history_desc_list" id="work_desc">
                         <i class="fa fa-circle"></i>
                         <span>Work Experience</span>
                     </p>
-                    <p class="history_desc_list" id="studied_desc">
+                    <p class="history_desc_list" id="edu_desc">
                         <i class="fa fa-circle"></i>
                         <span>Education</span>
                     </p>
-                    <p class="history_desc_list" id="contest_desc">
+                    <p class="history_desc_list" id="award_desc">
                         <i class="fa fa-circle"></i>
                         <span>Awards</span>
                     </p>

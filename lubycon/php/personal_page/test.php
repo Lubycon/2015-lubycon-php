@@ -188,12 +188,16 @@ SET
 `jobCode` = $job_code, 
 `company` = '$company',
 `profileImg` = '$save_path' ,
-`description` = '$user_description',
+`userDescription` = '$user_description',
 `countryCode` = '$location_code',
 `city` = '$location_text',
 `telNumber` = '$mobile_number',
 `fax` = '$fax_number',
-`web` = '$website_url'
+`web` = '$website_url',
+`emailPublic` = '$email_public',
+`mobilePublic` = '$mobile_public',
+`faxPublic` = '$fax_public',
+`webPublic` = '$website_public'
 
 WHERE `userCode` = $usercode";
 $db->askQuery(); // viewcount up
