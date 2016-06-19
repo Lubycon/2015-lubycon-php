@@ -278,26 +278,29 @@ body{
             }
 .card_menu{
     position: absolute;
+    width: 30px;
+    text-align: right;
     right: 7px;
     top: 7px;
     cursor: pointer;
     z-index : 2;
-}
+}  
     .card_menu .card_menu_icon{
         font-size: 20px;
         color: #aaaaaa;
         transition: color 0.2s;
     }
-        .card_menu.selected .card_menu_icon{
+        .card_menu:hover .card_menu_icon {
             color: #48cfad;
         }
-        .card_menu .menu_icon:hover{
-            color: #ffbe54;
+        .card_menu.selected .card_menu_icon{
+            color: #48cfad;
+            text-shadow: 0px 0px 10px rgba(81, 203, 238, 1);
         }
     .card_menu_list{
         width: 150px;
         top: 10px;
-        left: -140px;
+        left: -130px;
         position: absolute;
         border-radius: 5px;
         z-index: 1;

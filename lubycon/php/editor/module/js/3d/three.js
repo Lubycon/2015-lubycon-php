@@ -39607,7 +39607,7 @@ THREE.DirectionalLightHelper = function ( light, size ) {
 
 	size = size || 1;
 
-	var lightPointTexture = new THREE.TextureLoader().load("../../img/lightPoint.png");
+	var lightPointTexture = new THREE.TextureLoader().load("../../../../ch/img/editor/lightPoint.png");
 
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push(new THREE.Vector3(0,0,0));
@@ -39954,7 +39954,7 @@ THREE.PointLightHelper = function ( light, sphereSize ) {
 	this.matrix = light.matrixWorld;
 	this.matrixAutoUpdate = false;
 
-	var lightPointTexture = new THREE.TextureLoader().load("../../img/lightPoint.png");
+	var lightPointTexture = new THREE.TextureLoader().load("../../../../ch/img/editor/lightPoint.png");
 
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push(new THREE.Vector3(0,0,0));
@@ -40140,7 +40140,7 @@ THREE.SpotLightHelper = function ( light ) {
 	this.matrix = light.matrixWorld;
 	this.matrixAutoUpdate = false;
 
-	var lightPointTexture = new THREE.TextureLoader().load("../../img/lightPoint.png");
+	var lightPointTexture = new THREE.TextureLoader().load("../../../../ch/img/editor/lightPoint.png");
 
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push(new THREE.Vector3(0,0,0));
