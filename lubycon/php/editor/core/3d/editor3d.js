@@ -190,7 +190,7 @@
                     var type = light.type,
                     newLight = null;
                     switch(type){
-                        case "directional" : 
+                        case "DirectionalLight" : 
                             newLight = new THREE.DirectionalLight(light.color,light.intensity);
 
                             newLight.target.position.set(
@@ -199,7 +199,7 @@
                                 light.target.z
                             );   
                         break;
-                        case "spot" : 
+                        case "SpotLight" : 
                             newLight = new THREE.SpotLight(light.color,light.intensity);
                             newLight.angel = light.angle;
                             newLight.penumbra = light.penumbra;
@@ -209,10 +209,10 @@
                                 light.target.z
                             );
                         break;
-                        case "hemisphere" : 
+                        case "HemisphereLight" : 
                             newLight = new THREE.HemisphereLight(light.skyColor,light.groundColor,light.intensity);
                         break;
-                        case "point" :
+                        case "PointLight" :
                             newLight = new THREE.PointLight(light.color,light,intensity,light.radius);
                         break;
                         default : return false; break;
@@ -224,6 +224,7 @@
                         light.position.z
                     );
                     newLight.name = "presetLight"+i;
+                    console.log(newLight);
 
                     return newLight;
                 }
@@ -318,7 +319,8 @@
                             data: formData,
                             type: 'POST',
                             success: function (result) {
-                                console.log(result);
+                                alert("SUBMIT SUCCESS");
+                                location.href = "../../../../index.php";
                             }
                         });
                     }
@@ -341,11 +343,7 @@
                                 "z" : obj.target.position.z
                             },
                             "castShadow" : obj.castShadow,
-                            "color" : {
-                                "r" : obj.color.r,
-                                "g" : obj.color.g,
-                                "b" : obj.color.b
-                            },
+                            "color" : obj.color.getHex(),
                             "intensity" : obj.intensity
                         };
                     }
