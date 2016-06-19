@@ -403,68 +403,6 @@
                     font-size: 14px;
                 }
 
-
-        #bestCreator{
-            margin-bottom: 0 !important;
-        }
-            #bestCreator .creator_pic{
-                width: 80px;
-                height: 80px;
-            }
-            #bestCreator .creator_name a{
-                color: #fafafa;
-                font-size: 25px;
-            }
-            #bestCreator .usercontent{
-                width: 30%;
-            }
-        .creators_card_in{
-            display: block;
-            margin: 0px;
-        }
-        .creators_card {
-            width: 100%;
-            max-width: 800px;
-            margin: 0px auto;
-            border-bottom: 1px solid #eeeeee;
-            border-radius: 0px;
-            box-shadow: none;
-            text-align: left;
-            padding: 15px;
-        }
-        .creator_info_wrap{
-            padding-left: 2%;
-        }
-        .creator_top_info{
-            margin-top: 5px;
-        }
-            .creator_pic {
-                width: 45px;
-                height: 45px;
-                display: inline-block;
-            }
-            .creator_location_img{
-                width: 20px;
-                height: 20px;
-                top: 28px;
-                right: -7px;
-            }
-        .creator_mid_info {
-            margin-top: 5px;
-        }
-            .creator_name a{
-                text-align: left;
-                font-size: 16px;
-            }
-            .creator_job{
-                text-align: left;
-                font-size: 14px;
-            }
-        .creator_bot_info {
-            border: none;
-            padding-top: 18px;
-        }
-
     #contents_info_wrap {
         background: #383838;
     }
@@ -816,8 +754,8 @@
         top: 0 !important;
     }
 }
-/*--------------------------------------------------------------------mobile end-------*/
-/*-----------------------------------------------------------------desktop start-------*/
+/*---------------------------------------------------------------------------------------------------------mobile end-------*/
+/*-------------------------------------------------------------------------------------------------------desktop start-------*/
 @media screen and (min-width: 1025px){
     .visible-mb{
         display: none !important;
@@ -927,22 +865,6 @@
                 .creator_desc .name{
                     font-size: 14px;
                 }
-    #bestCreator{
-
-    }
-        #bestCreator .creator_pic{
-            width: 100px;
-            height: 100px;
-        }
-        #bestCreator .creator_name a{
-            font-size: 30px;
-        }
-        #bestCreator .usercontent{
-            width: auto;
-        }
-        #bestCreator .creator_bot_info{
-            border-top: 1px solid #333333;
-        }
     .creator_card_in{
         display: inline-block;
         margin: 10px;
@@ -953,34 +875,34 @@
         text-align: center;
         box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
     }
-    .creator_top_info{
-        margin-top: 18px;
+    .creator_card_body .creator_pic_wrap{
+        margin-right: 20px;
     }
         .creator_pic {
             width: 90px;
             height: 90px;
         }
-        .creator_location_img {
+        .creator_location_pic {
             width: 30px;
             height: 30px;
             bottom: 0;
             right: 0;
         }
-    .creator_mid_info {
-        margin-top: 20px;
+    .creator_card_body {
+        margin-top: 15px;
     }
-        .creator_name a{
+        .creator_name a {
             text-align: center;
-            font-size: 18px;
+            font-size: 25px;
+            font-weight: 600;
+            transition: color 0.2s;
         }
         .creator_job{
-            text-align: center;
             font-size: 16px;
         }
-    .creator_bot_info {
+    .creator_card_footer {
         border-top: 1px solid #dddddd;
         margin: 0px auto;
-        margin-top: 18px;
         padding: 10px;
     }
 
@@ -1104,6 +1026,7 @@
         font-weight: 200;
         color: #ffffff;
         cursor: pointer;
+        transition: color, 0.2s;
     }
         .my_page_bt:hover{
             border-color: #48cfad;

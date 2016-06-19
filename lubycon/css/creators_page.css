@@ -14,40 +14,6 @@
     padding-right: 0px;
     padding-left: 310px;
 }
-    #bestCreator{
-        display: block;
-        width: 100%;
-        max-width: 1220px;
-        margin: 20px auto;
-        float: none;
-        background: #444444;
-        border-radius: 0px;
-        margin-top: 0;
-    }
-        #bestCreator .creator_pic{
-            
-        }
-        #bestCreator .creator_name a{
-            color: #fafafa;
-        }
-            #bestCreator .creator_name a:hover{
-                color: #48cfad;
-            }
-        #bestCreator .creator_job{
-            color: #fafafa;
-        }
-        #bestCreator .creator_location{
-            color: #fafafa;
-        }
-            #bestCreator .creator_location i {
-                color: #fafafa;
-            }
-        #bestCreator .usercontent {
-            
-        }
-        #bestCreator .usercontent img {
-            max-width: 300px;
-        }
 
 .con_aside {
     border-right: 1px solid #222222;
