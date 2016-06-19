@@ -1,7 +1,7 @@
 ﻿/////////////////////////////////////////////////////////////////////////////
 function luby_selcetor_val_change(selector_name , origin_selcet){
-    $(selector_name).find('select:eq(0)').val(origin_selcet);
-    $(selector_name).find('.ls_Label:eq(0)').text(origin_selcet);
+    $(selector_name).val(origin_selcet);
+    $(selector_name).parents('.lubySelector').find('.ls_Label').text(origin_selcet);
 }
 /////////////////////////////////////////////////////////////////////////////
 //please remove this daniel

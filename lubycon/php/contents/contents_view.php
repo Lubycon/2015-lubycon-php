@@ -87,12 +87,8 @@ $file_down = $row['downloadCount'];
 $file_like = $row['likeCount'];
 
 $file_path = $row['userDirectory'];
-$skymapJSON = file_get_contents($file_path."json/map.json");
-$lightJSON = file_get_contents($file_path."json/lights.json");
-$modelJSON = file_get_contents($file_path."json/model.json");
 
 include_once("viewer2d.php");
 include_once($two_depth.'/layout/index_footer.php');
 
-echo "<script>var skymapJSON = $skymapJSON; var lightJSON = $lightJSON; var modelJSON = $modelJSON; </script>";
 ?>

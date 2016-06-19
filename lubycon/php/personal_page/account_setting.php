@@ -30,8 +30,8 @@
             <p class="setting_title">Account Setting</p>
                 <div class="account_input_wrap userinfo">
                     <label>E-mail</label><input type="text" value="<?=$userid?>" disabled />
-                    <div class="public_option email_public">
-                        <select class="privacyFilter" name="email_public">
+                    <div class="public_option">
+                        <select class="privacyFilter email_public" name="email_public">
                             <option value="Public">Public</option>
                             <option value="Private">Private</option>
                             <?php $json_control->json_find_option_original('.email_public',$row['emailPublic']);?>
@@ -88,7 +88,7 @@
                             $job_origin_select = $job_decode[$row['jobCode']]['name'];
                             $json_control->json_spread_option($job_decode);
                             echo $json_control->json_spread_wrap;
-                            $json_control->json_find_option_original('.job_option',$job_origin_select);
+                            $json_control->json_find_option_original('.jobFilter',$job_origin_select);
                         ?>
                     </select>
                 </div>
@@ -104,7 +104,7 @@
                             $country_origin_select = $json_control->search_key_origin;
                             $json_control->json_spread_option($country_decode);
                             echo $json_control->json_spread_wrap;
-                            $json_control->json_find_option_original('.location_option',$country_origin_select);
+                            $json_control->json_find_option_original('.locationFilter',$country_origin_select);
                         ?>
                     </select>
                 </div>
@@ -116,10 +116,10 @@
                         $lang_level_target = $lang_level[$value];
                         $lang_name_target = $lang_name[$value];
                         
-                        echo "<div class='langWrap langnum_$value'>
+                        echo "<div class='langWrap'>
                             <input type='text' id='lang_input_id' class='language_text' name='language[]' value='$lang_name_target' />
                             <div class='lang_option'>
-                                <select class='langFilter0' name='lang_ability[]'>
+                                <select class='langFilter0 langnum_$value' name='lang_ability[]'>
                                     <option value='Beginer'>Beginer</option>
                                     <option value='Advanced'>Advanced</option>
                                     <option value='Fluent'>Fluent</option>
@@ -155,24 +155,23 @@
             <i class="fa fa-refresh refresh"></i>
             <div class="history_cell">
                 <?php
-                    while( $row = mysqli_fetch_array($history_row) )
+                    $j = 0;
+                    while( $history_fetch_row = mysqli_fetch_array($history_row) )
                     {
-                        $i = 0;
-                        $historyYear = $row['historyDateYear'];
-                        $historyMonth = $row['historyDateMonth'];
-                        $historyCategory = str_replace ( ' ' , '_' , $row['historyCategory'] );
-                        $historyContents = $row['historyContents'];
-
+                        $historyYear = $history_fetch_row['historyDateYear'];
+                        $historyMonth = $history_fetch_row['historyDateMonth'];
+                        $historyCategory = $history_fetch_row['historyCategory'];
+                        $historyContents = $history_fetch_row['historyContents'];
 
                         echo "<div class='history_data history_year'>
-                            <select class='accountFilter history_year_$i' name='history_year[]' data-value='year'>
+                            <select class='accountFilter history_year_$j' name='history_year[]' data-value='year'>
                             <";
                             for( $i=2016 ; $i > 1939 ; $i-- )
                             {
                                 echo '<option data-value='.$i.'>'.$i.'</option>';
                             }
                         echo "</select>               
-                            <select class='accountFilter history_month_$i' name='history_month[]' data-value='month'>
+                            <select class='accountFilter history_month_$j' name='history_month[]' data-value='month'>
                                 <option data-value='1'>January</option>
                                 <option data-value='2'>February</option>
                                 <option data-value='3'>March</option>
@@ -186,18 +185,19 @@
                                 <option data-value='11'>November</option>
                                 <option data-value='12'>December</option>
                             </select>
-                            <select class='accountFilter history_kind_$i' name='history_kind[]' data-value='kind'>
+                            <select class='accountFilter history_kind_$j' name='history_kind[]' data-value='kind'>
                                 <option data-value='work_expierence'>Work Experience</option>
                                 <option data-value='education'>Education</option>
                                 <option data-value='awards'>Awards</option>
                             </select>
                             <input class='history_text' type='text' name='history_text[]' value='$historyContents'/>
                         </div>";
-                        $json_control->json_find_option_original(".history_year_$i",$historyYear);
-                        $json_control->json_find_option_original(".history_month_$i",$historyMonth);
-                        $json_control->json_find_option_original(".history_kind_$i",$historyCategory);
+
+                        $json_control->json_find_option_original(".history_year_$j",$historyYear);
+                        $json_control->json_find_option_original(".history_month_$j",$historyMonth);
+                        $json_control->json_find_option_original(".history_kind_$j",$historyCategory);
                         
-                        $i++;
+                        $j++;
                     }
                 ?>
 
@@ -244,31 +244,31 @@
         <section id="contact_info_section" class="setting_card">
             <p class="setting_title">Contact Info</p>
                 <label>Mobile</label><input type="text" name="mobile_number" value="<?=$row['telNumber']?>"/>
-                <div class="public_option mobile_public">
-                    <select class="privacyFilter" name="mobile_public">
+                <div class="public_option">
+                    <select class="privacyFilter mobile_public" name="mobile_public">
                         <option value="Public">Public</option>
                         <option value="Private">Private</option>
-                            <?php $json_control->json_find_option_original('.mobile_public',$row['emailPublic']);?>
+                            <?php $json_control->json_find_option_original('.mobile_public',$row['mobilePublic']);?>
                     </select>
                 </div>
                 <!-- end select box -->
                 
                 <label>FAX</label><input type="text" name="fax_number" value="<?=$row['fax']?>"/>
-                <div class="public_option fax_public">
-                    <select class="privacyFilter" name="fax_public">
+                <div class="public_option">
+                    <select class="privacyFilter fax_public" name="fax_public">
                         <option value="Public">Public</option>
                         <option value="Private">Private</option>
-                            <?php $json_control->json_find_option_original('.fax_public',$row['emailPublic']);?>
+                            <?php $json_control->json_find_option_original('.fax_public',$row['faxPublic']);?>
                     </select>
                 </div>
                 <!-- end select box -->
                 
                 <label>Website</label><input type="text" name="website_url" value="<?=$row['web']?>"/>
-                <div class="public_option web_public">
-                    <select class="privacyFilter" name="website_public">
+                <div class="public_option">
+                    <select class="privacyFilter web_public" name="website_public">
                         <option value="Public">Public</option>
                         <option value="Private">Private</option>
-                            <?php $json_control->json_find_option_original('.web_public',$row['emailPublic']);?>
+                            <?php $json_control->json_find_option_original('.web_public',$row['webPublic']);?>
                     </select>
                 </div>
                 <!-- end select box -->

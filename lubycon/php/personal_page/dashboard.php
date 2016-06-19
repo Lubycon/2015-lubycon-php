@@ -26,6 +26,13 @@
     $username = $userdata_row["nick"];
     $userWebsite = $userdata_row["web"];
     $userEmail = $userdata_row["email"];
+
+    $emailpublic = $userdata_row["emailPublic"];
+    $mobilepublic = $userdata_row["mobilePublic"];
+    $faxpublic = $userdata_row["faxPublic"];
+    $webpublic = $userdata_row["webPublic"];
+
+
     //target user data
 
     //login user data
@@ -220,11 +227,11 @@
                 <div class="dash_body_sector x2" id="useremail">
                     <div class="x2_inner">
                         <p class="dash_body_title">E-mail</p>
-                        <p class="dash_body_content"><?=$userEmail?></p>
+                        <p class="dash_body_content"><?php if($emailpublic=='Public'){echo $userEmail;}else{echo 'Private inforamtion';} ?></p>
                     </div>
                     <div class="x2_inner">
                         <p class="dash_body_title">Website</p>
-                        <a href=<?=$userWebsite?> class="dash_body_content"><?=$userWebsite?></a>
+                        <a href=<?php if($webpublic=='Public'){echo $userWebsite;} ?> class="dash_body_content"><?php if($webpublic=='Public'){echo $userWebsite;}else{echo 'Private inforamtion';} ?></a>
                     </div> 
                 </div>
                 <div class="dash_body_sector" id="usertime">

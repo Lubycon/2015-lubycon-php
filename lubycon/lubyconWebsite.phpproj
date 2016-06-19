@@ -1207,7 +1207,6 @@
     <Compile Include="php\layout\personal_menu.php" />
     <Compile Include="php\load_page\load_page.php" />
     <Compile Include="php\login\Login_class.php" />
-    <Compile Include="php\personal_page\css\cropper.css" />
     <Compile Include="php\personal_page\js\cropper.js" />
     <Compile Include="php\personal_page\account_setting.php" />
     <Compile Include="php\personal_page\bookmark.php" />

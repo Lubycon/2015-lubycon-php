@@ -1,5 +1,9 @@
 <!--test file-->
 <?php
+    $skymapJSON = file_get_contents($file_path."json/map.json");
+    $lightJSON = file_get_contents($file_path."json/lights.json");
+    $modelJSON = file_get_contents($file_path."json/model.json");
+    echo "<script>var skymapJSON = $skymapJSON; var lightJSON = $lightJSON; var modelJSON = $modelJSON; </script>";
 	$path = "../editor/module/js/3d/";
 ?>
 <script>var PRESET_DEPTH = "../../"</script>
