@@ -95,43 +95,62 @@
                 $user_content1 = "../../../../lubycon_Contents/contents/artwork/Hortencia_Puccio20160414050808/thumbnail/thumbnail.jpg";
                 $user_content2 = "../../../../lubycon_Contents/contents/threed/Anushree_Dhar20160414050808/thumbnail/thumbnail.jpg";
                 $user_content3 = "../../../../lubycon_Contents/contents/threed/Caroline_Davies20160414050808/thumbnail/thumbnail.jpg";
+                $temp = 'not yet';
             ?><!--you should change to mySQL later-->
-            <div id="bestCreator" class="creators_card" data-index="1">
-                <div class="creator_info_wrap">
-                    <div class="creator_top_info">
-                        <div class="creator_pic">
-                            <img src="<?=$user_img_url?>" alt="user_pic"/>
-                        </div>
-                        <div class="creator_location_img">
-                            <img src="<?=$user_location_img?>" alt="user_location"/>
-                        </div>
-                    </div>
-                    <div class="creator_mid_info">
-                        <p class="creator_name"><a href="<?=$two_depth?>/personal_page.php?cate=dashboard&usernum=$usernumber"><?=$username?></a></p><!--user name-->
-                        <p class="creator_job"><?=$userjob?></p><!--job-->
-                        <p class="creator_location"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
-                        <article class="contents_count">
-                            <p class="count_num"><?=$contents_count?></p>
-                            Contents
-                        </article>
-                    </div>
-                </div>
-                <div class="creator_bot_info">
-                    <ul>
-                        <li class="usercontent">
-                            <img src="<?=$user_content1?>" alt="user_content"/>
-                        </li>
-                        <li class="usercontent">
-                            <img src="<?=$user_content2?>" alt="user_content"/>
-                        </li>
-                        <li class="usercontent">
-                            <img src="<?=$user_content3?>" alt="user_content"/>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <ul id="creator_card_wrap">
-            <?php
+                <li class="creator_card_in">
+                    <div id="bestCreator" class="creators_card">
+                        <div class="creator_card_header">
+                            <span class="card_label">Creator of The <span class="this_month">September</span></span>
+                        </div><!--header-->
+                        <div class="creator_card_body">
+                            <div class="creator_pic_wrap">
+                                <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
+                                <div class="creator_location_pic"><img src="<?=$user_location_img?>" alt="user_location"></div>
+                            </div>
+                            <div class="creator_info_wrap">
+                                <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
+                                <p class="creator_job"></i><?=$userjob?></p>
+                                <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
+                                <article class="contents_count hidden-mb-b">
+                                    <p class="contents_num"><?=$contents_count?></p>
+                                    Contents
+                                </article>
+                            </div>
+                        </div><!--body-->
+                        <div class="creator_card_medal">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </div><!--medals-->
+                        <div class="creator_card_footer">
+                            <ul>
+                                <li class="usercontent" data-value="0">
+                                    <?php 
+                                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$temp'>";
+                                    ?>
+                                    <img src="<?=$user_content1?>" alt="user_content">
+                                    </a>
+                                </li>
+                                <li class="usercontent" data-value="1">
+                                    <?php 
+                                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$temp'>";
+                                    ?>
+                                    <img src="<?=$user_content2?>" alt="user_content">
+                                    </a>
+                                </li>
+                                <li class="usercontent" data-value="2">
+                                    <?php 
+                                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$temp'>";
+                                    ?>
+                                    <img src="<?=$user_content3?>" alt="user_content">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!--footer-->
+                    </div><!--bestCreator card-->
+                </li>
+                <?php
                     $db->query = "SELECT  `userbasic`.`userCode` , `nick` , `jobCode` , `boardCode` , `city` , `countryCode` , `userDirectory` FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC";
                     $db->askQuery();
                     while( $row = mysqli_fetch_array($db->result) )
@@ -140,7 +159,7 @@
                         $country_origin_select = $country_decode[$row['countryCode']]['name'];
                         include("$two_depth/layout/creator_card.php");
                     }
-            ?>
+                ?>
             </ul>
         </div><!--end con_main-->
     </section><!--end user_box_total-->

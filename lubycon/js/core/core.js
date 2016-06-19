@@ -98,9 +98,14 @@ function CardMenu(params){
     $this.append(body);
 
     function createList(text,icon,link){
-        var list = $("<li/>"),
+        var list = $("<li/>",{ "data-value" : text.toLowerCase() }),
         anchor = $("<a/>", { "href" : link, "html" : text }).appendTo(list),
         icon = $("<i/>", { "class" : "fa " + icon}).appendTo(anchor);
+
+        if(text === "Delete" || text ==="Remove") {
+            anchor.css({"color":"#ec6446"});
+            icon.css({"color":"#ec6446"});
+        }
 
         return list;
     }
@@ -364,7 +369,6 @@ $.fn.hideAnywhere = function(){
             var $this = $(event.target),
             checkElement = !$this.is($menu) && !$this.is($button) && $button.has($this).length === 0;
 
-            console.log(checkElement);
             if(checkElement) {
                 $menu.fadeOut(200);
                 $button.removeClass("selected");

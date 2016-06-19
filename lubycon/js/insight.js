@@ -104,7 +104,7 @@ function initChart(target,theme,data){
 } 
 /*-------------------------make chart end-------------------------------*/
 
-$(document).ready(function(){
+$(document).ready(function(event){
     var chart_icon = $("#chart_icon");
     var chart_name = $("#chart_name");
     var chartboxes = $(".chartboxes");
@@ -151,7 +151,7 @@ $(document).ready(function(){
         }//swtich end
     });
 
-    function chartToggle(){
+    function chartToggle(event){
         eventHandler(event,$(this));
         var $this = $(this),
         $menuList = $("#chart_selector");
