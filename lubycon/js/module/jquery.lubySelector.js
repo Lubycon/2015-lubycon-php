@@ -227,7 +227,7 @@
                             "border-left" : "1px solid #000000",
                             "box-shadow" : "-1px 0px 0px #303030",
                             "border-radius" : "0", 
-                            "margin" : "0", 
+                            "margin" : "0px 0px 0px 1px", 
                             "height" : $this.parent().height(),
                             "line-height" : $this.parent().height() + "px",
                             "padding" : "0px 10px",

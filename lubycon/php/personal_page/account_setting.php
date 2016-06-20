@@ -107,44 +107,38 @@
                             $json_control->json_find_option_original('.locationFilter',$country_origin_select);
                         ?>
                     </select>
+                    <input type="text" id="location_text" name="location_text" value="<?=$row['city']?>"/>
                 </div>
-                <input type="text" id="location_text" name="location_text" value="<?=$row['city']?>"/>
                 <label>Language</label>
-                <?php
-                    foreach( $lang_level as $value => $key )
-                    {
-                        $lang_level_target = $lang_level[$value];
-                        $lang_name_target = $lang_name[$value];
-                        
-                        echo "<div class='langWrap'>
-                            <input type='text' id='lang_input_id' class='language_text' name='language[]' value='$lang_name_target' />
-                            <div class='lang_option'>
-                                <select class='langFilter0 langnum_$value' name='lang_ability[]'>
-                                    <option value='Beginer'>Beginer</option>
-                                    <option value='Advanced'>Advanced</option>
-                                    <option value='Fluent'>Fluent</option>
-                                </select>
-                            </div>  
-                        </div>";
-                        $json_control->json_find_option_original(".langnum_$value",$lang_level_target);
-                    }
-                ?>
-                <!--
-                <div class="langWrap">
-                    <input type="text" id="lang_input_id" class="language_text" name="language[]" />
-                    <div class="lang_option">
-                        <select class="langFilter0" name="lang_ability[]">
-                            <option value="Beginer">Beginer</option>
-                            <option value="Advanced">Advanced</option>
-                            <option value="Fluent">Fluent</option>
-                        </select>
-                    </div>  
+                <div class="clone-list">
+                    <?php
+                        foreach( $lang_level as $value => $key )
+                        {
+                            $lang_level_target = $lang_level[$value];
+                            $lang_name_target = $lang_name[$value];
+                            
+                            echo "<div class='langWrap clone-wrapper'>
+                                <input type='text' class='language_text' name='language[]' value='$lang_name_target' />
+                                <div class='lang_option'>
+                                    <select class='langFilter0 langnum_$value' name='lang_ability[]'>
+                                        <option value='Beginer'>Beginer</option>
+                                        <option value='Advanced'>Advanced</option>
+                                        <option value='Fluent'>Fluent</option>
+                                    </select>
+                                </div>  
+                            </div>";
+                            //////////////////////////////////////////////////////////////////////////----- 2016-06-21 01:04 am
+                            $json_control->json_find_option_original(".langnum_$value",$lang_level_target);
+                            ////////////////////////////////////////////////////////////////////////// 
+                            // PLEASE REMOVE THIS SCRIPT, AND USE "setValue" METHOD IN LubySelector //
+                            //////////////////////////////////////////////////////////////////////////
+                        }
+                    ?>
                 </div>
-                <div id="clone_div"></div>-->
-                <div id="lang_plus" class="optControl">
+                <div class="optControl" data-value="add">
                     <i class="fa fa-plus"></i>
                 </div>
-                <div id="lang_minus" class="optControl">
+                <div class="optControl" data-value="remove">
                     <i class="fa fa-minus"></i>
                 </div>
                 <label id="basic_desc_label">Description</label>
@@ -153,7 +147,7 @@
         <section id="history_setting_section" class="setting_card">
             <p class="setting_title">History Setting</p>
             <i class="fa fa-refresh refresh"></i>
-            <div class="history_cell">
+            <div class="clone-list">
                 <?php
                     $j = 0;
                     while( $history_fetch_row = mysqli_fetch_array($history_row) )
@@ -163,7 +157,7 @@
                         $historyCategory = $history_fetch_row['historyCategory'];
                         $historyContents = $history_fetch_row['historyContents'];
 
-                        echo "<div class='history_data history_year'>
+                        echo "<div class='historyWrap clone-wrapper'>
                             <select class='accountFilter history_year_$j' name='history_year[]' data-value='year'>
                             <";
                             for( $i=2016 ; $i > 1939 ; $i-- )
@@ -200,43 +194,11 @@
                         $j++;
                     }
                 ?>
-
-
-                <!--
-                <div class="history_data">
-                    <select class="accountFilter" name="history_year[]" data-value="year">
-                    <
-                        for( $i=2016 ; $i > 1939 ; $i-- ){
-                            echo '<option data-value='.$i.'>'.$i.'</option>';
-                        }
-                    ?>
-                    </select>               
-                    <select class="accountFilter" name="history_month[]" data-value="month">
-                        <option data-value="1">January</option>
-                        <option data-value="2">February</option>
-                        <option data-value="3">March</option>
-                        <option data-value="4">April</option>
-                        <option data-value="5">May</option>
-                        <option data-value="6">June</option>
-                        <option data-value="7">July</option>
-                        <option data-value="8">August</option>
-                        <option data-value="9">September</option>
-                        <option data-value="10">October</option>
-                        <option data-value="11">November</option>
-                        <option data-value="12">December</option>
-                    </select>
-                    <select class="accountFilter" name="history_kind[]" data-value="kind">
-                        <option data-value="work_expierence">Work Experience</option>
-                        <option data-value="education">Education</option>
-                        <option data-value="awards">Awards</option>
-                    </select>
-                    <input class="history_text" type="text" name="history_text[]"/>
-                </div>-->
             </div>
-            <div id="history_plus" class="optControl">
+            <div class="optControl" data-value="add">
                 <i class="fa fa-plus"></i>
             </div>
-            <div id="history_minus" class="optControl">
+            <div class="optControl" data-value="remove">
                 <i class="fa fa-minus"></i>
             </div>
         </section>
@@ -277,7 +239,7 @@
         <section id="delete_account_section" class="setting_card">
             <p class="setting_title">Delete Account</p>
                 <p id="delete_desc">Deleting your account will delete all of your content and remove all data associated with it.</p>
-                <span id="delete_bt" class="alertKey" data="delete">I want delete my account</span>
+                <span id="delete_account_bt" class="alertKey" data="delete"><i class="fa fa-trash"></i>I want to delete my account</span>
         </section>
         <input type="submit" value="Submit" id="submit_bt" />
     </section>

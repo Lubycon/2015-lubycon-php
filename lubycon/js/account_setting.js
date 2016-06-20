@@ -10,9 +10,9 @@ $(function (){ //account setting script
     $(document).ready(function(){
         initAccountSetting();
         initLubySelectors();
-        languageControl();
-        historyControl();
         initProfileCropper();
+        optionButtonControl($(".langWrap"),4);
+        optionButtonControl($(".historyWrap"),20);
         $("#submit_bt").on("click",finalSubmit);
     });
 
@@ -54,7 +54,9 @@ $(function (){ //account setting script
 
     function initAccountSetting(){
         var changeBt = $("#change_pass"),
-        passwordWindows = $("#account_setting_section").find("input[type='password']");
+        passwordWindows = $("#account_setting_section").find("input[type='password']"),
+        optControlBt = $(".optControl"),
+        historySortBt = $(".fa.fa-refresh.refresh");
 
         changeBt.on("click",function (){ //change pass remove attr
             var $this = $(this);
@@ -88,6 +90,9 @@ $(function (){ //account setting script
                 default : return false; break;
             }
         });
+
+        optControlBt.on("click",optionController);
+        historySortBt.on("click",sortHistory);
 
         function checkCurrentPassword(){
             var $this = $(this),
@@ -199,7 +204,7 @@ $(function (){ //account setting script
     function initLubySelectors(){
         $("#lang_minus_id").hide();
         $(".privacyFilter").lubySelector({
-            width: 100,
+            width: 120,
             theme: "white",
             icon: "fa fa-lock",
             float: "none"
@@ -228,147 +233,131 @@ $(function (){ //account setting script
             theme: "white"
         });
     }
+    
+    function LanguageContainer(){
+        var index = $(document).find(".langWrap").length;
+        var body = $("<div/>",{ "class" : "langWrap clone-wrapper" }),
+        input = $("<input/>",{ 
+            "type" : "text", 
+            "class" : "language_text",
+            "name" : "language[]"
+        }).appendTo(body),
+        optionWrapper = $("<div/>",{ 
+            "class" : "lang_option"
+        }).appendTo(body),
+        selector = $("<select>",{ 
+            "class" : "langFilter", 
+            "name" : "lang_ability[]" 
+        }).appendTo(optionWrapper),
+        option = $("<option>",{ "class" : "lang_level" });
+        
+        $.each(["Beginner","Advanced","Fluent"],function(i,value){
+            console.log(value);
+            option.clone().text(value).appendTo(selector);
+        });
 
-    function languageControl(){
-        var index;
-        var cloneWrapper = $(document).find("#clone_div"),
-        addBt = $(document).find("#lang_plus"),
-        removeBt = $(document).find("#lang_minus");
-
-        addBt.on("click touchend", addLangauge);
-        removeBt.on("click touchend", removeLanguage);
-
-        function addLangauge(event){
-            eventHandler(event, $(this));
-            var language;
-            index = $(document).find(".langWrap").length;
-            if(index < 4){
-                language = new LanguageContainer(index);
-                language.appendTo(cloneWrapper);
-                language.find("select").lubySelector({
-                    theme:"white",
-                    "float":"none"
-                });
-                removeBt.show();
-                if(index === 3) $(this).hide();
-            }
-            else return false;
-        }
-        function removeLanguage(event){
-            eventHandler(event, $(this));
-            index = $(document).find(".langWrap").length;
-
-            if(index > 1){
-                addBt.show();
-                $("#clone_div > div:last-child").remove();
-                if(index === 2) $(this).hide();
-            }
-            else return false;
-        }
-
-        function LanguageContainer(index){
-            var body = $("<div/>",{ "class" : "langWrap" }),
-            wrapper = $("<div/>",{ "class" : "lang_section", "id" : "lang_clone" + index}).appendTo(body),
-            input = $("<input/>",{ 
-                "type" : "text", 
-                "class" : "language_text",
-                "id" : "lang_input_" + index, 
-                "name" : "language[]"
-            }).appendTo(wrapper),
-            optionWrapper = $("<div/>",{ 
-                "class" : "lang_option", 
-                "id" : "lang_option_1" + index 
-            }).appendTo(wrapper),
-            selector = $("<select>",{ 
-                "class" : "langFilter" + index, 
-                "name" : "lang_ability[]" 
-            }).appendTo(optionWrapper),
-            option = $("<option>",{ "class" : "lang_level" });
-            
-            $.each(["Beginner","Advanced","Fluent"],function(i,value){
-                console.log(value);
-                option.clone().text(value).appendTo(selector);
-            });
-
-            return body;
-        }
+        return body;
     }
 
-    function historyControl(){
-        var index;
-        var cloneWrapper = $(document).find(".history_cell");
+    function HistoryContainer(){
+        var original = $(document).find(".historyWrap").first(),
+        clone = original.clone(true);
+        var index = original.length;
+        clone.find(".history_text").val("");
+        clone.find(".lubySelector").lubySelector("setValue",0);
 
-        var addBt = $(document).find("#history_plus"),
-        removeBt = $(document).find("#history_minus"),
-        refreshBt = $(document).find(".refresh");
+        return clone;
+    }
 
-        addBt.on("click touchend", addHistory);
-        removeBt.on("click touchend", removeHistory);
-        refreshBt.on("click touchend", sortHistory);
+    function optionController(event){
+        eventHandler(event, $(this));
+        var $this = $(this),
+        type = $this.data("value"),
+        wrapper = $this.siblings(".clone-list"),
+        target = wrapper.find(".clone-wrapper"),
+        limit, object;
 
-        function addHistory(event){
-            eventHandler(event, $(this));
-            var oldHistory = $(document).find(".history_data");
-            index = oldHistory.length;
-
-            var newHistory = oldHistory.first().clone(true);
-            newHistory.find(".history_text").val("");
-            newHistory.appendTo(cloneWrapper);
-            removeBt.show();
-
-            newHistory.find(".lubySelector").lubySelector("setValue",0);
+        if(target.hasClass("langWrap")){
+            limit = 4;
+            object = new LanguageContainer();
         }
-        function removeHistory(event){
-            eventHandler(event, $(this));
-            index = $(document).find(".history_data");
-
-            if(index > 1){
-                $(".history_cell").find(".history_data").last().remove();
-                if(index === 2) removeBt.hide();
-            }
-
+        else if(target.hasClass("historyWrap")){
+            limit = 20;
+            object = new HistoryContainer();
         }
-        function sortHistory(event){
-            eventHandler(event, $(this));
-            var history_array = [];
-            $('.history_cell .history_data').each(function (index) {
-                history_array.push({
-                    'index':  index,
-                    'year': $(this).find('.accountFilter[data-value="year"]').val(),
-                    'month': $(this).find('.accountFilter[data-value="month"]').val(),
-                    'kind': $(this).find('.accountFilter[data-value="kind"]').val(),
-                    'text': $(this).find('.history_text').val()
-                });
-                console.log(history_array[index]);
+
+        if(type === "add"){
+            var lubySelector = object.find(".lubySelector");
+            object.appendTo(wrapper);
+            if(lubySelector.length === 0) object.find("select").lubySelector({"theme" : "white"});
+        }
+        else if(type === "remove"){
+            target.last().remove();
+        }
+        else {
+            console.log("optionController ERROR : account_setting:245");
+            return false;
+        }
+
+        target = wrapper.find(".clone-wrapper");
+        optionButtonControl(target,limit) 
+    }
+
+    function optionButtonControl(element,limit){
+        var addBt = element.parent().siblings(".optControl[data-value='add']"),
+        removeBt = element.parent().siblings(".optControl[data-value='remove']");
+        
+        console.log(element.length);
+        if(element.length <= limit && element.length === 1){
+            removeBt.hide();
+        }
+        else removeBt.show();
+
+        if(element.length >= limit) addBt.hide();
+        else addBt.show();
+    }
+
+    function sortHistory(event){
+        console.log("sortHistory");
+        eventHandler(event, $(this));
+        var history_array = [];
+        $('.historyWrap').each(function (index) {
+            history_array.push({
+                'index':  index,
+                'year': $(this).find('.accountFilter[data-value="year"]').val(),
+                'month': $(this).find('.accountFilter[data-value="month"]').val(),
+                'kind': $(this).find('.accountFilter[data-value="kind"]').val(),
+                'text': $(this).find('.history_text').val()
             });
-            aftersort = history_array.sort(CompareForSort);
-            function CompareForSort(first, second) {
-                if (first.year == second.year) // sort by year
-                    if (first.month < second.month) { // if same value year, sort by month
-                        return -1; //bigger than second month
-                    } else{
-                        return 1; //bigger than first month
-                    }
-                if (first.year < second.year) 
-                    return -1; // bigger than second year
-                else {
-                    return 1; // bigger than first year
+            console.log(history_array[index]);
+        });
+        aftersort = history_array.sort(CompareForSort);
+        function CompareForSort(first, second) {
+            if (first.year == second.year) // sort by year
+                if (first.month < second.month) { // if same value year, sort by month
+                    return -1; //bigger than second month
+                } else{
+                    return 1; //bigger than first month
                 }
+            if (first.year < second.year) 
+                return -1; // bigger than second year
+            else {
+                return 1; // bigger than first year
             }
-            $('.history_data').each(function (index) {
-                var selectors = $(this).find(".accountFilter");
-                var inputText = $(this).find(".history_text");
-                var i = index;
-                selectors.each(function(index){
-                    var $this = $(this),
-                    data = $this.data("value");
-
-                    $this.val(aftersort[i][data]);
-                    $this.siblings(".ls_Label").text(aftersort[i][data]);
-                });
-                inputText.val(aftersort[index].text);
-            });
         }
+        $('.historyWrap').each(function (index) {
+            var selectors = $(this).find(".accountFilter");
+            var inputText = $(this).find(".history_text");
+            var i = index;
+            selectors.each(function(index){
+                var $this = $(this),
+                data = $this.data("value");
+
+                $this.val(aftersort[i][data]);
+                $this.siblings(".ls_Label").text(aftersort[i][data]);
+            });
+            inputText.val(aftersort[index].text);
+        });
     }
 
     function initProfileCropper(){

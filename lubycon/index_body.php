@@ -24,6 +24,7 @@ $(function(){
 */
 </script>
 <link href="css/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <div id="index_figure_wrap" class="main_figure_wrap hidden-mb-b">
     <figure id="index_figure">
         <h2>Connect Your Creativity With The World</h2>
@@ -223,24 +224,22 @@ $(function(){
 <!--slide section end-->
 
 <!--creator of the month start-->
-<section class="index_pre_body">
+<section class="index_pre_body hidden-mb-b">
     <div class="index_pre_wrap">
         <div class="index_pre_title">
             <i class="fa fa-trophy"></i>   
-            <article><p>CREATOR</p> OF THE MONTH</article>
+            <article><b>CREATOR</b> OF THE MONTH</article>
         </div>
         <div class="index_pre_inner">
             <div id="creator_info">
                 <figure id="creator_info_background"></figure>
                 <div id="creator_info_p">
-                    <figure id="creator_pic_frame">
-                        <img src="./ch/img/creator_of_the_month/SsaRu.png" id="creator_pic">
-                    </figure>
                     <ul>
-                        <li id="creator_name">SsaRu</li>
-                        <li id="creator_job">Engineer</li>
+                        <li id="creator_name">LoveHara</li>
+                        <li id="creator_job">Godness</li>
                         <li id="creator_location"><i class="fa fa-map-marker"></i><p>Seoul, South korea</p></li>
                     </ul>
+                    <div class="viewmore_bt"><a href="./index.php?1=creators_page&2=creators">READ INTERVIEW</a></div>
                 </div>
             </div>
             <div id="creator_desc">
@@ -253,17 +252,16 @@ $(function(){
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
                 </p>
             </div>
-            <div class="viewmore_bt"><a href="./index.php?1=creators_page&2=creators">VIEW MORE</a></div>
         </div>  
     </div>
 </section>
 <!--creator of the month end-->
 
-<section class="index_pre_body">
+<section class="index_pre_body hidden-mb-b">
     <div class="index_pre_wrap">
         <div class="index_pre_title">
             <i class="fa fa-volume-up"></i>   
-            <article><p>HOT TOPICS</p> OF THE MONTH</article>
+            <article><b>HOT TOPICS</b> OF THE MONTH</article>
         </div>
         <div class="index_pre_inner">
             <ul class="forum_cards">

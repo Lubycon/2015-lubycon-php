@@ -110,7 +110,8 @@
 
 /* creators section */
 .index_pre_body{
-    width: 100%;
+    width: 1070px;
+    margin: 0px auto;
     padding: 30px;
     margin-bottom: 35px;
     background: #eeeeee;
@@ -154,10 +155,7 @@
     }
 #creator_info{
     width: 100%;
-    max-width: 1000px;
     position: relative;
-    height: 300px;
-    margin: 0px auto;
     position:relative;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -165,72 +163,59 @@
 }
     #creator_info_background{
         width: 100%;
-        max-width: 1000px;
-        height: 300px;
-        background: url(../CH/img/main_img01.png) no-repeat 50% 46%;
+        height: 380px;
+        background: url(../CH/img/creator_of_the_month/creator.png) no-repeat 50% 29%;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-        -webkit-filter: blur(3px) brightness(0.7);
-        -moz-filter: blur(3px) brightness(0.7);
-        -o-filter: blur(3px) brightness(0.7);
-        -ms-filter: blur(3px) brightness(0.7);
-        filter: blur(3px) brightness(0.7);
         overflow: hidden;
     }
     #creator_info_p{
         position: absolute;
-        top: 48px;
-        left: 50%;
-        margin-left: -50px;
+        top: 0px;
+        right: 0px;
+        height: 380px;
+        background: rgba(0,0,0,0.4);
     }
-    #creator_pic_frame{
-        width: 100px;
-        height: 100px;
-        overflow: hidden;
-        border-radius: 50%;
-        background: #488ccb;
-        margin: 0px auto;
-    }
-        #creator_pic_frame img{
-            width: 100%;
-        }
     #creator_info ul{
-        width: 100%;
-        max-width: 1000px;
+        padding: 10px 50px;
         position:relative;
-        margin:0px auto;
+        margin-top: 120px;
+        text-align: center;
     }
         #creator_name{
-            height:50px;
+            font-family: 'Montserrat', sans-serif;
             font-size: 36px;
             color:#ffffff;
-            text-align: center;
-            text-shadow: 0px 3px 3px #000;
         }
         #creator_job{
-            height:35px;
+            font-family: 'Montserrat', sans-serif;
             font-size:21px;
             color: #ffffff;
-            text-align: center;
-            font-weight: 200;
         }
         #creator_location{
-            height: 14px;
-            text-align: center;
+            margin-top: 15px;
         }
             #creator_location p{
+                font-family: 'Montserrat', sans-serif;
                 display: inline-block;
-                font-size:14px;
+                font-size:16px;
                 color: #ffffff;
-                font-weight: 200;
             }
             #creator_location i{
                 display: inline-block;
                 color: #ffffff;
                 margin-right: 5px;
             }
+    #creator_info .viewmore_bt {
+        margin: 0px auto;
+        margin-top: 60px;
+        border: 1px solid #ffffff;
+    }
+        #creator_info .viewmore_bt a {
+            color: #ffffff;
+        }
 
     #creator_desc{
         width: 100%;
@@ -249,7 +234,6 @@
     line-height: 50px;
     
     border: 1px solid #444444;
-    border-radius: 50px;
     background: transparent;
     margin: 30px auto;
     
@@ -257,12 +241,14 @@
     
     overflow: hidden;
     cursor: pointer;
+    transition: opacity 0.2s, width 0.2s;
 }
     .viewmore_bt a{
         font-size: 17px;
         color: #444444;
     }
     .viewmore_bt:hover{
+        width: 220px;
         opacity:0.7;
     }
 /* creators section */
@@ -280,7 +266,7 @@
     }
     .forum_card_header{
         width: 100%;
-        padding: 20px 30px;
+        padding: 12px 30px;
         background: #444444;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -295,7 +281,7 @@
     }
         .forum_card_title{
             color: #fafafa;
-            font-size: 35px;
+            font-size: 28px;
             font-weight: 600;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -303,15 +289,16 @@
         }
         .forum_card_author{
             color: #fafafa;
-            font-size: 20px;
+            font-size: 17px;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
         }
     .forum_card_count{
-        width: 100%;
-        position: relative;
-        margin-top: 15px;
+        position: absolute;
+        display: inline-block;
+        top: 10px;
+        right: 0;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -343,7 +330,6 @@
     .forum_card_section p{
         line-height: 25px;
         font-size: 18px;
-        font-weight: 200;
         color: #444444;
         padding: 20px;
         text-overflow: ellipsis;

@@ -1169,16 +1169,17 @@
         }
     .public_option{
         display: inline-block;
-        margin-left: 67px;
+        margin-left: 15px;
     }
     #account_setting_form{
         margin: 45px;
     }
         .setting_card #change_pass{
-            margin-left: 75px;
+            margin-left: 15px;
         }
     .lang_option{
         display: inline-block;
+        vertical-align: middle;
     }
     .history_data {
         background: #ffffff;

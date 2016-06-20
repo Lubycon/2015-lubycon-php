@@ -238,31 +238,31 @@
                 <div class="dash_body_sector x2" id="useremail">
                     <div class="x2_inner">
                         <p class="dash_body_title">E-mail</p>
-                        <p class="dash_body_content"><?php if($emailpublic=='Public'){echo $userEmail;}else{echo 'Private inforamtion';} ?></p>
+                        <p class="dash_body_content"><?php if($emailpublic=='Public'){echo $userEmail;}else{echo '<i class="fa fa-lock"></i>Private inforamtion';} ?></p>
                     </div>
                     <div class="x2_inner">
                         <p class="dash_body_title">Website</p>
-                        <a href=<?php if($webpublic=='Public'){echo $userWebsite;} ?> class="dash_body_content"><?php if($webpublic=='Public'){echo $userWebsite;}else{echo 'Private inforamtion';} ?></a>
+                        <a href=<?php if($webpublic=='Public'){echo $userWebsite;} ?> class="dash_body_content"><?php if($webpublic=='Public'){echo $userWebsite;}else{echo '<i class="fa fa-lock"></i>Private inforamtion';} ?></a>
                     </div> 
                 </div>
                 <div class="dash_body_sector" id="usertime">
                     <p class="dash_body_title"><?=$username?>`s&nbsp;Time</p>
-                    <div class="time_location" id="user_location">
-                        <?=$usercity?>, <?=$usercountry?>
-                    </div>
                     <div class="clock_wrap" data-value="world">
                         <div class="ampm"></div>
                         <div class="clock"></div>
                     </div>
+                    <div class="time_location" id="user_location">
+                        <?=$usercity?>, <?=$usercountry?>
+                    </div>
                 </div>
                 <div class="dash_body_sector" id="localtime">
                     <p class="dash_body_title">Your Time</p>
-                    <div class="time_location" id="local_location">
-                        <?=$localcity?>, <?=$localcountry?>
-                    </div>
                     <div class="clock_wrap" data-value="local">
                         <div class="ampm"></div>
                         <div class="clock"></div>
+                    </div>
+                    <div class="time_location" id="local_location">
+                        <?=$localcity?>, <?=$localcountry?>
                     </div>
                 </div>
             </div>
