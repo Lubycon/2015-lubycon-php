@@ -262,7 +262,7 @@
                     <a href="<?=$two_depth?>/contents/contents_page.php?cate=all&mid_cate=1&page=1" class="bigsub_link">
                         Contents
                     </a>
-                    <ul class="sub">
+                    <ul class="sub_menu">
                         <li>
                             <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
@@ -277,7 +277,7 @@
                 <li class="menu_bar"></li>
                 <li class="bigsub">
                     Community
-                    <ul class="sub">
+                    <ul class="sub_menu">
                         <li><!--ranking-->
                             <a href="<?=$two_depth?>/creators_page/creators.php"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
                         </li>

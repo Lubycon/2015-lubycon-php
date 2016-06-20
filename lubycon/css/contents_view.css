@@ -248,12 +248,12 @@
             -webkit-height: calc(100% - 30px);
             -moz-height: calc(100% - 30px);
             height: calc(100% - 30px);
-            background: #282828;
+            background: #222222;
             margin: 10px;
             padding: 10px;
             text-align: center;
             border-radius: 5px;
-            box-shadow: inset -1px 2px 65px 0px rgba(0,0,0,0.3);
+            box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.7);
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -280,10 +280,8 @@
                     font-weight: 200;
                     padding: 3px 8px;
                     margin-right: 4px;
-                    border-radius: 3px;
-                    border: 1px solid #111111;
+                    border: 1px solid #444444;
                     background: #222222;
-                    box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
                     word-wrap: break-word;
                     overflow: hidden;
                     cursor: pointer;
