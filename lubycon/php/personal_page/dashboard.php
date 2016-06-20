@@ -91,19 +91,29 @@
             <div class="dash_body">
                 <div class="dash_body_sector" id="userjob">
                     <p class="dash_body_title">Job</p>
-                    <p class="dash_body_content"><?=$userjob?></p>
+                    <div class="dash_body_content">
+                        <p class="content_text"><?=$userjob?></p>
+                    </div>
                 </div>
                 <div class="dash_body_sector" id="user_position">
                     <p class="dash_body_title">Position</p>
-                    <p class="dash_body_content"><?=$user_position?></p>
+                    <div class="dash_body_content">
+                        <p class="content_text"><?=$user_position?></p> 
+                    </div>
                 </div>
                 <div class="dash_body_sector" id="user_location">
                     <p class="dash_body_title">Location</p>
-                    <p class="dash_body_content"><?=$usercity?> / <?=$usercountry?></p>
+                    <div class="dash_body_content">
+                        <p class="content_text"></p>
+                        <p class="content_text"><?=$usercountry?></p>
+                    </div>
                 </div>
                 <div class="dash_body_sector" id="user_language">
                     <p class="dash_body_title">Language</p>
-                    <p class="dash_body_content"><?=$language1?><br><?=$language2?></p>
+                    <div class="dash_body_content">
+                        <p class="content_text"><?=$language1?>,</p>
+                        <p class="content_text"><?=$language2?></p>
+                    </div>
                 </div>
             </div>
         </li>
@@ -123,7 +133,8 @@
                             $historyContents = $row['historyContents'];
                             echo "<li class='history_list'>
                             <div class='history_date'>$historyYear $historyMonth</div>
-                            <div class='history_kind' id='$historyCategory'><i class='fa fa-circle'></i></div>
+                            <div class='history_kind' id='$historyCategory'>
+                            <i class='fa fa-circle'></i><span></span></div>
                             <div class='history_content'>'$historyContents</div>
                             </li>";
                         }

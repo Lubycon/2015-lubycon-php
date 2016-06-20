@@ -1,6 +1,7 @@
 var windowWidth = $(window).width();
 
 $(document).ready(function(){
+    $(".history_kind span").first().remove();
     $(".toggle_info").on("click touchend",infoToggle);
         
         function infoToggle(event){

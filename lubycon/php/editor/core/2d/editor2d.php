@@ -10,10 +10,10 @@
     include_once('../../../layout/index_header.php');
 ?>
 <script>var PRESET_DEPTH = "../../../../"</script>
-<link href="../../module/css/lubySlider.css" rel="stylesheet" type="text/css" />
+<link href="../../../../css/module/lubySlider.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/cropper.css" rel="stylesheet" type="text/css" />
-<link href="../../module/css/chosen.css" rel="stylesheet" type="text/css" />
+<link href="../../../../css/module/chosen.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/editorShared.css" rel="stylesheet" type="text/css" />
 <link href="./editor2d.css" rel="stylesheet" type="text/css" />
 <link href="../../../../css/editor.css" rel="stylesheet" type="text/css" />
@@ -23,7 +23,7 @@
 <script type="text/javascript" src="../../data/categories.json"></script>
 <script type="text/javascript" src="../../../../data/creative_commons.json"></script>
 
-<script type="text/javascript" src="../../module/js/jquery.lubySlider.js"></script>
+<script type="text/javascript" src="../../../../js/module/jquery.lubySlider.js"></script>
 <script type="text/javascript" src="../../../../js/module/modalClass.js"></script>
 <script type="text/javascript" src="../../module/js/spectrum.js"></script>
 <script type="text/javascript" src="../../module/js/cropper.js"></script>

@@ -101,7 +101,7 @@
                 <li class="creator_card_in">
                     <div id="bestCreator" class="creators_card">
                         <div class="creator_card_header">
-                            <span class="card_label">Creator of The <span class="this_month">September</span></span>
+                            <span class="card_label">Creator of The <span class="this_month">Month</span></span>
                         </div><!--header-->
                         <div class="creator_card_body">
                             <div class="creator_pic_wrap">

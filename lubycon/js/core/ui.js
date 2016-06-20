@@ -268,35 +268,41 @@ $(document).ready(function(){
         categoryFilter = navGuide.find(".categoryFilter"),
 
         preferFilter.lubySelector({
-            id: "preferFilter"
+            id: "preferFilter",
+            theme: "rect"
         });
         copyrightFilter.lubySelector({
             id: "copyrightFilter",
-            icon: "fa fa-copyright"
+            icon: "fa fa-copyright",
+            theme: "rect"
         });
         languageFilter.lubySelector({
             id: "languageFilter",
-            icon: "fa fa-globe"
+            icon: "fa fa-globe",
+            theme: "rect"
         });
         locationFilter.lubySelector({
             id: "locationFilter",
-            icon: "fa fa-globe"
+            icon: "fa fa-globe",
+            theme: "rect"
         });
         jobFilter.lubySelector({
             id: "jobFilter",
-            icon: "fa fa-suitcase"
+            icon: "fa fa-suitcase",
+            theme: "rect"
         });
         userFilter.lubySelector({
             id: "userFilter",
-            icon: "fa fa-user"
+            icon: "fa fa-user",
+            theme: "rect"
         });
         categoryFilter.lubySelector({
             id:"categoryFilter",
-            width: 300,
-            float: "left",
+            width: 230,
             icon: "fa fa-bars",
             searchBar: true,
-            optGroup: true
+            optGroup: true,
+            theme: "rect"
         });
     }
     else{

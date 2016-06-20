@@ -14,8 +14,7 @@
         var defaults = { 
             customID: null,
             disabled: false,
-            dragEvent: null,
-            mouseUpEvent: null
+            dragEvent: null
         },
         d = {},
         isDragging = false,
@@ -52,15 +51,13 @@
                             "class" : "slider-text",
                             "value" : defaultVal
                         }).appendTo($sliderWrap).on("change",drag.textBox),
-                        disableAction = $sliderWrap.hasClass("disabled") ? "" : $sliderWrap.on("mousedown",{selector: $this},drag.dragable)
+                        disableAction = $sliderWrap.hasClass("disabled") ? "" : $sliderWrap.on("mousedown",drag.dragable)
                     }
                 })
             }
         },
         drag = {
-            dragable: function (event) {
-                var parent = event.data.selector;
-
+            dragable: function(event){
                 if(event.which == 1 && event.target.className == "slider-bt"){
                     var $this = $(this), 
                     $bt = $this.find(".slider-bt"),
@@ -77,7 +74,6 @@
                         isDragging = false;
                         $bt.removeClass("dragging"); 
                         $this.off("mouseup");
-                        d.mouseUpEvent !== null ? d.mouseUpEvent(parent.val()) : "";
                     });
                 }
             },
@@ -119,7 +115,7 @@
                 $this.val(value);
                 $area.css({ "right":ratio });
                 $bt.css({"left" : btX});
-                d.dragEvent !== null ? d.dragEvent(value,$this) : "";
+                d.dragEvent(value,$this);
             }
         },
         method = {
@@ -133,6 +129,15 @@
                 return this.each(function () {
                     var $this = $(this);
                     $this.removeClass("disabled").on("mousedown",drag.dragable);
+                })
+            },
+            set: function(val){
+                return this.each(function(){
+                    var $this = $(this);
+                    text = $this.find(".slider-text");
+                    text.val(val);
+                    text.trigger("change");
+                    console.log("SET " + val);
                 })
             }
         }

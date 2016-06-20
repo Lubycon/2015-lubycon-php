@@ -181,12 +181,19 @@
 			padding : 5px 0px 0px 10px;
 		}
 		.dash_body_content {
-			line-height: 120px;
+			max-height: 126px;
+			line-height: 40px;
+			margin-top: 20px;
 			color: #444444;
 			font-size: 28px;
 			text-align: center;
 			overflow: hidden;
 		}
+			.dash_body_content .content_text {
+				font-size: 28px;
+				color: #444444;
+				min-height: 20px;
+			}
 			.x2_inner .dash_body_content {
 				display: block;
 				line-height: 40px;
@@ -196,15 +203,6 @@
 			.x2_inner a:hover {
 				opacity: 0.7;
 			}
-		#user_location .dash_body_content {
-			line-height: 40px;
-			margin-top: 20px;
-		}
-		#user_language .dash_body_content {
-			font-size: 25px;
-			line-height: 40px;
-			margin-top: 20px;
-		}
 #creator_month {
     overflow:hidden;
 }

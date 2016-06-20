@@ -220,6 +220,24 @@
                         $list.css("background","rgba(0,0,0,0.85)");
                         $listInner.css("background","transparent");
                     break;
+                    case "rect" :
+                        $this.css({ 
+                            "background" : "#222222",
+                            "border" : "none", 
+                            "border-left" : "1px solid #000000",
+                            "box-shadow" : "-1px 0px 0px #303030",
+                            "border-radius" : "0", 
+                            "margin" : "0", 
+                            "height" : $this.parent().height(),
+                            "line-height" : $this.parent().height() + "px",
+                            "padding" : "0px 10px",
+                        });
+                        $icon.css({ "line-height" : $this.parent().height() - 2 + "px", "left" : "18px" });
+                        $arrow.css({ "line-height" : $this.parent().height() - 7 + "px", "right" : "20px" });
+                        $list.css({ "border-radius" : "0", "margin-top" : "-19px", "margin-left" : "-10px", "box-shadow" : "0px 9px 30px 0px rgba(0,0,0,0.8)" });
+                        $searchBar.css({ "border-radius" : "0" });
+
+                    break;
                     default: return; break;
                 }
                 

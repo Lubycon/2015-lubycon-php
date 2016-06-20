@@ -14,7 +14,7 @@
 <link href="../../../../css/module/lubySlider.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/spectrum.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/cropper.css" rel="stylesheet" type="text/css" />
-<link href="../../module/css/chosen.css" rel="stylesheet" type="text/css" />
+<link href="../../../../css/module/chosen.css" rel="stylesheet" type="text/css" />
 <link href="../../module/css/editorShared.css" rel="stylesheet" type="text/css" />
 <link href="./editor3d.css" rel="stylesheet" type="text/css" />
 <link href="../../../../css/editor.css" rel="stylesheet" type="text/css" />

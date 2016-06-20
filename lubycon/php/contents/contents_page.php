@@ -70,15 +70,6 @@
 
     <section class="nav_guide">
         <div class="nav-wrapper">
-            <select class="categoryFilter">
-            <?php
-                $current_url = $_GET["cate"];
-                $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
-                $middle_cate_decode = $json_control->json_decode_code;
-                $json_control->json_spread_option($middle_cate_decode);
-                echo $json_control->json_spread_wrap;
-            ?>
-            </select>
             <select class="preferFilter">
                 <option selected="selected">Featured</option>
                 <option>Recent</option>
@@ -91,6 +82,15 @@
                 <option>Free</option>
                 <option>Non-Commercial</option>
                 <option>Non-Derivative</option>
+            </select>
+            <select class="categoryFilter">
+            <?php
+                $current_url = $_GET["cate"];
+                $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
+                $middle_cate_decode = $json_control->json_decode_code;
+                $json_control->json_spread_option($middle_cate_decode);
+                echo $json_control->json_spread_wrap;
+            ?>
             </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">

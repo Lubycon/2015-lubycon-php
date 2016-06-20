@@ -332,7 +332,7 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
 
         var tooltipBody = $("<div/>",{"class" : "tooltip tip-body"}),
         tooltipWrap = $("<div/>",{"class" : "tooltip tip-wrapper"}).appendTo(tooltipBody),
-        tooltipContent = $("<p/>",{"class" : "tooltip tip-content","html" : data}).appendTo(tooltipWrap);
+        tooltipContent = $("<p/>",{"class" : "tooltip tip-content", "html" : data}).appendTo(tooltipWrap);
         
         tooltipBody.css("top",d.top);
         d.left !== null ? tooltipBody.css("left",d.left) : "";
@@ -345,7 +345,7 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
         function showTooltip(){
             var $this = $(this);
             data = $this.attr("data-tip");
-            tooltipContent.text(data);
+            tooltipContent.html(data);
             if(d.appendTo === null ) tooltipBody.appendTo($this).stop().fadeIn(300);
             else tooltipBody.appendTo(d.appendTo).stop().fadeIn(300);
         }
