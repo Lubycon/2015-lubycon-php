@@ -1416,7 +1416,7 @@ body{
                 font-weight: 600;
                 transition: color 0.2s;
             }
-                .creator_card_body .creator_info_wrap .creator_name:hover {
+                .creator_card_body .creator_info_wrap .creator_name:hover a {
                     text-decoration: underline;
                     color: #48cfad;
                 }
