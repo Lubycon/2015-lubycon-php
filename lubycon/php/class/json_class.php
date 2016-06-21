@@ -30,7 +30,7 @@ class json_control
     }
     public function json_find_option_original($selector_name,$original_key)
     {
-        echo "<script>luby_selcetor_val_change('$selector_name','$original_key');</script>";
+        echo "<script>$('$selector_name').lubySelector('setValueByString','$original_key')</script>";
     }
     public function json_search($decode_code,$search_value,$search_word)
     {

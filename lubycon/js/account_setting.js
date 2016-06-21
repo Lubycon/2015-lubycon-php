@@ -1,12 +1,4 @@
-﻿/////////////////////////////////////////////////////////////////////////////
-function luby_selcetor_val_change(selector_name , origin_selcet){
-    $(selector_name).val(origin_selcet);
-    $(selector_name).parents('.lubySelector').find('.ls_Label').text(origin_selcet);
-}
-/////////////////////////////////////////////////////////////////////////////
-//please remove this daniel
-
-$(function (){ //account setting script
+﻿$(function (){ //account setting script
     $(document).ready(function(){
         initAccountSetting();
         initLubySelectors();

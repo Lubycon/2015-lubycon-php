@@ -19,9 +19,9 @@
 <link href="<?=$one_depth?>/css/account_setting.css" rel="stylesheet" type="text/css" />
 <link href="./css/cropper.css" rel="stylesheet" type="text/css" />
 <!-- account_setting page css -->
+<script type="text/javascript" src="<?=$one_depth?>/js/account_setting.js"></script>
 <script type="text/javascript" src="./js/cropper.js"></script>
 <script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?=$one_depth?>/js/account_setting.js"></script>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.mousewheel.min.js"></script>
 
 <form id="account_setting_form" enctype="multipart/form-data" method="post" action="./test.php">

@@ -271,6 +271,13 @@
                     var target = $($this.find(".ls_option")[index]);
                     target.trigger("click");
                 })
+            },
+            setValueByString: function (value){
+                return this.each(function () {
+                    var $this = $(this);
+                    $this.val(value);
+                    $this.parents('.lubySelector').find('.ls_Label').text(value);
+                })
             }
         }
         return method[option] ? 
