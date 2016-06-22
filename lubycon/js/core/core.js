@@ -12,6 +12,17 @@ var CONNUM_PARAM = getUrlParameter('conno'); // GLOBAL
 var BNO_PARAM = getUrlParameter('bno'); //GLOBAL
 var PAGE_PARAM = getUrlParameter('page'); //GLOBAL
 
+var TOUCHMOVING = false;
+$(document).ready(function(){
+    $(document).on("touchmove",function(){ TOUCHMOVING = true; console.log(TOUCHMOVING); });
+    $(document).on("touchend touchstart",function(){ TOUCHMOVING = false; console.log(TOUCHMOVING); });
+});
+
+function isMobile(){
+    if($(window).width() <= 1024) return true;
+    else return false;
+}
+
 function getUrlParameter(sParam){
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
@@ -284,7 +295,7 @@ String.prototype.isRepeatWord = function(limit){
 }
 String.prototype.isSpecialChar = function(){
     //if Is is specialChar => true Or false
-    var reg = /[\,\.`;/\?~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
+    var reg = /[`;/~!@\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
 
     return reg.test(this);
 }

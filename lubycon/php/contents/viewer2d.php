@@ -40,6 +40,7 @@
             </div>
             <div id="cc_total_wrap" class="visible-mb">
                 <div id="cc_wrap">
+                    <p>Creative Commons License</p>
                     <ul id="cc_wrap_inner">
                         <a href="#" id="cc_desc_link" target="_brank">
                         <li class="cc_icon" id="cc_main">
@@ -88,7 +89,7 @@
             </article>
         </div><!--end con_main-->
 
-        <div id="contents_aside" class="con_aside">
+        <div id="contents_aside" class="con_aside hidden-mb-ib">
             <div class="creator_info">
                 <figure id="user_img">
                     <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" >

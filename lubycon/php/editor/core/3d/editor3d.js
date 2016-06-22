@@ -837,8 +837,10 @@
                             var contents = event.target.result;
                             group = new THREE.Group();
                             object = new THREE.OBJLoader().parse(contents);
+                            console.log(object);
                             
                             for(var i = 0, l = object.length; i < l; i++){
+                                var userData = object[i].userData;
                                 geometry = object[i].geometry;
                                     geometry.center();
 
@@ -867,9 +869,11 @@
                                     mesh.castShadow = true;
                                     mesh.receiveShadow = true;
                                     mesh.scale.set(1,1,1);
-                                    mesh.initMatrix = mesh.matrixWorld.clone();   
+                                    mesh.initMatrix = mesh.matrixWorld.clone();  
+                                    mesh.userData = userData; 
                                 group.add(mesh);
                                 group.name = "mainObject";
+                                console.log(group.toJSON());
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
@@ -906,8 +910,8 @@
                 content = $("<p/>",{"class" : "tooltip tip-content fileinfo"}),
                 title = $("<p/>",{"class" : "tooltip tip-title fileinfo"}).text("Model Info").appendTo(wrapper);
 
-                var modelInfo = mesh.geometry.modelInfo,
-                vertices = modelInfo.vertices
+                var modelInfo = mesh.userData,
+                vertices = modelInfo.vertices;
 
                 var text = 
                     "Vertices : " + convertToKM(modelInfo.vertices) + "<br/>" +

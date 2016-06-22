@@ -340,13 +340,6 @@ THREE.OBJLoader.prototype = {
 			geometry.computeBoundingBox();
 			geometry.normalize();
 
-			geometry.modelInfo = {
-				vertices : vertexCount,
-				normals : normalCount,
-				uvs : uvCount,
-				triFaces : triFaceCount,
-				quadFaces : quadFaceCount
-			};
 			object.geometry = geometry;
 
 			var material;
@@ -360,6 +353,13 @@ THREE.OBJLoader.prototype = {
 			mesh.geometry = geometry;
 			mesh.material = material;
 			mesh.name = object.name;
+			mesh.userData = {
+				vertices : vertexCount,
+				normals : normalCount,
+				uvs : uvCount,
+				triFaces : triFaceCount,
+				quadFaces : quadFaceCount
+			};
 			container.push(mesh);
 		}
 

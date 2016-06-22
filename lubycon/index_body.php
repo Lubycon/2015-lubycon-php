@@ -41,70 +41,25 @@ $(function(){
     <section class="mb-contents_wrap">
         <div class="mb-contents_inner">
             <div class="mb-contents_title">
-                <i class="fa fa-font"></i>
-                <h1>ARTWORK</h1>
+                <h1>CONTENTS</h1>
                 <p class="mb-contents_count"><?=$artwork_count?>&nbsp;Contents</p>
             </div>
-            <div class="mb-big_content">
-                <!--<img src="../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/5.jpg" alt="best_img">-->
-            </div>
             <div class="mb-contents_contents">
                 <?php
-                    /*for( $i=1 ; $i<=4 ; $i++ ){
+                    for( $i = 1; $i<=9; $i++ ){
                         echo '<div class="mb-contents">
-                                <img src="../../Lubycon_Contents/contents/artwork/artworkjpg/thumb/'.$i.'.jpg" alt="artwork_thumbnail'.$i.'">
-                              </div>';
-                    };*/
+                            <img src="./ch/img/no_img/no_img_user5.jpg" />
+                        </div>';
+                        if($i%3 === 0) {
+                            echo '<br/>';
+                        }
+                    };
                 ?> 
             </div>
-            <div class="mb-contents_footer">
-                <div class="mb-view_more" id="mb-artwork_bt"><p>VIEW MORE</p></div>
-            </div>
+            <!--<div class="mb-contents_footer">
+                <div class="viewmore_bt" id="mb-artwork_bt"><p>VIEW MORE</p></div>
+            </div>-->
         </div><!--section 1 end-->
-        <div class="mb-contents_inner">
-            <div class="mb-contents_title">
-                <i class="fa fa-square"></i>
-                <h1>VECTOR</h1>
-                <p class="mb-contents_count"><?=$vector_count?>&nbsp;Contents</p>
-            </div>
-            <div class="mb-big_content">
-                <!--<img src="../../Lubycon_Contents/contents/vector/vectorjpg/thumb/7.jpg" alt="best_img">-->
-            </div>
-            <div class="mb-contents_contents">
-                <?php
-                    /*for( $i=1 ; $i<=4 ; $i++ ){
-                        echo '<div class="mb-contents">
-                                <img src="../../Lubycon_Contents/contents/vector/vectorjpg/thumb/'.$i.'.jpg" alt="vector_thumbnail'.$i.'">
-                              </div>';
-                    };*/
-                ?>
-            </div>
-            <div class="mb-contents_footer">
-                <<div class="mb-view_more" id="mb-vector_bt"><p>VIEW MORE</p></div>
-            </div>
-        </div><!--section 2 end-->
-        <div class="mb-contents_inner">
-            <div class="mb-contents_title">
-                <i class="fa fa-cube"></i>
-                <h1>3D MODEL</h1>
-                <p class="mb-contents_count"><?=$threeD_count?>&nbsp;Contents</p>
-            </div>
-            <div class="mb-big_content">
-                <!--<img src="../../Lubycon_Contents/contents/3d/3djpg/thumb/5.jpg" alt="best_img">-->
-            </div>
-            <div class="mb-contents_contents">
-                <?php
-                    /*for( $i=1 ; $i<=4 ; $i++ ){
-                        echo '<div class="mb-contents">
-                                <img src="../../Lubycon_Contents/contents/3d/3djpg/thumb/'.$i.'.jpg" alt="3d_thumbnail'.$i.'">
-                              </div>';
-                    };*/
-                ?>  
-            </div>
-            <div class="mb-contents_footer">
-                <div class="mb-view_more" id="mb-3d_bt"><p>VIEW MORE</p></div>
-            </div>
-        </div><!--section 3 end-->
     </section>
 </section>
 <!--index contents page for mobile end-->

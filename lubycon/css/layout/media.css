@@ -18,6 +18,9 @@
         position: absolute;
         width: 100%;
     }
+    .container {
+        top: 5px;
+    }
     #footer {
         
     }
@@ -41,6 +44,11 @@
         border-radius: 0px;
     }
         #main_search_bar input{
+            width: 80%;
+            -webkit-width: calc(100% - 60px);
+            -moz-width: calc(100% - 60px);
+            width: calc(100% - 60px);
+
             display: none;
             position: relative;
             border: 1px solid #ffffff;
@@ -50,14 +58,15 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
-        #main_search_btn{
+        #main_search_bar .search-btn{
             width: 50px;
             height: 60px;
             background: #333333;
         }
-        #main_search_bar #select_box{
+        #main_search_bar .select-box{
             display: none;
         }
+/*---------------------------------SIMONS WORK START-----------------------*/
     .mobile_wrap{
         width: 100%;
         margin-top: 46px;
@@ -111,24 +120,21 @@
                         font-size: 16px;
                         font-weight: 200;
                     }
-                .mb-big_content{
-                    width: 100%;
-                    height: 300px;
-                    margin-bottom: 1px;
-                }
-                    .mb-big_content img{
-                        width: 100%;
-                    }
                 .mb-content_contents{
                     margin-top: 10px;
                     display: inline-block;
                 }
                     .mb-contents{
-                        width: 50%;
+                        display: inline-block;
+                        width: 33.3%;
+                        height: 106.55px;
+                        vertical-align: middle;
                         display: inline-block;
                         position: relative;
                         z-index: 1;
-                        margin-top: -4px;
+                        border: 1px solid #000000;
+                        box-sizing: border-box;
+                        
                     }
                         .mb-contents img{
                             width: 100%;
@@ -138,27 +144,9 @@
                     height: 170px;
                     text-align: center;
                 }
-                    .mb-view_more{
-                        display: inline-block;
-                        position:relative;
-                        z-index: 2;
-                        width: 200px;
-                        height: 60px;
-                        border: 1px solid #444444;
-                        border-radius: 50px;
-                        background: transparent;
-                        text-align: center;
-                        margin-top: 50px;
-                        cursor: pointer;
-                    }
-                        .mb-view_more p{
-                            color: #444444;
-                            line-height: 60px;
-                            font-size: 20px;
-                            font-weight: 200;
-                        }   
-    #main_header {
-        height: 45px;
+/*---------------------------------SIMONS WORK END-----------------------*/
+    .main_header {
+        height: 50px;
     }
         #mb-menu {
             width: 45px;
@@ -261,7 +249,7 @@
                         color: #ffffff;
                         margin-right: 5px;
                     }
-        #main_header h1{ 
+        .main_header h1{ 
             left: 50%;
             margin-left: -50px;
         }
@@ -331,8 +319,8 @@
     }
     .con_aside {
         width: 100%;
-        height: 150px;
         margin-top: 46px;
+        padding: 20px;
         position: relative;
     }
     #sub_search_bar {
@@ -403,6 +391,37 @@
                     font-size: 14px;
                 }
 
+    .creators_card {
+        border-bottom: 1px solid #aaaaaa;
+    }
+
+    .creator_card_body {
+        margin-top: 15px;
+    }
+    .creator_card_body .creator_pic_wrap{
+        margin-right: 20px;
+        width: 50px;
+    }
+        .creator_location_pic {
+            width: 20px;
+            height: 20px;
+            bottom: 0;
+            right: 0;
+        }
+        .creator_name a {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .creator_job{
+            font-size: 16px;
+        }
+    .creator_card_footer {
+        margin: 0px auto;
+        padding: 10px;
+    }
+
     #contents_info_wrap {
         background: #383838;
     }
@@ -431,14 +450,18 @@
     #cc_total_wrap{
 
     }
-        #cc_title{
-            background: #222222;
+        #cc_total_wrap p {
+            color: #eeeeee;
+            font-weight: 200;
+            margin-bottom: 10px;
         }
-        #cc_wrap{
+        #cc_total_wrap #cc_wrap{
             background: #222222;
             margin: 0;
+            padding: 20px;
             border-radius: 0;
         }
+
     #contents_subject {
         display: block;
     }
@@ -493,7 +516,7 @@
                 
             }
         #contents_main{
-            margin-top: 111px;
+            
         }
     #comment_box{
         border-radius: 0px;
@@ -518,9 +541,10 @@
     #user_view_main{
         
     }
-    #user_view_aside #myinfo_main{
+    .con_aside #myinfo_main{
         margin-top: 0px;
         margin-bottom: 0px;
+        text-align: center;
     }
         #myinfo_main figure {
             width: 45px;
@@ -533,6 +557,11 @@
             vertical-align: top;
             margin-top: 12px;
         }
+    .con_aside .my_page_bt{
+        width: 200px;
+        height: 35px;
+        line-height: 35px;
+    }
     #my_page_bt{
         display: none;
     }
@@ -746,9 +775,14 @@
             -moz-box-sizing: border-box;
         }
     /*------------login--------------*/
-    #login_box{
+    #loginWrap{
         width: 100%;
+        top: 50%;
+        margin-top: -198.5px
     }
+        #logo_lubycon {
+            width: 70%;
+        }
     #create_account_area{
         width: 100%;
         top: 0 !important;
@@ -766,8 +800,11 @@
     .hidden-mb-b{
         display: block;
     }
-    #main_header{
+    .main_header{
         height: 50px;
+    }
+    .container {
+        top: 50px;
     }
     #gotop_bt{
         position: relative;
@@ -877,16 +914,13 @@
     }
     .creator_card_body .creator_pic_wrap{
         margin-right: 20px;
+        width: 90px;
     }
-        .creator_pic {
-            width: 90px;
-            height: 90px;
-        }
         .creator_location_pic {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             bottom: 0;
-            right: 0;
+            right: -10px;
         }
     .creator_card_body {
         margin-top: 15px;
@@ -988,7 +1022,7 @@
             }
     #comment_box{
         box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
-        margin: 100px auto;
+        margin: 60px auto;
         max-width: 1450px;
     }
         #comment_box #comment_text {
@@ -1003,6 +1037,7 @@
     #user_view_aside #myinfo_main{
         margin-top: 30px;
         margin-bottom: 20px;
+        text-align: left;
     }
         #myinfo_main figure {
             width: 80px;
@@ -1018,15 +1053,6 @@
         width: 220px;
         height: 45px;
         line-height: 45px;
-        margin: 0px auto;
-        margin-top: 20px;
-        border: 1px solid #ffffff;
-        border-radius: 80px;
-        background: transparent;
-        font-weight: 200;
-        color: #ffffff;
-        cursor: pointer;
-        transition: color, 0.2s;
     }
         .my_page_bt:hover{
             border-color: #48cfad;
@@ -1191,9 +1217,12 @@
         left: 50%;
         margin-left: -200px;
     }
-    #login_box{
-        width: 400px;
-    }
+        #login_box{
+            width: 400px;
+        }
+            #logo_lubycon {
+                width: 70%;
+            }
     #create_account_area{
         width: 410px;
         top: 50%;

@@ -2,21 +2,23 @@
 //      sticky start
 /////////////////////////////////////////////////////////
 $(window).on("load",function(){
-    var $mainHeader = $(".main_header"),
-    $figure = $(".main_figure_wrap"),
-    $navsel = $(".navsel"),
-    $conWrap = $(".con_wrap"),
-    $conMain = $(".con_main"),
-    $conAside = $(".con_aside"),
-    $navGuide = $(document).find(".nav_guide"),
+    if(!isMobile()){
+        var $mainHeader = $(".main_header"),
+        $figure = $(".main_figure_wrap"),
+        $navsel = $(".navsel"),
+        $conWrap = $(".con_wrap"),
+        $conMain = $(".con_main"),
+        $conAside = $(".con_aside"),
+        $navGuide = $(document).find(".nav_guide"),
 
-    headerHeight = $mainHeader.length==0 ? 0 : $mainHeader.outerHeight(true),
-    figureHeight = $figure.length==0 ? 0 : $figure.outerHeight(true),
-    navselHeight = $navsel.length==0 ? 0 : $navsel.height(),
-    stickyStart = figureHeight + navselHeight,
-    objectY = $navGuide.length==0 ? 0 : $navGuide.outerHeight(true);
+        headerHeight = $mainHeader.length==0 ? 0 : $mainHeader.outerHeight(true),
+        figureHeight = $figure.length==0 ? 0 : $figure.outerHeight(true),
+        navselHeight = $navsel.length==0 ? 0 : $navsel.height(),
+        stickyStart = figureHeight + navselHeight,
+        objectY = $navGuide.length==0 ? 0 : $navGuide.outerHeight(true);
 
-    lubySticky(stickyStart,objectY);
+        lubySticky(stickyStart,objectY);
+    }
 });
 function lubySticky(start,objectY){
     var $document = $(document),

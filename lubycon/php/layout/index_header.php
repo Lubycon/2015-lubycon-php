@@ -111,13 +111,13 @@
         </header>
         <ul class="mb-menu_group">
             <li class="mb-menu_list">
-                <i class="fa fa-picture-o fa-1x"></i><a href="<?=$two_depth?>/contents/?cate=artwork">Artwork</a>
+                <i class="fa fa-picture-o fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1">Artwork</a>
             </li>
             <li class="mb-menu_list">
-                <i class="fa fa-object-group fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=vector">Vector</a>
+                <i class="fa fa-object-group fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1">Vector</a>
             </li>
             <li class="mb-menu_list">
-                <i class="fa fa-cube fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=threed">3D Model</a>
+                <i class="fa fa-cube fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&mid_cate=1&page=1">3D Model</a>
             </li>
         </ul>
         <ul class="mb-menu_group">
