@@ -13,6 +13,7 @@
 	$.fn.lubySelector = function(option){
         var defaults = { 
             id: "",
+            customClass: "",
             width: 150,
             maxHeight: 250,
             float: "right",
@@ -49,7 +50,7 @@
                             "optGroup": optGroup,
                             "theme": theme,
                             "onmousedown" : "return false"
-                        }).insertAfter($this).append($this).css({"width":d.width,"float":d.float})
+                        }).insertAfter($this).append($this).css({"width":d.width,"float":d.float}).addClass(d.customClass)
                         .on("click", pac.boxClick).on("focusin", pac.boxFocus)
                         .on("click", ".ls_option", pac.optionClick)
                         .on("change","select",pac.changeOption),
@@ -228,7 +229,7 @@
                             "box-shadow" : "-1px 0px 0px #303030",
                             "border-radius" : "0", 
                             "margin" : "0px 0px 0px 1px", 
-                            "height" : $this.parent().height(),
+                            "max-height" : $this.parent().height(),
                             "line-height" : $this.parent().height() + "px",
                             "padding" : "0px 10px",
                         });

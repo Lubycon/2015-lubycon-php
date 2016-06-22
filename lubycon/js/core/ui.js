@@ -163,35 +163,6 @@ $(function (){ //content card link action
     }
 });
 
-$(function(){ //floatinrg button action in content view page
-    var button = $(".floating_bt"),
-    contentsMain = $("#contents_main");
-    if(($("#contents_main").length !== 0) && $(window).width() >= 1025){
-        $(document).on("scroll",floatingButtonScroll);
-    };
-
-    function floatingButtonScroll(){
-        if(floatingButtonChecker()) contentsMain.on("mousemove",floatingButtonShow).on("mouseleave",floatingButtonHide);
-        else {
-            button.fadeOut(200);
-            contentsMain.off("mousemove",floatingButtonShow).off("mouseleave",floatingButtonHide);
-        }
-    }
-    function floatingButtonShow(){
-        button.fadeIn(200);
-    }
-    function floatingButtonHide(){
-        button.fadeOut(200);
-    }
-    function floatingButtonChecker(){
-        var contentTitleVisible = $("#contents_info_wrap").css("display") === "none" && $(document).scrollTop() !== 0,
-        scrollEnd = button.offset().top < $("#comment_box").offset().top - 50;
-
-        if(contentTitleVisible && scrollEnd ) return true;
-        else return false;
-    }
-});
-
 $(function() { //comment input box
     window.app = new InputExpander("#comment_text");
     window.app.start();
@@ -269,21 +240,25 @@ $(document).ready(function(){
 
         preferFilter.lubySelector({
             id: "preferFilter",
+            customClass: "hidden-mb-ib",
             theme: "rect"
         });
         copyrightFilter.lubySelector({
             id: "copyrightFilter",
             icon: "fa fa-copyright",
+            customClass: "hidden-mb-ib",
             theme: "rect"
         });
         languageFilter.lubySelector({
             id: "languageFilter",
             icon: "fa fa-globe",
+            customClass: "hidden-mb-ib",
             theme: "rect"
         });
         locationFilter.lubySelector({
             id: "locationFilter",
             icon: "fa fa-globe",
+            customClass: "hidden-mb-ib",
             theme: "rect"
         });
         jobFilter.lubySelector({
@@ -294,6 +269,7 @@ $(document).ready(function(){
         userFilter.lubySelector({
             id: "userFilter",
             icon: "fa fa-user",
+            customClass: "hidden-mb-ib",
             theme: "rect"
         });
         categoryFilter.lubySelector({
@@ -322,13 +298,13 @@ $(document).ready(function(){
 //      lubyAlert enable
 ///////////////////////////////////////////////////////// 
 $(document).ready(function(){
-    $(".bookmark_bt").lubyAlert({
+    $(".userAction-bt[data-value='bookmark']").lubyAlert({
         kind: "bookmark",
         toggle: true,
         okButton: false,
         cancelButton: false
     });
-    $(".like_bt").lubyAlert({
+    $(".userAction-bt[data-value='like']").lubyAlert({
         kind: "like",
         toggle: true,
         okButton: false,

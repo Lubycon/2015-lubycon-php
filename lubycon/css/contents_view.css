@@ -67,33 +67,6 @@
     background: #222222;
     box-shadow: inset 0px 0px 1000px 0px #000;
 }
-    .floating_bt{
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-    }
-        .floating_bt .bookmark_bt{
-            top:0px;
-            border: none;
-            display: inline-block;
-            text-align: center;
-            vertical-align: top;
-            z-index: 1;
-            vertical-align:middle;
-            cursor:pointer;
-        }
-
-        .floating_bt .like_bt{
-            border:none;
-            display:inline-block;
-            border-radius: 0px !important;
-            text-align:center;
-            margin:0px auto;
-            z-index: 1;
-            vertical-align:middle;
-            cursor: pointer;
-        }
-
     .contents_view .contents_img{
         width: 100%;
         background: #aaaaaa;
@@ -286,13 +259,6 @@
                     background: #333333;
                 }
         /*tagbox*/
-        /*cc*/
-        #cc_wrap_inner {
-            width: 94%;
-            display: inline-block;
-            text-align: center;
-        }
-        /*cc*/
         /*descript*/
         #descript_content {
             max-height: 180px;

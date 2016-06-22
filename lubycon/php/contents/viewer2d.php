@@ -34,58 +34,82 @@
                     echo htmlspecialchars_decode($contents_html);
                 };
             ?>
-            <div class="floating_bt">
-                <i id="bookmark_bt" class="bookmark_bt alertKey fa fa-star bookmark" data="bookmark"></i>
-                <i id="like_bt" class="like_bt alertKey fa fa-heart" data="like"></i>
+            <div class="infoCard content_info">
+                <p class="infoCard-title inline">Did you like this contents?</p>
+                <div class="infoCard-userAction infoCard-content">
+                    <div class="userAction-bt alertKey" data-value="bookmark">
+                        <i class="fa fa-star"></i>Bookmark
+                    </div>
+                    <div class="userAction-bt alertKey" data-value="like">
+                        <i class="fa fa-heart" data-value="like"></i>Like
+                    </div>
+                </div>
+                <p class="infoCard-title">Creative Commons License</p>
+                <div class="infoCard-cc infoCard-content">
+                    <p class="cc-descipt">If you want learn about this license, click below icons</p> 
+                    <ul class="cc-list">
+                        <a href="http://creativecommons.org/licenses/by-nc-nd/4.0" id="cc-link" target="_brank">
+                            <li class="cc-icon" data-value="cc">
+                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
+                            </li><!--cc icon-->
+                            <li class="cc-icon" data-value="by">
+                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
+                            </li><!-- default icon-->
+                            <li class="cc-icon" data-value="nc">
+                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/nc_w.png" />
+                            </li><!--non commercial-->
+                            <li class="cc-icon" data-value="nd">
+                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/nd_w.png" />
+                            </li><!--non derivation-->
+                            <li class="cc-icon" data-value="share">
+                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/share_w.png" />
+                            </li><!--non derivation-->
+                        </a>
+                    </ul>
+                </div>
             </div>
-            <div id="cc_total_wrap" class="visible-mb">
-                <div id="cc_wrap">
-                    <p>Creative Commons License</p>
-                    <ul id="cc_wrap_inner">
-                        <a href="#" id="cc_desc_link" target="_brank">
-                        <li class="cc_icon" id="cc_main">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
-                        </li><!--cc icon-->
-                        <li class="cc_icon" id="cc_by">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
-                        </li><!-- default icon-->
-                        <li class="cc_icon" id="cc_nc">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nc_w.png" />
-                        </li><!--non commercial-->
-                        <li class="cc_icon" id="cc_nd">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nd_w.png" />
-                        </li><!--non derivation-->
-                        <li class="cc_icon" id="cc_share">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/share_w.png" />
-                        </li><!--non derivation-->
-                    </a>
-                    </ul>                       
+            <div class="infoCard creator">
+                <p class="infoCard-title">Creator</p>
+                <div class="creators_card" data-index="<?=$usercode?>">
+                    <div class="creator_card_body">
+                        <div class="creator_pic_wrap">
+                            <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
+                        </div>
+                        <div class="creator_info_wrap">
+                            <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
+                            <p class="creator_job"></i><?=$userjob?></p>
+                            <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
+                        </div>
+                    </div><!--body-->
+                    <div class="creator_card_medal">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div><!--medals-->
                 </div>
             </div>
             
-            <article id="comment_box">
-                <div id="comment_writer">
-                    <div id="comment_text_box">
-                        <figure id="comment_my_pic" class="hidden-mb-ib">
-                            <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg" class="hidden-mb-ib">
-                        </figure>
+            <article class="infoCard comment">
+                <p class="infoCard-title"><span id="comment-counter">10</span> Comments</p>
+                <div class="comment-write-wrap" class="comment-div">
+                    <figure class="comment-pic" class="hidden-mb-ib">
+                        <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg" class="hidden-mb-ib">
+                    </figure>
+                    <div class="comment-input">
                         <textarea id="comment_text"></textarea>
                         <button id="comment_bt">
-                            <i class="fa fa-comments"></i>
+                            <i class="fa fa-comments"></i>Post
                         </button>
                     </div>
                 </div>
-                <div id="comment_list">
-                    <p id="comment_count"><span id="comment_counter">10</span> Comments</p>
+                <div class="comment-list">
                     <?php
                         for($i=1; $i<=10; $i++){
                             include($two_depth."/layout/comment.php");
                         };
                     ?>
                 </div><!--end comment_list-->
-                <div id="comment_more_box">
-                    <button id="comment_more_bt"><i class="fa fa-angle-down"></i></button>
-                </div>
+                <div class="viewmore_bt" data-value="comment"><i class="fa fa-angle-down"></i></div>
             </article>
         </div><!--end con_main-->
 
@@ -95,7 +119,7 @@
                     <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" >
                 </figure>
                 <span id="user_info_wrap">
-                    <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$user_name?></a></h4>
+                    <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></h4>
                     <h5><?=$userjob?></h5>
                     <h5 class="user_location" data-tip="<?=$usercity?>, <?=$usercountry?>"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
@@ -110,30 +134,6 @@
                         <li class="tagbox">c++</li>
                         <li class="tagbox">php</li>
                         <li class="tagbox">python</li>
-                    </ul>                       
-                </div>
-            </div>
-            <div id="cc_total_wrap" class="info-wrap hidden-mb-b">
-                <p id="cc_title" class="info-title"><i class="fa fa-creative-commons fa-lg"></i>Creative Commons</p>
-                <div id="cc_wrap" class="info-content">
-                    <ul id="cc_wrap_inner">
-                        <a href="#" id="cc_desc_link" target="_brank">
-                        <li class="cc_icon" id="cc_main" data-tip="Creative Commons License">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
-                        </li><!--cc icon-->
-                        <li class="cc_icon" id="cc_by" data-tip="Attribution">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
-                        </li><!-- default icon-->
-                        <li class="cc_icon" id="cc_nc" data-tip="Non Commercial">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nc_w.png" />
-                        </li><!--non commercial-->
-                        <li class="cc_icon" id="cc_nd" data-tip="Non Derivative">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/nd_w.png" />
-                        </li><!--non derivation-->
-                        <li class="cc_icon" id="cc_share" data-tip="Share Alike">
-                            <img src="<?=$one_depth?>/ch/img/creative_commons/png/share_w.png" />
-                        </li><!--non derivation-->
-                    </a>
                     </ul>                       
                 </div>
             </div>

@@ -22,44 +22,46 @@
 <link href="<?=$one_depth?>/css/creators_page.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
 <section class="container">
-    <section class="nav_guide hidden-mb-ib">
-        <select class="locationFilter hidden-mb-ib">
-            <option>All Continents</option>
-            <option>Africa</option>
-            <option>Asia</option>
-            <option>Europe</option>
-            <option>North America</option>
-            <option>South America</option>
-            <option>Oceania</option>
-        </select>
-        <select class="jobFilter hidden-mb-ib">
-            <?php
-                $json_control->json_spread_option($job_decode);
-                echo $json_control->json_spread_wrap;
-            ?>
-        </select>
-        <select class="userFilter hidden-mb-ib">
-            <option>New</option>
-            <option>Most Like</option>
-            <option>Most Download</option>
-            <option>Most Comment</option>
-        </select>
-        <div id="sub_search_bar" class="search-bar">
-            <div class="select-box">
-                <select class="searchFilter">
-                    <option value="Name">Name</option>
-                    <option value="Country">Country</option>
-                </select>
+    <section class="nav_guide">
+        <div class="nav-wrapper"> 
+            <select class="locationFilter hidden-mb-ib">
+                <option>All Continents</option>
+                <option>Africa</option>
+                <option>Asia</option>
+                <option>Europe</option>
+                <option>North America</option>
+                <option>South America</option>
+                <option>Oceania</option>
+            </select>
+            <select class="jobFilter hidden-mb-ib">
+                <?php
+                    $json_control->json_spread_option($job_decode);
+                    echo $json_control->json_spread_wrap;
+                ?>
+            </select>
+            <select class="userFilter hidden-mb-ib">
+                <option>New</option>
+                <option>Most Like</option>
+                <option>Most Download</option>
+                <option>Most Comment</option>
+            </select>
+            <div id="sub_search_bar" class="search-bar">
+                <div class="select-box">
+                    <select class="searchFilter">
+                        <option value="Name">Name</option>
+                        <option value="Country">Country</option>
+                    </select>
+                </div>
+                <input type="text" class="search-bar-text" value="Enter the keyword" />
+                <button class="search-btn">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
-            <input type="text" class="search-bar-text" value="Enter the keyword" />
-            <button class="search-btn">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
+        </div>  
     </section>
     <!-- end nav_guide -->
     <section class="con_wrap">
-        <div class="con_aside">
+        <div class="con_aside hidden-mb-ib">
             <?php
                 if($session->SessionExist()){
                     $db->query = "SELECT * FROM `userbasic` LEFT JOIN `userinfo` on `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = 1 ";

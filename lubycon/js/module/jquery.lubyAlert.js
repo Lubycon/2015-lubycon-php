@@ -168,13 +168,13 @@
             },
             toggleOn: function() {
                 var $this = $(this);
-                if(!$this.hasClass("toggle")){
-                    $this.addClass("toggle");
+                if(!$this.hasClass("selected")){
+                    $this.addClass("selected");
                     $this.off("click touchend", pac.init);
                     console.log("toggleOn");
                 }
                 else{
-                    $this.removeClass("toggle");
+                    $this.removeClass("selected");
                     $this.on("click touchend", pac.init);
                     console.log("toggleOff");
                 }

@@ -73,7 +73,7 @@ $category1 = "Category1";
 $category2 = "Category2";
 
 $usercode = $row['userCode'];
-$user_name = $row['nick'];
+$username = $row['nick'];
 $usercity = $row['city'];
 
 $userjob = $my_job_origin_select;
