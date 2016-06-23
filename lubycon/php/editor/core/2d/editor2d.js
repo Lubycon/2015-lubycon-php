@@ -144,10 +144,52 @@
                 })
             },
             showPreview: function(){
-                var $canvas = $(document).find(".editing-canvas");
-                var $previewWrap = $("<div/>",{"id" : "previewer" }).appendTo("body");
-                var result = pac.clearContent($canvas,false);
-                $previewWrap.html(result);
+                var $this = $(this),
+                $canvas = $(document).find(".editing-canvas");
+                $previewWrap = $("#previewer"),
+                $previewMain = $previewWrap.find(".con_main"),
+                $previewAside = $previewWrap.find(".con_aside"),
+                $loading_icon = $(document).find("#loading_icon")
+                closebt = $previewWrap.find("#preview-close");
+
+                var result = $canvas.clone();
+
+                if($(result).find(".placeHolder").css("display") !== "none") return false;
+                $previewMain.prepend(pac.clearContent(result,false));
+
+                $previewWrap.fadeIn(200);
+                closebt.off("click").on("click",pac.hidePreview);
+                initPreview();
+
+                function initPreview(){
+                    var name = "Content Name",
+                    username = "User",
+                    job = "Student",
+                    city = "Seoul",
+                    country = "South Korea",
+                    descript = "This is preview page.",
+                    category1 = "Category1",
+                    category2 = "Category2",
+                    view = 0, download = 0, like = 0;
+
+                    console.log($previewMain.find("#contents_title"));
+                    $("#contents_title").text(name);
+                    $("#contents_category").text(CATE_PARAM + ">" + category1 + "," + category2);
+                    $("#viewCount").text(view);
+                    $("#downloadCount").text(download);
+                    $("#likeCount").text(like);
+
+                    $("#user_info_wrap h4 a").attr("src","#").text(username);
+                    $("#user_info_wrap h5").each(function(v,i){
+                        if($(this).data("value") === "job") $(this).text(job);
+                        else $(this).html("<i class='fa fa-map-marker'></i>" + city + "," + country);
+                    });
+                    $("#descript_content").html("<p>" + descript + "</p>");
+                }
+            },
+            hidePreview: function(){
+                var $previewWrap = $("#previewer");
+                $previewWrap.fadeOut(200);
             },
             submit: function(){
                 var formData = new FormData();

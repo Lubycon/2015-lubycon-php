@@ -101,16 +101,25 @@
                     "data-tip" : optionTip
                 }).appendTo($optionWrap)) : "";
             },
-            boxClick: function(selector) {
-                selector.stopPropagation();
+            boxClick: function(event) {
+                event.stopPropagation();
                 var $this = $(this),
                 $options = $this.find(".ls_optionWrap"),
                 $searchBar = $this.find(".ls_input"),
                 $selectbox = $this.find("select");
-                !$this.hasClass("open")?
-                    $options.fadeIn(300) && $this.addClass("open") && $selectbox.show().trigger("focus") :
-                    $options.fadeOut(300) && $this.removeClass("open") && $selectbox.hide().trigger("blur");
-                $this.focusin(); $searchBar.focus();
+                if($this.hasClass("open")){
+                    $this.removeClass("open");
+                    if(isMobile()) $selectbox.hide().trigger("blur");
+                    else $options.fadeOut(300);
+                }
+                else {
+                    $this.addClass("open");
+                    if(isMobile()) $selectbox.show().trigger("focus");
+                    else $options.fadeIn(300);
+                }
+                $this.focusin();
+
+                if(!isMobile()) $searchBar.focus();
             },
             boxFocus: function() {
                 var $this = $(this),

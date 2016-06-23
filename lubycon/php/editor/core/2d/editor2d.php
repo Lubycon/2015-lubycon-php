@@ -35,6 +35,12 @@
 
 <!-- editor css -->
 <section id="editor-container" class="initEditor"></section>
+<?php 
+    echo "<div id='previewer'><span id='preview-close'>close</span>";
+        include_once("../../../contents/viewer2d.php"); 
+    echo "</div>";
+?>
+
 <?php
 //php variable setting
     $contents_cate = $_GET["cate"];
@@ -46,9 +52,8 @@
         '<script>
 	        $("#editor-container").initEditor();
         </script>';
-    }else
-    {
-        include_once('../../404.php');
+    }else{
+        include_once('../../error/404.php');
     }
 ?>
 <?php
