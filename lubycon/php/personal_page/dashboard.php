@@ -131,7 +131,6 @@
                             $historyMonth = $row['historyDateMonth'];
                             $historyCategory = str_replace ( ' ' , '_' , $row['historyCategory'] );
                             $historyContents = $row['historyContents'];
-                            echo "<li class='history_list'>
                             <div class='history_date'>$historyYear $historyMonth</div>
                             <div class='history_kind' id='$historyCategory'>
                             <i class='fa fa-circle'></i><span></span></div>
@@ -139,33 +138,6 @@
                             </li>";
                         }
                     ?>
-
-                    <!--
-                    <li class="history_list">
-                        <div class="history_date">2016 Jan</div>
-                        <div class="history_kind" id="work_expierence"><i class="fa fa-circle"></i></div>
-                        <div class="history_content">Lorem ipsum dolor sit amet, consec tetur adipisicing elit.</div>
-                    </li>
-                    <li class="history_list">
-                        <div class="history_date">2016 May</div>
-                        <div class="history_kind" id="studied"><i class="fa fa-circle"></i><span></span></div>
-                        <div class="history_content">Lorem ipsum dolor sit amet, consec tetur adipisicing elit.</div>
-                    </li>
-                    <li class="history_list">
-                        <div class="history_date">2017 Sep</div>
-                        <div class="history_kind" id="work_expierence"><i class="fa fa-circle"></i><span></span></div>
-                        <div class="history_content">Lorem ipsum dolor sit amet, consec tetur adipisicing elit.</div>
-                    </li>
-                    <li class="history_list">
-                        <div class="history_date">2017 Nov</div>
-                        <div class="history_kind" id="contest"><i class="fa fa-circle"></i><span></span></div>
-                        <div class="history_content">Lorem ipsum dolor sit amet, consec tetur adipisicing elit.</div>
-                    </li>
-                    <li class="history_list">
-                        <div class="history_date">2018 Jan</div>
-                        <div class="history_kind" id="studied"><i class="fa fa-circle"></i><span></span></div>
-                        <div class="history_content">Lorem ipsum dolor sit amet, consec tetur adipisicing elit.</div>
-                    </li>-->
                 </ul>
                 <aside id="history_desc" class="hidden-mb-ib">
                     <p class="history_desc_list" id="work_desc">
