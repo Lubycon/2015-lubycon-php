@@ -127,11 +127,7 @@
                                     </select>
                                 </div>  
                             </div>";
-                            //////////////////////////////////////////////////////////////////////////----- 2016-06-21 01:04 am
                             $json_control->json_find_option_original(".langnum_$value",$lang_level_target);
-                            ////////////////////////////////////////////////////////////////////////// 
-                            // PLEASE REMOVE THIS SCRIPT, AND USE "setValue" METHOD IN LubySelector //
-                            //////////////////////////////////////////////////////////////////////////
                         }
                     ?>
                 </div>

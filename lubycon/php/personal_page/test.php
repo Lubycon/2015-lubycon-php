@@ -130,7 +130,7 @@ if( file_exists($upload_path) )
 {
     if( is_dir($last_path) ? chmod($last_path,0777) : mkdir($last_path,0777))
     {
-    $save_path= "$last_path/profile.jpg" ; // realative save path
+        $save_path= "$last_path/profile.jpg" ; // realative save path
     }
     copy($upload_path,$save_path);
     echo 'profile upload ok';
@@ -179,6 +179,9 @@ echo "<br/>fax public = " . $fax_public;
 echo "<br/><br/>website url = " . $website_url;
 echo "<br/>website public = " . $website_public;
 
+
+echo '<hr>';
+
 require_once '../database/database_class.php';
 $db = new Database();
 $db->query = 
@@ -201,9 +204,37 @@ SET
 
 WHERE `userCode` = $usercode";
 $db->askQuery(); // viewcount up
-echo $db->query;
+echo '<br/>update query = '.$db->query;
 
-echo "<hr/><br/>";
-print_r($_POST);
-echo "<br/><hr/>";
+$children_query = 
+"
+delete from `lubyconuser`.`userhistory` where `userCode`=$usercode;
+delete from `lubyconuser`.`userlanguage` where `userCode`=$usercode;
+INSERT INTO `lubyconuser`.`userhistory` 
+(`userCode`, `historyContents`, `historyDateYear`, `historyDateMonth`, `historyCategory`) VALUES ";
+for($i=0 ; $i < count($history_year); $i++)
+{
+    $children_query .= "($usercode, '$history_text[$i]', '$history_year[$i]', '$history_month[$i]', '$history_kind[$i]'),";
+};
+$children_query = substr($children_query, 0, -1);
+$children_query .= ';';
+
+$children_query .= "INSERT INTO `UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES ";
+for($i=0 ; $i < count($language); $i++)
+{
+    $children_query .= "($usercode,'$lang_ability[$i]','$language[$i]'),";
+}
+$children_query = substr($children_query, 0, -1);
+
+$db->query = $children_query;
+$db->askMultiQuery();
+echo '<hr/>'. $children_query;
+
+echo '<br/>'.$db->database->error;
+
+
+
+//echo "<hr/><br/>";
+//print_r($_POST);
+//echo "<br/><hr/>";
 ?>
