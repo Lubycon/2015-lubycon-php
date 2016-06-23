@@ -110,7 +110,6 @@
     <section id="contents_box" class="con_wrap">
 
     <input type="range" class="sliderKey" value="1" width="6" min='1' max="<?=$infinite_scroll->all_page_count?>">
-
         <ul class="contents_wrap">
             <?php
                 $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);

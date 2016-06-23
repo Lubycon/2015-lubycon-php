@@ -265,7 +265,7 @@
                 var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
-                cc = { "by": true, "nc": true, "nd": true, "sa": false }, //data
+                cc = { "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
                 category = rootElement.find(".search-choice").each(function () { 
                     var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
                     categories.push(index);
@@ -277,6 +277,7 @@
                     cc[data] = $(this).prop("checked");
                 }),
                 download = attachedFiles.length !== 0;
+                console.log(cc);
                 /////////////////////////////////////////////////////////////////settings
                 var checkList = {
                     name : !contentName.isNullString(),
@@ -847,7 +848,7 @@
                                 material = object[i].material;
                                 if(material.type == "MeshPhongMaterial"){
                                     material.specular = new THREE.Color(0xffffff);
-                                    material.shininess = 0.06;
+                                    material.shininess = 100;
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
@@ -856,7 +857,7 @@
                                     var materials = material.materials;
                                     for(var j = 0, ml = materials.length; j < ml; j++){
                                         materials[j].specular = new THREE.Color(0xffffff);
-                                        materials[j].shininess = 0.06;
+                                        materials[j].shininess = 100;
                                         materials[j].side = THREE.DoubleSide;
                                         materials[j].transparent = true;
                                         materials[j].needsUpdate = true;

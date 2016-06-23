@@ -296,20 +296,16 @@
             }
     .nav_guide {
         margin-top: 46px;
-        height: auto;
     }
-        .nav_guide .subnav_box {
-            padding: 10px;
+        .nav-wrapper {
             text-align: center;
-            box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
         }
-        .nav_guide .subnav_box .lubySelector {
-            width: 80% !important;
-            margin: 3px auto !important;
+        .nav_guide .lubySelector {
+            width: 70% !important;
             float: none !important;
-            box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.8) !important;
+            margin: 0px auto !important;
+            border: none !important;
+            box-shadow: none !important;
         }
     .con_wrap{
         background: #eeeeee;
@@ -335,21 +331,14 @@
     }
     #contents_box > ul > li {
         width: 100%;
-        padding: 0px 0px;
-        margin: -3px 0px;
+        padding: 5px 10px;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-
         .contents_card {
             width: 100%;
             height: 120px;
-            margin: 0px;
-            border: none;
-            border-bottom: 3px solid #eeeeee;
-            border-radius: 0;
-            box-shadow: none;
         }
             .contents_overlay {
                 width: 100%;
@@ -391,8 +380,8 @@
                     font-size: 14px;
                 }
 
-    .creators_card {
-        border-bottom: 1px solid #aaaaaa;
+    .creator_card_in {
+        margin: 10px 15px;
     }
 
     .creator_card_body {
@@ -425,43 +414,7 @@
     #contents_info_wrap {
         background: #383838;
     }
-    .floating_bt{
-        display: block;
-        position: relative;
-        background: #222222;
-        width: 100%;
-        padding: 30px;
-    }
-        .floating_bt .bookmark_bt{
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            font-size: 45px;
-            margin: 0px 10px;
-        }
-        .floating_bt .like_bt{
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            font-size: 45px;
-            margin: 0px 10px;
-        }
-
-    #cc_total_wrap{
-
-    }
-        #cc_total_wrap p {
-            color: #eeeeee;
-            font-weight: 200;
-            margin-bottom: 10px;
-        }
-        #cc_total_wrap #cc_wrap{
-            background: #222222;
-            margin: 0;
-            padding: 20px;
-            border-radius: 0;
-        }
-
+   
     #contents_subject {
         display: block;
     }
@@ -517,22 +470,6 @@
             }
         #contents_main{
             
-        }
-    #comment_box{
-        border-radius: 0px;
-        box-shadow: none;
-    }
-        #comment_box #comment_text {
-            height: 70px;
-        }
-        #comment_box #comment_bt {
-            width: 80%;
-            height: 45px;
-            display: inline-block;
-            padding: 0px 10px;
-            box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
         }
     #user_view_aside{
         height: 100px;
@@ -634,26 +571,6 @@
         left: 10px;
     }
 
-    #post_banner{
-        position: relative;
-        width: 100%;
-        height: 100px;
-        margin-top: 0;
-    }
-        #post_banner #author_main{
-            margin: 0;
-        }
-            #author_main figure{
-                display: inline-block;
-                width: 45px;
-                height: 45px;
-            }
-            #author_main h4{
-                display: inline-block;
-                font-size: 18px;
-                vertical-align: top;
-                margin-top: 12px;
-            }
     #post_subject{
         padding: 10px;
         box-sizing: border-box;
@@ -663,9 +580,7 @@
         .post_subject_name{
             display: block;
         }
-    #post_contents{
-        margin: 15px;
-    }
+
     #post_info{
         position: relative;
         display: block;
@@ -829,13 +744,13 @@
         margin-right: 50px;
     }
         #after_signin figure{
+            width: 33px;
+            height: 33px;
+        }
+            #after_signin figure img{
                 width: 33px;
                 height: 33px;
             }
-                #after_signin figure img{
-                    width: 33px;
-                    height: 33px;
-                }
     .navsel {
         margin: 0px auto;
     }
@@ -944,30 +859,6 @@
         background: rgba(35,35,35,0.4);
         top: 0;
     }
-    .floating_bt{
-        display: none;
-        position: fixed;
-        background: rgba(0,0,0,0.5);
-        border-radius: 3px;
-        top: 60px;
-        right: 320px;
-        z-index: 1;
-        overflow: hidden;
-    }
-        .floating_bt .bookmark_bt{
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            font-size: 26px;
-            margin-left: 4px;
-        }
-
-        .floating_bt #like_bt{
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            font-size: 20px;
-        }
 
     #contents_subject {
         display: inline-block;
@@ -1020,20 +911,6 @@
             #contents_score ul {
                 
             }
-    #comment_box{
-        box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
-        margin: 60px auto;
-        max-width: 1450px;
-    }
-        #comment_box #comment_text {
-            height: 50px;
-        }
-        #comment_box #comment_bt {
-            width: 70px;
-            height: 33px;
-            display: inline-block;
-            margin: 0px 0px 5px 7px;
-        }
     #user_view_aside #myinfo_main{
         margin-top: 30px;
         margin-bottom: 20px;
@@ -1106,25 +983,6 @@
         right: 0px;
     }
 
-    #post_banner{
-        position: absolute;
-        width: 310px;
-        height: 100%;
-        border-right: 1px solid #222222;
-    }
-        #post_banner #author_main{
-            margin: 30px 0px 20px 0px;
-        }
-            #author_main figure{
-                width: 80px;
-                height: 80px;
-                display: block;
-            }
-            #author_main h4{
-                display: block;
-                font-size: 26px;
-                margin-top: 20px;
-            }
     #post_subject{
         height: 50px;
         line-height: 53px;
@@ -1141,9 +999,6 @@
         #post_info li{
             float:left;
         }
-    #post_contents{
-        margin: 30px 60px;
-    }
 
     .dash_body_sector{
         width: 25%;

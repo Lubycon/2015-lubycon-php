@@ -11,26 +11,6 @@
 <script type="text/javascript" src="<?=$one_depth?>/js/module/resizeObject.js"></script>
 
 <section class="container">
-    <section class="navsel hidden-mb-b">
-        <nav class="lnb_nav">
-            <ul>
-                <li class="nav_menu" id="forum">
-                    <a href="./community_page.php?cate=forum">Forum</a>
-                </li>
-                <li class="nav_menu" id="tutorial">
-                    <a href="./community_page.php?cate=tutorial">Tutorial</a>
-                </li>
-                <li class="nav_menu" id="qna">
-                    <a href="./community_page.php?cate=qaa">Q&amp;A</a>
-                </li>
-            </ul>
-        </nav>
-    </section>
-
-
-
-
-
     <?php
         switch($_GET['cate']){
         case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
@@ -79,74 +59,78 @@
         </p>
         
         <ul id="post_info">
-            <li><i id="like_icon" class="fa fa-heart count_icon"></i><?=$post_like?></li>
-            <li><i id="view_icon" class="fa fa-eye count_icon"></i><?=$post_view?></li>
+            <li><i class="fa fa-heart count_icon like"></i><?=$post_like?></li>
+            <li><i class="fa fa-eye count_icon view"></i><?=$post_view?></li>
         </ul>
     </section>  <!-- end nav_guide -->
-    <section id="post_box" class="con_wrap">
-        <div id="post_banner" class="con_aside">
-            <div id="author_main">
-                <figure>
-                    <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg">
-                </figure>
-                <h4><?=$username?></h4>
-            </div>
-            <div id="author_sub">
-                <article class="author_wrap" id="author_job">
-                    <i class="fa fa-suitcase hidden-mb-ib"></i>
-                    <p class="author_name" id="job_name"><?=$userjob?></p>
-                </article>
-                <article class="author_wrap hidden-mb-b" id="author_location">
-                    <i class="fa fa-map-marker"></i>
-                    <p class="author_name" id="location_name"><?=$usercity?>, <?=$usercountry?></p>
-                </article>
-                <article class="author_wrap hidden-mb-b" id="author_language">
-                    <i class="fa fa-language"></i>
-                    <p class="author_name" id="language_name"><?=$language1?>, <?=$language2?></p>
-                </article>
-            </div>
-            <div class="btn my_page_bt">VIEW MORE</div>
-        </div><!--end con_aside-->
-        <section id="post_section" class="con_main">
-            <article id="post_contents">
+    <section class="con_wrap">
+        <section class="con_main">
+            <div class="infoCard" id="post_contents" >
                 <p>
                     <?=htmlspecialchars_decode($post_content)?>
                 </p>
-                <i id="like_bt" class="like_bt alertKey fa fa-heart" data="like"></i>
                 <div id="post_edit_box">
-                    <button id="delete_bt" class="alertKey post_edit_bt"><i class="fa fa-trash"></i>Delete</button>
+                    <button class="alertKey post_edit_bt" id="delete_bt" ><i class="fa fa-trash"></i>Delete</button>
                     <button class="post_edit_bt"><i class="fa fa-repeat"></i>Modified</button>
                 </div>
-            </article>  <!-- end post_contents -->
-            <article id="comment_box">
-                <div id="comment_writer">
-                    <div id="comment_text_box">
-                        <figure id="comment_my_pic" class="hidden-mb-ib">
-                            <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg">
-                        </figure>
+            </div>  <!-- end post_contents -->
+            <div class="infoCard content_info">
+                <p class="infoCard-title inline">Did you like this contents?</p>
+                <div class="infoCard-userAction infoCard-content">
+                    <div class="userAction-bt alertKey" data-value="like">
+                        <i class="fa fa-heart" data-value="like"></i>Like
+                    </div>
+                </div>
+            </div>
+            <div class="infoCard creator">
+                <p class="infoCard-title">Creator</p>
+                <div class="creators_card" data-index="<?=$usercode?>">
+                    <div class="creator_card_body">
+                        <div class="creator_pic_wrap">
+                            <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
+                        </div>
+                        <div class="creator_info_wrap">
+                            <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
+                            <p class="creator_job"></i><?=$userjob?></p>
+                            <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
+                        </div>
+                    </div><!--body-->
+                    <div class="creator_card_medal">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div><!--medals-->
+                </div>
+            </div>
+            
+            <article class="infoCard comment">
+                <p class="infoCard-title"><span id="comment-counter">10</span> Comments</p>
+                <div class="comment-write-wrap" class="comment-div">
+                    <figure class="comment-pic" class="hidden-mb-ib">
+                        <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg" class="hidden-mb-ib">
+                    </figure>
+                    <div class="comment-input">
                         <textarea id="comment_text"></textarea>
                         <button id="comment_bt">
-                            <i class="fa fa-comments"></i>
+                            <i class="fa fa-comments"></i>Post
                         </button>
                     </div>
                 </div>
-                <div id="comment_list">
-                    <p id="comment_count"><span id="comment_counter">10</span> Comments</p>
+                <div class="comment-list">
                     <?php
                         for($i=1; $i<=10; $i++){
-                            include("../layout/comment.php");
+                            include($two_depth."/layout/comment.php");
                         };
                     ?>
                 </div><!--end comment_list-->
-                <div id="comment_more_box">
-                    <button id="comment_more_bt"><i class="fa fa-angle-down"></i></button>
-                </div>
+                <div class="viewmore_bt" data-value="comment"><i class="fa fa-angle-down"></i></div>
             </article>
-        </section><!-- end post_section -->
+
+            <?php
+                include("../layout/main_board.php");
+            ?><!--end main_board section -->
+        </div><!--end con_main-->
     </section>  <!-- end post_box -->
-    <?php
-        include("../layout/main_board.php");
-    ?><!--end main_board section -->
 </section>  <!-- end contents section -->
 
 

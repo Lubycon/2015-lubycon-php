@@ -275,6 +275,32 @@ body{
                 font-size: 14px;
                 line-height: 20px;
             }
+
+.viewmore_bt{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #444444;
+    background: transparent;
+    margin: 30px auto;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.2s, width 0.2s;
+}
+    .viewmore_bt i {
+        font-size: 24px;
+        color: #444444;
+    }
+    .viewmore_bt a{
+        font-size: 17px;
+        color: #444444;
+    }
+    .viewmore_bt:hover{
+        width: 220px;
+        opacity:0.7;
+    }
+
 .card_menu{
     position: absolute;
     width: 30px;
@@ -896,6 +922,9 @@ body{
     position: relative;
     z-index: 4;
 }
+    .nav-wrapper {
+        height: 50px;
+    }
 
 .subnav_box {
     width:100%;
@@ -999,6 +1028,9 @@ body{
     background: #ffffff;
     overflow: hidden;
     float: left;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
     .contents_overlay{
         position: absolute;
@@ -1112,81 +1144,163 @@ body{
             right: 5px;
             cursor: pointer;
         }
-.like_bt {
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    border: none;
-    border-radius: 50%;
-    background: none;
-    display: block;
-    margin: 0px auto;
-    margin-top: 50px;
-    text-align: center;
-    cursor:pointer;
-    font-size: 32px;
-    vertical-align: middle;
-}
 /* contents card */
-/* comment */
-
-#comment_box {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    background:#fff;
-    overflow: hidden;
-}
-#comment_my_pic {
-    width:50px;
-    height:50px;
-    margin-right: 9px;
-    border-radius: 3px;
-    vertical-align: top;
-    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.5);
-
-    overflow:hidden;
-}
-    #comment_my_pic img{
-        width: 50px;
-        height: 50px;
-    }
-#comment_box #comment_writer {
+/* conetents side cards */
+.infoCard {
+    position: relative;
     width: 100%;
-    background: #444444;
-    padding: 20px 10px;
+    max-width: 1000px;
+    background: #ffffff;
+    margin: 30px auto;
+    padding: 20px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
+    text-align: left;
 }
-    #comment_box #comment_count {
+    .infoCard > .infoCard-title {
+        font-weight: 600;
+        font-size: 24px;
+        color: #444444;
+    }
+    .infoCard > .infoCard-title.inline {
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .infoCard > .infoCard-content {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+.infoCard.content_info{}
+    .infoCard.content_info .infoCard-userAction{
+        display: inline-block;
+        margin-bottom: 30px;
+    }
+        .infoCard.content_info .infoCard-userAction .userAction-bt{
+            display: inline-block;
+            width: 120px;
+            height: 40px;
+            background: #666666;
+            color: #ffffff;
+            font-size: 17px;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            transition: opacity 0.2s;
+        }
+            .infoCard.content_info .infoCard-userAction .userAction-bt:hover {
+                opacity: 0.8;
+            }
+            .infoCard.content_info .infoCard-userAction .userAction-bt i {
+                font-size: 20px;
+                margin-right: 5px;
+                float: left;
+            }
+            .infoCard.content_info .userAction-bt[data-value='bookmark'].selected {
+                background: #ffbe54;
+            }
+            .infoCard.content_info .userAction-bt[data-value='like'].selected {
+                background: #48cfad;
+            }
+    .infoCard.content_info .infoCard-cc {
         width: 100%;
-        color:#aaaaaa;
-        text-align:right;
-        font-size: 15px;
-        padding: 17px;
+    }
+        .infoCard.content_info .infoCard-cc .cc-descipt {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+        .infoCard.content_info .infoCard-cc .cc-list {
+            display: inline-block;
+            padding: 10px;
+            background: #666666;
+        }
+            .infoCard.content_info .infoCard-cc .cc-list .cc-icon {
+                display: inline-block;
+                width: 55px;
+                margin: 0 5px;
+            }
+                .infoCard.content_info .infoCard-cc .cc-list .cc-icon img {
+                    width: 100%;
+                }
+.infoCard.creator{}
+    .infoCard.creator .creators_card {
+        width: 100%;
+        float: none;
+        box-shadow: none;
+    }
+
+.infoCard.comment {}
+    .infoCard.comment #comment-counter {
+        color: #48cfad;
+        font-size: 30px;
+        font-weight: 600;
+    }
+    .infoCard.comment .comment-div{
+        position:relative;
+        border-bottom: 1px solid #dddddd;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-     }
-        #comment_count #comment_counter {
-            color: #48cfad;
+        padding: 15px 10px;
+        width: 100%;
+    }
+        .infoCard.comment .comment-pic{
+            float:left;
+            width:50px;
+            height:50px;
+            margin-right: 18px;
+            overflow:hidden;
+        }
+            .infoCard.comment .comment-pic img{
+                width:50px;
+                height:50px;
+            }
+        .infoCard.comment .comment-div h4{
+            max-width: 100%;
+            line-height:20px;
+            margin-bottom: 3px;
+            padding-right: 90px;
             font-size: 20px;
+            font-weight: 600;
+            color: #444444;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .infoCard.comment .comment-time{
+            color:#777777;
+            font-size:13px;
+            margin-bottom: 5px;
+        }
+        .infoCard.comment .comment-contents{
+            line-height:19px;
+            margin-left: 58px;
+            color: #555555;
+            font-size: 16px;
         }
 
-     #comment_box #comment_text_box {
-        width:100%;
-        display: inline-block;
-        position: relative;
-     }
-        #comment_box #comment_text{
-            width: 80%;
+    .infoCard.comment .comment-write-wrap {
+        width: 100%;
+        padding: 15px 10px;
+        border-bottom: 1px solid #aaaaaa;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+
+        .infoCard.comment .comment-write-wrap .comment-input {
+            display: inline-block;
+            width: 100%;
             max-width: 830px;
+        }
+        .infoCard.comment .comment-write-wrap textarea{
+            width: 100%;
             margin: 0px;
             padding: 10px;
             line-height: 20px;
-
             border:1px solid #111;
             border-radius: 3px;
             box-sizing: border-box;
@@ -1194,25 +1308,26 @@ body{
             -moz-box-sizing: border-box;
             resize:none;
         }
-            #comment_box #comment_text:focus{
+            .infoCard.comment .comment-write-wrap textarea:focus{
                 border:1px solid #48cfad;
                 box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
             }
-        #comment_box #comment_bt{
+        .infoCard.comment .comment-write-wrap #comment_bt{
+            float: right;
             vertical-align: bottom;
             border: none;
-            padding: 0px;
+            margin-top: 10px;
+            padding: 7px 10px;
             background: #777777;
-            border-radius: 3px;
-            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+            color: #ffffff
         }
-        #comment_box #comment_bt i{
+        .infoCard.comment .comment-write-wrap #comment_bt i{
             color:#fff;
             font-size:20px;
+            margin-right: 10px;
         }
 
-#comment_list
-    {
+    .infoCard.comment .comment_list{
         width:100%;
         height:auto;
         overflow:hidden;
@@ -1220,89 +1335,7 @@ body{
         text-align: left;
         margin-bottom: 20px;
     }
-
-    #comment_box #comment_list .comment_div{
-        position:relative;
-        border-top: 1px solid #dddddd;
-        float: left;
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        padding: 15px 10px;
-        width: 100%;
-    }
-            #comment_list .comment_div:last-child{
-            border-bottom: 1px solid #eeeeee;
-            padding-bottom: 13px;
-        }
-
-        #comment_box #comment_list .comment_div .comment_pic{
-            float:left;
-            width:50px;
-            height:50px;
-            margin-right: 18px;
-            margin-left: 8px;
-            border-radius: 3px;
-
-            overflow:hidden;
-        }
-            #comment_box #comment_list .comment_div .comment_pic img{
-                width:50px;
-                height:50px;
-            }
-
-        #comment_box #comment_list .comment_div h4{
-            max-width: 100%;
-            line-height:20px;
-            margin-bottom:6px;
-            padding-right: 90px;
-            font-size:19px;
-            color: #444444;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        #comment_box #comment_list .comment_div .comment_contents{
-            line-height:19px;
-            margin-left: 58px;
-            color: #555555;
-            font-size: 15px;
-        }
-        #comment_box #comment_list .comment_div .comment_time{
-            position:absolute;
-            top:8px;
-            right: 20px;
-            color:#777777;
-            font-size:13px;
-        }
-
-#comment_more_box {
-    width: 100%;
-    margin: 0px auto;
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 60px;
-}
-    #comment_more_bt{
-        width: 120px;
-        height: 40px;
-        background: transparent;
-        border: 1px solid #444444;
-        border-radius: 30px;
-        transition: width 0.3s, border 0.3s;
-    }
-        #comment_more_bt:hover {
-            width: 130px;
-            border: 1px solid #48cfad;
-        }
-        #comment_more_bt > i{
-            font-size: 25px;
-            color: #444444;
-            transition: color 0.3s;
-        }
-            #comment_more_bt:hover > i {
-                color: #48cfad;
-            }
+        
 /*creators card start*/
 #creator_card_wrap{
     max-width: 1330px;

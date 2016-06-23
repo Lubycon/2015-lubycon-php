@@ -228,29 +228,6 @@
             text-align: center;
             padding: 10px;
         }
-.viewmore_bt{
-    width: 200px;
-    height: 50px;
-    line-height: 50px;
-    
-    border: 1px solid #444444;
-    background: transparent;
-    margin: 30px auto;
-    
-    text-align: center;
-    
-    overflow: hidden;
-    cursor: pointer;
-    transition: opacity 0.2s, width 0.2s;
-}
-    .viewmore_bt a{
-        font-size: 17px;
-        color: #444444;
-    }
-    .viewmore_bt:hover{
-        width: 220px;
-        opacity:0.7;
-    }
 /* creators section */
 
 /* main board */
