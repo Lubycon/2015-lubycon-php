@@ -67,9 +67,16 @@
             display: none;
         }
 /*---------------------------------SIMONS WORK START-----------------------*/
+    #index_figure{
+        height: 10vh;
+    }
+        #index_figure h2{
+            padding-top: 3vh;
+            font-size: 18px;
+        }
     .mobile_wrap{
         width: 100%;
-        margin-top: 46px;
+        margin-top: 37px;
         background: #eeeeee;
     }
         .mb-section_title{
@@ -79,46 +86,51 @@
             margin: 0px auto;
             color: #ffffff;
             background: #383838;
-            
             font-size: 18px;
         }
         .mb-contents_wrap{
             width: 100%;
-            padding: 20px;
+            padding: 0px 20px;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
+            height: 80vh;
         }
+        .mb-contents_category{
+            width: 100%;
+            background: #ffffff;
+            margin-top: 10px;
+            text-align: center;
+        }
+            .mb-category_bt{
+                width: 25%;
+                display: inline-block;
+                padding: 10px;
+                text-align: center;
+            }
             .mb-contents_inner{
                 width: 100%;
                 display: inline-block;
                 background: #ffffff;
-                border: 1px solid #dddddd;
-                margin: 25px 0px;
+                margin: 10px 0px;
             }
                 .mb-contents_title{
                     width: 100%;
                     background: #ffffff;
-                    text-align: center;
-                    padding: 20px;
+                    padding: 7px;
                     box-sizing: border-box;
                     -webkit-box-sizing: border-box;
                     -moz-box-sizing: border-box;
                 }
-                    .mb-contents_title i{
-                        color: #444444;
-                        font-size: 60px;
-                        margin: 10px 0px;
-                    }
-                    .mb-contents_title h1{
-                        color: #444444;
-                        font-size: 30px;
-                        font-weight: 200;
-                    }
                     .mb-contents_count{
+                        width: 68%;
                         color: #444444;
-                        font-size: 16px;
+                        font-size: 19px;
                         font-weight: 200;
+                        display: inline-block;
+                    }
+                    .mb-contents_viewmore_bt{
+                        width: 30%;
                     }
                 .mb-content_contents{
                     margin-top: 10px;
