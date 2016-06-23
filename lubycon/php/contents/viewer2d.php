@@ -1,8 +1,3 @@
-
-<script type="text/javascript" src="<?=$one_depth?>/js/contents_view.js"></script> <!-- account file js -->
-<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
-<link href="<?=$one_depth?>/css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
-
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
@@ -120,8 +115,8 @@
                 </figure>
                 <span id="user_info_wrap">
                     <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></h4>
-                    <h5><?=$userjob?></h5>
-                    <h5 class="user_location" data-tip="<?=$usercity?>, <?=$usercountry?>"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
+                    <h5 data-value="job"><?=$userjob?></h5>
+                    <h5 data-value="location" data-tip="<?=$usercity?>, <?=$usercountry?>"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
                 </span>
             </div>
             <!--<div id="content_down" class="hidden-mb-b"><i class="fa fa-cloud-download"></i></div>-->

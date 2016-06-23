@@ -19,6 +19,7 @@ $(window).on("load resize",function(){
             return;
         });
         function remove_mb_menu(){
+            eventHandler(event,$(this));
             switch(mb_menu_toggle){
                 case 0 : 
                     $("#wrapper").stop().animate({ left: distance.toString() }, 200);
