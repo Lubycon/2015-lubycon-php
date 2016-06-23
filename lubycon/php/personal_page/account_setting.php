@@ -112,22 +112,37 @@
                 <label>Language</label>
                 <div class="clone-list">
                     <?php
-                        foreach( $lang_level as $value => $key )
+                        if( isset($lang_level) )
                         {
-                            $lang_level_target = $lang_level[$value];
-                            $lang_name_target = $lang_name[$value];
+                            foreach( $lang_level as $value => $key )
+                            {
+                                $lang_level_target = $lang_level[$value];
+                                $lang_name_target = $lang_name[$value];
                             
+                                echo "<div class='langWrap clone-wrapper'>
+                                    <input type='text' class='language_text' name='language[]' value='$lang_name_target' />
+                                    <div class='lang_option'>
+                                        <select class='langFilter0 langnum_$value' name='lang_ability[]'>
+                                            <option value='Beginer'>Beginer</option>
+                                            <option value='Advanced'>Advanced</option>
+                                            <option value='Fluent'>Fluent</option>
+                                        </select>
+                                    </div>  
+                                </div>";
+                                $json_control->json_find_option_original(".langnum_$value",$lang_level_target);
+                            }
+                        }else
+                        {
                             echo "<div class='langWrap clone-wrapper'>
-                                <input type='text' class='language_text' name='language[]' value='$lang_name_target' />
-                                <div class='lang_option'>
-                                    <select class='langFilter0 langnum_$value' name='lang_ability[]'>
-                                        <option value='Beginer'>Beginer</option>
-                                        <option value='Advanced'>Advanced</option>
-                                        <option value='Fluent'>Fluent</option>
-                                    </select>
-                                </div>  
-                            </div>";
-                            $json_control->json_find_option_original(".langnum_$value",$lang_level_target);
+                                    <input type='text' class='language_text' name='language[]' value='' />
+                                    <div class='lang_option'>
+                                        <select class='langFilter0 langnum_0' name='lang_ability[]'>
+                                            <option value='Beginer'>Beginer</option>
+                                            <option value='Advanced'>Advanced</option>
+                                            <option value='Fluent'>Fluent</option>
+                                        </select>
+                                    </div>  
+                                </div>";
                         }
                     ?>
                 </div>
@@ -145,50 +160,85 @@
             <i class="fa fa-refresh refresh"></i>
             <div class="clone-list">
                 <?php
-                    $j = 0;
-                    while( $history_fetch_row = mysqli_fetch_array($history_row) )
+                    if( $history_row->num_rows > 0 )
                     {
-                        $historyYear = $history_fetch_row['historyDateYear'];
-                        $historyMonth = $history_fetch_row['historyDateMonth'];
-                        $historyCategory = $history_fetch_row['historyCategory'];
-                        $historyContents = $history_fetch_row['historyContents'];
+                        $j = 0;
+                        while( $history_fetch_row = mysqli_fetch_array($history_row) )
+                        {
+                            $historyYear = $history_fetch_row['historyDateYear'];
+                            $historyMonth = $history_fetch_row['historyDateMonth'];
+                            $historyCategory = $history_fetch_row['historyCategory'];
+                            $historyContents = $history_fetch_row['historyContents'];
 
-                        echo "<div class='historyWrap clone-wrapper'>
-                            <select class='accountFilter history_year_$j' name='history_year[]' data-value='year'>
-                            <";
-                            for( $i=2016 ; $i > 1939 ; $i-- )
-                            {
-                                echo '<option data-value='.$i.'>'.$i.'</option>';
-                            }
-                        echo "</select>               
-                            <select class='accountFilter history_month_$j' name='history_month[]' data-value='month'>
-                                <option data-value='1'>January</option>
-                                <option data-value='2'>February</option>
-                                <option data-value='3'>March</option>
-                                <option data-value='4'>April</option>
-                                <option data-value='5'>May</option>
-                                <option data-value='6'>June</option>
-                                <option data-value='7'>July</option>
-                                <option data-value='8'>August</option>
-                                <option data-value='9'>September</option>
-                                <option data-value='10'>October</option>
-                                <option data-value='11'>November</option>
-                                <option data-value='12'>December</option>
-                            </select>
-                            <select class='accountFilter history_kind_$j' name='history_kind[]' data-value='kind'>
-                                <option data-value='work_expierence'>Work Experience</option>
-                                <option data-value='education'>Education</option>
-                                <option data-value='awards'>Awards</option>
-                            </select>
-                            <input class='history_text' type='text' name='history_text[]' value='$historyContents'/>
-                        </div>";
+                            echo "<div class='historyWrap clone-wrapper'>
+                                <select class='accountFilter history_year_$j' name='history_year[]' data-value='year'>
+                                <";
+                                for( $i=2016 ; $i > 1939 ; $i-- )
+                                {
+                                    echo '<option data-value='.$i.'>'.$i.'</option>';
+                                }
+                            echo "</select>               
+                                <select class='accountFilter history_month_$j' name='history_month[]' data-value='month'>
+                                    <option data-value='1'>January</option>
+                                    <option data-value='2'>February</option>
+                                    <option data-value='3'>March</option>
+                                    <option data-value='4'>April</option>
+                                    <option data-value='5'>May</option>
+                                    <option data-value='6'>June</option>
+                                    <option data-value='7'>July</option>
+                                    <option data-value='8'>August</option>
+                                    <option data-value='9'>September</option>
+                                    <option data-value='10'>October</option>
+                                    <option data-value='11'>November</option>
+                                    <option data-value='12'>December</option>
+                                </select>
+                                <select class='accountFilter history_kind_$j' name='history_kind[]' data-value='kind'>
+                                    <option data-value='work_expierence'>Work Experience</option>
+                                    <option data-value='education'>Education</option>
+                                    <option data-value='awards'>Awards</option>
+                                </select>
+                                <input class='history_text' type='text' name='history_text[]' value='$historyContents'/>
+                            </div>";
 
-                        $json_control->json_find_option_original(".history_year_$j",$historyYear);
-                        $json_control->json_find_option_original(".history_month_$j",$historyMonth);
-                        $json_control->json_find_option_original(".history_kind_$j",$historyCategory);
+                            $json_control->json_find_option_original(".history_year_$j",$historyYear);
+                            $json_control->json_find_option_original(".history_month_$j",$historyMonth);
+                            $json_control->json_find_option_original(".history_kind_$j",$historyCategory);
                         
-                        $j++;
+                            $j++;
+                        }
+                    }else
+                    {
+                        echo "<div class='historyWrap clone-wrapper'>
+                                <select class='accountFilter history_year_0' name='history_year[]' data-value='year'>
+                                <";
+                                for( $i=2016 ; $i > 1939 ; $i-- )
+                                {
+                                    echo '<option data-value='.$i.'>'.$i.'</option>';
+                                }
+                            echo "</select>               
+                                <select class='accountFilter history_month_0' name='history_month[]' data-value='month'>
+                                    <option data-value='1'>January</option>
+                                    <option data-value='2'>February</option>
+                                    <option data-value='3'>March</option>
+                                    <option data-value='4'>April</option>
+                                    <option data-value='5'>May</option>
+                                    <option data-value='6'>June</option>
+                                    <option data-value='7'>July</option>
+                                    <option data-value='8'>August</option>
+                                    <option data-value='9'>September</option>
+                                    <option data-value='10'>October</option>
+                                    <option data-value='11'>November</option>
+                                    <option data-value='12'>December</option>
+                                </select>
+                                <select class='accountFilter history_kind_0' name='history_kind[]' data-value='kind'>
+                                    <option data-value='work_expierence'>Work Experience</option>
+                                    <option data-value='education'>Education</option>
+                                    <option data-value='awards'>Awards</option>
+                                </select>
+                                <input class='history_text' type='text' name='history_text[]' value=''/>
+                            </div>";
                     }
+                    
                 ?>
             </div>
             <div class="optControl" data-value="add">

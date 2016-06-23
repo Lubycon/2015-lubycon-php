@@ -206,34 +206,42 @@ WHERE `userCode` = $usercode";
 $db->askQuery(); // viewcount up
 echo '<br/>update query = '.$db->query;
 
+$db->query = 
+"
+DELETE `lubyconuser`.`userhistory` , `lubyconuser`.`userlanguage`
+FROM `lubyconuser`.`userhistory` INNER JOIN `lubyconuser`.`userlanguage`
+WHERE `lubyconuser`.`userhistory`.userCode = `lubyconuser`.`userlanguage`.userCode 
+AND `lubyconuser`.`userhistory`.userCode = $usercode
+";
+$db->askQuery(); //delete original data
+echo '<br/>'.$db->database->error;
+
+
 $children_query = 
 "
-delete from `lubyconuser`.`userhistory` where `userCode`=$usercode;
-delete from `lubyconuser`.`userlanguage` where `userCode`=$usercode;
 INSERT INTO `lubyconuser`.`userhistory` 
-(`userCode`, `historyContents`, `historyDateYear`, `historyDateMonth`, `historyCategory`) VALUES ";
+(`userCode`, `historyContents`, `historyDateYear`, `historyDateMonth`, `historyCategory`) VALUES
+";
 for($i=0 ; $i < count($history_year); $i++)
 {
     $children_query .= "($usercode, '$history_text[$i]', '$history_year[$i]', '$history_month[$i]', '$history_kind[$i]'),";
 };
 $children_query = substr($children_query, 0, -1);
-$children_query .= ';';
+$db->query = $children_query;
+$db->askQuery(); // insert user history
 
-$children_query .= "INSERT INTO `UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES ";
+echo '<br/>'.$db->database->error;
+
+$children_query = "INSERT INTO `lubyconuser`.`UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES ";
 for($i=0 ; $i < count($language); $i++)
 {
     $children_query .= "($usercode,'$lang_ability[$i]','$language[$i]'),";
 }
 $children_query = substr($children_query, 0, -1);
-
 $db->query = $children_query;
-$db->askMultiQuery();
-echo '<hr/>'. $children_query;
+$db->askQuery(); // insert user history
 
 echo '<br/>'.$db->database->error;
-
-
-
 //echo "<hr/><br/>";
 //print_r($_POST);
 //echo "<br/><hr/>";

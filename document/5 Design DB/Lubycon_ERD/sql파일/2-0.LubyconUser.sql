@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `UserLanguage`
 (
 	`languageId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`languageLevel` ENUM('Beginer','Advanced','Fluent'),
+	`languageLevel` ENUM('Beginner','Advanced','Fluent'),
 	`languageName` VARCHAR(255),
 	
 	PRIMARY KEY(`languageId`)

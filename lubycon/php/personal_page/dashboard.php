@@ -131,10 +131,10 @@
                             $historyMonth = $row['historyDateMonth'];
                             $historyCategory = str_replace ( ' ' , '_' , $row['historyCategory'] );
                             $historyContents = $row['historyContents'];
-                            <div class='history_date'>$historyYear $historyMonth</div>
-                            <div class='history_kind' id='$historyCategory'>
-                            <i class='fa fa-circle'></i><span></span></div>
-                            <div class='history_content'>'$historyContents</div>
+                            echo "<li>
+                                <div class='history_date'>$historyYear $historyMonth</div>
+                                <div class='history_kind' id='$historyCategory'><i class='fa fa-circle'></i><span></span></div>
+                                <div class='history_content'>'$historyContents</div>
                             </li>";
                         }
                     ?>

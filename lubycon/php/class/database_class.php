@@ -46,7 +46,7 @@ class Database{
 
 	public function askMultiQuery(){
 		if(isset($this->query)){
-			return $this->result = $this->database->multi_query($this->query);
+            return $this->result = $this->database->multi_query($this->query);
 		}else{
 			return false;
 		}
