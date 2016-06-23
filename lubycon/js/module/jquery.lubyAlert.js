@@ -171,12 +171,10 @@
                 if(!$this.hasClass("selected")){
                     $this.addClass("selected");
                     $this.off("click touchend", pac.init);
-                    console.log("toggleOn");
                 }
                 else{
                     $this.removeClass("selected");
                     $this.on("click touchend", pac.init);
-                    console.log("toggleOff");
                 }
             },
             keyEvent: function() {

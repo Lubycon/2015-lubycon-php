@@ -38,11 +38,19 @@ $(function(){
         $vector_count = 0;
         $threeD_count = 0;
     ?>
+    <section id="index_figure">
+        <h2>Connect Your Creativity With The World</h2>
+    </section>
     <section class="mb-contents_wrap">
+        <div class="mb-contents_category">
+            <span class="mb-category_bt">artwork</span>
+            <span class="mb-category_bt">vector</span>
+            <span class="mb-category_bt">3D model</span>
+        </div>
         <div class="mb-contents_inner">
             <div class="mb-contents_title">
-                <h1>CONTENTS</h1>
                 <p class="mb-contents_count"><?=$artwork_count?>&nbsp;Contents</p>
+                <span class="mb-contents_viewmore_bt">view more</span>
             </div>
             <div class="mb-contents_contents">
                 <?php

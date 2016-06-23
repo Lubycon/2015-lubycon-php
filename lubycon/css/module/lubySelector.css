@@ -20,8 +20,10 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
-.lubySelector > select{
-    display: none !important;
+.lubySelector > select{   
+    display: none;
+    top: -1000px;
+    position: fixed;
 }
 .lubySelector:hover{
     background: #666666;

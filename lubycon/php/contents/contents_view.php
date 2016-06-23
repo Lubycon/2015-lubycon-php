@@ -90,5 +90,8 @@ $file_path = $row['userDirectory'];
 
 include_once("viewer2d.php");
 include_once($two_depth.'/layout/index_footer.php');
-
 ?>
+
+<script type="text/javascript" src="<?=$one_depth?>/js/contents_view.js"></script> <!-- account file js -->
+<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
+<link href="<?=$one_depth?>/css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->

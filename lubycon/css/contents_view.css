@@ -83,7 +83,7 @@
 #contents_aside{
     right:0;
     position: fixed;
-    top: 51px !important;
+    top: 51px;
     z-index: 4;  
 }
     #contents_aside .creator_info{
