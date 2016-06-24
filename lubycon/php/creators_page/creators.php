@@ -61,6 +61,7 @@
     </section>
     <!-- end nav_guide -->
     <section class="con_wrap">
+        <!--maybe it will be removed-->
         <div class="con_aside hidden-mb-ib">
             <?php
                 if($session->SessionExist()){
@@ -84,6 +85,7 @@
                 }
             ?>
         </div><!--end con_aside-->
+        <!--maybe it will be removed-->
         <div id="user_view_main" class="con_main">
             <?php
                 $user_img_url = "$one_depth/../../../Lubycon_Contents/user/41/profile.jpg";
@@ -103,7 +105,7 @@
                 <li class="creator_card_in">
                     <div id="bestCreator" class="creators_card">
                         <div class="creator_card_header">
-                            <span class="card_label">Creator of The <span class="this_month">Month</span></span>
+                            <span class="card_label">Creator of The <span class="this_month"><?php echo date("F");?></span></span>
                         </div><!--header-->
                         <div class="creator_card_body">
                             <div class="creator_pic_wrap">

@@ -40,7 +40,7 @@
                     <span class="name"><?=$user_name?></span>
                 </a>
             </span>
-            <i id="bookmark_bt" class="bookmark_bt alertKey fa fa-star" data="bookmark"></i>
+            <i class="userAction-bt alertKey fa fa-star" data-value="bookmark"></i>
         </div>
         <!-- end contents desc -->
         <div class="contents_overlay load_view">

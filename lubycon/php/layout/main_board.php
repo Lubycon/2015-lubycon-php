@@ -48,7 +48,7 @@
                 }
             }else
             {
-                echo 'THERE IS NO DATA IN DATABASE';
+                echo '<p style="padding: 20px">THERE IS NO DATA IN DATABASE<br/>AND THERE IS NO FUTURE</p>';
             }
             ?>
             </ul>

@@ -1,9 +1,9 @@
 $(window).on("load resize",function(){
-    if(isMobile() && ($("#mb-menu_panel").length !== 0)){
-        $("#mb-menu_panel").height = window.screen.height;
+    if(isMobile() && ($("#mb-menu-panel").length !== 0)){
+        $("#mb-menu-panel").height = window.screen.height;
         var mb_menu = $("#mb-menu");
         var mb_menu_toggle = 0;
-        var distance = $("#mb-menu_panel").outerWidth();
+        var distance = $("#mb-menu-panel").outerWidth();
         mb_menu.on("click touchend", function(){
             if(!TOUCHMOVING){
                 eventHandler(event, $(this));
@@ -23,7 +23,7 @@ $(window).on("load resize",function(){
             switch(mb_menu_toggle){
                 case 0 : 
                     $("#wrapper").stop().animate({ left: distance.toString() }, 200);
-                    $("#mb-menu_panel").stop().animate({ left: "0"}, 200);
+                    $("#mb-menu-panel").stop().animate({ left: "0"}, 200);
                     $("#cancel_layer").css({
                         "width": window.screen.width.toString(),
                         "height": window.screen.height.toString(),
@@ -47,7 +47,7 @@ $(window).on("load resize",function(){
                 case 1 :
                     $("#cancel_layer").hide();
                     $("#wrapper").stop().animate({ left: "0" }, 200);
-                    $("#mb-menu_panel").stop().animate({ left: (distance*-1).toString()}, 200);
+                    $("#mb-menu-panel").stop().animate({ left: (distance*-1).toString()}, 200);
                     $("body").css({
                         "position":"relative",
                         "height":"auto",
@@ -71,7 +71,7 @@ $(window).on("load resize",function(){
 //      mobile search action start
 /////////////////////////////////////////////////////////
 $(window).on("load resize",function(){
-    if(isMobile() && ($("#mb-menu_panel").length != 0)){
+    if(isMobile() && ($("#mb-menu-panel").length != 0)){
         var searchBt = $("#mb-search"),
             searchInBt = $("#main_search_btn"),
             searchBox = $("#main_search_bar"),

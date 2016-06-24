@@ -51,7 +51,6 @@
 <script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <div id="information_inbody">
     <ul id="dashboard_wrap">
-    
         <li class="dash_section" id="creator_month">
             <div class="dash_header">
                 <h4>CREATOR OF THE MONTH</h4>
@@ -181,23 +180,22 @@
                 </div>
                 <div id="dash_chart_wrap">
                     <p class="dash_body_title" id="chart_body_title">Last 7 days data</p>
-                    <div class="chart_title">
-                        <i id="chart_icon" class="fa fa-heart"></i>
-                        <span id="chart_name">Like</span>
-                        <i id="toggle_arrow" class="fa fa-caret-down"></i>
+                    <div class="chart-boxes">
+                        <div class="chart-title">Like : Last 7days</div>
+                        <div class="chart-canvas" id="chartdiv1"></div>
                     </div>
-                    <div id="chart_selector">
-                        <ul>
-                            <li class="chart_list" data-target="chartdiv1"><i class="fa fa-heart"></i>Like</li>
-                            <li class="chart_list" data-target="chartdiv2"><i class="fa fa-eye"></i>View</li>
-                            <li class="chart_list" data-target="chartdiv3"><i class="fa fa-cloud-upload"></i>Uploaded</li>
-                            <li class="chart_list" data-target="chartdiv4"><i class="fa fa-cloud-download"></i>Downloaded</li>
-                        </ul>
-                    </div><!--select chart-->
-                    <div class="chartboxes" id="chartdiv1" style="width: 100%; height: 350px;"></div>
-                    <div class="chartboxes" id="chartdiv2" style="width: 100%; height: 350px;"></div>
-                    <div class="chartboxes" id="chartdiv3" style="width: 100%; height: 350px;"></div>
-                    <div class="chartboxes" id="chartdiv4" style="width: 100%; height: 350px;"></div>
+                    <div class="chart-boxes">
+                        <div class="chart-title">View : Last 7days</div>
+                        <div class="chart-canvas" id="chartdiv2"></div>
+                    </div>
+                    <div class="chart-boxes">
+                        <div class="chart-title">Upload : Last 7days</div>
+                        <div class="chart-canvas" id="chartdiv3"></div>
+                    </div>
+                    <div class="chart-boxes">
+                        <div class="chart-title">Download : Last 7days</div>
+                        <div class="chart-canvas" id="chartdiv4"></div>
+                    </div>
                 </div>
             </div>
         </li>
@@ -214,7 +212,7 @@
                     </div>
                     <div class="x2_inner">
                         <p class="dash_body_title">Website</p>
-                        <a href=<?php if($webpublic=='Public'){echo $userWebsite;} ?> class="dash_body_content"><?php if($webpublic=='Public'){echo $userWebsite;}else{echo '<i class="fa fa-lock"></i>Private inforamtion';} ?></a>
+                        <a href=<?php if($webpublic=='Public'){echo $userWebsite;} else{echo "#";} ?> class="dash_body_content"><?php if($webpublic=='Public'){echo $userWebsite;}else{echo '<i class="fa fa-lock"></i>Private inforamtion';} ?></a>
                     </div> 
                 </div>
                 <div class="dash_body_sector" id="usertime">

@@ -173,38 +173,45 @@
                 color: #ffffff;
                 font-size: 25px;
             }
-        #mb-menu_panel {
+        #mb-menu-panel {
             position: fixed;
             width: 270px;
             height: 100%;
-            background: #383838 no-repeat;
+            background: #222222;
+            border-right: 1px solid #111111;
             top: 0;
             left: -270px;
             z-index: 10000;
+            overflow: scroll;
         }
-            .mb-menu_group {
-                padding: 15px;
+            .mb-menu-group {
+                padding: 10px 0px;
             }
-                .mb-menu_list {
+                .mb-menu-title {
+                    color: #aaaaaa;
+                    font-size: 15px;
                     padding: 7px;
-                    border-bottom: 1px solid #222222;
+                    padding-left: 17px;
+                }
+                .mb-menu-list {
+                    padding: 7px;
+                    padding-left: 20px;
                     font-size: 17px;
                     color: #ffffff;
                     font-weight: 200;
                 }
-                    .mb-menu_list i {
+                    .mb-menu-list i {
                         margin-right: 25px;
                         font-size: 15px;
                     }
-                    .mb-menu_list a {
+                    .mb-menu-list a {
                         font-size: 17px;
                         color: #ffffff;
                         font-weight: 200;
                     }
-            #mb-user_section{
+            #mb-user-section{
                 width: 100%;
-                padding: 15px;
-                background: #282828;
+                padding: 15px 15px 0px 15px;
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
@@ -222,44 +229,54 @@
                 #mb-signin a p i{
                     margin-right: 10px;
                 }
-            #mb-after_signin{
-                display: none;
+            #mb-after-signin{
+                display: block;
+                position: relative;
             }
-                #mb-user_pic {
+                #mb-user-pic {
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
+                    margin-top: 4px;
                     overflow: hidden;
                     display: inline-block;
                 }
-                    #mb-user_pic img {
+                    #mb-user-pic img {
                         width: 100%;
                     }
-                #mb-user_info{
+                #mb-user-info{
                     width: 168px;
                     display: inline-block;
                     margin-left: 18px;
                     position: relative;
                     vertical-align: top;
                 }
-                    #mb-user_name {
+                    #mb-user-name {
                         display: inline-block;
                         width: 100%;
                         line-height: 30px;
                         color: #ffffff;
-                        font-size: 23px;
+                        font-size: 20px;
                         vertical-align: top;
                     }
-                    #mb-user_location{
+                    #mb-user-location{
                         display: inline-block;
                         width: 100%;
                         font-size: 14px;
                         color: #dddddd;
                         font-weight: 200;
                     }
-                    #mb-user_location i{
+                        #mb-user-location i{
+                            color: #ffffff;
+                            margin-right: 5px;
+                        }
+                #mb-user-setting {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                }
+                    #mb-user-setting i{
                         color: #ffffff;
-                        margin-right: 5px;
                     }
         .main_header h1{ 
             left: 50%;
@@ -282,8 +299,8 @@
                     height: 45px;
                 }
         #mb-search {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             line-height: 55px;
             text-align: center;
             position: absolute;
@@ -293,7 +310,7 @@
         }
             #mb-search i{
                 color: #ffffff;
-                font-size: 25px;
+                font-size: 20px;
                 position: absolute;
                 right: 11px;
             }
@@ -521,12 +538,20 @@
         width: 100%;
         border-right: none
     }
-        #user_information {
+        #personal_aside #user_information {
             background: #383838;
         }
-    #personal_view .con_wrap #contents_box{
-        
+        #personal_aside #user-setting {
+            top: 0;
+            right: 0;
+        }
+    #dashboard_wrap {
+        padding: 10px;
     }
+        #dashboard_wrap .chart-boxes {
+            width: 100%;
+        }
+
     #main_board{
         width: 100%;
         max-width: 800px;
@@ -954,9 +979,23 @@
         width: 250px;
         border-right: 1px solid #222222;
     }
-        #user_information {
-            background: #282828;
+        #personal_aside #user_information {
+            background: #222222;
         }
+            #personal_aside #userinfo_main {
+                padding: 20px 5px;
+            }
+            #personal_aside #user-setting {
+                top: 10px;
+                right: 10px;
+            }
+    #dashboard_wrap {
+        padding: 25px;
+    }
+        #dashboard_wrap .chart-boxes {
+            width: 500px;
+        }
+
     #main_board{
         width: 90%;
         max-width: 1700px;

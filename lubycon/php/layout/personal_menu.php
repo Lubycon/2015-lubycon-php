@@ -19,17 +19,34 @@
         $history_row = $db->result;
 
         $username = $userdata_row['nick'];
-        $user_pic = "$one_depth/../../Lubycon_Contents/user/$usernumber/profile.jpg";
-        $user_intro = $userdata_row['userDescription'];
+        $userpic = "$one_depth/../../Lubycon_Contents/user/$usernumber/profile.jpg";
+
+        $usercity = "City";
+        $usercountry = "Country";
+
+        $userIntro = $userdata_row['userDescription'];
     ?>
     <div id="user_information">
         <div id="userinfo_main">
             <figure id="user_pic">
-                <img src="<?=$user_pic?>">
+                <img src=<?=$userpic?>></img>
             </figure>
-            <h4><?=$username?></h4>
-            <h5><?=$user_intro?></h5>
-        </div>
+            <span id="user-info">
+                <h4 id="user-name"><?=$username?></h4>
+                <h5 id="user-location"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></h5>
+            </span>
+            <h5 id="user-intro"><p><?=$userIntro?></p></h5>
+            <?php
+                if($usernumber == $usercode){
+                    echo '<span id="user-setting">
+                            <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$usercode?>">
+                                <i class="fa fa-gear fa-1x"></i>
+                            </a>
+                        </span>';
+                }
+            ?>
+            
+        </div> 
     </div>
     <div id="subnav" class="hidden-mb-b">
         <ul>
@@ -37,14 +54,7 @@
             <li id="my_contents" class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_contents&usernum=<?=$usernumber?>">Contents</a></li>
             <li id="my_forums" class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_forums&usernum=<?=$usernumber?>">Forums</a></li>
             <li id="insight" class="subnav_li"><a href="../personal_page/personal_page.php?cate=insight&usernum=<?=$usernumber?>">Insight</a></li>
-            <li id="bookmark" class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark&usernum=<?=$usernumber?>">Bookmark</a></li>
-            <?php
-            if( $usernumber == $usercode ) //need more security
-            {
-                echo "<li id='account_setting' class='subnav_li'><a href='../personal_page/personal_page.php?cate=account_setting&usernum=$usercode'>Account Setting</a></li>";
-            }
-            ?>
-            
+            <li id="bookmark" class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark&usernum=<?=$usernumber?>">Bookmark</a></li>           
         </ul>
     </div>
 </aside>

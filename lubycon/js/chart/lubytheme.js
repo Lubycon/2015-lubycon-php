@@ -1,20 +1,13 @@
 AmCharts.themes.likeChart = {
 	themeName: "likeChart",
 	AmChart: {
-		color: "#e7e7e7", backgroundColor: "#282828"
+		color: "#ffffff", backgroundColor: "#ffffff"
 	},
 	AmCoordinateChart: {
-		colors: ["#48cfad", "#aab9f7", "#b6d2ff", "#c9e6f2", "#c9f0e1", "#e8d685", "#e0ad63", "#d48652", "#d27362", "#495fba", "#7a629b", "#8881cc"]
+		colors: ["#48cfad"]
 	},
 	AmStockChart: {
-		colors: ["#639dbd", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
-	},
-	AmSlicedChart: {
-		outlineAlpha: 1,
-		outlineThickness: 2,
-		labelTickColor: "#FFFFFF",
-		labelTickAlpha: 0.3,
-		colors: ["#495fba", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
+		colors: ["#48cfad"]
 	},
 	AmRectangularChart: {
 		zoomOutButtonColor: '#FFFFFF',
@@ -22,32 +15,18 @@ AmCharts.themes.likeChart = {
 		zoomOutButtonImage: "lensWhite"
 	},
 	AxisBase: {
-		axisColor: "#FFFFFF",
-		axisAlpha: 0.3,
-		gridAlpha: 0.1,
-		gridColor: "#FFFFFF",
 		dashLength: 3
 	},
 	ChartScrollbar: {
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.2,
-		graphFillAlpha: 0.2,
-		graphLineAlpha: 0,
 		graphFillColor: "#FFFFFF",
-		selectedGraphFillColor: "#FFFFFF",
+		selectedGraphFillColor: "#48cfad",
 		selectedGraphFillAlpha: 0.4,
-		selectedGraphLineColor: "#FFFFFF",
-		selectedBackgroundColor: "#FFFFFF",
-		selectedBackgroundAlpha: 0.09,
-		gridAlpha: 0.15
+		selectedGraphLineColor: "#48cfad"
 	},
 	ChartCursor: {
 		cursorColor: "#FFFFFF",
-		color: "#000000",
+		color: "#ffffff",
 		cursorAlpha: 0.5
-	},
-	AmLegend: {
-		color: "#e7e7e7"
 	},
 	AmGraph: {
 		lineAlpha: 0.9
@@ -75,114 +54,19 @@ AmCharts.themes.likeChart = {
 	TrendLine: {
 		lineColor: "#48cfad",
 		lineAlpha: 0.8
-	},
-	// ammap
-	AreasSettings: {
-		alpha: 0.8,
-		color: "#FFFFFF",
-		colorSolid: "#000000",
-		unlistedAreasAlpha: 0.4,
-		unlistedAreasColor: "#FFFFFF",
-		outlineColor: "#000000",
-		outlineAlpha: 0.5,
-		outlineThickness: 0.5,
-		rollOverColor: "#48cfad",
-		rollOverOutlineColor: "#000000",
-		selectedOutlineColor: "#000000",
-		selectedColor: "#48cfad",
-		unlistedAreasOutlineColor: "#000000",
-		unlistedAreasOutlineAlpha: 0.5
-	},
-	LinesSettings: {
-		color: "#FFFFFF",
-		alpha: 0.8
-	},
-	ImagesSettings: {
-		alpha: 0.8,
-		labelColor: "#FFFFFF",
-		color: "#FFFFFF",
-		labelRollOverColor: "#48cfad"
-	},
-	ZoomControl: {
-		buttonFillAlpha:0.7,
-		buttonIconColor:"#494949"
-	},
-	SmallMap: {
-		mapColor: "#FFFFFF",
-		rectangleColor: "#FFFFFF",
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.7,
-		borderThickness: 1,
-		borderAlpha: 0.8
-	},
-	// the defaults below are set using CSS syntax, you can use any existing css property
-	// if you don't use Stock chart, you can delete lines below
-	PeriodSelector: {
-		color: "#e7e7e7"
-	},
-	PeriodButton: {
-		color: "#e7e7e7",
-		background: "transparent",
-		opacity: 0.7,
-		border: "1px solid rgba(255, 255, 255, .15)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		boxSizing: "border-box"
-	},
-	PeriodButtonSelected: {
-		color: "#e7e7e7",
-		backgroundColor: "rgba(255, 255, 255, 0.1)",
-		border: "1px solid rgba(255, 255, 255, .3)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		opacity: 1,
-		boxSizing: "border-box"
-	},
-	PeriodInputField: {
-		color: "#e7e7e7",
-		background: "transparent",
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
-	},
-	DataSetSelector: {
-		color: "#e7e7e7",
-		selectedBackgroundColor: "rgba(255, 255, 255, .25)",
-		rollOverBackgroundColor: "rgba(255, 255, 255, .15)"
-	},
-	DataSetCompareList: {
-		color: "#e7e7e7",
-		lineHeight: "100%",
-		boxSizing: "initial",
-		webkitBoxSizing: "initial",
-		border: "1px solid rgba(255, 255, 255, .15)"
-	},
-	DataSetSelect: {
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
 	}
 };
 /*-----------------------------------------------------------------------------------------------------------------*/
 AmCharts.themes.viewChart = {
 	themeName: "viewChart",
 	AmChart: {
-		color: "#e7e7e7", backgroundColor: "#282828"
+		color: "#ffffff", backgroundColor: "#ffffff"
 	},
 	AmCoordinateChart: {
-		colors: ["#ec6446", "#aab9f7", "#b6d2ff", "#c9e6f2", "#c9f0e1", "#e8d685", "#e0ad63", "#d48652", "#d27362", "#495fba", "#7a629b", "#8881cc"]
+		colors: ["#488ccb"]
 	},
 	AmStockChart: {
-		colors: ["#639dbd", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
-	},
-	AmSlicedChart: {
-		outlineAlpha: 1,
-		outlineThickness: 2,
-		labelTickColor: "#FFFFFF",
-		labelTickAlpha: 0.3,
-		colors: ["#495fba", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
+		colors: ["#488ccb"]
 	},
 	AmRectangularChart: {
 		zoomOutButtonColor: '#FFFFFF',
@@ -190,32 +74,18 @@ AmCharts.themes.viewChart = {
 		zoomOutButtonImage: "lensWhite"
 	},
 	AxisBase: {
-		axisColor: "#FFFFFF",
-		axisAlpha: 0.3,
-		gridAlpha: 0.1,
-		gridColor: "#FFFFFF",
 		dashLength: 3
 	},
 	ChartScrollbar: {
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.2,
-		graphFillAlpha: 0.2,
-		graphLineAlpha: 0,
 		graphFillColor: "#FFFFFF",
-		selectedGraphFillColor: "#FFFFFF",
+		selectedGraphFillColor: "#488ccb",
 		selectedGraphFillAlpha: 0.4,
-		selectedGraphLineColor: "#FFFFFF",
-		selectedBackgroundColor: "#FFFFFF",
-		selectedBackgroundAlpha: 0.09,
-		gridAlpha: 0.15
+		selectedGraphLineColor: "#488ccb"
 	},
 	ChartCursor: {
 		cursorColor: "#FFFFFF",
-		color: "#000000",
+		color: "#ffffff",
 		cursorAlpha: 0.5
-	},
-	AmLegend: {
-		color: "#e7e7e7"
 	},
 	AmGraph: {
 		lineAlpha: 0.9
@@ -241,116 +111,21 @@ AmCharts.themes.viewChart = {
 		bandAlpha: 0.8
 	},
 	TrendLine: {
-		lineColor: "#ec6446",
+		lineColor: "#48cfad",
 		lineAlpha: 0.8
-	},
-	// ammap
-	AreasSettings: {
-		alpha: 0.8,
-		color: "#FFFFFF",
-		colorSolid: "#000000",
-		unlistedAreasAlpha: 0.4,
-		unlistedAreasColor: "#FFFFFF",
-		outlineColor: "#000000",
-		outlineAlpha: 0.5,
-		outlineThickness: 0.5,
-		rollOverColor: "#ec6446",
-		rollOverOutlineColor: "#000000",
-		selectedOutlineColor: "#000000",
-		selectedColor: "#ec6446",
-		unlistedAreasOutlineColor: "#000000",
-		unlistedAreasOutlineAlpha: 0.5
-	},
-	LinesSettings: {
-		color: "#FFFFFF",
-		alpha: 0.8
-	},
-	ImagesSettings: {
-		alpha: 0.8,
-		labelColor: "#FFFFFF",
-		color: "#FFFFFF",
-		labelRollOverColor: "#ec6446"
-	},
-	ZoomControl: {
-		buttonFillAlpha:0.7,
-		buttonIconColor:"#494949"
-	},
-	SmallMap: {
-		mapColor: "#FFFFFF",
-		rectangleColor: "#FFFFFF",
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.7,
-		borderThickness: 1,
-		borderAlpha: 0.8
-	},
-	// the defaults below are set using CSS syntax, you can use any existing css property
-	// if you don't use Stock chart, you can delete lines below
-	PeriodSelector: {
-		color: "#e7e7e7"
-	},
-	PeriodButton: {
-		color: "#e7e7e7",
-		background: "transparent",
-		opacity: 0.7,
-		border: "1px solid rgba(255, 255, 255, .15)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		boxSizing: "border-box"
-	},
-	PeriodButtonSelected: {
-		color: "#e7e7e7",
-		backgroundColor: "rgba(255, 255, 255, 0.1)",
-		border: "1px solid rgba(255, 255, 255, .3)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		opacity: 1,
-		boxSizing: "border-box"
-	},
-	PeriodInputField: {
-		color: "#e7e7e7",
-		background: "transparent",
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
-	},
-	DataSetSelector: {
-		color: "#e7e7e7",
-		selectedBackgroundColor: "rgba(255, 255, 255, .25)",
-		rollOverBackgroundColor: "rgba(255, 255, 255, .15)"
-	},
-	DataSetCompareList: {
-		color: "#e7e7e7",
-		lineHeight: "100%",
-		boxSizing: "initial",
-		webkitBoxSizing: "initial",
-		border: "1px solid rgba(255, 255, 255, .15)"
-	},
-	DataSetSelect: {
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
 	}
 };
 /*-----------------------------------------------------------------------------------------------------------------*/
 AmCharts.themes.upChart = {
 	themeName: "upChart",
 	AmChart: {
-		color: "#e7e7e7", backgroundColor: "#282828"
+		color: "#ffffff", backgroundColor: "#ffffff"
 	},
 	AmCoordinateChart: {
-		colors: ["#488ccb", "#aab9f7", "#b6d2ff", "#c9e6f2", "#c9f0e1", "#e8d685", "#e0ad63", "#d48652", "#d27362", "#495fba", "#7a629b", "#8881cc"]
+		colors: ["#ffbe54"]
 	},
 	AmStockChart: {
-		colors: ["#639dbd", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
-	},
-	AmSlicedChart: {
-		outlineAlpha: 1,
-		outlineThickness: 2,
-		labelTickColor: "#FFFFFF",
-		labelTickAlpha: 0.3,
-		colors: ["#495fba", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
+		colors: ["#ffbe54"]
 	},
 	AmRectangularChart: {
 		zoomOutButtonColor: '#FFFFFF',
@@ -358,32 +133,18 @@ AmCharts.themes.upChart = {
 		zoomOutButtonImage: "lensWhite"
 	},
 	AxisBase: {
-		axisColor: "#FFFFFF",
-		axisAlpha: 0.3,
-		gridAlpha: 0.1,
-		gridColor: "#FFFFFF",
 		dashLength: 3
 	},
 	ChartScrollbar: {
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.2,
-		graphFillAlpha: 0.2,
-		graphLineAlpha: 0,
 		graphFillColor: "#FFFFFF",
-		selectedGraphFillColor: "#FFFFFF",
+		selectedGraphFillColor: "#ffbe54",
 		selectedGraphFillAlpha: 0.4,
-		selectedGraphLineColor: "#FFFFFF",
-		selectedBackgroundColor: "#FFFFFF",
-		selectedBackgroundAlpha: 0.09,
-		gridAlpha: 0.15
+		selectedGraphLineColor: "#ffbe54"
 	},
 	ChartCursor: {
 		cursorColor: "#FFFFFF",
-		color: "#000000",
+		color: "#ffffff",
 		cursorAlpha: 0.5
-	},
-	AmLegend: {
-		color: "#e7e7e7"
 	},
 	AmGraph: {
 		lineAlpha: 0.9
@@ -409,116 +170,21 @@ AmCharts.themes.upChart = {
 		bandAlpha: 0.8
 	},
 	TrendLine: {
-		lineColor: "#488ccb",
+		lineColor: "#48cfad",
 		lineAlpha: 0.8
-	},
-	// ammap
-	AreasSettings: {
-		alpha: 0.8,
-		color: "#FFFFFF",
-		colorSolid: "#000000",
-		unlistedAreasAlpha: 0.4,
-		unlistedAreasColor: "#FFFFFF",
-		outlineColor: "#000000",
-		outlineAlpha: 0.5,
-		outlineThickness: 0.5,
-		rollOverColor: "#488ccb",
-		rollOverOutlineColor: "#000000",
-		selectedOutlineColor: "#000000",
-		selectedColor: "#488ccb",
-		unlistedAreasOutlineColor: "#000000",
-		unlistedAreasOutlineAlpha: 0.5
-	},
-	LinesSettings: {
-		color: "#FFFFFF",
-		alpha: 0.8
-	},
-	ImagesSettings: {
-		alpha: 0.8,
-		labelColor: "#FFFFFF",
-		color: "#FFFFFF",
-		labelRollOverColor: "#488ccb"
-	},
-	ZoomControl: {
-		buttonFillAlpha:0.7,
-		buttonIconColor:"#494949"
-	},
-	SmallMap: {
-		mapColor: "#FFFFFF",
-		rectangleColor: "#FFFFFF",
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.7,
-		borderThickness: 1,
-		borderAlpha: 0.8
-	},
-	// the defaults below are set using CSS syntax, you can use any existing css property
-	// if you don't use Stock chart, you can delete lines below
-	PeriodSelector: {
-		color: "#e7e7e7"
-	},
-	PeriodButton: {
-		color: "#e7e7e7",
-		background: "transparent",
-		opacity: 0.7,
-		border: "1px solid rgba(255, 255, 255, .15)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		boxSizing: "border-box"
-	},
-	PeriodButtonSelected: {
-		color: "#e7e7e7",
-		backgroundColor: "rgba(255, 255, 255, 0.1)",
-		border: "1px solid rgba(255, 255, 255, .3)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		opacity: 1,
-		boxSizing: "border-box"
-	},
-	PeriodInputField: {
-		color: "#e7e7e7",
-		background: "transparent",
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
-	},
-	DataSetSelector: {
-		color: "#e7e7e7",
-		selectedBackgroundColor: "rgba(255, 255, 255, .25)",
-		rollOverBackgroundColor: "rgba(255, 255, 255, .15)"
-	},
-	DataSetCompareList: {
-		color: "#e7e7e7",
-		lineHeight: "100%",
-		boxSizing: "initial",
-		webkitBoxSizing: "initial",
-		border: "1px solid rgba(255, 255, 255, .15)"
-	},
-	DataSetSelect: {
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
 	}
 };
 /*-----------------------------------------------------------------------------------------------------------------*/
 AmCharts.themes.downChart = {
-	themeName: "upChart",
+	themeName: "downChart",
 	AmChart: {
-		color: "#e7e7e7", backgroundColor: "#282828"
+		color: "#ffffff", backgroundColor: "#ffffff"
 	},
 	AmCoordinateChart: {
-		colors: ["#ffbe54", "#aab9f7", "#b6d2ff", "#c9e6f2", "#c9f0e1", "#e8d685", "#e0ad63", "#d48652", "#d27362", "#495fba", "#7a629b", "#8881cc"]
+		colors: ["#ec6446"]
 	},
 	AmStockChart: {
-		colors: ["#639dbd", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
-	},
-	AmSlicedChart: {
-		outlineAlpha: 1,
-		outlineThickness: 2,
-		labelTickColor: "#FFFFFF",
-		labelTickAlpha: 0.3,
-		colors: ["#495fba", "#e8d685", "#ae85c9", "#c9f0e1", "#d48652", "#629b6d", "#719dc3", "#719dc3"]
+		colors: ["#ec6446"]
 	},
 	AmRectangularChart: {
 		zoomOutButtonColor: '#FFFFFF',
@@ -526,32 +192,18 @@ AmCharts.themes.downChart = {
 		zoomOutButtonImage: "lensWhite"
 	},
 	AxisBase: {
-		axisColor: "#FFFFFF",
-		axisAlpha: 0.3,
-		gridAlpha: 0.1,
-		gridColor: "#FFFFFF",
 		dashLength: 3
 	},
 	ChartScrollbar: {
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.2,
-		graphFillAlpha: 0.2,
-		graphLineAlpha: 0,
 		graphFillColor: "#FFFFFF",
-		selectedGraphFillColor: "#FFFFFF",
+		selectedGraphFillColor: "#ec6446",
 		selectedGraphFillAlpha: 0.4,
-		selectedGraphLineColor: "#FFFFFF",
-		selectedBackgroundColor: "#FFFFFF",
-		selectedBackgroundAlpha: 0.09,
-		gridAlpha: 0.15
+		selectedGraphLineColor: "#ec6446"
 	},
 	ChartCursor: {
 		cursorColor: "#FFFFFF",
-		color: "#000000",
+		color: "#ffffff",
 		cursorAlpha: 0.5
-	},
-	AmLegend: {
-		color: "#e7e7e7"
 	},
 	AmGraph: {
 		lineAlpha: 0.9
@@ -577,95 +229,7 @@ AmCharts.themes.downChart = {
 		bandAlpha: 0.8
 	},
 	TrendLine: {
-		lineColor: "#ffbe54",
+		lineColor: "#48cfad",
 		lineAlpha: 0.8
-	},
-	// ammap
-	AreasSettings: {
-		alpha: 0.8,
-		color: "#FFFFFF",
-		colorSolid: "#000000",
-		unlistedAreasAlpha: 0.4,
-		unlistedAreasColor: "#FFFFFF",
-		outlineColor: "#000000",
-		outlineAlpha: 0.5,
-		outlineThickness: 0.5,
-		rollOverColor: "#ffbe54",
-		rollOverOutlineColor: "#000000",
-		selectedOutlineColor: "#000000",
-		selectedColor: "#ffbe54",
-		unlistedAreasOutlineColor: "#000000",
-		unlistedAreasOutlineAlpha: 0.5
-	},
-	LinesSettings: {
-		color: "#FFFFFF",
-		alpha: 0.8
-	},
-	ImagesSettings: {
-		alpha: 0.8,
-		labelColor: "#FFFFFF",
-		color: "#FFFFFF",
-		labelRollOverColor: "#ffbe54"
-	},
-	ZoomControl: {
-		buttonFillAlpha:0.7,
-		buttonIconColor:"#494949"
-	},
-	SmallMap: {
-		mapColor: "#FFFFFF",
-		rectangleColor: "#FFFFFF",
-		backgroundColor: "#000000",
-		backgroundAlpha: 0.7,
-		borderThickness: 1,
-		borderAlpha: 0.8
-	},
-	// the defaults below are set using CSS syntax, you can use any existing css property
-	// if you don't use Stock chart, you can delete lines below
-	PeriodSelector: {
-		color: "#e7e7e7"
-	},
-	PeriodButton: {
-		color: "#e7e7e7",
-		background: "transparent",
-		opacity: 0.7,
-		border: "1px solid rgba(255, 255, 255, .15)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		boxSizing: "border-box"
-	},
-	PeriodButtonSelected: {
-		color: "#e7e7e7",
-		backgroundColor: "rgba(255, 255, 255, 0.1)",
-		border: "1px solid rgba(255, 255, 255, .3)",
-		MozBorderRadius: "5px",
-		borderRadius: "5px",
-		margin: "1px",
-		outline: "none",
-		opacity: 1,
-		boxSizing: "border-box"
-	},
-	PeriodInputField: {
-		color: "#e7e7e7",
-		background: "transparent",
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
-	},
-	DataSetSelector: {
-		color: "#e7e7e7",
-		selectedBackgroundColor: "rgba(255, 255, 255, .25)",
-		rollOverBackgroundColor: "rgba(255, 255, 255, .15)"
-	},
-	DataSetCompareList: {
-		color: "#e7e7e7",
-		lineHeight: "100%",
-		boxSizing: "initial",
-		webkitBoxSizing: "initial",
-		border: "1px solid rgba(255, 255, 255, .15)"
-	},
-	DataSetSelect: {
-		border: "1px solid rgba(255, 255, 255, .15)",
-		outline: "none"
 	}
 };

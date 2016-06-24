@@ -12,14 +12,14 @@
 }
 .con_main{
     padding-right: 0px;
-    padding-left: 310px;
 }
-
+/*//////////MABYE IT WILL BE REMOVE///////////////*/
 .con_aside {
-    border-right: 1px solid #222222;
-    border-left: 0px;    
+    display: none;   
 }
-/*login aside start*/
+/*//////////MABYE IT WILL BE REMOVE///////////////*/
+
+
     #myinfo_setting {
         display: block;
         color: #999999;

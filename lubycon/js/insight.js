@@ -30,10 +30,21 @@ function initChart(target,theme,data){
         "dataDateFormat": "YYYY-MM-DD",
         "valueAxes": [{
             "id": "v1",
-            "axisAlpha": 0,
             "position": "left",
+            "color": "#444444",
+            "gridColor": "#444444",
+            "gridAlpha": 0.5,
             "ignoreAxisWidth":true
         }],
+        "categoryField": "date",
+        "categoryAxis": {
+            "parseDates": true,
+            "dashLength": 1,
+            "color": "#444444",
+            "gridColor": "#444444",
+            "gridAlpha": 0.5,
+            "minorGridEnabled": true
+        },
         "balloon": {
             "borderThickness": 1,
             "shadowAlpha": 0
@@ -43,12 +54,12 @@ function initChart(target,theme,data){
             "balloon":{
               "drop":true,
               "adjustBorderColor":false,
-              "color":"#ffffff"
+              "color":"#444444"
             },
             "bullet": "round",
             "bulletBorderAlpha": 1,
             "bulletColor": "#FFFFFF",
-            "bulletSize": 5,
+            "bulletSize": 7,
             "hideBulletsCount": 50,
             "lineThickness": 2,
             "title": "red line",
@@ -63,20 +74,20 @@ function initChart(target,theme,data){
             "scrollbarHeight": 80,
             "backgroundAlpha": 0,
             "selectedBackgroundAlpha": 0.1,
-            "selectedBackgroundColor": "#888888",
+            "selectedBackgroundColor": "#999999",
             "graphFillAlpha": 0,
             "graphLineAlpha": 0.5,
             "selectedGraphFillAlpha": 0,
             "selectedGraphLineAlpha": 1,
             "autoGridCount":true,
-            "color":"#AAAAAA"
+            "color":"#444444"
         },
         "chartCursor": {
             "pan": true,
             "valueLineEnabled": true,
             "valueLineBalloonEnabled": true,
             "cursorAlpha":1,
-            "cursorColor":"#7feed2",//navigation bar color
+            "cursorColor":"#444444",//navigation bar color
             "limitToGraph":"g1",
             "valueLineAlpha":0.2
         },
@@ -84,12 +95,6 @@ function initChart(target,theme,data){
           "oppositeAxis":false,
           "offset":50,
           "scrollbarHeight":10
-        },
-        "categoryField": "date",
-        "categoryAxis": {
-            "parseDates": true,
-            "dashLength": 1,
-            "minorGridEnabled": true
         },
         "export": {
             "enabled": false

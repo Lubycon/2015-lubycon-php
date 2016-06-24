@@ -240,34 +240,40 @@ $(document).ready(function(){
 
         preferFilter.lubySelector({
             id: "preferFilter",
+            width: 200,
             customClass: "hidden-mb-ib",
             theme: "rect"
         });
         copyrightFilter.lubySelector({
             id: "copyrightFilter",
+            width: 200,
             icon: "fa fa-copyright",
             customClass: "hidden-mb-ib",
             theme: "rect"
         });
         languageFilter.lubySelector({
             id: "languageFilter",
+            width: 200,
             icon: "fa fa-globe",
             customClass: "hidden-mb-ib",
             theme: "rect"
         });
         locationFilter.lubySelector({
             id: "locationFilter",
+            width: 200,
             icon: "fa fa-globe",
             customClass: "hidden-mb-ib",
             theme: "rect"
         });
         jobFilter.lubySelector({
             id: "jobFilter",
+            width: 200,
             icon: "fa fa-suitcase",
             theme: "rect"
         });
         userFilter.lubySelector({
             id: "userFilter",
+            width: 200,
             icon: "fa fa-user",
             customClass: "hidden-mb-ib",
             theme: "rect"

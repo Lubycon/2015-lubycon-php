@@ -86,61 +86,79 @@
     <div class="dark_overlay" data-value="dark_overlay"></div>
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
     <div class="alertKey hidden"></div>
-    <aside id="mb-menu_panel" class="visible-mb"><!--mobile panel menu-->
-        <header id="mb-user_section">
-            <div id="mb-signin">
-                <a href="<?=$one_depth?>/login_page.php">
-                    <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
-                    <p class="signin">SIGN IN</p>
-                </a>
-            </div>
-            <div id="mb-after_signin">
+    <aside id="mb-menu-panel" class="visible-mb"><!--mobile panel menu-->
+        <header id="mb-user-section">
+            <div id="mb-after-signin">
                 <?php
-                    $user_pic = $one_depth."/ch/img/no_img/no_img_user1.jpg";
-                    $user_city = "City";
-                    $user_country = "Country";
+                    $userpic = $one_depth."/ch/img/no_img/no_img_user5.jpg";
+                    $username = "Admin";
+                    $usercity = "City";
+                    $usercountry = "Country";
                 ?>
-                 <figure id="mb-user_pic">
-                    <img src=<?=$user_pic?>></img>
+                 <figure id="mb-user-pic">
+                    <img src=<?=$userpic?>></img>
                 </figure>
-                <span id="mb-user_info">
-                    <span id="mb-user_name"><?=$user_name?></span>
-                    <span id="mb-user_location"><i class="fa fa-map-marker"></i><?=$user_city?>, <?=$user_country?></span>
+                <span id="mb-user-info">
+                    <span id="mb-user-name"><?=$username?></span>
+                    <span id="mb-user-location"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></span>
+                </span>
+                <span id="mb-user-setting">
+                    <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$usercode?>">
+                        <i class="fa fa-gear fa-1x"></i>
+                    </a>
                 </span>
             </div> 
         </header>
-        <ul class="mb-menu_group">
-            <li class="mb-menu_list">
-                <i class="fa fa-picture-o fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1">Artwork</a>
+        <ul class="mb-menu-group">
+            <p class="mb-menu-title">CONTENTS</p>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1">
+                    <i class="fa fa-picture-o fa-1x"></i>Artwork
+                </a>
             </li>
-            <li class="mb-menu_list">
-                <i class="fa fa-object-group fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1">Vector</a>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1">
+                    <i class="fa fa-object-group fa-1x"></i>Vector
+                </a>
             </li>
-            <li class="mb-menu_list">
-                <i class="fa fa-cube fa-1x"></i><a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&mid_cate=1&page=1">3D Model</a>
-            </li>
-        </ul>
-        <ul class="mb-menu_group">
-            <li class="mb-menu_list">
-                <i class="fa fa-pencil fa-1x"></i><a href="<?=$two_depth?>/creators_page/creators.php">Creator</a>
-            </li>
-            <li class="mb-menu_list">
-            	<i class="fa fa-comments-o fa-1x"></i><a href="<?=$two_depth?>/community/community_page.php?cate=forum">Forum</a>
-            </li>
-        </ul>
-        <ul class="mb-menu_group">
-            <li class="mb-menu_list">
-                <i class="fa fa-tachometer fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>">Dashboard</a>
-            </li>
-            <li class="mb-menu_list">
-                <i class="fa fa-line-chart fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>">Insight</a>
-            </li>
-            <li class="mb-menu_list">
-                <i class="fa fa-gear fa-1x"></i><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$usercode?>">Account Setting</a>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&mid_cate=1&page=1">
+                    <i class="fa fa-cube fa-1x"></i>3D Model
+                </a>
             </li>
         </ul>
-        <ul class="mb-menu_group">
-            <li class="mb-menu_list"><i class="fa fa-power-off fa-1x"></i>Log out</li>
+        <ul class="mb-menu-group">
+            <p class="mb-menu-title">COMMUNITY</p>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/creators_page/creators.php">
+                    <i class="fa fa-pencil fa-1x"></i>Creator
+                </a>
+            </li>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/community/community_page.php?cate=forum">
+            	   <i class="fa fa-comments-o fa-1x"></i>Forum
+               </a>
+            </li>
+        </ul>
+        <ul class="mb-menu-group">
+            <p class="mb-menu-title">MY PAGE</p>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>">
+                    <i class="fa fa-tachometer fa-1x"></i>Dashboard
+                </a>
+            </li>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$usercode?>">
+                    <i class="fa fa-line-chart fa-1x"></i>Insight
+                </a>
+            </li>
+        </ul>
+        <ul class="mb-menu-group">
+            <li class="mb-menu-list">
+                <a href="<?=$one_depth?>/login_page.php">
+                    <i class="fa fa-power-off fa-1x"></i>Sign in
+                </a>
+            </li>
         </ul>
     </aside>
     <div class="editor_popup modal fadeInDown animated"> <!-- popup start -->

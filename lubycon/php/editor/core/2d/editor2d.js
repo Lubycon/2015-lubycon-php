@@ -1316,7 +1316,7 @@
                 $sizeInput.slider({
                     customID: "fontSize-slider",
                     disabled: true, 
-                    callback: toolbar.textFn.fontSize
+                    dragEvent: toolbar.textFn.fontSize
                 });
 
                 //font color start
@@ -1638,7 +1638,7 @@
                     "max" : 100
                 }),
                 $headerMargin = new UImodule.createMenu($headerInput,"Header",false).attr({"id" : "header-tool","data-value" : "header"}).appendTo($this);
-                $headerInput.slider({ callback: toolbar.marginFn.headerMargin });
+                $headerInput.slider({ dragEvent: toolbar.marginFn.headerMargin });
 
                 var $footerInput = $("<input/>",{
                     "type" : "range",
@@ -1648,7 +1648,7 @@
                     "max" : 100
                 }),
                 $footerMargin = new UImodule.createMenu($footerInput,"Footer",false).attr({"id" : "footer-tool","data-value" : "footer"}).appendTo($this);
-                $footerInput.slider({ callback: toolbar.marginFn.footerMargin });
+                $footerInput.slider({ dragEvent: toolbar.marginFn.footerMargin });
 
                 var $deviderInput = $("<input/>",{ //input
                     "type" : "range",
@@ -1661,7 +1661,7 @@
                 $deviderInput.slider({
                     customID: "contentSpace-slider",
                     disabled: true, 
-                    callback: toolbar.marginFn.deviderMargin
+                    dragEvent: toolbar.marginFn.deviderMargin
                 });
             },
             marginFn: {

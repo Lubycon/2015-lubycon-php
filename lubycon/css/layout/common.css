@@ -1008,8 +1008,7 @@ body{
         vertical-align: top;
         padding-right: 310px;
     }
-
-    
+ 
     .con_aside{
         display: inline-block;
         top:0;
@@ -1019,7 +1018,6 @@ body{
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
         z-index: 3;    
     }
 
@@ -1176,21 +1174,40 @@ body{
         display: inline-block;
         margin-bottom: 30px;
     }
-        .infoCard.content_info .infoCard-userAction .userAction-bt{
+        .userAction-bt{
             display: inline-block;
-            width: 120px;
-            height: 40px;
-            background: #666666;
-            color: #ffffff;
-            font-size: 17px;
-            text-align: center;
-            padding: 10px;
             cursor: pointer;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             transition: opacity 0.2s;
         }
+            .contents_card .userAction-bt {
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
+                color: #cccccc;
+                font-size: 28px;
+            }
+                .contents_card .userAction-bt[data-value='bookmark'].selected {
+                    background: transparent;
+                    color: #ffbe54;
+                }
+                .contents_card .userAction-bt[data-value='like'].selected {
+                    background: transparent;
+                    color: #48cfad;
+                }
+            .infoCard.content_info .infoCard-userAction .userAction-bt {
+                background: #666666;
+                color: #ffffff;
+                width: 120px;
+                height: 40px;
+                background: #666666;
+                color: #ffffff;
+                font-size: 17px;
+                text-align: center;
+                padding: 10px;
+            }
             .infoCard.content_info .infoCard-userAction .userAction-bt:hover {
                 opacity: 0.8;
             }
@@ -1199,10 +1216,10 @@ body{
                 margin-right: 5px;
                 float: left;
             }
-            .infoCard.content_info .userAction-bt[data-value='bookmark'].selected {
+            .userAction-bt[data-value='bookmark'].selected {
                 background: #ffbe54;
             }
-            .infoCard.content_info .userAction-bt[data-value='like'].selected {
+            .userAction-bt[data-value='like'].selected {
                 background: #48cfad;
             }
     .infoCard.content_info .infoCard-cc {
@@ -1406,10 +1423,13 @@ body{
     }
         .creator_card_header .card_label {
             color: #444444;
-            font-size: 20px;
+            font-size: 17px;
+            font-weight: 600;
         }
             .creator_card_header .card_label .this_month {
                 color: #48cfad;
+                font-size: 21px;
+                font-weight: 600;
             }
     .creator_card_body {
 
@@ -1440,21 +1460,27 @@ body{
                     width: 100%;
                 }
         .creator_card_body .creator_info_wrap{
+            max-width: 230px;
             position: relative;
             display: inline-block;
             vertical-align: top;
             text-align: left;
         }
             .creator_card_body .creator_info_wrap .creator_name {
+                width: 100%;
                 font-weight: 600;
                 transition: color 0.2s;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
             }
+                .creator_card_body .creator_info_wrap .creator_name a {
+                    width: 100%;
+                    color: #444444;
+                }
                 .creator_card_body .creator_info_wrap .creator_name:hover a {
                     text-decoration: underline;
                     color: #48cfad;
-                }
-                .creator_card_body .creator_info_wrap .creator_name a {
-                    color: #444444;
                 }
             .creator_card_body .creator_info_wrap .creator_job {
                 color: #444444;
