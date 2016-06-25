@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <es:ExerdSearchRequest xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:es="http://exerd.com/search">
   <commonRequest>
-    <logicalNameRule use="true" expression="vectorCC"/>
+    <logicalNameRule use="true" expression="&#xb77c;&#xc774;&#xc13c;&#xc2a4;"/>
     <physicalNameRule expression=""/>
     <commentRule expression=""/>
   </commonRequest>

@@ -6,6 +6,12 @@ class Session{
 	protected $user_id;
 	protected $user_nick;
 	protected $user_code;
+
+    
+	protected $user_country;
+	protected $user_city;
+
+
 	protected $seperator;
 
 	public function __construct($seperator = "lubycon", $session_name = "lubycon"){
@@ -53,18 +59,22 @@ class Session{
 		}
 	}
 
-	public function WriteSession($seperator="lubycon",$id, $nick ,$code){
+	public function WriteSession($seperator="lubycon",$id, $nick ,$code,$country,$city){
 		$this->seperator = $seperator;
 		
 		$temp_sessionId = $seperator.'_session_id';
 		$temp_id = $seperator.'_id';
 		$temp_nick = $seperator.'_nick';
 		$temp_code = $seperator.'_code';
+		$temp_country = $seperator.'_country';
+		$temp_city = $seperator.'_city';
 
 		$_SESSION[$temp_sessionId] = $this->session_id = session_id();
 		$_SESSION[$temp_id] = $this->user_id = $id;
 		$_SESSION[$temp_nick] = $this->user_nick = $nick;
 		$_SESSION[$temp_code] = $this->user_code = $code;
+		$_SESSION[$temp_country] = $this->user_country = $country;
+		$_SESSION[$temp_city] = $this->user_city = $city;
 	}
 
 	public function DestroySession(){
@@ -74,11 +84,15 @@ class Session{
 		$temp_id = $this->seperator.'_id';
 		$temp_nick = $this->seperator.'_nick';
 		$temp_code = $this->seperator.'_code';
+		$temp_country = $this->seperator.'_country';
+		$temp_city = $this->seperator.'_city';
 
 		$_SESSION[$temp_sessionId] = NULL;
 		$_SESSION[$temp_id] = NULL;
 		$_SESSION[$temp_nick] = NULL;
 		$_SESSION[$temp_code] = NULL;
+		$_SESSION[$temp_country] = NULL;
+		$_SESSION[$temp_city] = NULL;
 	}
 
 	public function GetVar(){
@@ -97,6 +111,8 @@ class Session{
 		$this->user_id = null;
 		$this->user_nick = null;
 		$this->user_code = null;
+		$this->user_country = null;
+		$this->user_city = null;
 		$this->seperator = null;
 	}
 

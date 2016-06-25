@@ -44,6 +44,7 @@
 <view id="org.eclipse.search.ui.views.SearchView" partName="검색">
 <viewState isPinned="false">
 <view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+<view IMemento.internal.id="com.tomato.exerd.core.searchpage" org.eclipse.search.lastActivation="1"/>
 </viewState>
 </view>
 <view id="com.tomato.exerd.modelview3.ModelView3" partName="모델">
@@ -96,11 +97,11 @@
 <view id="com.tomato.exerd.validate.ui.ValidateView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <fastViewBars>
-<fastViewBar fastViewLocation="131072" id="rightFolder" orientation="512" selectedTabId="org.eclipse.search.ui.views.SearchView" style="0">
+<fastViewBar fastViewLocation="131072" id="rightFolder" orientation="512" selectedTabId="com.tomato.exerd.modelview3.ModelView3" style="0">
 <fastViews>
-<view id="com.tomato.exerd.modelview3.ModelView3" ratio="0.3"/>
+<view id="com.tomato.exerd.modelview3.ModelView3" ratio="0.29973993"/>
 <view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
-<view id="org.eclipse.search.ui.views.SearchView" ratio="0.3"/>
+<view id="org.eclipse.search.ui.views.SearchView" ratio="0.29973993"/>
 </fastViews>
 </fastViewBar>
 <fastViewBar fastViewLocation="16384" id="org.eclipse.ui.internal.ViewStack@1b77816" orientation="512" selectedTabId="org.eclipse.gef.ui.palette_view" style="0">

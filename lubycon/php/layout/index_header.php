@@ -1,4 +1,10 @@
 <?php
+    require_once $two_depth."/class/json_class.php";
+    $json_control = new json_control;
+    $json_control->json_decode('country',"$one_depth/data/country.json");
+    $country_json_Code = $json_control->json_decode_code;
+
+
     require_once $two_depth.'/session/session_class.php';
     //session_start();
     $session = new Session();
@@ -11,6 +17,10 @@
             $username= $_SESSION['lubycon_nick'];
             $userid= $_SESSION['lubycon_id'];
             $usercode= $_SESSION['lubycon_code'];
+            $usercountry = $country_json_Code[$_SESSION['lubycon_country']]['name'];
+            $usercity= $_SESSION['lubycon_city'];
+            print_r($_SESSION);
+            // login menu
         }else{
             $LoginState = false;    
         }
@@ -90,10 +100,7 @@
         <header id="mb-user-section">
             <div id="mb-after-signin">
                 <?php
-                    $userpic = $one_depth."/ch/img/no_img/no_img_user5.jpg";
-                    $username = "Admin";
-                    $usercity = "City";
-                    $usercountry = "Country";
+                    $userpic = $two_depth."/../../../Lubycon_Contents/user/$usercode/profile.jpg";
                 ?>
                  <figure id="mb-user-pic">
                     <img src=<?=$userpic?>></img>
@@ -153,10 +160,17 @@
                 </a>
             </li>
         </ul>
-        <ul class="mb-menu-group">
+        <ul class="mb-menu-group signin_class">
             <li class="mb-menu-list">
                 <a href="<?=$one_depth?>/login_page.php">
                     <i class="fa fa-power-off fa-1x"></i>Sign in
+                </a>
+            </li>
+        </ul>
+        <ul class="mb-menu-group after_signin_class">
+            <li class="mb-menu-list">
+                <a href="<?=$one_depth?>/login_page.php">
+                    <i class="fa fa-power-off fa-1x"></i>Sign out
                 </a>
             </li>
         </ul>
@@ -312,7 +326,7 @@
                 </li>
             </ul> <!-- end gnb ul -->
         </nav>	<!--end main_gnb-->
-        <div id="signin_bt" class="hidden-mb-b"><!-- before sign in -->
+        <div id="signin_bt" class="hidden-mb-b signin_class"><!-- before sign in -->
             <div id="signin">
                 <a href="<?=$one_depth?>/login_page.php">
                     <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
@@ -320,7 +334,7 @@
                 </a>
             </div>  <!-- end signin -->
         </div><!-- before sign in -->
-        <div id="after_signin" class="hidden-mb-b">   <!-- after sign in -->
+        <div id="after_signin" class="hidden-mb-b after_signin_class">   <!-- after sign in -->
                 <div id="display_user">
                     <figure id="accountImg"><img src="<?=$two_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" alt="profile_img" /></figure>
                     <span id="user_id"><?=$username?></span>
@@ -356,12 +370,7 @@
             </ul>
         </div><!-- end after sign in -->
         <button id="addcontent_bt" class="btn hidden-mb-b" data-tip="add content"><i class="fa fa-plus"></i>Add Contents</button>
-        <!--��� ǿ��-->
-        <?php
-            if($LoginState == true){
-                echo ('<script>$("#signin_bt").remove();$("#after_signin,#addcontent_bt").show();</script>');
-            }
-        ?>
+        <!-- langage -->
         <div id="lang_select_bt" class="hidden-mb-b"><!--end content button-->
             <ul>
                 <li class="lang_selected">ENG</li>
@@ -393,6 +402,12 @@
                 <option data-value="Community">Community</option>
             </select>
         </div>
+        <?php
+            if( $LoginState )
+            {
+                echo ('<script>$(".signin_class").remove();$(".after_signin_class,#addcontent_bt").show();</script>');
+            }
+        ?>
         <script>
             var searchFilter = $("body").find(".searchFilter");
             searchFilter.lubySelector({
