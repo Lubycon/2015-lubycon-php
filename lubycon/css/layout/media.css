@@ -161,9 +161,9 @@
         height: 50px;
     }
         #mb-menu {
-            width: 45px;
-            height: 45px;
-            line-height: 55px;
+            width: 50px;
+            height: 50px;
+            line-height: 60px;
             text-align: center;
             position: absolute;
             z-index: 11;
@@ -315,14 +315,9 @@
                 position: absolute;
                 right: 11px;
             }
-            #mb-search .icon1{
+            #mb-search .fa{
                 display: inline-block;
-                top: 9px;
-            }
-            #mb-search .icon2{
-                display: none;
-                font-size: 35px;
-                top: 3px;
+                top: 15px;
             }
     .nav_guide {
         margin-top: 45px;

@@ -48,7 +48,6 @@ function replaceUrlParameter(sParam,value){
 //This function will be canceled the click event when users touch in mobile devices
 //So if you want use any function in mobile, This eventHandler must be called to your function//
 function eventHandler(event, selector) {
-    console.log(event);
     event.stopPropagation();
     event.preventDefault();
     if (event.type === 'touchend'){
@@ -72,7 +71,8 @@ function InputExpander(selector) {
 }
 
 var toggle = {
-    group: function(){
+    group: function(event){
+        eventHandler(event,$(this));
         var $this = $(this),
         radioType = $this.hasClass("radioType"),
         $btns = $this.siblings(".btn").length !== 0 ? $this.siblings(".btn") : $(document).find(".card_menu");
@@ -88,7 +88,9 @@ var toggle = {
             $this.addClass("selected");
         }
     },
-    single: function(){
+    single: function(event){
+        eventHandler(event,$(this));
+        console.log($(this));
         var $this = $(this);
         if($this.hasClass("selected")) $this.removeClass("selected");
         else $this.addClass("selected");

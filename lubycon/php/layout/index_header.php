@@ -385,14 +385,13 @@
                 </ul>	<!-- end lang_list -->
             </ul>	<!-- end lang_all -->
         </div>	<!-- end lang_select_bt -->
-        <div id="mb-search" class="visible-mb"><i class="fa fa-search icon1"></i><i class="fa fa-angle-up icon2"></i></div>
+        <div id="mb-search" class="visible-mb"><i class="fa fa-search"></i></div>
     </header><!---------------- header end ---------------->
     <div id="main_search_bar" class="search-bar"><!---------------- search bar start ---------------->
         <input type="text" class="search-bar-text" value="Enter the keyword" />
         <button class="out search-btn">
             <i class="fa fa-search"></i>
         </button>
-
         <div class="select-box">|
             <select class="searchFilter">
                 <option data-value="All">All</option>
