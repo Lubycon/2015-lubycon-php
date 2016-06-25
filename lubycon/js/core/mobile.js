@@ -1,69 +1,61 @@
 $(window).on("load resize",function(){
-    if(isMobile() && ($("#mb-menu-panel").length !== 0)){
-        $("#mb-menu-panel").height = window.screen.height;
-        var mb_menu = $("#mb-menu");
-        var mb_menu_toggle = 0;
+    if(isMobile()){
+        initMobileMenu.call($("#mb-menu-panel"));
+    }
+    
+    function initMobileMenu(){
+        console.log(2);
+        var $menu = $(this),
+            $body = $("body"),
+            $wrapper = $(document).find("#wrapper"),
+            $menuBt = $(document).find("#mb-menu"),
+            $cancelLayer = $(document).find("#cancel_layer");
         var distance = $("#mb-menu-panel").outerWidth();
-        mb_menu.on("click touchend", function(){
-            if(!TOUCHMOVING){
-                eventHandler(event, $(this));
-                remove_mb_menu();
-                return;
-            }
-            else if(TOUCHMOVING){
-                return;
-            }
-        });//click end
-        $("#cancel_layer").on("click touchend",function(){
-            remove_mb_menu();
-            return;
+
+        $cancelLayer.css({
+            "width": window.screen.width.toString(),
+            "height": window.screen.height.toString(),
+            "background": "transparent",
+            "position": "absolute",
+            "top": "0",
+            "left": "0",
+            "z-index": "100000",
+            "cursor": "pointer"
         });
-        function remove_mb_menu(){
+
+        $menuBt.on("click touchend",showMobileMenu);
+        $cancelLayer.on("click touchedn",hideMobileMenu);
+
+        function showMobileMenu(event){
+            console.log(1);
             eventHandler(event,$(this));
-            switch(mb_menu_toggle){
-                case 0 : 
-                    $("#wrapper").stop().animate({ left: distance.toString() }, 200);
-                    $("#mb-menu-panel").stop().animate({ left: "0"}, 200);
-                    $("#cancel_layer").css({
-                        "width": window.screen.width.toString(),
-                        "height": window.screen.height.toString(),
-                        "background": "transparent",
-                        "position": "absolute",
-                        "top": "0",
-                        "left": "0",
-                        "z-index": "100000",
-                        "cursor": "pointer"
-                    });
-                    $("#cancel_layer").show();
-                    $("body").css({
-                        "position":"fixed",
-                        "height":window.screen.height.toString(),
-                        "overflow":"hidden"
-                    });
-                    mb_menu_toggle = 1;
-                    console.log(mb_menu_toggle);
-                    return;
-                break;
-                case 1 :
-                    $("#cancel_layer").hide();
-                    $("#wrapper").stop().animate({ left: "0" }, 200);
-                    $("#mb-menu-panel").stop().animate({ left: (distance*-1).toString()}, 200);
-                    $("body").css({
-                        "position":"relative",
-                        "height":"auto",
-                        "overflow":"auto"
-                    });
-                    $("body").css("overflow-x", "hidden");
-                    mb_menu_toggle = 0;
-                    console.log(mb_menu_toggle);
-                    return;
-                break;
-                default: return; break;
-            };//swtich end
-        }//remove_function end
-    }//if end
-    else{
-        return; 
+            if(!TOUCHMOVING){
+                $cancelLayer.show();
+                $wrapper.css("left",distance + "px");
+                $menu.css("left", 0);
+                $body.css({
+                    "position" : "fixed",
+                    "height" : window.screen.height.toString(),
+                    "overflow" : "hidden"
+                });
+            }
+            else return false;
+        }
+        function hideMobileMenu(event){
+            eventHandler(event,$(this));
+            if(!TOUCHMOVING){
+                $cancelLayer.hide();
+                $wrapper.css("left", 0);
+                $menu.css("left", distance * -1 + "px");
+                $body.css({
+                    "position" : "relative",
+                    "height" : "auto",
+                    "overflow" : "auto",
+                    "overflow-x" : "hidden"
+                });
+            }
+            else return false;
+        }
     }
 });
 
@@ -83,7 +75,7 @@ $(window).on("load resize",function(){
             icon2 = $("#mb-search .icon2"),
             toggle_count = 0;
         searchText.css("width",searchTextWidth+"px");
-        searchBt.on("click touchend",function(){
+        searchBt.on("click touchend",function(event){
             eventHandler(event, $(this));
             switch(toggle_count){
                 case 0 :  

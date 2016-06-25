@@ -19,7 +19,6 @@
             $usercode= $_SESSION['lubycon_code'];
             $usercountry = $country_json_Code[$_SESSION['lubycon_country']]['name'];
             $usercity= $_SESSION['lubycon_city'];
-            print_r($_SESSION);
             // login menu
         }else{
             $LoginState = false;    
