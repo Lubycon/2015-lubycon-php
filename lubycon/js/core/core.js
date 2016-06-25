@@ -48,6 +48,7 @@ function replaceUrlParameter(sParam,value){
 //This function will be canceled the click event when users touch in mobile devices
 //So if you want use any function in mobile, This eventHandler must be called to your function//
 function eventHandler(event, selector) {
+    console.log(event);
     event.stopPropagation();
     event.preventDefault();
     if (event.type === 'touchend'){

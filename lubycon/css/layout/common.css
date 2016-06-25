@@ -46,6 +46,7 @@ a {
 #wrapper{
     background: #eeeeee;
     padding-bottom: 10px;
+    transition: left 0.2s;
 }
 /*CSS RESET*/
 /* class */
@@ -78,6 +79,10 @@ body{
 /*----------------------------------------------------------scroll bar end*/
 /* main header start */
 /* popup end */
+#cancel_layer{
+    display: none;
+}
+
  #loading_icon{
     display: none;
     position: fixed;

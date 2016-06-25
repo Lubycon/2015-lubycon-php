@@ -183,6 +183,7 @@
             left: -270px;
             z-index: 10000;
             overflow: scroll;
+            transition: left 0.2s;
         }
             .mb-menu-group {
                 padding: 10px 0px;
