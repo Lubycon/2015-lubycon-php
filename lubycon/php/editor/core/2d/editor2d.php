@@ -36,6 +36,30 @@
 <!-- editor css -->
 <section id="editor-container" class="initEditor"></section>
 <?php 
+    $cate = $_GET['cate'];
+    $contents_html = '';
+    $usercode = $Loginuser_code;
+    $username = $Loginuser_name;
+    $usercity = $Loginuser_city;
+    $usercountry = $Loginuser_country;
+    $userjob = $Loginuser_job;
+    $allow_array = ['all','artwork','vector','threed'];
+    if( in_array($cate , $allow_array) )
+    {
+        switch($cate){ //check category
+        case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
+        case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
+        case 'threed' : $contents_cate = 3; $cate_name = 'threed'; break;
+        default : $contents_cate = 1; break;
+        }
+    }else
+    {
+        include_once('../../404.php');
+        die();
+    };
+
+
+
     echo "<div id='previewer'><span id='preview-close'>close</span>";
         include_once("../../../contents/viewer2d.php"); 
     echo "</div>";

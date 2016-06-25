@@ -1,14 +1,6 @@
 <?php
-    require_once "../class/json_class.php";
-    $json_control = new json_control;
-    $json_control->json_decode('job',"$one_depth/data/job.json");
-    $job_json_Code = $json_control->json_decode_code;
-    $json_control->json_decode('country',"$one_depth/data/country.json");
-    $country_json_Code = $json_control->json_decode_code;
-    
     //target user data
     $userjob = $job_json_Code[$userdata_row["jobCode"]]['name'];
-    
     $usercountry = $country_json_Code[$userdata_row["countryCode"]]['name'];
     $utc = $country_json_Code[$userdata_row["countryCode"]]["utc"]; 
     echo "<script>var UTC = $utc</script>"; //for watch
@@ -41,8 +33,8 @@
     $db->askQuery();
     $localuserdata_row = mysqli_fetch_array($db->result);
 
-    $localcountry = $country_json_Code[$localuserdata_row["countryCode"]]['name'];
-    $localcity = $localuserdata_row["city"];
+    $localcountry = $Loginuser_country;
+    $localcity = $Loginuser_city;
     //login user data
 ?>
 <script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>

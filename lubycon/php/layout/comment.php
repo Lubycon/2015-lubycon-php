@@ -1,6 +1,6 @@
  <div class="comment-div">
  	<?php
-        $profile_path = '../../ch/img/no_img/no_img_user1.jpg';
+        $profile_path = "$one_depth/ch/img/no_img/no_img_user1.jpg";
         $comment_write_username = "Admin_User";
         $comment_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
         $time = '00';
