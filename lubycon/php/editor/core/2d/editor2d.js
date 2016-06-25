@@ -163,10 +163,7 @@
 
                 function initPreview(){
                     var name = "Content Name",
-                    username = "User",
                     job = "Student",
-                    city = "Seoul",
-                    country = "South Korea",
                     descript = "This is preview page.",
                     category1 = "Category1",
                     category2 = "Category2",
@@ -179,11 +176,7 @@
                     $("#downloadCount").text(download);
                     $("#likeCount").text(like);
 
-                    $("#user_info_wrap h4 a").attr("src","#").text(username);
-                    $("#user_info_wrap h5").each(function(v,i){
-                        if($(this).data("value") === "job") $(this).text(job);
-                        else $(this).html("<i class='fa fa-map-marker'></i>" + city + "," + country);
-                    });
+                    $("#user_info_wrap h4 a").attr("src","#");
                     $("#descript_content").html("<p>" + descript + "</p>");
                 }
             },

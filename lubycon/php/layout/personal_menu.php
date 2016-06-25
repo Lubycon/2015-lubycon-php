@@ -21,8 +21,8 @@
         $username = $userdata_row['nick'];
         $userpic = "$one_depth/../../Lubycon_Contents/user/$usernumber/profile.jpg";
 
-        $usercity = "City";
-        $usercountry = "Country";
+        $usercity = $userdata_row['city'];
+        $usercountry = $country_json_Code[$userdata_row['countryCode']]['name'];
 
         $userIntro = $userdata_row['userDescription'];
     ?>
@@ -37,7 +37,7 @@
             </span>
             <h5 id="user-intro"><p><?=$userIntro?></p></h5>
             <?php
-                if($usernumber == $usercode){
+                if($usernumber == $Loginuser_code){
                     echo '<span id="user-setting">
                             <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$usercode?>">
                                 <i class="fa fa-gear fa-1x"></i>

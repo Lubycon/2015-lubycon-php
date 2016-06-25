@@ -6,9 +6,8 @@ class Session{
 	protected $user_id;
 	protected $user_nick;
 	protected $user_code;
-
-    
 	protected $user_country;
+	protected $user_job;
 	protected $user_city;
 
 
@@ -59,7 +58,7 @@ class Session{
 		}
 	}
 
-	public function WriteSession($seperator="lubycon",$id, $nick ,$code,$country,$city){
+	public function WriteSession($seperator="lubycon",$id, $nick ,$code,$country,$job,$city){
 		$this->seperator = $seperator;
 		
 		$temp_sessionId = $seperator.'_session_id';
@@ -67,6 +66,7 @@ class Session{
 		$temp_nick = $seperator.'_nick';
 		$temp_code = $seperator.'_code';
 		$temp_country = $seperator.'_country';
+		$temp_job = $seperator.'_job';
 		$temp_city = $seperator.'_city';
 
 		$_SESSION[$temp_sessionId] = $this->session_id = session_id();
@@ -74,6 +74,7 @@ class Session{
 		$_SESSION[$temp_nick] = $this->user_nick = $nick;
 		$_SESSION[$temp_code] = $this->user_code = $code;
 		$_SESSION[$temp_country] = $this->user_country = $country;
+		$_SESSION[$temp_job] = $this->user_country = $job;
 		$_SESSION[$temp_city] = $this->user_city = $city;
 	}
 
@@ -85,6 +86,7 @@ class Session{
 		$temp_nick = $this->seperator.'_nick';
 		$temp_code = $this->seperator.'_code';
 		$temp_country = $this->seperator.'_country';
+		$temp_job = $this->seperator.'_job';
 		$temp_city = $this->seperator.'_city';
 
 		$_SESSION[$temp_sessionId] = NULL;
@@ -92,6 +94,7 @@ class Session{
 		$_SESSION[$temp_nick] = NULL;
 		$_SESSION[$temp_code] = NULL;
 		$_SESSION[$temp_country] = NULL;
+		$_SESSION[$temp_job] = NULL;
 		$_SESSION[$temp_city] = NULL;
 	}
 
@@ -112,6 +115,7 @@ class Session{
 		$this->user_nick = null;
 		$this->user_code = null;
 		$this->user_country = null;
+		$this->user_job = null;
 		$this->user_city = null;
 		$this->seperator = null;
 	}
