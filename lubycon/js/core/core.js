@@ -72,7 +72,6 @@ function InputExpander(selector) {
 
 var toggle = {
     group: function(event){
-        eventHandler(event,$(this));
         var $this = $(this),
         radioType = $this.hasClass("radioType"),
         $btns = $this.siblings(".btn").length !== 0 ? $this.siblings(".btn") : $(document).find(".card_menu");
@@ -89,8 +88,6 @@ var toggle = {
         }
     },
     single: function(event){
-        eventHandler(event,$(this));
-        console.log($(this));
         var $this = $(this);
         if($this.hasClass("selected")) $this.removeClass("selected");
         else $this.addClass("selected");

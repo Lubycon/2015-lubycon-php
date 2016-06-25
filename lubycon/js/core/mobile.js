@@ -64,15 +64,17 @@ $(window).on("load resize",function(){
             searchText = $("#main_search_text"),
             searchTextWidth = ($(window).width() - searchInBt.outerWidth(true) - 25).toString(),
             darkOverlay = $(".dark_overlay"),
-            mainHeader = $("#main_header"),
-            btIcon = $("#mb-search").find(".fa");
+            mainHeader = $("#main_header");
         searchText.css("width",searchTextWidth + "px");
         searchBt.on("click touchend",toggle.single).on("click touchend",searchBoxToggle);
+        var a = 0;
 
         function searchBoxToggle(event){
-            event.stopPropagation();
+            console.log(a);
+            a++;
             eventHandler(event,$(this));
-            var $this = $(this);
+            var $this = $(this),
+                btIcon = $this.find("i");
 
             if($this.hasClass("selected")){
                 console.log("open");
