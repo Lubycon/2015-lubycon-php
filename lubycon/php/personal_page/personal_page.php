@@ -4,7 +4,7 @@
     include_once('../layout/index_header.php');
 ?>
 <div class="main_figure_wrap hidden-mb-b">
-    <figure id="main_figure">
+    <figure>
         <div class="dark_overlay_small"></div>
         <h2>PERSONAL PAGE</h2>
     </figure>   <!-- end main_figure -->

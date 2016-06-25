@@ -50,7 +50,6 @@ $(function(){
     var $personalMenu = $("#after_signin"),
     $menuList = $personalMenu.find("ul");
     $personalMenu.on("click",toggle.single).on("click",personalMenuToggle);
-    var a = 0;
     function personalMenuToggle(){
         var $this = $(this);
         if($this.hasClass("selected")){

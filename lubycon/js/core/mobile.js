@@ -1,7 +1,8 @@
 $(window).on("load resize",function(){
     if(isMobile()){
         initMobileMenu.call($("#mb-menu-panel"));
-        initMobileSearchBox();
+        initMobileSearchBox.call($("#mb-search"));
+        initMobileIndexTab.call($(".mb-contents-tab"));
     }
     
     function initMobileMenu(){
@@ -58,40 +59,59 @@ $(window).on("load resize",function(){
         }
     }
     function initMobileSearchBox(){
-        var searchBt = $("#mb-search"),
-            searchInBt = $("#main_search_btn"),
-            searchBox = $("#main_search_bar"),
-            searchText = $("#main_search_text"),
-            searchTextWidth = ($(window).width() - searchInBt.outerWidth(true) - 25).toString(),
-            darkOverlay = $(".dark_overlay"),
+        var searchBt = $(this),
+            searchBox = $(document).find("#main_search_bar"),
+            searchText = searchBox.find(".search-bar-text"),
             mainHeader = $("#main_header");
-        searchText.css("width",searchTextWidth + "px");
-        searchBt.on("click touchend",toggle.single).on("click touchend",searchBoxToggle);
-        var a = 0;
 
+        searchBt.on("click touchend",toggle.single).on("click touchend",searchBoxToggle);
         function searchBoxToggle(event){
-            console.log(a);
-            a++;
             eventHandler(event,$(this));
             var $this = $(this),
                 btIcon = $this.find("i");
+            console.log(btIcon);
 
             if($this.hasClass("selected")){
                 console.log("open");
                 btIcon.attr("class","fa fa-times");
-                searchBox.stop().slideDown(300,function(){
-                    searchBox.find("input").stop().fadeIn(500);
+                searchBox.stop().slideDown(200,function(){
+                    searchBox.find("input").stop().fadeIn(400);
                 });
                 mainHeader.css("border-bottom", "0px solid #111");
             }
             else {
                 console.log("close");
-                searchBox.find("input").stop().fadeOut(500,function(){
-                    searchBox.stop().slideUp(300);
+                searchBox.find("input").stop().fadeOut(400,function(){
+                    searchBox.stop().slideUp(200);
                     btIcon.attr("class","fa fa-search");
                 });
                 mainHeader.css("border-bottom", "1px solid #111");
             }
         }
     }
+    function initMobileIndexTab(){
+        var $this = $(this),
+        buttons = $this.find(".tab-bt");
+        buttons.first().addClass("selected");
+
+        buttons.each(function(){
+            $(this).on("click touchend",toggle.group).on("click touchend",tabAction);
+        });
+
+        function tabAction(event){
+            eventHandler(event,$(this));
+
+            var target = $(document).find(".mb-contents-wrapper");
+            var data = $(this).data("target");
+
+            target.removeClass("selected");
+
+            target.each(function(){
+                if($(this).data("value") === data) $(this).addClass("selected");
+            })
+        }
+    }
 });
+
+
+

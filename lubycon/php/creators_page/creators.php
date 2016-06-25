@@ -12,7 +12,7 @@
     $country_decode = $json_control->json_decode_code;
 ?>
 <div class="main_figure_wrap hidden-mb-b">
-    <figure id="main_figure">
+    <figure>
         <div class="dark_overlay_small"></div>
         <h2>CREATORS</h2>
     </figure>   <!-- end main_figure -->
