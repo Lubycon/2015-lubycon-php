@@ -7,7 +7,7 @@
 <script type="text/javascript" src="<?=$one_depth?>/js/module/community_infinite_scroll.js"></script> <!-- scroll js -->
 
 <div class="main_figure_wrap hidden-mb-b">
-    <figure id="main_figure">
+    <figure>
         <div class="dark_overlay_small"></div>
         <h2>COMMUNITY</h2>
     </figure>   <!-- end main_figure -->

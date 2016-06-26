@@ -32,7 +32,7 @@
         </div>
         <div class="message-box">
             <label class="label-message">E-mail</label>
-            <input class="input-message" type="text"></div>
+            <input class="input-message" type="email" data-value="email"></div>
         </div>
         <div class="message-box">
             <div class="btn cancel-bt"">Not now</div>

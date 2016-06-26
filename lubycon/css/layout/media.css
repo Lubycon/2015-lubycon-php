@@ -32,7 +32,7 @@
     #main_search_bar{
         display: none;
         position: fixed;
-        top: 45px;
+        top: 50px;
         width: 100%;
         height: 60px;
         z-index: 11;
@@ -67,54 +67,63 @@
             display: none;
         }
 /*---------------------------------SIMONS WORK START-----------------------*/
-    #index_figure{
-        height: 10vh;
+    .index_figure{
+        height: 70px;
     }
-        #index_figure h2{
-            padding-top: 3vh;
-            font-size: 18px;
+        .index_figure h2{
+            padding-top: 23px;
+            font-size: 16px;
         }
-    .mobile_wrap{
+    .mb-wrapper{
         width: 100%;
-        margin-top: 37px;
         background: #eeeeee;
     }
-        .mb-section_title{
-            height: 38px;
-            line-height: 38px;
-            text-align: center;
-            margin: 0px auto;
-            color: #ffffff;
-            background: #383838;
-            font-size: 18px;
-        }
-        .mb-contents_wrap{
+        .mb-section{
             width: 100%;
-            padding: 0px 20px;
+            padding: 10px;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
-            height: 80vh;
         }
-        .mb-contents_category{
-            width: 100%;
+        .mb-contents-tab{
+            position: relative;
             background: #ffffff;
-            margin-top: 10px;
             text-align: center;
         }
-            .mb-category_bt{
-                width: 25%;
+            .mb-contents-tab .tab-bt{
+                width: 32%;
+                height: 85px;
                 display: inline-block;
+                background: #ffffff;
+                font-weight: 600;
                 padding: 10px;
                 text-align: center;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
             }
-            .mb-contents_inner{
+                .mb-contents-tab i {
+                    display: block;
+                    font-size: 25px;
+                    color: #444444;
+                    margin-top: 10px;
+                }
+                .mb-contents-tab .tab-bt.selected {
+                    color: #48cfad;
+                }
+                .mb-contents-tab .tab-bt.selected i {
+                    color: #48cfad;
+                }
+            .mb-contents-wrapper{
                 width: 100%;
-                display: inline-block;
+                display: none;
                 background: #ffffff;
                 margin: 10px 0px;
             }
-                .mb-contents_title{
+                .mb-contents-wrapper.selected {
+                    display: block;
+                }
+                .mb-contents-wrapper .contents-title{
                     width: 100%;
                     background: #ffffff;
                     padding: 7px;
@@ -122,21 +131,23 @@
                     -webkit-box-sizing: border-box;
                     -moz-box-sizing: border-box;
                 }
-                    .mb-contents_count{
+                    .mb-contents-wrapper .contents-title .contents-count{
                         width: 68%;
                         color: #444444;
                         font-size: 19px;
                         font-weight: 200;
                         display: inline-block;
                     }
-                    .mb-contents_viewmore_bt{
+                    .mb-contents-wrapper .contents-title .viewmore_bt{
                         width: 30%;
+                        border: none;
+                        color: #444444;
                     }
-                .mb-content_contents{
+                .mb-contents-wrapper .mb-contents-grid {
                     margin-top: 10px;
                     display: inline-block;
                 }
-                    .mb-contents{
+                    .mb-contents-wrapper .mb-contents-grid .mb-contents{
                         display: inline-block;
                         width: 33.3%;
                         height: 106.55px;
@@ -144,18 +155,15 @@
                         display: inline-block;
                         position: relative;
                         z-index: 1;
-                        border: 1px solid #000000;
+                        overflow: hidden;
                         box-sizing: border-box;
+                        -webkit-box-sizing: border-box;
+                        -moz-box-sizing: border-box;
                         
                     }
-                        .mb-contents img{
-                            width: 100%;
+                        .mb-contents-wrapper .mb-contents-grid .mb-contents img{
+                            height: 100%;
                         }
-                .mb-contents_footer{
-                    width: 100%;
-                    height: 170px;
-                    text-align: center;
-                }
 /*---------------------------------SIMONS WORK END-----------------------*/
     .main_header {
         height: 50px;
@@ -279,15 +287,12 @@
                     #mb-user-setting i{
                         color: #ffffff;
                     }
-        .main_header h1{ 
+        .main_header h1#main-logo{ 
+            width: 100px;
+            top: 16px;
             left: 50%;
             margin-left: -50px;
         }
-            #luby-logo-mb {  
-                margin: 0px auto;
-                margin-top: -7px;
-                cursor: pointer;
-            }
         #after_signin {
             margin-right: 0px;
         }
@@ -299,6 +304,17 @@
                     width: 45px;
                     height: 45px;
                 }
+        .main_figure_wrap#index_figure_wrap {
+            height: 100px;
+        }
+            .main_figure_wrap#index_figure_wrap figure {
+                height: 100px;
+                line-height: 60px;
+            }
+            .main_figure_wrap#index_figure_wrap figure h2 {
+                font-size: 15px;
+                padding-top: 0;
+            }
         #mb-search {
             width: 50px;
             height: 50px;
@@ -751,7 +767,22 @@
     .main_header{
         height: 50px;
     }
-    .container {
+        .main_header h1#main-logo {
+            width: 160px;
+            left: 3px;
+            top: 9px;
+        }
+    .main_figure_wrap#index_figure_wrap {
+        height: 250px;
+    }
+        .main_figure_wrap#index_figure_wrap figure {
+            height: 250px;
+        }
+            .main_figure_wrap#index_figure_wrap figure h2 {
+                padding-top: 20px;
+            }
+
+.container {
         top: 50px;
     }
     #gotop_bt{
@@ -989,7 +1020,7 @@
         padding: 25px;
     }
         #dashboard_wrap .chart-boxes {
-            width: 500px;
+            width: 480px;
         }
 
     #main_board{
@@ -1055,8 +1086,11 @@
     .history_wrap{
         padding-right: 160px;
     }
-    .x2{
+    .x2 {
         width: 50%;
+    }
+    .x3 {
+        width: 75%;
     }
         .history_date{
             width: 140px;

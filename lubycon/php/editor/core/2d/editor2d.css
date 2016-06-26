@@ -504,6 +504,8 @@
     }
         #previewer .editing-canvas {
             margin-top: 0;
+            width: 100%;
+            min-width: auto;
         }
         .contents_view .contents_img{
             width: 100%;

@@ -48,7 +48,7 @@
 
 
 <div class="main_figure_wrap hidden-mb-b">
-    <figure id="main_figure">
+    <figure>
         <div class="dark_overlay_small"></div>
         <h2>CONTENTS</h2>
     </figure>	<!-- end main_figure -->

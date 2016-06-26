@@ -4,7 +4,7 @@
     include_once('../layout/index_header.php');
 ?>
 <div class="main_figure_wrap hidden-mb-b">
-    <figure id="main_figure">
+    <figure>
         <div class="dark_overlay_small"></div>
         <h2>PERSONAL PAGE</h2>
     </figure>   <!-- end main_figure -->
@@ -24,7 +24,7 @@
 		    ?><!--end con_aside-->
 		    <section id="contents_box" class="personal con_main">
             <?php
-                $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark','account_setting'];
+                $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark'];
 
                 if( in_array($_GET['cate'] , $allow_array) )
                 {

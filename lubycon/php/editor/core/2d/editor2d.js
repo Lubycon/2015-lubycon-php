@@ -181,8 +181,10 @@
                 }
             },
             hidePreview: function(){
-                var $previewWrap = $("#previewer");
+                var $previewWrap = $("#previewer"),
+                $canvas = $("#previewer").find(".editing-canvas");
                 $previewWrap.fadeOut(200);
+                $canvas.remove();
             },
             submit: function(){
                 var formData = new FormData();
