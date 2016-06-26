@@ -43,14 +43,14 @@
     $usercity = $Loginuser_city;
     $usercountry = $Loginuser_country;
     $userjob = $Loginuser_job;
+    $user_img_url = $two_depth."/../../../Lubycon_Contents/user/$usercode/profile.jpg";
     $allow_array = ['all','artwork','vector','threed'];
     if( in_array($cate , $allow_array) )
     {
         switch($cate){ //check category
         case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
         case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
-        case 'threed' : $contents_cate = 3; $cate_name = 'threed'; break;
-        default : $contents_cate = 1; break;
+        default : die('top category error'); break;
         }
     }else
     {

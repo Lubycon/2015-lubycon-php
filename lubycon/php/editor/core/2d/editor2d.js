@@ -243,8 +243,9 @@
                             data: formData,
                             type: 'POST',
                             success: function (result) {
+                                console.log(result);
                                 alert("SUBMIT SUCCESS");
-                                location.href = "../../../../index.php";
+                                //location.href = "../../../../index.php";
                             }
                         });
                     }

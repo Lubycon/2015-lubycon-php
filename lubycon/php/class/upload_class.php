@@ -91,6 +91,12 @@ class upload
             $this->desc = $this->post_setting->descript; // string
             $this->downable = 0;
 
+
+            print_r( 'by = '.$this->post_setting->cc->by);
+            print_r( 'nc = '.$this->post_setting->cc->by);
+            print_r( 'nd = '.$this->post_setting->cc->by);
+            print_r( 'sa = '.$this->post_setting->cc->by);
+
             if( $this->top_category == 'artwork' || $this->top_category == 'vector' ) //check board type
             {
                 $this->editor_kind = '2d';

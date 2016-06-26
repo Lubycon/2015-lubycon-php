@@ -84,7 +84,7 @@ class infinite_scroll extends json_control
         $this->middle_category = $middle_category; //later
     }
 
-    public function set_query()
+    public function set_query($Loginuser_code)
     {
         if( $this->top_category == 'all' )
         {
@@ -92,7 +92,22 @@ class infinite_scroll extends json_control
         
         }else
         {
-            $this->query = "SELECT SQL_CALC_FOUND_ROWS * FROM lubyconboard.`$this->top_category` , lubyconuser.`userbasic` , lubyconuser.`userinfo` WHERE lubyconboard.`$this->top_category`.`userCode` = lubyconuser.`userbasic`.`userCode` AND lubyconuser.`userbasic`.`userCode` = lubyconuser.`userinfo`.`userCode`ORDER BY lubyconboard.`$this->top_category`.`boardCode` DESC limit $this->call_page,$this->page_boundary";
+            $this->query = "
+            select SQL_CALC_FOUND_ROWS
+            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccCode`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`,b.`bookmarkActionUserCode` , c.`nick`
+
+            from lubyconboard.`$this->top_category` a
+            left join lubyconboard.`contentsbookmark` b
+
+            ON a.`boardCode` = b.`boardCode`
+            AND b.`bookmarkActionUserCode` = $Loginuser_code
+
+            left join lubyconuser.`userbasic` c
+            ON a.`userCode` = c.`userCode`
+
+            ORDER BY a.`boardCode` 
+            DESC limit $this->call_page,$this->page_boundary 
+            ";
         }
     }
 
@@ -111,7 +126,11 @@ class infinite_scroll extends json_control
             $i = 1;
             while( $row = mysqli_fetch_array($contents_result) )
             {
-                $top_category = $this->top_cate_decode[$row['CategoryCode']];
+                $this->json_decode('top_category',"$one_depth/data/top_category.json");
+                $country_decode = $this->json_decode_code;
+                $this->json_decode('ccCode',"$one_depth/data/ccCode.json");
+                $ccCode_decode = $this->json_decode_code;
+                $top_category = $country_decode[$row['topCategoryCode']]['name'];
                 include('../layout/content_card.php');
 
                 /*page load*/
