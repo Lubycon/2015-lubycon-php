@@ -50,7 +50,7 @@ if($LoginState)
     $db->askQuery();
     $db->query = "UPDATE `lubyconboard`.`$ajax_cate_name` SET `$ajax_countkind_name` = `$ajax_countkind_name` $stat_value WHERE `$ajax_cate_name`.`boardCode` = $ajax_nummber";
     $db->askQuery(); 
-    echo $db->query;
+    //echo $db->query;
 
 
     //echo $db->query ;
