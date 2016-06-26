@@ -41,25 +41,6 @@
                 <div class="account_input_wrap userinfo">
                     <label>Nickname</label><input type="text" value="<?=$username?>" disabled />
                 </div>
-                <div class="account_input_wrap userinfo">
-                    <label>Password</label>
-                    <input type="password" name="now_pass" data-value="current-password" disabled />
-                    <i class="check-icon"></i>
-                    <span id="change_pass">Change Password</span><br /><!--change password button-->
-                    <p class="check-message"></p>
-                </div>
-                <div class="account_input_wrap userinfo">
-                    <label>New Password</label>
-                    <input type="password" name="pass" data-value="password" disabled />
-                    <i class="check-icon"></i>
-                    <p class="check-message"></p>
-                </div>
-                <div class="account_input_wrap userinfo">
-                    <label>Repeat Password</label>
-                    <input type="password" name="repass" data-value="re-password" disabled />
-                    <i class="check-icon"></i>
-                    <p class="check-message"></p>
-                </div>
                 <!-- end select box -->
         </section>
         <section id="basic_info_section" class="setting_card">

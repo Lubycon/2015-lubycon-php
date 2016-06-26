@@ -1,11 +1,11 @@
 <link href="<?=$one_depth?>/js/chart/ammap/ammap.css" type="text/css" />
 
 <script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/ammap/ammap.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/ammap.js" type="text/javascript"></script>
 <script src="<?=$one_depth?>/js/chart/data/worldmap.js" type="text/javascript"></script>
 <script src="<?=$one_depth?>/js/chart/pie.js" type="text/javascript"></script>
 <script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/ammap/themes/light.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/chart/light.js" type="text/javascript"></script>
 <script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
 <script src="<?=$one_depth?>/js/insight.js" type="text/javascript"></script>
 

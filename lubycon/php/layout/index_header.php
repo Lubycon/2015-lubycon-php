@@ -272,6 +272,9 @@
                     <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-picture-o fa-1x"></i>My Contents
                     </a></li>
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_forums&usernum=<?=$Loginuser_code?>">
+                        <i class="fa fa-comments-o fa-1x"></i>My Forums
+                    </a></li>
                     <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-line-chart fa-1x"></i>Insight
                     </a></li>
@@ -282,6 +285,9 @@
                 <div class="userMenuGroup">
                     <li><a href="<?=$two_depth?>/account/resist_password.php">
                         <i class="fa fa-gear fa-1x"></i>Account Setting
+                    </a></li>
+                    <li><a href="<?=$two_depth?>/account/password_setting.php">
+                        <i class="fa fa-lock fa-1x"></i>Password Setting
                     </a></li>
                     <li style="display:none;"><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=message">
                         <i class="fa fa-envelope fa-1x"></i>Message

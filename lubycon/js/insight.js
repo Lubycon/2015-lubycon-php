@@ -37,19 +37,33 @@ var mapData = [
 
 
 $(document).ready(function(){
-    initInsight();
+    console.log("START...");
+    $.getJSON("../../js/chart/data/insightData.json",function(data){
+        success : initInsight(data);
+    }).fail(function(d, textStatus, error){ 
+        console.log("getJSON failed, status: " + textStatus + ", error: "+error) 
+    });
 
-    function initInsight(){
+    function initInsight(data){
+        var likeData = data.givetake.like,
+            bookmarkData = data.givetake.bookmark;
+        var mapData = data.worldmap;
+        var likeTimelineData = data.timeline.like,
+            viewTimelineData = data.timeline.view,
+            uploadTimelineData = data.timeline.upload,
+            downloadTimelineData = data.timeline.download;
+        var contentRankingData = data.ranking.content,
+            forumRankingData = data.ranking.forum;
         //give & take
         initPieChart("like-pie",likeData);
         initPieChart("bookmark-pie",bookmarkData);
         //worldmap
         worldMapLoader("worldmap",mapData);
         //Timeline
-        chartLoader("like-timeline","likeChart","../../js/chart/data/likedata.json");
-        chartLoader("view-timeline","viewChart","../../js/chart/data/viewdata.json");
-        chartLoader("up-timeline","upChart","../../js/chart/data/updata.json");
-        chartLoader("down-timeline","downChart","../../js/chart/data/downdata.json");
+        chartLoader("like-timeline","likeChart",likeTimelineData);
+        chartLoader("view-timeline","viewChart",viewTimelineData);
+        chartLoader("up-timeline","upChart",uploadTimelineData);
+        chartLoader("down-timeline","downChart",downloadTimelineData);
 
         initGL();
 
@@ -64,18 +78,15 @@ $(document).ready(function(){
         })
     }
 
-    function chartLoader(target,theme,json){
+    function chartLoader(target,theme,data){
         var dataArray = [];
-
-        $.getJSON(json,function(data){
-            $.each(data, function(i,v){
-                dataArray.push({
-                    date: v["date"],
-                    value: v["value"]
-                })
+        $.each(data, function(i,v){
+            dataArray.push({
+                date: v["date"],
+                value: v["value"]
             })
-            success : initLineChart(target,theme,dataArray);
         });
+        initLineChart(target,theme,dataArray);
     }
 
     function initPieChart(target,data){

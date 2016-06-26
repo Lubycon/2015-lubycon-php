@@ -80,8 +80,8 @@
             <select class="copyrightFilter"> <!-- daniel : need to delete this filter... we set only free now -->
                 <option>All License</option>
                 <option>Free</option>
-                <option>Non-Commercial</option>
-                <option>Non-Derivative</option>
+                <option>No-Commercial</option>
+                <option>No-Distribution</option>
             </select>
             <select class="categoryFilter">
             <?php

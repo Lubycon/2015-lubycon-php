@@ -25,17 +25,17 @@
 </head>
 <body ondragstart="return false" onselectstart="return false">
     <section class="message message-wrapper bounceInDown animated">
-        <i class="message-icon fa fa-unlock-alt black-color"></i>
+        <i class="message-icon fa fa-lock black-color"></i>
         <div class="message-box">
             <article class="main-message">Are you sure?</article>
             <article class="sub-message">Plesase write your password again</article>
         </div>
         <div class="message-box">
             <label class="label-message">Password</label>
-            <input class="input-message" type="password" data-value="password"></div>
+            <input class="input-message" type="password" data-value="password" />
         </div>
         <div class="message-box">
-            <div class="btn cancel-bt"">Not now</div>
+            <div class="btn cancel-bt">Not now</div>
             <div class="btn submit-bt">CHECK</div>
         </div>
     </section>

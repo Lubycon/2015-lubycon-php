@@ -6,6 +6,7 @@ $(function(){
 	otherBt = $messageWrapper.find(".btn.other-bt");
 
 	messageAlign.call($messageWrapper);
+
 	cancelBt.on("click",gotoBack);
 	submitBt.on("click",submit);
 	otherBt.on("click",otherBtAction);
@@ -34,8 +35,8 @@ $(function(){
 	function messageAlign(){
 		var $this = $(this);
 		
-		var w = $this.outerWidth(),
-		h = $this.outerHeight();
+		var w = isMobile() ? 0 : $this.outerWidth(),
+			h = isMobile() ? $this.outerHeight()+100 : $this.outerHeight();
 
 		$this.css({
 			"margin-left" : (w/2)*-1 + "px",
