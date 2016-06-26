@@ -1,0 +1,8 @@
+{
+    "ccCode": 
+    [
+        { "ccCode" : 0 ,"name": "Free" },
+        { "ccCode" : 1 ,"name": "Non-Commercial" },
+        { "ccCode" : 2 ,"name": "Non-Derivative" }
+    ]
+}

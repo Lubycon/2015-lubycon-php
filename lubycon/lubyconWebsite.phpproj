@@ -1080,7 +1080,7 @@
     <Compile Include="js\account_setting.js" />
     <Compile Include="js\call_comments.js" />
     <Compile Include="js\community.js" />
-    <Compile Include="js\contents_view.js" />
+    <Compile Include="js\thumbs_control.js" />
     <Compile Include="js\dashboard.js" />
     <Compile Include="js\index.js.rej" />
     <Compile Include="js\insight.js" />
@@ -1107,18 +1107,33 @@
     <Compile Include="php\ajax\editor_fileupload.php" />
     <Compile Include="php\ajax\editor_thumbupload.php" />
     <Compile Include="php\ajax\increase_like_ajax.php" />
+    <Compile Include="php\ajax\comment_write_ajax.php" />
     <Compile Include="php\ajax\infinite_scroll_ajax.php" />
     <Compile Include="php\ajax\login_check.php" />
     <Compile Include="php\ajax\subnav_check.php" />
     <Compile Include="php\ajax\upload_ajax.php" />
+    <Compile Include="php\class\account_setting_profile_upload.php" />
     <Compile Include="php\class\ajax_upload_class.php" />
+    <Compile Include="php\class\callModifyWindow.php" />
+    <Compile Include="php\class\call_comments_ajax.php" />
     <Compile Include="php\class\certifiMail_class.php" />
+    <Compile Include="php\class\community_infinite_scroll.php" />
     <Compile Include="php\class\cookie_class.php" />
+    <Compile Include="php\class\create_account_popup.php" />
     <Compile Include="php\class\database_class.php" />
+    <Compile Include="php\class\editor_ajax.php" />
+    <Compile Include="php\class\editor_ajax_upload_test.php" />
+    <Compile Include="php\class\editor_fileupload.php" />
+    <Compile Include="php\class\editor_thumbupload.php" />
+    <Compile Include="php\class\increase_like_ajax.php" />
+    <Compile Include="php\class\infinite_scroll_ajax.php" />
     <Compile Include="php\class\infinite_scroll_class.php" />
     <Compile Include="php\class\json_class.php" />
+    <Compile Include="php\class\login_check.php" />
     <Compile Include="php\class\regex_class.php" />
     <Compile Include="php\class\session_class.php" />
+    <Compile Include="php\class\subnav_check.php" />
+    <Compile Include="php\class\upload_ajax.php" />
     <Compile Include="php\class\upload_class.php" />
     <Compile Include="php\class\_upload_class.php" />
     <Compile Include="php\community\community_page.php" />
@@ -1577,6 +1592,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\module\lubySlider.css" />
+    <Content Include="data\ccCode.json" />
     <Content Include="js\contents_page.js" />
     <Content Include="js\module\jquery.lubySlider.js" />
     <Content Include="php\contents\viewer3d.js" />

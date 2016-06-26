@@ -16,9 +16,9 @@ $LoginState = false;
 }else{
 if($session->SessionExist()){
 $LoginState = true;
-$username= $_SESSION['lubycon_nick'];
-$userid= $_SESSION['lubycon_id'];
-$usercode= $_SESSION['lubycon_code'];
+$Loginuser_name= $_SESSION['lubycon_nick'];
+$Loginuser_id= $_SESSION['lubycon_id'];
+$Loginuser_code= $_SESSION['lubycon_code'];
 }else{
 $LoginState = false;
 }
@@ -39,10 +39,12 @@ $json_control->json_search($topCate_json_Code,'topCateCode',$uploader->top_categ
 $topCate_code = $json_control->search_key; // search top category name to index form json files
 
 
-$query = "INSERT INTO `lubyconboard`.`$uploader->top_category` 
-(`boardCode`, `userCode`, `title`, `date`, `description`, `contents`, `userDirectory`,`downloadPermission`, `downloadCount`, `viewCount`, `likeCount`, `CategoryCode`,`downloadAble`) 
-VALUES 
-(null,'$usercode','$uploader->subject','$uploader->upload_date','$uploader->desc','$uploader->contentHTML','$uploader->upload_path','free',0,0,0,$topCate_code,$uploader->downable)";
+$query = 
+"INSERT INTO `lubyconboard`.`artwork` 
+(`userCode`, `topCategoryCode`, `contentTitle`, `contentDate`, `contentDescription`, `contents`, `userDirectory`, `ccCode`, `downloadAble`) VALUES 
+('$Loginuser_name', '$topCate_code', '$uploader->subject', '$uploader->upload_date', '$uploader->desc', '$uploader->contentHTML', '$uploader->upload_path', 'cc', '$uploader->downable')";
+
+
 //need category code by json
 echo $query;
 
