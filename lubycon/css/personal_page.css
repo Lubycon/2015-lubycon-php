@@ -142,6 +142,9 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
+	.dash_section#dashboard_graph .dash_body{
+		height: 680px;
+	}
 .dash_header {
 	width: 100%;
 	height: 50px;
@@ -180,21 +183,6 @@
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 	}
-	.insight_total {
-		
-	}
-		#total_like .dash_body_content{
-			
-		}
-		#total_view .dash_body_content{
-			
-		}
-		#total_upload .dash_body_content{
-			
-		}
-		#total_download .dash_body_content{
-		
-		}
 	.x2 {
 		
 	}
@@ -389,13 +377,13 @@
 		.history_kind .fa-circle {
 
 		}
-			#Work_Experience .fa-circle {
+			#work_experience .fa-circle {
 				color: #48cfad;
 			}
-			#Education .fa-circle {
+			#aducation .fa-circle {
 				color: #6eabe3;
 			}
-			#Awards .fa-circle {
+			#awards .fa-circle {
 				color: #ffbe54;
 			}	
 		.history_kind span {
@@ -405,13 +393,13 @@
 			left: 19px;
 			border-right: 3px solid;
 		}
-			#Work_Experience span {
+			#work_Experience span {
 				border-color: #48cfad;
 			}
-			#Education span {
+			#wducation span {
 				border-color: #6eabe3;
 			}
-			#Awards span {
+			#awards span {
 				border-color: #ffbe54;
 			}
 		.history_content {
@@ -526,6 +514,46 @@
 		}
 		#local-location {
 
+		}
+
+
+/*INSIGHT*/
+#worldmap_body {
+	height: 320px;
+}
+	#worldmap {
+		margin: 0px auto;
+	}
+#timeline_body {
+	height: 670px;
+}
+
+.dash_rank_list{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+	.dash_rank_list li {
+		overflow: hidden;
+		text-align: left;
+		padding: 3px 10px;
+		font-size: 17px;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	}
+		.dash_rank_list li span {
+			color: #48cfad;
+			font-size: 20px;
+			font-weight: 600;
+			margin-right: 10px;
+		}
+		.dash_rank_list li p {
+			width: 100%;
+			height: 20px;
+			overflow: hidden;
+			display: inline-block;
+			color: #444444;
 		}
 
 

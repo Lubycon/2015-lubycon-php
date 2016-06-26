@@ -1,10 +1,44 @@
 var windowWidth = $(window).width();
+var mapData = [
+    {
+        "id" : "KR",
+        "title" : "South Korea",
+        "color" : "#48cfad"
+    },
+    {
+        "id" : "US",
+        "title" : "United State America",
+        "color" : "#48cfad"
+    },
+    {
+        "id" : "FR",
+        "title" : "France",
+        "color" : "#48cfad"
+    },
+    {
+        "id" : "CN",
+        "title" : "China",
+        "color" : "#48cfad"
+    },
+    {
+        "id" : "AF",
+        "title" : "Afganistan",
+        "color" : "#48cfad"
+    }
+];
+$(document).ready(function(){
+    initInsight();
+})
 
-
-var likeChartRender = chartLoader("chartdiv1","likeChart","../../js/chart/data/likedata.json"),
-viewChartRender = chartLoader("chartdiv2","viewChart","../../js/chart/data/viewdata.json"),
-upChartRender = chartLoader("chartdiv3","upChart","../../js/chart/data/updata.json"),
-downChartRender = chartLoader("chartdiv4","downChart","../../js/chart/data/downdata.json");
+function initInsight(){
+    //worldmap
+    worldMapLoader("worldmap",mapData);
+    //Timeline
+    chartLoader("like-timeline","likeChart","../../js/chart/data/likedata.json");
+    chartLoader("view-timeline","viewChart","../../js/chart/data/viewdata.json");
+    chartLoader("up-timeline","upChart","../../js/chart/data/updata.json");
+    chartLoader("down-timeline","downChart","../../js/chart/data/downdata.json");
+}
 
 function chartLoader(target,theme,json){
     var dataArray = [];
@@ -16,11 +50,55 @@ function chartLoader(target,theme,json){
                 value: v["value"]
             })
         })
-        success : initChart(target,theme,dataArray);
-    })
+        success : initLineChart(target,theme,dataArray);
+    });
 }
 
-function initChart(target,theme,data){
+function worldMapLoader(target,data){
+    console.log(target);
+
+    var lists = $("#worldmap_body").find(".dash_rank_list").find("li p");
+    lists.each(function(i){
+        $(this).text(data[i].title);
+        $(this).attr("data-target",data[i].id);
+    })
+    
+
+    var chart = AmCharts.makeChart(target, {
+        "type": "map",
+        "theme": "light",
+        "projection":"miller",
+        "allowClickOnSelectedObject": false,
+        "zoomOnDoubleClick": false,
+        "dragMap": false,
+        "dataProvider": {
+            "map": "worldHigh",
+            "getAreasFromMap": true,
+            "areas": data
+        },
+        "areasSettings": {
+            "autoZoom": false,
+            "color": "#aaaaaa",
+            "colorSolid": "#48cfad",
+            "rollOverColor": "#cccccc"
+        },
+        "smallMap": {
+            "enabled": false
+        },
+        "zoomControl": {
+            "zoomControlEnabled": false,
+            "homeButtonEnabled": false
+        },
+        "balloon": {
+            "enabled": false
+        },
+        "export": {
+            "enabled": false
+        }
+    });
+}
+
+function initLineChart(target,theme,data){
     var chart = AmCharts.makeChart(target, {
         "type": "serial",
         "theme": theme,
@@ -101,7 +179,6 @@ function initChart(target,theme,data){
         },
         "dataProvider": data
     });
-    console.log(data);
     chart.addListener("rendered", zoomChart);
     function zoomChart(){
         chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);

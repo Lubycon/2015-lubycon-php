@@ -1020,7 +1020,7 @@
         padding: 25px;
     }
         #dashboard_wrap .chart-boxes {
-            width: 500px;
+            width: 480px;
         }
 
     #main_board{
@@ -1086,8 +1086,11 @@
     .history_wrap{
         padding-right: 160px;
     }
-    .x2{
+    .x2 {
         width: 50%;
+    }
+    .x3 {
+        width: 75%;
     }
         .history_date{
             width: 140px;

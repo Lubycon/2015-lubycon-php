@@ -14,16 +14,17 @@ $(function(){
 	initChecker();
 
 	function initFocus(){
-		var $input = $(document).find("input[type='text']");
+		var $input = $(document).find(".input-message");
 		if($input.length) $input.first().focus();
 	}
 
 	function initChecker(){
-		var $input = $(document).find("input[type='text']");
-		if($input.length) $input.on("keyup",checkValue);
+		var $input = $(document).find(".input-message[data-value='number']");
+		var existInput = $input.length !== 0;
+		if($input.length) $input.on("keyup",codeCheck);
 	}
 
-	function checkValue(){
+	function codeCheck(){
 		var $this = $(this),
 		value = $this.val();
 
@@ -64,6 +65,28 @@ $(function(){
 	}
 
 	function submit(){
-		alert("SUBMIT");
+		var input = $(document).find(".input-message");
+		var checker = true;
+		input.each(function(){
+			var value = $(this).val();
+			console.log($(this).data("value"));
+			switch($(this).data("value")){
+				case "number" : 
+					if(!value.isNumber()) checker = false;
+				break;
+				case "email" : 
+					if(!value.isEmail()) checker = false;
+				break;
+				case "password" : 
+					if(value === null || value === undefined || value === "" || value === " ") checker = false;
+				break;
+			}
+		});
+		if(checker) { location.href = "../account/account_setting.php" }//SUBMIT FUNCTION IS IN HERE
 	}
 });
+
+
+
+
+

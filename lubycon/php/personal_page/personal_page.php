@@ -24,7 +24,7 @@
 		    ?><!--end con_aside-->
 		    <section id="contents_box" class="personal con_main">
             <?php
-                $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark','account_setting'];
+                $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark'];
 
                 if( in_array($_GET['cate'] , $allow_array) )
                 {

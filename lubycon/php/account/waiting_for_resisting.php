@@ -43,7 +43,7 @@
 		<div class="message-box">
 			<form id="certification" enctype="multipart/form-data" method="post" action="#">
 				<label class="label-message">Certification Code</label>
-				<input name="certificationCode" class="input-message" type="text"></div>
+				<input name="certificationCode" class="input-message" type="text" data-value="number"></div>
 			<form>
 		</div>
 		<div class="message-box">

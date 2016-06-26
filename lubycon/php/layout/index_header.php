@@ -111,7 +111,8 @@
                     <span id="mb-user-location"><i class="fa fa-map-marker"></i><?=$Loginuser_city?>, <?=$Loginuser_country?></span>
                 </span>
                 <span id="mb-user-setting">
-                    <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$Loginuser_code?>">
+                    <a href="<?=$two_depth?>/account/resist_password.php">
+                    <!--<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$Loginuser_code?>-->
                         <i class="fa fa-gear fa-1x"></i>
                     </a>
                 </span>
@@ -242,7 +243,7 @@
                             <a href="<?=$two_depth?>/community/community_page.php?cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
                         </li>
                         <li><!--Q&A-->
-                            <a href="<?=$two_depth?>/community/community_page.php?cate=qaa"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                            <a href="<?=$two_depth?>/community/community_page.php?cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>
@@ -279,7 +280,7 @@
                     </a></li>
                 </div>
                 <div class="userMenuGroup">
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$Loginuser_code?>">
+                    <li><a href="<?=$two_depth?>/account/resist_password.php">
                         <i class="fa fa-gear fa-1x"></i>Account Setting
                     </a></li>
                     <li style="display:none;"><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=message">
