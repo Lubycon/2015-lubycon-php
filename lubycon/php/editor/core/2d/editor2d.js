@@ -1004,7 +1004,6 @@
                     totalGrid = parseInt(calcGrid[1]) + parseInt(calcGrid[2]);
                     console.log($cropper,totalGrid);
                     if($cropper.length < totalGrid){
-                        alert("You must upload imgs");
                         return false;
                     }
                 }
