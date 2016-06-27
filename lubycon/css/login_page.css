@@ -330,8 +330,7 @@ form
             width: 190px;
             height: 35px;
             border: none;
-            border-radius: 5px;
-            padding: 0px 10px;;
+            padding: 0px 10px;
         }
             .account_input_wrap > input:focus {
                 border:1px solid #48cfad;

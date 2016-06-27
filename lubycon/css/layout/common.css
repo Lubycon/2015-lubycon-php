@@ -44,6 +44,7 @@ a {
     outline: 0;
 }
 #wrapper{
+    min-height: 100vh;
     background: #eeeeee;
     padding-bottom: 10px;
     transition: left 0.2s;
@@ -833,6 +834,7 @@ body{
     position: relative;
     z-index:0;
     top: 50px;
+    min-height: 100px;
 }
     .main_figure_wrap#index_figure_wrap {
         width: 100%;
@@ -994,7 +996,7 @@ body{
         width: 100%;
         position: relative;
         background: #eeeeee;
-        min-height: 500px;
+        min-height: 100vh;
         height: auto;
         display: inline-block;
         overflow: hidden;
