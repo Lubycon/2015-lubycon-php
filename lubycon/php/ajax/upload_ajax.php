@@ -1,6 +1,5 @@
 <?php
 // session
-echo '1';
 require_once '../session/session_class.php';
 $session = new Session();
 require_once "../class/json_class.php";
@@ -35,19 +34,45 @@ $uploader->html_image_path(); //only 2d editor . modified html src
 if($uploader->downable){$uploader->zip_attach('attach');} // if user didn't upload attach files and zip attach option is saved folder name
 
 $topCate_json_Code = $json_control->json_decode_code;
-$json_control->json_search($topCate_json_Code,'topCateCode',$uploader->top_category);
+$json_control->json_search($topCate_json_Code,'name','topCateCode',$uploader->top_category);
 $topCate_code = $json_control->search_key; // search top category name to index form json files
 
 
 $query = 
-"INSERT INTO `lubyconboard`.`artwork` 
-(`userCode`, `topCategoryCode`, `contentTitle`, `contentDate`, `contentDescription`, `contents`, `userDirectory`, `ccCode`, `downloadAble`) VALUES 
-('$Loginuser_name', '$topCate_code', '$uploader->subject', '$uploader->upload_date', '$uploader->desc', '$uploader->contentHTML', '$uploader->upload_path', 'cc', '$uploader->downable')";
-
-
-//need category code by json
-echo $query;
-
+"INSERT INTO `lubyconboard`.`$uploader->top_category` 
+(`userCode`, `topCategoryCode`, `contentTitle`, `contentDate`, `contentDescription`, `contents`, `userDirectory`, `ccCode`, `ccLicense`, `downloadAble`) VALUES 
+('$Loginuser_code', '$topCate_code', '$uploader->subject', '$uploader->upload_date', '$uploader->desc', '$uploader->contentHTML', '$uploader->upload_path', '$uploader->cc_code', '$uploader->cc_license', '$uploader->downable')";
+//echo $query;
 $db->query = $query;
-$db->askQuery();
+$db->askQuery(); //insert contents data
+
+$query = "SELECT `boardCode` FROM `lubyconboard`.`$uploader->top_category` WHERE `userCode` = '$Loginuser_code' ORDER BY `boardCode` DESC limit 0,1";
+$db->query = $query;
+$db->askQuery(); //insert contents data
+$select_row = mysqli_fetch_row($db->result); // inserted boardCode
+$seleced_userCode = $select_row[0];
+$query = 
+"INSERT INTO `lubyconboard`.`$uploader->top_category"."midcategory` 
+(`boardCode`, `midCategoryCode0`, `midCategoryCode1`) VALUES "; 
+
+$query = 
+    "
+    INSERT INTO `lubyconboard`.`$uploader->top_category"."midcategory` 
+    (`boardCode` $uploader->mid_category_key) VALUES 
+    ('$seleced_userCode' $uploader->mid_category_value);
+    ";
+$db->query = $query;
+echo $query;
+$db->askQuery(); //insert contents data
+
+$query = 
+    "
+    INSERT INTO `lubyconboard`.`$uploader->top_category"."tag` 
+    (`boardCode` $uploader->tag_key) VALUES 
+    ('$seleced_userCode' $uploader->tag_value);
+    ";
+echo $query;
+$db->query = $query;
+$db->askQuery(); //insert contents data
+
 ?>

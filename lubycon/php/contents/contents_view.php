@@ -81,6 +81,8 @@ $json_control->json_decode('country',"$one_depth/data/country.json");
 $country_decode = $json_control->json_decode_code;
 $json_control->json_decode("$cate_name"."_category","$one_depth/data/middle_category.json");
 $mid_cate_decode = $json_control->json_decode_code;
+$json_control->json_decode("ccCode","$one_depth/data/ccCode.json");
+$cc_code_decode = $json_control->json_decode_code;
 
 $my_job_origin_select = $job_decode[$row["jobCode"]]['name'];
 $my_country_origin_select = $country_decode[$row["countryCode"]]['name'];
@@ -112,6 +114,10 @@ $file_down = $row['downloadCount'];
 $file_like = $row['likeCount'];
 
 $file_path = $row['userDirectory'];
+
+$cc_code = $row['ccCode'];
+$json_control->json_search($cc_code_decode,'url','ccCode',$cc_code);
+$cc_url = $json_control->search_key;
 
 $tag_sum = '';
 $tagnum = 0;

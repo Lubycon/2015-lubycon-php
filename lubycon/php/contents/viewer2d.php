@@ -42,8 +42,9 @@
                 <p class="infoCard-title">Creative Commons License</p>
                 <div class="infoCard-cc infoCard-content">
                     <p class="cc-descipt">If you want learn about this license, click below icons</p> 
+                    <?=$cc_code?> <!-- need li fill by daniel to dart -->
                     <ul class="cc-list">
-                        <a href="http://creativecommons.org/licenses/by-nc-nd/4.0" id="cc-link" target="_brank">
+                        <a href="<?=$cc_url?>" id="cc-link" target="_brank">
                             <li class="cc-icon" data-value="cc">
                                 <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
                             </li><!--cc icon-->
@@ -137,4 +138,4 @@
             </div>
         </div><!--end con_aside-->
     </section><!--end content_wrap-->
-</section>  <!-- end contents section -->
+</section>  <!-- end contents section --> --> -->
