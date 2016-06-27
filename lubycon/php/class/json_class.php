@@ -32,15 +32,15 @@ class json_control
     {
         echo "<script>$('$selector_name').lubySelector('setValueByString','$original_key')</script>";
     }
-    public function json_search($decode_code,$search_value,$search_word)
+    public function json_search($decode_code,$return_value,$search_key,$search_word)
     {
         //print_r($this->json_decode_code);
         //$this->search_key = array_search($search_word, $this->json_decode_code['name']);
         foreach ($decode_code as $key => $value) 
         {
-            if ($value['name'] === $search_word) 
+            if ($value["$search_key"] === $search_word) 
             {
-                $this->search_key = $value["$search_value"];
+                $this->search_key = $value["$return_value"];
             }
         }
     }

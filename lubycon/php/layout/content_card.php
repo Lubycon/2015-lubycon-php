@@ -3,7 +3,7 @@
         $usercode = $row['userCode'];
         $user_dir = $row['userDirectory'];
         $contents_thumb_url = $user_dir.'/thumbnail/thumbnail.jpg';
-        $price = $ccCode_decode[$row['ccCode']]['name'];
+        $price = $ccCode_decode[$row['ccLicense']]['name'];
         $title = $row['contentTitle'];
         $user_name = $row['nick'];
         $board_code = $row['boardCode'];
