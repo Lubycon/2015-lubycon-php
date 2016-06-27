@@ -83,7 +83,7 @@ $(function(){
 				break;
 			}
 		});
-		if(checker) { location.href = "../account/account_setting.php" }//SUBMIT FUNCTION IS IN HERE
+		if(checker) { location.href = "../account/certificateEmail.php" }//SUBMIT FUNCTION IS IN HERE
 	}
 });
 
