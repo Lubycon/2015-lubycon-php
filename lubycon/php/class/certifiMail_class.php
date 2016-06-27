@@ -91,17 +91,19 @@ Class CertifiMail{
                     &nbsp;&nbsp;&nbsp;
 					your new account is almost ready.<br />
                     &nbsp;&nbsp;&nbsp;
-					but before you can login, you need to confirm your e-mail ID by clicking the button below.</font>
+					but before you can login, you need to confirm your e-mail ID <br /> 
+					&nbsp;&nbsp;&nbsp;
+					by check the certification Code. <br /><br />
+					&nbsp;&nbsp;&nbsp;
+					<font size="4px">
+					Here your certification Code : '.$this->token.'
+					</font>
+					<br /><br />
+					&nbsp;&nbsp;&nbsp;
+                    Please Input certification Code in LUBYCON </font>
                     <br />
                     <br />
             	</td>
-            </tr>
-            <tr id="confirm_bt">
-                <td align="center">
-                	<a href="'.$this->host.$this->relativePath.'certificateEmail.php?Token='.$this->token.'" target="_blank">
-                		<img src="../../CH/img/resist_mail/mail_bt.png">
-                    </a>
-                </td>
             </tr>
             <tr>
                 <td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size: 15px; color:#444444; line-height:20px;">
