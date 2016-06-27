@@ -1,21 +1,5 @@
-///*--------------------------------community write button start-----------------------------*/
-//$(function(){
-//    if($("#write_bt").length != 0){
-//        if("length true");
-//        $("#write_bt").on("click touchend", function(event){
-//            eventHandler(event,$(this));
-//            var url = "./index.php?1=community&2=community_write";    
-//            $(location).attr('href',url);
-//            return;
-//        });
-//    }else{
-//        return;
-//    }
-//});
-/*--------------------------------community write button end-------------------------------*/
-
 /*--------------------------------community editor start-------------------------------*/
-$(function(){
+$(document).ready(function(){
     $('#file_import_bt').on("click touchend",function(event) {
         eventHandler(event,$(this));
         $('#file_import_com').click();
@@ -23,10 +7,15 @@ $(function(){
     $('#file_import_com').change(function () {
         $('#file_text_com').val($(this).val());
     });
-});
 
-$(document).ready(function(){
-    if($("#main_work_space").length != 0){
+    if($("#main_work_space").length !== 0){
+        var unloadChecker = true;
+
+        window.onbeforeunload = function(){
+            console.log(unloadChecker);
+            if(unloadChecker) return "a";
+        }
+
         $('#summernote').summernote({
             height: 250,
             minHeight: null,
@@ -51,8 +40,7 @@ $(document).ready(function(){
             }
         });
 
-        function sendFile(file, el)
-        {
+        function sendFile(file, el){
             var form_data = new FormData();
             form_data.append('file', file);
             $.ajax({
@@ -71,8 +59,7 @@ $(document).ready(function(){
             });
         }
         //summernote end
-        var postForm = function ()
-        { // summernote submit event
+        var postForm = function (){ // summernote submit event
             var content = $('textarea[name="content"]').html($('#summernote').code());
         }
         return true;

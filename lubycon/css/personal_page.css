@@ -379,13 +379,13 @@
 		.history_kind .fa-circle {
 
 		}
-			#work_experience .fa-circle {
+			.history_kind.work_experience .fa-circle {
 				color: #48cfad;
 			}
-			#aducation .fa-circle {
+			.history_kind.education .fa-circle {
 				color: #6eabe3;
 			}
-			#awards .fa-circle {
+			.history_kind.awards .fa-circle {
 				color: #ffbe54;
 			}	
 		.history_kind span {
@@ -395,13 +395,13 @@
 			left: 19px;
 			border-right: 3px solid;
 		}
-			#work_Experience span {
+			.history_kind.work_Experience span {
 				border-color: #48cfad;
 			}
-			#wducation span {
+			.history_kind.education span {
 				border-color: #6eabe3;
 			}
-			#awards span {
+			.history_kind.awards span {
 				border-color: #ffbe54;
 			}
 		.history_content {

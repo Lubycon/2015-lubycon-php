@@ -8,6 +8,7 @@
         $("#submit_bt").on("click",finalSubmit);
     });
 
+    var unloadChecker = true;
     var inputAction = {
         blankAction: function(element){
             var $this = element;
@@ -45,6 +46,10 @@
 
         optControlBt.on("click",optionController);
         historySortBt.on("click",sortHistory);
+        window.onbeforeunload = function(){
+            console.log(unloadChecker);
+            if(unloadChecker) return "a";
+        }
     }
     
     function initLubySelectors(){
@@ -291,6 +296,7 @@
     }
 
     function finalSubmit(){
+        unloadChecker = false;
         alert("SUCCESS");
     }
 });

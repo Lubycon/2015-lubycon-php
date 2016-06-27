@@ -9,7 +9,7 @@
 <link href="<?=$one_depth?>/css/community_write.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
 <link href="<?=$one_depth?>/css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
 <script src="<?=$one_depth?>/js/module/bootstrap.min.js" type="text/javascript"></script> 
-<script src="<?=$one_depth?>/js/community.js" type="text/javascript"></script>
+<script src="<?=$one_depth?>/js/community_editor.js" type="text/javascript"></script>
 
 
 <form id="writer_form" enctype="multipart/form-data" method="post" action="./test.php">

@@ -141,7 +141,6 @@ body{
     z-index: 30000;
     min-width: 450px;
     min-height: 100px;
-    border-radius: 5px;
     box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -394,7 +393,6 @@ body{
     width: 540px;
     height: 235px;
     background: #fff;
-    border-radius: 10px;
     top: 50%;
     left: 50%;
     margin-top: -152.5px;
@@ -1200,7 +1198,6 @@ body{
                 color: #ffffff;
                 width: 120px;
                 height: 40px;
-                background: #666666;
                 color: #ffffff;
                 font-size: 17px;
                 text-align: center;
@@ -1214,10 +1211,10 @@ body{
                 margin-right: 5px;
                 float: left;
             }
-            .userAction-bt[data-value='bookmark'].selected {
+            .infoCard.content_info .infoCard-userAction .userAction-bt[data-value='bookmark'].selected {
                 background: #ffbe54;
             }
-            .userAction-bt[data-value='like'].selected {
+            .infoCard.content_info .infoCard-userAction .userAction-bt[data-value='like'].selected {
                 background: #48cfad;
             }
     .infoCard.content_info .infoCard-cc {
@@ -1781,7 +1778,6 @@ body{
     z-index: 3;
     padding: 5px !important;
     border-radius: 0px !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
     top: 50px;
     left: 0;
     border-right: 1px solid #222222 !important;

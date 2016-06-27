@@ -437,14 +437,22 @@
     background: #222222;
 }
 #previewer #preview-close {
-    position: absolute;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     z-index: 10001;
-    background: #ffffff;
+    padding: 10px;
+    background: #ec6446;
+    color: #ffffff;
+    font-size: 20px;
     cursor: pointer;
     transition: opacity 0.2s;
 }
-#previewer #preview-close {
-    opacity: 0.6;
+    #previewer #preview-close i {
+        margin-right: 10px;
+    }
+#previewer #preview-close:hover {
+    opacity: 0.8;
 }
     #previewer .container {
         top: 0;
