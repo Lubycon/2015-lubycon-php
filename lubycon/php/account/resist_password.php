@@ -36,7 +36,7 @@
         </div>
         <div class="message-box">
             <div class="btn cancel-bt">Not now</div>
-            <div class="btn submit-bt">CHECK</div>
+            <div class="btn submit-bt" href="../account/account_setting.php">CHECK</div>
         </div>
     </section>
 </body>

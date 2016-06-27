@@ -20,7 +20,7 @@ $(function(){
 	}
 
 	function initChecker(){
-		var $input = $(document).find(".input-message[data-value='number']");
+		var $input = $(document).find(".input-message[data-value='code']");
 		var existInput = $input.length !== 0;
 		if($input.length) $input.on("keyup",codeCheck);
 	}
@@ -29,7 +29,7 @@ $(function(){
 		var $this = $(this),
 		value = $this.val();
 
-		if(!value.isNumber()) $this.val(value.slice(0,-1));
+		if(value.isSpecialChar()) $this.val(value.slice(0,-1));
 	}
 
 	function messageAlign(){
@@ -72,8 +72,8 @@ $(function(){
 			var value = $(this).val();
 			console.log($(this).data("value"));
 			switch($(this).data("value")){
-				case "number" : 
-					if(!value.isNumber()) checker = false;
+				case "code" : 
+					if(value.isSpecialChar()) checker = false;
 				break;
 				case "email" : 
 					if(!value.isEmail()) checker = false;
@@ -83,7 +83,14 @@ $(function(){
 				break;
 			}
 		});
-		if(checker) { location.href = "../account/certificateEmail.php" }//SUBMIT FUNCTION IS IN HERE
+		if(checker) { 
+			var href = $(this).attr("href") ? $(this).attr("href") : "#";
+
+			//ANYTHING SUBMIT ACTION
+
+			if(href !== "#") location.href = href;
+			else console.log("THERE IS NO LINK");
+		}//SUBMIT FUNCTION IS IN HERE
 	}
 });
 
