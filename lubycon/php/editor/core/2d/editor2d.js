@@ -195,7 +195,7 @@
                 var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
-                cc = { "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
+                cc = { "ccused": $(".license-selector").first().prop("checked"), "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
                 category = rootElement.find(".search-choice").each(function () { 
                     var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
                     categories.push(index);
@@ -207,12 +207,11 @@
                     cc[data] = $(this).prop("checked");
                 }),
                 download = attachedFiles.length !== 0;
-
+                
                 var checkList = {
                     name : !contentName.isNullString() && !rootElement.find("input[name='content-name']").hasClass(".error"),
                     categories : categories.length !== 0
                 }
-                console.log(checkList);
 
                 var settingObject = {
                     name : contentName,
