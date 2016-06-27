@@ -97,7 +97,13 @@ class upload
             $this->desc = $this->post_setting->descript; // string
             $this->downable = false;
 
-            if($this->post_setting->cc->nd || $this->post_setting->cc->sa) // cc licence 
+            var_dump($this->post_setting->cc->ccused);
+            $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
+            if(!$this->post_setting->cc->ccused) // cc licence 
+            {
+                $this->cc_license = 'No-Distribution';
+                $this->cc_code = '0000';
+            }else if($this->post_setting->cc->nd || $this->post_setting->cc->sa) // cc licence 
             {
                 $this->cc_license = 'No-Distribution';
             }else if($this->post_setting->cc->nc)
@@ -107,8 +113,6 @@ class upload
             {
                 $this->cc_license = 'Free';
             }
-            $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
-
             foreach($this->mid_category as $key => $value) // for mid category query
             {
                 $added_value = $value+1; //pass all category in json index 0

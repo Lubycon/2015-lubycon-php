@@ -6,6 +6,6 @@
         { "ccCode": "1110" , "ccLicense" : 2 ,"name": "Non-Derivative" , "url": "http://creativecommons.org/licenses/by-nc-nd/4.0" },
         { "ccCode": "1101" , "ccLicense" : 2 ,"name": "Non-Derivative" , "url": "http://creativecommons.org/licenses/by-nc-sa/4.0" },
         { "ccCode": "1010" , "ccLicense" : 2 ,"name": "Non-Derivative" , "url": "http://creativecommons.org/licenses/by-nd/4.0" },
-        { "ccCode": "0000" , "ccLicense" : 0 ,"name": "Free" , "url": "#" }
+        { "ccCode": "0" , "ccLicense" : 0 ,"name": "Free" , "url": "#" }
     ]
 }

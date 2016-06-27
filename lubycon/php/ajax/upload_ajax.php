@@ -62,7 +62,7 @@ $query =
     ('$seleced_userCode' $uploader->mid_category_value);
     ";
 $db->query = $query;
-echo $query;
+//echo $query;
 $db->askQuery(); //insert contents data
 
 $query = 
@@ -71,7 +71,7 @@ $query =
     (`boardCode` $uploader->tag_key) VALUES 
     ('$seleced_userCode' $uploader->tag_value);
     ";
-echo $query;
+//echo $query;
 $db->query = $query;
 $db->askQuery(); //insert contents data
 
