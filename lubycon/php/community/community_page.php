@@ -45,14 +45,6 @@
                 <option>Most Download</option>
                 <option>Most Comment</option>
             </select>
-            <select class="languageFilter hidden-mb-ib">
-                <option>All Language</option>
-                <option>English</option>
-                <option>Korean</option>
-                <option>Japanese</option>
-                <option>Chinese</option>
-                <option>French</option>
-            </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">
                     <select class="searchFilter">

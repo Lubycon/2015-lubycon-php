@@ -779,13 +779,13 @@
             top: 9px;
         }
     .main_figure_wrap#index_figure_wrap {
-        height: 250px;
+        height: 500px;
     }
         .main_figure_wrap#index_figure_wrap figure {
-            height: 250px;
+            height: 450px;
         }
             .main_figure_wrap#index_figure_wrap figure h2 {
-                padding-top: 20px;
+                padding-top: 140px;
             }
 
 .container {
@@ -802,7 +802,7 @@
         left: 50%;
         margin-left: -301px;
         line-height: 35px;
-        margin-top: 180px;
+        margin-top: 290px;
         z-index: 2;
     }
         #main_search_btn{
@@ -811,7 +811,7 @@
             position: relative;
         }
     #after_signin{
-        margin-right: 50px;
+        
     }
         #after_signin figure{
             width: 33px;

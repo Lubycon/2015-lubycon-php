@@ -27,7 +27,7 @@ $(function(){
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <div id="index_figure_wrap" class="main_figure_wrap">
     <figure>
-        <h2>Connect Your Creativity With The World</h2>
+        <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
     </figure>
 </div>
 <!-- end main_figure -->
