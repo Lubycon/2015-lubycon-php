@@ -251,13 +251,6 @@ $(document).ready(function(){
             customClass: "hidden-mb-ib",
             theme: "rect"
         });
-        languageFilter.lubySelector({
-            id: "languageFilter",
-            width: 200,
-            icon: "fa fa-globe",
-            customClass: "hidden-mb-ib",
-            theme: "rect"
-        });
         locationFilter.lubySelector({
             id: "locationFilter",
             width: 200,

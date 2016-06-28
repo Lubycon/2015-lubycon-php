@@ -20,6 +20,7 @@
     }
     #main_search_bar{
         display: none;
+        border: none;
     }
 }
 @media screen and (min-width: 1025px){

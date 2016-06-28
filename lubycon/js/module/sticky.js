@@ -11,22 +11,22 @@ $(window).on("load",function(){
         $conAside = $(".con_aside"),
         $navGuide = $(document).find(".nav_guide"),
 
-        headerHeight = $mainHeader.length==0 ? 0 : $mainHeader.outerHeight(true),
-        figureHeight = $figure.length==0 ? 0 : $figure.outerHeight(true),
-        navselHeight = $navsel.length==0 ? 0 : $navsel.height(),
-        stickyStart = figureHeight + navselHeight,
-        objectY = $navGuide.length==0 ? 0 : $navGuide.outerHeight(true);
+        headerHeight = $mainHeader.length === 0 ? 0 : $mainHeader.outerHeight(true),
+        figureHeight = $figure.length === 0 ? 0 : $figure.outerHeight(true),
+        navselHeight = $navsel.length === 0 ? 0 : $navsel.height(),
+        stickyStart = figureHeight + navselHeight;
 
-        lubySticky(stickyStart,objectY);
+        lubySticky(stickyStart);
     }
 });
-function lubySticky(start,objectY){
+function lubySticky(start){
     var $document = $(document),
     $navGuide = $(".nav_guide"),
     $object = $navGuide.next(),
     $aside = $object.find(".con_aside");
     $document.on("scroll",function(){
-        var scrollTop = $(document).scrollTop();
+        var scrollTop = $(document).scrollTop(),
+            objectY = $navGuide.length === 0 ? 0 : $navGuide.outerHeight(true);
         navGuideSticky(
             start,//sticky start value
             scrollTop,//document.scrollTop

@@ -18,11 +18,17 @@
     $sortlist = [];
     $ajax_boolean = false;
     /* require class */
+
+    /* json control */
+    $current_url = $_GET["cate"];
+    $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
+    $middle_cate_decode = $json_control->json_decode_code;
+    /* json control */
     
     $infinite_scroll = new infinite_scroll('content',$cate_name);
     $infinite_scroll->validate_category();
     $infinite_scroll->set_option($page_param,$middle_category,$ajax_boolean,null);
-    $infinite_scroll->set_query();
+    $infinite_scroll->set_query($Loginuser_code);
     $db->query = $infinite_scroll->query;
     $db->askQuery();
     $contents_result = $db->result; //contents data
@@ -35,14 +41,14 @@
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
 <script type="text/javascript" src="<?=$one_depth?>/js/contents_page.js"></script> <!-- scroll js -->
 <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySlider.js"></script>
-
+<script type="text/javascript" src="<?=$one_depth?>/js/thumbs_control.js"></script>
 
 <link href="<?=$one_depth?>/css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 <link href="<?=$one_depth?>/css/module/lubySlider.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 
 
 <div class="main_figure_wrap hidden-mb-b">
-    <figure id="main_figure">
+    <figure>
         <div class="dark_overlay_small"></div>
         <h2>CONTENTS</h2>
     </figure>	<!-- end main_figure -->
@@ -80,14 +86,11 @@
             <select class="copyrightFilter"> <!-- daniel : need to delete this filter... we set only free now -->
                 <option>All License</option>
                 <option>Free</option>
-                <option>Non-Commercial</option>
-                <option>Non-Derivative</option>
+                <option>No-Commercial</option>
+                <option>No-Distribution</option>
             </select>
             <select class="categoryFilter">
             <?php
-                $current_url = $_GET["cate"];
-                $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
-                $middle_cate_decode = $json_control->json_decode_code;
                 $json_control->json_spread_option($middle_cate_decode);
                 echo $json_control->json_spread_wrap;
             ?>

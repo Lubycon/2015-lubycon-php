@@ -106,7 +106,6 @@
 	        color: #aaaaaa;
             display: inline-block;
             width: 100%;
-            font-weight: 200;
         }
         	#personal_aside .subnav_li.selected a {
 				font-weight: 400;
@@ -142,6 +141,9 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
+	.dash_section#dashboard_graph .dash_body{
+		height: 680px;
+	}
 .dash_header {
 	width: 100%;
 	height: 50px;
@@ -180,21 +182,6 @@
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 	}
-	.insight_total {
-		
-	}
-		#total_like .dash_body_content{
-			
-		}
-		#total_view .dash_body_content{
-			
-		}
-		#total_upload .dash_body_content{
-			
-		}
-		#total_download .dash_body_content{
-		
-		}
 	.x2 {
 		
 	}
@@ -219,6 +206,9 @@
 			text-align: center;
 			overflow: hidden;
 		}
+			.dash_body_content.piechart {
+				margin-top: -11px;
+			}
 			.dash_body_content .content_text {
 				font-size: 28px;
 				color: #444444;
@@ -389,13 +379,13 @@
 		.history_kind .fa-circle {
 
 		}
-			#Work_Experience .fa-circle {
+			.history_kind.work_experience .fa-circle {
 				color: #48cfad;
 			}
-			#Education .fa-circle {
+			.history_kind.education .fa-circle {
 				color: #6eabe3;
 			}
-			#Awards .fa-circle {
+			.history_kind.awards .fa-circle {
 				color: #ffbe54;
 			}	
 		.history_kind span {
@@ -405,13 +395,13 @@
 			left: 19px;
 			border-right: 3px solid;
 		}
-			#Work_Experience span {
+			.history_kind.work_Experience span {
 				border-color: #48cfad;
 			}
-			#Education span {
+			.history_kind.education span {
 				border-color: #6eabe3;
 			}
-			#Awards span {
+			.history_kind.awards span {
 				border-color: #ffbe54;
 			}
 		.history_content {
@@ -488,9 +478,10 @@
 			width: 100%;
 			height: 100%;
     	}
-    	#dash_chart_wrap .chart-boxes .chart-canvas a {
-    		color: #ffffff !important;
-    	}	
+
+.chart-boxes a {
+	display: none !important;
+}	
 
 .clock_wrap {
 	margin-top: 12px;
@@ -526,6 +517,52 @@
 		}
 		#local-location {
 
+		}
+
+
+/*INSIGHT*/
+#worldmap_body {
+	height: 320px;
+}
+	#worldmap {
+		margin: 0px auto;
+	}
+#timeline_body {
+	height: 670px;
+}
+
+#contents_rangking {
+	height: 320px;
+}
+#forums_rangking {
+	height: 320px;
+}
+.dash_rank_list{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+	.dash_rank_list li {
+		overflow: hidden;
+		text-align: left;
+		padding: 3px 10px;
+		font-size: 17px;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	}
+		.dash_rank_list li span {
+			color: #48cfad;
+			font-size: 20px;
+			font-weight: 600;
+			margin-right: 10px;
+		}
+		.dash_rank_list li p {
+			width: 100%;
+			height: 20px;
+			overflow: hidden;
+			display: inline-block;
+			color: #444444;
 		}
 
 

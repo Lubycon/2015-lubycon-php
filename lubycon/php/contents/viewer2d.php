@@ -32,18 +32,19 @@
             <div class="infoCard content_info">
                 <p class="infoCard-title inline">Did you like this contents?</p>
                 <div class="infoCard-userAction infoCard-content">
-                    <div class="userAction-bt alertKey" data-value="bookmark">
-                        <i class="fa fa-star"></i>Bookmark
+                    <div class="userAction-bt alertKey thumbs_view <?php if($bookmark_check){echo 'selected';}?>" data-value="bookmark" data-kind="contents">
+                        <i class="fa fa-star" data-value="bookmark" data-kind="contents"></i>Bookmark
                     </div>
-                    <div class="userAction-bt alertKey" data-value="like">
-                        <i class="fa fa-heart" data-value="like"></i>Like
+                    <div class="userAction-bt alertKey thumbs_view <?php if($like_check){echo 'selected';}?>" data-value="like" data-kind="contents">
+                        <i class="fa fa-heart" data-value="like" data-kind="contents"></i>Like
                     </div>
                 </div>
                 <p class="infoCard-title">Creative Commons License</p>
                 <div class="infoCard-cc infoCard-content">
                     <p class="cc-descipt">If you want learn about this license, click below icons</p> 
+                    <?=$cc_code?> <!-- need li fill by daniel to dart -->
                     <ul class="cc-list">
-                        <a href="http://creativecommons.org/licenses/by-nc-nd/4.0" id="cc-link" target="_brank">
+                        <a href="<?=$cc_url?>" id="cc-link" target="_brank">
                             <li class="cc-icon" data-value="cc">
                                 <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
                             </li><!--cc icon-->
@@ -85,10 +86,10 @@
             </div>
             
             <article class="infoCard comment">
-                <p class="infoCard-title"><span id="comment-counter">10</span> Comments</p>
+                <p class="infoCard-title"><span id="comment-counter"><?=$comment_result->num_rows?></span> Comments</p>
                 <div class="comment-write-wrap" class="comment-div">
                     <figure class="comment-pic" class="hidden-mb-ib">
-                        <img src="<?=$one_depth?>/ch/img/no_img/no_img_user1.jpg" class="hidden-mb-ib">
+                        <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$Loginuser_code?>/profile.jpg" class="hidden-mb-ib">
                     </figure>
                     <div class="comment-input">
                         <textarea id="comment_text"></textarea>
@@ -99,7 +100,8 @@
                 </div>
                 <div class="comment-list">
                     <?php
-                        for($i=1; $i<=10; $i++){
+                        while( $comment_row = mysqli_fetch_array($comment_result) )
+                        {
                             include($two_depth."/layout/comment.php");
                         };
                     ?>
@@ -124,11 +126,7 @@
                 <p id="tag_title" class="info-title"><i class="fa fa-tag"></i>Tags</p>
                 <div id="tagbox_wrap" class="info-content">
                     <ul id="tagbox_wrap_inner">
-                        <li class="tagbox">javascript</li>
-                        <li class="tagbox">html</li>
-                        <li class="tagbox">c++</li>
-                        <li class="tagbox">php</li>
-                        <li class="tagbox">python</li>
+                        <?=$tag_sum?>
                     </ul>                       
                 </div>
             </div>
@@ -140,4 +138,4 @@
             </div>
         </div><!--end con_aside-->
     </section><!--end content_wrap-->
-</section>  <!-- end contents section -->
+</section>  <!-- end contents section --> --> -->

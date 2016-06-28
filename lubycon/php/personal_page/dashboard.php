@@ -116,15 +116,17 @@
             <div class="dash_body">
                 <ul class="history_wrap">
                     <?php
+                        error_reporting(E_ALL);
+                        ini_set("display_errors", 1);
                         while( $row = mysqli_fetch_array($history_row))
                         {
                             $historyYear = $row['historyDateYear'];
                             $historyMonth = $row['historyDateMonth'];
-                            $historyCategory = str_replace ( ' ' , '_' , $row['historyCategory'] );
+                            $historyCategory = strtolower(str_replace( ' ' , '_' , $row['historyCategory']));
                             $historyContents = $row['historyContents'];
                             echo "<li>
                                 <div class='history_date'>$historyYear $historyMonth</div>
-                                <div class='history_kind' id='$historyCategory'><i class='fa fa-circle'></i><span></span></div>
+                                <div class='history_kind $historyCategory'><i class='fa fa-circle'></i><span></span></div>
                                 <div class='history_content'>'$historyContents</div>
                             </li>";
                         }
@@ -146,7 +148,7 @@
                 </aside>
             </div>
         </li>
-        <li class="dash_section" id="insight">
+        <li class="dash_section" id="dashboard_graph">
             <div class="dash_header">
                 <h4>INSIGHT</h4>
                 <i class="fa fa-angle-down toggle_info selected"></i>
@@ -171,22 +173,30 @@
                     </div>
                 </div>
                 <div id="dash_chart_wrap">
-                    <p class="dash_body_title" id="chart_body_title">Last 7 days data</p>
-                    <div class="chart-boxes">
-                        <div class="chart-title">Like : Last 7days</div>
-                        <div class="chart-canvas" id="chartdiv1"></div>
+                    <p class="dash_body_title">Last 7 days data</p>
+                    <div class="dash_body_sector x2">
+                        <div class="chart-boxes">
+                            <div class="chart-title">Like : Last 7days</div>
+                            <div class="chart-canvas" id="chartdiv1"></div>
+                        </div>
                     </div>
-                    <div class="chart-boxes">
-                        <div class="chart-title">View : Last 7days</div>
-                        <div class="chart-canvas" id="chartdiv2"></div>
+                    <div class="dash_body_sector x2">
+                        <div class="chart-boxes">
+                            <div class="chart-title">View : Last 7days</div>
+                            <div class="chart-canvas" id="chartdiv2"></div>
+                        </div>
                     </div>
-                    <div class="chart-boxes">
-                        <div class="chart-title">Upload : Last 7days</div>
-                        <div class="chart-canvas" id="chartdiv3"></div>
+                    <div class="dash_body_sector x2">
+                        <div class="chart-boxes">
+                            <div class="chart-title">Upload : Last 7days</div>
+                            <div class="chart-canvas" id="chartdiv3"></div>
+                        </div>
                     </div>
-                    <div class="chart-boxes">
-                        <div class="chart-title">Download : Last 7days</div>
-                        <div class="chart-canvas" id="chartdiv4"></div>
+                    <div class="dash_body_sector x2">
+                        <div class="chart-boxes">
+                            <div class="chart-title">Download : Last 7days</div>
+                            <div class="chart-canvas" id="chartdiv4"></div>
+                        </div>
                     </div>
                 </div>
             </div>

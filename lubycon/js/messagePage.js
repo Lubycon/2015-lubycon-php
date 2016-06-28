@@ -6,6 +6,7 @@ $(function(){
 	otherBt = $messageWrapper.find(".btn.other-bt");
 
 	messageAlign.call($messageWrapper);
+
 	cancelBt.on("click",gotoBack);
 	submitBt.on("click",submit);
 	otherBt.on("click",otherBtAction);
@@ -14,27 +15,28 @@ $(function(){
 	initChecker();
 
 	function initFocus(){
-		var $input = $(document).find("input[type='text']");
+		var $input = $(document).find(".input-message");
 		if($input.length) $input.first().focus();
 	}
 
 	function initChecker(){
-		var $input = $(document).find("input[type='text']");
-		if($input.length) $input.on("keyup",checkValue);
+		var $input = $(document).find(".input-message[data-value='code']");
+		var existInput = $input.length !== 0;
+		if($input.length) $input.on("keyup",codeCheck);
 	}
 
-	function checkValue(){
+	function codeCheck(){
 		var $this = $(this),
 		value = $this.val();
 
-		if(!value.isNumber()) $this.val(value.slice(0,-1));
+		if(value.isSpecialChar()) $this.val(value.slice(0,-1));
 	}
 
 	function messageAlign(){
 		var $this = $(this);
 		
-		var w = $this.outerWidth(),
-		h = $this.outerHeight();
+		var w = isMobile() ? 0 : $this.outerWidth(),
+			h = isMobile() ? $this.outerHeight()+100 : $this.outerHeight();
 
 		$this.css({
 			"margin-left" : (w/2)*-1 + "px",
@@ -64,6 +66,35 @@ $(function(){
 	}
 
 	function submit(){
-		alert("SUBMIT");
+		var input = $(document).find(".input-message");
+		var checker = true;
+		input.each(function(){
+			var value = $(this).val();
+			console.log($(this).data("value"));
+			switch($(this).data("value")){
+				case "code" : 
+					if(value.isSpecialChar()) checker = false;
+				break;
+				case "email" : 
+					if(!value.isEmail()) checker = false;
+				break;
+				case "password" : 
+					if(value === null || value === undefined || value === "" || value === " ") checker = false;
+				break;
+			}
+		});
+		if(checker) { 
+			var href = $(this).attr("href") ? $(this).attr("href") : "#";
+
+			//ANYTHING SUBMIT ACTION
+
+			if(href !== "#") location.href = href;
+			else console.log("THERE IS NO LINK");
+		}//SUBMIT FUNCTION IS IN HERE
 	}
 });
+
+
+
+
+

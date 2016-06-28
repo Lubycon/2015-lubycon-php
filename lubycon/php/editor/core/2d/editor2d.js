@@ -37,6 +37,7 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
+                        var unloadChecker = true;
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         //init object
@@ -140,6 +141,10 @@
                         pac.initTools();//data binding
 
                         $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
+                        window.onbeforeunload = function(){
+                            console.log(unloadChecker);
+                            if(unloadChecker) return "a";
+                        }
                     }
                 })
             },
@@ -181,8 +186,10 @@
                 }
             },
             hidePreview: function(){
-                var $previewWrap = $("#previewer");
+                var $previewWrap = $("#previewer"),
+                $canvas = $("#previewer").find(".editing-canvas");
                 $previewWrap.fadeOut(200);
+                $canvas.remove();
             },
             submit: function(){
                 var formData = new FormData();
@@ -193,7 +200,7 @@
                 var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
-                cc = { "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
+                cc = { "ccused": $(".license-selector").first().prop("checked"), "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
                 category = rootElement.find(".search-choice").each(function () { 
                     var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
                     categories.push(index);
@@ -205,12 +212,11 @@
                     cc[data] = $(this).prop("checked");
                 }),
                 download = attachedFiles.length !== 0;
-
+                
                 var checkList = {
                     name : !contentName.isNullString() && !rootElement.find("input[name='content-name']").hasClass(".error"),
                     categories : categories.length !== 0
                 }
-                console.log(checkList);
 
                 var settingObject = {
                     name : contentName,
@@ -225,6 +231,7 @@
                 submitFinal();
 
                 function submitFinal(){
+                    unloadChecker = false;
                     console.log(checkList.name,checkList.categories);
                     if(checkList.name && checkList.categories){
                         /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
@@ -241,8 +248,9 @@
                             data: formData,
                             type: 'POST',
                             success: function (result) {
+                                console.log(result);
                                 alert("SUBMIT SUCCESS");
-                                location.href = "../../../../index.php";
+                                //location.href = "../../../../index.php";
                             }
                         });
                     }
@@ -1002,7 +1010,6 @@
                     totalGrid = parseInt(calcGrid[1]) + parseInt(calcGrid[2]);
                     console.log($cropper,totalGrid);
                     if($cropper.length < totalGrid){
-                        alert("You must upload imgs");
                         return false;
                     }
                 }

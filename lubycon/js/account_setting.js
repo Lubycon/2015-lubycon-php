@@ -8,11 +8,7 @@
         $("#submit_bt").on("click",finalSubmit);
     });
 
-    var passwordChangeEnable = false;
-    var currentPasswordCheck = false;
-    var newPasswordCheck = false;
-    var newPasswordCheck2 = false;
-
+    var unloadChecker = true;
     var inputAction = {
         blankAction: function(element){
             var $this = element;
@@ -45,152 +41,15 @@
     }
 
     function initAccountSetting(){
-        var changeBt = $("#change_pass"),
-        passwordWindows = $("#account_setting_section").find("input[type='password']"),
-        optControlBt = $(".optControl"),
+        var optControlBt = $(".optControl"),
         historySortBt = $(".fa.fa-refresh.refresh");
-
-        changeBt.on("click",function (){ //change pass remove attr
-            var $this = $(this);
-            console.log(passwordWindows);
-            if(!$this.hasClass("enabled")){
-                $this.addClass("enabled");
-                passwordWindows.prop("disabled",false);
-                $this.text("Cancel");
-                passwordChangeEnable = true;
-            }
-            else{
-                $this.removeClass("enabled");
-                passwordWindows.prop("disabled",true);
-                $this.text("Change Password");
-                passwordWindows.each(function(){
-                    $(this).val("");
-                    $(this).siblings(".check-icon").attr("class","check-icon");
-                    $(this).siblings(".check-message").text("").show();
-                });
-                passwordChangeEnable = false;
-            }
-        });
-
-        passwordWindows.on("blur",function(){
-            var $this = $(this),
-            data = $this.data("value");
-            switch(data){
-                case "current-password" : checkCurrentPassword.call($this); break;
-                case "password" : checkPassword.call($this); break;
-                case "re-password" : checkPasswordAgain.call($this); break;
-                default : return false; break;
-            }
-        });
 
         optControlBt.on("click",optionController);
         historySortBt.on("click",sortHistory);
-
-        function checkCurrentPassword(){
-            var $this = $(this),
-            value = $this.val(); //USER WROTE PASSWARD
-
-            $.ajax({
-                type: "POST",
-                url: "php/account/overlap_check.php",
-                data: 'data=' + value + '&' + 'id=nick',
-                cache: false,
-                success: function (data) {
-                    if (data == ""){
-                        inputAction.blankAction($this);
-                        console.log("RETURN VALUE IS EMPTY FROM DATABASE");
-                    }
-                    else if (data == 1){
-                        checkMessage.text(value + ' is exist already').show();
-                        inputAction.falseAction($this);
-                        console.log("THIS IS EXIST IN DATABASE");
-                    }
-                    else if (data == 0){
-                        checkMessage.text('').show();
-                        inputAction.trueAction($this);
-                        nicknameCheck = true;
-                        console.log("THIS IS USABLE");
-                    }
-                    else{
-                        checkMessage.text("Database is not response. Please do again").show();
-                        inputAction.falseAction($this);
-                        console.log("QUERY ERROR");
-                    }
-                }
-            });
+        window.onbeforeunload = function(){
+            console.log(unloadChecker);
+            if(unloadChecker) return "a";
         }
-
-        function checkPassword() {
-            var $this = $(this);
-            var $repeatPassword = $(this).parents(".account_input_wrap.userinfo").next().find("input");
-            var checkMessage = $this.siblings(".check-message");
-            var value = $this.val();
-
-            newPasswordCheck = false;
-
-            var checking = value.isPassword();
-
-            switch(checking){
-                case 0 : 
-                    newPasswordCheck = true;
-                    checkMessage.text("").show();
-                    inputAction.trueAction($this);
-                    inputAction.blankAction($repeatPassword);
-                break;
-                case 1 : 
-                    inputAction.blankAction($this);
-                    inputAction.blankAction($repeatPassword);
-                break;
-                case 2 : 
-                    checkMessage.text("You must write 10words at least").show();
-                    inputAction.falseAction($this);
-                    inputAction.blankAction($repeatPassword);
-                break;
-                case 3 : 
-                    checkMessage.text('You must write the Alpabet at least one').show();
-                    inputAction.falseAction($this);
-                    inputAction.blankAction($repeatPassword);
-                break;
-                case 4 : 
-                    checkMessage.text('You can not write special characters').show();
-                    inputAction.falseAction($this);
-                    inputAction.blankAction($repeatPassword);
-                break;
-                case 5 : 
-                    checkMessage.text('Repeat 3 words').show();
-                    inputAction.falseAction($this);
-                    inputAction.blankAction($repeatPassword);
-                break;
-                case 6 :
-                    checkMessage.text('You can not write "null"').show();
-                    inputAction.falseAction($this);
-                    inputAction.blankAction($repeatPassword);
-                break;
-                default: return false; break;
-            }
-        };
-
-        function checkPasswordAgain() { // repeat pass check
-            var $this = $(this);
-            var $password = $(this).parents(".account_input_wrap.userinfo").prev().find("input");
-            var checkMessage = $this.siblings(".check-message");
-            var originalCheckMessage = $password.siblings(".check-message");
-            var value = $this.val();
-
-            newPasswordCheck2 = false;
-
-            if(value.isNullString()) inputAction.blankAction($this); 
-                
-            else if(value !== $password.val()) { //not same
-                checkMessage.text("This is not same").show();
-                inputAction.falseAction($this);
-            } 
-            else if(value === $password.val()) { //complite
-                checkMessage.text('').show();
-                inputAction.trueAction($this);
-                newPasswordCheck2 = true;
-            }
-        };
     }
     
     function initLubySelectors(){
@@ -437,17 +296,7 @@
     }
 
     function finalSubmit(){
-        if(passwordChangeEnable){
-            console.log('PASSWORD IS CHANGED');
-            if(currentPasswordCheck && newPasswordCheck && newPasswordCheck2){
-                console.log(true)
-            }
-            else{
-                console.log(false);
-            }
-        }
-        else{
-            console.log("PASSWORD IS NOT CHANGED");
-        }
+        unloadChecker = false;
+        alert("SUCCESS");
     }
 });

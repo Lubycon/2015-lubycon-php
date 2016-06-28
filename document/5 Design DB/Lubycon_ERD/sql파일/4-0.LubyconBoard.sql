@@ -4,237 +4,136 @@ CREATE DATABASE IF NOT EXISTS LubyconBoard;
 
 USE LubyconBoard;
 
--- Tutorial
-DROP TABLE IF EXISTS `Tutorial`;
-CREATE TABLE IF NOT EXISTS `Tutorial`
-(
-	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`userCode` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`date` DATETIME NOT NULL,
-	`description` TEXT,
-	`contents` TEXT,
-	`imgDirectory` TEXT,
-	`downDirectory` TEXT,
-	`downloadCount` INT UNSIGNED NOT NULL,
-	`viewCount` INT UNSIGNED NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`preview` TEXT NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
 
-	PRIMARY KEY(`boardCode`)
-	
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
--- tutorial comment
-DROP TABLE IF EXISTS `TutoComment`;
-CREATE TABLE IF NOT EXISTS `TutoComment`
-(
-	`boardCode` INT UNSIGNED NOT NULL,
-	`contents` TEXT NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`userCode` INT UNSIGNED NOT NULL,
-	`date` DATETIME NOT NULL,
-	
-	PRIMARY KEY(`boardCode`)
-)ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
-
--- Forum
-DROP TABLE IF EXISTS `Forum`;
-
-CREATE TABLE IF NOT EXISTS `Forum`
-(
-	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`userCode` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`date` DATETIME NOT NULL,
-	`description` TEXT,
-	`contents` TEXT,
-	`imgDirectory` TEXT,
-	`downDirectory` TEXT,
-	`downloadCount` INT UNSIGNED NOT NULL,
-	`viewCount` INT UNSIGNED NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`preview` TEXT NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
-
-	PRIMARY KEY(`boardCode`)
-	
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
--- ForumComment
-DROP TABLE IF EXISTS `ForumComment`;
-CREATE TABLE IF NOT EXISTS `ForumComment`
-(
-	`boardCode` INT UNSIGNED NOT NULL,
-	`contents` TEXT NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`userCode` INT UNSIGNED NOT NULL,
-	`date` DATETIME NOT NULL,
-	
-	PRIMARY KEY(`boardCode`)
-)ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
--- Vector
-DROP TABLE IF EXISTS `Vector`;
-CREATE TABLE IF NOT EXISTS `Vector`
-(
-	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`userCode` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`date` DATETIME NOT NULL,
-	`description` TEXT,
-	`contents` TEXT,
-	`userDirectory` TEXT,
-	`downloadPermission` ENUM('Free','Qualified','View') NOT NULL,
-	`downloadCount` INT UNSIGNED NOT NULL,
-	`viewCount` INT UNSIGNED NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
-
-	PRIMARY KEY(`boardCode`)
-	
-) ENGINE = InnoDB DEFAULT CHARSET=utf8;
-
--- VectorComment
-DROP TABLE IF EXISTS `VectorComment`;
-CREATE TABLE IF NOT EXISTS `VectorComment`
-(
-	`boardCode` INT UNSIGNED NOT NULL,
-	`contents` TEXT NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`userCode` INT UNSIGNED NOT NULL,
-	`date` DATETIME NOT NULL,
-	
-	PRIMARY KEY(`boardCode`)
-)ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- ArtWork
-DROP TABLE IF EXISTS `ArtWork`;
-CREATE TABLE IF NOT EXISTS `ArtWork`
+DROP TABLE IF EXISTS `artWork`;
+CREATE TABLE IF NOT EXISTS `artWork`
 (
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`date` DATETIME NOT NULL,
-	`description` TEXT,
-	`contents` TEXT,
-	`userDirectory` TEXT,
-	`downloadPermission` ENUM('Free','Qualified','View') NOT NULL,
-	`downloadCount` INT UNSIGNED NOT NULL,
-	`viewCount` INT UNSIGNED NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`contentTitle` VARCHAR(255) NOT NULL,
+	`contentDate` DATETIME NOT NULL,
+	`contentDescription` TEXT,
+	`contents` TEXT NOT NULL,
+	`userDirectory` TEXT NOT NULL,
+	`ccCode` INT UNSIGNED NOT NULL,
+	`ccLicense` INT UNSIGNED NOT NULL,
+	`downloadAble` BOOLEAN NOT NULL,
+	`downloadCount` INT UNSIGNED DEFAULT '0',
+	`viewCount` INT UNSIGNED DEFAULT '0',
+	`likeCount` INT UNSIGNED DEFAULT '0',
+	`bookmarkCount` INT UNSIGNED DEFAULT '0',
+	`commentCount` INT UNSIGNED DEFAULT '0',
 
 	PRIMARY KEY(`boardCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
--- ArtWorkComment
-DROP TABLE IF EXISTS `ArtWorkComment`;
-CREATE TABLE IF NOT EXISTS `ArtWorkComment`
+-- ArtWork CC license
+DROP TABLE IF EXISTS `artworkCC`;
+CREATE TABLE IF NOT EXISTS `artworkCC`
 (
 	`boardCode` INT UNSIGNED NOT NULL,
-	`contents` TEXT NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`userCode` INT UNSIGNED NOT NULL,
-	`date` DATETIME NOT NULL,
+	`ccApply` BOOLEAN NOT NULL,
+	`ccCommercial` BOOLEAN NOT NULL,
+	`ccModified` BOOLEAN NOT NULL,
+	`ccUnerLicense` BOOLEAN NOT NULL,
 	
 	PRIMARY KEY(`boardCode`)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
--- ThreeD
-DROP TABLE IF EXISTS `ThreeD`;
-CREATE TABLE IF NOT EXISTS `ThreeD`
+-- ArtWork middle category
+DROP TABLE IF EXISTS `artworkMidCategory`;
+CREATE TABLE IF NOT EXISTS `artworkMidCategory`
 (
-	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`userCode` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`date` DATETIME NOT NULL,
-	`description` TEXT,
-	`contents` TEXT,
-	`userDirectory` TEXT,
-	`downloadPermission` ENUM('Free','Qualified','View') NOT NULL,
-	`downloadCount` INT UNSIGNED NOT NULL,
-	`viewCount` INT UNSIGNED NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
-
-	PRIMARY KEY(`boardCode`)
+	`boardCode` INT UNSIGNED NOT NULL,
+	`midCategoryCode0` TINYINT NOT NULL,
+	`midCategoryCode1` TINYINT DEFAULT NULL,
+	`midCategoryCode2` TINYINT DEFAULT NULL,
+	`midCategoryCode3` TINYINT DEFAULT NULL,
+	`midCategoryCode4` TINYINT DEFAULT NULL,
 	
+	PRIMARY KEY(`boardCode`)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- ArtWork tag
+DROP TABLE IF EXISTS `artworkTag`;
+CREATE TABLE IF NOT EXISTS `artworkTag`
+(
+	`boardCode` INT UNSIGNED NOT NULL,
+	`tag0` VARCHAR(255),
+	`tag1` VARCHAR(255) DEFAULT NULL,
+	`tag2` VARCHAR(255) DEFAULT NULL,
+	`tag3` VARCHAR(255) DEFAULT NULL,
+	`tag4` VARCHAR(255) DEFAULT NULL,
+	`tag5` VARCHAR(255) DEFAULT NULL,
+	`tag6` VARCHAR(255) DEFAULT NULL,
+	`tag7` VARCHAR(255) DEFAULT NULL,
+	`tag8` VARCHAR(255) DEFAULT NULL,
+	`tag9` VARCHAR(255) DEFAULT NULL,
+	`tag10` VARCHAR(255) DEFAULT NULL,
+	`tag11` VARCHAR(255) DEFAULT NULL,
+	`tag12` VARCHAR(255) DEFAULT NULL,
+	`tag13` VARCHAR(255) DEFAULT NULL,
+	`tag14` VARCHAR(255) DEFAULT NULL,
+	`tag15` VARCHAR(255) DEFAULT NULL,
+	`tag16` VARCHAR(255) DEFAULT NULL,
+	`tag17` VARCHAR(255) DEFAULT NULL,
+	`tag18` VARCHAR(255) DEFAULT NULL,
+	`tag19` VARCHAR(255) DEFAULT NULL,
+	
+	PRIMARY KEY(`boardCode`)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+-- core list
+-- contents bookmark
+DROP TABLE IF EXISTS `contentsBookmark`;
+CREATE TABLE IF NOT EXISTS `contentsBookmark`
+( 
+	`bookmarkID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`bookmarkActionUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`bookmarkBoardKind` ENUM('contents') NOT NULL , 
+	`bookmarkDate` DATETIME NOT NULL , 
+
+	PRIMARY KEY (`bookmarkID`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
--- ThreeDComment
-DROP TABLE IF EXISTS `ThreeDComment`;
-CREATE TABLE IF NOT EXISTS `ThreeDComment`
-(
-	`boardCode` INT UNSIGNED NOT NULL,
-	`contents` TEXT NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`userCode` INT UNSIGNED NOT NULL,
-	`date` DATETIME NOT NULL,
-	
-	PRIMARY KEY(`boardCode`)
-)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+-- contents like
+DROP TABLE IF EXISTS `contentsLike`;
+CREATE TABLE IF NOT EXISTS `contentsLike`
+( 
+	`likeID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`likeActionUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`likeBoardKind` ENUM('contents','comment') NOT NULL , 
+	`likeDate` DATETIME NOT NULL , 
 
--- QAA
-DROP TABLE IF EXISTS `QaA`;
-CREATE TABLE IF NOT EXISTS `QaA`
-(
-	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`userCode` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`date` DATETIME NOT NULL,
-	`description` TEXT,
-	`contents` TEXT,
-	`imgDirectory` TEXT,
-	`downDirectory` TEXT,
-	`downloadCount` INT UNSIGNED NOT NULL,
-	`viewCount` INT UNSIGNED NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`preview` TEXT NOT NULL,
-	`CategoryCode` INT UNSIGNED NOT NULL,
-
-	PRIMARY KEY(`boardCode`)
-	
+	PRIMARY KEY (`likeID`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
--- ThreeDComment
-DROP TABLE IF EXISTS `QaAComment`;
-CREATE TABLE IF NOT EXISTS `QaAComment`
-(
-	`boardCode` INT UNSIGNED NOT NULL,
-	`contents` TEXT NOT NULL,
-	`likeCount` INT UNSIGNED NOT NULL,
-	`userCode` INT UNSIGNED NOT NULL,
-	`date` DATETIME NOT NULL,
-	
-	PRIMARY KEY(`boardCode`)
-)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+-- contents like
+DROP TABLE IF EXISTS `contentsComment`;
+CREATE TABLE IF NOT EXISTS `contentsComment`
+( 
+	`commentID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`commentActionUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`commentDate` DATETIME NOT NULL , 
+	`commentContents` TEXT NOT NULL , 
+	`commentLikeCount` INT UNSIGNED NOT NULL , 
 
--- Category
-DROP TABLE IF EXISTS `Category`;
-CREATE TABLE IF NOT EXISTS `Category`
-(
-	`CategoryCode` INT UNSIGNED NOT NULL,
-	`Category` VARCHAR(255),
-	
-	PRIMARY KEY(`CategoryCode`)
-)ENGINE = InnoDB DEFAULT CHARSET=utf8;
+	PRIMARY KEY (`commentID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
--- CC
-DROP TABLE IF EXISTS `CC`;
-CREATE TABLE IF NOT EXISTS `CC`
-(
-	`CcCode` INT UNSIGNED NOT NULL,
-	`apply` BOOLEAN NOT NULL,
-	`commercial` BOOLEAN NOT NULL,
-	`modified` BOOLEAN NOT NULL,
-	`underLicense` BOOLEAN NOT NULL,
-	
-	PRIMARY KEY(`CcCode`)
-)ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 

@@ -44,6 +44,7 @@ a {
     outline: 0;
 }
 #wrapper{
+    min-height: 100vh;
     background: #eeeeee;
     padding-bottom: 10px;
     transition: left 0.2s;
@@ -140,7 +141,6 @@ body{
     z-index: 30000;
     min-width: 450px;
     min-height: 100px;
-    border-radius: 5px;
     box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.7);
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -393,7 +393,6 @@ body{
     width: 540px;
     height: 235px;
     background: #fff;
-    border-radius: 10px;
     top: 50%;
     left: 50%;
     margin-top: -152.5px;
@@ -450,12 +449,12 @@ body{
     border-bottom: 1px solid #111;
 }
 
-.main_header h1 /* main logo */ {
+.main_header h1#main-logo /* main logo */ {
     position: absolute;
-    left: 10px;
-    top: 5px;
-    height: 40px;
 }
+    .main_header h1 img {
+        width: 100%;
+    }
 #main_gnb {
     position: relative;
     margin: 0px auto;
@@ -581,7 +580,6 @@ body{
     width: 125px;
     height: 50px;
     float: right;
-    margin-right: 50px;
     padding-right: 10px;
     cursor: pointer;
     display: block;
@@ -831,47 +829,39 @@ body{
 
 .main_figure_wrap {
     position: relative;
-    height: 100px;
     z-index:0;
     top: 50px;
+    min-height: 100px;
 }
-#index_figure_wrap {
-    width: 100%;
-    height: 250px;
-}
-#main_figure,#index_figure {
-    background: url(../../ch/img/main_img.jpg) 0% 45% no-repeat;
-    background-size: 100%;
-    width: 100%;
-    text-align: center;
-    position: relative;
-}
-#index_figure {
-    height: 250px;
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.5);
-}
-#main_figure {
-    height:100px;
-    line-height: 100px;
-    top: 50px;
-    position: fixed;
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.5);
-}
-    #main_figure h2 {
-        color: #fff;
-        font-size: 40px;
-        font-weight: 200;
-        letter-spacing: 15px;
-        position: relative;
-        z-index: 2;
+    .main_figure_wrap#index_figure_wrap {
+        width: 100%;
     }
-    #index_figure h2 {
-        padding-top: 60px;
-        color: #fff;
-        font-size: 43px;
-        font-weight: 200;
-        letter-spacing: 0.2px;
+    .main_figure_wrap figure {
+        background: url(../../ch/img/main_img.jpg) 0% 45% no-repeat;
+        background-size: 100%;
+        width: 100%;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;top: 50px;
+        position: fixed;
+        
+        box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.5);
     }
+        .main_figure_wrap#index_figure_wrap figure {
+            position: relative;
+            top: 0;
+        }
+            .main_figure_wrap figure h2 {
+                color: #fff;
+                font-size: 40px;
+                font-weight: 200;
+                letter-spacing: 15px;
+                position: relative;
+                z-index: 2;
+            }
+            .main_figure_wrap#index_figure_wrap figure h2 {
+                letter-spacing: 0;
+            }
 
 .container{
     position: relative;
@@ -1003,7 +993,7 @@ body{
         width: 100%;
         position: relative;
         background: #eeeeee;
-        min-height: 500px;
+        min-height: 100vh;
         height: auto;
         display: inline-block;
         overflow: hidden;
@@ -1207,7 +1197,6 @@ body{
                 color: #ffffff;
                 width: 120px;
                 height: 40px;
-                background: #666666;
                 color: #ffffff;
                 font-size: 17px;
                 text-align: center;
@@ -1221,10 +1210,10 @@ body{
                 margin-right: 5px;
                 float: left;
             }
-            .userAction-bt[data-value='bookmark'].selected {
+            .infoCard.content_info .infoCard-userAction .userAction-bt[data-value='bookmark'].selected {
                 background: #ffbe54;
             }
-            .userAction-bt[data-value='like'].selected {
+            .infoCard.content_info .infoCard-userAction .userAction-bt[data-value='like'].selected {
                 background: #48cfad;
             }
     .infoCard.content_info .infoCard-cc {
@@ -1315,7 +1304,7 @@ body{
 
         .infoCard.comment .comment-write-wrap .comment-input {
             display: inline-block;
-            width: 100%;
+            width: 90%;
             max-width: 830px;
         }
         .infoCard.comment .comment-write-wrap textarea{
@@ -1788,7 +1777,6 @@ body{
     z-index: 3;
     padding: 5px !important;
     border-radius: 0px !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
     top: 50px;
     left: 0;
     border-right: 1px solid #222222 !important;
@@ -2019,6 +2007,9 @@ body{
     }
 /*---------------------------------------------------BETA*/
 #beta_version{
+    position: absolute;
+    top: 6px;
+    left: 168px;
     width: 40px;
     background:#333;
     color:#fff;
@@ -2028,9 +2019,6 @@ body{
     padding: 3px 10px;
     font-size:12px;
     border:1px solid #444;
-    float: right;
-    margin-top: 10px;
-    margin-left: 10px;
     cursor: default;
     transition: all 0.2s;
 }

@@ -31,7 +31,7 @@
             <article class="sub-message">Please resend again</article>
         </div>
         <div class="message-box">
-            <div class="btn cancel-bt"">Not now</div>   
+            <div class="btn cancel-bt">Not now</div>   
             <div class="btn other-bt" data-value="resend">Resend</div>
         </div>
     </section>

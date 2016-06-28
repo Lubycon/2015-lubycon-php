@@ -3,23 +3,28 @@
         $usercode = $row['userCode'];
         $user_dir = $row['userDirectory'];
         $contents_thumb_url = $user_dir.'/thumbnail/thumbnail.jpg';
-
-
-
-        $price = $row['downloadPermission'];
-        $title = $row['title'];
-        $user_img_url = $row['profileImg'];
+        $price = $ccCode_decode[$row['ccLicense']]['name'];
+        $title = $row['contentTitle'];
         $user_name = $row['nick'];
         $board_code = $row['boardCode'];
-        $cate = $top_category['name'];
+        $cate = $top_category;
         $randCount = $row['viewCount'];
-        $randCount1 = rand(400,1200); //not yet comment count
+        $randCount1 = $row['commentCount']; //not yet comment count
         $randCount2= $row['likeCount'];
         $viewCount = $randCount < 1000 ? $randCount : (string)(round((double)($randCount/1000),1))."K";
         $commentCount = $randCount1 < 1000 ? $randCount1 : (string)(round((double)($randCount1/1000),1))."K";
         $likeCount = $randCount2 < 1000 ? $randCount2 : (string)(round((double)($randCount2/1000),1))."K";
+
+        
+        if(isset($_SESSION['lubycon_code'])) // login check
+        {
+            if($_SESSION['lubycon_code'] == $row['bookmarkActionUserCode']) //bookmark check
+            {$bookmarkBoolean = true;}else{$bookmarkBoolean = false;}
+        };
+
+
     ?><!--you should change to mySQL later-->
-    <div class="contents_card <?=$cate.'_'.$board_code?>" data-index="<?=$usercode?>">
+    <div class="contents_card <?=$cate.'_'.$board_code?>" data-index="<?=$usercode?>" data-cate="<?=$cate?>" data-conno="<?=$board_code?>">
         <div class="contents_pic">
             <img src="<?=$contents_thumb_url?>" class="load_view" alt="contents thumbnail"/>
         </div>
@@ -40,7 +45,7 @@
                     <span class="name"><?=$user_name?></span>
                 </a>
             </span>
-            <i class="userAction-bt alertKey fa fa-star" data-value="bookmark"></i>
+            <i class="userAction-bt alertKey fa fa-star thumbs_page <?php if($bookmarkBoolean){echo 'selected';}?>" data-value="bookmark" data-kind="contents"></i>
         </div>
         <!-- end contents desc -->
         <div class="contents_overlay load_view">

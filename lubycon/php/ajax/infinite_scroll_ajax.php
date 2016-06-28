@@ -2,6 +2,19 @@
     $one_depth = '../..'; //css js load
     $two_depth = '..'; // php load
 
+    require_once "$two_depth/session/session_class.php";
+    $session = new Session();
+    if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
+    $LoginState = false;
+    }else{
+    if($session->SessionExist()){
+    $LoginState = true;
+    $Loginuser_code= $_SESSION['lubycon_code'];
+    }else{
+    $LoginState = false;
+    }
+    }
+
     /* require class set value */
     require_once "$two_depth/database/database_class.php";
     $db = new Database();
@@ -20,7 +33,7 @@
     $infinite_scroll = new infinite_scroll('content',$cate_name);
     $infinite_scroll->validate_category();
     $infinite_scroll->set_option($now_page_param,$middle_category,$ajax_boolean,$page_param);
-    $infinite_scroll->set_query();
+    $infinite_scroll->set_query($Loginuser_code);
     $db->query = $infinite_scroll->query;
     $db->askQuery();
     $contents_result = $db->result; //contents data

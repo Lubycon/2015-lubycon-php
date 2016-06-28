@@ -25,49 +25,81 @@ $(function(){
 </script>
 <link href="css/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<div id="index_figure_wrap" class="main_figure_wrap hidden-mb-b">
-    <figure id="index_figure">
-        <h2>Connect Your Creativity With The World</h2>
+<div id="index_figure_wrap" class="main_figure_wrap">
+    <figure>
+        <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
     </figure>
 </div>
 <!-- end main_figure -->
 <!--index contents page for mobile start-->
-<section class="mobile_wrap visible-mb">
+<section class="mb-wrapper visible-mb">
     <?php
         $artwork_count = 0;
         $vector_count = 0;
         $threeD_count = 0;
     ?>
-    <section id="index_figure">
-        <h2>Connect Your Creativity With The World</h2>
-    </section>
-    <section class="mb-contents_wrap">
-        <div class="mb-contents_category">
-            <span class="mb-category_bt">artwork</span>
-            <span class="mb-category_bt">vector</span>
-            <span class="mb-category_bt">3D model</span>
+    <section class="mb-section">
+        <div class="mb-contents-tab">
+            <span class="tab-bt btn radioType" data-target="artwork"><i class="fa fa-picture-o"></i>Artwork</span>
+            <span class="tab-bt btn radioType" data-target="vector"><i class="fa fa-object-group"></i>Vector</span>
+            <span class="tab-bt btn radioType" data-target="threed"><i class="fa fa-cube"></i>3D</span>
         </div>
-        <div class="mb-contents_inner">
-            <div class="mb-contents_title">
-                <p class="mb-contents_count"><?=$artwork_count?>&nbsp;Contents</p>
-                <span class="mb-contents_viewmore_bt">view more</span>
-            </div>
-            <div class="mb-contents_contents">
-                <?php
-                    for( $i = 1; $i<=9; $i++ ){
-                        echo '<div class="mb-contents">
-                            <img src="./ch/img/no_img/no_img_user5.jpg" />
-                        </div>';
-                        if($i%3 === 0) {
-                            echo '<br/>';
-                        }
-                    };
-                ?> 
-            </div>
-            <!--<div class="mb-contents_footer">
-                <div class="viewmore_bt" id="mb-artwork_bt"><p>VIEW MORE</p></div>
-            </div>-->
-        </div><!--section 1 end-->
+        <div class="mb-contents-section">
+            <div class="mb-contents-wrapper" data-value="artwork">
+                <div class="contents-title">
+                    <p class="contents-count"><?=$artwork_count?>&nbsp;Contents</p>
+                    <span class="viewmore_bt">VIEW MORE</span>
+                </div>
+                <div class="mb-contents-grid" data-value="3-3">
+                    <?php
+                        for( $i = 1; $i<=9; $i++ ){
+                            echo '<div class="mb-contents">
+                                <img src="./ch/img/no_img/no_img_user5.jpg" />
+                            </div>';
+                            if($i%3 === 0) {
+                                echo '<br/>';
+                            }
+                        };
+                    ?> 
+                </div>
+            </div><!--section 1 end-->
+            <div class="mb-contents-wrapper selected" data-value="vector">
+                <div class="contents-title">
+                    <p class="contents-count"><?=$vector_count?>&nbsp;Contents</p>
+                    <span class="viewmore_bt">VIEW MORE</span>
+                </div>
+                <div class="mb-contents-grid" data-value="3-3">
+                    <?php
+                        for( $i = 1; $i<=9; $i++ ){
+                            echo '<div class="mb-contents">
+                                <img src="./ch/img/no_img/no_img_user5.jpg" />
+                            </div>';
+                            if($i%3 === 0) {
+                                echo '<br/>';
+                            }
+                        };
+                    ?> 
+                </div>
+            </div><!--section 2 end-->
+            <div class="mb-contents-wrapper" data-value="threed">
+                <div class="contents-title">
+                    <p class="contents-count"><?=$threeD_count?>&nbsp;Contents</p>
+                    <span class="viewmore_bt">VIEW MORE</span>
+                </div>
+                <div class="mb-contents-grid" data-value="3-3">
+                    <?php
+                        for( $i = 1; $i<=9; $i++ ){
+                            echo '<div class="mb-contents">
+                                <img src="./ch/img/no_img/no_img_user5.jpg" />
+                            </div>';
+                            if($i%3 === 0) {
+                                echo '<br/>';
+                            }
+                        };
+                    ?> 
+                </div>
+            </div><!--section 3 end-->
+        </div>
     </section>
 </section>
 <!--index contents page for mobile end-->

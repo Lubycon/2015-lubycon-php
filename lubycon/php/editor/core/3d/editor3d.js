@@ -34,6 +34,7 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
+                        var unloadChecker = true;
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         var $loading_icon = $(document).find("#loading_icon").show();
@@ -115,6 +116,10 @@
                             $loading_icon.hide(); 
                         });
                         $(document).on("keydown",pac.initCamera);
+                        window.onbeforeunload = function(){
+                            console.log(unloadChecker);
+                            if(unloadChecker) return "a";
+                        }
                     }
                 })
             },
@@ -265,7 +270,7 @@
                 var contentName = rootElement.find("input[name='content-name']").val(), //data
                 categories = [], //data
                 tags = [], //data
-                cc = { "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
+                cc = { "ccused": $(".license-selector").first().prop("checked"), "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
                 category = rootElement.find(".search-choice").each(function () { 
                     var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
                     categories.push(index);
@@ -304,6 +309,7 @@
                 submitFinal();
 
                 function submitFinal(){
+                    unloadChecker = false;
                     console.log(checkList.name,checkList.categories);
                     if(checkList.name && checkList.categories){
                         /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
