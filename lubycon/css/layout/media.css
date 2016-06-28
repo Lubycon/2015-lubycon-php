@@ -564,8 +564,17 @@
     #dashboard_wrap {
         padding: 10px;
     }
+        .dash_body_sector {
+            margin-bottom: 15px;
+        }
+        .dash_body_content {
+            font-size: 20px;
+        }
         #dashboard_wrap .chart-boxes {
             width: 100%;
+        }
+        .dash_section#dashboard_graph .dash_body {
+            height: 1580px;
         }
 
     #main_board{
@@ -1025,8 +1034,14 @@
     #dashboard_wrap {
         padding: 25px;
     }
+        .dash_body_content {
+            font-size: 28px;
+        }
         #dashboard_wrap .chart-boxes {
             width: 480px;
+        }
+        .dash_section#dashboard_graph .dash_body {
+            height: 680px;
         }
 
     #main_board{

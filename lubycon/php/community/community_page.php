@@ -38,7 +38,7 @@
     </section>
     <section class="nav_guide">
         <div class="nav-wrapper"> 
-            <select class="preferFilter hidden-mb-ib">
+            <select class="preferFilter">
                 <option>Featured</option>
                 <option>Recent</option>
                 <option>Most Like</option>

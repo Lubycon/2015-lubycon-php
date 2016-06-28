@@ -93,6 +93,7 @@ a {
     background: #ffffff;
     text-align: center;
     top: 50%;
+    box-sizing: border-box;
 }
 
 .message.message-wrapper > .message-icon {

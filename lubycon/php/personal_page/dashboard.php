@@ -43,7 +43,7 @@
 <script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <div id="information_inbody">
     <ul id="dashboard_wrap">
-        <li class="dash_section" id="creator_month">
+        <li class="dash_section" id="creator_month" style="display: none">
             <div class="dash_header">
                 <h4>CREATOR OF THE MONTH</h4>
                 <i class="fa fa-angle-up toggle_info"></i>

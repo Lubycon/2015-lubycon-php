@@ -36,11 +36,13 @@ $(function(){
 		var $this = $(this);
 		
 		var w = isMobile() ? 0 : $this.outerWidth(),
-			h = isMobile() ? $this.outerHeight()+100 : $this.outerHeight();
+			h = isMobile() ? $this.outerHeight()+100 : $this.outerHeight(),
+			left = (w/2)*-1,
+			top = (h/2)*-1;
 
 		$this.css({
-			"margin-left" : (w/2)*-1 + "px",
-			"margin-top" : (h/2)*-1 + "px"
+			"margin-left" : left,
+			"margin-top" : top
 		});
 	}
 
