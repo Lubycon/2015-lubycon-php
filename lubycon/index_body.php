@@ -27,7 +27,7 @@ $(function(){
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <div id="index_figure_wrap" class="main_figure_wrap">
     <figure>
-        <h2>Connect Your Creativity With The World</h2>
+        <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
     </figure>
 </div>
 <!-- end main_figure -->
@@ -45,7 +45,7 @@ $(function(){
             <span class="tab-bt btn radioType" data-target="threed"><i class="fa fa-cube"></i>3D</span>
         </div>
         <div class="mb-contents-section">
-            <div class="mb-contents-wrapper" data-value="artwork">
+            <div class="mb-contents-wrapper selected" data-value="artwork">
                 <div class="contents-title">
                     <p class="contents-count"><?=$artwork_count?>&nbsp;Contents</p>
                     <span class="viewmore_bt">VIEW MORE</span>
@@ -63,7 +63,7 @@ $(function(){
                     ?> 
                 </div>
             </div><!--section 1 end-->
-            <div class="mb-contents-wrapper selected" data-value="vector">
+            <div class="mb-contents-wrapper" data-value="vector">
                 <div class="contents-title">
                     <p class="contents-count"><?=$vector_count?>&nbsp;Contents</p>
                     <span class="viewmore_bt">VIEW MORE</span>
@@ -72,7 +72,7 @@ $(function(){
                     <?php
                         for( $i = 1; $i<=9; $i++ ){
                             echo '<div class="mb-contents">
-                                <img src="./ch/img/no_img/no_img_user5.jpg" />
+                                <img src="./ch/img/no_img/no_img_user4.jpg" />
                             </div>';
                             if($i%3 === 0) {
                                 echo '<br/>';
@@ -90,7 +90,7 @@ $(function(){
                     <?php
                         for( $i = 1; $i<=9; $i++ ){
                             echo '<div class="mb-contents">
-                                <img src="./ch/img/no_img/no_img_user5.jpg" />
+                                <img src="./ch/img/no_img/no_img_user3.jpg" />
                             </div>';
                             if($i%3 === 0) {
                                 echo '<br/>';
@@ -173,9 +173,9 @@ $(function(){
         <input class="slide-radio" data-value="2" id="vector_bt" type="radio" name="tap" />
         <input class="slide-radio" data-value="3" id="3d_bt" type="radio" name="tap" />
         <nav>
-            <label for="artwork_bt" class="la_bt btn selected">ARTWORK</label>
-            <label for="vector_bt" class="la_bt btn">VECTOR</label>
-            <label for="3d_bt" class="la_bt btn">3D MODEL</label>
+            <label for="artwork_bt" class="la_bt btn radioType selected">ARTWORK</label>
+            <label for="vector_bt" class="la_bt btn radioType">VECTOR</label>
+            <label for="3d_bt" class="la_bt btn radioType">3D MODEL</label>
         </nav>
         <!-- end nav -->
     </nav>

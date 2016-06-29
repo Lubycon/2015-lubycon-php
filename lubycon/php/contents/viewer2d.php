@@ -1,3 +1,4 @@
+<script type="text/javascript" src="../../js/viewer.js"></script>
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
@@ -41,25 +42,9 @@
                 </div>
                 <p class="infoCard-title">Creative Commons License</p>
                 <div class="infoCard-cc infoCard-content">
-                    <p class="cc-descipt">If you want learn about this license, click below icons</p> 
-                    <ul class="cc-list">
-                        <a href="http://creativecommons.org/licenses/by-nc-nd/4.0" id="cc-link" target="_brank">
-                            <li class="cc-icon" data-value="cc">
-                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/cc_w.png" />
-                            </li><!--cc icon-->
-                            <li class="cc-icon" data-value="by">
-                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/by_w.png" />
-                            </li><!-- default icon-->
-                            <li class="cc-icon" data-value="nc">
-                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/nc_w.png" />
-                            </li><!--non commercial-->
-                            <li class="cc-icon" data-value="nd">
-                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/nd_w.png" />
-                            </li><!--non derivation-->
-                            <li class="cc-icon" data-value="share">
-                                <img src="<?=$one_depth?>/ch/img/creative_commons/png/share_w.png" />
-                            </li><!--non derivation-->
-                        </a>
+                    <p class="cc-descipt">If you want learn about this license, click below icons</p>
+                    <ul class="cc-list" data-value="<?=$cc_code?>">
+                        <a href="<?=$cc_url?>" id="cc-link" target="_brank"></a>
                     </ul>
                 </div>
             </div>
@@ -137,4 +122,4 @@
             </div>
         </div><!--end con_aside-->
     </section><!--end content_wrap-->
-</section>  <!-- end contents section -->
+</section>  <!-- end contents section --> --> -->

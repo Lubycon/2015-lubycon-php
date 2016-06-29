@@ -254,7 +254,12 @@ form
     font-weight: 200;
     
     cursor: pointer;
+
+    transition: opacity 0.2s;
 }
+    #create_acc:hover {
+        opacity: 0.8;
+    }
 
 
 /**********************************************************************************************create account pop*/

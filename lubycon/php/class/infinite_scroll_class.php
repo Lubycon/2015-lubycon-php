@@ -86,6 +86,8 @@ class infinite_scroll extends json_control
 
     public function set_query($Loginuser_code)
     {
+        if($Loginuser_code){
+
         if( $this->top_category == 'all' )
         {
             $this->query = "SELECT SQL_CALC_FOUND_ROWS * FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `artwork`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`vector` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `vector`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` UNION SELECT * FROM lubyconboard.`threed` INNER join lubyconuser.`userbasic` INNER join lubyconuser.`userinfo` ON `threed`.`userCode` = `userbasic`.`userCode` and `userbasic`.`userCode` = `userinfo`.`userCode` ORDER BY `boardCode` DESC limit $this->call_page,$this->page_boundary";
@@ -94,11 +96,11 @@ class infinite_scroll extends json_control
         {
             $this->query = "
             select SQL_CALC_FOUND_ROWS
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccCode`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`,b.`bookmarkActionUserCode` , c.`nick`
+            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`,b.`bookmarkActionUserCode` , c.`nick`
 
             from lubyconboard.`$this->top_category` a
-            left join lubyconboard.`contentsbookmark` b
 
+            left join lubyconboard.`contentsbookmark` b
             ON a.`boardCode` = b.`boardCode`
             AND b.`bookmarkActionUserCode` = $Loginuser_code
 
@@ -108,7 +110,7 @@ class infinite_scroll extends json_control
             ORDER BY a.`boardCode` 
             DESC limit $this->call_page,$this->page_boundary 
             ";
-        }
+        }}
     }
 
     public function count_page($db_result)

@@ -44,7 +44,7 @@ $job_code;
 $json_control = new json_control;
 $json_control->json_decode('job',"../../data/job.json");
 $job_json = $json_control->json_decode_code;
-$json_control->json_search($job_json,'jobCode',$job);
+$json_control->json_search($job_json,'name','jobCode',$job);
 $job_code = $json_control->search_key;
 
 $company = $_POST['company'];
@@ -54,7 +54,7 @@ $location = $_POST['location'];
 $location_code;
 $json_control->json_decode('country',"../../data/country.json");
 $country_json = $json_control->json_decode_code;
-$json_control->json_search($country_json,'countryCode',$location);
+$json_control->json_search($country_json,'name','countryCode',$location);
 $location_code = $json_control->search_key;
 
 echo 'location code is = '.$location_code;

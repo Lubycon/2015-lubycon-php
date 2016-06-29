@@ -60,7 +60,7 @@
 
 
 
-    echo "<div id='previewer'><span id='preview-close'>close</span>";
+    echo "<div id='previewer'><span id='preview-close'><i class='fa fa-reply'></i>Back to editing</span>";
         include_once("../../../contents/viewer2d.php"); 
     echo "</div>";
 ?>

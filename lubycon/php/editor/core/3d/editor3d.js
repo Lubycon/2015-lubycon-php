@@ -34,6 +34,7 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
+                        var unloadChecker = true;
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         var $loading_icon = $(document).find("#loading_icon").show();
@@ -115,6 +116,10 @@
                             $loading_icon.hide(); 
                         });
                         $(document).on("keydown",pac.initCamera);
+                        window.onbeforeunload = function(){
+                            console.log(unloadChecker);
+                            if(unloadChecker) return "a";
+                        }
                     }
                 })
             },
@@ -304,6 +309,7 @@
                 submitFinal();
 
                 function submitFinal(){
+                    unloadChecker = false;
                     console.log(checkList.name,checkList.categories);
                     if(checkList.name && checkList.categories){
                         /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.

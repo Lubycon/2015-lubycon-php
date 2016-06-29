@@ -142,7 +142,7 @@
     -moz-box-sizing: border-box;
 }
 	.dash_section#dashboard_graph .dash_body{
-		height: 680px;
+		min-height: 680px;
 	}
 .dash_header {
 	width: 100%;
@@ -175,6 +175,7 @@
 	min-height: 150px;
 }
 	.dash_body_sector {
+		height: 100%;
 		min-height: 150px;
 		display: inline-block;
 		position: relative;
@@ -218,7 +219,6 @@
 				display: block;
 				line-height: 40px;
 				color: #444444;
-				font-size: 28px;
 				margin-top: 2px;
 			}
 			.x2_inner a:hover {
@@ -379,13 +379,13 @@
 		.history_kind .fa-circle {
 
 		}
-			#work_experience .fa-circle {
+			.history_kind.work_experience .fa-circle {
 				color: #48cfad;
 			}
-			#aducation .fa-circle {
+			.history_kind.education .fa-circle {
 				color: #6eabe3;
 			}
-			#awards .fa-circle {
+			.history_kind.awards .fa-circle {
 				color: #ffbe54;
 			}	
 		.history_kind span {
@@ -395,13 +395,13 @@
 			left: 19px;
 			border-right: 3px solid;
 		}
-			#work_Experience span {
+			.history_kind.work_Experience span {
 				border-color: #48cfad;
 			}
-			#wducation span {
+			.history_kind.education span {
 				border-color: #6eabe3;
 			}
-			#awards span {
+			.history_kind.awards span {
 				border-color: #ffbe54;
 			}
 		.history_content {
@@ -463,7 +463,7 @@
 		color: #444444;
 	}
     #dash_chart_wrap .chart-boxes {
-    	height: 200px;
+    	height: 100%;
     	display: inline-block;
     }
     	#dash_chart_wrap .chart-boxes .chart-title {
@@ -477,6 +477,7 @@
     	#dash_chart_wrap .chart-boxes .chart-canvas {
 			width: 100%;
 			height: 100%;
+			min-height: 150px;
     	}
 
 .chart-boxes a {
@@ -522,20 +523,21 @@
 
 /*INSIGHT*/
 #worldmap_body {
-	height: 320px;
+	min-height: 320px;
 }
 	#worldmap {
 		margin: 0px auto;
 	}
 #timeline_body {
-	height: 670px;
+	height: 100%;
+	min-height: 670px;
 }
 
 #contents_rangking {
-	height: 320px;
+	min-height: 320px;
 }
 #forums_rangking {
-	height: 320px;
+	min-height: 320px;
 }
 .dash_rank_list{
 	box-sizing: border-box;

@@ -40,7 +40,6 @@
         }
     }
     */
-
 ?>
 
 <!DOCTYPE html>
@@ -300,7 +299,7 @@
         </div><!-- end after sign in -->
         <button id="addcontent_bt" class="btn hidden-mb-b" data-tip="add content"><i class="fa fa-plus"></i>Add Contents</button>
         <!-- langage -->
-        <div id="lang_select_bt" class="hidden-mb-b"><!--end content button-->
+        <div id="lang_select_bt" class="hidden-mb-b" style="display: none;"><!--end content button-->
             <ul>
                 <li class="lang_selected">ENG</li>
                 <ul class="lang_list">

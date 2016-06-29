@@ -159,12 +159,10 @@
     width: 200px;
     height: 55px;
     line-height: 50px;
-    background: transparent;
-    border: 2px solid #48cfad;
-    border-radius: 200px;
-    color: #48cfad;
+    border: none;
+    background: #48cfad;
+    color: #ffffff;
     font-size: 20px;
-    font-weight: 200;
     margin: 20px auto;
     cursor: pointer;
 }

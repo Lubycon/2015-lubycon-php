@@ -16,8 +16,14 @@ class upload
     public $subject; // contents subject string
     public $top_category; // artwork , vector , threed
     public $mid_category; // array
+    public $mid_category_key; // int value
+    public $mid_category_value; // int value
     public $tag; // array
+    public $tag_key; // int value
+    public $tag_value; // int value
     public $cc; // stdClass Object
+    public $cc_code; // int like 1011 
+    public $cc_license; // string like 'Free' , 'no-cumercial'
     public $desc; // string
     public $downable; // boolean
     // post setting valualbe
@@ -89,13 +95,35 @@ class upload
             $this->tag = $this->post_setting->tag; // array
             $this->cc = $this->post_setting->cc; // stdClass Object
             $this->desc = $this->post_setting->descript; // string
-            $this->downable = 0;
+            $this->downable = false;
 
-
-            print_r( 'by = '.$this->post_setting->cc->by);
-            print_r( 'nc = '.$this->post_setting->cc->by);
-            print_r( 'nd = '.$this->post_setting->cc->by);
-            print_r( 'sa = '.$this->post_setting->cc->by);
+            var_dump($this->post_setting->cc->ccused);
+            $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
+            if(!$this->post_setting->cc->ccused) // cc licence 
+            {
+                $this->cc_license = 'No-Distribution';
+                $this->cc_code = '0000';
+            }else if($this->post_setting->cc->nd || $this->post_setting->cc->sa) // cc licence 
+            {
+                $this->cc_license = 'No-Distribution';
+            }else if($this->post_setting->cc->nc)
+            {
+                $this->$cc_license = 'No-Commercial';
+            }else if($this->post_setting->cc->by)
+            {
+                $this->cc_license = 'Free';
+            }
+            foreach($this->mid_category as $key => $value) // for mid category query
+            {
+                $added_value = $value+1; //pass all category in json index 0
+                $this->mid_category_key .= ",`midCategoryCode$key`";
+                $this->mid_category_value .= ",'$added_value'";
+            }
+            foreach($this->tag as $key => $value) // for tag query
+            {
+                $this->tag_key .= ",`tag$key`";
+                $this->tag_value .= ",'$value'";
+            }
 
             if( $this->top_category == 'artwork' || $this->top_category == 'vector' ) //check board type
             {

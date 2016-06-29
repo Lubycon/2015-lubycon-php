@@ -43,7 +43,7 @@
 <script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
 <div id="information_inbody">
     <ul id="dashboard_wrap">
-        <li class="dash_section" id="creator_month">
+        <li class="dash_section" id="creator_month" style="display: none">
             <div class="dash_header">
                 <h4>CREATOR OF THE MONTH</h4>
                 <i class="fa fa-angle-up toggle_info"></i>
@@ -116,15 +116,17 @@
             <div class="dash_body">
                 <ul class="history_wrap">
                     <?php
+                        error_reporting(E_ALL);
+                        ini_set("display_errors", 1);
                         while( $row = mysqli_fetch_array($history_row))
                         {
                             $historyYear = $row['historyDateYear'];
                             $historyMonth = $row['historyDateMonth'];
-                            $historyCategory = str_replace ( ' ' , '_' , $row['historyCategory'] );
+                            $historyCategory = strtolower(str_replace( ' ' , '_' , $row['historyCategory']));
                             $historyContents = $row['historyContents'];
                             echo "<li>
                                 <div class='history_date'>$historyYear $historyMonth</div>
-                                <div class='history_kind' id='$historyCategory'><i class='fa fa-circle'></i><span></span></div>
+                                <div class='history_kind $historyCategory'><i class='fa fa-circle'></i><span></span></div>
                                 <div class='history_content'>'$historyContents</div>
                             </li>";
                         }

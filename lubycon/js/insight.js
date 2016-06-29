@@ -1,43 +1,4 @@
-var likeData = [320,124];
-var bookmarkData = [12,3];
-var mapData = [
-    {
-        "id" : 200, //Country Code
-        "title" : "South Korea", //Country Name
-        "color" : "#48cfad", //Selected Color
-        "mouseEnabled": false 
-    },
-    {
-        "id" : 229,
-        "title" : "United State America",
-        "color" : "#48cfad",
-        "mouseEnabled": false
-    },
-    {
-        "id" : 72,
-        "title" : "France",
-        "color" : "#48cfad",
-        "mouseEnabled": false
-    },
-    {
-        "id" : 43,
-        "title" : "China",
-        "color" : "#48cfad",
-        "mouseEnabled": false
-    },
-    {
-        "id" : 28,
-        "title" : "Brazil",
-        "color" : "#48cfad",
-        "mouseEnabled": false
-    }
-];
-
-
-
-
 $(document).ready(function(){
-    console.log("START...");
     $.getJSON("../../js/chart/data/insightData.json",function(data){
         success : initInsight(data);
     }).fail(function(d, textStatus, error){ 

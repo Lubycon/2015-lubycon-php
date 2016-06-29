@@ -37,6 +37,7 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
+                        var unloadChecker = true;
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         //init object
@@ -140,6 +141,10 @@
                         pac.initTools();//data binding
 
                         $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
+                        window.onbeforeunload = function(){
+                            console.log(unloadChecker);
+                            if(unloadChecker) return "a";
+                        }
                     }
                 })
             },
@@ -226,6 +231,7 @@
                 submitFinal();
 
                 function submitFinal(){
+                    unloadChecker = false;
                     console.log(checkList.name,checkList.categories);
                     if(checkList.name && checkList.categories){
                         /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
@@ -992,7 +998,7 @@
                 height = $grid.height()
                 $dummy = $grid.clone(),
                 $canvas = $(document).find(".obj-body"),
-                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "jpg-image"}),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img large", "data-index" : "", "data-value" : "jpg-image"}),
                 $placeHolder = $(document).find(".canvas-content.placeHolder");
 
                 ///////////////
@@ -1002,7 +1008,6 @@
                     var currentGrid = $this.parents(".grid-wrapper.modal-wrapper").find(".btn.grid-btn.selected").data("target"),
                     calcGrid = currentGrid.split("-"),
                     totalGrid = parseInt(calcGrid[1]) + parseInt(calcGrid[2]);
-                    console.log($cropper,totalGrid);
                     if($cropper.length < totalGrid){
                         return false;
                     }
@@ -1025,7 +1030,6 @@
                         attachedImage.splice($mediaWrap.data("index"),0,dataURL);
                         $loading_icon.hide();
                         $dummy.remove();
-                        console.log($dummy.width());
                         return false;
                     },
                     allowTaint: true
