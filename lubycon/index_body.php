@@ -173,9 +173,9 @@ $(function(){
         <input class="slide-radio" data-value="2" id="vector_bt" type="radio" name="tap" />
         <input class="slide-radio" data-value="3" id="3d_bt" type="radio" name="tap" />
         <nav>
-            <label for="artwork_bt" class="la_bt btn selected">ARTWORK</label>
-            <label for="vector_bt" class="la_bt btn">VECTOR</label>
-            <label for="3d_bt" class="la_bt btn">3D MODEL</label>
+            <label for="artwork_bt" class="la_bt btn radioType selected">ARTWORK</label>
+            <label for="vector_bt" class="la_bt btn radioType">VECTOR</label>
+            <label for="3d_bt" class="la_bt btn radioType">3D MODEL</label>
         </nav>
         <!-- end nav -->
     </nav>

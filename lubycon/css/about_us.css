@@ -59,7 +59,7 @@
 
     .title-wrapper.main {
         position: absolute;
-        top: 240px;
+        bottom: 240px;
         left: 160px;
     }
         .title-wrapper.main .section-title {

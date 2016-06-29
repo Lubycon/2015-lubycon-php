@@ -75,12 +75,14 @@ var toggle = {
         var $this = $(this),
         radioType = $this.hasClass("radioType"),
         $btns = $this.siblings(".btn").length !== 0 ? $this.siblings(".btn") : $(document).find(".card_menu");
+
         ////////////////////////////
         // IT WILL BE FIXED LATER //
         ////////////////////////////
         
         if($this.hasClass("selected")){
             if(!radioType) $this.removeClass("selected");
+            else return false;
         } 
         else {
             $btns.removeClass("selected");
