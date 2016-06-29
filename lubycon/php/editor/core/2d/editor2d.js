@@ -998,7 +998,7 @@
                 height = $grid.height()
                 $dummy = $grid.clone(),
                 $canvas = $(document).find(".obj-body"),
-                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img", "data-index" : "", "data-value" : "jpg-image"}),
+                $mediaWrap = $("<div/>",{"class" : "canvas-obj canvas-content object-img large", "data-index" : "", "data-value" : "jpg-image"}),
                 $placeHolder = $(document).find(".canvas-content.placeHolder");
 
                 ///////////////
@@ -1008,7 +1008,6 @@
                     var currentGrid = $this.parents(".grid-wrapper.modal-wrapper").find(".btn.grid-btn.selected").data("target"),
                     calcGrid = currentGrid.split("-"),
                     totalGrid = parseInt(calcGrid[1]) + parseInt(calcGrid[2]);
-                    console.log($cropper,totalGrid);
                     if($cropper.length < totalGrid){
                         return false;
                     }
@@ -1031,7 +1030,6 @@
                         attachedImage.splice($mediaWrap.data("index"),0,dataURL);
                         $loading_icon.hide();
                         $dummy.remove();
-                        console.log($dummy.width());
                         return false;
                     },
                     allowTaint: true

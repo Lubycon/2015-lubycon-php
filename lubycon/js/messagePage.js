@@ -5,14 +5,14 @@ $(function(){
 	cancelBt = $messageWrapper.find(".btn.cancel-bt"),
 	otherBt = $messageWrapper.find(".btn.other-bt");
 
-	messageAlign.call($messageWrapper);
-
 	cancelBt.on("click",gotoBack);
 	submitBt.on("click",submit);
 	otherBt.on("click",otherBtAction);
 
 	initFocus();
 	initChecker();
+
+	messageAlign.call($messageWrapper);
 
 	function initFocus(){
 		var $input = $(document).find(".input-message");
@@ -34,16 +34,18 @@ $(function(){
 
 	function messageAlign(){
 		var $this = $(this);
+		console.log($this);
 		
-		var w = isMobile() ? 0 : $this.outerWidth(),
-			h = isMobile() ? $this.outerHeight()+100 : $this.outerHeight(),
-			left = (w/2)*-1,
-			top = (h/2)*-1;
+		var w = isMobile() ? 0 : $this.innerWidth(),
+			h = isMobile() ? $this.innerHeight()+100 : $this.innerHeight();
+		console.log(isMobile());
+		console.log($this.width(),$this.height());
 
 		$this.css({
-			"margin-left" : left,
-			"margin-top" : top
+			"margin-left" : (w/2)*-1,
+			"margin-top" : (h/2)*-1
 		});
+		console.log($this.width(),$this.height());
 	}
 
 	function otherBtAction(){

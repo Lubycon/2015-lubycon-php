@@ -163,9 +163,15 @@ $(function (){ //content card link action
     }
 });
 
-$(function() { //comment input box
+$(function() { //COMMENT INPUT INIT
     window.app = new InputExpander("#comment_text");
     window.app.start();
+    $("#comment_text").on("keyup",function(){
+        var $this = $(this),
+        value = $this.val();
+
+        if(value.isSpecialChar()) $this.val(value.slice(0,-1));
+    });
 });
 
 $(function (){

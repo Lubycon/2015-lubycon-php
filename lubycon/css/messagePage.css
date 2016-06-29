@@ -67,8 +67,10 @@ a {
     }
     .message.message-wrapper {
         left: 50%;
+        min-width: 700px;
     }
     .input-wrapper{
+        min-width: 470px;
         text-align: right;
     }
         .input-message {
@@ -87,13 +89,11 @@ a {
 .message {
     
 }
-
 .message.message-wrapper {
     position: fixed;
     background: #ffffff;
     text-align: center;
     top: 50%;
-    box-sizing: border-box;
 }
 
 .message.message-wrapper > .message-icon {

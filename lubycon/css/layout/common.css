@@ -1167,7 +1167,7 @@ body{
 .infoCard.content_info{}
     .infoCard.content_info .infoCard-userAction{
         display: inline-block;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
     }
         .userAction-bt{
             display: inline-block;
@@ -1226,7 +1226,7 @@ body{
         .infoCard.content_info .infoCard-cc .cc-list {
             display: inline-block;
             padding: 10px;
-            background: #666666;
+            padding-left: 0;
         }
             .infoCard.content_info .infoCard-cc .cc-list .cc-icon {
                 display: inline-block;
