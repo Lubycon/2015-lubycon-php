@@ -73,7 +73,7 @@ $(function(){
 			console.log($(this).data("value"));
 			switch($(this).data("value")){
 				case "code" : 
-					if(value.isSpecialChar()) checker = false;
+					if(!value.isAlphabetNumber()) checker = false;
 				break;
 				case "email" : 
 					if(!value.isEmail()) checker = false;
