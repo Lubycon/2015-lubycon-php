@@ -44,6 +44,10 @@
         var optControlBt = $(".optControl"),
         historySortBt = $(".fa.fa-refresh.refresh");
 
+        optControlBt.each(function(){
+            $(this).width($(this).prev().width());
+        });
+
         optControlBt.on("click",optionController);
         historySortBt.on("click",sortHistory);
         window.onbeforeunload = function(){

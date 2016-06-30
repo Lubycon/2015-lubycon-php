@@ -186,6 +186,7 @@
                 option = $this.find("option").val(),
                 list = $this.prev(".ls_optionWrap").find(".ls_option"),
                 listValue = list.data("value");
+                console.log($this,text,option);
             },
             searchEvent: function(selector) {
                 var $this = $(this),
@@ -238,7 +239,7 @@
                             "box-shadow" : "-1px 0px 0px #303030",
                             "border-radius" : "0", 
                             "margin" : "0px 0px 0px 1px", 
-                            "max-height" : $this.parent().height(),
+                            "min-height" : $this.parent().height(),
                             "line-height" : $this.parent().height() + "px",
                             "padding" : "0px 10px",
                         });

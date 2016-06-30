@@ -46,10 +46,16 @@ $(document).ready(function(){
             data: 'countkind=' + countkind + '&conno=' + conno + '&cate=' + catename + '&stat_check=' + stat_check + '&contentkind=' + contentkind,// data send
             cache: false,
             success: function (data) {
-                like_number = $("#"+countkind+"Count");
-                stat_check = stat_check ? 1 : -1;
-                like_number.text( Number(like_number.text()) + stat_check);
-                console.log(data);
+                var loginStat = data.loginStat;
+                loginStat = 1;
+                if(loginStat){
+                    like_number = $("#"+countkind+"Count");
+                    stat_check = stat_check ? 1 : -1;
+                    like_number.text( Number(like_number.text()) + stat_check);
+                }
+                else{
+                    //NOT LOGIN
+                }
             }
         })
     }
