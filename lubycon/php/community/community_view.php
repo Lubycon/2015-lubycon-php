@@ -74,32 +74,34 @@
                     <button class="post_edit_bt"><i class="fa fa-repeat"></i>Modified</button>
                 </div>
             </div>  <!-- end post_contents -->
-            <div class="infoCard content_info">
-                <p class="infoCard-title inline">Did you like this contents?</p>
-                <div class="infoCard-userAction infoCard-content">
-                    <div class="userAction-bt alertKey" data-value="like">
-                        <i class="fa fa-heart" data-value="like"></i>Like
+            <div class="infoCard-horizontal">
+                <div class="infoCard content_info x2">
+                    <p class="infoCard-title inline">Did you like this contents?</p>
+                    <div class="infoCard-userAction infoCard-content">
+                        <div class="userAction-bt alertKey" data-value="like">
+                            <i class="fa fa-heart" data-value="like"></i>Like
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="infoCard creator">
-                <p class="infoCard-title">Creator</p>
-                <div class="creators_card" data-index="<?=$usercode?>">
-                    <div class="creator_card_body">
-                        <div class="creator_pic_wrap">
-                            <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
-                        </div>
-                        <div class="creator_info_wrap">
-                            <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
-                            <p class="creator_job"></i><?=$userjob?></p>
-                            <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
-                        </div>
-                    </div><!--body-->
-                    <div class="creator_card_medal">
-                        <ul>
-                            <li></li>
-                        </ul>
-                    </div><!--medals-->
+                <div class="infoCard creator x2">
+                    <p class="infoCard-title">Creator</p>
+                    <div class="creators_card" data-index="<?=$usercode?>">
+                        <div class="creator_card_body">
+                            <div class="creator_pic_wrap">
+                                <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
+                            </div>
+                            <div class="creator_info_wrap">
+                                <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
+                                <p class="creator_job"></i><?=$userjob?></p>
+                                <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
+                            </div>
+                        </div><!--body-->
+                        <div class="creator_card_medal">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </div><!--medals-->
+                    </div>
                 </div>
             </div>
             

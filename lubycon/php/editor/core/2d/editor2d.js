@@ -29,6 +29,7 @@
         categoryData = categoryPac, //categories.json
         ccData = ccPac, //creative_commons.json
         formData = new FormData(),
+        unloadChecker = true,
         d = {},
         attachedFiles = [], attachedImage = [], finalThumbnail,
         pac = {
@@ -37,7 +38,6 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
-                        var unloadChecker = true;
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         //init object
@@ -249,8 +249,7 @@
                             type: 'POST',
                             success: function (result) {
                                 console.log(result);
-                                alert("SUBMIT SUCCESS");
-                                //location.href = "../../../../index.php";
+                                location.href = "../../../messages/successUploadContent.php";
                             }
                         });
                     }

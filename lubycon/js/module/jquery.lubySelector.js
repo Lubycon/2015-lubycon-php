@@ -18,7 +18,7 @@
             maxHeight: 250,
             float: "right",
             icon: "fa fa-filter",
-            theme: "black",//white, ghost, transparent
+            theme: "black",
             optGroup: false,//알파벳 헤더 기능
             searchBar: false,//true시 셀렉박스리스트 맨 위에 서치바 생성
             tooltip: false,
@@ -244,7 +244,8 @@
                         });
                         $icon.css({ "line-height" : $this.parent().height() - 2 + "px", "left" : "18px" });
                         $arrow.css({ "line-height" : $this.parent().height() - 7 + "px", "right" : "20px" });
-                        $list.css({ "border-radius" : "0", "margin-top" : "-19px", "margin-left" : "-10px", "box-shadow" : "0px 9px 30px 0px rgba(0,0,0,0.8)" });
+                        $list.css({ "border-radius" : "0", "background" : "rgba(0,0,0,0.85)", "margin-top" : "-19px", "margin-left" : "-10px", "box-shadow" : "0px 9px 30px 0px rgba(0,0,0,0.8)" });
+                        $listInner.css("background","transparent");
                         $searchBar.css({ "border-radius" : "0" });
 
                     break;

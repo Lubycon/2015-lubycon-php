@@ -39,7 +39,7 @@
                 <input type="file" id="file_import_com" name="user_upload_file"/>
             </div><!--link2 end-->
         </div>
-        <input type="submit" value="SUBMIT" id="community_submit" />
+        <div id="community_submit">SUBMIT</div>
     </section><!--work_space end-->        
 </section>  <!-- end contents section -->
 </form>

@@ -158,13 +158,15 @@ a {
 
 .message-box > .btn {
     display: inline-block;
-    width: 130px;
+    min-width: 130px;
+    padding: 0px 10px;
     height: 40px;
     line-height: 40px;
     color: #ffffff;
     background: #aaaaaa;
     cursor: pointer;
     transition: opacity 0.2s;
+    vertical-align: middle;
 }
     .message-box > .btn:hover {
         opacity: 0.7;

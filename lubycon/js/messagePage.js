@@ -56,6 +56,7 @@ $(function(){
 			switch(data){
 				case "resend" : /*VALUE RESEND*/ break;
 				case "gotoIndex" : gotoIndex(); break;
+				case "link" : gotoLink.call($this); break;
 				default : console.log("THERE IS NO DATA-VALUE"); return false; break;
 			}
 		});
@@ -67,6 +68,10 @@ $(function(){
 
 	function gotoIndex(){
 		location.href = "../../index.php";
+	}
+
+	function gotoLink(){
+		location.href = $(this).attr("href");
 	}
 
 	function submit(){

@@ -1,4 +1,8 @@
 <?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    include_once('../layout/index_header.php');
+
     if( $usernumber == $usercode ) //need more security
     {
     require_once '../database/database_class.php';
@@ -271,3 +275,6 @@
         <input type="submit" value="Submit" id="submit_bt" />
     </section>
 </form>
+<?php 
+    include_once($two_depth.'/layout/index_footer.php');
+?>

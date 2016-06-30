@@ -79,7 +79,10 @@ body{
 
 /*----------------------------------------------------------scroll bar end*/
 /* main header start */
-/* popup end */
+body {
+    display: none;
+}
+
 #cancel_layer{
     display: none;
 }
@@ -754,7 +757,7 @@ body{
     #lang_select_bt ul ul li:hover {
         opacity: 0.7;
     }
-    #lang_select_bt ul ul .selected_language{
+    #lang_select_bt ul ul li.selected{
         color: #48cfad;
     }
 
@@ -1139,6 +1142,12 @@ body{
         }
 /* contents card */
 /* conetents side cards */
+.infoCard-horizontal {
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
 .infoCard {
     position: relative;
     width: 100%;
@@ -1149,7 +1158,7 @@ body{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    text-align: center;
+    text-align: left;
 }
     .infoCard > .infoCard-title {
         font-weight: 600;

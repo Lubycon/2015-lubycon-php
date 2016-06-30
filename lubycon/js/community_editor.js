@@ -1,5 +1,6 @@
 /*--------------------------------community editor start-------------------------------*/
 $(document).ready(function(){
+
     $('#file_import_bt').on("click touchend",function(event) {
         eventHandler(event,$(this));
         $('#file_import_com').click();
@@ -10,11 +11,12 @@ $(document).ready(function(){
 
     if($("#main_work_space").length !== 0){
         var unloadChecker = true;
-
         window.onbeforeunload = function(){
             console.log(unloadChecker);
             if(unloadChecker) return "a";
         }
+
+        $("#community_submit").on("click",finalSubmit);
 
         $('#summernote').summernote({
             height: 250,
@@ -59,8 +61,13 @@ $(document).ready(function(){
             });
         }
         //summernote end
-        var postForm = function (){ // summernote submit event
+        function postForm(){ // summernote submit event
             var content = $('textarea[name="content"]').html($('#summernote').code());
+        }
+
+        function finalSubmit(){
+            unloadChecker = false;
+            $("#writer_form").submit();
         }
         return true;
     }else{

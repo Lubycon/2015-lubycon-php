@@ -23,6 +23,7 @@
         ccData = ccPac, //creative_commons.json
         bgPreset3d = backgroundPreset3d,
         bgPreset2d = backgroundPreset2d,
+        unloadChecker = true,
         d = {},
         scene, camera, cameraLight, renderer, controls, stats,
         group, object, mtl, geometry, material, mesh, skybox,
@@ -34,7 +35,6 @@
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
                         console.log("editor is loaded");//function start
-                        var unloadChecker = true;
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         var $loading_icon = $(document).find("#loading_icon").show();
@@ -326,8 +326,7 @@
                             data: formData,
                             type: 'POST',
                             success: function (result) {
-                                alert("SUBMIT SUCCESS");
-                                location.href = "../../../../index.php";
+                                location.href = "../../../messages/successUploadContent.php";
                             }
                         });
                     }
@@ -1077,38 +1076,54 @@
         canvasTool = {
             capture: function(){
                 console.time("capture");
-                canvasTool.shutter();
+
+                var cropper = $(".thumb-editor-wrapper").find(".cropper-container");
+
+                shutter();
+
                 var dataURL = renderer.domElement.toDataURL(),
                 icon = $(this).find("i");
                 icon.attr("class",icons.loading);
-                $(".thumb-origin-img").attr("src",dataURL)
-                .cropper({
-                    minContainerWidth: 420,
-                    minContainerHeight: 300,
-                    aspectRatio: 250/215,
-                    autoCropArea: 0.6,
-                    viewMode: 3,
-                    responsive: true,
-                    zoomable: false,
-                    preview: ".thumb-preview-wrapper",
-                    dragMode: "crop"
-                }).show();
-                $(".thumb-placeHolder").hide();
+
+                if(cropper.length) replaceCropper();
+                else newCropper();
+                
                 setTimeout(function(){ icon.attr("class", icons.camera); },3000);
                 console.timeEnd("capture");
-            },
-            shutter: function(){
-                var shutter = $("<div/>").css({
-                    "position" : "absolute",
-                    "top" : "0",
-                    "left" : "0",
-                    "width": "100%",
-                    "height": "100%",
-                    "background" : "#ffffff",
-                    "z-index" : "30000"
-                }).appendTo("#web-gl").fadeOut(4000,function(){
-                    $(this).remove();
-                });
+
+                function newCropper(){
+                    $(".thumb-origin-img").attr("src",dataURL)
+                    .cropper({
+                        minContainerWidth: 420,
+                        minContainerHeight: 300,
+                        aspectRatio: 250/215,
+                        autoCropArea: 0.6,
+                        viewMode: 3,
+                        responsive: true,
+                        zoomable: false,
+                        preview: ".thumb-preview-wrapper",
+                        dragMode: "crop"
+                    }).show();
+                    $(".thumb-placeHolder").hide();
+                }
+
+                function replaceCropper(){
+                    cropper.prev("img").cropper("replace",dataURL);
+                }
+
+                function shutter(){
+                    var shutter = $("<div/>").css({
+                        "position" : "absolute",
+                        "top" : "0",
+                        "left" : "0",
+                        "width": "100%",
+                        "height": "100%",
+                        "background" : "#ffffff",
+                        "z-index" : "30000"
+                    }).appendTo("#web-gl").fadeOut(3500,function(){
+                        $(this).remove();
+                    });
+                }
             }  
         },
         toolbar = {
@@ -1909,8 +1924,7 @@
                 $tabBt = $("<div/>",{ "class" : "toolbox-tab btn" }).on("click",toggle.group).on("click",UImodule.tabAction);
 
                 var $3dBt = $tabBt.clone(true).html("3D").attr("data-target","3d").addClass("selected").appendTo($tabBtWrap),
-                $2dBt = $tabBt.clone(true).html("Image").attr("data-target","2d").appendTo($tabBtWrap),
-                $colorBt = $tabBt.clone(true).html("Color").attr("data-target","color").appendTo($tabBtWrap);
+                $2dBt = $tabBt.clone(true).html("2D").attr("data-target","2d").appendTo($tabBtWrap);
 
                 var $backgroundSelect = new UImodule.createMenu($tabBtWrap,"Background",false).appendTo($this);
 
@@ -1919,17 +1933,21 @@
                 $2DSelector = $("<select/>",{"id" : "bg-2d-selector","class" : "backgroundSelector", "data-value" : "2d"}),
                 $colorSelector = $("<input/>",{"id" : "bg-color-selector","class" : "backgroundSelector", "data-value" : "color"});
 
-                $controllerBody.clone().attr("data-value","3d").append($3DSelector).appendTo($backgroundSelect);
-                $controllerBody.clone().attr("data-value","2d").append($2DSelector).appendTo($backgroundSelect).hide();
-                $controllerBody.clone().attr("data-value","color").append($colorSelector).appendTo($backgroundSelect).hide();
+                $controllerBody.clone().attr("data-value","3d")
+                    .append($3DSelector)
+                    .appendTo($backgroundSelect);
+                $controllerBody.clone().attr("data-value","2d")
+                    .append($colorSelector)
+                    .append($2DSelector)
+                    .appendTo($backgroundSelect).hide();
 
                 toolbar.backgroundFn.addPresets($this);
             },
             backgroundFn: {
                 addPresets: function(target){
                     var preset3d = bgPreset3d,
-                    preset2d = bgPreset2d,
-                    selector = target.find(".backgroundSelector");
+                        preset2d = bgPreset2d,
+                        selector = target.find(".backgroundSelector");
 
                     selector.each(function(){
                         var $this = $(this),
@@ -1946,13 +1964,13 @@
                                     callback: toolbar.backgroundFn.background3d,
                                     tooltip: true
                                 });
-                                $("#bg-3dSelector").find(".ls_option").tooltip({left: 270,appendTo: $this.parents(".toolbox-controller") });
+                                $("#bg-3dSelector").find(".ls_option").tooltip({left: 270, appendTo: $this.parents(".toolbox-controller") });
                             break;
                             case "2d": 
                                 addOption(preset2d,$this);
                                 $this.lubySelector({
                                     id : "bg-2dSelector",
-                                    width: "100%",
+                                    width: 215,
                                     float: "none",
                                     icon: "",
                                     callback: toolbar.backgroundFn.background2d,
@@ -1988,6 +2006,7 @@
                                 "data-value" : preset[i].id,
                                 "data-tip" : "<img src='" + preset[i].preview + "' />"
                             }).text(preset[i].name).appendTo(element);
+                            if(i === 0) option.prop("selected",true);
                         }
                     }
                 },
@@ -2020,8 +2039,7 @@
                     $loading_icon.hide();
                 },
                 backgroundColor: function(color){
-                    var background = $(document).find("#canvas-background"),
-                    logo = background.find("#canvas-background-logo");
+                    var background = $(document).find("#canvas-background");
 
                     background.css("background-color",color.toHexString());
                     toolbar.backgroundFn.clearRendererMap();

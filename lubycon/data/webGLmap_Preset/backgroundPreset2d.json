@@ -3,7 +3,7 @@ var backgroundPreset2d = [
 		"id" : "0",
 		"name" : "None",
 		"image" : "#",
-		"preview" : "#",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/2dBackgrounds/Lubycon_Title.svg",
 		"descript" : ""
 	},
 	{

@@ -751,6 +751,11 @@
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
+
+.infoCard-horizontal {
+    margin: 0px auto;
+}
+
     /*------------login--------------*/
     #loginWrap{
         width: 100%;
@@ -1166,6 +1171,16 @@
     }
     .history_data {
         background: #ffffff;
+    }
+.infoCard-horizontal {
+    margin: 30px auto;
+}
+    .infoCard-horizontal .infoCard.x2 {
+        display: inline-block;
+        width: 45%;
+        margin: 0px 20px;
+        vertical-align: top;
+        min-height: 310px;
     }
     /*-------------login------------*/
     #loginWrap{
