@@ -22,7 +22,7 @@
 }
 .lubySelector > select{   
     display: none;
-    top: -1000px;
+    left: -100%;
     position: fixed;
 }
 .lubySelector:hover{

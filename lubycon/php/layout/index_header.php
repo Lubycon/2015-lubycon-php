@@ -160,6 +160,11 @@
                     <i class="fa fa-line-chart fa-1x"></i>Insight
                 </a>
             </li>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/account/account_setting.php">
+                    <i class="fa fa-gear fa-1x"></i>Account Setting
+                </a>
+            </li>
         </ul>
         <ul class="mb-menu-group signin_class">
             <li class="mb-menu-list">

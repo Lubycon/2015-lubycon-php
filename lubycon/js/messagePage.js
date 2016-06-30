@@ -16,7 +16,10 @@ $(function(){
 
 	function initFocus(){
 		var $input = $(document).find(".input-message");
-		if($input.length) $input.first().focus();
+		if($input.length){
+			$input.first().focus();
+			$input.on("keyup",detectEnter);
+		}
 	}
 
 	function initChecker(){
@@ -30,6 +33,10 @@ $(function(){
 		value = $this.val();
 
 		if(value.isSpecialChar()) $this.val(value.slice(0,-1));
+	}
+
+	function detectEnter(event){
+		if(event.which === 13 && submitBt.length !== 0) submitBt.trigger("click"); 
 	}
 
 	function messageAlign(){

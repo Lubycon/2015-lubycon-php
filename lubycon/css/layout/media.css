@@ -1,7 +1,7 @@
 /*////////////////////////////////////*/
 /*///////////MOBILE///////////////////*/
 /*////////////////////////////////////*/
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 800px){
     html{
         -ms-touch-action: manipulation;
         touch-action: manipulation;
@@ -727,29 +727,26 @@
             .lang_option{
                 display: block;
             }
-        .history_data {
+        .clone-wrapper {
             background: #dddddd;
-            text-align: center;
             padding: 10px;
             margin: 10px 0px;
         }
-            .history_data .lubySelector {
+            .clone-wrapper .lubySelector {
                 width: 100% !important;
                 margin: 5px auto;
             }
-            .history_data > .history_text {
+            .clone-wrapper .history_text {
                 width: 100% !important;
-                margin-top: 5px;
                 margin: 5px auto;
             }
+        
         .setting_card > input {
 
         }
-        .setting_card #change_pass{
-            width: 100%;
-            box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
+        #cropper-wrapper {
+            width: 250px;
+            height: 250px;
         }
 
 .infoCard-horizontal {
@@ -774,7 +771,7 @@
 /*/////////////////////////////////////*/
 /*//////////////DESKTOP////////////////*/
 /*/////////////////////////////////////*/
-@media screen and (min-width: 1025px){
+@media screen and (min-width: 801px){
     .visible-mb{
         display: none !important;
     }
@@ -1165,12 +1162,21 @@
         .setting_card #change_pass{
             margin-left: 15px;
         }
+
     .lang_option{
         display: inline-block;
         vertical-align: middle;
     }
+    #location_text {
+        width: 150px;
+        margin-left: 5px;
+    }
     .history_data {
         background: #ffffff;
+    }
+    #cropper-wrapper {
+        width: 300px;
+        height: 300px;
     }
 .infoCard-horizontal {
     margin: 30px auto;

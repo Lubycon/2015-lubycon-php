@@ -180,12 +180,12 @@
                 if (d.callback !== null) d.callback();
                 else return;
             },
-            changeOption: function(selector) {
+            changeOption: function() {
+                //////$this = selector
                 var $this = $(this),
-                text = $this.val(),
-                option = $this.find("option").val(),
-                list = $this.prev(".ls_optionWrap").find(".ls_option"),
-                listValue = list.data("value");
+                value = $this.val(),
+                list = $this.prev(".ls_optionWrap").find(".ls_option[data-value='" + value + "']");
+                list.trigger("click");
             },
             searchEvent: function(selector) {
                 var $this = $(this),
@@ -238,7 +238,7 @@
                             "box-shadow" : "-1px 0px 0px #303030",
                             "border-radius" : "0", 
                             "margin" : "0px 0px 0px 1px", 
-                            "max-height" : $this.parent().height(),
+                            "min-height" : $this.parent().height(),
                             "line-height" : $this.parent().height() + "px",
                             "padding" : "0px 10px",
                         });
