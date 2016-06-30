@@ -97,12 +97,12 @@ class upload
             $this->desc = $this->post_setting->descript; // string
             $this->downable = false;
 
-            var_dump($this->post_setting->cc->ccused);
+
             $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
-            if(!$this->post_setting->cc->ccused) // cc licence 
+            if( isset($this->post_setting->cc->ccused) ) // cc licence 
             {
                 $this->cc_license = 'No-Distribution';
-                $this->cc_code = '0000';
+                $this->cc_code = '0';
             }else if($this->post_setting->cc->nd || $this->post_setting->cc->sa) // cc licence 
             {
                 $this->cc_license = 'No-Distribution';

@@ -48,22 +48,22 @@ ON a.`userCode` = `userbasic`.`userCode`
 LEFT JOIN lubyconuser.`userinfo`
 ON `userbasic`.`userCode` = `userinfo`.`userCode` 
 
-LEFT JOIN lubyconboard.`artworkmidcategory`
-ON a.`boardCode` = `artworkmidcategory`.`boardCode`
+LEFT JOIN lubyconboard.`".$cate_name."midcategory`
+ON a.`boardCode` = `".$cate_name."midcategory`.`boardCode`
 
-LEFT JOIN lubyconboard.`artworktag`
-ON a.`boardCode` = `artworktag`.`boardCode` 
-
-LEFT JOIN lubyconboard.`contentsbookmark`
+LEFT JOIN lubyconboard.`".$cate_name."tag`
+ON a.`boardCode` = `".$cate_name."tag`.`boardCode`";
+if($LoginState)
+{
+$db->query .= "LEFT JOIN lubyconboard.`contentsbookmark`
 ON a.`boardCode` = `contentsbookmark`.`boardCode`
 AND `contentsbookmark`.`bookmarkActionUserCode` = $Loginuser_code
 
 LEFT JOIN lubyconboard.`contentslike`
 ON a.`boardCode` = `contentslike`.`boardCode`
-AND `contentslike`.`likeActionUserCode` = $Loginuser_code
-
-WHERE a.`boardCode` = $number
-";
+AND `contentslike`.`likeActionUserCode` = $Loginuser_code";
+}
+$db->query .= " WHERE a.`boardCode` = $number";
 $db->askQuery(); //get db data
 
 $row = mysqli_fetch_array($db->result);
@@ -93,7 +93,9 @@ $user_img_url = $two_depth."/../../../Lubycon_Contents/user/".$row['userCode']."
 $category0 = $cate_name == "threed" ? "3D" : $cate_name;
 $category1 = $mid_cate_decode[$row['midCategoryCode0']]['name'];
 $category2 = '';
-if( isset( $row['midCategoryCode1'] ) ) $category2 = $mid_cate_decode[$row['midCategoryCode1']]['name'];
+$category3 = '';
+if( isset( $row['midCategoryCode1'] ) ) $category2 = ' , '.$mid_cate_decode[$row['midCategoryCode1']]['name'];
+if( isset( $row['midCategoryCode2'] ) ) $category3 = ' , '.$mid_cate_decode[$row['midCategoryCode2']]['name'];
 
 $usercode = $row['userCode'];
 $username = $row['nick'];
@@ -103,12 +105,13 @@ $userjob = $my_job_origin_select;
 $usercountry = $my_country_origin_select;
 
 $file_descript = $row['contentDescription'];
-
+if($LoginState)
+{
 $like_check = false;
 if( $row['likeActionUserCode'] != null ){$like_check=true;}
 $bookmark_check = false;
 if( $row['bookmarkActionUserCode'] != null  ){$bookmark_check=true;}
-
+}
 $file_view = $row['viewCount'];
 $file_down = $row['downloadCount'];
 $file_like = $row['likeCount'];

@@ -5,7 +5,7 @@ $(document).ready(function(){
 	windowHeight = isMobile() ? window.innerHeight-200 : window.innerHeight-310;
 
 	var bgPreset3d = backgroundPreset3d,
-    var bgPreset2d = backgroundPreset2d;
+        bgPreset2d = backgroundPreset2d;
 
 	var gl = document.getElementById("web-gl");
 
@@ -71,6 +71,7 @@ $(document).ready(function(){
             skymapIndex = skymapJSON.skymap,
             image2DIndex = skymapJSON.image,
             backgroundColor = skymapJSON.color;
+        var lights = bgPreset3d[skymapIndex].light;
 
         if(enable3D) load3DMap();
         else load2DMap();
@@ -78,8 +79,6 @@ $(document).ready(function(){
         loadCustomLights();
   
         function load3DMap(){
-            var lights = bgPreset3d[skymapIndex].light;
-
             var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
             var skyMaterial = new THREE.MeshBasicMaterial({
                 map : new THREE.TextureLoader().load(bgPreset3d[skymapIndex].image)
@@ -94,7 +93,7 @@ $(document).ready(function(){
         function load2DMap(){
             var target = $("#canvas-background"),
                 logo = target.find("#canvas-background-logo");
-            target.css("background-color",image2D);
+            target.css("background-color", backgroundColor);
             logo.css("background-image","url(" + bgPreset2d[image2DIndex].image + ")");
             renderer.setClearColor(0x222222, 0);
         }

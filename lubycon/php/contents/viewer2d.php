@@ -3,7 +3,7 @@
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
             <h3 id="contents_title"><?=$contents_name?></h3>
-            <div id="contents_category"><?=$category0?> > <?=$category1?>, <?=$category2?></div>
+            <div id="contents_category"><?=$category0?> > <?=$category1.$category2.$category3;?> </div>
             <div id="contents_score">
                 <ul>
                     <li><i class="fa fa-eye"></i></li>

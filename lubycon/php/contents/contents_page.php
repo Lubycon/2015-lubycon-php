@@ -17,6 +17,7 @@
     $middle_category = $_GET['mid_cate'];
     $sortlist = [];
     $ajax_boolean = false;
+    $query_user_code = isset($Loginuser_code) ? $query_user_code=$Loginuser_code : $query_user_code=false ;
     /* require class */
 
     /* json control */
@@ -28,7 +29,7 @@
     $infinite_scroll = new infinite_scroll('content',$cate_name);
     $infinite_scroll->validate_category();
     $infinite_scroll->set_option($page_param,$middle_category,$ajax_boolean,null);
-    $infinite_scroll->set_query($Loginuser_code);
+    $infinite_scroll->set_query($query_user_code);
     $db->query = $infinite_scroll->query;
     $db->askQuery();
     $contents_result = $db->result; //contents data

@@ -34,7 +34,7 @@ $uploader->html_image_path(); //only 2d editor . modified html src
 if($uploader->downable){$uploader->zip_attach('attach');} // if user didn't upload attach files and zip attach option is saved folder name
 
 $topCate_json_Code = $json_control->json_decode_code;
-$json_control->json_search($topCate_json_Code,'name','topCateCode',$uploader->top_category);
+$json_control->json_search($topCate_json_Code,'topCateCode','name',$uploader->top_category);
 $topCate_code = $json_control->search_key; // search top category name to index form json files
 
 
