@@ -19,7 +19,7 @@ $(document).ready(function(){
 });
 
 function isMobile(){
-    if($(window).width() <= 640) return true;
+    if($(window).width() <= 800) return true;
     else return false;
 }
 

@@ -1,7 +1,7 @@
 /*////////////////////////////////////*/
 /*///////////MOBILE///////////////////*/
 /*////////////////////////////////////*/
-@media screen and (max-width: 640px){
+@media screen and (max-width: 800px){
     html{
         -ms-touch-action: manipulation;
         touch-action: manipulation;
@@ -771,7 +771,7 @@
 /*/////////////////////////////////////*/
 /*//////////////DESKTOP////////////////*/
 /*/////////////////////////////////////*/
-@media screen and (min-width: 641px){
+@media screen and (min-width: 801px){
     .visible-mb{
         display: none !important;
     }

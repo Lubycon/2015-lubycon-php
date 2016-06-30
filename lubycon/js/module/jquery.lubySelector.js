@@ -180,13 +180,12 @@
                 if (d.callback !== null) d.callback();
                 else return;
             },
-            changeOption: function(selector) {
+            changeOption: function() {
+                //////$this = selector
                 var $this = $(this),
-                text = $this.val(),
-                option = $this.find("option").val(),
-                list = $this.prev(".ls_optionWrap").find(".ls_option"),
-                listValue = list.data("value");
-                console.log($this,text,option);
+                value = $this.val(),
+                list = $this.prev(".ls_optionWrap").find(".ls_option[data-value='" + value + "']");
+                list.trigger("click");
             },
             searchEvent: function(selector) {
                 var $this = $(this),

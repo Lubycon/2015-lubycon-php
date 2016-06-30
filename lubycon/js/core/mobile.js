@@ -2,7 +2,7 @@ $(window).on("load resize",function(){
     if(isMobile()){
         initMobileMenu.call($("#mb-menu-panel"));
         initMobileSearchBox.call($("#mb-search"));
-        initMobileIndexTab.call($(".mb-contents-tab"));
+        if(event.type === "load" )initMobileIndexTab.call($(".mb-contents-tab"));
     }
     
     function initMobileMenu(){
@@ -28,7 +28,6 @@ $(window).on("load resize",function(){
         $cancelLayer.on("click touchedn",hideMobileMenu);
 
         function showMobileMenu(event){
-            console.log(1);
             eventHandler(event,$(this));
             if(!TOUCHMOVING){
                 $cancelLayer.show();
