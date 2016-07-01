@@ -176,25 +176,25 @@
                     <p class="dash_body_title">Last 7 days data</p>
                     <div class="dash_body_sector x2">
                         <div class="chart-boxes">
-                            <div class="chart-title">Like : Last 7days</div>
+                            <div class="chart-title">Like</div>
                             <div class="chart-canvas" id="chartdiv1"></div>
                         </div>
                     </div>
                     <div class="dash_body_sector x2">
                         <div class="chart-boxes">
-                            <div class="chart-title">View : Last 7days</div>
+                            <div class="chart-title">View</div>
                             <div class="chart-canvas" id="chartdiv2"></div>
                         </div>
                     </div>
                     <div class="dash_body_sector x2">
                         <div class="chart-boxes">
-                            <div class="chart-title">Upload : Last 7days</div>
+                            <div class="chart-title">Upload</div>
                             <div class="chart-canvas" id="chartdiv3"></div>
                         </div>
                     </div>
                     <div class="dash_body_sector x2">
                         <div class="chart-boxes">
-                            <div class="chart-title">Download : Last 7days</div>
+                            <div class="chart-title">Download</div>
                             <div class="chart-canvas" id="chartdiv4"></div>
                         </div>
                     </div>

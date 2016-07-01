@@ -68,107 +68,9 @@
         #main_search_bar .select-box{
             display: none;
         }
-/*---------------------------------SIMONS WORK START-----------------------*/
-    .index_figure{
-        height: 70px;
-    }
-        .index_figure h2{
-            padding-top: 23px;
-            font-size: 16px;
-        }
-    .mb-wrapper{
-        width: 100%;
-        background: #eeeeee;
-    }
-        .mb-section{
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-        }
-        .mb-contents-tab{
-            position: relative;
-            background: #ffffff;
-            text-align: center;
-        }
-            .mb-contents-tab .tab-bt{
-                width: 32%;
-                height: 85px;
-                display: inline-block;
-                background: #ffffff;
-                font-weight: 600;
-                padding: 10px;
-                text-align: center;
-                box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-            }
-                .mb-contents-tab i {
-                    display: block;
-                    font-size: 25px;
-                    color: #444444;
-                    margin-top: 10px;
-                }
-                .mb-contents-tab .tab-bt.selected {
-                    color: #48cfad;
-                }
-                .mb-contents-tab .tab-bt.selected i {
-                    color: #48cfad;
-                }
-            .mb-contents-wrapper{
-                width: 100%;
-                display: none;
-                background: #ffffff;
-                margin: 10px 0px;
-                text-align: center;
-            }
-                .mb-contents-wrapper.selected {
-                    display: block;
-                }
-                .mb-contents-wrapper .contents-title{
-                    width: 100%;
-                    background: #ffffff;
-                    padding: 7px;
-                    box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                }
-                    .mb-contents-wrapper .contents-title .contents-count{
-                        width: 68%;
-                        color: #444444;
-                        font-size: 19px;
-                        font-weight: 200;
-                        display: inline-block;
-                        text-align: left;
-                    }
-                    .mb-contents-wrapper .contents-title .viewmore_bt{
-                        width: 30%;
-                        border: none;
-                        color: #444444;
-                    }
-                .mb-contents-wrapper .mb-contents-grid {
-                    margin: 15px 0px;
-                    display: inline-block;
-                }
-                    .mb-contents-wrapper .mb-contents-grid .mb-contents{
-                        display: inline-block;
-                        width: 33.3%;
-                        height: 106.55px;
-                        vertical-align: middle;
-                        display: inline-block;
-                        position: relative;
-                        z-index: 1;
-                        overflow: hidden;
-                        box-sizing: border-box;
-                        -webkit-box-sizing: border-box;
-                        -moz-box-sizing: border-box;
-                        
-                    }
-                        .mb-contents-wrapper .mb-contents-grid .mb-contents img{
-                            height: 100%;
-                        }
-/*---------------------------------SIMONS WORK END-----------------------*/
+/*---------------------------------MOBILE WRAP WORK START-----------------------*/
+    
+/*---------------------------------MOBILE WRAP WORK END-------------------------*/
     .main_header {
         height: 50px;
     }
@@ -308,17 +210,7 @@
                     width: 45px;
                     height: 45px;
                 }
-        .main_figure_wrap#index_figure_wrap {
-            height: 100px;
-        }
-            .main_figure_wrap#index_figure_wrap figure {
-                height: 100px;
-                line-height: 60px;
-            }
-            .main_figure_wrap#index_figure_wrap figure h2 {
-                font-size: 15px;
-                padding-top: 0;
-            }
+
         #mb-search {
             width: 50px;
             height: 50px;
@@ -414,7 +306,7 @@
                     font-size: 30px;
                 }
             .creator_desc {
-                margin-top: 20px;
+                margin-top: 50px;
             }
                 .creator_desc .by {
                     margin-left: 0px;
@@ -431,9 +323,10 @@
 
     .creator_card_body {
         margin-top: 15px;
+        text-align: left;
     }
     .creator_card_body .creator_pic_wrap{
-        margin-right: 20px;
+        margin: 0px 20px;
         width: 50px;
     }
         .creator_location_pic {
@@ -444,12 +337,12 @@
         }
         .creator_name a {
             text-align: center;
-            font-size: 25px;
+            font-size: 20px;
             font-weight: 600;
             transition: color 0.2s;
         }
         .creator_job{
-            font-size: 16px;
+            font-size: 14px;
         }
     .creator_card_footer {
         margin: 0px auto;
@@ -468,6 +361,9 @@
             text-align: left;
             font-size: 25px;
             font-weight: 400;
+        }
+        #contents_category {
+
         }
         #contents_price {
             display: block;
@@ -789,15 +685,7 @@
             left: 3px;
             top: 9px;
         }
-    .main_figure_wrap#index_figure_wrap {
-        height: 500px;
-    }
-        .main_figure_wrap#index_figure_wrap figure {
-            height: 450px;
-        }
-            .main_figure_wrap#index_figure_wrap figure h2 {
-                padding-top: 140px;
-            }
+
 
 .container {
         top: 50px;
@@ -860,7 +748,7 @@
     }
         .contents_card {
             width: 250px;
-            height: 300px;
+            height: 320px;
             margin: 22px 10px;
             box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
         }
@@ -883,8 +771,8 @@
                     width: 190px;
                 }
                 .contents_desc h5 {
-                    display: inline-block;
-                    float: right;
+                    display: block;
+                    float: left;
                 }
                 .contents_desc #bookmark_bt{
                     font-size: 25px;
@@ -949,6 +837,9 @@
             font-weight: 400;
             display: inline-block;
             text-align: center;
+        }
+        #contents_category {
+            margin-left: 10px;
         }
         #contents_price {
             display: inline-block;
@@ -1040,7 +931,7 @@
             font-size: 28px;
         }
         #dashboard_wrap .chart-boxes {
-            width: 480px;
+            width: 100%;
         }
         .dash_section#dashboard_graph .dash_body {
             height: 680px;

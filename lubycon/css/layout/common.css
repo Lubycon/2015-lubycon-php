@@ -838,6 +838,7 @@ body {
 }
     .main_figure_wrap#index_figure_wrap {
         width: 100%;
+        height: 500px;
     }
     .main_figure_wrap figure {
         background: url(../../ch/img/main_img.jpg) 0% 45% no-repeat;
@@ -853,6 +854,7 @@ body {
         .main_figure_wrap#index_figure_wrap figure {
             position: relative;
             top: 0;
+            height: 450px;
         }
             .main_figure_wrap figure h2 {
                 color: #fff;
@@ -861,6 +863,7 @@ body {
                 letter-spacing: 15px;
                 position: relative;
                 z-index: 2;
+                padding-top: 140px;
             }
             .main_figure_wrap#index_figure_wrap figure h2 {
                 letter-spacing: 0;
@@ -1091,9 +1094,12 @@ body {
     }
         .contents_sub{
             width:100%;
-            height:27px;
+            height: 37px;
+            margin-bottom: 13px;
         }
         .contents_desc .contents_title{
+            display: block;
+            width: 80%;
             cursor:pointer;
             color:#444444;
             font-size: 16px;
@@ -1108,9 +1114,7 @@ body {
         .contents_desc h5 {
             color:#888888;
             font-size:13px;
-            height:15px;
             line-height:15px;
-            margin-top:7px;
             font-weight:400;
         }
         .creator_desc {
@@ -1466,6 +1470,7 @@ body {
             position: relative;
             display: inline-block;
             vertical-align: top;
+            margin-top: 5px;
             text-align: left;
         }
             .creator_card_body .creator_info_wrap .creator_name {
@@ -1486,7 +1491,6 @@ body {
                 }
             .creator_card_body .creator_info_wrap .creator_job {
                 color: #444444;
-                font-size: 16px;
                 margin-top: 2px;
             }
             .creator_card_body .creator_info_wrap .creator_location {
@@ -1542,7 +1546,6 @@ body {
                 display: inline-block;
                 width: 30%;
                 margin: 0px 1%;
-                border-radius: 3px;
                 overflow: hidden;
                 cursor: pointer;
                 transition: opacity 0.4s;

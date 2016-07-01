@@ -5,7 +5,8 @@ $(document).ready(function(){
     initCommentButton();
 
     function initThumbnailView(){
-        $(document).on("click",".thumbs_view",function(){
+        $(document).on("click touchend",".thumbs_view",function(event){
+            eventHandler(event,$(this));
             var countkind = $(this).data("value"),//if you want the other count ajax increase, add this switch to object
                 contentkind = $(this).data("kind");
             var stat_check = $(this).hasClass("selected");
@@ -16,7 +17,8 @@ $(document).ready(function(){
     }
 
     function initThumbnailPage(){
-        $(document).on("click",".thumbs_page",function(){
+        $(document).on("click touchend",".thumbs_page",function(event){
+            eventHandler(event,$(this));
             var countkind = $(this).data("value"),//if you want the other count ajax increase, add this switch to object
                 contentkind = $(this).data("kind"),
                 contents_parents = $(this).parents('.contents_card'),
@@ -29,7 +31,8 @@ $(document).ready(function(){
     }
 
     function initCommentButton(){
-        $("#comment_bt").on("click",function(){
+        $("#comment_bt").on("click touchend",function(event){
+            eventHandler(event,$(this));
             var input = $(this).prev("#comment_text"),
                 content = input.val(),
                 countkind = "comment",

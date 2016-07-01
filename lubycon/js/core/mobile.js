@@ -1,4 +1,4 @@
-$(window).on("load resize",function(){
+$(window).on("load resize",function(event){
     if(isMobile()){
         initMobileMenu.call($("#mb-menu-panel"));
         initMobileSearchBox.call($("#mb-search"));
