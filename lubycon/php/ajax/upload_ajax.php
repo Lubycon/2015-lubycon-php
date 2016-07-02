@@ -42,6 +42,7 @@ $query =
 "INSERT INTO `lubyconboard`.`$uploader->top_category` 
 (`userCode`, `topCategoryCode`, `contentTitle`, `contentDate`, `contentDescription`, `contents`, `userDirectory`, `ccCode`, `ccLicense`, `downloadAble`) VALUES 
 ('$Loginuser_code', '$topCate_code', '$uploader->subject', '$uploader->upload_date', '$uploader->desc', '$uploader->contentHTML', '$uploader->upload_path', '$uploader->cc_code', '$uploader->cc_license', '$uploader->downable')";
+
 //echo $query;
 $db->query = $query;
 $db->askQuery(); //insert contents data

@@ -95,11 +95,10 @@ class upload
             $this->tag = $this->post_setting->tag; // array
             $this->cc = $this->post_setting->cc; // stdClass Object
             $this->desc = $this->post_setting->descript; // string
-            $this->downable = false;
-
+            $this->downable = 0;
 
             $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
-            if( isset($this->post_setting->cc->ccused) ) // cc licence 
+            if( !$this->post_setting->cc->ccused ) // cc licence 
             {
                 $this->cc_license = 'No-Distribution';
                 $this->cc_code = '0';
@@ -108,7 +107,7 @@ class upload
                 $this->cc_license = 'No-Distribution';
             }else if($this->post_setting->cc->nc)
             {
-                $this->$cc_license = 'No-Commercial';
+                $this->cc_license = 'No-Commercial';
             }else if($this->post_setting->cc->by)
             {
                 $this->cc_license = 'Free';
@@ -159,7 +158,7 @@ class upload
                     $this->img_array[$key] = $this->_upload_file_data[$key]; 
                 }else if( $key_explode[0] == 'file' ) //if attached files
                 {
-                    $this->downable = true; // for zip attach function
+                    $this->downable = 1; // for zip attach function
                     array_push($this->file_array,$this->_upload_file_data[$key]);
                 }
             }
@@ -344,14 +343,14 @@ class upload
     {
         if( count($array) > 0 )
         {
-            $final_save_path = $this->upload_path."$kind/"; //final save path set
+            $final_save_path = $this->upload_path."$kind"; //final save path set
             is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
             if( $kind == 'attach' )
             {
                 foreach( $array as $key => $value )
                 {
                     $tmp_name = $array[$key]["tmp_name"];
-                    $name = $array[$key]["name"];
+                    $name = iconv("utf-8","CP949",$array[$key]["name"]);
                     if( file_exists($tmp_name) && $array[$key]['error'] == UPLOAD_ERR_OK )
                     {
                         move_uploaded_file($tmp_name, "$final_save_path/$name");
@@ -418,7 +417,7 @@ class upload
 
     public function zip_attach($kind)
     {
-        if($this->downable === true)
+        if($this->downable)
         {
             $dir = $this->upload_path.$kind;
             $handle  = opendir($dir);
