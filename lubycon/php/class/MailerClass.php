@@ -7,7 +7,7 @@
 
 include_once '../plugin/PHPMailer/PHPMailerAutoload.php';
 
-function mailer($fromaddress, $toaddress, $subject, $password)
+function mailer($fromaddress, $toaddress, $subject, $password, $category)
 {
 	date_default_timezone_set('Etc/UTC');
 
@@ -25,7 +25,12 @@ function mailer($fromaddress, $toaddress, $subject, $password)
 	$mail->setFrom($fromaddress, $fromaddress);
 	$mail->addAddress($toaddress, $toaddress);
 	$mail->Subject = $subject;
-	$mail->msgHTML(file_get_contents("mail.php"));
+
+	if($category === 'mail')
+		$mail->msgHTML(file_get_contents("CertifiEmail.php"));
+	else if($category === 'password')
+		$mail->msgHTML(file_get_contents("FindPw.php"));
+	
 	$mail->Altbody = 'This is a plain-text message body';
 
 	if(!$mail->send())
@@ -45,7 +50,7 @@ function mailer($fromaddress, $toaddress, $subject, $password)
 # Make Certificate Mail using file I/O Stream
 #--------------------------------------------------------------------------
 
-Class CertifiMail{
+Class MakeMail{
 
 	private $host;
 	private $relativePath;
@@ -57,9 +62,9 @@ Class CertifiMail{
 		$this->relativePath = preg_replace("`\/[^/]*\.php$`i", "/", $_SERVER['PHP_SELF']);
 	}
 
-	public function makeHtml(){
+	public function CertifiMail(){
 		
-		$html = fopen("mail.php","w") or die("unable to make email");
+		$html = fopen("CertifiEmail.php","w") or die("unable to make email");
 
 		$contents = 
 		'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1-strict.dtd">
@@ -124,6 +129,72 @@ Class CertifiMail{
 	fclose($html);
 	}
 
+#--------------------------------------------------------------------------
+# Make Find Password Mail using file I/O Stream
+#--------------------------------------------------------------------------
+
+	public function FindPw(){
+		
+		$html = fopen("FindPw.php","w") or die("unable to make email");
+
+		$contents = 
+		'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1-strict.dtd">
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		</head>
+		<body>
+		<table align="center" width="620" height="270" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0">
+		<tbody>
+			<tr id="mail_lubycon_logo">
+				<td>
+					<img src="../../CH/img/resist_mail/mail_header.png" class="mail_header" >
+				</td>
+			</tr>
+        	<tr id="mail_hello">
+            	<td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size: 40px; color:#444444;">
+                	<br />
+                	 &nbsp;Hello. <font size="40px" color="#48cfad">:)</font>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr id="mail_description">
+            	<td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size: 15px; color:#444444; line-height:25px;">
+           			&nbsp;&nbsp;&nbsp;
+                    Your temporary password has been sent to the registered email.<br /><br />
+					&nbsp;&nbsp;&nbsp;
+					<font size="4px">
+					Here your temporary password is : '.$this->token.'
+					</font>
+					<br /><br />
+					&nbsp;&nbsp;&nbsp;
+
+					If this is not you, Please Contact.<br />
+                    &nbsp;&nbsp;&nbsp;
+                    <br />
+                    <br />
+            	</td>
+            </tr>
+            <tr>
+                <td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size: 15px; color:#444444; line-height:20px;">
+                	<br />
+                    &nbsp;&nbsp;&nbsp;
+                	If you have any problems or questions, please send e-mail to 
+                    <a id="mailadress" href="mailto:contact@lubycon.com" style="text-decoration:none;">
+                    	<font color="#48cfad" size="+1">contact@lubycon.com</font>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+		</table>
+		</body>
+		';
+
+		fwrite($html, $contents);
+		fclose($html);
+	}
 }
 
 
