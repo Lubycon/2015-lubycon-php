@@ -1,7 +1,7 @@
 ﻿/* ===========================================================
  *
  *  Name:          lubySelector.min.js
- *  Updated:       2016-04-30
+ *  Updated:       2016-06-10
  *  Version:       0.1.0
  *  Created by:    DART, Lubycon.co
  *
@@ -13,13 +13,15 @@
 	$.fn.lubySelector = function(option){
         var defaults = { 
             id: "",
+            customClass: "",
             width: 150,
             maxHeight: 250,
             float: "right",
             icon: "fa fa-filter",
-            theme: "black",//white, ghost, transparent
+            theme: "black",
             optGroup: false,//알파벳 헤더 기능
             searchBar: false,//true시 셀렉박스리스트 맨 위에 서치바 생성
+            tooltip: false,
             callback: null
         },
         d = {},
@@ -36,14 +38,19 @@
                         theme = $this.data("theme") ? $this.data("theme") : d.theme,
                         optGroup = $this.data("optGroup") ? $this.data("optGroup") : d.optGroup,
                         searchBar = $this.data("searchBar") ? $this.data("searchBar") : d.searchBar,
-                        label = $this.val(),
+                        label = $this.val();
+                        if ($this.val() === null) {
+                            $this.val($this.find("option").first().text());
+                            label = $this.val();
+                        }
 
-                        $wrapper = $("<span/>", {
+                        var $wrapper = $("<span/>", {
                             "id": d.id,
                             "class": "lubySelector",
-                            optGroup: optGroup,
-                            theme: theme
-                        }).insertAfter($this).append($this).css({"width":d.width,"float":d.float})
+                            "optGroup": optGroup,
+                            "theme": theme,
+                            "onmousedown" : "return false"
+                        }).insertAfter($this).append($this).css({"width":d.width,"float":d.float}).addClass(d.customClass)
                         .on("click", pac.boxClick).on("focusin", pac.boxFocus)
                         .on("click", ".ls_option", pac.optionClick)
                         .on("change","select",pac.changeOption),
@@ -77,6 +84,7 @@
                 optionVal = $this.val(),
                 optionName = $this.val().trim(),
                 optionText = $this.text(),
+                optionTip = d.tooltip ? $this.data("tip") : "",
                 optionTitle = $this.text().toLowerCase(),
                 selected = $this.is(":selected") ? "selected" : "",
                 disabled = $this.is(":disabled") ? " disabled " : "",
@@ -89,19 +97,29 @@
                     "class": "ls_option " + disabled + selected,
                     title: optionTitle,
                     html: optionText,
-                    "data-value": optionVal
+                    "data-value": optionVal,
+                    "data-tip" : optionTip
                 }).appendTo($optionWrap)) : "";
             },
-            boxClick: function(selector) {
-                selector.stopPropagation();
+            boxClick: function(event) {
+                event.stopPropagation();
                 var $this = $(this),
                 $options = $this.find(".ls_optionWrap"),
                 $searchBar = $this.find(".ls_input"),
                 $selectbox = $this.find("select");
-                !$this.hasClass("open")?
-                    $options.fadeIn(300) && $this.addClass("open") && $selectbox.show().trigger("focus") :
-                    $options.fadeOut(300) && $this.removeClass("open") && $selectbox.hide().trigger("blur");
-                $this.focusin(); $searchBar.focus();
+                if($this.hasClass("open")){
+                    $this.removeClass("open");
+                    if(isMobile()) $selectbox.hide().trigger("blur");
+                    else $options.fadeOut(300);
+                }
+                else {
+                    $this.addClass("open");
+                    if(isMobile()) $selectbox.show().trigger("focus");
+                    else $options.fadeIn(300);
+                }
+                $this.focusin();
+
+                if(!isMobile()) $searchBar.focus();
             },
             boxFocus: function() {
                 var $this = $(this),
@@ -121,7 +139,6 @@
                     $optionWrap = $this.find(".ls_optionWrap");
                     $this.hasClass("focused") ? 
                     ($this.removeClass("open focused"),$searchBar.removeClass("focused"))&&($optionWrap.fadeOut(300)) : "";
-                    //console.log("boxBlur");
                 }
             },
             optionGroup: function(selector){
@@ -163,12 +180,12 @@
                 if (d.callback !== null) d.callback();
                 else return;
             },
-            changeOption: function(selector) {
+            changeOption: function() {
+                //////$this = selector
                 var $this = $(this),
-                text = $this.val(),
-                option = $this.find("option").val(),
-                list = $this.prev(".ls_optionWrap").find(".ls_option"),
-                listValue = list.data("value");
+                value = $this.val(),
+                list = $this.prev(".ls_optionWrap").find(".ls_option[data-value='" + value + "']");
+                list.trigger("click");
             },
             searchEvent: function(selector) {
                 var $this = $(this),
@@ -213,6 +230,25 @@
                         $list.css("background","rgba(0,0,0,0.85)");
                         $listInner.css("background","transparent");
                     break;
+                    case "rect" :
+                        $this.css({ 
+                            "background" : "#222222",
+                            "border" : "none", 
+                            "border-left" : "1px solid #000000",
+                            "box-shadow" : "-1px 0px 0px #303030",
+                            "border-radius" : "0", 
+                            "margin" : "0px 0px 0px 1px", 
+                            "min-height" : $this.parent().height(),
+                            "line-height" : $this.parent().height() + "px",
+                            "padding" : "0px 10px",
+                        });
+                        $icon.css({ "line-height" : $this.parent().height() - 2 + "px", "left" : "18px" });
+                        $arrow.css({ "line-height" : $this.parent().height() - 7 + "px", "right" : "20px" });
+                        $list.css({ "border-radius" : "0", "background" : "rgba(0,0,0,0.85)", "margin-top" : "-19px", "margin-left" : "-10px", "box-shadow" : "0px 9px 30px 0px rgba(0,0,0,0.8)" });
+                        $listInner.css("background","transparent");
+                        $searchBar.css({ "border-radius" : "0" });
+
+                    break;
                     default: return; break;
                 }
                 
@@ -239,9 +275,22 @@
                     .on("click", ".ls_option", pac.optionClick)
                     .on("change","select",pac.changeOption);
                 })
+            },
+            setValue: function(index){
+                return this.each(function(){
+                    var $this = $(this);
+                    var target = $($this.find(".ls_option")[index]);
+                    target.trigger("click");
+                })
+            },
+            setValueByString: function (value){
+                return this.each(function () {
+                    var $this = $(this);
+                    $this.val(value);
+                    $this.parents('.lubySelector').find('.ls_Label').text(value);
+                })
             }
         }
-
         return method[option] ? 
         method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
         "object" != typeof option && option ? 
