@@ -19,18 +19,4 @@ $(function () {
             $('#post_banner').css({ "position": "absolute", "top": $('#comment_more_box').offset().top - 757 + "px" });
         };
     });
-
-
-
-    var i = 0;
-    $('#con_like_bt').click(function () // like button toggle
-    {
-        if (i == 0) {
-            $('#con_like_bt').css('background', '#ec6446');
-            i++;
-        } else {
-            $('#con_like_bt').css('background', '#c1c1c1');
-            i = 0;
-        }
-    });
 });

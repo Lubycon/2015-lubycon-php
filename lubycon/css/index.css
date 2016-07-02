@@ -13,7 +13,7 @@
     text-align: center;
 }
 */
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 800px){
     #slide_lnb{
         margin: 0px auto;
         margin-top: 46px;
@@ -22,8 +22,11 @@
         display: none;
         border: none;
     }
+    #footer { 
+        display: none;
+    }
 }
-@media screen and (min-width: 1025px){
+@media screen and (min-width: 801px){
     #slide_lnb{
         margin: 0px auto;
     }
@@ -111,7 +114,8 @@
 
 /* creators section */
 .index_pre_body{
-    width: 1070px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0px auto;
     padding: 30px;
     margin-bottom: 35px;

@@ -29,8 +29,11 @@
 			echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
 		else
 			die("result['validation'] wrong value");
-		
-		
+
+/*
+		$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city'],'normal');
+		header('location:index.php');
+*/
 	}else{
 		header('location:login_page.php?login=0');
 	}

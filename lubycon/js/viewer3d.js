@@ -5,7 +5,7 @@ $(document).ready(function(){
 	windowHeight = isMobile() ? window.innerHeight-200 : window.innerHeight-310;
 
 	var bgPreset3d = backgroundPreset3d,
-    varbgPreset2d = backgroundPreset2d;
+        bgPreset2d = backgroundPreset2d;
 
 	var gl = document.getElementById("web-gl");
 
@@ -68,30 +68,42 @@ $(document).ready(function(){
 
 	function initSkybox(){
         var enable3D = skymapJSON.threed,
-        skymapIndex = skymapJSON.skymap,
-        image2D = skymapJSON.image,
-        backgroundColor = skymapJSON.color;
-
+            skymapIndex = skymapJSON.skymap,
+            image2DIndex = skymapJSON.image,
+            backgroundColor = skymapJSON.color;
         var lights = bgPreset3d[skymapIndex].light;
-        console.log(lights);
 
-        var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
-        var skyMaterial = new THREE.MeshBasicMaterial({
-            map : new THREE.TextureLoader().load(bgPreset3d[skymapIndex].image)
-        });
-            skyMaterial.side = THREE.BackSide;
-        var skybox = new THREE.Mesh(skyGeometry,skyMaterial);
-        skybox.index = skymapIndex;
-        skybox.name = "skybox";
-        skybox.material.dispose();
+        if(enable3D) load3DMap();
+        else load2DMap();
 
-        for(var i = 0, l = lights.length; i < l; i++){
-            var newLight = unpackLight(lights[i],i);
-            console.log(newLight);
-            scene.add(newLight);
+        loadCustomLights();
+  
+        function load3DMap(){
+            var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
+            var skyMaterial = new THREE.MeshBasicMaterial({
+                map : new THREE.TextureLoader().load(bgPreset3d[skymapIndex].image)
+            });
+                skyMaterial.side = THREE.BackSide;
+            var skybox = new THREE.Mesh(skyGeometry,skyMaterial);
+                skybox.index = skymapIndex;
+                skybox.name = "skybox";
+                skybox.material.dispose();
+            scene.add(skybox);
         }
-
-        scene.add(skybox);
+        function load2DMap(){
+            var target = $("#canvas-background"),
+                logo = target.find("#canvas-background-logo");
+            target.css("background-color", backgroundColor);
+            logo.css("background-image","url(" + bgPreset2d[image2DIndex].image + ")");
+            renderer.setClearColor(0x222222, 0);
+        }
+        function loadCustomLights(){
+            for(var i = 0, l = lights.length; i < l; i++){
+                var newLight = unpackLight(lights[i],i);
+                console.log(newLight);
+                scene.add(newLight);
+            }
+        }
     }
 
     function initCustomLights(){

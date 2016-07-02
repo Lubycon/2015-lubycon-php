@@ -27,146 +27,16 @@ $(function(){
 </script>
 <link href="css/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<div id="index_figure_wrap" class="main_figure_wrap">
+<div id="index_figure_wrap" class="main_figure_wrap hidden-mb-b">
     <figure>
         <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
     </figure>
 </div>
 <!-- end main_figure -->
-<!--index contents page for mobile start-->
-<section class="mb-wrapper visible-mb">
-    <?php
-        $artwork_count = 0;
-        $vector_count = 0;
-        $threeD_count = 0;
-    ?>
-    <section class="mb-section">
-        <div class="mb-contents-tab">
-            <span class="tab-bt btn radioType" data-target="artwork"><i class="fa fa-picture-o"></i>Artwork</span>
-            <span class="tab-bt btn radioType" data-target="vector"><i class="fa fa-object-group"></i>Vector</span>
-            <span class="tab-bt btn radioType" data-target="threed"><i class="fa fa-cube"></i>3D</span>
-        </div>
-        <div class="mb-contents-section">
-            <div class="mb-contents-wrapper selected" data-value="artwork">
-                <div class="contents-title">
-                    <p class="contents-count"><?=$artwork_count?>&nbsp;Contents</p>
-                    <span class="viewmore_bt">VIEW MORE</span>
-                </div>
-                <div class="mb-contents-grid" data-value="3-3">
-                    <?php
-                        for( $i = 1; $i<=9; $i++ ){
-                            echo '<div class="mb-contents">
-                                <img src="./ch/img/no_img/no_img_user5.jpg" />
-                            </div>';
-                            if($i%3 === 0) {
-                                echo '<br/>';
-                            }
-                        };
-                    ?> 
-                </div>
-            </div><!--section 1 end-->
-            <div class="mb-contents-wrapper" data-value="vector">
-                <div class="contents-title">
-                    <p class="contents-count"><?=$vector_count?>&nbsp;Contents</p>
-                    <span class="viewmore_bt">VIEW MORE</span>
-                </div>
-                <div class="mb-contents-grid" data-value="3-3">
-                    <?php
-                        for( $i = 1; $i<=9; $i++ ){
-                            echo '<div class="mb-contents">
-                                <img src="./ch/img/no_img/no_img_user4.jpg" />
-                            </div>';
-                            if($i%3 === 0) {
-                                echo '<br/>';
-                            }
-                        };
-                    ?> 
-                </div>
-            </div><!--section 2 end-->
-            <div class="mb-contents-wrapper" data-value="threed">
-                <div class="contents-title">
-                    <p class="contents-count"><?=$threeD_count?>&nbsp;Contents</p>
-                    <span class="viewmore_bt">VIEW MORE</span>
-                </div>
-                <div class="mb-contents-grid" data-value="3-3">
-                    <?php
-                        for( $i = 1; $i<=9; $i++ ){
-                            echo '<div class="mb-contents">
-                                <img src="./ch/img/no_img/no_img_user3.jpg" />
-                            </div>';
-                            if($i%3 === 0) {
-                                echo '<br/>';
-                            }
-                        };
-                    ?> 
-                </div>
-            </div><!--section 3 end-->
-        </div>
-    </section>
-</section>
-<!--index contents page for mobile end-->
 
-
-<!-- main slider js -->
-<!-- index page slider plugin -->
-<script>
-    jQuery(document).ready(function ($) {
-        if($(window).width() > 1024){
-            var _SlideshowTransitions = [{ $Duration: 1200, $Opacity: 2 }]; //Fade
-            var options = {
-                $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
-                $AutoPlaySteps: 1,                                  //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
-                $AutoPlayInterval: 3000,                            //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
-                $PauseOnHover: 1,                               //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
-                $ArrowKeyNavigation: true,                          //[Optional] Allows keyboard (arrow key) navigation or not, default value is false
-                $SlideDuration: 500,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
-                //$SlideWidth: 600,                                 //[Optional] Width of every slide in pixels, default value is width of 'slides' container
-                //$SlideHeight: 300,                                //[Optional] Height of every slide in pixels, default value is height of 'slides' container
-                $SlideSpacing: 0,                                   //[Optional] Space between each slide in pixels, default value is 0
-                $DisplayPieces: 1,                                  //[Optional] Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
-                $ParkingPosition: 0,
-                $DragOrientation: 0, //[Optional] The offset position to park slide (this options applys only when slideshow disabled), default value is 0.
-
-                $BulletNavigatorOptions: {                                //[Optional] Options to specify and enable navigator or not
-                    $Class: $JssorBulletNavigator$,                       //[Required] Class to create navigator instance
-                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
-                    $AutoCenter: 1,                                 //[Optional] Auto center navigator in parent container, 0 None, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                    $Steps: 1,                                      //[Optional] Steps to go for each navigation request, default value is 1
-                    $Lanes: 1,                                      //[Optional] Specify lanes to arrange items, default value is 1
-                    $SpacingX: 10,                                   //[Optional] Horizontal space between each item in pixel, default value is 0
-                    $SpacingY: 10,                                   //[Optional] Vertical space between each item in pixel, default value is 0
-                    $Orientation: 1                                 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
-                },
-                $ArrowNavigatorOptions: {
-                    $Class: $JssorArrowNavigator$,              //[Requried] Class to create arrow navigator instance
-                    $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
-                    $Steps: 1                                       //[Optional] Steps to go for each navigation request, default value is 1
-                }
-            };
-
-            var jssor_slider1 = new $JssorSlider$("slider1", options);
-            var jssor_slider2 = new $JssorSlider$("slider2", options);
-            var jssor_slider3 = new $JssorSlider$("slider3", options);
-            //responsive code begin
-            //you can remove responsive code if you don't want the slider scales while window resizes
-            function ScaleSlider() {
-                var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
-                if (parentWidth)
-                    jssor_slider1.$ScaleWidth(Math.min(parentWidth, 980));
-                else
-                    window.setTimeout(ScaleSlider, 30);
-            }
-            ScaleSlider();
-            $(window).bind("load", ScaleSlider);
-            $(window).bind("resize", ScaleSlider);
-            $(window).bind("orientationchange", ScaleSlider);
-            //responsive code end
-        }//if end
-        else{
-            return;
-        }      
-    });
-</script>
+<?php 
+    include_once("./index_body_mobile.php");
+?>
 
 <!-- index page slider plugin -->
 <section id="slide_section" class="hidden-mb-b">
@@ -199,16 +69,14 @@ $(function(){
             $db->query = "select boardCode,userDirectory from `$kind` order by `viewCount` desc limit 30";
 		    $db->askQuery();
 
-            echo "<div class='slider-wrapper' id='slider$i' style='width: 980px; height: 363px;'>";
+            echo "<div class='main-slider-wrapper' id='slider$i' style='width: 980px; height: 363px;'>";
             echo "<div class='slides' u='slides'><div><ul>";
             $index = 1;
-            while($row = mysqli_fetch_array($db->result))
-            {
+            while($row = mysqli_fetch_array($db->result)){
                 $contents_number = $row['boardCode'];
                 $contents_thumb = $row['userDirectory']."/thumbnail/thumbnail.jpg";
                 echo "<li class='load_view'><a href='./php/contents/contents_view.php?cate=$kind&conno=$contents_number'><img src='$contents_thumb'></a></li>";
-                if($index == 10 || $index == 20)
-                {
+                if($index == 10 || $index == 20){
                     echo "</ul></div><div><ul>";
                 }
                 $index++;

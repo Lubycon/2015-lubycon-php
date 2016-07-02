@@ -1,8 +1,8 @@
-$(window).on("load resize",function(){
+$(window).on("load resize",function(event){
     if(isMobile()){
         initMobileMenu.call($("#mb-menu-panel"));
         initMobileSearchBox.call($("#mb-search"));
-        initMobileIndexTab.call($(".mb-contents-tab"));
+        if(event.type === "load" ) initMobileIndexTab.call($("#mb-main-tab"));
     }
     
     function initMobileMenu(){
@@ -28,7 +28,6 @@ $(window).on("load resize",function(){
         $cancelLayer.on("click touchedn",hideMobileMenu);
 
         function showMobileMenu(event){
-            console.log(1);
             eventHandler(event,$(this));
             if(!TOUCHMOVING){
                 $cancelLayer.show();
@@ -91,24 +90,33 @@ $(window).on("load resize",function(){
     }
     function initMobileIndexTab(){
         var $this = $(this),
-        buttons = $this.find(".tab-bt");
-        buttons.first().addClass("selected");
+            buttons = $this.find(".mb-main-tab-bt");
+            buttons.first().addClass("selected");
 
-        buttons.each(function(){
-            $(this).on("click touchend",toggle.group).on("click touchend",tabAction);
-        });
+        buttons.on("click",dbClickAction).on("click",toggle.group).on("click",toggleAction);
 
-        function tabAction(event){
-            eventHandler(event,$(this));
+        function toggleAction(){
+            var selected = $(this).hasClass("selected"),
+                data = $(this).data("target"),
+                panels = $(this).parents(".mb-wrapper-main").find(".mb-main-img-wrapper"),
+                target = $(this).parents(".mb-wrapper-main").find(".mb-main-img-wrapper[data-value='" + data + "']"),
 
-            var target = $(document).find(".mb-contents-wrapper");
-            var data = $(this).data("target");
+                allButtons = $(document).find(".mb-main-tab-bt > span"),
+                thisButton = $(this).find("span");
 
-            target.removeClass("selected");
+            panels.removeClass("selected");
+            target.addClass("selected");
 
-            target.each(function(){
-                if($(this).data("value") === data) $(this).addClass("selected");
-            })
+            allButtons.each(function(){ $(this).text($(this).parent().data("target").toUpperCase()); });
+            thisButton.text("VIEW MORE");
+        }
+
+        function dbClickAction(){
+            if($(this).hasClass("selected")){
+                var data = $(this).data("target") !== "3d" ? $(this).data("target") : "threed";
+                location.href = "./php/contents/contents_page.php?cate=" + data + "&mid_cate=1&page=1";
+            }
+            else return false;
         }
     }
 });

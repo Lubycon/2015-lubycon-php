@@ -10,8 +10,14 @@
     height: 200px;
 }
 
+#account_setting_form {
+    position: relative;
+    top: 50px;
+}
+
 #account_section{
     width: 100%;
+    max-width: 1200px;
     text-align: left;
 }
     .setting_card{
@@ -34,6 +40,7 @@
             margin-top: 20px;
             margin-bottom: 10px;
             color:#444444;
+            font-weight: 600;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -53,10 +60,7 @@
                 border:1px solid #48cfad;
                 box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
             }
-            #location_text {
-                width: 150px;
-                margin-left: 5px;
-            }
+            
         .setting_card .fa-times{
             width: 25px;
             height: 25px;
@@ -204,62 +208,70 @@
         box-shadow:none;
     }
 
-.cropper-bt{
+#cropper_account {
     display: inline-block;
-    width: 145px;
-    height: 40px;
-    line-height: 40px;
+}    
+#profile-bt-wrap {
     text-align: center;
-    border: 2px solid #aaaaaa;
-    border-radius: 5px;
-    transition: border 0.2s;
-    cursor: pointer;
 }
-    .cropper-bt:hover {
-        border: 2px solid #48cfad;
-    }
-    .cropper-bt > i {
-        color: #444444;
-        font-size: 20px;
-        transition: color 0.2s;
-    }
-        .cropper-bt:hover i {
-            color: #48cfad;
-        }
-
-#profile_uploader{
-    display: none;
-}
-#cropper-wrapper {
-    width: 300px;
-    height: 300px;
-    margin-top: 10px;
-    background: #222222;
-    box-shadow: inset 0px 0px 200px 0px rgba(0,0,0,0.8);
-}
-.cropper-window-wrapper {
-    margin: 10px 0px;
-}
-    .cropper-window{
+    .cropper-bt{
         display: inline-block;
+        width: 48%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border: 2px solid #aaaaaa;
         border-radius: 5px;
-        margin: 10px 3px 10px 0px;
-        overflow: hidden;
-        vertical-align: middle;
+        transition: border 0.2s;
+        cursor: pointer;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
     }
-    .fa-arrow-left{
-        display: none;
-        font-size: 22px;
-        color: #444444;
-        width: 20px;
-        margin: 10px;
-        vertical-align: middle;
-    }
-        #cropper-preview {
-            display: none;
-            width: 100px;
-            height: 100px;
+        .cropper-bt:hover {
+            border: 2px solid #48cfad;
         }
+        .cropper-bt > i {
+            color: #444444;
+            font-size: 20px;
+            transition: color 0.2s;
+        }
+            .cropper-bt:hover i {
+                color: #48cfad;
+            }
+
+
+    #profile_uploader{
+        display: none;
+    }
+    #cropper-wrapper {
+        margin-top: 10px;
+        background: #222222;
+        box-shadow: inset 0px 0px 200px 0px rgba(0,0,0,0.8);
+    }
+    .cropper-window-wrapper {
+        margin: 10px 0px;
+    }
+        .cropper-window{
+            display: inline-block;
+            border-radius: 5px;
+            margin: 10px 3px 10px 0px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        .fa-arrow-left{
+            display: none;
+            font-size: 22px;
+            color: #444444;
+            width: 20px;
+            margin: 10px;
+            vertical-align: middle;
+        }
+            #cropper-preview {
+                display: none;
+                width: 100px;
+                height: 100px;
+            }
 
 .optControl{
     background: transparent;

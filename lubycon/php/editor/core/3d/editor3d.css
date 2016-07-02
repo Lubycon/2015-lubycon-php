@@ -43,15 +43,13 @@
                 color: #ffffff;
             }
 
-.toolbox-wrap[data-value='backgroundTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
-    width: 33.3%;
-}
-.toolbox-wrap[data-value='lightTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
-    width: 33.3%;
-}
+        .toolbox-wrap[data-value='lightTool'] .toolbox-tab-bt-wrapper .toolbox-tab.btn {
+            width: 33.3%;
+        }
      
             .toolbox-inner .lubySelector {
                 margin: 7px 0px;
+                vertical-align: middle;
             }
                 .toolbox-inner > .lubySelector > .ls_optionWrap {
                     overflow: visible;
@@ -184,7 +182,6 @@
                     margin-top: -150px;
                     left: 50%;
                     margin-left: -100px;
-                    background-image: url(../../../../ch/img/logo/Lubycon_logo_black.svg);
                 }
 /*--------------editortool end------------------*/
 .slider-wrapper{

@@ -1,5 +1,23 @@
+<?php 
+	$one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+	include_once('../layout/index_header.php');
+?>
 <link href="../../css/terms.css" rel="stylesheet" type="text/css" />
+
 <div class="doc_wrap con_wrap">
+	<nav class="doc_nav">
+		<ul>
+			<ul>
+			<a href="./terms_of_service.php">
+				<li>Term of service</li>
+			</a>
+			<a href="./private_policy.php">
+				<li class="selected">Private policy</li>
+			</a>
+		</ul>
+		</ul>
+	</nav>
 	<div class="doc_wrap_inner">
 		<div class="doc_body doc_title">
 			<h1 class="doc_headline">Privacy Policy</h1>
@@ -102,3 +120,7 @@
 		</div>
 	</div>
 </div>
+
+<?php
+    include_once($two_depth.'/layout/index_footer.php');
+?>

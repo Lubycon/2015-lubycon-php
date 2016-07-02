@@ -17,6 +17,9 @@
 <script type="text/javascript" src="../../js/viewer3d.js"></script>
 
 <div id="web-gl">
+	<div id="canvas-background">
+		<div id="canvas-background-logo"></div>
+	</div>
 	<div class="ui-panel top">
 		<div class="ui-list" data-value='vertex'><div class="counter"></div>Vertices</div>
 		<div class="ui-list" data-value='face'><div class="counter"></div>Faces</div>

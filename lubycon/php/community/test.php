@@ -48,4 +48,5 @@
 
 
     print_r($_POST);
+    echo "<script>location.href='../messages/successUploadForum.php';</script>";
 ?>

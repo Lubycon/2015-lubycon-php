@@ -22,6 +22,7 @@ class json_control
 
     public function json_spread_option($decode_code)
     {
+        $this->json_spread_wrap = '';
         foreach ($decode_code AS $index=>$value)
         {
             $value_name = $value['name'];

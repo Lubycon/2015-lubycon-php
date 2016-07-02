@@ -3,7 +3,7 @@
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
             <h3 id="contents_title"><?=$contents_name?></h3>
-            <div id="contents_category"><?=$category0?> > <?=$category1?>, <?=$category2?></div>
+            <div id="contents_category"><?=$category0?> > <?=$category1.$category2.$category3;?> </div>
             <div id="contents_score">
                 <ul>
                     <li><i class="fa fa-eye"></i></li>
@@ -30,44 +30,47 @@
                     echo htmlspecialchars_decode($contents_html);
                 };
             ?>
-            <div class="infoCard content_info">
-                <p class="infoCard-title inline">Did you like this contents?</p>
-                <div class="infoCard-userAction infoCard-content">
-                    <div class="userAction-bt alertKey thumbs_view <?php if($bookmark_check){echo 'selected';}?>" data-value="bookmark" data-kind="contents">
-                        <i class="fa fa-star" data-value="bookmark" data-kind="contents"></i>Bookmark
-                    </div>
-                    <div class="userAction-bt alertKey thumbs_view <?php if($like_check){echo 'selected';}?>" data-value="like" data-kind="contents">
-                        <i class="fa fa-heart" data-value="like" data-kind="contents"></i>Like
-                    </div>
-                </div>
-                <p class="infoCard-title">Creative Commons License</p>
-                <div class="infoCard-cc infoCard-content">
-                    <p class="cc-descipt">If you want learn about this license, click below icons</p>
-                    <ul class="cc-list" data-value="<?=$cc_code?>">
-                        <a href="<?=$cc_url?>" id="cc-link" target="_brank"></a>
-                    </ul>
-                </div>
-            </div>
-            <div class="infoCard creator">
-                <p class="infoCard-title">Creator</p>
-                <div class="creators_card" data-index="<?=$usercode?>">
-                    <div class="creator_card_body">
-                        <div class="creator_pic_wrap">
-                            <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
+            <div class="infoCard-horizontal">
+                <div class="infoCard content_info x2">
+                    <p class="infoCard-title inline">Did you like this contents?</p>
+                    <div class="infoCard-userAction infoCard-content">
+                        <div class="userAction-bt alertKey thumbs_view <?php if($bookmark_check){echo 'selected';}?>" data-value="bookmark" data-kind="contents">
+                            <i class="fa fa-star" data-value="bookmark" data-kind="contents"></i>Bookmark
                         </div>
-                        <div class="creator_info_wrap">
-                            <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
-                            <p class="creator_job"></i><?=$userjob?></p>
-                            <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
+                        <div class="userAction-bt alertKey thumbs_view <?php if($like_check){echo 'selected';}?>" data-value="like" data-kind="contents">
+                            <i class="fa fa-heart" data-value="like" data-kind="contents"></i>Like
                         </div>
-                    </div><!--body-->
-                    <div class="creator_card_medal">
-                        <ul>
-                            <li></li>
+                    </div>
+                    <p class="infoCard-title">Creative Commons License</p>
+                    <div class="infoCard-cc infoCard-content">
+                        <p class="cc-descipt">If you want learn about this license, click below icons</p>
+                        <ul class="cc-list" data-value="<?=$cc_code?>">
+                            <a href="<?=$cc_url?>" id="cc-link" target="_brank"></a>
                         </ul>
-                    </div><!--medals-->
+                    </div>
+                </div>
+                <div class="infoCard creator x2">
+                    <p class="infoCard-title">Creator</p>
+                    <div class="creators_card" data-index="<?=$usercode?>">
+                        <div class="creator_card_body">
+                            <div class="creator_pic_wrap">
+                                <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
+                            </div>
+                            <div class="creator_info_wrap">
+                                <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
+                                <p class="creator_job"></i><?=$userjob?></p>
+                                <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
+                            </div>
+                        </div><!--body-->
+                        <div class="creator_card_medal">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </div><!--medals-->
+                    </div>
                 </div>
             </div>
+            
             
             <article class="infoCard comment">
                 <p class="infoCard-title"><span id="comment-counter"><?=$comment_result->num_rows?></span> Comments</p>

@@ -18,7 +18,7 @@
             maxHeight: 250,
             float: "right",
             icon: "fa fa-filter",
-            theme: "black",//white, ghost, transparent
+            theme: "black",
             optGroup: false,//알파벳 헤더 기능
             searchBar: false,//true시 셀렉박스리스트 맨 위에 서치바 생성
             tooltip: false,
@@ -180,12 +180,12 @@
                 if (d.callback !== null) d.callback();
                 else return;
             },
-            changeOption: function(selector) {
+            changeOption: function() {
+                //////$this = selector
                 var $this = $(this),
-                text = $this.val(),
-                option = $this.find("option").val(),
-                list = $this.prev(".ls_optionWrap").find(".ls_option"),
-                listValue = list.data("value");
+                value = $this.val(),
+                list = $this.prev(".ls_optionWrap").find(".ls_option[data-value='" + value + "']");
+                list.trigger("click");
             },
             searchEvent: function(selector) {
                 var $this = $(this),
@@ -238,13 +238,14 @@
                             "box-shadow" : "-1px 0px 0px #303030",
                             "border-radius" : "0", 
                             "margin" : "0px 0px 0px 1px", 
-                            "max-height" : $this.parent().height(),
+                            "min-height" : $this.parent().height(),
                             "line-height" : $this.parent().height() + "px",
                             "padding" : "0px 10px",
                         });
                         $icon.css({ "line-height" : $this.parent().height() - 2 + "px", "left" : "18px" });
                         $arrow.css({ "line-height" : $this.parent().height() - 7 + "px", "right" : "20px" });
-                        $list.css({ "border-radius" : "0", "margin-top" : "-19px", "margin-left" : "-10px", "box-shadow" : "0px 9px 30px 0px rgba(0,0,0,0.8)" });
+                        $list.css({ "border-radius" : "0", "background" : "rgba(0,0,0,0.85)", "margin-top" : "-19px", "margin-left" : "-10px", "box-shadow" : "0px 9px 30px 0px rgba(0,0,0,0.8)" });
+                        $listInner.css("background","transparent");
                         $searchBar.css({ "border-radius" : "0" });
 
                     break;

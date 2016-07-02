@@ -6,8 +6,9 @@ if( isset($url_parse['query']) )
 {
     $devide_query = (string)$url_parse['query'];
     setcookie('contents_history', $devide_query.'&conno='.$number.'&concate='.$cate, time()+(60*60*3),'/'); //3 hour cookie (for infinite scroll)
+    setcookie("contents_hit-$cate-$number", 'conno='.$number.'&concate='.$cate.'&userip='.$_SERVER['REMOTE_ADDR'], time()+(60*60*6),'/'); //6 hour cookie (board hit)
 }
-//echo $_COOKIE['contents_history'];
+//echo $_SERVER['REMOTE_ADDR'];
 //echo $_SERVER['HTTP_REFERER'];
 //echo $url_parse['query'];
 //print_r( $url_parse);
@@ -34,8 +35,19 @@ if( in_array($cate , $allow_array) )
 };
 
 $db->changedb('lubyconboard');
-$db->query = "UPDATE `$cate_name` SET `viewCount` = `viewCount`+1 WHERE `$cate_name`.`boardCode` = $number"; //need session !!!!
-$db->askQuery(); // viewcount up
+if( isset($_COOKIE["contents_hit-$cate-$number"]) )
+{
+    parse_str($_COOKIE["contents_hit-$cate-$number"] , $cookie_parse );
+    if( $cookie_parse['userip'] != $_SERVER['REMOTE_ADDR']  )
+    {
+        $db->query = "UPDATE `$cate_name` SET `viewCount` = `viewCount`+1 WHERE `$cate_name`.`boardCode` = $number";
+        $db->askQuery(); // viewcount up
+    }
+}else
+{
+    $db->query = "UPDATE `$cate_name` SET `viewCount` = `viewCount`+1 WHERE `$cate_name`.`boardCode` = $number";
+    $db->askQuery(); // viewcount up
+}
 
 $db->query =
 "
@@ -48,22 +60,22 @@ ON a.`userCode` = `userbasic`.`userCode`
 LEFT JOIN lubyconuser.`userinfo`
 ON `userbasic`.`userCode` = `userinfo`.`userCode` 
 
-LEFT JOIN lubyconboard.`artworkmidcategory`
-ON a.`boardCode` = `artworkmidcategory`.`boardCode`
+LEFT JOIN lubyconboard.`".$cate_name."midcategory`
+ON a.`boardCode` = `".$cate_name."midcategory`.`boardCode`
 
-LEFT JOIN lubyconboard.`artworktag`
-ON a.`boardCode` = `artworktag`.`boardCode` 
-
-LEFT JOIN lubyconboard.`contentsbookmark`
+LEFT JOIN lubyconboard.`".$cate_name."tag`
+ON a.`boardCode` = `".$cate_name."tag`.`boardCode`";
+if($LoginState)
+{
+$db->query .= "LEFT JOIN lubyconboard.`contentsbookmark`
 ON a.`boardCode` = `contentsbookmark`.`boardCode`
 AND `contentsbookmark`.`bookmarkActionUserCode` = $Loginuser_code
 
 LEFT JOIN lubyconboard.`contentslike`
 ON a.`boardCode` = `contentslike`.`boardCode`
-AND `contentslike`.`likeActionUserCode` = $Loginuser_code
-
-WHERE a.`boardCode` = $number
-";
+AND `contentslike`.`likeActionUserCode` = $Loginuser_code";
+}
+$db->query .= " WHERE a.`boardCode` = $number";
 $db->askQuery(); //get db data
 
 $row = mysqli_fetch_array($db->result);
@@ -93,7 +105,9 @@ $user_img_url = $two_depth."/../../../Lubycon_Contents/user/".$row['userCode']."
 $category0 = $cate_name == "threed" ? "3D" : $cate_name;
 $category1 = $mid_cate_decode[$row['midCategoryCode0']]['name'];
 $category2 = '';
-if( isset( $row['midCategoryCode1'] ) ) $category2 = $mid_cate_decode[$row['midCategoryCode1']]['name'];
+$category3 = '';
+if( isset( $row['midCategoryCode1'] ) ) $category2 = ' , '.$mid_cate_decode[$row['midCategoryCode1']]['name'];
+if( isset( $row['midCategoryCode2'] ) ) $category3 = ' , '.$mid_cate_decode[$row['midCategoryCode2']]['name'];
 
 $usercode = $row['userCode'];
 $username = $row['nick'];
@@ -103,12 +117,13 @@ $userjob = $my_job_origin_select;
 $usercountry = $my_country_origin_select;
 
 $file_descript = $row['contentDescription'];
-
+if($LoginState)
+{
 $like_check = false;
 if( $row['likeActionUserCode'] != null ){$like_check=true;}
 $bookmark_check = false;
 if( $row['bookmarkActionUserCode'] != null  ){$bookmark_check=true;}
-
+}
 $file_view = $row['viewCount'];
 $file_down = $row['downloadCount'];
 $file_like = $row['likeCount'];

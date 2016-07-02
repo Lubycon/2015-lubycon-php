@@ -27,30 +27,27 @@
             } 
 
             $LoginState = true;
+
             $Loginuser_name = isset($_SESSION['lubycon_nick']) ? $_SESSION['lubycon_nick'] : NULL;
             $Loginuser_id= isset($_SESSION['lubycon_id']) ? $_SESSION['lubycon_id'] : NULL;
             $Loginuser_code= isset($_SESSION['lubycon_code']) ? $_SESSION['lubycon_code'] : NULL;
             $Loginuser_country = isset( $_SESSION['lubycon_country'] ) ? $country_json_Code[$_SESSION['lubycon_country']]['name'] : NULL;
             $Loginuser_job = isset($_SESSION['lubycon_job']) ? $job_json_Code[$_SESSION['lubycon_job']]['name'] : NULL;
             $Loginuser_city = isset($_SESSION['lubycon_city']) ? $_SESSION['lubycon_city'] : NULL;
+            /*
+            $Loginuser_name= $_SESSION['lubycon_nick'];
+            $Loginuser_id= $_SESSION['lubycon_id'];
+            $Loginuser_code= $_SESSION['lubycon_code'];
+            $Loginuser_country = $country_json_Code[$_SESSION['lubycon_country']]['name'];
+            $Loginuser_job = $job_json_Code[$_SESSION['lubycon_job']]['name'];
+            $Loginuser_city= $_SESSION['lubycon_city'];
+            $Loginuser_stat= $_SESSION['lubycon_stat'];
+            */
             // login menu
         }else{
             $LoginState = false;    
         }
     }
-    //echo("<script>console.log(LoginState:".$LoginState.");</script>");
-    /*
-    if(isset($_COOKIE)){
-        if(isset($_COOKIE['login'])){
-            $info = unserialize($_COOKIE['login']);
-            $username = $_SESSION['user_name'];
-            $usercode = $_SESSION['user_code'];
-            setcookie('login', serialize($info), time()+5000000);
-        }else if(!isset($_COOKIE['login'])){
-            session_destroy();
-        }
-    }
-    */
 ?>
 
 <!DOCTYPE html>
@@ -169,6 +166,11 @@
             <li class="mb-menu-list">
                 <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$Loginuser_code?>">
                     <i class="fa fa-line-chart fa-1x"></i>Insight
+                </a>
+            </li>
+            <li class="mb-menu-list">
+                <a href="<?=$two_depth?>/account/account_setting.php">
+                    <i class="fa fa-gear fa-1x"></i>Account Setting
                 </a>
             </li>
         </ul>
@@ -293,10 +295,10 @@
                     </a></li>
                 </div>
                 <div class="userMenuGroup">
-                    <li><a href="<?=$two_depth?>/account/resist_password.php">
+                    <li><a href="<?=$two_depth?>/account/resist_password.php?usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-gear fa-1x"></i>Account Setting
                     </a></li>
-                    <li><a href="<?=$two_depth?>/account/password_setting.php">
+                    <li><a href="<?=$two_depth?>/account/password_setting.php?usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-lock fa-1x"></i>Password Setting
                     </a></li>
                     <li style="display:none;"><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=message">

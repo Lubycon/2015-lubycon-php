@@ -4,6 +4,7 @@ class upload
     //basic set
     public $_upload_file_data; 
     public $_upload_post_data;
+    public $_upload_kind;
     public $user_code;
 
     // post setting valualbe
@@ -27,6 +28,8 @@ class upload
     public $desc; // string
     public $downable; // boolean
     // post setting valualbe
+    
+    public $profie_img; // only account setting
 
     //basic set
     
@@ -59,6 +62,7 @@ class upload
 
     public $Lubycon_Contents_folder = "../../../../Lubycon_Contents/";
     public $upload_path;
+    public $last_path;
 
     private $_thumb_save_path = 'editor/thumb';
     private $_contents_save_path = 'editor/contents';
@@ -77,16 +81,16 @@ class upload
     //3d val
 
 
-    public function __construct( $FILES_data , $POST_data ) //basic set
+    public function __construct( $FILES_data , $POST_data , $upload_Kind ) //basic set
     {
         //basic set
         $this->_upload_file_data = $FILES_data;
         $this->_upload_post_data = $POST_data;
+        $this->_upload_kind = $upload_Kind;
         $this->upload_date = date("YmdHis");
         $this->user_code = $_SESSION['lubycon_code'];
         
-        $this->post_thumb = $POST_data['thumbnail'];
-        if( count($POST_data['setting']) > 0 ) //only editor use
+        if( $this->_upload_kind  == 'editor' ) //only editor use
         {
             $this->post_setting = json_decode($POST_data['setting']);
             $this->subject = $this->post_setting->name; // contents subject string
@@ -95,20 +99,20 @@ class upload
             $this->tag = $this->post_setting->tag; // array
             $this->cc = $this->post_setting->cc; // stdClass Object
             $this->desc = $this->post_setting->descript; // string
-            $this->downable = false;
+            $this->downable = 0;
+            $this->post_thumb = $POST_data['thumbnail'];
 
-            var_dump($this->post_setting->cc->ccused);
             $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
-            if(!$this->post_setting->cc->ccused) // cc licence 
+            if( !$this->post_setting->cc->ccused ) // cc licence 
             {
                 $this->cc_license = 'No-Distribution';
-                $this->cc_code = '0000';
+                $this->cc_code = '0';
             }else if($this->post_setting->cc->nd || $this->post_setting->cc->sa) // cc licence 
             {
                 $this->cc_license = 'No-Distribution';
             }else if($this->post_setting->cc->nc)
             {
-                $this->$cc_license = 'No-Commercial';
+                $this->cc_license = 'No-Commercial';
             }else if($this->post_setting->cc->by)
             {
                 $this->cc_license = 'Free';
@@ -139,14 +143,27 @@ class upload
                     ['lights' , count($POST_data['lights']) ? $POST_data['lights'] : '[]']
                 );
             }
-            $this->upload_path = $this->Lubycon_Contents_folder.'contents/'.$this->top_category.'/'.$this->upload_date.'_'.$this->user_code.'/'; //set upload path
-            is_dir($this->upload_path) ? chmod($this->upload_path,0777) : mkdir($this->upload_path,0777); //make user folder
+            $this->set_upload_path();
+        }else if( $this->_upload_kind  == 'profile' )
+        {
+            $this->profie_img = ($this->_upload_post_data['profile']);
+            
+            $this->set_upload_path();
         }
-
-        
         //basic set
     }
-
+    public function set_upload_path()
+    {
+        if($this->_upload_kind  == 'editor')
+        {
+            $this->upload_path = $this->Lubycon_Contents_folder.'contents/'.$this->top_category.'/'.$this->upload_date.'_'.$this->user_code.'/'; //set upload path
+        }else if($this->_upload_kind  == 'profile')
+        {
+            $this->upload_path = $this->Lubycon_Contents_folder.'user/'.$this->user_code.'/'; //set upload path
+        }
+        echo 
+        is_dir($this->upload_path) ? chmod($this->upload_path,0777) : mkdir($this->upload_path,0777); //make user folder
+    }
     public function fill_array_data()
     {
         if( count($this->_upload_file_data) > 0 ) //validate user uploaded
@@ -159,7 +176,7 @@ class upload
                     $this->img_array[$key] = $this->_upload_file_data[$key]; 
                 }else if( $key_explode[0] == 'file' ) //if attached files
                 {
-                    $this->downable = true; // for zip attach function
+                    $this->downable = 1; // for zip attach function
                     array_push($this->file_array,$this->_upload_file_data[$key]);
                 }
             }
@@ -197,9 +214,17 @@ class upload
 
             $this->merge_image_array = array_merge($this->img_array, $this->base64_array); //merge img array and base64 img array
             ksort($this->merge_image_array); //sory by key merged array
-            
         }
-        
+        if( count($this->profie_img) > 0 )
+        {
+            $result = $this->base64_original_size_calculation($this->profie_img);
+            $this->base64_array[0] = array 
+            (
+                'name' => "profile.jpg", //temp name need change name in last save function
+                'data' => $this->profie_img,
+                'size' => $result
+            );
+        }
         //print_r($this->img_array);
         //print_r($this->thumb_array);
         //print_r($this->base64_array);
@@ -230,6 +255,9 @@ class upload
 
         if( count($this->post_thumb) > 0 ) //validate thumbnail ext
         {$this->validate_extension_base64($this->thumb_array,$this->white_list_base64);}
+
+        //if( count($this->profie_img) > 0 ) //validate thumbnail ext
+        //{$this->validate_extension_base64($this->profie_img,$this->white_list_base64);}
         // extension check
 
 
@@ -331,7 +359,10 @@ class upload
         {$this->files_upload($this->img_array,'preview');}
 
         if( count($this->base64_array) > 0 ) //validate base64 upload ext
-        {$this->base64_upload($this->base64_array,'preview');}
+        {
+            $file_name = $this->_upload_kind == 'editor' ? 'preview' : 'profile';
+            $this->base64_upload($this->base64_array,$file_name);
+        }
 
         if( count($this->post_thumb) > 0 ) //validate thumbnail ext
         {$this->base64_upload($this->thumb_array,'thumbnail');}
@@ -344,14 +375,14 @@ class upload
     {
         if( count($array) > 0 )
         {
-            $final_save_path = $this->upload_path."$kind/"; //final save path set
+            $final_save_path = $this->upload_path."$kind"; //final save path set
             is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
             if( $kind == 'attach' )
             {
                 foreach( $array as $key => $value )
                 {
                     $tmp_name = $array[$key]["tmp_name"];
-                    $name = $array[$key]["name"];
+                    $name = iconv("utf-8","CP949",$array[$key]["name"]);
                     if( file_exists($tmp_name) && $array[$key]['error'] == UPLOAD_ERR_OK )
                     {
                         move_uploaded_file($tmp_name, "$final_save_path/$name");
@@ -386,7 +417,11 @@ class upload
     {
         if( count($array) > 0 )
         {
-            $final_save_path = $this->upload_path."$kind/"; //final save path set
+            $final_save_path = $this->upload_path; //final save path set
+            if($this->_upload_kind == 'editor')
+            {
+                $final_save_path.=$kind;
+            }
             is_dir($final_save_path) ? chmod($final_save_path,0777) : mkdir($final_save_path,0777);
             foreach( $array as $key => $value )
             {
@@ -394,12 +429,14 @@ class upload
                 $imageData = base64_decode($ext_devide[1]); // <-- **Change is here for variable name only**
                 $photo = imagecreatefromstring($imageData); // <-- **Change is here**
                 if($kind=='preview')
-                {$filename = $key;}else 
+                {$filename = '/'.$key;}else 
                 if($kind=='thumbnail')
-                {$filename = 'thumbnail';}else 
+                {$filename = '/thumbnail';}else 
                 if($kind=='profile')
                 {$filename = 'profile';}
-                imagejpeg($photo,"$final_save_path/$filename.jpg",100); // <-- **Change is here**
+                $this->last_path = "$final_save_path"."$filename.jpg";
+                echo $this->last_path;
+                imagejpeg($photo,$this->last_path,100); // <-- **Change is here**
             }
         }
     }
@@ -418,7 +455,7 @@ class upload
 
     public function zip_attach($kind)
     {
-        if($this->downable === true)
+        if($this->downable)
         {
             $dir = $this->upload_path.$kind;
             $handle  = opendir($dir);
