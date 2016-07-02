@@ -22,24 +22,12 @@
             $Loginuser_country = $country_json_Code[$_SESSION['lubycon_country']]['name'];
             $Loginuser_job = $job_json_Code[$_SESSION['lubycon_job']]['name'];
             $Loginuser_city= $_SESSION['lubycon_city'];
+            $Loginuser_stat= $_SESSION['lubycon_stat'];
             // login menu
         }else{
             $LoginState = false;    
         }
     }
-    //echo("<script>console.log(LoginState:".$LoginState.");</script>");
-    /*
-    if(isset($_COOKIE)){
-        if(isset($_COOKIE['login'])){
-            $info = unserialize($_COOKIE['login']);
-            $username = $_SESSION['user_name'];
-            $usercode = $_SESSION['user_code'];
-            setcookie('login', serialize($info), time()+5000000);
-        }else if(!isset($_COOKIE['login'])){
-            session_destroy();
-        }
-    }
-    */
 ?>
 
 <!DOCTYPE html>

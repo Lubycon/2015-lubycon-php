@@ -18,7 +18,7 @@
 	$result = mysqli_fetch_array($db->result);
 
 	if(password_verify($_POST['login_pass'],$result['pass'])){
-		$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city']);
+		$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city'],'normal');
 		header('location:index.php');
 	}else{
 		header('location:login_page.php?login=0');

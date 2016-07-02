@@ -7,6 +7,16 @@
         $db->query = "SELECT * FROM `userbasic` INNER JOIN `userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = $usernumber ";
         $db->askQuery();
         $userdata_row = mysqli_fetch_array($db->result);
+        $db->query = "SELECT `languageLevel`,`languageName` FROM `userlanguage` WHERE `userCode` = $usernumber";
+        $db->askQuery();
+        while( $row = mysqli_fetch_array($db->result) )
+        {
+            $lang_level[] = $row['languageLevel'];
+            $lang_name[] = $row['languageName'];
+        }
+        $db->query = "SELECT `historyContents`,`historyDateYear`,`historyDateMonth`,`historyCategory` FROM `userhistory` WHERE `userCode` = $usernumber";
+        $db->askQuery();
+        $history_row = $db->result;
 
         $username = $userdata_row['nick'];
         $userpic = "$one_depth/../../Lubycon_Contents/user/$usernumber/profile.jpg";

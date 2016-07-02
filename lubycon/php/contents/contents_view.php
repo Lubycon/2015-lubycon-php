@@ -6,8 +6,9 @@ if( isset($url_parse['query']) )
 {
     $devide_query = (string)$url_parse['query'];
     setcookie('contents_history', $devide_query.'&conno='.$number.'&concate='.$cate, time()+(60*60*3),'/'); //3 hour cookie (for infinite scroll)
+    setcookie("contents_hit-$cate-$number", 'conno='.$number.'&concate='.$cate.'&userip='.$_SERVER['REMOTE_ADDR'], time()+(60*60*6),'/'); //6 hour cookie (board hit)
 }
-//echo $_COOKIE['contents_history'];
+//echo $_SERVER['REMOTE_ADDR'];
 //echo $_SERVER['HTTP_REFERER'];
 //echo $url_parse['query'];
 //print_r( $url_parse);
@@ -34,8 +35,19 @@ if( in_array($cate , $allow_array) )
 };
 
 $db->changedb('lubyconboard');
-$db->query = "UPDATE `$cate_name` SET `viewCount` = `viewCount`+1 WHERE `$cate_name`.`boardCode` = $number"; //need session !!!!
-$db->askQuery(); // viewcount up
+if( isset($_COOKIE["contents_hit-$cate-$number"]) )
+{
+    parse_str($_COOKIE["contents_hit-$cate-$number"] , $cookie_parse );
+    if( $cookie_parse['userip'] != $_SERVER['REMOTE_ADDR']  )
+    {
+        $db->query = "UPDATE `$cate_name` SET `viewCount` = `viewCount`+1 WHERE `$cate_name`.`boardCode` = $number";
+        $db->askQuery(); // viewcount up
+    }
+}else
+{
+    $db->query = "UPDATE `$cate_name` SET `viewCount` = `viewCount`+1 WHERE `$cate_name`.`boardCode` = $number";
+    $db->askQuery(); // viewcount up
+}
 
 $db->query =
 "
