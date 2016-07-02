@@ -9,6 +9,7 @@ class Session{
 	protected $user_country;
 	protected $user_job;
 	protected $user_city;
+	protected $user_stat;
 
 
 	protected $seperator;
@@ -58,7 +59,7 @@ class Session{
 		}
 	}
 
-	public function WriteSession($seperator="lubycon",$id, $nick ,$code,$country,$job,$city){
+	public function WriteSession($seperator="lubycon",$id, $nick ,$code,$country,$job,$city,$stat){
 		$this->seperator = $seperator;
 		
 		$temp_sessionId = $seperator.'_session_id';
@@ -68,6 +69,7 @@ class Session{
 		$temp_country = $seperator.'_country';
 		$temp_job = $seperator.'_job';
 		$temp_city = $seperator.'_city';
+		$temp_stat = $seperator.'_stat';
 
 		$_SESSION[$temp_sessionId] = $this->session_id = session_id();
 		$_SESSION[$temp_id] = $this->user_id = $id;
@@ -76,6 +78,7 @@ class Session{
 		$_SESSION[$temp_country] = $this->user_country = $country;
 		$_SESSION[$temp_job] = $this->user_country = $job;
 		$_SESSION[$temp_city] = $this->user_city = $city;
+		$_SESSION[$temp_stat] = $this->user_city = $stat;
 	}
 
 	public function DestroySession(){
@@ -88,6 +91,7 @@ class Session{
 		$temp_country = $this->seperator.'_country';
 		$temp_job = $this->seperator.'_job';
 		$temp_city = $this->seperator.'_city';
+		$temp_stat = $this->seperator.'_stat';
 
 		$_SESSION[$temp_sessionId] = NULL;
 		$_SESSION[$temp_id] = NULL;
@@ -96,6 +100,7 @@ class Session{
 		$_SESSION[$temp_country] = NULL;
 		$_SESSION[$temp_job] = NULL;
 		$_SESSION[$temp_city] = NULL;
+		$_SESSION[$temp_stat] = NULL;
 	}
 
 	public function GetVar(){
@@ -117,6 +122,7 @@ class Session{
 		$this->user_country = null;
 		$this->user_job = null;
 		$this->user_city = null;
+		$this->user_stat = null;
 		$this->seperator = null;
 	}
 

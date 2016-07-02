@@ -6,7 +6,7 @@ require_once "../class/json_class.php";
 $json_control = new json_control;
 $json_control->json_decode('top_category',"../../data/top_category.json");
 require_once "../class/upload_class.php";
-$uploader = new upload($_FILES,$_POST);
+$uploader = new upload($_FILES,$_POST,'editor');
 include_once '../class/database_class.php';
 $db = new Database();
 
@@ -42,6 +42,7 @@ $query =
 "INSERT INTO `lubyconboard`.`$uploader->top_category` 
 (`userCode`, `topCategoryCode`, `contentTitle`, `contentDate`, `contentDescription`, `contents`, `userDirectory`, `ccCode`, `ccLicense`, `downloadAble`) VALUES 
 ('$Loginuser_code', '$topCate_code', '$uploader->subject', '$uploader->upload_date', '$uploader->desc', '$uploader->contentHTML', '$uploader->upload_path', '$uploader->cc_code', '$uploader->cc_license', '$uploader->downable')";
+
 //echo $query;
 $db->query = $query;
 $db->askQuery(); //insert contents data

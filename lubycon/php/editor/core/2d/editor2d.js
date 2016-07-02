@@ -249,7 +249,7 @@
                             type: 'POST',
                             success: function (result) {
                                 console.log(result);
-                                location.href = "../../../messages/successUploadContent.php";
+                                //location.href = "../../../messages/successUploadContent.php";
                             }
                         });
                     }

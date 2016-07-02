@@ -1,3 +1,24 @@
+<?php
+    $one_depth = '../..'; //css js load
+    $two_depth = '..'; // php load
+    require_once $two_depth.'/session/session_class.php';
+    //session_start();
+    $session = new Session();
+
+    if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
+        $LoginState = false;
+    }else{
+        if($session->SessionExist()){
+            $LoginState = true;
+            $Loginuser_name= $_SESSION['lubycon_nick'];
+            $Loginuser_id= $_SESSION['lubycon_id'];
+            $Loginuser_code= $_SESSION['lubycon_code'];
+            // login menu
+        }else{
+            $LoginState = false;    
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +57,7 @@
         </div>
         <div class="message-box">
             <div class="btn cancel-bt">Not now</div>
-            <div class="btn submit-bt" href="../account/account_setting.php">CHECK</div>
+            <div class="btn submit-bt" href="../account/account_setting.php?usernum=<?=$Loginuser_code?>">CHECK</div>
         </div>
     </section>
 </body>
