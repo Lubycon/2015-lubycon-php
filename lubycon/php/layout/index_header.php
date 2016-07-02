@@ -287,10 +287,10 @@
                     </a></li>
                 </div>
                 <div class="userMenuGroup">
-                    <li><a href="<?=$two_depth?>/account/resist_password.php">
+                    <li><a href="<?=$two_depth?>/account/resist_password.php?usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-gear fa-1x"></i>Account Setting
                     </a></li>
-                    <li><a href="<?=$two_depth?>/account/password_setting.php">
+                    <li><a href="<?=$two_depth?>/account/password_setting.php?usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-lock fa-1x"></i>Password Setting
                     </a></li>
                     <li style="display:none;"><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=message">

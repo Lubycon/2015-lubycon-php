@@ -2,17 +2,29 @@
     $one_depth = '../..'; //css js load
     $two_depth = '..'; // php load
     include_once('../layout/index_header.php');
-
-    if( $usernumber == $usercode ) //need more security
+    
+    $usernumber = $_GET['usernum'];
+    if( $usernumber == $Loginuser_code ) //need more security
     {
-    require_once '../database/database_class.php';
-    require_once "../class/regex_class.php";
-    require_once "../class/json_class.php";
-    $json_control = new json_control;
-    $db = new Database();
-    $db->query = "SELECT * FROM `userinfo` WHERE `userCode` = $usercode";
-    $db->askQuery(); // viewcount up
-    $row = mysqli_fetch_array($db->result);
+        require_once '../database/database_class.php';
+        require_once "../class/regex_class.php";
+        require_once "../class/json_class.php";
+        $json_control = new json_control;
+        $db = new Database();
+    
+        $db->query = "SELECT `languageLevel`,`languageName` FROM `userlanguage` WHERE `userCode` = $usernumber";
+        $db->askQuery();
+        while( $row = mysqli_fetch_array($db->result) )
+        {
+            $lang_level[] = $row['languageLevel'];
+            $lang_name[] = $row['languageName'];
+        }
+        $db->query = "SELECT `historyContents`,`historyDateYear`,`historyDateMonth`,`historyCategory` FROM `userhistory` WHERE `userCode` = $usernumber";
+        $db->askQuery();
+        $history_row = $db->result;
+        $db->query = "SELECT * FROM `userinfo` WHERE `userCode` = $Loginuser_code";
+        $db->askQuery(); // viewcount up
+        $row = mysqli_fetch_array($db->result);
     }else
     {
         include('../error/404.php');
@@ -33,7 +45,7 @@
         <section id="account_setting_section" class="setting_card">
             <p class="setting_title">Account Setting</p>
                 <div class="account_input_wrap userinfo">
-                    <label>E-mail</label><input type="text" value="<?=$userid?>" disabled />
+                    <label>E-mail</label><input type="text" value="<?=$Loginuser_id?>" disabled />
                     <div class="public_option">
                         <select class="privacyFilter email_public" name="email_public">
                             <option value="Public">Public</option>
@@ -43,7 +55,7 @@
                     </div>
                 </div>
                 <div class="account_input_wrap userinfo">
-                    <label>Nickname</label><input type="text" value="<?=$username?>" disabled />
+                    <label>Nickname</label><input type="text" value="<?=$Loginuser_name?>" disabled />
                 </div>
                 <!-- end select box -->
         </section>

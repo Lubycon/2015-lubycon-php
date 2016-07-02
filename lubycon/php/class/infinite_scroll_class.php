@@ -105,7 +105,8 @@ class infinite_scroll extends json_control
             if($query_user_code)
             {
             $this->query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b 
-            ON a.`boardCode` = b.`boardCode`";
+            ON a.`boardCode` = b.`boardCode`
+            AND b.`bookmarkActionUserCode` = $query_user_code ";
             }
             $this->query .= "LEFT JOIN lubyconuser.`userbasic` AS c 
             ON a.`userCode` = c.`userCode` 

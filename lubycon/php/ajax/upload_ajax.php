@@ -6,7 +6,7 @@ require_once "../class/json_class.php";
 $json_control = new json_control;
 $json_control->json_decode('top_category',"../../data/top_category.json");
 require_once "../class/upload_class.php";
-$uploader = new upload($_FILES,$_POST);
+$uploader = new upload($_FILES,$_POST,'editor');
 include_once '../class/database_class.php';
 $db = new Database();
 

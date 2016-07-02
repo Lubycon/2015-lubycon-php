@@ -33,7 +33,7 @@ if($LoginState)
     $json_control = new json_control;
     $json_control->json_decode('top_category',"../../data/top_category.json");
     $top_cate_json = $json_control->json_decode_code;
-    $json_control->json_search($top_cate_json,'name','topCateCode',$ajax_cate_name);
+    $json_control->json_search($top_cate_json,'topCateCode','name',$ajax_cate_name);
     $cate_name = $json_control->search_key;
 
     $active_date = date("YmdHis");

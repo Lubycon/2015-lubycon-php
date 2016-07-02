@@ -173,7 +173,7 @@ function deleteCookie(cookieName) {
     expireDate.setDate(expireDate.getDate() - 1);
     document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/";
 }
-
+/*********************   contents after load and find, with move scroll    ************************************/
 
 
 //////////////////////////

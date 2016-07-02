@@ -251,20 +251,20 @@
 
             dataURL = $object.toDataURL("image/jpeg");
             var dataArray = new Array;
-            dataArray[0] = { 'type': 'profile', 'base64': dataURL  , 'index':''};
+            dataArray = dataURL;
 
-            /*$.ajax({
+            $.ajax({
                 type: "POST",
-                url: "../ajax/account_setting_profile_upload.php", //path
+                url: "../ajax/profile_upload_ajax.php", //path
                 data:
                 {
-                    'ajax_data': dataArray
+                    'profile': dataArray
                 },
                 cache: false,
                 success: function (data) {
                     console.log(data);
                 }
-            });*/
+            });
         })
 
         function showImage(file) {
