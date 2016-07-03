@@ -43,7 +43,7 @@
     padding: 25px;
     position: relative;
 }
-
+    
 #slide_lnb {
     width: 573px;
     height: 70px;
@@ -110,6 +110,13 @@
             color: #fff;
             background: #ec6446;
         }
+#slide_section .main-slider-wrapper {
+    width: 800px;
+    margin: 0px auto;
+}
+    #slide_section .main-slider-wrapper .lubyImageSlider .img-slider-viewer {
+        min-height: 320px;
+    }
 /* slide section end */
 
 /* creators section */

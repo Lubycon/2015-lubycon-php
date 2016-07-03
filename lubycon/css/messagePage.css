@@ -6,6 +6,7 @@ body {
     background: #fff;
     display: block;
     overflow-x: hidden;
+    white-space: nowrap;
     -webkit-text-size-adjust: none; /*hold font-size in moblie*/
 }
 
@@ -67,7 +68,6 @@ a {
     }
     .message.message-wrapper {
         left: 50%;
-        min-width: 700px;
     }
     .input-wrapper{
         min-width: 470px;

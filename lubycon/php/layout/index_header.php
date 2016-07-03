@@ -58,11 +58,9 @@
     <link href="<?=$one_depth?>/css/module/lubyAlert.css" rel="stylesheet" type="text/css" />
     <link href="<?=$one_depth?>/css/module/checkBox.css" rel="stylesheet" type="text/css" />
     <link href="<?=$one_depth?>/css/layout/animate.css" rel="stylesheet" type="text/css" /><!--animation for objects-->
-    <link href="<?=$one_depth?>/css/slider.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
     <script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
     <script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-ui.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/slider.js"></script><!--slider plugin-->
     <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
     <script type="text/javascript" src="<?=$one_depth?>/js/module/resizeObject.js"></script>
