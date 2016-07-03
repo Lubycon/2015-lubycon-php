@@ -261,16 +261,16 @@
                     <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-tachometer fa-1x"></i>Dashboard
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents&usernum=<?=$Loginuser_code?>">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-picture-o fa-1x"></i>My Contents
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_forums&usernum=<?=$Loginuser_code?>">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_forums&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-comments-o fa-1x"></i>My Forums
                     </a></li>
                     <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-line-chart fa-1x"></i>Insight
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=bookmark&usernum=<?=$Loginuser_code?>">
+                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=bookmark&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-star fa-1x"></i>Bookmarks
                     </a></li>
                 </div>

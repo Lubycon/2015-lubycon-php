@@ -25,14 +25,26 @@
     $cate_name = $_POST['cate_param']; //form infinite scroll js post ajax
     $page_param = $_POST['page_param']; //form infinite scroll js post ajax
     $now_page_param = $_POST['now_page_param']; //form infinite scroll js post ajax
-    $middle_category = $_POST['mid_cate_param']; //form infinite scroll js post ajax
-    $sortlist = []; //form infinite scroll js post ajax and not yet...
+    $filter = 
+    [ 
+        'search_kind' => null, //search kind 
+        'search_word' => null, //search word
+        'middle_cateogry' => null, //middle category
+        'a.`ccLicense`' => null, //cc license
+        'a.`userCode`' => null, //my contens
+        'b.`bookmarkActionUserCode`' => null //my bookmark
+    ];
+    $sort = null;
     $ajax_boolean = true; 
+
+
+
+
     /* require class */
     
     $infinite_scroll = new infinite_scroll('content',$cate_name);
     $infinite_scroll->validate_category();
-    $infinite_scroll->set_option($now_page_param,$middle_category,$ajax_boolean,$page_param);
+    $infinite_scroll->set_option($filter,$sort,$now_page_param,$ajax_boolean,$page_param);
     $infinite_scroll->set_query($Loginuser_code);
     $db->query = $infinite_scroll->query;
     $db->askQuery();

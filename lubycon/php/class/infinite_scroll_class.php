@@ -16,6 +16,11 @@ class infinite_scroll extends json_control
     private $allow_array_content = ['all','artwork','vector','threed'];
     private $allow_array_community = ['all','forum','tutorial','qaa'];
 
+    private $filter; // array
+    private $sort; // array
+
+    public $where_query = 'WHERE'; // for query
+    public $order_query = ' ORDER BY a.`contentDate` DESC '; // for query
     public $query;
     public $query_foundRow = "SELECT FOUND_ROWS()";
     
@@ -51,12 +56,35 @@ class infinite_scroll extends json_control
         }
     }
 
-    public function set_option($page_number,$middle_category,$ajax_boolean,$ajax_page) //set query from user needs
+    public function set_option($filter,$sort,$page_number,$ajax_boolean,$ajax_page) //set query from user needs
     {
         // 0.call page number (param.1) 1. page boundary (class setting)
         // 2.top_category ($this->top_category) 3.middle cateroy (param.2 later)
         // 4.sort (param.3.array)
         // 5.search engine (later)
+
+        $this->filter = $filter;
+        $this->sort = $sort;
+        $null_count = 0;
+        foreach( $this->filter as $key => $value )
+        {
+            if( $value != null )
+            {
+                $this->where_query .= " $key = '$value' and ";
+            }else
+            {
+                $null_count++;
+            }
+            if( count($this->filter) == $null_count ){$this->where_query='';}
+            //echo $value.'<br/>';
+        }
+        $this->where_query = substr($this->where_query, 0, -4); //delete last and string
+
+        if( $sort != null )
+        {
+            $this->order_query = " ORDER BY a.`$this->sort` DESC ";
+        }
+
         $this->now_page = $page_number;
         if($ajax_boolean) //ajax
         {
@@ -81,7 +109,6 @@ class infinite_scroll extends json_control
                 $this->page_boundary = $this->page_limit * 2; //call 2page (now,next page)
             }
         }
-        $this->middle_category = $middle_category; //later
     }
 
     public function set_query($query_user_code)
@@ -92,9 +119,9 @@ class infinite_scroll extends json_control
             SELECT SQL_CALC_FOUND_ROWS 
             a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`";
             if($query_user_code)
-            {$this->query .= " ,b.`bookmarkActionUserCode`";}
+            {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
-            "FROM 
+            " FROM 
             ( 
                 SELECT * FROM lubyconboard.`artwork` 
                 UNION 
@@ -106,12 +133,14 @@ class infinite_scroll extends json_control
             {
             $this->query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b 
             ON a.`boardCode` = b.`boardCode`
+            AND a.`topCategoryCode` = b.`topCategoryCode`
             AND b.`bookmarkActionUserCode` = $query_user_code ";
             }
             $this->query .= "LEFT JOIN lubyconuser.`userbasic` AS c 
             ON a.`userCode` = c.`userCode` 
 
-            ORDER BY a.`contentDate` DESC 
+            $this->where_query
+            $this->order_query
             limit $this->call_page,$this->page_boundary";
         
         }else
@@ -120,21 +149,24 @@ class infinite_scroll extends json_control
             select SQL_CALC_FOUND_ROWS
             a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`";
             if($query_user_code)
-            {$this->query .= " ,b.`bookmarkActionUserCode`";}
+            {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= " from lubyconboard.`$this->top_category` a ";
             if($query_user_code)
             {
                 $this->query .= 
                 "left join lubyconboard.`contentsbookmark` b
                 ON a.`boardCode` = b.`boardCode`
+                AND a.`topCategoryCode` = b.`topCategoryCode`
                 AND b.`bookmarkActionUserCode` = $query_user_code";
             }
             $this->query .= " left join lubyconuser.`userbasic` c
             ON a.`userCode` = c.`userCode`
-
-            ORDER BY a.`contentDate` 
-            DESC limit $this->call_page,$this->page_boundary";
+            
+            $this->where_query
+            $this->order_query
+            limit $this->call_page,$this->page_boundary";
         }
+        //echo $this->query;
     }
 
     public function count_page($db_result)

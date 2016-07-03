@@ -1086,14 +1086,18 @@
     <Compile Include="js\insight.js" />
     <Compile Include="js\login_page.js" />
     <Compile Include="js\success_account.js" />
+    <Compile Include="php\account\account_setting.php" />
     <Compile Include="php\account\certificateEmail.php" />
     <Compile Include="php\account\create_account.php" />
     <Compile Include="php\account\fail_resisting.php" />
+    <Compile Include="php\account\find_password.php" />
     <Compile Include="php\account\forgot_password.php" />
     <Compile Include="php\account\mail.php" />
     <Compile Include="php\account\mail_for_resist.php" />
     <Compile Include="php\account\overlap_check.php" />
+    <Compile Include="php\account\password_setting.php" />
     <Compile Include="php\account\registration.php" />
+    <Compile Include="php\account\resist_password.php" />
     <Compile Include="php\account\session_check.php" />
     <Compile Include="php\account\success_account.php" />
     <Compile Include="php\account\test.php" />
@@ -1111,29 +1115,16 @@
     <Compile Include="php\ajax\infinite_scroll_ajax.php" />
     <Compile Include="php\ajax\login_check.php" />
     <Compile Include="php\ajax\subnav_check.php" />
+    <Compile Include="php\ajax\profile_upload_ajax.php" />
     <Compile Include="php\ajax\upload_ajax.php" />
-    <Compile Include="php\class\account_setting_profile_upload.php" />
     <Compile Include="php\class\ajax_upload_class.php" />
-    <Compile Include="php\class\callModifyWindow.php" />
-    <Compile Include="php\class\call_comments_ajax.php" />
     <Compile Include="php\class\certifiMail_class.php" />
-    <Compile Include="php\class\community_infinite_scroll.php" />
     <Compile Include="php\class\cookie_class.php" />
-    <Compile Include="php\class\create_account_popup.php" />
     <Compile Include="php\class\database_class.php" />
-    <Compile Include="php\class\editor_ajax.php" />
-    <Compile Include="php\class\editor_ajax_upload_test.php" />
-    <Compile Include="php\class\editor_fileupload.php" />
-    <Compile Include="php\class\editor_thumbupload.php" />
-    <Compile Include="php\class\increase_like_ajax.php" />
-    <Compile Include="php\class\infinite_scroll_ajax.php" />
     <Compile Include="php\class\infinite_scroll_class.php" />
     <Compile Include="php\class\json_class.php" />
-    <Compile Include="php\class\login_check.php" />
     <Compile Include="php\class\regex_class.php" />
     <Compile Include="php\class\session_class.php" />
-    <Compile Include="php\class\subnav_check.php" />
-    <Compile Include="php\class\upload_ajax.php" />
     <Compile Include="php\class\upload_class.php" />
     <Compile Include="php\class\_upload_class.php" />
     <Compile Include="php\community\community_page.php" />
@@ -1593,7 +1584,6 @@
   <ItemGroup>
     <Content Include="css\module\lubySlider.css" />
     <Content Include="data\ccCode.json" />
-    <Content Include="js\contents_page.js" />
     <Content Include="js\module\jquery.lubySlider.js" />
     <Content Include="php\contents\viewer3d.js" />
   </ItemGroup>

@@ -51,10 +51,10 @@
     <div id="subnav" class="hidden-mb-b">
         <ul>
             <li id="dashboard" class="subnav_li"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usernumber?>">Dashboard</a></li>
-            <li id="my_contents" class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_contents&usernum=<?=$usernumber?>">Contents</a></li>
+            <li id="my_contents" class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_contents&usernum=<?=$usernumber?>&page=1">Contents</a></li>
             <li id="my_forums" class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_forums&usernum=<?=$usernumber?>">Forums</a></li>
             <li id="insight" class="subnav_li"><a href="../personal_page/personal_page.php?cate=insight&usernum=<?=$usernumber?>">Insight</a></li>
-            <li id="bookmark" class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark&usernum=<?=$usernumber?>">Bookmark</a></li>           
+            <li id="bookmark" class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark&usernum=<?=$usernumber?>&page=1">Bookmark</a></li>           
         </ul>
     </div>
 </aside>

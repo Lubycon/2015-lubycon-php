@@ -12,10 +12,20 @@
     $json_control = new json_control;
     require_once "../class/infinite_scroll_class.php";
 
-    $cate_name = $_GET['cate'];
-    $page_param = $_GET['page'];
-    $middle_category = $_GET['mid_cate'];
-    $sortlist = [];
+    $cate_name = $_GET['cate'];    
+    $page_number = $_GET['page'];
+
+    $filter = 
+    [ 
+        'search_kind' => null, //search kind 
+        'search_word' => null, //search word
+        'middle_cateogry' => null, //middle category
+        'a.`ccLicense`' => null, //cc license
+        'a.`userCode`' => null, //my contens
+        'b.`bookmarkActionUserCode`' => null //my bookmark
+    ];
+    $sort = null;
+
     $ajax_boolean = false;
     $query_user_code = isset($Loginuser_code) ? $query_user_code=$Loginuser_code : $query_user_code=false ;
     /* require class */
@@ -28,7 +38,7 @@
     
     $infinite_scroll = new infinite_scroll('content',$cate_name);
     $infinite_scroll->validate_category();
-    $infinite_scroll->set_option($page_param,$middle_category,$ajax_boolean,null);
+    $infinite_scroll->set_option($filter,$sort,$page_number,$ajax_boolean,null);
     $infinite_scroll->set_query($query_user_code);
     $db->query = $infinite_scroll->query;
     $db->askQuery();
@@ -37,10 +47,10 @@
     $db->askQuery();
     $foundRow_result = $db->result; //row count
     $infinite_scroll->count_page($foundRow_result);
+
     //echo $infinite_scroll->all_page_count; //count row result
 ?>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
-<script type="text/javascript" src="<?=$one_depth?>/js/contents_page.js"></script> <!-- scroll js -->
 <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySlider.js"></script>
 <script type="text/javascript" src="<?=$one_depth?>/js/thumbs_control.js"></script>
 
