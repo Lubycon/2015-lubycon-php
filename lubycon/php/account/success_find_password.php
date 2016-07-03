@@ -25,20 +25,13 @@
 </head>
 <body ondragstart="return false" onselectstart="return false">
     <section class="message message-wrapper bounceInDown animated">
-        <i class="message-icon fa fa-key orange-color"></i>
+        <i class="message-icon fa fa-envelope-o black-color"></i>
         <div class="message-box">
-            <article class="main-message">Find Password</article>
-            <article class="sub-message">Plesase write your E-mail</article>
+            <article class="main-message">Mail is sent</article>
+            <article class="sub-message">Plesase check your mail</article>
         </div>
         <div class="message-box">
-            <form class="message-form" enctype="multipart/form-dat" method="post" action="../account/changePassword.php">
-                <label class="label-message">E-mail</label>
-                <input name="changePw" class="input-message" type="email" data-value="email" />
-            </form>
-        </div>
-        <div class="message-box">
-            <div class="btn cancel-bt">Not now</div>
-            <div class="btn submit-bt">SUBMIT</div>
+            <div class="btn other-bt" href="../../index.php" data-value="gotoIndex">GO TO MAIN</div>
         </div>
     </section>
 </body>

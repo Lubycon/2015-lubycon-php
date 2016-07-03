@@ -1,12 +1,14 @@
 <?php
+
 	include_once '../class/database_class.php';
     include_once '../class/regex_class.php';
-    include_once '../class/certifiMail_class.php';
+    include_once '../class/MailerClass.php';
     include_once '../commonFunc.php';
+    include_once '../class/session_class.php';
 
     $regex_vali = new regex_validate;
-
 	$db = new Database();
+	$session = new Session();
 	
 	// password encryption -> using bycrypt
 	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -32,8 +34,6 @@
 	$host = $_SERVER['HTTP_HOST'];
 	$uri = $_SERVER['REQUEST_URI'];
 
-	echo $_POST['email'];
-
 	if($email_validation && $pass_validation && $nick_validation && $private_validation && $terms_validation){
 
 		$to = $_POST['email'];
@@ -42,11 +42,11 @@
 		$password = "hmdwdgdhkr2015";
 		
 		$token = makeToken(12);
-		$certifimail = new CertifiMail($token);
+		$certifimail = new MakeMail($token);
 		
-		$certifimail->makeHtml();
+		$certifimail->CertifiMail();
 
-		if(mailer($from, $to, $subject, $password))
+		if(mailer($from, $to, $subject, $password, 'mail'))
 		{
 			$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken,validation)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$certifimail->token."', 'inactive')";
 
@@ -61,7 +61,21 @@
 			}
 			else
 			{
-				echo '<script>document.location.href="./waiting_for_resisting.php"</script>';
+				$db->query = "
+      			SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.userCode, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`jobCode`, `userinfo`.`city` 
+        		FROM `lubyconuser`.`userbasic` 
+        		LEFT JOIN `lubyconuser`.`userinfo` 
+        		ON `userbasic`.`userCode` = `userinfo`.`userCode` 
+        		WHERE `userbasic`.`email`='".$_POST['email']."'
+    			";
+
+    			if($db->askQuery()){
+
+    				$result = mysqli_fetch_array($db->result);
+					$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city'], $result['validation']);
+					echo $result['validation'];
+					//echo '<script>document.location.href="../../index.php"</script>';
+    			}
 			}
 		}
 		else
