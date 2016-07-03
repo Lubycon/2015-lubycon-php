@@ -105,7 +105,8 @@ class infinite_scroll extends json_control
             if($query_user_code)
             {
             $this->query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b 
-            ON a.`boardCode` = b.`boardCode`";
+            ON a.`boardCode` = b.`boardCode`
+            AND b.`bookmarkActionUserCode` = $query_user_code ";
             }
             $this->query .= "LEFT JOIN lubyconuser.`userbasic` AS c 
             ON a.`userCode` = c.`userCode` 
@@ -198,14 +199,14 @@ class infinite_scroll extends json_control
 
             if( $this->top_category == $cookie_parse['cate'] && $this->now_page == $cookie_parse['page'])
             {
-                echo "<script>scroll_from_cookie('$cookie_contents_number');</script>"; //find pre click contents
+                echo "<script>$(window).load(function(){scroll_from_cookie('$cookie_contents_number')});</script>"; //find pre click contents
             }else
             {
-                echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
+                echo "<script>$(window).load(function(){scroll_from_param('$this->now_page')});</script>"; //find pre click contents
             }
         }else
         {
-            echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
+            echo "<script>$(window).load(function(){scroll_from_param('$this->now_page')});</script>"; //find pre click contents
         }
     }
 }

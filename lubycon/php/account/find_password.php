@@ -31,8 +31,10 @@
             <article class="sub-message">Plesase write your E-mail</article>
         </div>
         <div class="message-box">
-            <label class="label-message">E-mail</label>
-            <input class="input-message" type="email" data-value="email" />
+            <form class="message-form" enctype="multipart/form-dat" method="post" action="../account/changePassword.php">
+                <label class="label-message">E-mail</label>
+                <input name="changePw" class="input-message" type="email" data-value="email" />
+            </form>
         </div>
         <div class="message-box">
             <div class="btn cancel-bt">Not now</div>

@@ -138,6 +138,44 @@ function CardMenu(params){
     }
 }
 
+/*********************   contents after load and find, with move scroll    ************************************/
+function scroll_from_cookie(contents_number) {
+    var contents_offsetTop = $('.' + contents_number).offset().top;
+    
+    var window_center = ($(window).height() / 2) - ($("." + contents_number).height() / 2);
+    console.log(contents_offsetTop);
+
+    $("html,body").scrollTop(contents_offsetTop - window_center);
+    //$("html,body").animate({ scrollTop: contents_offsetTop - 200 }, 0);
+    $('.' + contents_number).css({
+        "border": "1px solid #48cfad",
+        "box-shadow": "0px 0px 20px 0px rgb(72,207,173)"
+    });
+    deleteCookie('contents_history');
+}
+function scroll_from_param(now_page) {
+    var prev_page = now_page - 1;
+
+    //console.log($(".page_bottom_" + prev_page));
+    //$("html,body").animate({ scrollTop: 0 }, 0);
+    if (now_page <= 1) {
+        $("html,body").scrollTop(0);
+        //$("html,body").animate({ scrollTop: 0 }, "fast");
+    } else {
+        $("html,body").scrollTop($(".page_bottom_" + prev_page).offset().top - 200);
+        //$("html,body").animate({ scrollTop: $(".page_bottom_" + prev_page).offset().top - 200 }, "slow");
+    }
+    deleteCookie('contents_history');
+}
+function deleteCookie(cookieName) {
+    var expireDate = new Date();
+
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/";
+}
+/*********************   contents after load and find, with move scroll    ************************************/
+
+
 //////////////////////////
 // javaScript Prototype //
 //////////////////////////

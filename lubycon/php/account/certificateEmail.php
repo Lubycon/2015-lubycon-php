@@ -2,7 +2,7 @@
 require_once '../database/database_class.php';
 
 $db = new Database();
-$db->query = "SELECT validation FROM userbasic WHERE (validationToken = '".$_POST['certification']."')";
+$db->query = "SELECT validation FROM userbasic WHERE (validationToken = '".$_POST['certificationCode']."')";
 
 if($db->askQuery() != false){
 	
@@ -10,22 +10,19 @@ if($db->askQuery() != false){
 	
 	if($result['validation'] == 'inactive'){
 	
-		$db->query = "UPDATE userbasic SET validation = 'active' WHERE (validationToken = '".$_POST['certification']."')";
-	
+		$db->query = "UPDATE userbasic SET validation = 'active' WHERE (validationToken = '".$_POST['certificationCode']."')";
+		
 		if($db->askQuery() != false){
-	
-			$db->query = "UPDATE userbasic SET validationToken = ''";
-			header('location:success_account.php');
-	
+
+			$db->query = "UPDATE userbasic SET validationToken = NULL";
+			if($db->askQuery() != false)
+				header('location:success_account.php');
+		
 		}else{
 			echo "fail active account";
 		}
-	}else if($result['validation'] == 'active'){
-		echo "이미 활성화된 계정입니다.";
 	}else{
-		echo "존재하지 않는 계정입니다.";
-		echo "<br />";
-		echo $_POST['certification'];
+		echo "존재하지 않는 계정이거나, 이미 활성화된 계정입니다.";
 	}
 }else{
 	echo "해당 정보와 맞는 계정이 없습니다.";

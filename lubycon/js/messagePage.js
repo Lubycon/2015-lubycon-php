@@ -100,13 +100,8 @@ $(function(){
 			}
 		});
 		if(checker) { 
-			var href = $(this).attr("href") ? $(this).attr("href") : "#";
-
-			//ANYTHING SUBMIT ACTION
-
-			if(href !== "#") location.href = href;
-			else console.log("THERE IS NO LINK");
-		}//SUBMIT FUNCTION IS IN HERE
+			if($(".message-form").length !== 0) $(".message-form").submit();
+		}
 	}
 });
 
