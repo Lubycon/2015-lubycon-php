@@ -72,9 +72,9 @@
     			if($db->askQuery()){
 
     				$result = mysqli_fetch_array($db->result);
-					$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city'], $result['validation']);
-					echo $result['validation'];
-					//echo '<script>document.location.href="../../index.php"</script>';
+					$session->WriteSession('lubycon',$result);
+					//echo $_SESSION['lubycon_validation'];
+					echo '<script>document.location.href="../../index.php"</script>';
     			}
 			}
 		}

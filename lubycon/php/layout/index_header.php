@@ -16,12 +16,20 @@
     }else{
         if($session->SessionExist()){
             
-            if(isset($_SESSION['validation']))
+            if(isset($_SESSION['lubycon_validation']))
             {
-                $activity = ($_SESSION['validation'] === 'active') ? true : false ;
+                $activity = NULL;
                 
-                if($_SESSION['validation'] === 'inactive')
+                if($_SESSION['lubycon_validation'] === "active")
+                    $activity = true;
+                else if($_SESSION['lubycon_validation'] === "inactive")
+                    $activity = false;
+                else
+                    $activity = false;
+
+                if($activity === false)
                     echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+
             }else{
                 $session->DestroySession();
             } 

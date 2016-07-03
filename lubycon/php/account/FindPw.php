@@ -23,20 +23,16 @@
             <tr id="mail_description">
             	<td align="left" style="font-family:Arial, Helvetica, sans-serif; font-size: 15px; color:#444444; line-height:25px;">
            			&nbsp;&nbsp;&nbsp;
-                    You or someone with your e-mail ID has singed up at LUBYCON.<br />
-                    &nbsp;&nbsp;&nbsp;
-					your new account is almost ready.<br />
-                    &nbsp;&nbsp;&nbsp;
-					but before you can login, you need to confirm your e-mail ID <br /> 
-					&nbsp;&nbsp;&nbsp;
-					by check the certification Code. <br /><br />
+                    Your temporary password has been sent to the registered email.<br /><br />
 					&nbsp;&nbsp;&nbsp;
 					<font size="4px">
-					Here your certification Code : 5F1WKs4fW4eP
+					Here your temporary password is : tMpi8b65wP4lkQPTXtfz
 					</font>
 					<br /><br />
 					&nbsp;&nbsp;&nbsp;
-                    Please Input certification Code in LUBYCON </font>
+
+					If this is not you, Please Contact.<br />
+                    &nbsp;&nbsp;&nbsp;
                     <br />
                     <br />
             	</td>
@@ -52,6 +48,6 @@
                 </td>
             </tr>
         </tbody>
-	</table>
-	</body>
-	
+		</table>
+		</body>
+		

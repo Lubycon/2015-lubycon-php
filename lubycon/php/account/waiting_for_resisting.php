@@ -47,9 +47,9 @@
 			</form>
 		</div>
 		<div class="message-box">
-			<div class="btn cancel-bt">Not now</div>
+			<div class="btn cancel-bt" href="logoutCertifi.php">Not now</div>
 			<div class="btn submit-bt">SUBMIT</div>
-			<div class="btn other-bt" data-value="resend">Resend</div>
+			<div class="btn other-bt" data-value="resend" href="reCertifiEmail.php">Resend</div>
 		</div>
 	</section>
 </body>

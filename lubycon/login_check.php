@@ -19,7 +19,7 @@
 
 	if(password_verify($_POST['login_pass'],$result['pass'])){
 		
-		$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city'], $result['validation']);
+		$session->WriteSession('lubycon',$result);
 
 		if($result['validation'] === 'active')
 			//echo "index페이지로 이동";

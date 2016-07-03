@@ -61,7 +61,7 @@ $(function(){
 			var data = $this.data("value");
 
 			switch(data){
-				case "resend" : /*VALUE RESEND*/ break;
+				case "resend" : gotoLink.call($this); break;
 				case "gotoIndex" : gotoIndex(); break;
 				case "link" : gotoLink.call($this); break;
 				default : console.log("THERE IS NO DATA-VALUE"); return false; break;
@@ -70,7 +70,8 @@ $(function(){
 	}
 
 	function gotoBack(){
-		history.back();
+		if($(this).attr("href") === undefined) history.back();
+		else location.href = $(this).attr("href");
 	}
 
 	function gotoIndex(){
