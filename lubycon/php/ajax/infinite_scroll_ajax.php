@@ -9,7 +9,7 @@
     }else{
     if($session->SessionExist()){
     $LoginState = true;
-    $Loginuser_code= $_SESSION['lubycon_code'];
+    $Loginuser_code= $_SESSION['lubycon_userCode'];
     }else{
     $LoginState = false;
     }

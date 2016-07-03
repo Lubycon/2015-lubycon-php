@@ -1,5 +1,5 @@
 <?php
-    require_once '../session/session_class.php';
+require_once '../session/session_class.php';
     //session_start();
     $session = new Session();
 
@@ -7,13 +7,37 @@
         $LoginState = false;
     }else{
         if($session->SessionExist()){
+            
+            if(isset($_SESSION['lubycon_validation']))
+            {
+                $activity = NULL;
+                
+                if($_SESSION['lubycon_validation'] === "active")
+                    $activity = true;
+                else if($_SESSION['lubycon_validation'] === "inactive")
+                    $activity = false;
+                else
+                    $activity = false;
+
+                if($activity === false)
+                    echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+
+            }else{
+                $session->DestroySession();
+            } 
+
             $LoginState = true;
-            $username= $_SESSION['lubycon_nick'];
-            $userid= $_SESSION['lubycon_id'];
-            $usercode= $_SESSION['lubycon_code'];
+            
+            $Loginuser_name = isset($_SESSION['lubycon_nick']) ? $_SESSION['lubycon_nick'] : NULL;
+            $Loginuser_id= isset($_SESSION['lubycon_id']) ? $_SESSION['lubycon_id'] : NULL;
+            $Loginuser_code= isset($_SESSION['lubycon_userCode']) ? $_SESSION['lubycon_userCode'] : NULL;
+            $Loginuser_country = isset( $_SESSION['lubycon_countryCode'] ) ? $country_json_Code[$_SESSION['lubycon_countryCode']]['name'] : NULL;
+            $Loginuser_job = isset($_SESSION['lubycon_jobCode']) ? $job_json_Code[$_SESSION['lubycon_jobCode']]['name'] : NULL;
+            $Loginuser_city = isset($_SESSION['lubycon_city']) ? $_SESSION['lubycon_city'] : NULL;
+            // login menu
         }else{
             $LoginState = false;    
-        }  
+        }
     }
 
     

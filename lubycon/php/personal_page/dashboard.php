@@ -28,7 +28,7 @@
     //target user data
 
     //login user data
-    $usernumber = $_SESSION['lubycon_code'];
+    $usernumber = $Loginuser_code;
     $db->query = "SELECT `countryCode`,`city` FROM `userinfo` WHERE `userinfo`.`userCode` = $usernumber ";
     $db->askQuery();
     $localuserdata_row = mysqli_fetch_array($db->result);

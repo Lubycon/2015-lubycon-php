@@ -9,11 +9,30 @@
         $LoginState = false;
     }else{
         if($session->SessionExist()){
+            
+            if(isset($_SESSION['lubycon_validation']))
+            {
+                $activity = NULL;
+                
+                if($_SESSION['lubycon_validation'] === "active")
+                    $activity = true;
+                else if($_SESSION['lubycon_validation'] === "inactive")
+                    $activity = false;
+                else
+                    $activity = false;
+
+                if($activity === false)
+                    echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+
+            }else{
+                $session->DestroySession();
+            } 
+
             $LoginState = true;
-            $Loginuser_name= $_SESSION['lubycon_nick'];
-            $Loginuser_id= $_SESSION['lubycon_id'];
-            $Loginuser_code= $_SESSION['lubycon_code'];
-            // login menu
+            
+            $Loginuser_name = isset($_SESSION['lubycon_nick']) ? $_SESSION['lubycon_nick'] : NULL;
+            $Loginuser_id= isset($_SESSION['lubycon_id']) ? $_SESSION['lubycon_id'] : NULL;
+            $Loginuser_code= isset($_SESSION['lubycon_userCode']) ? $_SESSION['lubycon_userCode'] : NULL;
         }else{
             $LoginState = false;    
         }
@@ -57,7 +76,7 @@
         </div>
         <div class="message-box">
             <div class="btn cancel-bt">Not now</div>
-            <div class="btn submit-bt" href="../account/account_setting.php?usernum=<?=$Loginuser_code?>">CHECK</div>
+            <a class="btn submit-bt" href="../account/account_setting.php?usernum=<?=$Loginuser_code?>">CHECK</a>
         </div>
     </section>
 </body>

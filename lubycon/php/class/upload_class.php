@@ -88,7 +88,7 @@ class upload
         $this->_upload_post_data = $POST_data;
         $this->_upload_kind = $upload_Kind;
         $this->upload_date = date("YmdHis");
-        $this->user_code = $_SESSION['lubycon_code'];
+        $this->user_code = $_SESSION['lubycon_userCode'];
         
         if( $this->_upload_kind  == 'editor' ) //only editor use
         {

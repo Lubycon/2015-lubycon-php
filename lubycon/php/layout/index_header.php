@@ -35,22 +35,13 @@
             } 
 
             $LoginState = true;
-
+            
             $Loginuser_name = isset($_SESSION['lubycon_nick']) ? $_SESSION['lubycon_nick'] : NULL;
             $Loginuser_id= isset($_SESSION['lubycon_id']) ? $_SESSION['lubycon_id'] : NULL;
-            $Loginuser_code= isset($_SESSION['lubycon_code']) ? $_SESSION['lubycon_code'] : NULL;
-            $Loginuser_country = isset( $_SESSION['lubycon_country'] ) ? $country_json_Code[$_SESSION['lubycon_country']]['name'] : NULL;
-            $Loginuser_job = isset($_SESSION['lubycon_job']) ? $job_json_Code[$_SESSION['lubycon_job']]['name'] : NULL;
+            $Loginuser_code= isset($_SESSION['lubycon_userCode']) ? $_SESSION['lubycon_userCode'] : NULL;
+            $Loginuser_country = isset( $_SESSION['lubycon_countryCode'] ) ? $country_json_Code[$_SESSION['lubycon_countryCode']]['name'] : NULL;
+            $Loginuser_job = isset($_SESSION['lubycon_jobCode']) ? $job_json_Code[$_SESSION['lubycon_jobCode']]['name'] : NULL;
             $Loginuser_city = isset($_SESSION['lubycon_city']) ? $_SESSION['lubycon_city'] : NULL;
-            /*
-            $Loginuser_name= $_SESSION['lubycon_nick'];
-            $Loginuser_id= $_SESSION['lubycon_id'];
-            $Loginuser_code= $_SESSION['lubycon_code'];
-            $Loginuser_country = $country_json_Code[$_SESSION['lubycon_country']]['name'];
-            $Loginuser_job = $job_json_Code[$_SESSION['lubycon_job']]['name'];
-            $Loginuser_city= $_SESSION['lubycon_city'];
-            $Loginuser_stat= $_SESSION['lubycon_stat'];
-            */
             // login menu
         }else{
             $LoginState = false;    

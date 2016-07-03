@@ -49,6 +49,7 @@ $(document).ready(function(){
             data: 'countkind=' + countkind + '&conno=' + conno + '&cate=' + catename + '&stat_check=' + stat_check + '&contentkind=' + contentkind,// data send
             cache: false,
             success: function (data) {
+                console.log(data);
                 var loginStat = data.loginStat;
                 loginStat = 1;
                 if(loginStat){

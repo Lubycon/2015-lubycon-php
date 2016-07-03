@@ -16,12 +16,11 @@
         $likeCount = $randCount2 < 1000 ? $randCount2 : (string)(round((double)($randCount2/1000),1))."K";
 
         
-        if(isset($_SESSION['lubycon_code'])) // login check
+        if(isset($_SESSION['lubycon_userCode'])) // login check
         {
-            if($_SESSION['lubycon_code'] == $row['bookmarkActionUserCode']) //bookmark check
+            if($_SESSION['lubycon_userCode'] == $row['bookmarkActionUserCode']) //bookmark check
             {$bookmarkBoolean = true;}else{$bookmarkBoolean = false;}
         };
-
 
     ?><!--you should change to mySQL later-->
     <div class="contents_card <?=$cate.'_'.$board_code?>" data-index="<?=$usercode?>" data-cate="<?=$cate?>" data-conno="<?=$board_code?>">
