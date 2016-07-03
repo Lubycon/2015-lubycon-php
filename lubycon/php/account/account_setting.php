@@ -284,7 +284,7 @@
                 <p id="delete_desc">Deleting your account will delete all of your content and remove all data associated with it.</p>
                 <span id="delete_account_bt" class="alertKey" data="delete"><i class="fa fa-trash"></i>I want to delete my account</span>
         </section>
-        <input type="submit" value="Submit" id="submit_bt" />
+        <div id="submit_bt">SUBMIT</div>
     </section>
 </form>
 <?php 

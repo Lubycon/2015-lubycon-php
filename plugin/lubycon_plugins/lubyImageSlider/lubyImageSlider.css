@@ -1,0 +1,148 @@
+@charset "utf-8";
+/*CSS RESET*/
+body {
+    width: 100%;
+    position: relative;
+    background: #fff;
+    display: block;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: none; /*hold font-size in moblie*/
+}
+
+article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    display: block;
+}
+
+body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, aside, hgroup, header, footer, figure, figcaption, nav, section {
+    margin: 0px;
+    padding: 0px;
+    color: #000;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    border-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    font-family: 'Source Sans Pro';
+    /*font-size: 1em;*/
+    font-weight: 400;
+    outline: 0;
+}
+*:focus{
+    outline: 0;
+}
+
+
+
+#cardTest {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0px auto;
+}
+#test {
+    margin: 0px auto;
+    margin-top: 50px;
+}
+/*----------------------*/
+
+.lubyImageSlider {
+    position: relative;
+    background: #eeeeee;
+    padding: 10px;
+    text-align: center;
+}
+    .lubyImageSlider .img-slider-viewer {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .lubyImageSlider .img-slider-item-wrapper {
+        position: relative;
+        left: 0;
+    }
+        .lubyImageSlider .img-slider-list-wrapper {
+            top: 0;
+            display: inline-block;
+            width: 100%;
+            margin-right: 20px;
+            vertical-align: middle;
+        }
+            .lubyImageSlider .img-slider-list-wrapper li {
+                display: inline-block;
+                overflow: hidden;
+                background: #ffffff;
+                border: 1px solid #000000;
+                cursor: pointer;
+                float: left;
+                text-align: center;
+                box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                transition: opacity 0.2s;
+            }
+                .lubyImageSlider .img-slider-list-wrapper li:hover {
+                    opacity: 0.7;
+                }
+            .lubyImageSlider .img-slider-list-wrapper a {
+                cursor: pointer;
+            }
+            .lubyImageSlider .img-slider-list-wrapper img {
+                height: 100%;
+                vertical-align: middle;
+            }
+    .lubyImageSlider .img-slider-arrow {
+        position: absolute;
+        top: 50%;
+        font-size: 50px;
+        color: #444444;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+        .lubyImageSlider .img-slider-arrow:hover {
+            opacity: 0.7;
+        }
+        .lubyImageSlider .img-slider-arrow[data-value='left'] {
+            left: -50px;
+        }
+        .lubyImageSlider .img-slider-arrow[data-value='right'] {
+            right: -50px;
+        }
+    .lubyImageSlider .img-slider-nav {
+        display: inline-block;
+        margin: 0px auto;
+        margin-top: 10px;
+    }
+        .lubyImageSlider .img-slider-nav .img-slider-nav-bt {
+            display: inline-block;
+            width: 40px;
+            height: 10px;
+            margin: 0px 10px;
+            background: #444444;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+            .lubyImageSlider .img-slider-nav .img-slider-nav-bt.selected {
+                background: #48cfad;
+            }
+            .lubyImageSlider .img-slider-nav .img-slider-nav-bt:hover {
+                opacity: 0.7;
+            }
+
+ 
+
+

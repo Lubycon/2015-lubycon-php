@@ -77,7 +77,9 @@
             </div>
             <div class="section-content">
                 <p class="descript">
-                    Aliquam? Adipiscing nunc a! Mattis amet tincidunt scelerisque! Purus cursus sit facilisis, phasellus lectus augue? Nec proin porttitor, aliquam facilisis pellentesque enim cursus, dis, ultrices aliquet ac urna pid mus, integer augue! Magna habitasse ac, eu, pulvinar ultrices tortor sociis tincidunt pid magnis, aliquam montes vel phasellus purus, porta magna tortor! Etiam, proin sagittis. Ac amet vel porttitor habitasse cursus! Auctor habitasse ultrices elementum, et, et auctor rhoncus, lacus hac? Sit sit, phasellus placerat penatibus? Natoque scelerisque risus? Egestas ultricies! Elementum a ridiculus sociis? Adipiscing, integer! Sociis nascetur in sociis tincidunt odio scelerisque tristique in placerat massa lundium. Porta eu, turpis massa augue enim, eros placerat urna phasellus? Nascetur nunc odio, rhoncus, egestas magna augue enim? Ac pid mid vel.
+                    Your creative works can be born again but with a different finish. Imagine the portrait you drew on sketchpad becoming a 3D printed model or the animation you created changed into impressionism style.
+                    The possibilities are endless. Countless styles exists and other creators can help you achieve your goals the way you imagined.
+                    Through collaborations, you can join with other creators to make something extraordinary.
                 </p>
                 <div class="viewmore_bt"><a href="<?=$two_depth?>/creators_page/creators.php">FIND CREATORS</a></div>
             </div>

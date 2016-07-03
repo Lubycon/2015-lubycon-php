@@ -41,18 +41,14 @@ $(function(){
 
 	function messageAlign(){
 		var $this = $(this);
-		console.log($this);
 		
-		var w = isMobile() ? 0 : $this.innerWidth(),
-			h = isMobile() ? $this.innerHeight()+100 : $this.innerHeight();
-		console.log(isMobile());
-		console.log($this.width(),$this.height());
+		var w = isMobile() ? 0 : $this.width(),
+			h = isMobile() ? $this.height()+100 : $this.height();
 
 		$this.css({
 			"margin-left" : (w/2)*-1,
 			"margin-top" : (h/2)*-1
 		});
-		console.log($this.width(),$this.height());
 	}
 
 	function otherBtAction(){
@@ -61,7 +57,7 @@ $(function(){
 			var data = $this.data("value");
 
 			switch(data){
-				case "resend" : /*VALUE RESEND*/ break;
+				case "resend" : gotoLink.call($this); break;
 				case "gotoIndex" : gotoIndex(); break;
 				case "link" : gotoLink.call($this); break;
 				default : console.log("THERE IS NO DATA-VALUE"); return false; break;
@@ -70,7 +66,8 @@ $(function(){
 	}
 
 	function gotoBack(){
-		history.back();
+		if($(this).attr("href") === undefined) history.back();
+		else location.href = $(this).attr("href");
 	}
 
 	function gotoIndex(){
@@ -100,13 +97,8 @@ $(function(){
 			}
 		});
 		if(checker) { 
-			var href = $(this).attr("href") ? $(this).attr("href") : "#";
-
-			//ANYTHING SUBMIT ACTION
-
-			if(href !== "#") location.href = href;
-			else console.log("THERE IS NO LINK");
-		}//SUBMIT FUNCTION IS IN HERE
+			if($(".message-form").length !== 0) $(".message-form").submit();
+		}
 	}
 });
 

@@ -41,15 +41,15 @@
 			</article>
 		</div>
 		<div class="message-box">
-			<form id="certification" enctype="multipart/form-data" method="post" action="#">
+			<form class="message-form" enctype="multipart/form-data" method="post" action="../account/certificateEmail.php">
 				<label class="label-message">Certification Code</label>
 				<input name="certificationCode" class="input-message" type="text" data-value="code" />
-			<form>
+			</form>
 		</div>
 		<div class="message-box">
-			<div class="btn cancel-bt">Not now</div>
-			<div class="btn submit-bt" href="../account/certificateEmail.php">SUBMIT</div>
-			<div class="btn other-bt" data-value="resend">Resend</div>
+			<div class="btn cancel-bt" href="logoutCertifi.php">Not now</div>
+			<div class="btn submit-bt">SUBMIT</div>
+			<div class="btn other-bt" data-value="resend" href="reCertifiEmail.php">Resend</div>
 		</div>
 	</section>
 </body>

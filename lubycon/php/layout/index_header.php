@@ -15,7 +15,34 @@
         $LoginState = false;
     }else{
         if($session->SessionExist()){
+            
+            if(isset($_SESSION['lubycon_validation']))
+            {
+                $activity = NULL;
+                
+                if($_SESSION['lubycon_validation'] === "active")
+                    $activity = true;
+                else if($_SESSION['lubycon_validation'] === "inactive")
+                    $activity = false;
+                else
+                    $activity = false;
+
+                if($activity === false)
+                    echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+
+            }else{
+                $session->DestroySession();
+            } 
+
             $LoginState = true;
+
+            $Loginuser_name = isset($_SESSION['lubycon_nick']) ? $_SESSION['lubycon_nick'] : NULL;
+            $Loginuser_id= isset($_SESSION['lubycon_id']) ? $_SESSION['lubycon_id'] : NULL;
+            $Loginuser_code= isset($_SESSION['lubycon_code']) ? $_SESSION['lubycon_code'] : NULL;
+            $Loginuser_country = isset( $_SESSION['lubycon_country'] ) ? $country_json_Code[$_SESSION['lubycon_country']]['name'] : NULL;
+            $Loginuser_job = isset($_SESSION['lubycon_job']) ? $job_json_Code[$_SESSION['lubycon_job']]['name'] : NULL;
+            $Loginuser_city = isset($_SESSION['lubycon_city']) ? $_SESSION['lubycon_city'] : NULL;
+            /*
             $Loginuser_name= $_SESSION['lubycon_nick'];
             $Loginuser_id= $_SESSION['lubycon_id'];
             $Loginuser_code= $_SESSION['lubycon_code'];
@@ -23,6 +50,7 @@
             $Loginuser_job = $job_json_Code[$_SESSION['lubycon_job']]['name'];
             $Loginuser_city= $_SESSION['lubycon_city'];
             $Loginuser_stat= $_SESSION['lubycon_stat'];
+            */
             // login menu
         }else{
             $LoginState = false;    
@@ -58,11 +86,9 @@
     <link href="<?=$one_depth?>/css/module/lubyAlert.css" rel="stylesheet" type="text/css" />
     <link href="<?=$one_depth?>/css/module/checkBox.css" rel="stylesheet" type="text/css" />
     <link href="<?=$one_depth?>/css/layout/animate.css" rel="stylesheet" type="text/css" /><!--animation for objects-->
-    <link href="<?=$one_depth?>/css/slider.css" rel="stylesheet" type="text/css" /><!--slider css-->
 
     <script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
     <script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-ui.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/slider.js"></script><!--slider plugin-->
     <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySelector.js"></script><!--lubySelector-->
     <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
     <script type="text/javascript" src="<?=$one_depth?>/js/module/resizeObject.js"></script>
