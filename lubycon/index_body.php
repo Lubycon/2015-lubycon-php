@@ -27,6 +27,8 @@ $(function(){
 </script>
 <link href="css/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link href="./css/module/lubyImageSlider.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./js/module/jquery.lubyImageSlider.js"></script>
 <div id="index_figure_wrap" class="main_figure_wrap hidden-mb-b">
     <figure>
         <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
@@ -39,7 +41,7 @@ $(function(){
 ?>
 
 <!-- index page slider plugin -->
-<section id="slide_section" class="hidden-mb-b">
+<section id="slide_section" class="index_pre_body hidden-mb-b">
     <nav id="slide_lnb">
         <input class="slide-radio" data-value="1" id="artwork_bt" type="radio" name="tap" checked="checked" />
         <input class="slide-radio" data-value="2" id="vector_bt" type="radio" name="tap" />
@@ -51,6 +53,7 @@ $(function(){
         </nav>
         <!-- end nav -->
     </nav>
+    <div class="main-slider-wrapper">
     <!--end slide lnb-->
     <?php
         require_once './php/database/database_class.php';
@@ -69,21 +72,26 @@ $(function(){
             $db->query = "select boardCode,userDirectory from `$kind` order by `viewCount` desc limit 30";
 		    $db->askQuery();
 
-            echo "<div class='main-slider-wrapper' id='slider$i' style='width: 980px; height: 363px;'>";
-            echo "<div class='slides' u='slides'><div><ul>";
+            echo "<div class='lubyImageSlider' id='slider$i'>";
+            echo "<ul>";
             $index = 1;
             while($row = mysqli_fetch_array($db->result)){
                 $contents_number = $row['boardCode'];
                 $contents_thumb = $row['userDirectory']."/thumbnail/thumbnail.jpg";
-                echo "<li class='load_view'><a href='./php/contents/contents_view.php?cate=$kind&conno=$contents_number'><img src='$contents_thumb'></a></li>";
+                echo "<li class='load_view'>
+                        <a href='./php/contents/contents_view.php?cate=$kind&conno=$contents_number'>
+                            <img src='$contents_thumb'>
+                        </a>
+                    </li>";
                 if($index == 10 || $index == 20){
-                    echo "</ul></div><div><ul>";
+                    echo "</ul><ul>";
                 }
                 $index++;
             }
-                echo '</ul></div></div><div u="navigator" class="slider_pager"><div u="prototype"></div></div><span u="arrowleft" class="slider_arrow_left"><i class="fa fa-angle-left"></i></span><span u="arrowright" class="slider_arrow_right"><i class="fa fa-angle-right"></i></span></div>';
-            }
+            echo "</ul></div>";
+        }
     ?>
+    </div>
     <!-- end slider div -->
 </section>
 <!--slide section end-->

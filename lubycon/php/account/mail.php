@@ -32,7 +32,11 @@
 					by check the certification Code. <br /><br />
 					&nbsp;&nbsp;&nbsp;
 					<font size="4px">
+<<<<<<< HEAD
+					Here your certification Code : 8RJf11u2RoAc
+=======
 					Here your certification Code : qgAT95lB2AOD
+>>>>>>> 44af6ab50da26d9f9b18c2775b63d882d072fbd0
 					</font>
 					<br /><br />
 					&nbsp;&nbsp;&nbsp;

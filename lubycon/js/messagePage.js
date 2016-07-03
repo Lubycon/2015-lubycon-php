@@ -41,18 +41,14 @@ $(function(){
 
 	function messageAlign(){
 		var $this = $(this);
-		console.log($this);
 		
-		var w = isMobile() ? 0 : $this.innerWidth(),
-			h = isMobile() ? $this.innerHeight()+100 : $this.innerHeight();
-		console.log(isMobile());
-		console.log($this.width(),$this.height());
+		var w = isMobile() ? 0 : $this.width(),
+			h = isMobile() ? $this.height()+100 : $this.height();
 
 		$this.css({
 			"margin-left" : (w/2)*-1,
 			"margin-top" : (h/2)*-1
 		});
-		console.log($this.width(),$this.height());
 	}
 
 	function otherBtAction(){
