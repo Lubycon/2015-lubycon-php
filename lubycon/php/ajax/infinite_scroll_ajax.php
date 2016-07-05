@@ -22,22 +22,23 @@
     $json_control = new json_control;
     require_once "../class/infinite_scroll_class.php";
 
+
     $cate_name = $_POST['cate_param']; //form infinite scroll js post ajax
     $page_param = $_POST['page_param']; //form infinite scroll js post ajax
     $now_page_param = $_POST['now_page_param']; //form infinite scroll js post ajax
     $filter = 
     [ 
-        'search_kind' => null, //search kind 
-        'search_word' => null, //search word
-        'middle_cateogry' => null, //middle category
-        'a.`ccLicense`' => null, //cc license
-        'a.`userCode`' => null, //my contens
-        'b.`bookmarkActionUserCode`' => null //my bookmark
+        ['value' => null , 'query' => null ], //search kind 
+        ['value' => null , 'query' => null ], //search word
+        ['value' => $_POST['mid_cate_value'] > 0 ? $_POST['mid_cate_value'] : null , 'query' => $_POST['mid_cate_value'].' IN (a.`midCategoryCode0`,a.`midCategoryCode1`,a.`midCategoryCode2`)'], //middle category
+        ['value' => $_POST['copyright_value'] > 0 ? $_POST['copyright_value'] : null , 'query' => 'a.`ccLicense` = '.$_POST['copyright_value'] ], //cc license
+        ['value' => null , 'query' => 'a.`userCode` = '.$Loginuser_code], //my contens
+        ['value' => null , 'query' => 'b.`bookmarkActionUserCode` = '.$Loginuser_code] //my bookmark
     ];
-    $sort = null;
+    $sort = $_POST['prefer_value'] > 0 ? $_POST['prefer_value'] : null;
     $ajax_boolean = true; 
 
-
+    //print_r($filter);
 
 
     /* require class */

@@ -2,17 +2,38 @@
 require_once '../session/session_class.php';
 $session = new Session();
 if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
-$LoginState = false;
-}else{
-if($session->SessionExist()){
-$LoginState = true;
-$Loginuser_name= $_SESSION['lubycon_nick'];
-$Loginuser_id= $_SESSION['lubycon_id'];
-$Loginuser_code= $_SESSION['lubycon_code'];
-}else{
-$LoginState = false;
-}
-}
+        $LoginState = false;
+    }else{
+        if($session->SessionExist()){
+            
+            if(isset($_SESSION['lubycon_validation']))
+            {
+                $activity = NULL;
+                
+                if($_SESSION['lubycon_validation'] === "active")
+                    $activity = true;
+                else if($_SESSION['lubycon_validation'] === "inactive")
+                    $activity = false;
+                else
+                    $activity = false;
+
+                if($activity === false)
+                    echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+
+            }else{
+                $session->DestroySession();
+            } 
+
+            $LoginState = true;
+            
+            $Loginuser_name = isset($_SESSION['lubycon_nick']) ? $_SESSION['lubycon_nick'] : NULL;
+            $Loginuser_id= isset($_SESSION['lubycon_id']) ? $_SESSION['lubycon_id'] : NULL;
+            $Loginuser_code= isset($_SESSION['lubycon_userCode']) ? $_SESSION['lubycon_userCode'] : NULL;
+            // login menu
+        }else{
+            $LoginState = false;    
+        }
+    }
 if($LoginState)
 {
 
