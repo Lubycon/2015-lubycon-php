@@ -70,9 +70,8 @@ $(document).ready(function(){
             data: 'conno=' + conno + '&cate=' + catename + '&content=' + content + '&countkind=' + countkind + '&stat_check=' + stat_check, //data send
             cache: false,
             success: function (data) {
-                //console.log(data);
                 result = JSON.parse(data);
-                console.log(result);
+                //console.log(data);
                 comment_layout =
                 '<div class="comment-div"><figure class="comment-pic"><img src="' + result.src + '"></figure><h4>' + result.name + '</h4><p class="comment-time"><span class="comment-time-counter">' + result.date + '</span></p><p class="comment-contents">' + result.content + '</p></div>'
                 $(".comment-list").append(comment_layout);
