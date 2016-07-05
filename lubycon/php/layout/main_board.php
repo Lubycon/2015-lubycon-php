@@ -3,10 +3,10 @@
         $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubyconboard");
         
         switch($_GET['cate']){
-        case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
-        case 'tutorial' : $contents_cate = 2; $cate_name = 'tutorial'; break;
-        case 'qaa' : $contents_cate = 3; $cate_name = 'qaa'; break;
-        default : $contents_cate = 1;  break;
+            case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
+            case 'tutorial' : $contents_cate = 2; $cate_name = 'tutorial'; break;
+            case 'qaa' : $contents_cate = 3; $cate_name = 'qaa'; break;
+            default : $contents_cate = 1;  break;
         };
 
         $query = "SELECT * FROM `".$cate_name."` ORDER BY `".$cate_name."`.`boardCode` DESC";
@@ -48,7 +48,7 @@
                 }
             }else
             {
-                echo '<p style="padding: 20px">THERE IS NO DATA IN DATABASE<br/>AND THERE IS NO FUTURE</p>';
+                include_once("../messages/nullMessage.php");
             }
             ?>
             </ul>

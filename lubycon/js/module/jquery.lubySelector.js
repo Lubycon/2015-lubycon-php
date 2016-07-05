@@ -277,22 +277,28 @@
             },
             setValue: function(index){
                 return this.each(function(){
-                    var $this = $(this);
-                    var target = $($this.find(".ls_option")[index]),
-                        options = $this.find(".ls_option"),
-                        selector = $this.find("select");
+                    var $this = $(this),
+                        wrapper = $this.parents('.lubySelector');
+                    var target = $(wrapper.find(".ls_option")[index]),
+                        options = wrapper.find(".ls_option");
+
                     options.removeClass("selected");
                     target.addClass("selected");
-                    selector.val(target.text());
+                    $this.val(target.text());
 
-                    $this.parents('.lubySelector').find('.ls_Label').text(value);
+                    wrapper.find('.ls_Label').text(target.text());
                 })
             },
             setValueByString: function (value){
                 return this.each(function () {
-                    var $this = $(this);
+                    var $this = $(this),
+                        wrapper = $this.parents('.lubySelector');
+                    var options = wrapper.find(".ls_option");
+                    options.removeClass("selected");
+                    options.each(function(){ if(value === $(this).text()) $(this).addClass("selected") });
+
                     $this.val(value);
-                    $this.parents('.lubySelector').find('.ls_Label').text(value);
+                    wrapper.find('.ls_Label').text(value);
                 })
             }
         }

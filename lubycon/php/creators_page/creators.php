@@ -24,7 +24,7 @@
 <section class="container">
     <section class="nav_guide">
         <div class="nav-wrapper"> 
-            <select class="locationFilter">
+            <select class="locationFilter" data-param="location">
                 <option>All Continents</option>
                 <option>Africa</option>
                 <option>Asia</option>
@@ -33,13 +33,13 @@
                 <option>South America</option>
                 <option>Oceania</option>
             </select>
-            <select class="jobFilter">
+            <select class="jobFilter" data-param="job">
                 <?php
                     $json_control->json_spread_option($job_decode);
                     echo $json_control->json_spread_wrap;
                 ?>
             </select>
-            <select class="userFilter">
+            <select class="userFilter" data-param="filter">
                 <option>New</option>
                 <option>Most Like</option>
                 <option>Most Download</option>
@@ -47,7 +47,7 @@
             </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">
-                    <select class="searchFilter">
+                    <select class="searchFilter" data-param="search_filter">
                         <option value="Name">Name</option>
                         <option value="Country">Country</option>
                     </select>

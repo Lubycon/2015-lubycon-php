@@ -49,7 +49,7 @@ $(document).ready(function(){
         /////////////////////////////////////////////////////////
         $(document).ready(function(){
             $("body").show();
-        })
+        });
     }
     function mainNavigationAction(){
         $(".bigsub").hover(function(){
@@ -186,56 +186,68 @@ $(document).ready(function(){
             if(value.isSpecialChar()) $this.val(value.slice(0,-1));
         })
     }
-    function initLubySelectors(){
-        var searchFilter = $("body").find(".searchFilter");
-        searchFilter.lubySelector({
-            width: 100,
-            theme: "transparent",
-            icon: ""
-        });
-
+    function initLubySelectors(){    
         if($(".nav_guide").length !== 0){
+            console.log(1);
             var navGuide = $(".nav_guide"),
-            preferFilter = navGuide.find(".preferFilter"),
-            copyrightFilter = navGuide.find(".copyrightFilter"),
-            languageFilter = navGuide.find(".languageFilter")
-            locationFilter = navGuide.find(".locationFilter"),
-            jobFilter = navGuide.find(".jobFilter"),
-            userFilter = navGuide.find(".userFilter"),
-            categoryFilter = navGuide.find(".categoryFilter"),
+                searchFilter = navGuide.find(".searchFilter");
+                preferFilter = navGuide.find(".preferFilter"),
+                copyrightFilter = navGuide.find(".copyrightFilter"),
+                languageFilter = navGuide.find(".languageFilter")
+                locationFilter = navGuide.find(".locationFilter"),
+                jobFilter = navGuide.find(".jobFilter"),
+                userFilter = navGuide.find(".userFilter"),
+                categoryFilter = navGuide.find(".categoryFilter");
 
+            init();
+            dataBinding();
+        }
+        else{
+            return false;
+        }
+        function init(){
+            searchFilter.lubySelector({
+                width: 100,
+                theme: "transparent",
+                icon: ""
+            });
             preferFilter.lubySelector({
                 id: "preferFilter",
                 width: 200,
                 customClass: "hidden-mb-ib",
-                theme: "rect"
+                theme: "rect",
+                changeEvent: changeLocation
             });
             copyrightFilter.lubySelector({
                 id: "copyrightFilter",
                 width: 200,
                 icon: "fa fa-copyright",
                 customClass: "hidden-mb-ib",
-                theme: "rect"
+                theme: "rect",
+                changeEvent: changeLocation
             });
             locationFilter.lubySelector({
                 id: "locationFilter",
                 width: 200,
                 icon: "fa fa-globe",
                 customClass: "hidden-mb-ib",
-                theme: "rect"
+                theme: "rect",
+                changeEvent: changeLocation
             });
             jobFilter.lubySelector({
                 id: "jobFilter",
                 width: 200,
                 icon: "fa fa-suitcase",
-                theme: "rect"
+                theme: "rect",
+                changeEvent: changeLocation
             });
             userFilter.lubySelector({
                 id: "userFilter",
                 width: 200,
                 icon: "fa fa-user",
                 customClass: "hidden-mb-ib",
-                theme: "rect"
+                theme: "rect",
+                changeEvent: changeLocation
             });
             categoryFilter.lubySelector({
                 id:"categoryFilter",
@@ -247,13 +259,34 @@ $(document).ready(function(){
                 changeEvent: changeLocation
             });
         }
-        else{
-            return false;
+        function dataBinding(){
+            var selectors = $(document).find(".lubySelector select");
+            selectors.each(function(){
+                var data = $(this).data("param"),
+                    value = getUrlParameter(data);
+                if(value !== undefined) $(this).lubySelector("setValue",value);
+                else $(this).lubySelector("setValue",0);
+            });
         }
         function changeLocation(){
-            var value = $(this).find("option").index($(this).find("option:selected")) +1;
-            console.log(value);
-            setUrlParameter("mid_cate",value);
+            var value = $(this).find("option").index($(this).find("option:selected"));
+            setUrlParameter($(this).data("param"),value);
+            $.ajax({
+                type: "POST",
+                url: "../ajax/contents_page_data.php",
+                data: "cate_param=" + CATE_PARAM + 
+                      "&mid_cate_param=" + MID_CATE_PARAM + 
+                      "&cc_param=" + getUrlParameter("cc") + 
+                      "&filter_param" + getUrlParameter("filter") +
+                      "&job_param" + getUrlParameter("job") +
+                      "&location_param" + getUrlParameter("location") +
+                      "&search_filter_param" + getUrlParameter("search_filter"),
+                cache: false,
+                success: function (data){
+                    console.log(data);
+                    console.log("SUCCESS");
+                }
+            })
         }
     }
     function initLubyAlerts(){
@@ -266,7 +299,8 @@ $(document).ready(function(){
                     icon: "fa-star",
                     iconColor: "#ffbe54",
                     iconAnimation: "bounce",
-                    text: "Marked"
+                    text: "SAVE!",
+                    fontSize: 18
                 });
             }
         });
@@ -277,7 +311,8 @@ $(document).ready(function(){
                     icon: "fa-heart",
                     iconColor: "#48cfad",
                     iconAnimation: "bounceIn",
-                    text: "Liked"
+                    text: "LIKE!",
+                    fontSize: 18
                 });
             }
         });

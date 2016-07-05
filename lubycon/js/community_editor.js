@@ -3,7 +3,7 @@ $(document).ready(function(){
 
     $('#file_import_bt').on("click touchend",function(event) {
         eventHandler(event,$(this));
-        $('#file_import_com').click();
+        $('#file_import_com').trigger("click");
     });
     $('#file_import_com').change(function () {
         $('#file_text_com').val($(this).val());

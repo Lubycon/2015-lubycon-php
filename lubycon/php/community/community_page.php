@@ -15,7 +15,6 @@
 <!-- end main_figure -->
 
 <link href="../../css/community.css" rel="stylesheet" type="text/css" />
-<script src="../../js/community.js" type="text/javascript"></script>
 
 <!-- contents page css -->
 <section class="container">
@@ -34,11 +33,10 @@
             </ul>
         </nav>
         <!-- end lnb nav -->
-        <!-- end select box -->
     </section>
     <section class="nav_guide">
         <div class="nav-wrapper"> 
-            <select class="preferFilter">
+            <select class="preferFilter" data-param="filter">
                 <option>Featured</option>
                 <option>Recent</option>
                 <option>Most Like</option>
@@ -47,7 +45,7 @@
             </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">
-                    <select class="searchFilter">
+                    <select class="searchFilter" data-param="search_filter">
                         <option value="Title">Title</option>
                         <option value="Creator">Creator</option>
                     </select>
@@ -73,7 +71,7 @@
             }
         ?><!--end main_board section -->
     </section>
-    <a id="write_bt" class="write_bt" href="../community/community_write.php?cate=<?=$_GET['cate']?>">
+    <a id="write_bt" class="write_bt" href="../community/community_editor.php?cate=<?=$_GET['cate']?>">
         <i class="fa fa-plus"></i>
     </a>
 </section>

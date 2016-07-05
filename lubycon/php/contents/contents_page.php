@@ -87,20 +87,20 @@
 
     <section class="nav_guide">
         <div class="nav-wrapper">
-            <select class="preferFilter">
+            <select class="preferFilter" data-param="filter">
                 <option selected="selected">Featured</option>
                 <option>Recent</option>
                 <option>Most Like</option>
                 <option>Most Download</option>
                 <option>Most Comment</option>
             </select>
-            <select class="copyrightFilter"> <!-- daniel : need to delete this filter... we set only free now -->
+            <select class="copyrightFilter" data-param="cc">
                 <option>All License</option>
                 <option>Free</option>
-                <option>No-Commercial</option>
-                <option>No-Distribution</option>
+                <option>No Commercial</option>
+                <option>No Distribution</option>
             </select>
-            <select class="categoryFilter">
+            <select class="categoryFilter" data-param="mid_cate">
             <?php
                 $json_control->json_spread_option($middle_cate_decode);
                 echo $json_control->json_spread_wrap;
@@ -108,7 +108,7 @@
             </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">
-                    <select class="searchFilter">
+                    <select class="searchFilter" data-param="search_filter">
                         <option value="Title">Title</option>
                         <option value="Creator">Creator</option>
                         <option value="Tag">Tag</option>

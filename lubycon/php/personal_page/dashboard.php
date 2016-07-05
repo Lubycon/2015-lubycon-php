@@ -83,12 +83,14 @@
                 <div class="dash_body_sector" id="userjob">
                     <p class="dash_body_title">Job</p>
                     <div class="dash_body_content">
+                        <p class="content_text"></p>
                         <p class="content_text"><?=$userjob?></p>
                     </div>
                 </div>
                 <div class="dash_body_sector" id="user_position">
                     <p class="dash_body_title">Position</p>
                     <div class="dash_body_content">
+                        <p class="content_text"></p>
                         <p class="content_text"><?=$user_position?></p> 
                     </div>
                 </div>

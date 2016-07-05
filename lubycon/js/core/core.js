@@ -23,6 +23,19 @@ function isMobile(){
     else return false;
 }
 
+function removeUrlParameter(sParam){
+    var uri = window.location.search.substring(1);
+    var uriObject = uri.split("&");
+        uriObject = uriObject.map(function(v,i,a){ //Value, Index, Array
+            return v.split("=");
+        });
+    for(var i = 0; i < uriObject.length; i++){
+        if(sParam === uriObject[i][0]){
+            history.pushState(null, "", location.pathname + '?' + uri.replace(uriObject[i][0] + '=' + uriObject[i][1], ""));
+        }
+    }
+}
+
 function getUrlParameter(sParam){
     var uri = window.location.search.substring(1).split("&");
     uri = uri.map(function(v,i,a){ //Value, Index, Array
@@ -36,10 +49,9 @@ function getUrlParameter(sParam){
 function setUrlParameter(sParam,value){
     var uri = window.location.search.substring(1);
     var uriObject = uri.split("&");
-    uriObject = uriObject.map(function(v,i,a){ //Value, Index, Array
-        return v.split("=");
-    });
-    console.log(uriObject);
+        uriObject = uriObject.map(function(v,i,a){ //Value, Index, Array
+            return v.split("=");
+        });
     for(var i = 0; i < uriObject.length; i++){
         if(sParam === uriObject[i][0]){
             history.pushState(null, "", location.pathname + '?' + uri.replace(uriObject[i][0] + '=' + uriObject[i][1], uriObject[i][0] + '=' + value));
@@ -98,7 +110,7 @@ var toggle = {
         }
     },
     single: function(event){
-        eventHandler(event,$(this));
+        //eventHandler(event,$(this));
         var $this = $(this);
         if($this.hasClass("selected")) $this.removeClass("selected");
         else $this.addClass("selected");

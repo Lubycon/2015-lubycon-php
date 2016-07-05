@@ -1,47 +1,6 @@
 @charset "utf-8";
 /*CSS RESET*/
-body {
-    width: 100%;
-    position: relative;
-    background: #fff;
-    display: block;
-    overflow-x: hidden;
-    -webkit-text-size-adjust: none; /*hold font-size in moblie*/
-}
-
-article, aside, hgroup, header, footer, figure, figcaption, nav, section {
-    display: block;
-}
-
-body, h1, h2, h3, h4, h5, h6, div, p, ul, ol, dl, li, dt, dd, address, article, aside, hgroup, header, footer, figure, figcaption, nav, section {
-    margin: 0px;
-    padding: 0px;
-    color: #000;
-}
-
-li {
-    list-style: none;
-}
-
-img {
-    border-style: none;
-}
-
-a {
-    
-}
-
-* {
-    font-family: 'Source Sans Pro';
-    /*font-size: 1em;*/
-    font-weight: 400;
-    outline: 0;
-}
-*:focus{
-    outline: 0;
-}
-
-/*----------------------*/
+body { display: block; }
 
 .lubyImageSlider {
     position: relative;
@@ -87,9 +46,8 @@ a {
                 cursor: pointer;
             }
             .lubyImageSlider .img-slider-list-wrapper img {
-                display: block;
-                margin: 0px auto;
                 height: 100%;
+                margin-left: -16px;
                 vertical-align: middle;
             }
     .lubyImageSlider .img-slider-arrow {

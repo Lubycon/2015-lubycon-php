@@ -576,8 +576,6 @@ body {
         vertical-align: middle;
     }
 
-
-
 #signin_bt {
     position: relative;
     width: 125px;
@@ -709,8 +707,6 @@ body {
     line-height: 50px;
 }
 
-
-
 #lang_select_bt {
     position: absolute;
     top: 0px;
@@ -722,7 +718,6 @@ body {
     background-color: #555555;
     cursor: default;
 }
-
     #lang_select_bt ul ul {
         border-bottom-left-radius: 2px;
         border-bottom-right-radius: 2px;
@@ -734,7 +729,6 @@ body {
         padding-bottom: 5px;
         display: none;
     }
-
 .lang_selected {
     width: 50px;
     height: 50px;
@@ -745,7 +739,6 @@ body {
     letter-spacing: 1px;
     color: #fff;
 }
-
 
 #lang_select_bt ul ul li {
     width: 50px;
@@ -2015,6 +2008,23 @@ body {
     .like_bt.toggle{
         color: #48cfad;
     }
+.no-data-wrapper {
+    padding: 20px;
+}
+    .no-data-wrapper > i {
+        color: #c0c0c0;
+        font-size: 50px;
+        margin-bottom: 10px;
+    }
+    .no-data-wrapper > p {
+        color: #c0c0c0;
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .no-data-wrapper > .viewmore_bt {
+        border: 1px solid #c0c0c0;
+        color: #c0c0c0;
+    }
 /*---------------------------------------------------BETA*/
 #beta_version{
     position: absolute;
@@ -2035,24 +2045,3 @@ body {
 #beta_version:hover{
     transform: scale(1.2,1.2);
 };
-/*--------------------------coming_soon--------------------------------*/
-.coming_soon{
-    width:100%;
-}
-    .coming_soon_img{
-        width:400px;
-        margin:0px auto;
-        margin-top:40px;
-    }
-        .coming_soon_img img{
-            width:400px;
-        }
-    .coming_soon_bt{
-        width:270px;
-        margin:0px auto;
-        margin-top:10px;
-        margin-bottom: 50px;
-    }
-        .coming_soon_bt a img{
-            width:270px;
-        }

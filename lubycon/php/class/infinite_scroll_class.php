@@ -225,13 +225,12 @@ class infinite_scroll extends json_control
             }
             /*ajax*/
 
-            if($this->all_page_count == $this->target_page)
-            {
+            if($this->all_page_count == $this->target_page){
                 echo '<div class="viewmore_bt" data-value="content"><i class="fa fa-plus"></i></div>';
             }
 
         }else{
-            echo '<div class="viewmore_bt" data-value="content"><i class="fa fa-plus"></i></div>';
+            include_once("../messages/nullMessage.php");
         }
     }
 

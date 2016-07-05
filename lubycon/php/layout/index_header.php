@@ -332,7 +332,7 @@
             <i class="fa fa-search"></i>
         </button>
         <div class="select-box">|
-            <select class="searchFilter">
+            <select class="searchFilter" data-param="search">
                 <option data-value="All">All</option>
                 <option data-value="Contents">Contents</option>
                 <option data-value="Creatorr">Creator</option>
