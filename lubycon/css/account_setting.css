@@ -47,7 +47,7 @@
         }
         .setting_card input{
             width: 100%;
-            height: 34px;
+            height: 41px;
             vertical-align: middle;
             border:1px solid #aaa;
             border-radius: 3px;
@@ -60,6 +60,10 @@
                 border:1px solid #48cfad;
                 box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
             }
+        .setting_card input.error {
+            border: 1px solid #ec6446;
+            box-shadow: 0px 0px 5px rgba(236,100,70, 1);
+        }
             
         .setting_card .fa-times{
             width: 25px;
@@ -175,36 +179,16 @@
             border:1px solid #48cfad;
             box-shadow: 0px 0px 5px rgba(81, 203, 238, 1);
         }
+        #basic_desc.error {
+            border: 1px solid #ec6446;
+            box-shadow: 0px 0px 5px rgba(236,100,70, 1);
+        }
     #basic_desc_label{
         vertical-align:top;
     }
     .public_option{
         position:relative;
         vertical-align: top;
-    }
-    .fa-lock{
-        position:absolute;
-        z-index:1;
-        top:20px;
-        left:10px;
-        color:#888888;
-    }
-
-    .public_option .sod_select.custom.custom{
-        width:130px;
-        background:#fff;
-    }
-
-    .public_option .sod_select.custom .sod_label{
-        padding-right:0px;
-    }
-    .public_option .sod_select.custom .sod_list_wrapper{
-        width:130px;
-        box-shadow:none;
-        z-index:2;
-    }
-    .public_option  .sod_select.custom.focus{
-        box-shadow:none;
     }
 
 #cropper_account {

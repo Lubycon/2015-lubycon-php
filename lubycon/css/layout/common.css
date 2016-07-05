@@ -838,7 +838,7 @@ body {
 }
     .main_figure_wrap#index_figure_wrap {
         width: 100%;
-        height: 500px;
+        height: 350px;
     }
     .main_figure_wrap figure {
         background: url(../../ch/img/main_img.jpg) 0% 45% no-repeat;
@@ -854,7 +854,7 @@ body {
         .main_figure_wrap#index_figure_wrap figure {
             position: relative;
             top: 0;
-            height: 450px;
+            height: 300px;
         }
             .main_figure_wrap figure h2 {
                 color: #fff;
@@ -866,7 +866,7 @@ body {
             }
             .main_figure_wrap#index_figure_wrap figure h2 {
                 letter-spacing: 0;
-                padding-top: 140px;
+                padding-top: 50px;
             }
 
 .container{

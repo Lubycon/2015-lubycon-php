@@ -1,11 +1,12 @@
-﻿.lubyAlert{
+﻿
+.lubyAlert{
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     background: rgba(0,0,0,0.8);
-    border-radius: 5px;
     text-align: center;
-    padding: 15px;
+    padding: 20px 50px;
     z-index: 50000;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -16,26 +17,13 @@
 	position: relative;
     width: 100%;
     display: inline-block;
-    margin-top: 28px;
 }
-    .lubyWrapper > .lubyAlertIcon{
+    .lubyWrapper .lubyAlertIcon{
         color: #ffffff;
         font-size: 40px;
         margin-bottom: 10px;
     }
-        .bookmark .lubyAlertIcon{
-            color: #ffbe54;
-        }
-        .like .lubyAlertIcon{
-            color: #48cfad;
-        }
-        .success .lubyAlertIcon{
-            color: #609bdf;
-        }
-        .cancel .lubyAlertIcon{
-            color: #ec6446;
-        }
-    .lubyWrapper > .lubyAlertText{
+    .lubyWrapper .lubyAlertText{
         width: 100%;
         color: #ffffff;
         font-size: 30px;
@@ -44,7 +32,10 @@
         white-space: nowrap;
         overflow: hidden;
     }
-    .lubyWrapper > .lubyAlertInput{
+        .lubyWrapper .lubyAlertText p {
+            color: #ffffff;
+        }
+    .lubyWrapper .lubyAlertInput{
         width: 98%;
         height: 40px;
         margin-top: 20px;
@@ -58,11 +49,11 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .lubyWrapper > .lubyAlertInput:focus{
+        .lubyWrapper .lubyAlertInput:focus{
             border:1px solid #48cfad;
             box-shadow: 0px 0px 7px rgba(81, 203, 238, 1);
         }
-    .lubyAlert > .lubyButton{
+    .lubyAlert .lubyAlertButton{
         display: inline-block;
         width: 120px;
         height: 40px;
@@ -73,13 +64,14 @@
         margin: 5px;
         margin-top: 25px;
         cursor: pointer;
+        transition: opacity 0.2s;
     }
-        .lubyAlert > .lubyButton:hover{
+        .lubyAlert .lubyAlertButton:hover{
             opacity: 0.7;
         }
-        .lubyAlert > .lubyOk{
+        .lubyAlert .lubyAlertButton.okButton{
             color: #48cfad;
         }
-        .lubyAlert > .lubyCancel{
+        .lubyAlert .lubyAlertButton.cancelButton{
             color: #ec6446;
         }

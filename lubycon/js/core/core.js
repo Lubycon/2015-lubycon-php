@@ -335,7 +335,7 @@ String.prototype.isRepeatWord = function(limit){
 }
 String.prototype.isSpecialChar = function(){
     //if Is is specialChar => true Or false
-    var reg = /[`;/~!\#$%<>^&*\()<>\-=\+_\’\"\']/gi;
+    var reg = /[`;/~!\#$%<>^&\|*\()<>\-=\+\’\"\']/gi;
 
     return reg.test(this);
 }

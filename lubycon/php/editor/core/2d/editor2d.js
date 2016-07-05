@@ -640,8 +640,9 @@
                         var fileList = new FileList(name,size[0],size[1],i).appendTo($fileViewer);
                         attachedFiles.push(file);
                     }
+                    else $this.val(null);
+
                     setIndex(".file-list");
-                    console.log(attachedFiles);
                 });
 
                 initTotalFileInfo();
