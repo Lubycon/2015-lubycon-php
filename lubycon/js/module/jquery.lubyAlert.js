@@ -1,9 +1,9 @@
 /* ===========================================================
  *
  *  Name:          lubyAlert.min.js
- *  Updated:       2016-03-09
- *  Version:       0.1.0
- *  Created by:    DART, Lubycon.co
+ *  Updated:       2016-07-05
+ *  Version:       0.1.1
+ *  Created by:    EVAN, Lubycon.co
  *
  *  Copyright (c) 2016 Lubycon.co
  *
@@ -14,185 +14,130 @@
         var defaults = { 
             width: 170,
             height: 170,
-            kind: "custom",//bookmark,like,success,cancel,confirm,prompt,custom
-            inSpeed: 500,
-            stoptime: 500,
-            outSpeed: 700,
-            customIcon: "",//font awesome
-            customText: "",
-            customAnimation: "",
-            textSize: 30,
-            toggle: false,
+            type: "alert",// alert, prompt
+            animation: null, //animated.css
+            fadeInTime : 500,
+            fadeOutTime: 700,
+            stopTime: 500,
+            autoDestroy: true,
+
+            icon: null,//font awesome
+            iconColor: "#ffffff",
+            iconAnimation: null,
+            text: null,
+            textColor: "#ffffff",
+
+            theme: "black", //black, white
+            fontSize: 30,
             okButton: true,
             cancelButton: true,
-            okAlert: true,
-            cancelAlert: true,
-            callback: null
+
+            okAction: null,
+            cancelAction: null,
+            destroyAction: null
         },
         d = {},
         pac = {
             create: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
                     if (!$(this).hasClass("alertKey")) $.error("lubyAlert : There is no lubyAlert object");
-                    else {      
-                        var $this = $(this),
-                        toggleSetup = d.toggle ? 
-                        $this.on("click touchend", pac.toggleOn) && $this.on("click touchend", pac.init): 
-                        $this.on("click touchend", pac.init);
+                    else {     
+                        console.log("LUBYALERT IS READY");
+                        var $this = $(this);
+                        pac.render.call($this);
                     }
                 })
             },
+            render: function(){
+                var container = new pac.init();
+
+                if(d.animation !== null) container.addClass(d.animation +  " animated");
+                container.appendTo("body");
+
+                pac.align.call(container);
+                container.fadeIn(d.fadeInTime,function(){
+                    if(d.autoDestroy){
+                        setTimeout(function(){
+                            func.destroy.call(container);
+                        },d.stopTime);
+                    }                    
+                });
+            },
             init: function() {
-                var $this = $(this),
-                windowHeight = $(window).height(),
-                width = (typeof d.width === "number") ? d.width : "auto",
-                height = (typeof d.height === "number") ? d.height : "auto",
-                kind = d.kind,
-                text = (kind=="custom"||"confirm"||"prompt") ? d.customText : "",
-                icon = (kind=="custom"||"confirm"||"prompt") ? (d.customIcon +" "+ d.customAnimation) : "",
-
-                alertBody = $("<div/>",{
-                    "class" : "lubyAlert " + d.kind,
-                }).css({
-                    "width":d.width,
-                    "height":d.height,
-                    "margin-top" : (height+100)*0.5*-1,
-                    "margin-left" : width*0.5*-1
-                }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
-                    pac.destroyAlert(alertBody,kind);
-                }),
-                alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
-                alertIcon = $("<i/>",{"class":"lubyAlertIcon " + icon}).appendTo(alertInner),
-                alertText = $("<p/>",{"class":"lubyAlertText","html":text}).css({ "font-size" : d.textSize+"px" }).appendTo(alertInner),
-                
-                okBt = $("<div/>",{"class":"lubyOk lubyButton","html":"OK"}).on("click",pac.okCallBack),
-                cancelBt = $("<div/>",{"class":"lubyCancel lubyButton","html":"CANCEL"}).on("click",pac.cancelCallBack),
-                
-                alertInput = d.kind==="prompt" ? 
-                $("<input/>",{"type":"text","class":"lubyAlertInput"}).appendTo(alertInner).on("keydown",pac.keyEvent).focus() : alertInner.focus();
-
-                pac.preset(kind,alertIcon,alertText);
-                buttonChecker();
-
-                function buttonChecker(){
-                    var kind = d.kind;
-                    if(kind === "confirm" || "prompt"){
-                        if(d.okButton) okBt.appendTo(alertBody);
-                        if(d.cancelButton) cancelBt.appendTo(alertBody);
-                    }
-                }
-            },
-            preset: function(kind,icon,text) {
-                switch(kind){
-                    case "bookmark" :
-                        icon.addClass("fa fa-star bounce animated");
-                        text.text("Saved :)");
-                    break;
-                    case "like" :
-                        icon.addClass("fa fa-heart bounceIn animated");
-                        text.text("Liked :)");
-                    break;
-                    case "success" :
-                        icon.addClass("fa fa-check-circle rotateIn animated");
-                        text.text("Completed");
-                    break;
-                    case "cancel" :
-                        icon.addClass("fa fa-times tada animated");
-                        text.text("Cancelled")
-                    break;
-                    default : return; break;
-                }
-            },
-            okCallBack: function(){
-                var $this = $(this).parents(".lubyAlert"),
-                windowHeight = $(window).height(),
-                objectY = ((windowHeight*0.5) - (170*0.5)),
-                objectX = ((170*0.5)*-1),
-                alertBody = d.okAlert ? $("<div/>",{
-                    "class" : "lubyAlert success"
-                }).css({
-                    "width": 170,
-                    "height": 170,
-                    "top": objectY,
-                    "left": "50%",
-                    "margin-left": objectX
-                }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
-                    pac.destroyAlert(alertBody,"success");
-                }) : "",
-                alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
-                alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-check-circle rotateIn animated"}).appendTo(alertInner),
-                alertText = $("<p/>",{"class":"lubyAlertText","html":"Completed"}).appendTo(alertInner);
-                pac.destroyAlert($this);
-                console.log("OK");
-            },
-            cancelCallBack: function(){
-                var $this = $(this).parents(".lubyAlert"),
-                windowHeight = $(window).height(),
-                objectY = ((windowHeight*0.5) - (170*0.5)),
-                objectX = ((170*0.5)*-1),
-                alertBody = d.cancelAlert ? $("<div/>",{
-                    "class" : "lubyAlert cancel"
-                }).css({
-                    "width": 170,
-                    "height": 170,
-                    "top": objectY,
-                    "left": "50%",
-                    "margin-left": objectX
-                }).insertBefore("body").hide().stop().fadeIn(d.inSpeed,function(event){
-                    pac.destroyAlert(alertBody,"cancel");
-                }) : "",
-                alertInner = $("<div/>",{"class":"lubyWrapper"}).appendTo(alertBody),
-                alertIcon = $("<i/>",{"class":"lubyAlertIcon fa fa-times tada animated"}).appendTo(alertInner),
-                alertText = $("<p/>",{"class":"lubyAlertText","html":"Cancelled"}).appendTo(alertInner);
-                pac.destroyAlert($this);
-                console.log("CANCEL");
-            },
-            destroyAlert: function(selector,kind) {
-                var $this = selector,
-                kind = kind;
-                if(kind=="prompt"||kind=="confirm"){
-                    return;
-                }
-                else if(kind === null){
-                    $this.blur().fadeOut(d.outSpeed,function(){$this.remove();});
-                }
-                else{ 
-                    setTimeout(function(){ 
-                        $this.blur().fadeOut(d.outSpeed,function(){
-                            $this.remove();
-                            if (d.callback !== null) d.callback();
-                        })
-                    },d.stoptime);
-                    console.log("destroyAlert");
-                } 
-            },
-            toggleOn: function() {
                 var $this = $(this);
-                if(!$this.hasClass("selected")){
-                    $this.addClass("selected");
-                    $this.off("click touchend", pac.init);
+
+                var width = typeof d.width === "number" ? d.width : "auto",
+                    height = typeof d.height === "number" ? d.height : "auto",
+                    icon = d.icon === null ? "fa-filter" : d.icon,
+                    text = d.text === null ? "Alert!" : d.text;
+
+                var container = $("<div/>",{ "class" : "lubyAlert" }),
+                    wrapper = $("<div/>",{ "class" : "lubyWrapper"}),
+                    InnerWrapper = $("<div/>",{ "class" : "lubyInnerWrapper" }),
+                    icon = $("<i/>",{ "class" : "lubyAlertIcon fa " + icon }),
+                    text = $("<p/>",{ "class" : "lubyAlertText", "html" : text }),
+                    input = d.type === "prompt" ? $("<input/>",{ "type" : "text", "class" : "lubyAlertInput" }) : null,
+
+                    button = $("<div/>",{ "class" : "lubyAlertButton" }).on("click",func.buttonAction),
+                    okButton = d.okButton ? button.clone(true).addClass("okButton").data("value","ok").text("OK") : null,
+                    cancelButton = d.cancelButton ? button.clone(true).addClass("cancelButton").data("value","cancel").text("CANCEL") : null;
+
+                    icon.css({ "color" : d.iconColor });
+                    if(d.iconAnimation !== null) icon.addClass(d.iconAnimation + " animated");
+                    text.css({ "color" : d.textColor, "font-size" : d.fontSize });
+                    
+                var iconWrapper = InnerWrapper.clone().addClass("icon-wrapper").append(icon),
+                    textWrapper = InnerWrapper.clone().addClass("text-wrapper").append(text),
+                    buttonWrapper = InnerWrapper.clone().addClass("button-wrapper");
+                    if(okButton !== null) buttonWrapper.append(okButton);
+                    if(cancelButton !== null) buttonWrapper.append(cancelButton);
+
+                iconWrapper.appendTo(wrapper);
+                textWrapper.appendTo(wrapper);
+                if(d.type !== "alert") buttonWrapper.appendTo(wrapper);
+                if(input !== null){
+                    var inputWrapper = InnerWrapper.clone()
+                                        .addClass("input-wrapper")
+                                        .append(input)
+                                        .insertBefore(buttonWrapper);
                 }
-                else{
-                    $this.removeClass("selected");
-                    $this.on("click touchend", pac.init);
-                }
+
+                wrapper.appendTo(container);
+
+                return container;
             },
-            keyEvent: function() {
-                var $this = $(this),
-                kind = d.kind,
-                okBt = $this.parents(".lubyAlert").find(".lubyOk"),
-                cancelBt = $this.parents(".lubyAlert").find(".lubyCancel");
-                if(event.which == 13) {
-                    if($this.val()==""){ cancelBt.click(); }
-                    else{ okBt.click(); }
-                }
-                else if(event.which==27) {
-                    cancelBt.click();
-                }
-                else{ return; }
-                console.log("keyEvent");
+            align: function(element){
+                var $this = $(this);
+                    width = $this.outerWidth(),
+                    height = $this.outerHeight(),
+                    marginTop = height * -1,
+                    marginLeft = width * -0.5;
+                $this.css({
+                    "margin-top" : marginTop,
+                    "margin-left" : marginLeft
+                });
             }
         },
+        func = {
+            destroy: function(){
+                $(this).fadeOut(d.fadeOutTime,function(){
+                    $(this).remove();
+                    if(d.destroyAction !== null) d.destroyAction();
+                });
+            },
+            buttonAction: function(){
+                var data = $(this).data("value");
+                if(data === "ok") actionEvent(d.okAction);
+                else if(data === "cancel") actionEvent(d.cancelAction);
+                else $.error("lubyAlert : CALLBACK EVENT ERROR");
+
+                func.destroy.call($(this).parents(".lubyAlert"));
+
+                function actionEvent(action){
+                    if(action !== null) action();
+                }
+            }
+        }
         start = {
             test: function () {
                 return this.each(function () {

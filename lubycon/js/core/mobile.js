@@ -106,9 +106,6 @@ $(window).on("load resize",function(event){
 
             panels.removeClass("selected");
             target.addClass("selected");
-
-            allButtons.each(function(){ $(this).text($(this).parent().data("target").toUpperCase()); });
-            thisButton.text("VIEW MORE");
         }
 
         function dbClickAction(){

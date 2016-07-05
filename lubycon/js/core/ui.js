@@ -251,23 +251,33 @@ $(document).ready(function(){
         }
     }
     function initLubyAlerts(){
-        $(".userAction-bt[data-value='bookmark']").lubyAlert({
-            kind: "bookmark",
-            toggle: true,
-            okButton: false,
-            cancelButton: false
+        $(".userAction-bt").on("click",toggle.single);
+
+        $(".userAction-bt[data-value='bookmark']").on("click",function(){
+            if($(this).hasClass("selected")){
+                $(this).lubyAlert({
+                    icon: "fa-star",
+                    iconColor: "#ffbe54",
+                    iconAnimation: "bounce",
+                    text: "Marked"
+                });
+            }
         });
-        $(".userAction-bt[data-value='like']").lubyAlert({
-            kind: "like",
-            toggle: true,
-            okButton: false,
-            cancelButton: false
+        
+        $(".userAction-bt[data-value='like']").on("click",function(){
+            if($(this).hasClass("selected")){
+                $(this).lubyAlert({
+                    icon: "fa-heart",
+                    iconColor: "#48cfad",
+                    iconAnimation: "bounceIn",
+                    text: "Liked"
+                });
+            }
         });
-        $("#delete_bt").lubyAlert({
-            width: 430,
-            height: 180,
-            kind: "confirm",
-            customText: "Are you sure?"
+        $("#delete_bt").on("click",function(){
+            $(this).lubyAlert({
+                autoDestroy: false
+            });
         });
     }
     function initGoTopBt(){
@@ -325,7 +335,9 @@ $(document).ready(function(){
     }
 
     function initMainSlider(){
-        $("#slider1").lubyImageSlider();
+        $("#slider1").lubyImageSlider({
+            autoPlay: false
+        });
         $("#slider2").lubyImageSlider();
         $("#slider3").lubyImageSlider();
 

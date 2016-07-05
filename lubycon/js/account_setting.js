@@ -5,44 +5,30 @@
         initProfileCropper();
         optionButtonControl($(".langWrap"),4);
         optionButtonControl($(".historyWrap"),20);
+        $("#delete_account_bt").on("click",deleteAccountEvent);
         $("#submit_bt").on("click",finalSubmit);
     });
 
     var unloadChecker = true;
     var inputAction = {
-        blankAction: function(element){
-            var $this = element;
-            var $checkIcon = $this.siblings(".check-icon");
-            var $checkMessage = $this.siblings(".check-message");
-
-            $this.css({ "border-left" : "1px solid #aaaaaa" });
-            $checkIcon.attr("class","check-icon");
-            $checkMessage.text("").show();
-            console.log("blank");
+        blank: function(){
+            var $this = $(this);
         },
-        trueAction: function(element){
-            var $this = element;
-            var $checkIcon = $this.siblings(".check-icon");
-
-            $this.css({ 'border-left': '5px solid #48cfad' });
-            $checkIcon.attr("class","check-icon");
-            $checkIcon.addClass('fa fa-check');
-            console.log("true input");
+        true: function(){
+            var $this = $(this);
+            $this.removeClass("error");
         },
-        falseAction: function(element){
-            var $this = element;
-            var $checkIcon = $this.siblings(".check-icon");
-
-            $this.css({ 'border-left': '5px solid #ec6446' });
-            $checkIcon.attr("class","check-icon");
-            $checkIcon.addClass('fa fa-times');
-            console.log("false input");
+        false: function(){
+            var $this = $(this);
+            $this.addClass("error");
         }
     }
 
     function initAccountSetting(){
         var optControlBt = $(".optControl"),
-        historySortBt = $(".fa.fa-refresh.refresh");
+            historySortBt = $(".fa.fa-refresh.refresh"),
+            inputs = $("#account_setting_form").find("input[type='text']").add("textarea");
+            inputs.on("keyup",valueCheck);
 
         optControlBt.each(function(){
             $(this).width($(this).prev().width());
@@ -53,6 +39,12 @@
         window.onbeforeunload = function(){
             console.log(unloadChecker);
             if(unloadChecker) return "a";
+        }
+
+        function valueCheck(){
+            value = $(this).val();
+            if(value.isSpecialChar()) inputAction.false.call($(this));
+            else inputAction.true.call($(this));
         }
     }
     
@@ -162,7 +154,6 @@
         var addBt = element.parent().siblings(".optControl[data-value='add']"),
         removeBt = element.parent().siblings(".optControl[data-value='remove']");
         
-        console.log(element.length);
         if(element.length <= limit && element.length === 1){
             removeBt.hide();
         }
@@ -299,8 +290,29 @@
         }
     }
 
+    function deleteAccountEvent(){
+        $(this).lubyAlert({
+            type: "message",
+            icon: "fa-trash-o",
+            text: "Are you sure?<br/><p style='font-size: 14px; font-weight: 200;'>Your contents and information is will be removed</p>",
+            autoDestroy: false,
+            okAction: deleteAccount
+        })
+
+        function deleteAccount(){
+            alert("DELETE ACCOUNT");
+        }
+    }
+
     function finalSubmit(){
+        var errorCheck = true;
         unloadChecker = false;
-        alert("SUCCESS");
+        inputs = $("#account_setting_form").find("input[type='text']").add("textarea");
+        inputs.each(function(){
+            if($(this).hasClass("error")) errorCheck = false;
+        });
+
+        if(errorCheck) alert("SUCCESS");
+        else alert("PLEASE MAKE SURE YOUR VALUES");
     }
 });

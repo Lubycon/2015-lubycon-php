@@ -60,6 +60,7 @@ $(function(){
 				case "resend" : gotoLink.call($this); break;
 				case "gotoIndex" : gotoIndex(); break;
 				case "link" : gotoLink.call($this); break;
+				case "report" : /* REPORT METHOD IS IN HERE */ break;
 				default : console.log("THERE IS NO DATA-VALUE"); return false; break;
 			}
 		});

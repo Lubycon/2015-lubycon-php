@@ -87,6 +87,8 @@ a {
                 cursor: pointer;
             }
             .lubyImageSlider .img-slider-list-wrapper img {
+                display: block;
+                margin: 0px auto;
                 height: 100%;
                 vertical-align: middle;
             }
