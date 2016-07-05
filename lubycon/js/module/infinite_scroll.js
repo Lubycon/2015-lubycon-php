@@ -57,7 +57,7 @@ function slider_by_paging(page_number)
     AJAX_EVENTING = true; //bubbleing banned
     $(".contents_wrap").html('');
     down_call_contents(page_number-1, page_number);
-    replaceUrlParameter('page', page_number);
+    setUrlParameter('page', page_number);
     NOW_PAGE = parseInt(page_number); // set param
 };
 
@@ -127,12 +127,12 @@ function page_checker(NOW_PAGE) //page url changer by scroll
 
     if (scrolltop > scrollbottom && NOW_PAGE < ALL_PAGE_COUNT) //page ++
     {
-        replaceUrlParameter('page', up_count_page);
+        setUrlParameter('page', up_count_page);
         $(".sliderKey").val(up_count_page);
         console.log('page checker up');
     } else if (scroll_prev > scrolltop)
     {
-        replaceUrlParameter('page', down_count_page);
+        setUrlParameter('page', down_count_page);
         $(".sliderKey").val(down_count_page);
         console.log('page cound up');
     }

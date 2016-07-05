@@ -22,7 +22,7 @@
             optGroup: false,//알파벳 헤더 기능
             searchBar: false,//true시 셀렉박스리스트 맨 위에 서치바 생성
             tooltip: false,
-            callback: null
+            changeEvent: null
         },
         d = {},
         pac = {
@@ -177,8 +177,6 @@
                     && $wrap.removeClass("open")
                     && $optionWrap.fadeOut(300) :
                     "";
-                if (d.callback !== null) d.callback();
-                else return;
             },
             changeOption: function() {
                 //////$this = selector
@@ -186,6 +184,7 @@
                 value = $this.val(),
                 list = $this.prev(".ls_optionWrap").find(".ls_option[data-value='" + value + "']");
                 list.trigger("click");
+                if (d.changeEvent !== null) d.changeEvent.call($this);
             },
             searchEvent: function(selector) {
                 var $this = $(this),
@@ -279,8 +278,14 @@
             setValue: function(index){
                 return this.each(function(){
                     var $this = $(this);
-                    var target = $($this.find(".ls_option")[index]);
-                    target.trigger("click");
+                    var target = $($this.find(".ls_option")[index]),
+                        options = $this.find(".ls_option"),
+                        selector = $this.find("select");
+                    options.removeClass("selected");
+                    target.addClass("selected");
+                    selector.val(target.text());
+
+                    $this.parents('.lubySelector').find('.ls_Label').text(value);
                 })
             },
             setValueByString: function (value){

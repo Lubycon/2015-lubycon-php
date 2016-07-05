@@ -471,6 +471,9 @@
             text-align: left;
             padding-left: 18px;
         }
+    .infoCard.comment .comment-write-wrap .comment-input {
+        width: 100%;
+    }
     #contents_aside {
         height: 110px;
         margin-top: 0px;
@@ -984,6 +987,9 @@
             #contents_score ul {
                 
             }
+        .infoCard.comment .comment-write-wrap .comment-input {
+            width: 90%;
+        }
     #user_view_aside #myinfo_main{
         margin-top: 30px;
         margin-bottom: 20px;

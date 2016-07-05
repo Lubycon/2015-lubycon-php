@@ -71,11 +71,27 @@ $(document).ready(function(){
             cache: false,
             success: function (data) {
                 //console.log(data);
-                result = JSON.parse(data);
-                console.log(result);
-                comment_layout =
-                '<div class="comment-div"><figure class="comment-pic"><img src="' + result.src + '"></figure><h4>' + result.name + '</h4><p class="comment-time"><span class="comment-time-counter">' + result.date + '</span></p><p class="comment-contents">' + result.content + '</p></div>'
-                $(".comment-list").append(comment_layout);
+                var result = JSON.parse(data);
+                var date = result.date;
+                console.log(date);
+
+                var container = $("<div/>",{ "class" : "comment-div" }),
+                    picture = $("<figure/>",{ "class" : "comment-pic" }),
+                        img = $("<img/>",{ "src" : result.src }),
+                    name = $("<h4/>",{ "html" : result.name }),
+                    timeWrapper = $("<p/>",{ "class" : "comment-time" }),
+                        time = $("<span/>", { "class" : "comment-time-counter", "html" : "Soon"}),
+                    content = $("<p/>", { "class" : "comment-contents", "html" : result.content });
+
+                img.appendTo(picture);
+                time.appendTo(timeWrapper);
+
+                picture.appendTo(container);
+                name.appendTo(container);
+                timeWrapper.appendTo(container);
+                content.appendTo(container);
+
+                $(".comment-list").append(container);
             }
         })
     }

@@ -1316,7 +1316,6 @@ body {
 
         .infoCard.comment .comment-write-wrap .comment-input {
             display: inline-block;
-            width: 90%;
             max-width: 830px;
         }
         .infoCard.comment .comment-write-wrap textarea{

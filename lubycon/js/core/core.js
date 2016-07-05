@@ -24,25 +24,32 @@ function isMobile(){
 }
 
 function getUrlParameter(sParam){
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++){
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam){
-            return sParameterName[1];
-        }
+    var uri = window.location.search.substring(1).split("&");
+    uri = uri.map(function(v,i,a){ //Value, Index, Array
+        return v.split("=");
+    });
+    for (var i = 0; i < uri.length; i++){
+        if (uri[i][0] === sParam) return uri[i][1];
     }
 }
 
-function replaceUrlParameter(sParam,value){
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++){
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) {
-            history.pushState(null, "", location.pathname + '?' + sPageURL.replace(sParameterName[0] + '=' + sParameterName[1], sParameterName[0] + '=' + value));
+function setUrlParameter(sParam,value){
+    var uri = window.location.search.substring(1);
+    var uriObject = uri.split("&");
+    uriObject = uriObject.map(function(v,i,a){ //Value, Index, Array
+        return v.split("=");
+    });
+    console.log(uriObject);
+    for(var i = 0; i < uriObject.length; i++){
+        if(sParam === uriObject[i][0]){
+            history.pushState(null, "", location.pathname + '?' + uri.replace(uriObject[i][0] + '=' + uriObject[i][1], uriObject[i][0] + '=' + value));
+            return 1;
         }
     }
+
+    var newURI = document.location.href + "&" + sParam + "=" + value;
+    history.pushState(null,"",newURI);
+    return 0;
 }
 
 //This function will be canceled the click event when users touch in mobile devices
@@ -72,6 +79,7 @@ function InputExpander(selector) {
 
 var toggle = {
     group: function(event){
+        eventHandler(event,$(this));
         var $this = $(this),
         radioType = $this.hasClass("radioType"),
         $btns = $this.siblings(".btn").length !== 0 ? $this.siblings(".btn") : $(document).find(".card_menu");
@@ -90,6 +98,7 @@ var toggle = {
         }
     },
     single: function(event){
+        eventHandler(event,$(this));
         var $this = $(this);
         if($this.hasClass("selected")) $this.removeClass("selected");
         else $this.addClass("selected");
@@ -335,7 +344,7 @@ String.prototype.isRepeatWord = function(limit){
 }
 String.prototype.isSpecialChar = function(){
     //if Is is specialChar => true Or false
-    var reg = /[`;/~!\#$%<>^&\|*\()<>\-=\+\’\"\']/gi;
+    var reg = /[`;\\\/~\#$%<>^&\|*\(\)<>\-=\+\’\"\']/gi;
 
     return reg.test(this);
 }

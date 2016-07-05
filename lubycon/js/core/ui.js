@@ -243,17 +243,24 @@ $(document).ready(function(){
                 icon: "fa fa-bars",
                 searchBar: true,
                 optGroup: true,
-                theme: "rect"
+                theme: "rect",
+                changeEvent: changeLocation
             });
         }
         else{
             return false;
         }
+        function changeLocation(){
+            var value = $(this).find("option").index($(this).find("option:selected")) +1;
+            console.log(value);
+            setUrlParameter("mid_cate",value);
+        }
     }
     function initLubyAlerts(){
-        $(".userAction-bt").on("click",toggle.single);
+        $(".userAction-bt").on("click touchend",toggle.single);
 
-        $(".userAction-bt[data-value='bookmark']").on("click",function(){
+        $(".userAction-bt[data-value='bookmark']").on("click touchend",function(event){
+            eventHandler(event,$(this));
             if($(this).hasClass("selected")){
                 $(this).lubyAlert({
                     icon: "fa-star",

@@ -70,12 +70,11 @@
                     </div>
                 </div>
             </div>
-            
-            
+             
             <article class="infoCard comment">
                 <p class="infoCard-title"><span id="comment-counter"><?=$comment_result->num_rows?></span> Comments</p>
                 <div class="comment-write-wrap" class="comment-div">
-                    <figure class="comment-pic" class="hidden-mb-ib">
+                    <figure class="comment-pic hidden-mb-ib">
                         <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$Loginuser_code?>/profile.jpg" class="hidden-mb-ib">
                     </figure>
                     <div class="comment-input">
