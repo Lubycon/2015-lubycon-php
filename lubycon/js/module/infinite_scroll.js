@@ -86,11 +86,22 @@ function up_call_contents(NOW_PAGE, pageNumber) //up scroll ajax
 };
 function down_call_contents(NOW_PAGE, pageNumber) //down scroll ajax
 {
+    var data_array = {
+        'cate_param' : CATE_PARAM,
+        'mid_cate_param' : Number(MID_CATE_PARAM),
+        'page_param' : pageNumber,
+        'now_page_param' : NOW_PAGE,
+        'mid_cate_value' : $(".categoryFilter").prop('selectedIndex'),
+        'copyright_value' : $(".copyrightFilter").prop('selectedIndex'),
+        'prefer_value': $(".preferFilter").prop('selectedIndex'),
+    };
+
     $.ajax
     ({
         type: "POST",
         url: "../ajax/infinite_scroll_ajax.php",
-        data: 'cate_param=' + CATE_PARAM + '&mid_cate_param=' + MID_CATE_PARAM + '&page_param=' + pageNumber + '&now_page_param=' + NOW_PAGE,
+        data: data_array,
+        datatype:JSON,
         cache: false,
         success: function (data) {
             $(".contents_wrap").append(data);

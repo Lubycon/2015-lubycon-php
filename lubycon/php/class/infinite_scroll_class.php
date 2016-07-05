@@ -19,7 +19,7 @@ class infinite_scroll extends json_control
     private $filter; // array
     private $sort; // array
 
-    public $where_query = 'WHERE'; // for query
+    public $where_query = ' WHERE '; // for query
     public $order_query = ' ORDER BY a.`contentDate` DESC '; // for query
     public $query;
     public $query_foundRow = "SELECT FOUND_ROWS()";
@@ -68,21 +68,26 @@ class infinite_scroll extends json_control
         $null_count = 0;
         foreach( $this->filter as $key => $value )
         {
-            if( $value != null )
+            if( $this->filter[$key]['value'] != null )
             {
-                $this->where_query .= " $key = '$value' and ";
+                $this->where_query .= $this->filter[$key]['query']." and ";
+                //print_r( $this->filter[$key]['query']);
             }else
             {
                 $null_count++;
             }
             if( count($this->filter) == $null_count ){$this->where_query='';}
-            //echo $value.'<br/>';
         }
         $this->where_query = substr($this->where_query, 0, -4); //delete last and string
 
-        if( $sort != null )
+        switch($sort)
         {
-            $this->order_query = " ORDER BY a.`$this->sort` DESC ";
+            case 0 : $this->order_query = " ORDER BY a.`viewCount` DESC "; break;
+            case 1 : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
+            case 2 : $this->order_query = " ORDER BY a.`likeCount` DESC "; break;
+            case 3 : $this->order_query = " ORDER BY a.`downloadCount` DESC "; break;
+            case 4 : $this->order_query = " ORDER BY a.`commnetCount` DESC "; break;
+            default : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
         }
 
         $this->now_page = $page_number;
@@ -117,17 +122,23 @@ class infinite_scroll extends json_control
         {
             $this->query = "
             SELECT SQL_CALC_FOUND_ROWS 
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`";
+            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2`";
             if($query_user_code)
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
             " FROM 
             ( 
-                SELECT * FROM lubyconboard.`artwork` 
-                UNION 
-                SELECT * FROM lubyconboard.`vector` 
-                UNION 
-                SELECT * FROM lubyconboard.`threed` 
+                SELECT * FROM lubyconboard.`artwork`
+                LEFT JOIN lubyconboard.`artworkmidcategory`
+                USING (`boardCode`)
+    
+                UNION SELECT * FROM lubyconboard.`vector` 
+                LEFT JOIN lubyconboard.`vectormidcategory`
+                USING (`boardCode`)
+    
+                UNION SELECT * FROM lubyconboard.`threed` 
+                LEFT JOIN lubyconboard.`threedmidcategory`
+                USING (`boardCode`)
             ) AS a ";
             if($query_user_code)
             {
@@ -147,14 +158,18 @@ class infinite_scroll extends json_control
         {
             $this->query = "
             select SQL_CALC_FOUND_ROWS
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`";
+            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, d.`midCategoryCode0`, d.`midCategoryCode1`, d.`midCategoryCode2`";
             if($query_user_code)
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
-            $this->query .= " from lubyconboard.`$this->top_category` a ";
+            $this->query .= 
+            " from lubyconboard.`$this->top_category` a 
+                LEFT JOIN lubyconboard.`$this->top_category"."midcategory` as d
+                ON a.`boardCode` = d.`boardCode`
+            ";
             if($query_user_code)
             {
                 $this->query .= 
-                "left join lubyconboard.`contentsbookmark` b
+                "LEFT JOIN lubyconboard.`contentsbookmark` b
                 ON a.`boardCode` = b.`boardCode`
                 AND a.`topCategoryCode` = b.`topCategoryCode`
                 AND b.`bookmarkActionUserCode` = $query_user_code";
