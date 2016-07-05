@@ -80,7 +80,7 @@ var editorFileChecker = function(params){
     name = params.file.name,
     limitSize, extensions, message;
     
-    params.alertKey.off("click");
+    params.alertKey.off("lubyAlert");
     detectType();
     
     var isNotExist = params.isExistTest ? params.file.isExistInArray(params.parentArray) === -1 : true,
@@ -97,18 +97,16 @@ var editorFileChecker = function(params){
     }
     else message = "This file is already uploaded";
 
-    params.alertKey.lubyAlert({
-        kind: "confirm",
-        okAlert: false,
+    params.alertKey.first().lubyAlert({
+        type: "message",
         cancelButton: false,
-        cancelAlert: false,
-        width: 300,
-        height: 210,
-        textSize: 14,
-        customIcon: params.icons.box,
-        customText: message
+        fontSize: 14,
+        icon: params.icons.box,
+        text: message,
+        autoDestroy: false
     });
-    params.alertKey.trigger("click");
+
+    params.alertKey.off("lubyAlert");
 
     return false;
 

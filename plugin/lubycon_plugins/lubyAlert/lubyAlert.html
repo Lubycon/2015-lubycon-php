@@ -18,38 +18,39 @@
 		<div class="alertKey" id="test5">Prompt</div>
 		<div class="alertKey" id="test6">Custom</div>
 		<script>
-			$("#test1").lubyAlert({
-				kind: "bookmark",
-				callback: function(){
-					console.log(true);
-				}
-			});
+			$("#test1").click(function(){
+				$(this).lubyAlert({
+					width: "auto",
+					height: "auto",
+					type: "alert",
+					icon: "fa-star",
+					text: "Marked!",
+					fontSize: 30,
+					iconColor: "#ffbe54",
+					iconAnimation: "bounce"
+				});
+			})
+			$("#test2").click(function(){
+				$(this).lubyAlert({
+					width: "auto",
+					height: "auto",
+					type: "prompt",
+					autoDestroy: false,
+					icon: "fa-times",
+					text: "This file is too large",
+					okAction: function(){ 
+						console.log("OK"); 
+					},
+					cancelAction: function(){
+						console.log("CANCEL");
+					},
+					destroyAction: function(){
+						console.log("DESTROYED");
+					}
+				});
+			})
 
-			$("#test2").lubyAlert({
-				kind: "like"
-			});
-			$("#test3").lubyAlert({
-				kind: "success"
-			});
-			$("#test4").lubyAlert({
-				width: 400,
-				kind: "confirm",
-				customText: "Your Mail is sucked.<br/> Do you want to resend the confirm mail to your address?",
-				textSize: 14,
-				cancelButton: false
-			});
-			$("#test5").lubyAlert({
-				width: 500,
-				height: 240,
-				kind: "prompt",
-				customText: "Please Write Your Name"
-			});
-			$("#test6").lubyAlert({
-				width: 300,
-				height: 100,
-				customText: "You have to upload 'jpg,gif,png,bmp' files",
-				textSize: 14
-			});
+			
 		</script>
 	</div>
 </body>
