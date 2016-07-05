@@ -77,6 +77,9 @@
     .mb-wrapper-main .mb-section {
 
     }
+        .mb-section .viewmore_bt {
+            width: 300px;
+        }
         .mb-wrapper-main .mb-main-img-wrapper {
             width: 100%;
             position: relative;
@@ -88,8 +91,9 @@
             }
             .mb-wrapper-main .mb-main-img {
                 width: 100%;
-                height: 120px;
+                height: 200px;
                 position: relative;
+                overflow: hidden;
             }
                 .mb-wrapper-main .mb-main-img a {
     
@@ -99,7 +103,7 @@
                         top: 0;
                         left: 0;
                         width: 100%;
-                        height: 120px;
+                        height: 200px;
                         background: rgba(0,0,0,0.2);
                     }
                         .mb-wrapper-main .mb-main-img .layer .content-descript {
@@ -124,10 +128,12 @@
                             }
                             .mb-wrapper-main .mb-main-img .layer .content-descript p.creator-name {
                                 font-size: 14px;
-                                font-weight: 200;
+                                font-weight: 500;
+                                color: #48cfad;
                             }
                                 .mb-wrapper-main .mb-main-img .layer .content-descript p.creator-name span {
                                     font-weight: 200;
+                                    color: #ffffff;
                                 }
                         
                     .mb-wrapper-main .mb-main-img a img {
@@ -143,13 +149,14 @@
     }
         #mb-main-tab .mb-main-tab-wrapper {
             text-align: center;
+            box-shadow: 0px 0px 10px 0px #333333;
         }
             #mb-main-tab .mb-main-tab-bt.btn {
                 display: inline-block;
-                width: 80px;
+                width: 32.5%;
                 height: 60px;
                 background: transparent;
-                color: #444444;
+                color: #666666;
                 font-size: 12px;
                 box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -157,6 +164,7 @@
             }
                 #mb-main-tab .mb-main-tab-bt.btn.selected {
                     border-bottom: 4px solid #48cfad;
+                    color: #222222;
                 }
                 #mb-main-tab .mb-main-tab-bt.btn i {
                     display: block;
