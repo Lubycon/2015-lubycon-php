@@ -335,7 +335,9 @@ $(document).ready(function(){
     }
 
     function initMainSlider(){
-        $("#slider1").lubyImageSlider();
+        $("#slider1").lubyImageSlider({
+            autoPlay: false
+        });
         $("#slider2").lubyImageSlider();
         $("#slider3").lubyImageSlider();
 
