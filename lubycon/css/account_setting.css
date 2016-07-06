@@ -3,7 +3,12 @@
 .lubySelector{
     margin: 0;
     vertical-align: middle;
+    height: 40px;
+    line-height: 40px;
 }
+    .lubySelector .global_icon {
+        line-height: 37px;
+    }
 
 #confirm_alert {
     width: 400px;

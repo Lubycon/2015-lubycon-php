@@ -10,11 +10,17 @@ $(document).ready(function(){
 
     function detectLoginFail(){
         if(getUrlParameter("login") === "0") {
-            //TEST CODE
-            alert("LOGIN FAILED");
-            var newURL = location.href.split("?")[0];
-            location.href = newURL;
-            //TEST CODE
+            $(".alertKey.hidden").lubyAlert({
+                autoDestroy: false,
+                type: "message",
+                icon: "fa-key",
+                text: "Please Make sure your E-mail or Password",
+                animation: "bounceInDown",
+                fontSize: 15,
+                cancelButton: false,
+                okAction: function(){ location.href = location.href.replace("?login=0",""); }
+            });
+            console.log(window.location);
         }
     }
 

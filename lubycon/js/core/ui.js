@@ -175,20 +175,23 @@ $(document).ready(function(){
         }
     }
     function initCommentBox(){
-        var target = "#comment_text";
+        initWrite();
 
-        window.app = new InputExpander(target);
-        window.app.start();
-        $(target).on("keyup",function(){
-            var $this = $(this),
-            value = $this.val();
+        function initWrite(){
+            var target = "#comment_text";
 
-            if(value.isSpecialChar()) $this.val(value.slice(0,-1));
-        })
+            window.app = new InputExpander(target);
+            window.app.start();
+            $(target).on("keyup",function(){
+                var $this = $(this),
+                value = $this.val();
+
+                if(value.isSpecialChar()) $this.val(value.slice(0,-1));
+            })
+        }
     }
     function initLubySelectors(){    
         if($(".nav_guide").length !== 0){
-            console.log(1);
             var navGuide = $(".nav_guide"),
                 searchFilter = navGuide.find(".searchFilter");
                 preferFilter = navGuide.find(".preferFilter"),

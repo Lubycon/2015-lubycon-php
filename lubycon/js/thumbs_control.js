@@ -31,15 +31,42 @@ $(document).ready(function(){
     }
 
     function initCommentButton(){
-        $("#comment_bt").on("click touchend",function(event){
-            eventHandler(event,$(this));
-            var input = $(this).prev("#comment_text"),
-                content = input.val(),
+        initWrite();
+        initDelete();
+
+        function initWrite(){
+            button = $("#comment_bt");
+            button.on("click touchend",function(event){
+                eventHandler(event,$(this));
+                var input = $(this).prev("#comment_text"),
+                    content = input.val(),
+                    countkind = "comment",
+                    stat_check = true;
+                input.val(null);
+                comment_write(countkind, stat_check, CONNUM_PARAM, CATE_PARAM, content);
+            });
+        }
+        function initDelete(){
+            var target = $(document).find(".comment-div"),
+                button = target.find(".comment-delete"),
                 countkind = "comment",
                 stat_check = true;
-            input.val(null); // INIT INPUT
-            comment_write(countkind, stat_check, CONNUM_PARAM, CATE_PARAM, content);
-        });
+
+            button.on("click",function(){
+                var commentBox = $(this).parents(".comment-div");
+
+                $(this).lubyAlert({
+                    type: "message",
+                    autoDestroy: false,
+                    icon: "fa-trash",
+                    text: "Are you sure?",
+                    animation: "bounceInDown",
+                    okAction: function(){
+                        comment_delete(commentBox,countkind,stat_check, CONNUM_PARAM, CATE_PARAM);
+                    }
+                });
+            });
+        }
     }
 
     function like_count_up(countkind, stat_check, conno, catename, contentkind) {
@@ -92,6 +119,18 @@ $(document).ready(function(){
                 content.appendTo(container);
 
                 $(".comment-list").append(container);
+            }
+        })
+    }
+    function comment_delete(element,countkind,stat_check,conno,catename){
+        console.log(countkind,stat_check,conno,catename);
+        $.ajax({
+            type: "POST",
+            url: "../ajax/file.php",
+            data: 'conno=' + conno + '&cate=' + catename + '&countkind=' + countkind + '&stat_check=' + stat_check,
+            cache: false,
+            success: function(data){
+                element.remove();
             }
         })
     }

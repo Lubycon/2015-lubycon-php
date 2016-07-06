@@ -34,7 +34,7 @@
                 return d = $.extend({}, defaults, option), this.each(function () {
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
-                        console.log("editor is loaded");//function start
+                        console.log("WEBGL EDITOR IS LOADED");//function start
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         var $loading_icon = $(document).find("#loading_icon").show();
@@ -46,7 +46,7 @@
                         $editingBack = $("<div/>",{"class" : "editing-background"}).appendTo($body),
                         //canvas
                         $editingArea = $("<div/>",{"class" : "editing-area"}).appendTo($body),
-                        $canvas = $("<div/>",{"id" : "web-gl"}).appendTo($editingArea),
+                        $canvas = $("<div/>",{"id" : "web-gl" }).appendTo($editingArea),
                         $canvasBackground = $("<div/>",{"id" : "canvas-background"}).appendTo($editingArea),
                         $canvasLogo = $("<div/>",{"id" : "canvas-background-logo"}).appendTo($canvasBackground);
 
@@ -117,7 +117,6 @@
                         });
                         $(document).on("keydown",pac.initCamera);
                         window.onbeforeunload = function(){
-                            console.log(unloadChecker);
                             if(unloadChecker) return "a";
                         }
                     }
@@ -168,11 +167,12 @@
 
                 window.addEventListener("resize", pac.windowResizeGL, false);
                 pac.animateGL();
+
+                $(renderer.domElement).text("Your Browser can not support WebGL");
             },
             initSkybox: function(index){
                 var skymapIndex = index;
                 var lights = bgPreset3d[index].light;
-                console.log(lights);
 
                 var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
                 var skyMaterial = new THREE.MeshBasicMaterial({
@@ -229,7 +229,6 @@
                         light.position.z
                     );
                     newLight.name = "presetLight"+i;
-                    console.log(newLight);
 
                     return newLight;
                 }
@@ -254,7 +253,6 @@
                     camera.position.x = -2;
                     camera.position.y = 0.7;
                     camera.position.z = 2.5;
-                    console.log("init Camera");
                 };
             },
             submit: function(){
@@ -282,7 +280,6 @@
                     cc[data] = $(this).prop("checked");
                 }),
                 download = attachedFiles.length !== 0;
-                console.log(cc);
                 /////////////////////////////////////////////////////////////////settings
                 var checkList = {
                     name : !contentName.isNullString(),
@@ -310,7 +307,6 @@
 
                 function submitFinal(){
                     unloadChecker = false;
-                    console.log(checkList.name,checkList.categories);
                     if(checkList.name && checkList.categories){
                         /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
                         /*2*/formData.append("map",JSON.stringify(mapInfo));
@@ -553,11 +549,9 @@
                                 break;
                                 case 1 : 
                                     $this.addClass("error");
-                                    console.log("This is special character"); 
                                 break;
                                 case 2 : 
                                     $this.addClass("error"); 
-                                    console.log("This is abuse word"); 
                                 break;
                             }
                         }
@@ -578,13 +572,12 @@
                     $btns.removeClass("current-prog");
                     $progress.addClass("current-prog");
                 }
-                if(data == "edit") {
+                if(data === "edit") {
                     $modals.fadeOut(200);
                     $darkOverlay.fadeOut(200);
                 }
                 else {
                     $modals.hide();
-                    $(".btn.selected").removeClass("selected");
                     ModalKit.align($target);
                     $target.fadeIn(200);
                     $darkOverlay.fadeIn(200);
@@ -636,7 +629,6 @@
                 return editorFileChecker(parameter);
             },
             fileCheck: function(file){
-                console.log(1);
                 var alertKey = $(document).find(".alertKey");
                 var parameter = {
                     file : file,
@@ -666,7 +658,6 @@
                 var data = $(this).attr("data-value"),
                 inputFile = data === "newTexUpload" ? $(document).find(".imgUploader") : $(document).find(".fileUploader");
                 inputFile.trigger("click");
-                console.log($(this),data);
                 switch(data){
                     case "newOBJUpload" : inputFile.off("change").on("change",upload.objectUpload); break;
                     case "newFileUpload" : inputFile.off("change").on("change",upload.fileUpload); break;
@@ -686,7 +677,6 @@
                     $inputModal.hide().find(".modal-bt.modal-filebt").attr("data-value","newFileUpload");
                     $inputModal.find(".modal-closebt").show();
                     $inputModal.find(".file-selector-help").attr("data-tip","Your file size must be 30MB. The file extension must be ZIP,OBJ,MTL or Image Format");
-                    console.log($inputModal);
                     $darkOverlay.fadeOut(400);
                 }
                 else {
@@ -752,8 +742,6 @@
                     var body = $(this).parent(".file-list"),
                     i = body.data("index");
                     attachedFiles.splice(i,1);
-                    console.log("FILE NUMBER " + i + " IS REMOVED");
-                    console.log(i,attachedFiles);
                     body.remove();
                     ModalKit.align($inputModal);
                     setIndex(".file-list");
@@ -817,7 +805,6 @@
                     break;
                     default: break;
                 }
-                console.log(materials);
                 $(".uploading").attr({"src" : selectSRC, "data-index" : selectID }).removeClass("uploading");
 
                 function idCheck(id,kind){
@@ -844,7 +831,6 @@
                             var contents = event.target.result;
                             group = new THREE.Group();
                             object = new THREE.OBJLoader().parse(contents);
-                            console.log(object);
                             
                             for(var i = 0, l = object.length; i < l; i++){
                                 var userData = object[i].userData;
@@ -880,7 +866,6 @@
                                     mesh.userData = userData; 
                                 group.add(mesh);
                                 group.name = "mainObject";
-                                console.log(group.toJSON());
                             }
                             toolbar.materialFn.materialRefresh();
                             scene.add(group);
@@ -911,7 +896,6 @@
                 }
             },
             fileInfo: function(){
-                console.log(mesh);
                 var body = $("<div/>",{"class" : "tooltip tip-body fileinfo"}),
                 wrapper = $("<div/>",{"class" : "tooltip tip-wraper fileinfo"}).appendTo(body),
                 content = $("<p/>",{"class" : "tooltip tip-content fileinfo"}),
@@ -970,7 +954,6 @@
             deleteTag: function(event){
                 $this = $(this);
                 $this.remove();
-                console.log("tag is deleted");
             },
             showCCsetting: function(event){
                 var $this = $(this).find(".cc-setting-bt"),
@@ -1079,18 +1062,29 @@
                 console.time("capture");
 
                 var cropper = $(".thumb-editor-wrapper").find(".cropper-container");
+                var backgroundType = renderer.getClearAlpha() === 0 ? "2d" : "3d";
+                var dataURL;
 
                 shutter();
-
-                var dataURL = renderer.domElement.toDataURL(),
-                icon = $(this).find("i");
-                icon.attr("class",icons.loading);
-
-                if(cropper.length) replaceCropper();
-                else newCropper();
+                if(backgroundType === "2d"){
+                    var color = new THREE.Color($("#canvas-background").css("background"));
+                    renderer.setClearColor(color,1);
+                    setTimeout(action,100);
+                }
+                else action();
                 
-                setTimeout(function(){ icon.attr("class", icons.camera); },3000);
-                console.timeEnd("capture");
+                function action(){
+                    dataURL = renderer.domElement.toDataURL("image/jpeg",1),
+                    icon = $(this).find("i");
+                    icon.attr("class",icons.loading);
+
+                    if(cropper.length) replaceCropper();
+                    else newCropper();
+                    
+                    setTimeout(function(){ icon.attr("class", icons.camera); },3000);
+                    //if(backgroundType === "2d"){ renderer.setClearColor(0x222222,0); };
+                    console.timeEnd("capture");
+                }
 
                 function newCropper(){
                     $(".thumb-origin-img").attr("src",dataURL)
@@ -1137,7 +1131,6 @@
                 onLights.each(function(){
                     var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
 
-                    console.log("init");
                     helper.visible = false;
                     lightControls.visible = false; 
                 });
@@ -1258,7 +1251,6 @@
 
                     if(checked){ //On
                         newLight = toolbar.lightFn.createLight(kind);
-                        console.log(newLight,name);
                         newLight[0].name = name;
                         newLight[0].position.y = 1;
                         newLight[1].name = helperName;
@@ -1308,12 +1300,10 @@
                     onLights.each(function(){
                         var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
                         if(selected){
-                            console.log("on");
                             helper.visible = true;
                             lightControls.visible = true;
                         }
                         else{
-                            console.log("off");
                             helper.visible = false;
                             lightControls.visible = false;
                         }
@@ -1332,7 +1322,6 @@
                         case keyCode.e : _mode = "rotate"; break;
                         default: return; break;
                     }
-                    console.log(input,_mode);
                     lightControls.setMode(_mode);
                 },
                 changeLight: function(){ //direction <-> spot <-> point
@@ -1361,7 +1350,6 @@
                         lightControls.attach(newLight[0]);
 
                         selector.attr("data-type",kind);
-                        console.log("changeLight to " + kind);
                     }
                     else return false;
                 },
@@ -1457,10 +1445,8 @@
 
                     light.color = new THREE.Color(color);
                     helper.update();
-                    console.log(light,helper);
                 },
                 intensity: function(val,selector){
-                    console.log("intensity");
                     var $this = selector,
                     lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
                     light = scene.getObjectByName("newLight" + lightIndex),
@@ -1470,7 +1456,6 @@
                     helper.update();
                 },
                 falloff: function(val,selector){
-                    console.log("falloff");
                     var $this = selector;
                     lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
                     light = scene.getObjectByName("newLight" + lightIndex),
@@ -1478,12 +1463,10 @@
 
                     light.distance = val;
                     helper.update();
-                    console.log(light.decay);
                     //0~1.0(float)
                     //spot,point
                 },
                 angle: function(val,selector){
-                    console.log("angle");
                     var $this = selector;
                     lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
                     light = scene.getObjectByName("newLight" + lightIndex),
@@ -1495,7 +1478,6 @@
                     //spot
                 },
                 softness: function(val,selector){
-                    console.log("softness");
                     var $this = selector;
                     lightIndex = $this.parents(".toolbox-inner").siblings(".toolbox-inner.selected").data("value"),
                     light = scene.getObjectByName("newLight" + lightIndex),
@@ -1798,7 +1780,7 @@
                         width: "100%",
                         float: "none",
                         icon: "",
-                        callback: toolbar.materialFn.materialSelect
+                        changeEvent: toolbar.materialFn.materialSelect
                     });
                 },
                 materialSelect: function(){
@@ -1891,11 +1873,10 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".toolbox-controller").data("value");
-                        console.log(kind);
                         switch(kind){
                             case "diffuse" : $material.color = new THREE.Color(color); break;
                             case "specular" : $material.specular = new THREE.Color(color); break;
-                            default : console.log("color Error"); break;
+                            default : $.error("COLOR ERROR : WEBGL"); break;
                         }
                     }   
                 },
@@ -1908,7 +1889,6 @@
                         var id = $("#material-selector").find("option:selected").data("value"),
                         $material = $materials.materials[id],
                         kind = $this.parents(".toolbox-controller").data("value");
-                        console.log(kind);
                         switch(kind){
                             case "diffuse" : $material.opacity = val*0.01; break;
                             case "specular" : $material.shininess = val; break;
@@ -1962,7 +1942,7 @@
                                     width: "100%",
                                     float: "none",
                                     icon: "",
-                                    callback: toolbar.backgroundFn.background3d,
+                                    changeEvent: toolbar.backgroundFn.background3d,
                                     tooltip: true
                                 });
                                 $("#bg-3dSelector").find(".ls_option").tooltip({left: 270, appendTo: $this.parents(".toolbox-controller") });
@@ -1974,7 +1954,7 @@
                                     width: 215,
                                     float: "none",
                                     icon: "",
-                                    callback: toolbar.backgroundFn.background2d,
+                                    changeEvent: toolbar.backgroundFn.background2d,
                                     tooltip: true
                                 });
                                 $("#bg-2dSelector").find(".ls_option").tooltip({left: 270, appendTo: $this.parents(".toolbox-controller") });
@@ -2063,7 +2043,7 @@
             },
             getFileValue: function(){
                 return this.each(function(){
-                    console.log($(".fileUploader").val());
+                    
                 });
             }
         }

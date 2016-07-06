@@ -1297,6 +1297,18 @@ body {
             color: #555555;
             font-size: 16px;
         }
+        .infoCard.comment .comment-delete {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
+            color: #aaaaaa;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+            .infoCard.comment .comment-delete:hover {
+                opacity: 0.8;
+            }
 
     .infoCard.comment .comment-write-wrap {
         width: 100%;

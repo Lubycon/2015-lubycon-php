@@ -126,6 +126,7 @@
                 });
             },
             buttonAction: function(){
+                var $this = $(this);
                 var data = $(this).data("value");
                 if(data === "ok") actionEvent(d.okAction);
                 else if(data === "cancel") actionEvent(d.cancelAction);
@@ -134,7 +135,7 @@
                 func.destroy.call($(this).parents(".lubyAlert"));
 
                 function actionEvent(action){
-                    if(action !== null) action();
+                    if(action !== null) action.call($this);
                 }
             }
         }

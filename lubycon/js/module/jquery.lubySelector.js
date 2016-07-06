@@ -56,7 +56,7 @@
                         .on("change","select",pac.changeOption),
 
                         $icon = $("<i/>",{"class": "global_icon " + d.icon}).insertBefore($this),
-                        $label = $("<span/>",{"class": "ls_Label"}).insertBefore($this).text(label),
+                        $label = $("<span/>",{"class": "ls_label"}).insertBefore($this).text(label),
                         $arrow = $("<i/>",{"class": "ls_arrow fa fa-caret-down"}).insertBefore($this),
                         $optionWrap = $("<span/>",{"class": "ls_optionWrap"}).insertBefore($this).css({"max-height":d.maxHeight}).hide(),
 
@@ -107,6 +107,9 @@
                 $options = $this.find(".ls_optionWrap"),
                 $searchBar = $this.find(".ls_input"),
                 $selectbox = $this.find("select");
+
+                if($(event.target).is($searchBar)) return false;
+
                 if($this.hasClass("open")){
                     $this.removeClass("open");
                     if(isMobile()) $selectbox.hide().trigger("blur");
@@ -152,19 +155,18 @@
                         $(this).prev().attr("data-value").substring(0,1);
                         if(optionTitle !== preTitle){
                             $(this).before($optGroup).prev(".optGroup").text(optionTitle);
-                            //console.log("optionTitle : "+ optionTitle); console.log("preTitle : "+preTitle);
                         } 
-                        else{return;}
+                        else{ return false; }
                     })
                 }
-                else{ return; };
+                else{ return false; };
                 
             },
             optionClick: function(selector) {
                 var $this = $(this),
                 $optionWrap = $this.parent(),
                 $selectbox = $this.parent().next("select"),
-                $label = $this.parents(".lubySelector").find(".ls_Label"),
+                $label = $this.parents(".lubySelector").find(".ls_label"),
                 $wrap = $optionWrap.parent(),
                 selectedText = $this.attr("title"),
                 selectedValue = $this.data("value");
@@ -205,47 +207,17 @@
                 $searchIcon = $searchBar.find("i");
                 switch($this.attr("theme")){
                     case "black" : return; break;
-                    case "white" : 
-                        $this.css({"background":"#ffffff", "border":"1px solid #aaaaaa", "color":"#444444"});
-                        $arrow.css("color","#444444");
-                        $icon.css("color","#444444");
-                        $list.css({"background":"#ffffff","border":"1px solid #aaaaaa","box-shadow":"0px 2px 6px 0px rgba(0,0,0,0.3)"});
-                        $listInner.css({"background":"#ffffff", "color":"#444444"});
-                        $searchBar.css("border","1px solid #444444");
-                        $input.css("color","#444444");
-                        $searchIcon.css("color","#444444");
-                    break;
-                    case "ghost" : 
-                        $this.css({"background":"transparent", "border":"1px solid #ffffff", "color":"#ffffff"});
-                        $arrow.css("color","#ffffff");
-                        $icon.css("color","#ffffff");
-                        $list.css("background","rgba(0,0,0,0.85)");
-                        $listInner.css("background","transparent");
-                    break;
-                    case "transparent" :
-                        $this.css({"background":"transparent","border":"none"});
-                        $arrow.css("color","#ffffff");
-                        $icon.css("color","#ffffff");
-                        $list.css("background","rgba(0,0,0,0.85)");
-                        $listInner.css("background","transparent");
-                    break;
+                    case "white" : $this.addClass("white"); break;
+                    case "ghost" : $this.addClass("ghost"); break;
+                    case "transparent" : $this.addClass("transparent"); break;
                     case "rect" :
+                        $this.addClass("rect");
                         $this.css({ 
-                            "background" : "#222222",
-                            "border" : "none", 
-                            "border-left" : "1px solid #000000",
-                            "box-shadow" : "-1px 0px 0px #303030",
-                            "border-radius" : "0", 
-                            "margin" : "0px 0px 0px 1px", 
                             "min-height" : $this.parent().height(),
-                            "line-height" : $this.parent().height() + "px",
-                            "padding" : "0px 10px",
+                            "line-height" : $this.parent().height() + "px"
                         });
                         $icon.css({ "line-height" : $this.parent().height() - 2 + "px", "left" : "18px" });
                         $arrow.css({ "line-height" : $this.parent().height() - 7 + "px", "right" : "20px" });
-                        $list.css({ "border-radius" : "0", "background" : "rgba(0,0,0,0.85)", "margin-top" : "-19px", "margin-left" : "-10px", "box-shadow" : "0px 9px 30px 0px rgba(0,0,0,0.8)" });
-                        $listInner.css("background","transparent");
-                        $searchBar.css({ "border-radius" : "0" });
 
                     break;
                     default: return; break;
@@ -286,7 +258,7 @@
                     target.addClass("selected");
                     $this.val(target.text());
 
-                    wrapper.find('.ls_Label').text(target.text());
+                    wrapper.find('.ls_label').text(target.text());
                 })
             },
             setValueByString: function (value){
@@ -298,7 +270,7 @@
                     options.each(function(){ if(value === $(this).text()) $(this).addClass("selected") });
 
                     $this.val(value);
-                    wrapper.find('.ls_Label').text(value);
+                    wrapper.find('.ls_label').text(value);
                 })
             }
         }

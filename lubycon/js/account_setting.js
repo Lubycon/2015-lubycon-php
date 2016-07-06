@@ -215,16 +215,35 @@
             var object = event.target.files;
 
             $.each(object,function(i,file){
+                var calcSize = file.calcUnit();
                 if(file.checkSize(10485760)){
                     if(file.checkExt(["jpg","jpeg","png","gif","bmp"])){
                         showImage(file);
                     }
-                    else alert("extension error");
+                    else {
+                        $(".alertKey").lubyAlert({
+                            type: "message",
+                            cancelButton: false,
+                            fontSize: 14,
+                            icon: "fa-inbox",
+                            text: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
+                            autoDestroy: false
+                        });
+                    }
                 }
-                else alert("size error");
+                else {
+                    $(".alertKey").lubyAlert({
+                        type: "message",
+                        cancelButton: false,
+                        fontSize: 14,
+                        icon: "fa-inbox",
+                        text: "This file exceeds the recommended size.</br>The file currently sits at " + 
+                        calcSize[0] + calcSize[1] + ".<br/>Please make sure your file size is under 10MB.",
+                        autoDestroy: false
+                    });
+                }
             });
 
-            
             $(this).val(null);
         });
 
@@ -234,26 +253,24 @@
 
             var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 });
 
-            $("#croped").html('');
-            $("#croped").append($object);
-            $("#cropper-preview").hide();
-            $("#cropper-wrapper").hide();
-            $(".cropper-container").remove();
-
             dataURL = $object.toDataURL("image/jpeg");
-            var dataArray = new Array;
+            var dataArray = [];
             dataArray = dataURL;
 
             $.ajax({
                 type: "POST",
                 url: "../ajax/profile_upload_ajax.php", //path
-                data:
-                {
+                data:{
                     'profile': dataArray
                 },
                 cache: false,
                 success: function (data) {
-                    console.log(data);
+                    $("#croped").empty();
+                    $("#croped").append($object);
+                    $("#croped").next("i").hide();
+                    $("#cropper-preview").hide();
+                    $("#cropper-wrapper").hide();
+                    $(".cropper-container").remove();
                 }
             });
         })
@@ -281,7 +298,7 @@
                         dragMode: "crop"
                     }).show();
                     $("#cropper-preview").show().css("display","inline-block");
-                    $("#cropper-window-wrapper > i").show().css("display","inline-block");
+                    if($("#croped").width() !== 0) $("#cropper-window-wrapper > i").show().css("display","inline-block");
                     $("#cropper-wrapper").show();
                     $("#cropper_img").cropper("replace", e.target.result);
                     $loading_icon.hide();

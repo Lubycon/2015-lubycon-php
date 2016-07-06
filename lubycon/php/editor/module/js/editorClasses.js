@@ -2,7 +2,6 @@
 // This is function is must be used in editor only //
 /////////////////////////////////////////////////////
 var setIndex = function(element){
-    console.log("SET INDEX",element);
     $(element).each(function(i,object){
         i = $(object).is(".canvas-obj") ? i-1 : i;
         if(!$(object).is(".placeHolder"))$(object).attr("data-index",i);

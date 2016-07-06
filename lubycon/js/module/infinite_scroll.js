@@ -128,15 +128,6 @@
             scroll_prev = $('.page_bottom_' + down_count_page).offset().top - window_height - 1;
         }
 
-        //console.log($('.page_bottom_' + down_count_page));
-        //console.log(scroll_prev);
-        //console.log(scrolltop);
-        //console.log(DOWN_PAGE_FINISH);
-
-        //console.log(NOW_PAGE);
-        //console.log($('.page_bottom_' + NOW_PAGE));
-        //console.log(ALL_PAGE_COUNT);
-
         if (scrolltop > scrollbottom && NOW_PAGE < ALL_PAGE_COUNT) //page ++
         {
             setUrlParameter('page', up_count_page);

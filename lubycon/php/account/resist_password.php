@@ -67,7 +67,7 @@
     <section class="message message-wrapper bounceInDown animated">
         <i class="message-icon fa fa-lock black-color"></i>
         <div class="message-box">
-            <article class="main-message">Are you sure?</article>
+            <article class="main-message">Security</article>
             <article class="sub-message">Plesase write your password again</article>
         </div>
         <div class="message-box">

@@ -30,7 +30,6 @@
         font-weight: 200;
         text-overflow: ellipsis;
         white-space: nowrap;
-        overflow: hidden;
     }
         .lubyWrapper .lubyAlertText p {
             color: #ffffff;

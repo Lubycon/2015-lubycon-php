@@ -14,22 +14,23 @@
     margin: 7px 5px;
     cursor: pointer;
     border: 1px solid #111111;
+    transition: background 0.2s, opacity 0.2s;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
-.lubySelector > select{   
-    display: none;
-    left: -100%;
-    position: fixed;
-}
-.lubySelector:hover{
-    background: #666666;
-}
-.lubySelector.open{
-    background: #333333;
-    text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
-}
+    .lubySelector > select{   
+        display: none;
+        left: -100%;
+        position: fixed;
+    }
+    .lubySelector:hover{
+        background: #666666;
+    }
+    .lubySelector.open{
+        background: #333333;
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.7);
+    }
 
 .lubySelector .global_icon {
     width: 10px;
@@ -48,7 +49,7 @@
         margin-top: -4px !important;
     }
 
-.lubySelector .ls_Label {
+.lubySelector .ls_label {
     display: inline-block;
     width: 100%;
     font-weight: 200;
@@ -75,7 +76,6 @@
     width: 100%;
     height: 30px;
     border: 1px solid #ffffff;
-    border-radius: 5px;
 }
     .lubySelector .ls_search .ls_input{
         position: absolute;
@@ -117,7 +117,6 @@
     z-index: 4;
     display: block;
     border: 1px solid #111111;
-    border-radius: 3px;
     background: #333333;
     margin-top: -8px;
     box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.8);
@@ -136,7 +135,6 @@
         line-height: 30px;
         font-size: 14px;
         font-weight: 200;
-        border-radius: 3px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden
@@ -163,12 +161,108 @@
         display: block;
         text-align: left;
         font-size: 16px;
-        border-bottom: 1px solid #ffffff;
+        border-bottom: 1px solid #aaaaaa;
         border-radius: 0px;
         cursor: default;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        margin: 0px 7px;
+        margin: 0px 10px;
     }
 /*--------------lubySelector end------------------*/
+/*--------------      theme     ------------------*/
+.lubySelector.white {
+    background: #ffffff;
+    border: 1px solid #aaaaaa;
+    color: #444444;
+}
+    .lubySelector.white:hover {
+        background: #eeeeee;
+    }
+    .lubySelector.white .ls_arrow {
+        color: #444444;
+    }
+    .lubySelector.white .global_icon {
+        color: #444444;
+    }
+    .lubySelector.white .ls_optionWrap {
+        background: #ffffff;
+        border: 1px solid #aaaaaa;
+        box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.3);
+    }
+    .lubySelector.white .ls_option {
+        background: #ffffff;
+        color: #444444;
+    }
+        .lubySelector.white .ls_option:hover {
+            opacity: 0.7;
+        }
+    .lubySelector.white .ls_search .ls_input {
+        color: #444444;
+    }
+    .lubySelector.white .ls_search .fa-search {
+        color: #444444;
+    }
+.lubySelector.ghost {
+    background: transparent;
+    border: 1px solid #ffffff;
+}
+    .lubySelector.ghost:hover {
+        opacity: 0.7;
+    }
+    .lubySelector.ghost .ls_optionWrap {
+        background: rgba(0,0,0,0.85);
+    }
+    .lubySelector.ghost .ls_option {
+        background: transparent;
+    }
+        .lubySelector.ghost .ls_option:hover {
+            opacity: 0.7;
+        }
+.lubySelector.transparent {
+    background: transparent;
+    border: none;
+}
+    .lubySelector.ghost:hover {
+        opacity: 0.7;
+    }
+    .lubySelector.ghost .ls_optionWrap {
+        background: rgba(0,0,0,0.85);
+    }
+    .lubySelector.ghost .ls_option {
+        background: transparent;
+    }
+        .lubySelector.ghost .ls_option:hover {
+            opacity: 0.7;
+        }
+.lubySelector.rect {
+    background: #222222;
+    border: none;
+    border-left: 1px solid #000000;
+    box-shadow: -1px 0px 0px #303030;
+    margin: 0px 0px 0px 1px;
+    padding: 0px 10px;
+}
+    .lubySelector.rect:hover {
+        background: #333333;
+    }
+    .lubySelector.rect .ls_arrow {
+        right: 20px;
+    }
+    .lubySelector.rect .global_icon {
+        left: 18px;
+    }
+    .lubySelector.rect .ls_optionWrap {
+        background: rgba(0,0,0,0.85);
+        margin-top: -19px;
+        margin-left: -10px;
+        box-shadow: 0px 9px 30px 0px rgba(0,0,0,0.8);
+    }
+    .lubySelector.rect .ls_option {
+        background: transparent;
+    }
+        .lubySelector.rect .ls_option:hover {
+            color: #ffffff;
+        }
+
+

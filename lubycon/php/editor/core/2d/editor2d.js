@@ -37,7 +37,7 @@
                 return d = $.extend({}, defaults, option), this.each(function () {
                     if (!$(this).hasClass("initEditor")) $.error("Loading failed");
                     else {
-                        console.log("editor is loaded");//function start
+                        console.log("EDITOR IS LOADED");//function start
                         var $this = $(this);
                         var $darkOverlay = $(document).find(".dark_overlay").show();
                         //init object
@@ -142,7 +142,6 @@
 
                         $(window).on("load",function(){ $(".modal.file-modal").fadeIn(400); });
                         window.onbeforeunload = function(){
-                            console.log(unloadChecker);
                             if(unloadChecker) return "a";
                         }
                     }
@@ -174,7 +173,6 @@
                     category2 = "Category2",
                     view = 0, download = 0, like = 0;
 
-                    console.log($previewMain.find("#contents_title"));
                     $("#contents_title").text(name);
                     $("#contents_category").text(CATE_PARAM + ">" + category1 + "," + category2);
                     $("#viewCount").text(view);
@@ -232,14 +230,12 @@
 
                 function submitFinal(){
                     unloadChecker = false;
-                    console.log(checkList.name,checkList.categories);
                     if(checkList.name && checkList.categories){
                         /*1*/$.each(attachedFiles,function(i,file){ formData.append("file_"+i,file); }); //attached files append to form data object.
                         /*2*/$.each(attachedImage,function(i,file){ formData.append("image_"+i,file); }); //used images append to formdata
                         /*3*/formData.append("contentHTML",content);
                         /*4*/formData.append("thumbnail",finalThumbnail); //add thumbnail
                         /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
-                        //console.log(attachedFiles,attachedImage,finalThumbnail,settingObject);
 
                         $.ajax({
                             url: '../../../ajax/upload_ajax.php',
@@ -248,7 +244,6 @@
                             data: formData,
                             type: 'POST',
                             success: function (result) {
-                                console.log(result);
                                 //location.href = "../../../messages/successUploadContent.php";
                             }
                         });
@@ -471,11 +466,9 @@
                                 break;
                                 case 1 : 
                                     $this.addClass("error");
-                                    console.log("This is special character"); 
                                 break;
                                 case 2 : 
                                     $this.addClass("error"); 
-                                    console.log("This is abuse word"); 
                                 break;
                             }
                         }
@@ -517,7 +510,6 @@
                 }
                 else {
                     $modals.hide();
-                    $(".btn.selected").removeClass("selected");
                     ModalKit.align($target);
                     $target.fadeIn(200);
                     $darkOverlay.fadeIn(200);
@@ -674,8 +666,6 @@
                     var body = $(this).parent(".file-list"),
                     i = body.data("index");
                     attachedFiles.splice(i,1);
-                    console.log("FILE NUMBER " + i + " IS REMOVED");
-                    console.log(i,attachedFiles);
                     body.remove();
                     ModalKit.align($inputModal);
                     setIndex(".file-list");
@@ -716,7 +706,6 @@
                     break;
                 }
                 $inputFile.trigger("click");
-                console.log("Trigger On");
             },
             imgUpload: function(event){
                 var $this = $(".uploading"),
@@ -743,7 +732,6 @@
                         reader.onload = function(event){
                             var img = $("<img/>",{ "src":event.target.result }),
                             imgWidth = img[0].width;
-                            console.log(imgWidth);
 
                             if(imgWidth >= 1400) $objectWrap.addClass("large");
                             upload.insertPosition($this,$objectWrap,img);
@@ -753,7 +741,6 @@
                             $loading_icon.hide();
 
                             attachedImage.splice($objectWrap.data("index"),0,file);
-                            console.log(attachedImage);
                         };
                     }
                     else $loading_icon.hide();
@@ -910,7 +897,6 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function(event){
-                        console.log(event.target.result);
                         $cropper.cropper("replace",event.target.result),false;
                         $inputFile.val(null);
                         $loading_icon.hide();
@@ -929,7 +915,6 @@
                         var reader = new FileReader();
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
-                            console.log(event.target.result);
                             $cropper.cropper("replace",event.target.result);
                             $inputFile.val(null);
                             $loading_icon.hide();
@@ -943,7 +928,6 @@
             },
             imgCount : 0,
             setId: function (obj) {
-                //console.log(obj);
                 var $this = obj.parent(".canvas-content"),
                 dataVal = $this.data("value");
                 if (!$this.is(".placeHolder")) $this.attr("data-value", upload.imgCount + "-" + dataVal);
@@ -1037,7 +1021,6 @@
                 if($placeHolder.length != 0) $placeHolder.hide();
                 $(".btn.selected").removeClass("selected");
                 pac.objMenu($mediaWrap);
-                console.log("grid is added");
             },
             embed: function(){
                 var $this = $(this),
@@ -1098,7 +1081,6 @@
             deleteTag: function(event){
                 $this = $(this);
                 $this.remove();
-                console.log("tag is deleted");
             },
             showCCsetting: function(event){
                 var $this = $(this).find(".cc-setting-bt"),
@@ -1247,8 +1229,6 @@
 
                 toolbar.sortFn.refresh();
                 if($target.hasClass("object-img")) attachedImage.splice($target.data("index"),1);
-                console.log(attachedImage);
-                console.log("image was deleted");
             },
             addObjBt: function(selector){
                 var $wrapper = $("<div/>",{ "class" : "canvas-uploader-wrap" }),
@@ -1280,7 +1260,6 @@
                 $(".canvas-uploader-bt").find(".fa-cloud-upload").off("click").on("click",upload.imgUpTrigger);
                 $(".canvas-uploader-bt").find(".fa-font").off("click").on("click",upload.textUpload);
                 $(".canvas-uploader-bt").find(".fa-code").off("click").on("click",ModalKit.show);
-                console.log("add object button is added to canvas");
             },
             getFullSizeImg: function(){
                 var $this = $(this),
@@ -1457,7 +1436,6 @@
                     	italText = $target.find("em").children()[0] || $target.find("em").text(),
                     	underText = $target.find("u").children()[0] || $target.find("u").text(),
                     	strikeText = $target.find("strike").children()[0] || $target.find("strike").text();
-                        console.log(boldText);
                         switch(value){
                             case "bold" : bold.parent().html(boldText); bold.remove(); break;
                             case "italic" : italic.parent().html(italText); italic.remove(); break;
@@ -1557,20 +1535,17 @@
                 gridType: function(d,f,s){
                     var $gridWrapper = $("<div/>",{ "class" : "grid-inner-wrapper" }),
                     $devider = $("<div/>",{ "class" : "grid-devider" });
-                    console.log(d,f,s);
                     //direction
                     $gridWrapper.clone();
                     if(d == "v" || d == "n"){
                         var $obj = $gridWrapper.append($devider.clone().addClass("vertical left"))
                         .append($devider.clone().addClass("vertical right"));
                         toolbar.gridFn.devideGrid($obj,d,f,s);
-                        console.log("d : " + d);
                     }
                     else if(d == "h"){
                         var $obj = $gridWrapper.append($devider.clone().addClass("horizental top"))
                         .append($devider.clone().addClass("horizental bottom"));
                         toolbar.gridFn.devideGrid($obj,d,f,s);
-                        console.log("d : " + d);
                     }
                     else $.error("There is no grid element");   
 
@@ -1589,7 +1564,6 @@
                     devider2Class = $devider2.hasClass("right");
                     if(f == 1){
                         var $imgObj = $devider1.append($imgWrapper.clone().append($placeHolder.clone(true)));
-                        console.log("devider1 : " + f);
                     }
                     else if(f == 2){
                         var $imgObj = devider1Class ? 
@@ -1597,12 +1571,10 @@
                         .append($imgWrapper.clone().addClass("bottom").append($placeHolder.clone(true))) :
                         $devider1.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
                         .append($imgWrapper.clone().addClass("right").append($placeHolder.clone(true)));
-                        console.log("devider1 : " + f);
                     }
                     
                     if(s == 1){
                         var $imgObj = $devider2.append($imgWrapper.clone().append($placeHolder.clone(true)));
-                        console.log("devider2 : " + s);
                     }
                     else if(s == 2){
                         var $imgObj = devider2Class ? 
@@ -1610,17 +1582,14 @@
                         .append($imgWrapper.clone().addClass("bottom").append($placeHolder.clone(true))) :
                         $devider2.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
                         .append($imgWrapper.clone().addClass("right").append($placeHolder.clone(true)));
-                        console.log("devider2 : " + s);
                     }
                 },
                 gridIndex: function(selector){
                     $this = selector;
                     $cell = $(document).find(".grid-img-wrapper");
-                    console.log($cell);
                     $cell.each(function(){
                         var $this = $(this),
                         index = $this.index();
-                        console.log(index);
                         if(!$this.is(".placeHolder")) $this.attr("data-index",index);
                     });
                 }
@@ -1717,7 +1686,6 @@
                     else return false;
                 },
                 sortable: function(event){
-                    console.log("SORTABLE");
                     sortedObj = $(".sort-obj"),
                     sortedArray = [],
                     $originObj = $(document).find(".canvas-content"),
@@ -1753,10 +1721,8 @@
                             $(this).find(".obj-menu").hide();
                         });
                     }
-                    console.log("SORTABLE IS END");
 
                     attachedImage = sortedAttachedImage;
-                    console.log(attachedImage);
                     
                     toolbar.sortFn.refresh();
                 }
@@ -1765,7 +1731,7 @@
         method = {
             destroy: function () {
                 return this.each(function () {
-                    console.log("tested");
+                    
                 })
             }
         }
