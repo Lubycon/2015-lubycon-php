@@ -273,23 +273,9 @@ $(document).ready(function(){
         }
         function changeLocation(){
             var value = $(this).find("option").index($(this).find("option:selected"));
-            setUrlParameter($(this).data("param"),value);
-            $.ajax({
-                type: "POST",
-                url: "../ajax/contents_page_data.php",
-                data: "cate_param=" + CATE_PARAM + 
-                      "&mid_cate_param=" + MID_CATE_PARAM + 
-                      "&cc_param=" + getUrlParameter("cc") + 
-                      "&filter_param" + getUrlParameter("filter") +
-                      "&job_param" + getUrlParameter("job") +
-                      "&location_param" + getUrlParameter("location") +
-                      "&search_filter_param" + getUrlParameter("search_filter"),
-                cache: false,
-                success: function (data){
-                    console.log(data);
-                    console.log("SUCCESS");
-                }
-            })
+            setUrlParameter($(this).data("param"), value);
+
+            down_call_contents(0, 1);
         }
     }
     function initLubyAlerts(){

@@ -86,7 +86,7 @@ class infinite_scroll extends json_control
             case 1 : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
             case 2 : $this->order_query = " ORDER BY a.`likeCount` DESC "; break;
             case 3 : $this->order_query = " ORDER BY a.`downloadCount` DESC "; break;
-            case 4 : $this->order_query = " ORDER BY a.`commnetCount` DESC "; break;
+            case 4 : $this->order_query = " ORDER BY a.`commentCount` DESC "; break;
             default : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
         }
 
@@ -158,13 +158,16 @@ class infinite_scroll extends json_control
         {
             $this->query = "
             select SQL_CALC_FOUND_ROWS
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, d.`midCategoryCode0`, d.`midCategoryCode1`, d.`midCategoryCode2`";
+            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2`";
             if($query_user_code)
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
-            " from lubyconboard.`$this->top_category` a 
-                LEFT JOIN lubyconboard.`$this->top_category"."midcategory` as d
-                ON a.`boardCode` = d.`boardCode`
+            " from 
+                (
+                SELECT * FROM lubyconboard.`$this->top_category`                 
+                LEFT JOIN lubyconboard.`$this->top_category"."midcategory`
+                USING (`boardCode`)
+                ) as a
             ";
             if($query_user_code)
             {
@@ -226,7 +229,7 @@ class infinite_scroll extends json_control
             /*ajax*/
 
             if($this->all_page_count == $this->target_page){
-                echo '<div class="viewmore_bt" data-value="content"><i class="fa fa-plus"></i></div>';
+                echo '<div class="finish_contents" data-value="content">no more content!</div>';
             }
 
         }else{

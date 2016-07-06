@@ -125,17 +125,17 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">CONTENTS</p>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1">
+                <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&page=1">
                     <i class="fa fa-picture-o fa-1x"></i>Artwork
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1">
+                <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&page=1">
                     <i class="fa fa-object-group fa-1x"></i>Vector
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&mid_cate=1&page=1">
+                <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&page=1">
                     <i class="fa fa-cube fa-1x"></i>3D Model
                 </a>
             </li>
@@ -223,18 +223,18 @@
         <nav id="main_gnb" class="hidden-mb-b">
             <ul id="gnb">
                 <li class="bigsub">
-                    <a href="<?=$two_depth?>/contents/contents_page.php?cate=all&mid_cate=1&page=1" class="bigsub_link">
+                    <a href="<?=$two_depth?>/contents/contents_page.php?cate=all&page=1" class="bigsub_link">
                         Contents
                     </a>
                     <ul class="sub_menu">
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&mid_cate=1&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&mid_cate=1&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&mid_cate=1&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
+                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
                         </li>
                     </ul>	<!--end Contents menu-->
                 </li>

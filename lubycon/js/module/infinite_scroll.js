@@ -1,5 +1,4 @@
 
-(function(){
     var AJAX_EVENTING = false; //ajax bubbling banned
     var DOWN_PAGE_FINISH = false; //check last page valuable
     var UP_PAGE_FINISH = false; // check fist page valuabel
@@ -11,6 +10,7 @@
         ALL_PAGE_COUNT = parseInt($(".sliderKey").attr('max'));
         $(".sliderKey").val(NOW_PAGE);
         finish_check(); //check final function
+        down_call_contents(0, 1);
     });
     $(document).scroll(function () //scroll handler
     {
@@ -27,7 +27,6 @@
             console.log('down ajax call');
             AJAX_EVENTING = true; //bubbleing banned
             down_call_contents(NOW_PAGE, pageCountUp); //down ajax call
-
         }
     });
     $(document).on('click',".prev_page_call", function ()
@@ -104,7 +103,10 @@
             data: data_array,
             datatype:JSON,
             cache: false,
-            success: function (data) {
+            success: function (data)
+            {
+                if (NOW_PAGE == 0 && pageNumber == 1)
+                { $(".contents_wrap").html('')};
                 $(".contents_wrap").append(data);
                 finish_check();
                 AJAX_EVENTING = false;
@@ -139,12 +141,12 @@
             $(".sliderKey").val(down_count_page);
             console.log('page cound up');
         }
-
+        console.log(NOW_PAGE);
     }
 
     function finish_check() // check it last page
     {
-        if ($("#contents_box > ul > .finish_contents").hasClass('finish_contents')) {
+        if ($("#contents_box > ul > .finish_contents").hasClass('finish_contents') || $("#contents_box > ul > .no-data-wrapper").hasClass('no-data-wrapper')) {
             DOWN_PAGE_FINISH = true; //finish bottom page
         } else
         {
@@ -160,4 +162,3 @@
         }
 
     }
-})

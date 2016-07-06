@@ -104,10 +104,10 @@ $(document).ready(function(){
 
                 var container = $("<div/>",{ "class" : "comment-div" }),
                     picture = $("<figure/>",{ "class" : "comment-pic" }),
-                        img = $("<img/>",{ "src" : result.src }),
+                    img = $("<img/>",{ "src" : result.src }),
                     name = $("<h4/>",{ "html" : result.name }),
                     timeWrapper = $("<p/>",{ "class" : "comment-time" }),
-                        time = $("<span/>", { "class" : "comment-time-counter", "html" : "Soon"}),
+                    time = $("<span/>", { "class" : "comment-time-counter", "html" : "Soon"}),
                     content = $("<p/>", { "class" : "comment-contents", "html" : result.content });
 
                 img.appendTo(picture);

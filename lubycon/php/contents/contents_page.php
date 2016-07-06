@@ -12,22 +12,6 @@
     $json_control = new json_control;
     require_once "../class/infinite_scroll_class.php";
 
-    $cate_name = $_GET['cate'];    
-    $page_number = $_GET['page'];
-
-    $filter = 
-    [ 
-        'search_kind' => null, //search kind 
-        'search_word' => null, //search word
-        'middle_cateogry' => null, //middle category
-        'a.`ccLicense`' => null, //cc license
-        'a.`userCode`' => null, //my contens
-        'b.`bookmarkActionUserCode`' => null //my bookmark
-    ];
-    $sort = null;
-
-    $ajax_boolean = false;
-    $query_user_code = isset($Loginuser_code) ? $query_user_code=$Loginuser_code : $query_user_code=false ;
     /* require class */
 
     /* json control */
@@ -35,20 +19,6 @@
     $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
     $middle_cate_decode = $json_control->json_decode_code;
     /* json control */
-    
-    $infinite_scroll = new infinite_scroll('content',$cate_name);
-    $infinite_scroll->validate_category();
-    $infinite_scroll->set_option($filter,$sort,$page_number,$ajax_boolean,null);
-    $infinite_scroll->set_query($query_user_code);
-    $db->query = $infinite_scroll->query;
-    $db->askQuery();
-    $contents_result = $db->result; //contents data
-    $db->query = $infinite_scroll->query_foundRow;
-    $db->askQuery();
-    $foundRow_result = $db->result; //row count
-    $infinite_scroll->count_page($foundRow_result);
-
-    //echo $infinite_scroll->all_page_count; //count row result
 ?>
 <script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
 <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySlider.js"></script>
@@ -123,12 +93,8 @@
     </section>
     <section id="contents_box" class="con_wrap">
 
-    <input type="range" class="sliderKey" value="1" width="6" min='1' max="<?=$infinite_scroll->all_page_count?>">
+    <input type="range" class="sliderKey" value="1" width="6" min='1' max="">
         <ul class="contents_wrap">
-            <?php
-                $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);
-                $infinite_scroll->check_cookie();
-            ?>
         </ul>
     </section>  <!-- end contents box -->
 </section>  <!-- end contents section -->
