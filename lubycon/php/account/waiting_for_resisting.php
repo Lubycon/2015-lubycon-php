@@ -25,7 +25,10 @@
 </head>
 <body ondragstart="return false" onselectstart="return false">
 	<?php
-		$username = "Admin";
+		if(!isset($_SESSION['lubycon_nick']))
+			$username = "Admin";
+		else
+			$username = $_SESSION['lubycon_nick'];
 	?>
 	<section class="message message-wrapper bounceInDown animated">
 		<div class="message-box">
