@@ -10,7 +10,7 @@
         ALL_PAGE_COUNT = parseInt($(".sliderKey").attr('max'));
         $(".sliderKey").val(NOW_PAGE);
         finish_check(); //check final function
-        down_call_contents(0, 1);
+        down_call_contents(1, 1);
     });
     $(document).scroll(function () //scroll handler
     {
@@ -106,7 +106,7 @@
             cache: false,
             success: function (data)
             {
-                if (NOW_PAGE == 0 && pageNumber == 1)
+                if (NOW_PAGE == 1 && pageNumber == 1)
                 { $(".contents_wrap").html('')};
                 $(".contents_wrap").append(data);
                 finish_check();
@@ -143,7 +143,7 @@
             $(".sliderKey").val(down_count_page);
             console.log('page cound up');
         }
-        console.log(NOW_PAGE);
+        //console.log(NOW_PAGE);
     }
 
     function finish_check() // check it last page
