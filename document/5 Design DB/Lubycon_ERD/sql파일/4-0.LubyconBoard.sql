@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `artWork`
 	`likeCount` INT UNSIGNED DEFAULT '0',
 	`bookmarkCount` INT UNSIGNED DEFAULT '0',
 	`commentCount` INT UNSIGNED DEFAULT '0',
+	`contentStatus` ENUM('normal','delete') DEFAULT 'normal',
 
 	PRIMARY KEY(`boardCode`)
 	
@@ -95,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `vector`
 	`likeCount` INT UNSIGNED DEFAULT '0',
 	`bookmarkCount` INT UNSIGNED DEFAULT '0',
 	`commentCount` INT UNSIGNED DEFAULT '0',
+	`contentStatus` ENUM('normal','delete') DEFAULT 'normal',
 
 	PRIMARY KEY(`boardCode`)
 	
@@ -171,6 +173,7 @@ CREATE TABLE IF NOT EXISTS `threed`
 	`likeCount` INT UNSIGNED DEFAULT '0',
 	`bookmarkCount` INT UNSIGNED DEFAULT '0',
 	`commentCount` INT UNSIGNED DEFAULT '0',
+	`contentStatus` ENUM('normal','delete') DEFAULT 'normal',
 
 	PRIMARY KEY(`boardCode`)
 	
@@ -269,6 +272,7 @@ CREATE TABLE IF NOT EXISTS `contentsComment`
 	`commentDate` DATETIME NOT NULL , 
 	`commentContents` TEXT NOT NULL , 
 	`commentLikeCount` INT UNSIGNED NOT NULL , 
+	`commentStatus` ENUM('normal','delete') DEFAULT 'normal',
 
 	PRIMARY KEY (`commentID`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;

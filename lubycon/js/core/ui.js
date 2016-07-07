@@ -42,7 +42,6 @@ $(document).ready(function(){
 
     }
 
-
     function pageReadyAction(){
         /////////////////////////////////////////////////////////
         //  PAGE WILL BE SHOW AFTER LOADED ALL HTML,CSS and JS //
@@ -273,29 +272,16 @@ $(document).ready(function(){
         }
         function changeLocation(){
             var value = $(this).find("option").index($(this).find("option:selected"));
-            setUrlParameter($(this).data("param"),value);
-            $.ajax({
-                type: "POST",
-                url: "../ajax/contents_page_data.php",
-                data: "cate_param=" + CATE_PARAM + 
-                      "&mid_cate_param=" + MID_CATE_PARAM + 
-                      "&cc_param=" + getUrlParameter("cc") + 
-                      "&filter_param" + getUrlParameter("filter") +
-                      "&job_param" + getUrlParameter("job") +
-                      "&location_param" + getUrlParameter("location") +
-                      "&search_filter_param" + getUrlParameter("search_filter"),
-                cache: false,
-                success: function (data){
-                    console.log(data);
-                    console.log("SUCCESS");
-                }
-            })
+            setUrlParameter($(this).data("param"), value);
+
+            down_call_contents(1, 1);
         }
     }
     function initLubyAlerts(){
-        $(".userAction-bt").on("click touchend",toggle.single);
+        $(document).on("click touchend",".userAction-bt",toggle.single);
+        console.log($(".userAction-bt").length);
 
-        $(".userAction-bt[data-value='bookmark']").on("click touchend",function(event){
+        $(document).on("click touchend",".userAction-bt[data-value='bookmark']",function(event){
             eventHandler(event,$(this));
             if($(this).hasClass("selected")){
                 $(this).lubyAlert({
@@ -308,7 +294,7 @@ $(document).ready(function(){
             }
         });
         
-        $(".userAction-bt[data-value='like']").on("click",function(){
+        $(document).on("click",".userAction-bt[data-value='like']",function(){
             if($(this).hasClass("selected")){
                 $(this).lubyAlert({
                     icon: "fa-heart",

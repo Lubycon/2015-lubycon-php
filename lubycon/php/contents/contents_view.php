@@ -154,7 +154,8 @@ LEFT JOIN lubyconuser.`userinfo` as c
 ON b.`userCode` = c.`userCode`
 
 WHERE a.`boardCode` = '$number'
-AND a.`topCategoryCode` = '$cate';
+AND a.`topCategoryCode` = '$cate'
+AND a.`commentStatus` = 'normal';
 ";
 $db->askQuery();
 $comment_result = $db->result;

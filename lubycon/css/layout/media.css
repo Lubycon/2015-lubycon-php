@@ -1181,11 +1181,16 @@
 }
     .infoCard-horizontal .infoCard.x2 {
         display: inline-block;
-        width: 45%;
-        margin: 0px 20px;
+        width: 47%;
         vertical-align: top;
         min-height: 310px;
     }
+        .infoCard-horizontal .infoCard.x2.left {
+            margin-right: 20px;
+        }
+        .infoCard-horizontal .infoCard.x2.right {
+            margin-left: 20px;
+        }
     /*-------------login------------*/
     #loginWrap{
         top: 50%;

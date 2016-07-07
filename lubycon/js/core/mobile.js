@@ -111,7 +111,7 @@ $(window).on("load resize",function(event){
         function dbClickAction(){
             if($(this).hasClass("selected")){
                 var data = $(this).data("target") !== "3d" ? $(this).data("target") : "threed";
-                location.href = "./php/contents/contents_page.php?cate=" + data + "&mid_cate=1&page=1";
+                location.href = "./php/contents/contents_page.php?cate=" + data + "&page=1";
             }
             else return false;
         }

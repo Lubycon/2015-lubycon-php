@@ -20,7 +20,7 @@
                     Do you want to show your awesome works to other creators?</br/>
                     We can help you.
                 </p>
-                <div class="viewmore_bt"><a href="<?=$two_depth?>/contents/contents_page.php?cate=all&mid_cate=1&page=1">SHOW CONTENTS</a></div>
+                <div class="viewmore_bt"><a href="<?=$two_depth?>/contents/contents_page.php?cate=all&page=1">SHOW CONTENTS</a></div>
             </div>
         </div>
     </div>
