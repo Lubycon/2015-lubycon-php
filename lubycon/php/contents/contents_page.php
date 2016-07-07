@@ -39,16 +39,16 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="all">
-                    <a href="./contents_page.php?cate=all&mid_cate=1&page=1">All</a>
+                    <a href="./contents_page.php?cate=all&page=1">All</a>
                 </li>
                 <li class="nav_menu" id="artwork">
-                    <a href="./contents_page.php?cate=artwork&mid_cate=1&page=1">Artwork</a>
+                    <a href="./contents_page.php?cate=artwork&page=1">Artwork</a>
                 </li>
                 <li class="nav_menu" id="vector">
-                    <a href="./contents_page.php?cate=vector&mid_cate=1&page=1">Vector</a>
+                    <a href="./contents_page.php?cate=vector&page=1">Vector</a>
                 </li>
                 <li class="nav_menu" id="threed"> 
-                    <a href="./contents_page.php?cate=threed&mid_cate=1&page=1">3D</a>
+                    <a href="./contents_page.php?cate=threed&page=1">3D</a>
                 </li>
             </ul>
         </nav>  <!-- end lnb nav -->

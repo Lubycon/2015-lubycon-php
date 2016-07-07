@@ -62,7 +62,7 @@ $(document).ready(function(){
                     text: "Are you sure?",
                     animation: "bounceInDown",
                     okAction: function(){
-                        comment_delete(commentBox,countkind,stat_check, CONNUM_PARAM, CATE_PARAM);
+                        comment_delete(commentBox,CONNUM_PARAM,CATE_PARAM);
                     }
                 });
             });
@@ -122,14 +122,16 @@ $(document).ready(function(){
             }
         })
     }
-    function comment_delete(element,countkind,stat_check,conno,catename){
-        console.log(countkind,stat_check,conno,catename);
+    function comment_delete(element,conno,catename){
+        var content = element.find('.comment-contents').text(),
+            write_time = element.find('.comment-time-counter').text()
         $.ajax({
             type: "POST",
-            url: "../ajax/file.php",
-            data: 'conno=' + conno + '&cate=' + catename + '&countkind=' + countkind + '&stat_check=' + stat_check,
+            url: "../ajax/comment_delete_ajax.php",
+            data: 'conno=' + conno + '&cate=' + catename + '&content=' + content + '&write_time=' + write_time,
             cache: false,
-            success: function(data){
+            success: function (data) {
+                console.log(data);
                 element.remove();
             }
         })

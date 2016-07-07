@@ -275,7 +275,7 @@ $(document).ready(function(){
             var value = $(this).find("option").index($(this).find("option:selected"));
             setUrlParameter($(this).data("param"), value);
 
-            down_call_contents(0, 1);
+            down_call_contents(1, 1);
         }
     }
     function initLubyAlerts(){
