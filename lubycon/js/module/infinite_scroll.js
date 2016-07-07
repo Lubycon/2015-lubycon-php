@@ -86,6 +86,7 @@
     };
     function down_call_contents(NOW_PAGE, pageNumber) //down scroll ajax
     {
+        $("#loading_icon").show();
         var data_array = {
             'cate_param' : CATE_PARAM,
             'mid_cate_param' : Number(MID_CATE_PARAM),
@@ -110,6 +111,7 @@
                 $(".contents_wrap").append(data);
                 finish_check();
                 AJAX_EVENTING = false;
+                $("#loading_icon").hide();
             }
         })
     };
