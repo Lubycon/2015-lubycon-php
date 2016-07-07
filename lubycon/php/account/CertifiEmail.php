@@ -32,7 +32,7 @@
 					by check the certification Code. <br /><br />
 					&nbsp;&nbsp;&nbsp;
 					<font size="4px">
-					Here your certification Code : 5F1WKs4fW4eP
+					Here your certification Code : bgZWQ3YTeL8H
 					</font>
 					<br /><br />
 					&nbsp;&nbsp;&nbsp;

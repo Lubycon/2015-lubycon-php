@@ -46,7 +46,7 @@
 		
 		$certifimail->CertifiMail();
 
-		if(mailer($from, $to, $subject, $password, 'mail'))
+		if(mailer($from, $to, $subject, $password, 'mail', $token))
 		{
 			$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken,validation)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$certifimail->token."', 'inactive')";
 
@@ -73,7 +73,7 @@
 
     				$result = mysqli_fetch_array($db->result);
 					$session->WriteSession('lubycon',$result);
-					//echo $_SESSION['lubycon_validation'];
+					echo $_SESSION['lubycon_validation'];
 					echo '<script>document.location.href="../../index.php"</script>';
     			}
 			}

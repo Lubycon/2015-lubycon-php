@@ -2,10 +2,6 @@
 # this class is session handling class
 class Session{
 	protected $session_id;
-	protected $session_name;
-	protected $user_id;
-	protected $user_nick;
-	protected $user_code;
 	protected $seperator;
 
 	public function __construct($seperator = "lubycon", $session_name = "lubycon"){
