@@ -1247,6 +1247,10 @@ body {
         float: none;
         box-shadow: none;
     }
+    .infoCard.creator .creators_card .creator_pic_wrap {
+        margin: 0px auto;
+        display: block;
+    }
 
 .infoCard.comment {}
     .infoCard.comment #comment-counter {

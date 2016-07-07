@@ -76,7 +76,6 @@ $(document).ready(function(){
             data: 'countkind=' + countkind + '&conno=' + conno + '&cate=' + catename + '&stat_check=' + stat_check + '&contentkind=' + contentkind,// data send
             cache: false,
             success: function (data) {
-                console.log(data);
                 var loginStat = data.loginStat;
                 loginStat = 1;
                 if(loginStat){
@@ -84,8 +83,8 @@ $(document).ready(function(){
                     stat_check = stat_check ? 1 : -1;
                     like_number.text( Number(like_number.text()) + stat_check);
                 }
-                else{
-                    //NOT LOGIN
+                else{ //NOT LOGIN
+                    console.log(1);
                 }
             }
         })

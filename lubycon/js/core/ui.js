@@ -42,7 +42,6 @@ $(document).ready(function(){
 
     }
 
-
     function pageReadyAction(){
         /////////////////////////////////////////////////////////
         //  PAGE WILL BE SHOW AFTER LOADED ALL HTML,CSS and JS //
@@ -279,9 +278,10 @@ $(document).ready(function(){
         }
     }
     function initLubyAlerts(){
-        $(".userAction-bt").on("click touchend",toggle.single);
+        $(document).on("click touchend",".userAction-bt",toggle.single);
+        console.log($(".userAction-bt").length);
 
-        $(".userAction-bt[data-value='bookmark']").on("click touchend",function(event){
+        $(document).on("click touchend",".userAction-bt[data-value='bookmark']",function(event){
             eventHandler(event,$(this));
             if($(this).hasClass("selected")){
                 $(this).lubyAlert({
