@@ -279,8 +279,6 @@ $(document).ready(function(){
     }
     function initLubyAlerts(){
         $(document).on("click touchend",".userAction-bt",toggle.single);
-        console.log($(".userAction-bt").length);
-
         $(document).on("click touchend",".userAction-bt[data-value='bookmark']",function(event){
             eventHandler(event,$(this));
             if($(this).hasClass("selected")){
