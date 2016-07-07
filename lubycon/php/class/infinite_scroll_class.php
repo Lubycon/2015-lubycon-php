@@ -229,7 +229,7 @@ class infinite_scroll extends json_control
             /*ajax*/
 
             if($this->all_page_count == $this->target_page){
-                echo '<div class="finish_contents" data-value="content">no more content!</div>';
+                echo '<div class="finish_contents" data-value="content"></div>';
             }
 
         }else{

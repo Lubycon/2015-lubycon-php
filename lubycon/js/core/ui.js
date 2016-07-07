@@ -294,7 +294,7 @@ $(document).ready(function(){
             }
         });
         
-        $(".userAction-bt[data-value='like']").on("click",function(){
+        $(document).on("click",".userAction-bt[data-value='like']",function(){
             if($(this).hasClass("selected")){
                 $(this).lubyAlert({
                     icon: "fa-heart",
