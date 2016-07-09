@@ -53,9 +53,8 @@
 <!DOCTYPE html>
 
 <html>
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta name="subject" content="Lubycon" />
     <meta name="description" content="free sources" />
@@ -67,31 +66,31 @@
 
     <title>Lubycon</title>
 
-    <link rel="icon" href="<?=$root_path?>/lubycon/asset/img/logo/lubycon.ico" /> <!-- favicon -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source Sans Pro:200,400,600" type="text/css" />	<!--google web font-->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /> <!--icon font-->
+    <link rel="icon" href="../asset/img/logo/lubycon.ico" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source Sans Pro:200,400,600" type="text/css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 
-    <link href="<?=$root_path?>/lubycon/plugin/lib/normalize.css" rel="stylesheet" type="text/css" />
-    <link href="<?=$root_path?>/lubycon/src/common/common.css" rel="stylesheet" type="text/css" />
-    <link href="<?=$root_path?>/lubycon/src/component/view/index/media.css" rel="stylesheet" type="text/css" />
-    <link href="<?=$root_path?>/lubycon/plugin/JS/lubySelector.css" rel="stylesheet" type="text/css" />
-    <link href="<?=$root_path?>/lubycon/plugin/JS/lubyAlert.css" rel="stylesheet" type="text/css" />
-    <link href="<?=$root_path?>/lubycon/plugin/JS/checkBox.css" rel="stylesheet" type="text/css" />
-    <link href="<?=$root_path?>/lubycon/plugin/lib/animate.css" rel="stylesheet" type="text/css" />
+    <link href="./component/view/index/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="./common/common.css" rel="stylesheet" type="text/css" />
+    <link href="./component/view/index/media.css" rel="stylesheet" type="text/css" />
+    <link href="../plugin/JS/lubySelector.css" rel="stylesheet" type="text/css" />
+    <link href="../plugin/JS/lubyAlert.css" rel="stylesheet" type="text/css" />
+    <link href="../plugin/JS/checkBox.css" rel="stylesheet" type="text/css" />
+    <link href="../plugin/lib/animate.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="<?=$one_depth?>/js/core/jquery-ui.min.js"></script> <!-- jquery library -->
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySelector.js"></script><!--lubySelector-->
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubyAlert.js"></script><!--lubyAlert-->
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/resizeObject.js"></script>
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/sticky.js"></script>
-    <script type="text/javascript" src="<?=$one_depth?>/js/module/checkBox.js"></script>
-    <script type="text/javascript" src="<?=$one_depth?>/js/core/core.js"></script> <!-- index file js -->
-    <script type="text/javascript" src="<?=$one_depth?>/js/core/ui.js"></script><!-- ui file js -->
-    <script type="text/javascript" src="<?=$one_depth?>/js/core/mobile.js"></script><!--mobile file js-->
+    <script type="text/javascript" src="../plugin/lib/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubySelector.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubyAlert.js"></script>
+    <script type="text/javascript" src="../plugin/JS/resizeObject.js"></script>
+    <script type="text/javascript" src="../plugin/JS/sticky.js"></script>
+    <script type="text/javascript" src="../plugin/JS/checkBox.js"></script>
+    <script type="text/javascript" src="./common/common.js"></script>
+    <script type="text/javascript" src="./component/view/index/ui.js"></script>
+    <script type="text/javascript" src="./component/view/index/mobile.js"></script>
     
-    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no"><!--responsive design enable-->
-    <meta name="theme-color" content="#222222"><!--mobile web browser address window will be changed to #222-->
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
+    <meta name="theme-color" content="#222222" />
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -106,17 +105,17 @@
         <header id="mb-user-section">
             <div id="mb-after-signin">
                 <?php
-                    $userpic = $two_depth."/../../../Lubycon_Contents/user/$Loginuser_code/profile.jpg";
+                    $userpic = "../../../Lubycon_Contents/user/$Loginuser_code/profile.jpg";
                 ?>
-                 <figure id="mb-user-pic">
-                    <img src=<?=$userpic?>></img>
+                <figure id="mb-user-pic">
+                    <img src="<?=$userpic?>"></img>
                 </figure>
                 <span id="mb-user-info">
                     <span id="mb-user-name"><?=$Loginuser_name?></span>
                     <span id="mb-user-location"><i class="fa fa-map-marker"></i><?=$Loginuser_city?>, <?=$Loginuser_country?></span>
                 </span>
                 <span id="mb-user-setting">
-                    <a href="<?=$two_depth?>/account/resist_password.php">
+                    <a href="service/view/resist_password">
                     <!--<?=$two_depth?>/personal_page/personal_page.php?cate=account_setting&usernum=<?=$Loginuser_code?>-->
                         <i class="fa fa-gear fa-1x"></i>
                     </a>
@@ -126,17 +125,17 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">CONTENTS</p>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&page=1">
+                <a href="pages/controller/contents/contents_page?cate=artwork&page=1">
                     <i class="fa fa-picture-o fa-1x"></i>Artwork
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&page=1">
+                <a href="pages/controller/contents/contents_page?cate=vector&page=1">
                     <i class="fa fa-object-group fa-1x"></i>Vector
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&page=1">
+                <a href="pages/controller/contents/contents_page?cate=threed&page=1">
                     <i class="fa fa-cube fa-1x"></i>3D Model
                 </a>
             </li>
@@ -144,12 +143,12 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">COMMUNITY</p>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/creators_page/creators.php">
+                <a href="pages/view/creators/creators">
                     <i class="fa fa-pencil fa-1x"></i>Creator
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/community/community_page.php?cate=forum">
+                <a href="pages/view/community/community_page?cate=forum">
             	   <i class="fa fa-comments-o fa-1x"></i>Forum
                </a>
             </li>
@@ -157,31 +156,31 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">MY PAGE</p>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$Loginuser_code?>">
+                <a href="pages/view/personal_page/personal_page?cate=dashboard&usernum=<?=$Loginuser_code?>">
                     <i class="fa fa-tachometer fa-1x"></i>Dashboard
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$Loginuser_code?>">
+                <a href="pages/view/personal_page/personal_page?cate=insight&usernum=<?=$Loginuser_code?>">
                     <i class="fa fa-line-chart fa-1x"></i>Insight
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="<?=$two_depth?>/account/account_setting.php">
+                <a href="pages/view/account_setting/account_setting">
                     <i class="fa fa-gear fa-1x"></i>Account Setting
                 </a>
             </li>
         </ul>
         <ul class="mb-menu-group signin_class">
             <li class="mb-menu-list">
-                <a href="<?=$one_depth?>/login_page.php">
+                <a href="pages/view/sign_in/login_page">
                     <i class="fa fa-power-off fa-1x"></i>Sign in
                 </a>
             </li>
         </ul>
         <ul class="mb-menu-group after_signin_class">
             <li class="mb-menu-list">
-                <a href="<?=$one_depth?>/login_page.php">
+                <a href="pages/view/sign_in/login_page">
                     <i class="fa fa-power-off fa-1x"></i>Sign out
                 </a>
             </li>
@@ -191,19 +190,19 @@
         <p>Which content will you upload?</p>
         <ul>
             <li>
-                <a href="<?=$two_depth?>/editor/core/2d/editor2d.php?cate=artwork">
+                <a href="pages/view/editor/2d/2d?cate=artwork">
                 <i class="fa fa-picture-o"></i>
                 <p>Artwork</p>
                 </a>
             </li>
             <li>
-                <a href="<?=$two_depth?>/editor/core/2d/editor2d.php?cate=vector">
+                <a href="pages/view/editor/2d/2d?cate=vector">
                 <i class="fa fa-object-group"></i>
                 <p>Vector</p>
                 </a>
             </li>
             <li>
-                <a href="<?=$two_depth?>/editor/core/3d/editor3d.php?cate=threed">
+                <a href="pages/view/editor/3d/3d?cate=threed">
                 <i class="fa fa-cube"></i>
                 <p>3D Model</p>
                 </a>
@@ -214,9 +213,9 @@
     <header class="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1 id="main-logo">
-            <a href="<?=$one_depth?>/index.php">
-                <img class="hidden-mb-ib" src="<?=$one_depth?>/ch/img/logo/Lubycon_Logo_Title.svg" />
-                <img class="visible-mb" src="<?=$one_depth?>/ch/img/logo/Lubycon_Title.svg" />
+            <a href="./index.php">
+                <img class="hidden-mb-ib" src="../asset/img/logo/Lubycon_Logo_Title.svg" />
+                <img class="visible-mb" src="../asset/img/logo/Lubycon_Title.svg" />
             </a>
             <span id="beta_version" class="hidden-mb-b">BETA</span><!--beta mark-->
         </h1><!--LUBYCON LOGO-->
@@ -224,18 +223,18 @@
         <nav id="main_gnb" class="hidden-mb-b">
             <ul id="gnb">
                 <li class="bigsub">
-                    <a href="<?=$two_depth?>/contents/contents_page.php?cate=all&page=1" class="bigsub_link">
+                    <a href="pages/controller/contents/contents_page?cate=all&page=1" class="bigsub_link">
                         Contents
                     </a>
                     <ul class="sub_menu">
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
+                            <a href="pages/controller/contents/contents_page?cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
+                            <a href="pages/controller/contents/contents_page?cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
-                            <a href="<?=$two_depth?>/contents/contents_page.php?cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
+                            <a href="pages/controller/contents/contents_page?cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
                         </li>
                     </ul>	<!--end Contents menu-->
                 </li>
@@ -243,17 +242,17 @@
                 <li class="bigsub">
                     Community
                     <ul class="sub_menu">
-                        <li><!--ranking-->
-                            <a href="<?=$two_depth?>/creators_page/creators.php"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
+                        <li>
+                            <a href="pages/view/creators/creators"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
                         </li>
                         <li><!--forum-->
-                            <a href="<?=$two_depth?>/community/community_page.php?cate=forum"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
+                            <a href="pages/view/community/community_page?cate=forum"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
                         </li>
                         <li><!--tutorial-->
-                            <a href="<?=$two_depth?>/community/community_page.php?cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
+                            <a href="pages/view/community/community_page?cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
                         </li>
                         <li><!--Q&A-->
-                            <a href="<?=$two_depth?>/community/community_page.php?cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                            <a href="pages/view/community/community_page?cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>
@@ -261,7 +260,7 @@
         </nav>	<!--end main_gnb-->
         <div id="signin_bt" class="hidden-mb-b signin_class"><!-- before sign in -->
             <div id="signin">
-                <a href="<?=$one_depth?>/login_page.php">
+                <a href="pages/view/sign_in/login_page">
                     <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
                     <p class="signin">SIGN IN</p>
                 </a>
@@ -355,5 +354,4 @@
             });
         </script>
         <!-- end select_box -->
-    </div><!---------------- search bar end ---------------->
-    <!---------------- common parts end ---------------->
+    </div>

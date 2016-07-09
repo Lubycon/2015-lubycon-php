@@ -1,4 +1,4 @@
-﻿// TITLE : core.js
+﻿// TITLE : common.js
 // File for global functions or classes or variables
 
 
