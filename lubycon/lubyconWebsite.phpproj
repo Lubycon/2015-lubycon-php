@@ -7,6 +7,13 @@
     <RootNamespace>lubyconWebsite</RootNamespace>
     <OutputType>Library</OutputType>
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+    <Server>PHPDev</Server>
+    <PublishEvent>None</PublishEvent>
+    <PHPDevAutoPort>True</PHPDevAutoPort>
+    <PHPDevPort>38783</PHPDevPort>
+    <PHPDevHostName>localhost</PHPDevHostName>
+    <IISProjectUrl>http://localhost:38783/</IISProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -1104,6 +1111,7 @@
     <Compile Include="php\account\waiting_for_resisting.php" />
     <Compile Include="php\ajax\account_setting_profile_upload.php" />
     <Compile Include="php\ajax\call_comments_ajax.php" />
+    <Compile Include="php\ajax\comment_delete_ajax.php" />
     <Compile Include="php\ajax\community_infinite_scroll.php" />
     <Compile Include="php\ajax\create_account_popup.php" />
     <Compile Include="php\ajax\editor_ajax.php" />

@@ -26,7 +26,9 @@ if(isset($_SESSION['lubycon_email']))
 		$db->query = "UPDATE userbasic SET validationToken = '".$token."' WHERE (email = '".$_SESSION['lubycon_email']."')";
 
 		if($db->askQuery() !== false){
-			echo '<script>document.location.href="./success_account.php"</script>';
+			$db->query = "UPDATE userbasic SET validationToken = NULL";
+			if($db->askQuery() !== false)
+				echo '<script>document.location.href="./success_account.php"</script>';
 		}else{
 			echo ("쿼리 전송 실패");
 		}

@@ -19,7 +19,7 @@ class infinite_scroll extends json_control
     private $filter; // array
     private $sort; // array
 
-    public $where_query = ' WHERE '; // for query
+    public $where_query = " WHERE a.`contentStatus` = 'normal' AND "; // for query
     public $order_query = ' ORDER BY a.`contentDate` DESC '; // for query
     public $query;
     public $query_foundRow = "SELECT FOUND_ROWS()";
@@ -65,20 +65,20 @@ class infinite_scroll extends json_control
 
         $this->filter = $filter;
         $this->sort = $sort;
+
         $null_count = 0;
         foreach( $this->filter as $key => $value )
         {
             if( $this->filter[$key]['value'] != null )
             {
+                print_r($this->filter[$key]['value']);
                 $this->where_query .= $this->filter[$key]['query']." and ";
-                //print_r( $this->filter[$key]['query']);
             }else
             {
                 $null_count++;
             }
-            if( count($this->filter) == $null_count ){$this->where_query='';}
         }
-        $this->where_query = substr($this->where_query, 0, -4); //delete last and string
+        $this->where_query = substr($this->where_query, 0, -4);//delete last and string
 
         switch($sort)
         {
@@ -86,7 +86,7 @@ class infinite_scroll extends json_control
             case 1 : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
             case 2 : $this->order_query = " ORDER BY a.`likeCount` DESC "; break;
             case 3 : $this->order_query = " ORDER BY a.`downloadCount` DESC "; break;
-            case 4 : $this->order_query = " ORDER BY a.`commnetCount` DESC "; break;
+            case 4 : $this->order_query = " ORDER BY a.`commentCount` DESC "; break;
             default : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
         }
 
@@ -96,10 +96,11 @@ class infinite_scroll extends json_control
             if( $this->now_page >= 0 )
             {
                 $this->target_page = $ajax_page;
-                $this->call_page = $page_number * $this->page_limit;
+                $this->call_page = ($page_number - 1) * $this->page_limit;
                 $this->page_boundary = $this->page_limit; //call 1page (prev or next page)
             }
-        }else if(!$ajax_boolean) //not ajax (page refresh)
+        }
+        /*else if(!$ajax_boolean) //not ajax (page refresh)
         {
             $this->target_page = $this->now_page;
             if( $this->now_page > 1 )
@@ -113,7 +114,7 @@ class infinite_scroll extends json_control
                 $this->call_page = 0; //page 1
                 $this->page_boundary = $this->page_limit * 2; //call 2page (now,next page)
             }
-        }
+        }*/
     }
 
     public function set_query($query_user_code)
@@ -122,8 +123,8 @@ class infinite_scroll extends json_control
         {
             $this->query = "
             SELECT SQL_CALC_FOUND_ROWS 
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2`";
-            if($query_user_code)
+            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
+            if(isset($query_user_code))
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
             " FROM 
@@ -140,7 +141,7 @@ class infinite_scroll extends json_control
                 LEFT JOIN lubyconboard.`threedmidcategory`
                 USING (`boardCode`)
             ) AS a ";
-            if($query_user_code)
+            if(isset($query_user_code))
             {
             $this->query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b 
             ON a.`boardCode` = b.`boardCode`
@@ -158,15 +159,18 @@ class infinite_scroll extends json_control
         {
             $this->query = "
             select SQL_CALC_FOUND_ROWS
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, d.`midCategoryCode0`, d.`midCategoryCode1`, d.`midCategoryCode2`";
-            if($query_user_code)
+            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
+            if(isset($query_user_code))
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
-            " from lubyconboard.`$this->top_category` a 
-                LEFT JOIN lubyconboard.`$this->top_category"."midcategory` as d
-                ON a.`boardCode` = d.`boardCode`
+            " from 
+                (
+                SELECT * FROM lubyconboard.`$this->top_category`                 
+                LEFT JOIN lubyconboard.`$this->top_category"."midcategory`
+                USING (`boardCode`)
+                ) as a
             ";
-            if($query_user_code)
+            if(isset($query_user_code))
             {
                 $this->query .= 
                 "LEFT JOIN lubyconboard.`contentsbookmark` b
@@ -226,7 +230,7 @@ class infinite_scroll extends json_control
             /*ajax*/
 
             if($this->all_page_count == $this->target_page){
-                echo '<div class="viewmore_bt" data-value="content"><i class="fa fa-plus"></i></div>';
+                echo '<div class="finish_contents" data-value="content"></div>';
             }
 
         }else{
@@ -245,14 +249,14 @@ class infinite_scroll extends json_control
 
             if( $this->top_category == $cookie_parse['cate'] && $this->now_page == $cookie_parse['page'])
             {
-                echo "<script>$(window).load(function(){scroll_from_cookie('$cookie_contents_number')});</script>"; //find pre click contents
+                echo "<script>scroll_from_cookie('$cookie_contents_number');console.log(1)</script>"; //find pre click contents
             }else
             {
-                echo "<script>$(window).load(function(){scroll_from_param('$this->now_page')});</script>"; //find pre click contents
+                echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
             }
         }else
         {
-            echo "<script>$(window).load(function(){scroll_from_param('$this->now_page')});</script>"; //find pre click contents
+            echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
         }
     }
 }

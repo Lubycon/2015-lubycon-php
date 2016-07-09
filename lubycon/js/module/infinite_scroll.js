@@ -1,16 +1,16 @@
 
-(function(){
     var AJAX_EVENTING = false; //ajax bubbling banned
     var DOWN_PAGE_FINISH = false; //check last page valuable
     var UP_PAGE_FINISH = false; // check fist page valuabel
     var NOW_PAGE;//
-    var ALL_PAGE_COUNT;
+    var ALL_PAGE_COUNT ;
     $(document).ready(function () // paege ready to check
     {
         NOW_PAGE = parseInt(getUrlParameter('page')); // set param
         ALL_PAGE_COUNT = parseInt($(".sliderKey").attr('max'));
         $(".sliderKey").val(NOW_PAGE);
         finish_check(); //check final function
+        down_call_contents(1, 1);
     });
     $(document).scroll(function () //scroll handler
     {
@@ -27,8 +27,15 @@
             console.log('down ajax call');
             AJAX_EVENTING = true; //bubbleing banned
             down_call_contents(NOW_PAGE, pageCountUp); //down ajax call
-
         }
+    });
+    $(document).on('click', ".search-btn", function () { //search contents
+        console.log('search');
+        $(".contents_wrap").html('');
+        AJAX_EVENTING = true; //bubbleing banned
+        down_call_contents(1, 1); //down ajax call
+        setUrlParameter('search_word', $('.contents_search_text').val());
+        setUrlParameter('search_filter', $(".contents_search_filter").prop('selectedIndex'));
     });
     $(document).on('click',".prev_page_call", function ()
     {
@@ -87,16 +94,21 @@
     };
     function down_call_contents(NOW_PAGE, pageNumber) //down scroll ajax
     {
+        $("#loading_icon").show();
+        var search_word = $(".contents_search_text").val() == 'Enter the keyword' ? null : $(".contents_search_text").val();
+
+
         var data_array = {
             'cate_param' : CATE_PARAM,
             'mid_cate_param' : Number(MID_CATE_PARAM),
             'page_param' : pageNumber,
-            'now_page_param' : NOW_PAGE,
+            'now_page_param': NOW_PAGE,
+            'search_filter': $(".contents_search_filter").prop('selectedIndex'),
+            'search_word': search_word,
             'mid_cate_value' : $(".categoryFilter").prop('selectedIndex'),
             'copyright_value' : $(".copyrightFilter").prop('selectedIndex'),
             'prefer_value': $(".preferFilter").prop('selectedIndex'),
         };
-
         $.ajax
         ({
             type: "POST",
@@ -104,10 +116,14 @@
             data: data_array,
             datatype:JSON,
             cache: false,
-            success: function (data) {
+            success: function (data)
+            {
+                if (NOW_PAGE == 1 && pageNumber == 1)
+                { $(".contents_wrap").html('')};
                 $(".contents_wrap").append(data);
                 finish_check();
                 AJAX_EVENTING = false;
+                $("#loading_icon").hide();
             }
         })
     };
@@ -128,23 +144,22 @@
             scroll_prev = $('.page_bottom_' + down_count_page).offset().top - window_height - 1;
         }
 
-        if (scrolltop > scrollbottom && NOW_PAGE < ALL_PAGE_COUNT) //page ++
+        if (scrolltop > scrollbottom && NOW_PAGE < parseInt($(".sliderKey").attr('max'))) //page ++
         {
             setUrlParameter('page', up_count_page);
-            $(".sliderKey").val(up_count_page);
+            //$(".sliderKey").val(up_count_page);
             console.log('page checker up');
         } else if (scroll_prev > scrolltop)
         {
             setUrlParameter('page', down_count_page);
-            $(".sliderKey").val(down_count_page);
+            //$(".sliderKey").val(down_count_page);
             console.log('page cound up');
         }
-
     }
 
     function finish_check() // check it last page
     {
-        if ($("#contents_box > ul > .finish_contents").hasClass('finish_contents')) {
+        if ($("#contents_box > ul > .finish_contents").hasClass('finish_contents') || $("#contents_box > ul > .no-data-wrapper").hasClass('no-data-wrapper')) {
             DOWN_PAGE_FINISH = true; //finish bottom page
         } else
         {
@@ -160,4 +175,3 @@
         }
 
     }
-})

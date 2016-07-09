@@ -1138,6 +1138,11 @@ body {
             cursor: pointer;
         }
 /* contents card */
+.finish_contents {
+    border-top: 2px solid #dddddd;
+    width: 95%;
+    margin: 30px auto;
+}
 /* conetents side cards */
 .infoCard-horizontal {
     width: 100%;
@@ -1167,11 +1172,11 @@ body {
     }
     .infoCard > .infoCard-content {
         margin-top: 10px;
-        margin-bottom: 20px;
     }
 .infoCard.content_info{}
     .infoCard.content_info .infoCard-userAction{
         margin-bottom: 30px;
+        text-align: center;
     }
         .userAction-bt{
             display: inline-block;
@@ -1201,7 +1206,6 @@ body {
                 color: #ffffff;
                 width: 120px;
                 height: 40px;
-                color: #ffffff;
                 font-size: 17px;
                 text-align: center;
                 padding: 10px;
@@ -1223,15 +1227,15 @@ body {
             }
     .infoCard.content_info .infoCard-cc {
         width: 100%;
+        text-align: center;
     }
         .infoCard.content_info .infoCard-cc .cc-descipt {
             font-size: 13px;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
+            text-align: left;
         }
         .infoCard.content_info .infoCard-cc .cc-list {
             display: inline-block;
-            padding: 10px;
-            padding-left: 0;
         }
             .infoCard.content_info .infoCard-cc .cc-list .cc-icon {
                 display: inline-block;
@@ -1246,6 +1250,10 @@ body {
         width: 100%;
         float: none;
         box-shadow: none;
+    }
+    .infoCard.creator .creators_card .creator_pic_wrap {
+        margin: 0px auto;
+        display: block;
     }
 
 .infoCard.comment {}
@@ -1346,8 +1354,12 @@ body {
             margin-top: 10px;
             padding: 7px 10px;
             background: #777777;
-            color: #ffffff
+            color: #ffffff;
+            transition: opacity 0.2s;
         }
+            .infoCard.comment .comment-write-wrap #comment_bt:hover {
+                opacity: 0.7;
+            }
         .infoCard.comment .comment-write-wrap #comment_bt i{
             color:#fff;
             font-size:20px;

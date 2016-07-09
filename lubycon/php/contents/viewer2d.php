@@ -31,7 +31,7 @@
                 };
             ?>
             <div class="infoCard-horizontal">
-                <div class="infoCard content_info x2">
+                <div class="infoCard content_info x2 left">
                     <p class="infoCard-title inline">Did you like this contents?</p>
                     <div class="infoCard-userAction infoCard-content">
                         <div class="userAction-bt alertKey thumbs_view <?php if($bookmark_check){echo 'selected';}?>" data-value="bookmark" data-kind="contents">
@@ -49,7 +49,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="infoCard creator x2">
+                <div class="infoCard creator x2 right">
                     <p class="infoCard-title">Creator</p>
                     <div class="creators_card" data-index="<?=$usercode?>">
                         <div class="creator_card_body">
@@ -124,4 +124,4 @@
             </div>
         </div><!--end con_aside-->
     </section><!--end content_wrap-->
-</section>  <!-- end contents section --> --> -->
+</section>  <!-- end contents section -->

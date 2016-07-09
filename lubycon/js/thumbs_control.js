@@ -62,7 +62,7 @@ $(document).ready(function(){
                     text: "Are you sure?",
                     animation: "bounceInDown",
                     okAction: function(){
-                        comment_delete(commentBox,countkind,stat_check, CONNUM_PARAM, CATE_PARAM);
+                        comment_delete(commentBox,CONNUM_PARAM,CATE_PARAM);
                     }
                 });
             });
@@ -76,7 +76,6 @@ $(document).ready(function(){
             data: 'countkind=' + countkind + '&conno=' + conno + '&cate=' + catename + '&stat_check=' + stat_check + '&contentkind=' + contentkind,// data send
             cache: false,
             success: function (data) {
-                console.log(data);
                 var loginStat = data.loginStat;
                 loginStat = 1;
                 if(loginStat){
@@ -84,8 +83,8 @@ $(document).ready(function(){
                     stat_check = stat_check ? 1 : -1;
                     like_number.text( Number(like_number.text()) + stat_check);
                 }
-                else{
-                    //NOT LOGIN
+                else{ //NOT LOGIN
+                    console.log(1);
                 }
             }
         })
@@ -104,10 +103,10 @@ $(document).ready(function(){
 
                 var container = $("<div/>",{ "class" : "comment-div" }),
                     picture = $("<figure/>",{ "class" : "comment-pic" }),
-                        img = $("<img/>",{ "src" : result.src }),
+                    img = $("<img/>",{ "src" : result.src }),
                     name = $("<h4/>",{ "html" : result.name }),
                     timeWrapper = $("<p/>",{ "class" : "comment-time" }),
-                        time = $("<span/>", { "class" : "comment-time-counter", "html" : "Soon"}),
+                    time = $("<span/>", { "class" : "comment-time-counter", "html" : "Soon"}),
                     content = $("<p/>", { "class" : "comment-contents", "html" : result.content });
 
                 img.appendTo(picture);
@@ -122,14 +121,16 @@ $(document).ready(function(){
             }
         })
     }
-    function comment_delete(element,countkind,stat_check,conno,catename){
-        console.log(countkind,stat_check,conno,catename);
+    function comment_delete(element,conno,catename){
+        var content = element.find('.comment-contents').text(),
+            write_time = element.find('.comment-time-counter').text()
         $.ajax({
             type: "POST",
-            url: "../ajax/file.php",
-            data: 'conno=' + conno + '&cate=' + catename + '&countkind=' + countkind + '&stat_check=' + stat_check,
+            url: "../ajax/comment_delete_ajax.php",
+            data: 'conno=' + conno + '&cate=' + catename + '&content=' + content + '&write_time=' + write_time,
             cache: false,
-            success: function(data){
+            success: function (data) {
+                console.log(data);
                 element.remove();
             }
         })
