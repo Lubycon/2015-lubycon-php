@@ -1,15 +1,17 @@
 'use strict';
 
 var gulp = require('gulp');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var minifyhtml = require('gulp-minify-html');
+var sass = require('gulp-sass');
+var livereload = require('gulp-livereload');
 
 gulp.paths = {
   src: 'src',
-  dist: 'dist',
-  tmp: '.tmp',
-  e2e: 'e2e'
+  dist: 'dist'
 };
 
-require('require-dir')('./gulp');
 
 gulp.task('build', ['clean'], function () {
     gulp.start('buildapp');
