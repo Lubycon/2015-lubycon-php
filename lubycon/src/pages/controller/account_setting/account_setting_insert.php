@@ -1,6 +1,10 @@
 <?php
+
+$root_path = $_SERVER['HTTP_HOST'].'/Lubycon_Website';
+$lubycon_path= $root_path.'/Lubycon_Website';
+
 require_once '../session/session_class.php';
-    //session_start();
+    
     $session = new Session();
 
     if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
