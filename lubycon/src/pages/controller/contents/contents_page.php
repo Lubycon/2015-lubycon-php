@@ -78,16 +78,16 @@
             </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">
-                    <select class="searchFilter" data-param="search_filter">
+                    <select class="searchFilter contents_search_filter" data-param="search_filter">
                         <option value="Title">Title</option>
                         <option value="Creator">Creator</option>
                         <option value="Tag">Tag</option>
                     </select>
                 </div>
-                <input type="text" class="search-bar-text" value="Enter the keyword" />
-                <button class="search-btn">
+                <input type="text" class="search-bar-text contents_search_text" value="Enter the keyword" />
+                <div class="search-btn">
                     <i class="fa fa-search"></i>
-                </button>
+                </div>
             </div>
         </div><!--subnav_box end-->
     </section>

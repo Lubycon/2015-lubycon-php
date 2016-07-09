@@ -14,7 +14,7 @@
     $LoginState = false;
     }
     }
-    if( !isset($Loginuser_code) ){$Loginuser_code = '';} // not login stat , valuable is ''
+    if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
 
 
     /* require class set value */
@@ -28,10 +28,18 @@
     $cate_name = $_POST['cate_param']; //form infinite scroll js post ajax
     $page_param = $_POST['page_param']; //form infinite scroll js post ajax
     $now_page_param = $_POST['now_page_param']; //form infinite scroll js post ajax
+
+    switch($_POST['search_filter'])
+    {
+        case 0 : $search_filter = 'a.`contentTitle`' ; break;
+        case 1 : $search_filter = 'c.`nick`' ; break;
+        case 2 : $search_filter = 'a.`contentTitle`' ; break;
+        default : die('search filter error'); break;
+    }
+
     $filter = 
-    [ 
-        ['value' => null , 'query' => null ], //search kind 
-        ['value' => null , 'query' => null ], //search word
+    [
+        ['value' => $_POST['search_word'] != '' ? $_POST['search_word'] : null , 'query' => $search_filter." like '%".$_POST['search_word']."%'" ], //search word
         ['value' => $_POST['mid_cate_value'] > 0 ? $_POST['mid_cate_value'] : null , 'query' => $_POST['mid_cate_value'].' IN (a.`midCategoryCode0`,a.`midCategoryCode1`,a.`midCategoryCode2`)'], //middle category
         ['value' => $_POST['copyright_value'] > 0 ? $_POST['copyright_value'] : null , 'query' => 'a.`ccLicense` = '.($_POST['copyright_value']-1) ], //cc license
         ['value' => null , 'query' => ''], //my contens
@@ -57,7 +65,6 @@
     $foundRow_result = $db->result; //row count
     $infinite_scroll->count_page($foundRow_result);
     $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);
-    $infinite_scroll->check_cookie();
     echo "<script>$('.sliderKey').attr('max','$infinite_scroll->all_page_count')</script>";
 
     //$infinite_scroll->check_cookie();

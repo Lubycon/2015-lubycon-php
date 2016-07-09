@@ -279,8 +279,6 @@ $(document).ready(function(){
     }
     function initLubyAlerts(){
         $(document).on("click touchend",".userAction-bt",toggle.single);
-        console.log($(".userAction-bt").length);
-
         $(document).on("click touchend",".userAction-bt[data-value='bookmark']",function(event){
             eventHandler(event,$(this));
             if($(this).hasClass("selected")){
@@ -366,15 +364,13 @@ $(document).ready(function(){
     }
 
     function initMainSlider(){
-        $("#slider1").lubyImageSlider({
-            autoPlay: false
-        });
+        $("#slider1").lubyImageSlider();
         $("#slider2").lubyImageSlider();
         $("#slider3").lubyImageSlider();
 
+        $("#slider1").show();
         $("#slider2").hide();
         $("#slider3").hide();
-        $("#slider1").show();
     }
 
     function mainSliderRadioAction(){
@@ -389,7 +385,6 @@ $(document).ready(function(){
 
             $sliders.hide();
             $target.stop().show();
-            console.log($("#slider1").width());
         }
     }
     function contentCardHoverAction(){

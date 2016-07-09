@@ -19,7 +19,7 @@ class infinite_scroll extends json_control
     private $filter; // array
     private $sort; // array
 
-    public $where_query = " WHERE a.`contentStatus` = 'normal' "; // for query
+    public $where_query = " WHERE a.`contentStatus` = 'normal' AND "; // for query
     public $order_query = ' ORDER BY a.`contentDate` DESC '; // for query
     public $query;
     public $query_foundRow = "SELECT FOUND_ROWS()";
@@ -71,15 +71,14 @@ class infinite_scroll extends json_control
         {
             if( $this->filter[$key]['value'] != null )
             {
+                print_r($this->filter[$key]['value']);
                 $this->where_query .= $this->filter[$key]['query']." and ";
-                //print_r( $this->filter[$key]['query']);
             }else
             {
                 $null_count++;
             }
         }
-        if( count($this->filter) != $null_count ){$this->where_query = substr($this->where_query, 0, -4);}//delete last and string
-
+        $this->where_query = substr($this->where_query, 0, -4);//delete last and string
 
         switch($sort)
         {
@@ -125,7 +124,7 @@ class infinite_scroll extends json_control
             $this->query = "
             SELECT SQL_CALC_FOUND_ROWS 
             a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
-            if($query_user_code)
+            if(isset($query_user_code))
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
             " FROM 
@@ -142,7 +141,7 @@ class infinite_scroll extends json_control
                 LEFT JOIN lubyconboard.`threedmidcategory`
                 USING (`boardCode`)
             ) AS a ";
-            if($query_user_code)
+            if(isset($query_user_code))
             {
             $this->query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b 
             ON a.`boardCode` = b.`boardCode`
@@ -161,7 +160,7 @@ class infinite_scroll extends json_control
             $this->query = "
             select SQL_CALC_FOUND_ROWS
             a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
-            if($query_user_code)
+            if(isset($query_user_code))
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
             " from 
@@ -171,7 +170,7 @@ class infinite_scroll extends json_control
                 USING (`boardCode`)
                 ) as a
             ";
-            if($query_user_code)
+            if(isset($query_user_code))
             {
                 $this->query .= 
                 "LEFT JOIN lubyconboard.`contentsbookmark` b

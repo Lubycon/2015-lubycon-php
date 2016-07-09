@@ -11,5 +11,7 @@
     <h4><?=$comment_write_username?></h4>
     <p class="comment-time"><span class="comment-time-counter"><?=$time?></span></p>
     <p class="comment-contents"><?=$comment_content?></p>
-    <div class="comment-delete alertKey"><i class="fa fa-times"></i></div>
+    <?php
+        if( $comment_row['commentActionUserCode'] == $Loginuser_code ){echo '<div class="comment-delete alertKey"><i class="fa fa-times"></i></div>';}
+    ?>
 </div>
