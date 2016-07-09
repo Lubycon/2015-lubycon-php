@@ -1,5 +1,6 @@
 <?php
-	include_once './common/common.php';
+	include_once "./common/common.php";
+    include_once "./common/Module/url_controller.php";
     require_once $root_path."/lubycon/src/common/Class/json_class.php";
     $json_control = new json_control;
     $json_control->json_decode('job',$root_path."/lubycon/data/job.json");
@@ -48,6 +49,7 @@
             $LoginState = false;    
         }
     }
+    echo $CURRENT_URL."<br />";
 ?>
 
 <!DOCTYPE html>
