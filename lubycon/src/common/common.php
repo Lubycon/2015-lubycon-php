@@ -1,5 +1,10 @@
 <?php
 
+# Global Variable
+
+$root_path = $_SERVER['DOCUMENT_ROOT']."/Lubycon_Website";
+$contents_path = $_SERVER['DOCUMENT_ROOT']."/Lubycon_Contents";
+
 # COMMON FUNCTION
 
 #---------------------------------------------------------------------------------
