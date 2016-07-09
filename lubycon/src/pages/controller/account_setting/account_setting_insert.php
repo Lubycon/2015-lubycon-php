@@ -1,9 +1,6 @@
 <?php
-
-$root_path = $_SERVER['HTTP_HOST'].'/Lubycon_Website';
-$lubycon_path= $root_path.'/Lubycon_Website';
-
-require_once '../session/session_class.php';
+require_once '../../common/common.php';
+require_once ''.$root_path.'/lubycon/src/common/Class/session_class.php';
     
     $session = new Session();
 
@@ -24,7 +21,7 @@ require_once '../session/session_class.php';
                     $activity = false;
 
                 if($activity === false)
-                    echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+                    echo '<script>document.location.href="'.$src_path.'/service/view/waiting_for_resisting.php"</script>';
 
             }else{
                 $session->DestroySession();
@@ -45,7 +42,7 @@ require_once '../session/session_class.php';
     }
 
     
-    require_once "../class/json_class.php";
+    require_once "".$src_path."/common/Class/json_class.php";
 
 
 echo "<hr/><br/>";
@@ -70,7 +67,7 @@ $job = $_POST['job'];
 $job_code;
 
 $json_control = new json_control;
-$json_control->json_decode('job',"../../data/job.json");
+$json_control->json_decode('job',"".$lubycon_path."/data/country.json");
 $job_json = $json_control->json_decode_code;
 $json_control->json_search($job_json,'jobCode','name',$job);
 $job_code = $json_control->search_key;
@@ -80,7 +77,7 @@ $company = $_POST['company'];
 
 $location = $_POST['location'];
 $location_code;
-$json_control->json_decode('country',"../../data/country.json");
+$json_control->json_decode('country',"".$lubycon_path."/data/country.json");
 $country_json = $json_control->json_decode_code;
 $json_control->json_search($country_json,'countryCode','name',$location);
 $location_code = $json_control->search_key;
