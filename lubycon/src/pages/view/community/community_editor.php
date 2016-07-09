@@ -1,6 +1,4 @@
 <?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
     include_once('../layout/index_header.php');
 ?>
 
