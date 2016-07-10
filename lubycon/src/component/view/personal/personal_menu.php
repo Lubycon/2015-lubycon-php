@@ -1,6 +1,6 @@
 <aside id="personal_aside" class="con_aside">
     <?php
-        require_once '../database/database_class.php';
+        require_once './common/Class/database_class.php';
 	    $db = new Database();
         
         $usernumber = $_GET['usernum'];
@@ -19,7 +19,7 @@
         $history_row = $db->result;
 
         $username = $userdata_row['nick'];
-        $userpic = "$one_depth/../../Lubycon_Contents/user/$usernumber/profile.jpg";
+        $userpic = "../../../../Lubycon_Contents/user/$usernumber/profile.jpg";
 
         $usercity = $userdata_row['city'];
         $usercountry = $country_json_Code[$userdata_row['countryCode']]['name'];
@@ -50,11 +50,11 @@
     </div>
     <div id="subnav" class="hidden-mb-b">
         <ul>
-            <li id="dashboard" class="subnav_li"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usernumber?>">Dashboard</a></li>
-            <li id="my_contents" class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_contents&usernum=<?=$usernumber?>&page=1">Contents</a></li>
-            <li id="my_forums" class="subnav_li"><a href="../personal_page/personal_page.php?cate=my_forums&usernum=<?=$usernumber?>">Forums</a></li>
-            <li id="insight" class="subnav_li"><a href="../personal_page/personal_page.php?cate=insight&usernum=<?=$usernumber?>">Insight</a></li>
-            <li id="bookmark" class="subnav_li"><a href="../personal_page/personal_page.php?cate=bookmark&usernum=<?=$usernumber?>&page=1">Bookmark</a></li>           
+            <li id="dashboard" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$usernumber?>">Dashboard</a></li>
+            <li id="my_contents" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=my_contents&usernum=<?=$usernumber?>&page=1">Contents</a></li>
+            <li id="my_forums" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=my_forums&usernum=<?=$usernumber?>">Forums</a></li>
+            <li id="insight" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=insight&usernum=<?=$usernumber?>">Insight</a></li>
+            <li id="bookmark" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=bookmark&usernum=<?=$usernumber?>&page=1">Bookmark</a></li>           
         </ul>
     </div>
 </aside>

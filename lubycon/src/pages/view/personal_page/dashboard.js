@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    $.getJSON("../../js/chart/data/insightData.json",function(data){
+    $.getJSON("./component/view/chart/data/insightData.json",function(data){
         success : initDashboard(data);
     }).fail(function(d, textStatus, error){ 
         console.log("getJSON failed, status: " + textStatus + ", error: "+error) 

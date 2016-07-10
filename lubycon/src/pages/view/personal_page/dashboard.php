@@ -37,10 +37,10 @@
     $localcity = $Loginuser_city;
     //login user data
 ?>
-<script src="<?=$one_depth?>/js/chart/amcharts.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/serial.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/chart/lubytheme.js" type="text/javascript"></script>
-<script src="<?=$one_depth?>/js/dashboard.js" type="text/javascript" ></script>
+<script src="./component/view/chart/amcharts.js" type="text/javascript"></script>
+<script src="./component/view/chart/serial.js" type="text/javascript"></script>
+<script src="./component/view/chart/lubytheme.js" type="text/javascript"></script>
+<script src="./pages/view/personal_page/dashboard.js" type="text/javascript" ></script>
 <div id="information_inbody">
     <ul id="dashboard_wrap">
         <li class="dash_section" id="creator_month" style="display: none">
