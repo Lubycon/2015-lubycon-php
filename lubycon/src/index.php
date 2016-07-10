@@ -377,7 +377,6 @@
     }
 
     include_once "./component/view/index/index_footer.php";
-
 ?>
 
 </div>
