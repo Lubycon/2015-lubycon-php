@@ -31,11 +31,11 @@ class Session{
 
 	public function SessionExist(){
 		$count = 0;
-		if(isset($_SESSION)){
+		if(isset($_SESSION) === true){
 			foreach($_SESSION as $name=>$val){
 				if(strpos($name,$this->seperator) !== false){
 					if(strpos($name,'session_id') == false){
-						if(isset($val)){
+						if(isset($val) === true){
 						$count = $count + 1;
 						}	
 					}

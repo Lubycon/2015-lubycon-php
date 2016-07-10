@@ -1,23 +1,30 @@
 <?php
-	include_once "./common/common.php";
-    include_once "./common/Module/url_controller.php";
-    require_once $root_path."/lubycon/src/common/Class/json_class.php";
+	require_once "./common/common.php";
+    require_once "./common/Module/url_controller.php";
+    require_once "./common/Class/json_class.php";
+    require_once "./common/Class/session_class.php";
+    
+    // declare php property
     $json_control = new json_control;
-    $json_control->json_decode('job',$root_path."/lubycon/data/job.json");
-    $job_json_Code = $json_control->json_decode_code;
-    $json_control->json_decode('country',$root_path."/lubycon/data/country.json");
-    $country_json_Code = $json_control->json_decode_code;
-
-
-    require_once $root_path.'/lubycon/src/common/Class/session_class.php';
-    //session_start();
     $session = new Session();
+
+    $json_control->json_decode('job',"../data/job.json");
+    $job_json_Code = $json_control->json_decode_code;
+    $json_control->json_decode('country',"../data/country.json");
+    $country_json_Code = $json_control->json_decode_code;
 
     if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
         $LoginState = false;
     }else{
         if($session->SessionExist()){
             
+            $Loginuser_name = NULL;
+            $Loginuser_id = NULL;
+            $Loginuser_code = NULL;
+            $Loginuser_job = NULL;
+            $Loginuser_city = NULL;
+            $Loginuser_country = NULL;
+
             if(isset($_SESSION['lubycon_validation']))
             {
                 $activity = NULL;
@@ -38,18 +45,17 @@
 
             $LoginState = true;
             
-            $Loginuser_name = isset($_SESSION['lubycon_nick']) ? $_SESSION['lubycon_nick'] : NULL;
-            $Loginuser_id= isset($_SESSION['lubycon_id']) ? $_SESSION['lubycon_id'] : NULL;
-            $Loginuser_code= isset($_SESSION['lubycon_userCode']) ? $_SESSION['lubycon_userCode'] : NULL;
-            $Loginuser_country = isset( $_SESSION['lubycon_countryCode'] ) ? $country_json_Code[$_SESSION['lubycon_countryCode']]['name'] : NULL;
-            $Loginuser_job = isset($_SESSION['lubycon_jobCode']) ? $job_json_Code[$_SESSION['lubycon_jobCode']]['name'] : NULL;
-            $Loginuser_city = isset($_SESSION['lubycon_city']) ? $_SESSION['lubycon_city'] : NULL;
+            $Loginuser_name = (isset($_SESSION['lubycon_nick']) === true) ? $_SESSION['lubycon_nick'] : NULL;
+            $Loginuser_id = (isset($_SESSION['lubycon_id']) === true) ? $_SESSION['lubycon_id'] : NULL;
+            $Loginuser_code = (isset($_SESSION['lubycon_userCode']) === true) ? $_SESSION['lubycon_userCode'] : NULL;
+            $Loginuser_country = (isset( $_SESSION['lubycon_countryCode']) === true) ? $country_json_Code[$_SESSION['lubycon_countryCode']]['name'] : NULL;
+            $Loginuser_job = (isset($_SESSION['lubycon_jobCode']) === true) ? $job_json_Code[$_SESSION['lubycon_jobCode']]['name'] : NULL;
+            $Loginuser_city = (isset($_SESSION['lubycon_city']) === true) ? $_SESSION['lubycon_city'] : NULL;
             // login menu
         }else{
             $LoginState = false;    
         }
-    }
-    echo $CURRENT_URL."<br />";
+    }  
 ?>
 
 <!DOCTYPE html>
@@ -127,7 +133,7 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">CONTENTS</p>
             <li class="mb-menu-list">
-                <a href="pages/controller/contents/contents_page?cate=artwork&page=1">
+                <a href="?dir='pages/controller/contents/contents_page'&cate=artwork&page=1">
                     <i class="fa fa-picture-o fa-1x"></i>Artwork
                 </a>
             </li>
@@ -230,7 +236,7 @@
                     </a>
                     <ul class="sub_menu">
                         <li>
-                            <a href="pages/controller/contents/contents_page?cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
+                            <a href="?dir=pages/controller/contents/contents_page&cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
                             <a href="pages/controller/contents/contents_page?cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
@@ -357,3 +363,19 @@
         </script>
         <!-- end select_box -->
     </div>
+    <!--INCLUDE BODY-->
+<?php
+
+    if($BODY_URL) {
+        echo "<script>console.log('body url : $BODY_URL');</script>";
+        include_once "./".$BODY_URL;
+        //echo '<script>document.location.href="./'.$BODY_URL.'"</script>';
+    }else
+        echo "<script>console.log('body url empty');</script>";
+
+?>
+
+
+</div>
+</body>
+
