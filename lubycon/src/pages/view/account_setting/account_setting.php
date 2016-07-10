@@ -48,21 +48,21 @@
 
     else
     {
-        include('../../../service/view/error/404.php');
+        include('./service/view/error/404.php');
         die();
     }
     
 ?>
 
-<link href="./account_setting.css" rel="stylesheet" type="text/css" />
+<link href="./pages/view/account_setting/account_setting.css" rel="stylesheet" type="text/css" />
 <!-- ------------------------------------------ -->
-<link href="./css/cropper.css" rel="stylesheet" type="text/css" />
+<link href="../plugin/JS/cropper.css" rel="stylesheet" type="text/css" />
 <!-- account_setting page css -->
-<script type="text/javascript" src="./account_setting.js"></script>
+<script type="text/javascript" src="./pages/view/account_setting/account_setting.js"></script>
 <!-- ------------------------------------------ -->
-<script type="text/javascript" src="./js/cropper.js"></script>
-<script type="text/javascript" src="../../js/core/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../../js/module/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="../plugin/JS/cropper.js"></script>
+<script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../plugin/JS/jquery.mousewheel.min.js"></script>
 
 <form id="account_setting_form" enctype="multipart/form-data" method="post" action="./test.php">
     <section id="account_section">
