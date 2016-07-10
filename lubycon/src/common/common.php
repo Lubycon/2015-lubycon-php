@@ -10,25 +10,13 @@ $contents_path = $_SERVER['DOCUMENT_ROOT']."/Lubycon_Contents";
 #---------------------------------------------------------------------------------
 #	Catch URL for index header
 #---------------------------------------------------------------------------------
+
 function CatchURL(){
+	$param = NULL;
+	if(isset($_GET))
+		$param = isset($_GET['dir']) ? $_GET['dir'] : NULL;
 	
-	$temp = array();
-
-	// split url using "\" for change view body	
-	if($hosturl = strpos($_SERVER['PHP_SELF'],"?")){
-		$hosturl = explode("?", $_SERVER['PHP_SELF']);
-		$hosturl = $hostrul[0];
-	}else{
-		$hosturl = $_SERVER['PHP_SELF'];
-	}
-	
-	$hosturl = explode("/",$_SERVER['PHP_SELF']);
-
-	// will change array size, because we have a plan server hosting
-	for($i=5; $i<count($hosturl); $i++)
-		$temp[$i-5] = $hosturl[$i];
-
-	return (count($temp) <= 1) ? implode($temp) : implode("/",$temp);
+	return isset($param) ? $param.".php" : false;
 }
 
 #---------------------------------------------------------------------------------

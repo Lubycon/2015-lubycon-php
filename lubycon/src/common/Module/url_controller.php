@@ -1,5 +1,5 @@
 <?php  
 
-	$CURRENT_URL = CatchURL();
+	$BODY_URL = CatchURL();
 	
 ?>

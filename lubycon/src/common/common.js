@@ -25,15 +25,7 @@ function isMobile(){
 
 
 ///////////////////////// TEST LOGIC //////////////////////
-$(document).on("click","a",function(event){
-    event.preventDefault();
-    console.log($(this).attr("href"));
-    if($(this).attr("href") === "./index.php") location.replace("http://localhost:8080/Lubycon_Website/lubycon/src/index.php");
-    else {
-        location.href = "http://localhost:8080/Lubycon_Website/lubycon/src/index.php#" + $(this).attr("href");
-        location.reload();
-    }
-});
+
 ///////////////////////// TEST LOGIC //////////////////////
 
 
