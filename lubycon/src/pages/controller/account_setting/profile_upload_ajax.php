@@ -1,15 +1,16 @@
 <?php
-// session
-require_once '../session/session_class.php';
-$session = new Session();
-require_once "../class/json_class.php";
-$json_control = new json_control;
-$json_control->json_decode('top_category',"../../data/top_category.json");
-require_once "../class/upload_class.php";
-$uploader = new upload($_FILES,$_POST,'profile');
-include_once '../class/database_class.php';
-$db = new Database();
 
+require_once '../../../common/Class/session_class.php';
+require_once '../../../common/Class/json_class.php';
+require_once '../../../common/Class/upload_class.php';
+include_once '../../../common/Class/database_class.php';
+
+$db = new Database();
+$session = new Session();
+$uploader = new upload($_FILES,$_POST,'profile');
+$json_control = new json_control;
+
+$json_control->json_decode('top_category',"../../../../data/top_category.json");
 
     if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
         $LoginState = false;
@@ -28,7 +29,7 @@ $db = new Database();
                     $activity = false;
 
                 if($activity === false)
-                    echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+                    echo '<script>document.location.href="../../../service/view/waiting_for_resisting.php"</script>';
 
             }else{
                 $session->DestroySession();
@@ -44,16 +45,16 @@ $db = new Database();
             $LoginState = false;    
         }
     }
-// session
-
-// variable
-// variable
 
 $uploader->fill_array_data(); // fill array data for validate things // preview image able , thumb image able
 $uploader->validate_extension_and_size();
 $uploader->file_upload_control();
 
-$db->query = "UPDATE `lubyconuser`.`userinfo` SET `profileImg` = '$uploader->last_path' WHERE `userinfo`.`userCode` = '$Loginuser_code' ";
-$db->askQuery(); // update user profile image path
-//echo $db->query;
+$db->query = 
+            "UPDATE `lubyconuser`.`userinfo` 
+             SET `profileImg` = '$uploader->last_path' 
+             WHERE `userinfo`.`userCode` = '$Loginuser_code' 
+            ";
+
+$db->askQuery();
 ?>

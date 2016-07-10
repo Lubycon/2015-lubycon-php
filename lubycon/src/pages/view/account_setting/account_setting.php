@@ -1,41 +1,65 @@
 <?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    include_once('../layout/index_header.php');
+
+    require_once '../../../common/Class/database_class.php';
+    require_once '../../../common/Class/regex_class.php';
+    require_once '../../../common/Class/json_class.php';
     
+    $json_control = new json_control;
+    $db = new Database();
+
     $usernumber = $_GET['usernum'];
+  
     if( $usernumber == $Loginuser_code ) //need more security
     {
-        require_once '../database/database_class.php';
-        require_once "../class/regex_class.php";
-        require_once "../class/json_class.php";
-        $json_control = new json_control;
-        $db = new Database();
-    
-        $db->query = "SELECT `languageLevel`,`languageName` FROM `userlanguage` WHERE `userCode` = $usernumber";
+        
+        $db->query = 
+                    "SELECT `languageLevel`,`languageName` 
+                     FROM `userlanguage` 
+                     WHERE `userCode` = $usernumber
+                    ";
+
         $db->askQuery();
+
         while( $row = mysqli_fetch_array($db->result) )
         {
             $lang_level[] = $row['languageLevel'];
             $lang_name[] = $row['languageName'];
         }
-        $db->query = "SELECT `historyContents`,`historyDateYear`,`historyDateMonth`,`historyCategory` FROM `userhistory` WHERE `userCode` = $usernumber";
+
+        $db->query = 
+                    "SELECT `historyContents`,`historyDateYear`,`historyDateMonth`,`historyCategory` 
+                     FROM `userhistory` 
+                     WHERE `userCode` = $usernumber
+                    ";
+
         $db->askQuery();
         $history_row = $db->result;
-        $db->query = "SELECT * FROM `userinfo` WHERE `userCode` = $Loginuser_code";
-        $db->askQuery(); // viewcount up
+        
+        $db->query = 
+                    "SELECT * 
+                     FROM `userinfo` 
+                     WHERE `userCode` = $Loginuser_code
+                    ";
+        
+        // viewcount up    
+        $db->askQuery(); 
         $row = mysqli_fetch_array($db->result);
-    }else
+    }
+
+    else
     {
-        include('../error/404.php');
+        include('../../../service/view/error/404.php');
         die();
     }
     
 ?>
-<link href="../../css/account_setting.css" rel="stylesheet" type="text/css" />
+
+<link href="./account_setting.css" rel="stylesheet" type="text/css" />
+<!-- ------------------------------------------ -->
 <link href="./css/cropper.css" rel="stylesheet" type="text/css" />
 <!-- account_setting page css -->
-<script type="text/javascript" src="../../js/account_setting.js"></script>
+<script type="text/javascript" src="./account_setting.js"></script>
+<!-- ------------------------------------------ -->
 <script type="text/javascript" src="./js/cropper.js"></script>
 <script type="text/javascript" src="../../js/core/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../../js/module/jquery.mousewheel.min.js"></script>
