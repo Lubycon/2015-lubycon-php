@@ -1,4 +1,6 @@
 <?php
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
 	require_once "./common/common.php";
     require_once "./common/Module/url_controller.php";
     require_once "./common/Class/json_class.php";
@@ -83,6 +85,7 @@
     <link href="./component/view/index/media.css" rel="stylesheet" type="text/css" />
     <link href="../plugin/JS/lubySelector.css" rel="stylesheet" type="text/css" />
     <link href="../plugin/JS/lubyAlert.css" rel="stylesheet" type="text/css" />
+    <link href="../plugin/JS/lubySlider.css" rel="stylesheet" type="text/css" />
     <link href="../plugin/JS/checkBox.css" rel="stylesheet" type="text/css" />
     <link href="../plugin/lib/animate.css" rel="stylesheet" type="text/css" />
 
@@ -90,6 +93,7 @@
     <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../plugin/JS/jquery.lubySelector.js"></script>
     <script type="text/javascript" src="../plugin/JS/jquery.lubyAlert.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubySlider.js"></script>
     <script type="text/javascript" src="../plugin/JS/resizeObject.js"></script>
     <script type="text/javascript" src="../plugin/JS/sticky.js"></script>
     <script type="text/javascript" src="../plugin/JS/checkBox.js"></script>
@@ -169,26 +173,26 @@
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="pages/view/personal_page/personal_page?cate=insight&usernum=<?=$Loginuser_code?>">
+                <a href="?dir=pages/view/personal_page/personal_page&cate=insight&usernum=<?=$Loginuser_code?>">
                     <i class="fa fa-line-chart fa-1x"></i>Insight
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="pages/view/account_setting/account_setting">
+                <a href="?dir=pages/view/account_setting/account_setting">
                     <i class="fa fa-gear fa-1x"></i>Account Setting
                 </a>
             </li>
         </ul>
         <ul class="mb-menu-group signin_class">
             <li class="mb-menu-list">
-                <a href="pages/view/sign_in/login_page">
+                <a href="?dir=pages/view/sign_in/login_page">
                     <i class="fa fa-power-off fa-1x"></i>Sign in
                 </a>
             </li>
         </ul>
         <ul class="mb-menu-group after_signin_class">
             <li class="mb-menu-list">
-                <a href="pages/view/sign_in/login_page">
+                <a href="?dir=pages/view/sign_in/login_page">
                     <i class="fa fa-power-off fa-1x"></i>Sign out
                 </a>
             </li>
@@ -198,19 +202,19 @@
         <p>Which content will you upload?</p>
         <ul>
             <li>
-                <a href="pages/view/editor/2d/2d?cate=artwork">
+                <a href="?dir=pages/view/editor/2d/2d&cate=artwork">
                 <i class="fa fa-picture-o"></i>
                 <p>Artwork</p>
                 </a>
             </li>
             <li>
-                <a href="pages/view/editor/2d/2d?cate=vector">
+                <a href="?dir=pages/view/editor/2d/2d&cate=vector">
                 <i class="fa fa-object-group"></i>
                 <p>Vector</p>
                 </a>
             </li>
             <li>
-                <a href="pages/view/editor/3d/3d?cate=threed">
+                <a href="?dir=pages/view/editor/3d/3d&cate=threed">
                 <i class="fa fa-cube"></i>
                 <p>3D Model</p>
                 </a>
@@ -276,40 +280,37 @@
         </div><!-- before sign in -->
         <div id="after_signin" class="hidden-mb-b after_signin_class">   <!-- after sign in -->
                 <div id="display_user">
-                    <figure id="accountImg"><img src="<?=$two_depth?>/../../../Lubycon_Contents/user/<?=$Loginuser_code?>/profile.jpg" alt="profile_img" /></figure>
+                    <figure id="accountImg"><img src="../../../../../Lubycon_Contents/user/<?=$Loginuser_code?>/profile.jpg" alt="profile_img" /></figure>
                     <span id="user_id"><?=$Loginuser_name?></span>
                     <i class="fa fa-angle-down"></i>
                 </div>  
             <ul>
                 <i class="fa fa-caret-up"></i>
                 <div class="userMenuGroup">
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$Loginuser_code?>">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-tachometer fa-1x"></i>Dashboard
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_contents&usernum=<?=$Loginuser_code?>&page=1">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=my_contents&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-picture-o fa-1x"></i>My Contents
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=my_forums&usernum=<?=$Loginuser_code?>&page=1">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=my_forums&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-comments-o fa-1x"></i>My Forums
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=insight&usernum=<?=$Loginuser_code?>">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=insight&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-line-chart fa-1x"></i>Insight
                     </a></li>
-                    <li><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=bookmark&usernum=<?=$Loginuser_code?>&page=1">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=bookmark&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-star fa-1x"></i>Bookmarks
                     </a></li>
                 </div>
                 <div class="userMenuGroup">
-                    <li><a href="<?=$two_depth?>/account/resist_password.php?usernum=<?=$Loginuser_code?>">
+                    <li><a href="?dir=service/view/resist_password&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-gear fa-1x"></i>Account Setting
                     </a></li>
-                    <li><a href="<?=$two_depth?>/account/password_setting.php?usernum=<?=$Loginuser_code?>">
+                    <li><a href="?dir=service/view/password_setting&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-lock fa-1x"></i>Password Setting
                     </a></li>
-                    <li style="display:none;"><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=message">
-                        <i class="fa fa-envelope fa-1x"></i>Message
-                    </a></li>
-                    <li id="sign_out"><a href="<?=$one_depth?>/logout.php">
+                    <li id="sign_out"><a href="?dir=pages/controller/sign_out/sign_out">
                         <i class="fa fa-power-off fa-1x"></i>Sign Out
                     </a></li>
                 </div>
@@ -365,14 +366,9 @@
     </div>
     <!--INCLUDE BODY-->
 <?php
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
     if($BODY_URL) {
-        echo "<script>console.log('body url : $BODY_URL');</script>";
         include_once "./".$BODY_URL;
-        //echo '<script>document.location.href="./'.$BODY_URL.'"</script>';
     }else{
-        echo "<script>console.log('body url empty');</script>";
         include_once "./pages/view/index/index_body.php";
     }
 

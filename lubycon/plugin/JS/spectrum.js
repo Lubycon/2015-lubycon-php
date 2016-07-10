@@ -30,7 +30,7 @@
         // Options
         color: false,
         flat: false,
-        showInput: true,
+        showInput: false,
         allowEmpty: false,
         showButtons: true,
         clickoutFiresChange: true,
@@ -41,7 +41,7 @@
         togglePaletteOnly: false,
         showSelectionPalette: true,
         localStorageKey: false,
-        appendTo: "body",
+        appendTo: "parent",
         maxSelectionSize: 7,
         cancelText: "Cancel",
         chooseText: "OK",
@@ -54,7 +54,7 @@
         containerClassName: "",
         replacerClassName: "",
         showAlpha: false,
-        theme: "sp-dark",
+        theme: "sp-light",
         palette: [["#ffffff", "#000000", "#ff0000", "#ff8000", "#ffff00", "#008000", "#0000ff", "#4b0082", "#9400d3"]],
         selectionPalette: [],
         disabled: false,
@@ -75,7 +75,7 @@
     replaceInput = [
         "<div class='sp-replacer'>",
             "<div class='sp-preview'><div class='sp-preview-inner'></div></div>",
-            "<div class='sp-dd'>&#9660;</div>",
+            "<div class='sp-dd'><i class='fa fa-caret-down'></i></div>",
         "</div>"
     ].join(''),
     markup = (function () {
@@ -122,8 +122,8 @@
                     "</div>",
                     "<div class='sp-initial sp-thumb sp-cf'></div>",
                     "<div class='sp-button-container sp-cf'>",
-                        "<p class='sp-cancel' href='#'></p>",
-                        "<span class='sp-choose'></span>",
+                        "<a class='sp-cancel' href='#'></a>",
+                        "<button type='button' class='sp-choose'></button>",
                     "</div>",
                 "</div>",
             "</div>"

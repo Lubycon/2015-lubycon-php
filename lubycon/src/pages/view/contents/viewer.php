@@ -1,4 +1,4 @@
-<script type="text/javascript" src="../../js/viewer.js"></script>
+<script type="text/javascript" src="./pages/view/contents/viewer.js"></script>
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
@@ -24,7 +24,7 @@
         <div id="contents_main" class="con_main">
             <?php
                 if($cate_name == 'threed'){
-                    include "viewer3d.php";
+                    include "./pages/view/contents/webGL.php";
                 }
                 else{
                     echo htmlspecialchars_decode($contents_html);

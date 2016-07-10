@@ -1,0 +1,20 @@
+﻿@charset "utf-8";
+#addcontent_bt {
+	display: none !important;
+}
+#editor-container {
+    position: relative;
+    top: 50px;
+}
+#editor-container > .editor-wrapper > .editor-header {
+	top: 50px;
+}
+#editor-container > .editor-wrapper > .editor-body {
+	top: 50px;
+}
+#editor-container > .editor-wrapper > .editor-body > .editor-aside {
+	top: 50px;
+}
+#editor-container > .editor-wrapper > .editor-body > .editing-background {
+	top: 50px;
+}

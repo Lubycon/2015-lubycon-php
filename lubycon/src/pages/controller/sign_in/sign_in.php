@@ -23,10 +23,10 @@
 
 		if($result['validation'] === 'active')
 			//echo "index페이지로 이동";
-			header('location:index.php');
+			header('location:../../../index.php');
 		else if($result['validation'] == 'inactive')
 			//echo "waiting_for_resisting 으로 페이지 이동";
-			echo '<script>document.location.href="../../../service/view/waiting_for_resisting.php"</script>';
+			echo '<script>document.location.href="./service/view/waiting_for_resisting.php"</script>';
 		else
 			die("result['validation'] wrong value");
 
@@ -35,7 +35,7 @@
 		header('location:index.php');
 */
 	}else{
-		header('location:login_page.php?login=0');
+		header('location:./index.php?=dir/');
 	}
 
 ?>

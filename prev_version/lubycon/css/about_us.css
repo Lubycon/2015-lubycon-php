@@ -1,0 +1,136 @@
+﻿@charset "utf-8";
+
+.aboutus-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    top: 11px;
+    margin-bottom: 70px;
+    background: #ffffff;
+}
+.aboutus-header {
+    width: 100%;
+}
+.aboutus-body {
+    width: 100%;
+    background: #ffffff;
+}
+
+    .aboutus-section {
+        position: relative;
+        width: 1200px;
+        min-height: 300px;
+        max-height: 750px;
+        background: #ffffff;
+        margin: 40px auto;
+        margin-bottom: 80px;
+        padding: 10px;
+        overflow: hidden;
+    }
+        .aboutus-section.figure {
+            width: 100%;
+            margin-top: 0px;
+            padding: 0;
+        }
+        .aboutus-section img {
+            width: 100%;
+        }
+    .title-wrapper {
+        margin-bottom: 20px;
+    }
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            color: #444444;
+            font-size: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .section-sub-title {
+            color: #444444;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin: 10px 0px;
+        }
+        .section-content {
+            color: #444444;
+            font-size: 20px;
+            text-align: center;
+        }
+            .descript {
+                line-height: 30px;
+                font-family: 'Source Serif Pro', serif;
+                font-size: 18px;
+                color: #444444;
+                text-align: left;
+            }
+
+    .title-wrapper.main {
+        position: absolute;
+        bottom: 50px;
+        left: 160px;
+    }
+        .title-wrapper.main .section-title {
+            color: #ffffff;
+            letter-spacing: 3px;
+            font-size: 70px;
+            text-align: left;
+        }
+        .title-wrapper.main .section-sub-title {
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            font-size: 30px;
+            margin-left: 5px;
+            margin-top: -10px;
+        }
+        .title-wrapper.main .section-content {
+            margin: 20px 0px;
+            color: #ffffff;
+            letter-spacing: 1px;
+            font-size: 20px;
+            font-weight: 200;
+            margin-left: 5px;
+            text-align: left;
+        }
+        .title-wrapper.main .viewmore_bt {
+            border: 1px solid #ffffff;
+            margin: 30px 0px 0px 0px;
+        }
+            .title-wrapper.main .viewmore_bt a {
+                color: #ffffff;
+            }
+
+    .section-content .focus-wrapper {
+        display: inline-block;
+        width: 250px;
+        padding: 10px;
+        margin: 25px 55px;
+        vertical-align: top;
+    }
+        .section-content .focus-wrapper .focus-icon {
+            width: 55px;
+            height: 55px;
+            margin: 20px auto;
+        }
+            .section-content .focus-wrapper .focus-icon img {
+                width: 100%;
+            }
+        .section-content .focus-wrapper .focus-article {
+            margin-top: 10px;
+        }
+            .section-content .focus-wrapper .focus-article .focus-title {
+                font-family: 'Montserrat', sans-serif;
+                color: #444444;
+                font-weight: 600;
+                font-size: 24px;
+                border-top: 1px solid #dddddd;
+                padding: 20px 0px 15px 0px;
+            }
+
+    .section-sub-title #mailadress {
+        font-weight: 600;
+        color: #48cfad;
+    }
+        .section-sub-title #mailadress:hover {
+            text-decoration: underline;
+        }
