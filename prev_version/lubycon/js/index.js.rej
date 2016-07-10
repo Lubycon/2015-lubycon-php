@@ -1,0 +1,13 @@
+diff a/0.current_lubycon/js/index.js b/0.current_lubycon/js/index.js	(rejected hunks)
+@@ -749,9 +749,9 @@
+     /////////////////////////////////////////////////////////
+     
+     var email_com;
+-    $(document).on("keydown keyup click blur ready change", function ()
++    $(document).on("blur", function ()
+     {
+-        $('#email_id').on("keydown keyup click blur ready change", function () 
++        $('#email_id').on("blur", function ()
+         {
+             var current_id = '#' + $(this).attr('id');
+             var value = $(this).val();

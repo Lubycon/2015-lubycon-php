@@ -1,49 +1,34 @@
-<?php
-    //if(isset($_COOKIE)){
-    //    if(isset($_COOKIE['login'])){
-    //    }else if(!isset($_COOKIE['login'])){
-    //        echo('<script>location.href="login_page.php"</script>');
-    //    }
-    //}
-    $one_depth = '../../../..'; //css js load
-    $two_depth = '../../..'; // php load
-    include_once('../../../layout/index_header.php');
-?>
-<script>var PRESET_DEPTH = "../../../../"</script>
 
-<link href="../../../../css/module/lubySlider.css" rel="stylesheet" type="text/css" />
-<link href="../../module/css/spectrum.css" rel="stylesheet" type="text/css" />
-<link href="../../module/css/cropper.css" rel="stylesheet" type="text/css" />
-<link href="../../../../css/module/chosen.css" rel="stylesheet" type="text/css" />
-<link href="../../module/css/editorShared.css" rel="stylesheet" type="text/css" />
-<link href="./editor3d.css" rel="stylesheet" type="text/css" />
-<link href="../../../../css/editor.css" rel="stylesheet" type="text/css" />
+<link href="../plugin/JS/lubySlider.css" rel="stylesheet" type="text/css" />
+<link href="../plugin/JS/spectrum.css" rel="stylesheet" type="text/css" />
+<link href="../plugin/JS/cropper.css" rel="stylesheet" type="text/css" />
+<link href="../plugin/JS/chosen.css" rel="stylesheet" type="text/css" />
+<link href="./pages/view/editor/editor.css" rel="stylesheet" type="text/css" />
+<link href="./pages/view/editor/3d/3d.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="../../../../data/module/icons.json"></script>
-<script type="text/javascript" src="../../../../data/module/keyCode.json"></script>
-<script type="text/javascript" src="../../data/categories.json"></script>
-<script type="text/javascript" src="../../../../data/creative_commons.json"></script>
-<script type="text/javascript" src="../../../../data/webGLmap_Preset/backgroundPreset3d.json"></script>
-<script type="text/javascript" src="../../../../data/webGLmap_Preset/backgroundPreset2d.json"></script>
+<script type="text/javascript" src="../data/module/icons.json"></script>
+<script type="text/javascript" src="../data/module/keyCode.json"></script>
+<script type="text/javascript" src="../data/categories.json"></script>
+<script type="text/javascript" src="../data/creative_commons.json"></script>
+<script type="text/javascript" src="../data/webGLmap_Preset/backgroundPreset3d.json"></script>
+<script type="text/javascript" src="../data/webGLmap_Preset/backgroundPreset2d.json"></script>
 
-<script type="text/javascript" src="../../../../js/module/jquery.lubySlider.js"></script>
-<script type="text/javascript" src="../../../../js/module/modalClass.js"></script>
-<script type="text/javascript" src="../../module/js/spectrum.js"></script>
-<script type="text/javascript" src="../../module/js/cropper.js"></script>
-<script type="text/javascript" src="../../../../js/module/chosen.jquery.js"></script>
-<script type="text/javascript" src="../../module/js/html2canvas.js"></script>
-<script type="text/javascript" src="../../module/js/resizeObject.js"></script>
+<script type="text/javascript" src="../plugin/JS/modalClass.js"></script>
+<script type="text/javascript" src="../plugin/JS/spectrum.js"></script>
+<script type="text/javascript" src="../plugin/JS/cropper.min.js"></script>
+<script type="text/javascript" src="../plugin/JS/chosen.jquery.js"></script>
+<script type="text/javascript" src="../plugin/JS/html2canvas.js"></script>
 
-<script type="text/javascript" src="../../module/js/3d/three.js"></script>
+<script type="text/javascript" src="./pages/controller/editor/three.js"></script>
 
-<script type="text/javascript" src="../../module/js/3d/3dLoader.js"></script>
-<script type="text/javascript" src="../../module/js/3d/TGALoader.js"></script>
-<script type="text/javascript" src="../../module/js/3d/ShadowMaterial.js"></script>
-<script type="text/javascript" src="../../module/js/3d/OrbitControls.js"></script>
-<script type="text/javascript" src="../../module/js/3d/TransformControls.js"></script>
-<script type="text/javascript" src="../../module/js/3d/threex.domevents.js"></script>
-<script type="text/javascript" src="../../module/js/editorClasses.js"></script>
-<script type="text/javascript" src="./editor3d.js"></script> 
+<script type="text/javascript" src="./pages/controller/editor/3dLoader.js"></script>
+<script type="text/javascript" src="./pages/controller/editor/TGALoader.js"></script>
+<script type="text/javascript" src="./pages/controller/editor/ShadowMaterial.js"></script>
+<script type="text/javascript" src="./pages/controller/editor/OrbitControls.js"></script>
+<script type="text/javascript" src="./pages/controller/editor/TransformControls.js"></script>
+<script type="text/javascript" src="./pages/controller/editor/threex.domevents.js"></script>
+<script type="text/javascript" src="./pages/controller/editor/editorClasses.js"></script>
+<script type="text/javascript" src="./pages/view/editor/3d/3d.js"></script> 
 
 <!-- editor css -->
 <section id="editor-container" class="initEditor"></section>
@@ -58,11 +43,7 @@
         '<script>
 	        $("#editor-container").initEditor();
         </script>';
-    }else
-    {
-        include_once('../../404.php');
+    }else{
+        include_once('./service/view/error/404.php');
     }
-?>
-<?php
-    include_once($two_depth.'/layout/index_footer.php');
 ?>

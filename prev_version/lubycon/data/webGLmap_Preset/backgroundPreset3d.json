@@ -1,0 +1,147 @@
+var backgroundPreset3d = [
+	{
+		"id" : 0,
+		"name" : "Desert",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/desert_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/desert.jpg",
+		"descript": "",
+		"light" : [
+			{
+				"type" : "DirectionalLight",
+				"color" : 0xffffff,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.5 //0~1
+			},
+			{
+				"type" : "HemisphereLight",
+				"skyColor" : 0xffffff,
+				"groundColor" : 0xffbe54,
+				"position" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.9 //0~1
+			}
+			/*{
+				"type" : "SpotLight",
+				"color" : 0xffffff,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intetnsity" : "0.3",
+				"angle" : 1, //0~1
+				"penumbra" : 1 //0~1
+			},
+			{
+				"type" : "PointLight",
+				"color" : 0xffffff,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"castShadow" : true,
+				"intensity" : 1, //0~1
+				"radius" : 100
+			}*/
+		]
+	},
+	{
+		"id" : 1,
+		"name" : "Room",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/room_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/room.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "SpotLight",
+				"color" : 0xffffff,
+				"position" : { "x" : 200, "y" : 50, "z" : 0 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intetnsity" : "0.2",
+				"angle" : 0.5, //0~1
+				"penumbra" : 0.5 //0~1
+			},
+			{
+				"type" : "DirectionalLight",
+				"color" : 0xffffff,
+				"position" : { "x" : -100, "y" : 50, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.7
+			}
+		]
+	},
+	{
+		"id" : 2,
+		"name" : "Snow Mountain",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/snow_mountain_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/snow_mountain.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "DirectionalLight",
+				"color" : 0xf3cc96,
+				"position" : { "x" : 100, "y" : 30, "z" : 50 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.7
+			},
+			{
+				"type" : "HemisphereLight",
+				"skyColor" : 0xb5cedf,
+				"groundColor" : 0xc7d0d5,
+				"position" : { "x" : 0, "y" : 100, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.5
+			}
+		]
+	},
+	{
+		"id" : 3,
+		"name" : "mountain",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/mountain_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/mountain.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "DirectionalLight",
+				"color" : 0xffffff,
+				"position" : { "x" : 100, "y" : 100, "z" : 100 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.5
+			},
+			{
+				"type" : "HemisphereLight",
+				"skyColor" : 0xc3d0d9,
+				"groundColor" : 0xb1a286,
+				"position" : { "x" : 0, "y" : 100, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 1
+			}
+		]
+	},
+	{
+		"id" : 4,
+		"name" : "Rock Beach",
+		"image" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/rock_beach_blur.jpg",
+		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/3dBackgrounds/rock_beach.jpg",
+		"descript" : "",
+		"light" : [
+			{
+				"type" : "DirectionalLight",
+				"color" : 0xebb8bb,
+				"position" : { "x" : 200, "y" : 50, "z" : 20 },
+				"target" : { "x" : 0, "y" : 0, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.5
+			},
+			{
+				"type" : "HemisphereLight",
+				"skyColor" : 0xc3d0d9,
+				"groundColor" : 0x878f93,
+				"position" : { "x" : 0, "y" : 100, "z" : 0 },
+				"castShadow" : true,
+				"intensity" : 0.8
+			}
+		]
+	}
+]

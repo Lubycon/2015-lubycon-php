@@ -3,21 +3,21 @@ var backgroundPreset2d = [
 		"id" : "0",
 		"name" : "None",
 		"image" : "#",
-		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/2dBackgrounds/Lubycon_Title.svg",
+		"preview" : "../data/webGLmap_Preset/2dBackgrounds/Lubycon_Title.svg",
 		"descript" : ""
 	},
 	{
 		"id" : "1",
 		"name" : "Lubycon Text",
-		"image" : PRESET_DEPTH + "data/webGLmap_Preset/2dBackgrounds/Lubycon_Title.svg",
-		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/2dBackgrounds/Lubycon_Title.svg",
+		"image" : "../data/webGLmap_Preset/2dBackgrounds/Lubycon_Title.svg",
+		"preview" : "../data/webGLmap_Preset/2dBackgrounds/Lubycon_Title.svg",
 		"descript" : ""
 	},
 	{
 		"id" : "2",
 		"name" : "Lubycon Logo",
-		"image" : PRESET_DEPTH + "data/webGLmap_Preset/2dBackgrounds/Lubycon_logo_black.svg",
-		"preview" : PRESET_DEPTH + "data/webGLmap_Preset/2dBackgrounds/Lubycon_logo_black.svg",
+		"image" : "../data/webGLmap_Preset/2dBackgrounds/Lubycon_logo_black.svg",
+		"preview" : "../data/webGLmap_Preset/2dBackgrounds/Lubycon_logo_black.svg",
 		"descript": ""
 	}
 ]
