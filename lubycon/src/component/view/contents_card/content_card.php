@@ -31,7 +31,7 @@
         <div class="contents_desc">
             <div class="contents_sub">
                 <?php
-                    echo "<a class='contents_link' href='../contents/contents_view.php?cate=".$cate."&conno=".$board_code."'>";
+                    echo "<a class='contents_link' href='?dir=pages/controller/contents/contents_view&cate=".$cate."&conno=".$board_code."'>";
                 ?>
                     <h4 class="contents_title load_view"><?=$title?></h4>
                     <h5><?=$price?></h5>
@@ -49,7 +49,7 @@
         <!-- end contents desc -->
         <div class="contents_overlay load_view">
                 <?php 
-                    echo "<a class='contents_link' href='?dir=pages/view/contents/contents_view&cate=".$cate."&conno=".$board_code."'>";
+                    echo "<a class='contents_link' href='?dir=pages/controller/contents/contents_view&cate=".$cate."&conno=".$board_code."'>";
                 ?>
                 <i class="fa fa-search-plus"></i>
                 <ul>

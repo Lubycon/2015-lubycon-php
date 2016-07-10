@@ -1,6 +1,6 @@
 <?php
-require_once '../../../common/Class/database_class.php';
-require_once "../../../common/Class/json_class.php";
+require_once './common/Class/database_class.php';
+require_once "./common/Class/json_class.php";
 
 $db = new Database();
 $json_control = new json_control;
@@ -84,7 +84,7 @@ $db->query =
              FROM lubyconboard.`$cate_name` AS a
              LEFT JOIN lubyconuser.`userbasic` ON a.`userCode` = `userbasic`.`userCode` 
              LEFT JOIN lubyconuser.`userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` 
-             LEFT JOIN lubyconboard.`".$cate_name."midcategory`ON a.`boardCode` = `".$cate_name."midcategory`.`boardCode`
+             LEFT JOIN lubyconboard.`".$cate_name."midcategory` ON a.`boardCode` = `".$cate_name."midcategory`.`boardCode`
              LEFT JOIN lubyconboard.`".$cate_name."tag` ON a.`boardCode` = `".$cate_name."tag`.`boardCode`
             ";
 
@@ -96,8 +96,10 @@ if($LoginState)
                 LEFT JOIN lubyconboard.`contentslike` ON a.`boardCode` = `contentslike`.`boardCode` AND `contentslike`.`likeActionUserCode` = $Loginuser_code";
 }
 
-$db->query .= 
-            "WHERE a.`boardCode` = $number";
+$db->query .=  " WHERE a.`boardCode` = $number";
+
+
+
 
 //get db data
 $db->askQuery(); 
@@ -109,16 +111,16 @@ if( !is_array($row) )
     include_once('../../../service/view/error/404.php');
 }
 
-$json_control->json_decode('job',"./../../../data/job.json");
+$json_control->json_decode('job',"../data/job.json");
 $job_decode = $json_control->json_decode_code;
 
-$json_control->json_decode('country',"./../../../data/country.json");
+$json_control->json_decode('country',"../data/country.json");
 $country_decode = $json_control->json_decode_code;
 
-$json_control->json_decode("$cate_name"."_category","./../../../data/middle_category.json");
+$json_control->json_decode("$cate_name"."_category","../data/middle_category.json");
 $mid_cate_decode = $json_control->json_decode_code;
 
-$json_control->json_decode("ccCode","./../../../data/ccCode.json");
+$json_control->json_decode("ccCode","../data/ccCode.json");
 $cc_code_decode = $json_control->json_decode_code;
 
 $my_job_origin_select = $job_decode[$row["jobCode"]]['name'];
@@ -189,20 +191,20 @@ $db->query =
 $db->askQuery();
 $comment_result = $db->result;
 
-include_once("../../view/contents/viewer.php");
-include_once('../../../../component/view/indet/index_footer.php');
+include_once("./pages/view/contents/viewer.php");
+include_once('./component/view/indet/index_footer.php');
 
 ?>
 
-<script type="text/javascript" src="../../../service/controller/count_handler/thumbs_control.js"></script> <!-- account file js -->
+<script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script> <!-- account file js -->
 
 
 
 <!-- --------------------------------------------------------------------------------------------- -->
 
 <!-- don't have call_comments.js file -->
-<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
+<script type="text/javascript" src="/js/call_comments.js"></script> <!-- account file js -->
 
 <!-- --------------------------------------------------------------------------------------------- -->
 
-<link href="<?=$one_depth?>/css/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
+<link href="./pages/view/contents/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->

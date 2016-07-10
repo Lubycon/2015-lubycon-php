@@ -61,7 +61,7 @@
     $db->askQuery();
     $foundRow_result = $db->result; //row count
     $infinite_scroll->count_page($foundRow_result);
-    $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);
+    $infinite_scroll->spread_contents($contents_result,'../../',$ajax_boolean);
     echo "<script>$('.sliderKey').attr('max','$infinite_scroll->all_page_count')</script>";
 
     //$infinite_scroll->check_cookie();

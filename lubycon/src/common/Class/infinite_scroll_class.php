@@ -41,7 +41,7 @@ class infinite_scroll extends json_control
             $this->allow_array_list = $this->allow_array_community;
         }
 
-        $this->json_decode('top_category',"../../data/top_category.json"); //extended code
+        $this->json_decode('top_category',"../../../../data/top_category.json"); //extended code
         $this->top_cate_decode = $this->json_decode_code; //top category decode
 	}
 
@@ -51,7 +51,7 @@ class infinite_scroll extends json_control
         {
         }else
         {
-            include_once('../../service/view/error/404.php');
+            include_once('../../../service/view/error/404.php');
             die('dose not allow category name');
         }
     }
@@ -203,12 +203,12 @@ class infinite_scroll extends json_control
             $i = 1;
             while( $row = mysqli_fetch_array($contents_result) )
             {
-                $this->json_decode('top_category',"../../../data/top_category.json");
+                $this->json_decode('top_category',"../../../../data/top_category.json");
                 $country_decode = $this->json_decode_code;
-                $this->json_decode('ccCode',"../../../data/ccCode.json");
+                $this->json_decode('ccCode',"../../../../data/ccCode.json");
                 $ccCode_decode = $this->json_decode_code;
                 $top_category = $country_decode[$row['topCategoryCode']]['name'];
-                include('../../component/view/contents_card/content_card.php');
+                include('../../../component/view/contents_card/content_card.php');
 
                 /*page load*/
                 if($i == $this->page_limit && !$ajax_boolean)
@@ -234,7 +234,7 @@ class infinite_scroll extends json_control
             }
 
         }else{
-            include_once("../../service/view/nullMessage.php");
+            include_once("../../../service/view/nullMessage.php");
         }
     }
 

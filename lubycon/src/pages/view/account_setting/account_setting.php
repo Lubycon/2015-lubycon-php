@@ -1,8 +1,8 @@
 <?php
 
-    require_once '../../../common/Class/database_class.php';
-    require_once '../../../common/Class/regex_class.php';
-    require_once '../../../common/Class/json_class.php';
+    require_once './common/Class/database_class.php';
+    require_once './common/Class/regex_class.php';
+    require_once './common/Class/json_class.php';
     
     $json_control = new json_control;
     $db = new Database();
@@ -104,7 +104,7 @@
                 <div class="job_option">
                     <select class="jobFilter" name="job">
                         <?php
-                            $job_json = $json_control->json_decode('job',"$one_depth/data/job.json");
+                            $job_json = $json_control->json_decode('job',"../data/job.json");
                             $job_decode = $json_control->json_decode_code;
                             $job_origin_select = $job_decode[$row['jobCode']]['name'];
                             $json_control->json_spread_option($job_decode);
@@ -119,7 +119,7 @@
                 <div class="location_option">
                     <select class="locationFilter" name="location">
                          <?php
-                            $json_control->json_decode('country',"$one_depth/data/country.json");
+                            $json_control->json_decode('country',"../data/country.json");
                             $country_decode = $json_control->json_decode_code;
                             $json_control->json_search_original($country_decode,$row['countryCode'],'name');
                             $country_origin_select = $json_control->search_key_origin;
@@ -314,5 +314,5 @@
     </section>
 </form>
 <?php 
-    include_once($two_depth.'/layout/index_footer.php');
+    include_once('./component/view/index/index_footer.php');
 ?>

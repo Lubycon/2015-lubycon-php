@@ -1,15 +1,11 @@
 <?php
-    /* include layout (imfortant) */
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    /* include layout (imfortant) */
 
     /* require class set value */
-    require_once "$two_depth/database/database_class.php";
+    require_once "./common/Class/database_class.php";
     $db = new Database();
-    require_once "../class/json_class.php";
+    require_once "./common/Class/json_class.php";
     $json_control = new json_control;
-    require_once "../class/infinite_scroll_class.php";
+    require_once "./common/Class/infinite_scroll_class.php";
 
     $cate_name = 'all';
     $page_number = $_GET['page'];
@@ -37,7 +33,7 @@
 
     /* json control */
     $current_url = $cate_name;
-    $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
+    $json_control->json_decode($current_url.'_category',"../data/middle_category.json");
     $middle_cate_decode = $json_control->json_decode_code;
     /* json control */
     
@@ -68,7 +64,7 @@
 
 <ul class="contents_wrap">
 <?php
-    $infinite_scroll->spread_contents($contents_result,$one_depth,$ajax_boolean);
+    $infinite_scroll->spread_contents($contents_result,'../../',$ajax_boolean);
     $infinite_scroll->check_cookie();
 ?>
 </ul>

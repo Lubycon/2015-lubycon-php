@@ -118,6 +118,9 @@
             cache: false,
             success: function (data)
             {
+            	console.log('co');
+            	
+            	
                 if (NOW_PAGE == 1 && pageNumber == 1)
                 { $(".contents_wrap").html('')};
                 $(".contents_wrap").append(data);

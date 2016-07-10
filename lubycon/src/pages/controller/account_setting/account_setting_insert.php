@@ -1,8 +1,8 @@
 <?php
-require_once '../../../common/common.php';
-require_once '../../../common/Class/session_class.php';
-require_once '../../../common/Class/json_class.php';
-require_once '../../../common/Class/database_class.php';
+require_once './common/common.php';
+require_once './common/Class/session_class.php';
+require_once './common/Class/json_class.php';
+require_once './common/Class/database_class.php';
     
 $session = new Session();
 $json_control = new json_control;
@@ -60,7 +60,7 @@ $pass_change = false;
 $job = $_POST['job'];
 $job_code;
 
-$json_control->json_decode('job',"../../../../data/country.json");
+$json_control->json_decode('job',"../data/country.json");
 $job_json = $json_control->json_decode_code;
 $json_control->json_search($job_json,'jobCode','name',$job);
 $job_code = $json_control->search_key;
@@ -69,7 +69,7 @@ $company = $_POST['company'];
 
 $location = $_POST['location'];
 $location_code;
-$json_control->json_decode('country', "../../../../data/country.json");
+$json_control->json_decode('country', "../data/country.json");
 $country_json = $json_control->json_decode_code;
 $json_control->json_search($country_json,'countryCode','name',$location);
 $location_code = $json_control->search_key;

@@ -1,16 +1,16 @@
 <?php
 
-require_once '../../../common/Class/session_class.php';
-require_once '../../../common/Class/json_class.php';
-require_once '../../../common/Class/upload_class.php';
-include_once '../../../common/Class/database_class.php';
+require_once './common/Class/session_class.php';
+require_once './common/Class/json_class.php';
+require_once './common/Class/upload_class.php';
+include_once './common/Class/database_class.php';
 
 $db = new Database();
 $session = new Session();
 $uploader = new upload($_FILES,$_POST,'profile');
 $json_control = new json_control;
 
-$json_control->json_decode('top_category',"../../../../data/top_category.json");
+$json_control->json_decode('top_category',"../data/top_category.json");
 
     if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
         $LoginState = false;

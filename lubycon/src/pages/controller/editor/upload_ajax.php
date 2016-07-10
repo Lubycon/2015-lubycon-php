@@ -1,13 +1,13 @@
 <?php
 // session
-require_once '../session/session_class.php';
+require_once './common/Class/session_class.php';
 $session = new Session();
-require_once "../class/json_class.php";
+require_once "./common/Class/json_class.php";
 $json_control = new json_control;
-$json_control->json_decode('top_category',"../../data/top_category.json");
-require_once "../class/upload_class.php";
+$json_control->json_decode('top_category',"../data/top_category.json");
+require_once "./common/Class/upload_class.php";
 $uploader = new upload($_FILES,$_POST,'editor');
-include_once '../class/database_class.php';
+include_once './common/Class/database_class.php';
 $db = new Database();
 
 

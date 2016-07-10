@@ -50,21 +50,21 @@
             <ul>
                 <li class="usercontent" data-value="0">
                     <?php 
-                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$user_content1_num'>";
+                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$user_content1_num'>";
                     ?>
                     <img src="<?=$user_content1?>" alt="user_content">
                     </a>
                 </li>
                 <li class="usercontent" data-value="1">
                     <?php 
-                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$user_content2_num'>";
+                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$user_content2_num'>";
                     ?>
                     <img src="<?=$user_content2?>" alt="user_content">
                     </a>
                 </li>
                 <li class="usercontent" data-value="2">
                     <?php 
-                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$user_content3_num'>";
+                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$user_content3_num'>";
                     ?>
                     <img src="<?=$user_content3?>" alt="user_content">
                     </a>

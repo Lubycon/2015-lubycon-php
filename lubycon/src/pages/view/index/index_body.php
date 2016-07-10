@@ -53,7 +53,7 @@
                 $contents_number = $row['boardCode'];
                 $contents_thumb = $row['userDirectory']."/thumbnail/thumbnail.jpg";
                 echo "<li class='load_view'>
-                        <a href='?dir=pages/view/contents/viewer&cate=$kind&conno=$contents_number'>
+                        <a href='?dir=pages/controller/contents/contents_view&&cate=$kind&conno=$contents_number'>
                             <img src='$contents_thumb'>
                         </a>
                     </li>";

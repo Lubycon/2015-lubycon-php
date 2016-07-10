@@ -88,7 +88,7 @@
                     <?php
                         while( $comment_row = mysqli_fetch_array($comment_result) )
                         {
-                            include($two_depth."/layout/comment.php");
+                            include("./component/view/comment_card/comment.php");
                         };
                     ?>
                 </div><!--end comment_list-->

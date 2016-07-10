@@ -1,5 +1,5 @@
 <?php
-require_once '../session/session_class.php';
+require_once './common/Class/session_class.php';
 $session = new Session();
 if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
         $LoginState = false;
@@ -45,7 +45,7 @@ if($LoginState)
 
     require_once "../class/json_class.php";
     $json_control = new json_control;
-    $json_control->json_decode('top_category',"../../data/top_category.json");
+    $json_control->json_decode('top_category',"../data/top_category.json");
     $top_cate_json = $json_control->json_decode_code;
     $json_control->json_search($top_cate_json,'topCateCode','name',$ajax_cate_name);
     $cate_code = $json_control->search_key;

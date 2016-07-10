@@ -127,21 +127,21 @@
                             <ul>
                                 <li class="usercontent" data-value="0">
                                     <?php 
-                                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$temp'>";
+                                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$temp'>";
                                     ?>
                                     <img src="<?=$user_content1?>" alt="user_content">
                                     </a>
                                 </li>
                                 <li class="usercontent" data-value="1">
                                     <?php 
-                                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$temp'>";
+                                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$temp'>";
                                     ?>
                                     <img src="<?=$user_content2?>" alt="user_content">
                                     </a>
                                 </li>
                                 <li class="usercontent" data-value="2">
                                     <?php 
-                                        echo "<a class='contents_link' href='../contents/contents_view.php?cate=artwork&conno=$temp'>";
+                                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$temp'>";
                                     ?>
                                     <img src="<?=$user_content3?>" alt="user_content">
                                     </a>
