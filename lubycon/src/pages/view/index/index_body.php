@@ -1,7 +1,8 @@
-<link href="css/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
+
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<link href="./css/module/lubyImageSlider.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="./js/module/jquery.lubyImageSlider.js"></script>
+<link href="./pages/view/index/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
+<link href="../plugin/JS/lubyImageSlider.css" rel="stylesheet" type="text/css" />
+<script src="../plugin/JS/jquery.lubyImageSlider.js" type="text/javascript" ></script>
 <div id="index_figure_wrap" class="main_figure_wrap hidden-mb-b">
     <figure>
         <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
@@ -10,7 +11,7 @@
 <!-- end main_figure -->
 
 <?php 
-    include_once("./index_body_mobile.php");
+    include_once "./pages/view/index/index_body.mobile.php";
 ?>
 
 <!-- index page slider plugin -->
@@ -29,7 +30,7 @@
     <div class="main-slider-wrapper">
     <!--end slide lnb-->
     <?php
-        require_once './php/database/database_class.php';
+        require_once './common/Class/database_class.php';
         $db = new Database();
 
         for( $i=1 ; $i<4 ; $i++ )//loop slider
@@ -52,7 +53,7 @@
                 $contents_number = $row['boardCode'];
                 $contents_thumb = $row['userDirectory']."/thumbnail/thumbnail.jpg";
                 echo "<li class='load_view'>
-                        <a href='./php/contents/contents_view.php?cate=$kind&conno=$contents_number'>
+                        <a href='?dir=pages/view/contents/viewer&cate=$kind&conno=$contents_number'>
                             <img src='$contents_thumb'>
                         </a>
                     </li>";
@@ -85,7 +86,7 @@
                         <li id="creator_job">Godness</li>
                         <li id="creator_location"><i class="fa fa-map-marker"></i><p>Seoul, South korea</p></li>
                     </ul>
-                    <div class="viewmore_bt"><a href="./index.php?1=creators_page&2=creators">READ INTERVIEW</a></div>
+                    <div class="viewmore_bt"><a href="?dir=pages/view/creators/creators&1=creators_page&2=creators">READ INTERVIEW</a></div>
                 </div>
             </div>
             <div id="creator_desc">
@@ -116,7 +117,7 @@
 		            $db->askQuery();
                     while( $row = mysqli_fetch_array($db->result) )
                     {
-                        include("./php/layout/index_forum.php");
+                        include("./pages/view/index/index_forum.php");
                     }
                 ?>
             </ul>

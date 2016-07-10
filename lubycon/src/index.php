@@ -37,7 +37,7 @@
                     $activity = false;
 
                 if($activity === false)
-                    echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+                    echo '<script>document.location.href="?dir=service/view/waiting_for_resisting"</script>';
 
             }else{
                 $session->DestroySession();
@@ -133,17 +133,17 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">CONTENTS</p>
             <li class="mb-menu-list">
-                <a href="?dir='pages/controller/contents/contents_page'&cate=artwork&page=1">
+                <a href="?dir=pages/controller/contents/contents_page&cate=artwork&page=1">
                     <i class="fa fa-picture-o fa-1x"></i>Artwork
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="pages/controller/contents/contents_page?cate=vector&page=1">
+                <a href="?dir=pages/controller/contents/contents_page&cate=vector&page=1">
                     <i class="fa fa-object-group fa-1x"></i>Vector
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="pages/controller/contents/contents_page?cate=threed&page=1">
+                <a href="?dir=pages/controller/contents/contents_page&cate=threed&page=1">
                     <i class="fa fa-cube fa-1x"></i>3D Model
                 </a>
             </li>
@@ -151,12 +151,12 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">COMMUNITY</p>
             <li class="mb-menu-list">
-                <a href="pages/view/creators/creators">
+                <a href="?dir=pages/view/creators/creators">
                     <i class="fa fa-pencil fa-1x"></i>Creator
                 </a>
             </li>
             <li class="mb-menu-list">
-                <a href="pages/view/community/community_page?cate=forum">
+                <a href="?dir=pages/view/community/community_page&cate=forum">
             	   <i class="fa fa-comments-o fa-1x"></i>Forum
                </a>
             </li>
@@ -164,7 +164,7 @@
         <ul class="mb-menu-group">
             <p class="mb-menu-title">MY PAGE</p>
             <li class="mb-menu-list">
-                <a href="pages/view/personal_page/personal_page?cate=dashboard&usernum=<?=$Loginuser_code?>">
+                <a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$Loginuser_code?>">
                     <i class="fa fa-tachometer fa-1x"></i>Dashboard
                 </a>
             </li>
@@ -231,7 +231,7 @@
         <nav id="main_gnb" class="hidden-mb-b">
             <ul id="gnb">
                 <li class="bigsub">
-                    <a href="pages/controller/contents/contents_page?cate=all&page=1" class="bigsub_link">
+                    <a href="?dir=pages/controller/contents/contents_page&cate=all&page=1" class="bigsub_link">
                         Contents
                     </a>
                     <ul class="sub_menu">
@@ -239,10 +239,10 @@
                             <a href="?dir=pages/controller/contents/contents_page&cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
-                            <a href="pages/controller/contents/contents_page?cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
+                            <a href="?dir=pages/controller/contents/contents_page&cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
-                            <a href="pages/controller/contents/contents_page?cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
+                            <a href="?dir=pages/controller/contents/contents_page&cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
                         </li>
                     </ul>	<!--end Contents menu-->
                 </li>
@@ -251,16 +251,16 @@
                     Community
                     <ul class="sub_menu">
                         <li>
-                            <a href="pages/view/creators/creators"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
+                            <a href="?dir=pages/view/creators/creators"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
                         </li>
                         <li><!--forum-->
-                            <a href="pages/view/community/community_page?cate=forum"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=forum"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
                         </li>
                         <li><!--tutorial-->
-                            <a href="pages/view/community/community_page?cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
                         </li>
                         <li><!--Q&A-->
-                            <a href="pages/view/community/community_page?cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>
@@ -268,7 +268,7 @@
         </nav>	<!--end main_gnb-->
         <div id="signin_bt" class="hidden-mb-b signin_class"><!-- before sign in -->
             <div id="signin">
-                <a href="pages/view/sign_in/login_page">
+                <a href="?dir=pages/view/sign_in/login_page">
                     <p class="signicon"><i class="fa fa-unlock-alt fa-lg"></i></p>
                     <p class="signin">SIGN IN</p>
                 </a>
@@ -365,16 +365,20 @@
     </div>
     <!--INCLUDE BODY-->
 <?php
-
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
     if($BODY_URL) {
         echo "<script>console.log('body url : $BODY_URL');</script>";
         include_once "./".$BODY_URL;
         //echo '<script>document.location.href="./'.$BODY_URL.'"</script>';
-    }else
+    }else{
         echo "<script>console.log('body url empty');</script>";
+        include_once "./pages/view/index/index_body.php";
+    }
+
+    include_once "./component/view/index/index_footer.php";
 
 ?>
-
 
 </div>
 </body>

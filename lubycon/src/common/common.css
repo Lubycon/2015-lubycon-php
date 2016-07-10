@@ -834,7 +834,7 @@ body {
         height: 350px;
     }
     .main_figure_wrap figure {
-        background: url(../../ch/img/main_img.jpg) 0% 45% no-repeat;
+        background: url(../../asset/img/main_img.jpg) 0% 45% no-repeat;
         background-size: 100%;
         width: 100%;
         height: 100px;

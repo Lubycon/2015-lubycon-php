@@ -1,5 +1,5 @@
 <?php
-     require_once '../database/database_class.php';
+     require_once '../../../common/Class/database_class.php';
 
      $db = new Database();
 

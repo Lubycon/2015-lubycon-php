@@ -1,8 +1,5 @@
 <?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-
-    require_once "$two_depth/session/session_class.php";
+    require_once "../../../common/Class/session_class.php";
     $session = new Session();
     if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
     $LoginState = false;
@@ -18,11 +15,11 @@
 
 
     /* require class set value */
-    require_once "$two_depth/database/database_class.php";
+    require_once "../../../common/Class/database_class.php";
     $db = new Database();
-    require_once "../class/json_class.php";
+    require_once "../../../common/Class/json_class.php";
     $json_control = new json_control;
-    require_once "../class/infinite_scroll_class.php";
+    require_once "../../../common/Class/infinite_scroll_class.php";
 
 
     $cate_name = $_POST['cate_param']; //form infinite scroll js post ajax

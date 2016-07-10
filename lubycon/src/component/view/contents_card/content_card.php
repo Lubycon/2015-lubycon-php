@@ -38,8 +38,8 @@
                 </a>
             </div>
             <span class="creator_desc">
-                <a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>">
-                    <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" class="hidden-mb-ib" alt="artist photo" />
+                <a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$usercode?>">
+                    <img src="../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" class="hidden-mb-ib" alt="artist photo" />
                     <span class="by">by</span>
                     <span class="name"><?=$user_name?></span>
                 </a>
@@ -49,7 +49,7 @@
         <!-- end contents desc -->
         <div class="contents_overlay load_view">
                 <?php 
-                    echo "<a class='contents_link' href='../contents/contents_view.php?cate=".$cate."&conno=".$board_code."'>";
+                    echo "<a class='contents_link' href='?dir=pages/view/contents/contents_view&cate=".$cate."&conno=".$board_code."'>";
                 ?>
                 <i class="fa fa-search-plus"></i>
                 <ul>

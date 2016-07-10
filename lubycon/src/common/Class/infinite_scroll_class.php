@@ -51,7 +51,7 @@ class infinite_scroll extends json_control
         {
         }else
         {
-            include_once('../error/404.php');
+            include_once('../../service/view/error/404.php');
             die('dose not allow category name');
         }
     }
@@ -203,12 +203,12 @@ class infinite_scroll extends json_control
             $i = 1;
             while( $row = mysqli_fetch_array($contents_result) )
             {
-                $this->json_decode('top_category',"$one_depth/data/top_category.json");
+                $this->json_decode('top_category',"../../../data/top_category.json");
                 $country_decode = $this->json_decode_code;
-                $this->json_decode('ccCode',"$one_depth/data/ccCode.json");
+                $this->json_decode('ccCode',"../../../data/ccCode.json");
                 $ccCode_decode = $this->json_decode_code;
                 $top_category = $country_decode[$row['topCategoryCode']]['name'];
-                include('../layout/content_card.php');
+                include('../../component/view/contents_card/content_card.php');
 
                 /*page load*/
                 if($i == $this->page_limit && !$ajax_boolean)
@@ -234,7 +234,7 @@ class infinite_scroll extends json_control
             }
 
         }else{
-            include_once("../messages/nullMessage.php");
+            include_once("../../service/view/nullMessage.php");
         }
     }
 

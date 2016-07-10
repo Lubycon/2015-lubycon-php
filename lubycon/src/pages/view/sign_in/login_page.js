@@ -35,7 +35,7 @@ $(document).ready(function(){
     function callCreateAccountWindow(){
         $.ajax({
             type: "POST",
-            url: "php/ajax/create_account_popup.php", //이페이지에서 중복체크를 한다
+            url: "./pages/controller/sign_up/create_account_popup.php", //이페이지에서 중복체크를 한다
             //data: "id=" + id,//test.asp에 id 값을 보낸다
             cache: false,
             success: function (data) {

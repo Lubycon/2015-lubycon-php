@@ -1,31 +1,24 @@
 <?php
-    /* include layout (imfortant) */
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    include_once('../layout/index_header.php');
-    /* include layout (imfortant) */
-
-    /* require class set value */
-    require_once "$two_depth/database/database_class.php";
+    require_once "./common/Class/database_class.php";
     $db = new Database();
-    require_once "../class/json_class.php";
+    require_once "./common/Class/json_class.php";
     $json_control = new json_control;
-    require_once "../class/infinite_scroll_class.php";
+    require_once "./common/Class/infinite_scroll_class.php";
 
     /* require class */
 
     /* json control */
     $current_url = $_GET["cate"];
-    $json_control->json_decode($current_url.'_category',"$one_depth/data/middle_category.json");
+    $json_control->json_decode($current_url.'_category',"../data/middle_category.json");
     $middle_cate_decode = $json_control->json_decode_code;
     /* json control */
 ?>
-<script type="text/javascript" src="<?=$one_depth?>/js/module/infinite_scroll.js"></script> <!-- scroll js -->
-<script type="text/javascript" src="<?=$one_depth?>/js/module/jquery.lubySlider.js"></script>
-<script type="text/javascript" src="<?=$one_depth?>/js/thumbs_control.js"></script>
+<script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll.js"></script>
+<script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script>
+<script type="text/javascript" src="../plugin/JS/jquery.lubySlider.js"></script>
 
-<link href="<?=$one_depth?>/css/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
-<link href="<?=$one_depth?>/css/module/lubySlider.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+<link href="./pages/view/contents/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+<link href="../plugin/JS/lubySlider.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 
 
 <div class="main_figure_wrap hidden-mb-b">
@@ -39,16 +32,16 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="all">
-                    <a href="./contents_page.php?cate=all&page=1">All</a>
+                    <a href="./?dir=contents_page&cate=all&page=1">All</a>
                 </li>
                 <li class="nav_menu" id="artwork">
-                    <a href="./contents_page.php?cate=artwork&page=1">Artwork</a>
+                    <a href="./?dir=contents_page&cate=artwork&page=1">Artwork</a>
                 </li>
                 <li class="nav_menu" id="vector">
-                    <a href="./contents_page.php?cate=vector&page=1">Vector</a>
+                    <a href="./?dir=contents_page&cate=vector&page=1">Vector</a>
                 </li>
                 <li class="nav_menu" id="threed"> 
-                    <a href="./contents_page.php?cate=threed&page=1">3D</a>
+                    <a href="./?dir=contents_page&cate=threed&page=1">3D</a>
                 </li>
             </ul>
         </nav>  <!-- end lnb nav -->
@@ -98,7 +91,3 @@
         </ul>
     </section>  <!-- end contents box -->
 </section>  <!-- end contents section -->
-
-<?php
-    include_once($two_depth.'/layout/index_footer.php');
-?>

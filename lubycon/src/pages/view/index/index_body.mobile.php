@@ -7,7 +7,7 @@
             <ul>
                 <li class="mb-main-img">
                     <a href="#">
-                        <img src="./ch/img/thumbnail/artwork/1.jpg" alt="content1" />
+                        <img src="../../asset/img/thumbnail/artwork/1.jpg" alt="content1" />
                         <div class="layer">
                             <div class="content-descript">
                                 <p class="content-name">LOREM IPSUM</p>
@@ -18,7 +18,7 @@
                 </li>
                 <li class="mb-main-img">
                     <a href="#">
-                        <img src="./ch/img/thumbnail/artwork/2.jpg" alt="content2" />
+                        <img src="../../asset/img/thumbnail/artwork/2.jpg" alt="content2" />
                         <div class="layer">
                             <div class="content-descript">
                                 <p class="content-name">LOREM IPSUM</p>
@@ -29,7 +29,7 @@
                 </li>
                 <li class="mb-main-img">
                     <a href="#">
-                        <img src="./ch/img/thumbnail/artwork/3.jpg" alt="content3" />
+                        <img src="../../asset/img/thumbnail/artwork/3.jpg" alt="content3" />
                         <div class="layer">
                             <div class="content-descript">
                                 <p class="content-name">LOREM IPSUM</p>
@@ -40,7 +40,7 @@
                 </li>
                 <li class="mb-main-img">
                     <a href="#">
-                        <img src="./ch/img/thumbnail/artwork/4.jpg" alt="content4" />
+                        <img src="../../asset/img/thumbnail/artwork/4.jpg" alt="content4" />
                         <div class="layer">
                             <div class="content-descript">
                                 <p class="content-name">LOREM IPSUM</p>
@@ -51,7 +51,7 @@
                 </li>
                 <li class="mb-main-img">
                     <a href="#">
-                        <img src="./ch/img/thumbnail/artwork/5.jpg" alt="content5" />
+                        <img src="../../asset/img/thumbnail/artwork/5.jpg" alt="content5" />
                         <div class="layer">
                             <div class="content-descript">
                                 <p class="content-name">LOREM IPSUM</p>

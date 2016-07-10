@@ -78,7 +78,7 @@
         $.ajax
         ({
             type: "POST",
-            url: "../ajax/infinite_scroll_ajax.php",
+            url: "./service/controller/infinite_scroll/infinite_scroll_ajax.php",
             data: 'cate_param=' + CATE_PARAM + '&mid_cate_param=' + MID_CATE_PARAM + '&page_param=' + pageNumber + '&now_page_param=' + NOW_PAGE,
             cache: false,
             success: function (data)
@@ -112,7 +112,7 @@
         $.ajax
         ({
             type: "POST",
-            url: "../ajax/infinite_scroll_ajax.php",
+            url: "./service/controller/infinite_scroll/infinite_scroll_ajax.php",
             data: data_array,
             datatype:JSON,
             cache: false,

@@ -176,7 +176,7 @@
     #creator_info_background{
         width: 100%;
         height: 380px;
-        background: url(../CH/img/creator_of_the_month/creator.png) no-repeat 50% 29%;
+        background: url(../../../../asset/img/creator_of_the_month/creator.png) no-repeat 50% 29%;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

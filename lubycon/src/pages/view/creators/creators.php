@@ -1,14 +1,11 @@
 <?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    include_once("$two_depth/layout/index_header.php");
-	require_once '../database/database_class.php';
+	require_once './common/Class/database_class.php';
     $db = new Database();
-    require_once "../class/json_class.php";
+    require_once "./common/Class/json_class.php";
     $json_control = new json_control;
-    $job_json = $json_control->json_decode('job',"$one_depth/data/job.json");
+    $job_json = $json_control->json_decode('job',"../data/job.json");
     $job_decode = $json_control->json_decode_code;
-    $country_json = $json_control->json_decode('country',"$one_depth/data/country.json");
+    $country_json = $json_control->json_decode('country',"../data/country.json");
     $country_decode = $json_control->json_decode_code;
 ?>
 <div class="main_figure_wrap hidden-mb-b">
@@ -18,8 +15,7 @@
     </figure>   <!-- end main_figure -->
 </div>
 <!-- end main_figure -->
-<script type="text/javascript" src="../../js/creators.js"></script>
-<link href="<?=$one_depth?>/css/creators_page.css" rel="stylesheet" type="text/css" />
+<link href="./pages/view/creators/creators.css" rel="stylesheet" type="text/css" />
 <!-- contents page css -->
 <section class="container">
     <section class="nav_guide">
@@ -73,23 +69,23 @@
                     $my_job_origin_select = $job_decode[$myrow['jobCode']]['name'];
                     $my_country_origin_select = $country_decode[$myrow['countryCode']]['name'];
 
-                    $user_img_url = "$two_depth/../../../Lubycon_Contents/user/$usercode/profile.jpg";
+                    $user_img_url = "../../../../Lubycon_Contents/user/$usercode/profile.jpg";
                     $userjob = $my_job_origin_select;
                     $usercity = $myrow['city'];
                     $usercountry = $my_country_origin_select;
                     $language1 = "Korean"; //not yet
                     $language2 = "English"; //not yet
-                    include_once("./creators_login.php");
+                    include_once("./pages/view/creators/creators_login.php");
                 }else{
-                    include_once("./creators_logout.php");
+                    include_once("./pages/view/creators/creators_logout.php");
                 }
             ?>
         </div><!--end con_aside-->
         <!--maybe it will be removed-->
         <div id="user_view_main" class="con_main">
             <?php
-                $user_img_url = "$one_depth/../../../Lubycon_Contents/user/41/profile.jpg";
-                $user_location_img = "$one_depth/ch/img/flag_icons/230.png";
+                $user_img_url = "../../../../Lubycon_Contents/user/41/profile.jpg";
+                $user_location_img = "../asset/img/flag_icons/230.png";
                 $usercity = "Los Santos";
                 $usercountry = "United States";
                 $username = "Ssaru";
@@ -113,7 +109,7 @@
                                 <div class="creator_location_pic"><img src="<?=$user_location_img?>" alt="user_location"></div>
                             </div>
                             <div class="creator_info_wrap">
-                                <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
+                                <p class="creator_name"><a href=".//personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
                                 <p class="creator_job"></i><?=$userjob?></p>
                                 <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
                                 <article class="contents_count hidden-mb-b">
@@ -161,7 +157,7 @@
                     {
                         $job_origin_select = $job_decode[$row['jobCode']]['name'];
                         $country_origin_select = $country_decode[$row['countryCode']]['name'];
-                        include("$two_depth/layout/creator_card.php");
+                        include("./component/view/creator_card/creator_card.php");
                     }
                 ?>
             </ul>
@@ -169,7 +165,3 @@
     </section><!--end user_box_total-->
 </section>
 <!-- end contents section -->
-
-<?php
-    include_once($two_depth.'/layout/index_footer.php');
-?>

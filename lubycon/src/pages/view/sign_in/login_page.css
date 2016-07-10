@@ -1,40 +1,5 @@
 @charset "utf-8";
 /* CSS Document */
-/****************************css reset start***********************************************************/
-body{
-	background: #282828;
-}
-body,h1,h2,h3,h4,h5,h6,div,p,ul,ol,dl,li,dt,dd,address,figure, nav, section, header, footer{
-	margin: 0px;
-	padding: 0px;
-	color: #000;
-	font-size: 1em;
-	font-weight: 400;
-	line-height: 0px;
-	font-style: normal;
-	font-family: 'Source Sans Pro', sans-serif;
-    position: relative;
-}
-li
-{
-	list-style: none;
-}
-img
-{
-	border-style: none;
-}
-a
-{
-	text-decoration: none;
-	color: #000;
-	font-family: 'Source Sans Pro', sans-serif;
-}
-form
-{
-	font-family: 'Source Sans Pro', sans-serif;
-}
-
-/*********************************************css reset end*********************************************/
 
 .dark_overlay {
     background: rgba(0,0,0,0.8);
@@ -48,14 +13,18 @@ form
     cursor: pointer;
 }
 
-#intro_wrap {
+#wrapper {
+    background: #282828;
+}
 
+#intro_wrap {
+    
 }
 	#logo_lubycon {
 		margin: 0px auto;
 		height: 100px;
 		overflow: hidden;
-		background: url(../ch/img/logo/Lubycon_Logo_Title.svg) no-repeat;
+		background: url(../../../../asset/img/logo/Lubycon_Logo_Title.svg) no-repeat;
 	}
 #loginWrap {
     position: fixed;

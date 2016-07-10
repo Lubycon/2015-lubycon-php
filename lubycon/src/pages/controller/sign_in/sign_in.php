@@ -1,6 +1,6 @@
 <?php
-	require_once './php/class/session_class.php';
-	require_once './php/database/database_class.php';
+	require_once '../../../common/Class/session_class.php';
+	require_once '../../../common/Class/database_class.php';
 
 	$session = new Session();
     $user_email = $_POST['login_id'];
@@ -26,7 +26,7 @@
 			header('location:index.php');
 		else if($result['validation'] == 'inactive')
 			//echo "waiting_for_resisting 으로 페이지 이동";
-			echo '<script>document.location.href="./php/account/waiting_for_resisting.php"</script>';
+			echo '<script>document.location.href="../../../service/view/waiting_for_resisting.php"</script>';
 		else
 			die("result['validation'] wrong value");
 
