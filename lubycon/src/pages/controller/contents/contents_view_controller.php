@@ -150,7 +150,7 @@ $total_array = [
 $data_json = json_encode($total_array);
 //print_r($data_json);
 
-return $total_array;
+echo $data_json;
 
 
 ?>
