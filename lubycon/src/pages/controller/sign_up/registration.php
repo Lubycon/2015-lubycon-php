@@ -1,11 +1,11 @@
 <?php
 
-	include_once '../class/database_class.php';
-    include_once '../class/regex_class.php';
-    include_once '../class/MailerClass.php';
-    include_once '../commonFunc.php';
-    include_once '../class/session_class.php';
-
+	require_once '../../../common/Class/database_class.php';
+    require_once '../../../common/Class/regex_class.php';
+    require_once '../../../common/Class/MailerClass.php';
+    require_once '../../../common/Class/session_class.php';
+    require_once '../../../common/common.php';
+    
     $regex_vali = new regex_validate;
 	$db = new Database();
 	$session = new Session();
@@ -74,7 +74,7 @@
     				$result = mysqli_fetch_array($db->result);
 					$session->WriteSession('lubycon',$result);
 					echo $_SESSION['lubycon_validation'];
-					echo '<script>document.location.href="../../index.php"</script>';
+					echo '<script>document.location.href="../../../index.php"</script>';
     			}
 			}
 		}

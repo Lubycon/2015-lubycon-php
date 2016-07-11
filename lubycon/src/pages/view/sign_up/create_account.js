@@ -69,7 +69,7 @@ $(function(){
         else{ //complite go ajax, enter to AJAX Logic by SsaRu
             $.ajax({
                 type: "POST",
-                url: "php/account/overlap_check.php",
+                url: "./pages/controller/sign_up/overlap_check.php",
                 data: 'data=' + value + '&' + 'id=email',
                 cache: false,
                 success: function (data) {
@@ -195,7 +195,7 @@ $(function(){
         else { //complite, enter to AJAX Logic by SsaRu
             $.ajax({
                 type: "POST",
-                url: "php/account/overlap_check.php",
+                url: "./pages/controller/sign_up/overlap_check.php",
                 data: 'data=' + value + '&' + 'id=nick',
                 cache: false,
                 success: function (data) {

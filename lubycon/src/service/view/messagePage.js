@@ -72,7 +72,7 @@ $(function(){
 	}
 
 	function gotoIndex(){
-		location.href = "../../index.php";
+		location.href = "./index.php";
 	}
 
 	function gotoLink(){

@@ -1,7 +1,7 @@
 <?php
 	
 	// include DB class
-	require_once '../database/database_class.php';
+	require_once '../../../common/Class/database_class.php';
 
 	// object instance
 	$db = new Database();

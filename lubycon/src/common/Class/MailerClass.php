@@ -5,7 +5,7 @@
 #--------------------------------------------------------------------------
 # Send Certificate Mail using PHPMailer(plugin) #--------------------------------------------------------------------------
 
-include_once '../plugin/PHPMailer/PHPMailerAutoload.php';
+require_once '../../../../plugin/PHP/PHPMailer/PHPMailerAutoload.php';
 
 function mailer($fromaddress, $toaddress, $subject, $password, $category)
 {
@@ -27,9 +27,9 @@ function mailer($fromaddress, $toaddress, $subject, $password, $category)
 	$mail->Subject = $subject;
 
 	if($category === 'mail')
-		$mail->msgHTML(file_get_contents("CertifiEmail.php"));
+		$mail->msgHTML(file_get_contents("../../../../../CertifiEmail.php"));
 	else if($category === 'password')
-		$mail->msgHTML(file_get_contents("FindPw.php"));
+		$mail->msgHTML(file_get_contents("../../../../../FindPw.php"));
 	
 	$mail->Altbody = 'This is a plain-text message body';
 
@@ -64,7 +64,7 @@ Class MakeMail{
 
 	public function CertifiMail(){
 		
-		$html = fopen("CertifiEmail.php","w") or die("unable to make email");
+		$html = fopen("../../../../../CertifiEmail.php","w") or die("unable to make email");
 
 		$contents = 
 		'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1-strict.dtd">
@@ -135,7 +135,7 @@ Class MakeMail{
 
 	public function FindPw(){
 		
-		$html = fopen("FindPw.php","w") or die("unable to make email");
+		$html = fopen("../../../../../FindPw.php","w") or die("unable to make email");
 
 		$contents = 
 		'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1-strict.dtd">

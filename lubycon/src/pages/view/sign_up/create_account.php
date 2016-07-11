@@ -1,14 +1,12 @@
 <?php
      require_once '../../../common/Class/database_class.php';
-
      $db = new Database();
-
 ?>
-
+<script src="./pages/view/sign_up/create_account.js"></script>
 <section id="create_account_area" class="modal">
      <p id="account_title">Create An Account</p>
      <div id="account_box">
-          <form id="account_idpass" name="form" action="./php/account/registration.php" method="post">
+          <form id="account_idpass" name="form" action="./pages/controller/sign_up/registration.php" method="post">
                <div id="account_inputs">
                
                     <div class="account_input_wrap userinfo">
@@ -37,11 +35,16 @@
                          <div class="location_option_ca">
                               <select class="locationFilter" name="country_code">
                                    <?php
+                                        
                                         $db->query = "SELECT * FROM country";
-                                        $db->askQuery();
-                                        while($row = mysqli_fetch_array($db->result)){
-                                             echo ("<option data-value = ".$row['countryCode'].">".$row['name']."</option>");
+                                        
+                                        if($db->askQuery())
+                                        {
+                                             while($row = mysqli_fetch_array($db->result)){
+                                                  echo ("<option data-value = ".$row['countryCode'].">".$row['name']."</option>");
+                                             }     
                                         }
+                                        
                                    ?>
                               </select>
                          </div>
