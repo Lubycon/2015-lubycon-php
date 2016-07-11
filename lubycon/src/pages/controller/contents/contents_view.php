@@ -203,7 +203,7 @@ include_once('./component/view/indet/index_footer.php');
 <!-- --------------------------------------------------------------------------------------------- -->
 
 <!-- don't have call_comments.js file -->
-<script type="text/javascript" src="/js/call_comments.js"></script> <!-- account file js -->
+<!--<script type="text/javascript" src="/js/call_comments.js"></script>--> <!-- account file js -->
 
 <!-- --------------------------------------------------------------------------------------------- -->
 
