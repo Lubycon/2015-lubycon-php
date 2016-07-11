@@ -1,4 +1,6 @@
-<script type="text/javascript" src="./pages/view/contents/viewer.js"></script>
+<script type="text/javascript" src="./component/view/comment_card/comment.tmpl.js"></script>
+<script type="text/javascript" src="./pages/controller/contents/viewer_controller.js"></script>
+
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
         <div class="nav-wrapper">
@@ -85,12 +87,7 @@
                     </div>
                 </div>
                 <div class="comment-list">
-                    <?php
-                        while( $comment_row = mysqli_fetch_array($comment_result) )
-                        {
-                            include("./component/view/comment_card/comment.php");
-                        };
-                    ?>
+                    <!-----comment.tmpl.js---->
                 </div><!--end comment_list-->
                 <div class="viewmore_bt" data-value="comment"><i class="fa fa-angle-down"></i></div>
             </article>
@@ -99,7 +96,7 @@
         <div id="contents_aside" class="con_aside hidden-mb-ib">
             <div class="creator_info">
                 <figure id="user_img">
-                    <img src="<?=$one_depth?>/../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" >
+                    <img src="../../../../Lubycon_Contents/user/<?=$usercode?>/profile.jpg" >
                 </figure>
                 <span id="user_info_wrap">
                     <h4><a href="<?=$two_depth?>/personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></h4>
