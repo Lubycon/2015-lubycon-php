@@ -92,61 +92,60 @@ if($LoginState)
 }
 $json_control->json_search($cc_code_decode,'url','ccCode',$row['ccCode']);
 
-$contents_data = array(
-		'contents_name' => $row['contentTitle'], 
-		'contents_html' => $row['contents'],
-		'top_category' => $category0,
-		'mid_category0' => $category1,
-		'mid_category1' => $category2,
-		'mid_category2' => $category3,
-		'file_descript' => $row['contentDescription'],
-		'bookmark_check' => $bookmark_check,
-		'like_check' => $like_check,
-		'file_view' => $row['viewCount'],
-		'file_down' => $row['downloadCount'],
-		'file_like' => $row['likeCount'],
-		'file_path' => $row['userDirectory'],
-		'cc_code' => $row['ccCode'],
-		'cc_url' => $json_control->search_key
-);
+
+
+$contents_tag_data = array();
 $tagnum = 0;
-while( isset($row['tag'.$tagnum]) )
-{
-	$contents_data['tag'.$tagnum] = $row['tag'.$tagnum];
+while( isset($row['tag'.$tagnum]) ){
+	$contents_tag_data[$tagnum] = $row['tag'.$tagnum];
 	$tagnum++;
 }
 
+$contents_data = array(
+	'title' => $row['contentTitle'], 
+	'content' => $row['contents'],
+	'category' => [ strtoupper($category0), $category1, $category2, $category3 ],
+	'descript' => $row['contentDescription'],
+	'tag' => $contents_tag_data,
+	'bookmark' => $bookmark_check,
+	'like' => $like_check,
+	'counter' => array(
+		'view' => $row['viewCount'],
+		'download' => $row['downloadCount'],
+		'like' => $row['likeCount']
+	),
+	'file_path' => $row['userDirectory'],
+	'cc' => [ $row['ccCode'], $json_control->search_key ]
+);
 
 // write user data
 $write_user_data = array(
-		'write_user_code' => $row['userCode'],
-		'write_user_name' => $row['nick'],
-		'write_user_city' => $row['city'],
-		'write_user_job' => $my_job_origin_select,
-		'write_user_country' => $my_country_origin_select,
-		'write_user_img_url' => "../../../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg"
+	'code' => $row['userCode'],
+	'name' => $row['nick'],
+	'job' => $my_job_origin_select,
+	'country' => $my_country_origin_select,
+	'city' => $row['city'],
+	'profile' => "../../../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg"
 );
-// write user data
-
 
 // contetnts data
 $comment_data = array(
-		'comment_action_user_code' => $comment_row['commentActionUserCode'],
-		'comment_action_user_nick' => $comment_row['nick'],
-		'comment_action_user_profile' => $comment_row['profileImg'],
-		'comment_write_date' => $comment_row['commentDate'],
-		'comment_content' => $comment_row['commentContents']
+	'usercode' => $comment_row['commentActionUserCode'],
+	'username' => $comment_row['nick'],
+	'profile' => $comment_row['profileImg'],
+	'date' => $comment_row['commentDate'],
+	'content' => $comment_row['commentContents']
 );
 
 // comment data
 // commnet data
 
-
 $total_array = [
-		'contents'=>$contents_data,
-		'write_user'=>$write_user_data,
-		'commnet'=>$comment_data
+	'contents' => $contents_data,
+	'creator' => $write_user_data,
+	'comment' => $comment_data
 ];
+
 $data_json = json_encode($total_array);
 //print_r($data_json);
 

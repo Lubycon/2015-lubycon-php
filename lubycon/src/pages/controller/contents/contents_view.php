@@ -1,4 +1,5 @@
 <?php
+/*
 require_once './common/Class/database_class.php';
 require_once "./common/Class/json_class.php";
 
@@ -190,21 +191,13 @@ $db->query =
 
 $db->askQuery();
 $comment_result = $db->result;
-
+*/
 include_once("./pages/view/contents/viewer.php");
 include_once('./component/view/indet/index_footer.php');
 
 ?>
 
 <script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script> <!-- account file js -->
-
-
-
-<!-- --------------------------------------------------------------------------------------------- -->
-
+<link href="./pages/view/contents/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
 <!-- don't have call_comments.js file -->
 <!--<script type="text/javascript" src="/js/call_comments.js"></script>--> <!-- account file js -->
-
-<!-- --------------------------------------------------------------------------------------------- -->
-
-<link href="./pages/view/contents/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->

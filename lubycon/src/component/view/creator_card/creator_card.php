@@ -22,49 +22,49 @@
         $user_content3 = $user_dir.'/thumbnail/thumbnail.jpg';
         $user_content3_num = $row['boardCode'];
     ?><!--you should change to mySQL later-->
-    <div class="creators_card" data-index="<?=$usercode?>">
-        <div class="creator_card_header">
-            <span class="card_label"></span>
+    <div class="creators-card" data-index="<?=$usercode?>">
+        <div class="creator-card-header">
+            <span class="card-label"></span>
         </div><!--header-->
-        <div class="creator_card_body">
-            <div class="creator_pic_wrap">
-                <div class="creator_pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
-                <div class="creator_location_pic"><img src="<?=$user_location_img?>" alt="user_location"></div>
+        <div class="creator-card-body">
+            <div class="creator-pic-wrap">
+                <div class="creator-pic"><img src="<?=$user_img_url?>" alt="user_pic"></div>
+                <div class="creator-location-pic"><img src="<?=$user_location_img?>" alt="user_location"></div>
             </div>
-            <div class="creator_info_wrap">
-                <p class="creator_name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
-                <p class="creator_job"></i><?=$userjob?></p>
-                <p class="creator_location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
+            <div class="creator-info-wrap">
+                <p class="creator-name"><a href="../personal_page/personal_page.php?cate=dashboard&usernum=<?=$usercode?>"><?=$username?></a></p>
+                <p class="creator-job"><?=$userjob?></p>
+                <p class="creator-location hidden-mb-b"><i class="fa fa-map-marker"></i><?=$usercity?>, <?=$usercountry?></p>
                 <article class="contents_count hidden-mb-b">
                     <p class="contents_num"><?=$contents_count?></p>
                     Contents
                 </article>
             </div>
         </div><!--body-->
-        <div class="creator_card_medal">
+        <div class="creator-card-medal">
             <ul>
                 <li></li>
             </ul>
         </div><!--medals-->
-        <div class="creator_card_footer">
+        <div class="creator-card-footer">
             <ul>
                 <li class="usercontent" data-value="0">
                     <?php 
-                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$user_content1_num'>";
+                        echo "<a class='contents-link' href='../contents/viewer.php?cate=artwork&conno=$user_content1_num'>";
                     ?>
                     <img src="<?=$user_content1?>" alt="user_content">
                     </a>
                 </li>
                 <li class="usercontent" data-value="1">
                     <?php 
-                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$user_content2_num'>";
+                        echo "<a class='contents-link' href='../contents/viewer.php?cate=artwork&conno=$user_content2_num'>";
                     ?>
                     <img src="<?=$user_content2?>" alt="user_content">
                     </a>
                 </li>
                 <li class="usercontent" data-value="2">
                     <?php 
-                        echo "<a class='contents_link' href='../contents/viewer.php?cate=artwork&conno=$user_content3_num'>";
+                        echo "<a class='contents-link' href='../contents/viewer.php?cate=artwork&conno=$user_content3_num'>";
                     ?>
                     <img src="<?=$user_content3?>" alt="user_content">
                     </a>

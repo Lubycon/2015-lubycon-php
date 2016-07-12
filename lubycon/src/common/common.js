@@ -389,6 +389,9 @@ String.prototype.disableCamelCase = function(text){ //camelCase -> Camel Case
     return result;
 }
 
+String.prototype.toDOMelement = function(){
+    return $($("<p/>").html(this).text());
+}
 
 //////////////////////
 // jQuery Prototype //

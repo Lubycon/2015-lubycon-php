@@ -422,30 +422,30 @@
         margin: 10px 15px;
     }
 
-    .creator_card_body {
+    .creator-card-body {
         margin-top: 15px;
         text-align: left;
     }
-    .creator_card_body .creator_pic_wrap{
+    .creator-card-body .creator-pic-wrap{
         margin: 0px 20px;
         width: 50px;
     }
-        .creator_location_pic {
+        .creator-location-pic {
             width: 20px;
             height: 20px;
             bottom: 0;
             right: 0;
         }
-        .creator_name a {
+        .creator-name a {
             text-align: center;
             font-size: 20px;
             font-weight: 600;
             transition: color 0.2s;
         }
-        .creator_job{
+        .creator-job{
             font-size: 14px;
         }
-    .creator_card_footer {
+    .creator-card-footer {
         margin: 0px auto;
         padding: 10px;
     }
@@ -894,35 +894,34 @@
         display: inline-block;
         margin: 10px;
     }
-    .creators_card {
+    .creators-card {
         width: 390px;
         float: left;
         text-align: center;
-        box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
     }
-    .creator_card_body .creator_pic_wrap{
+    .creator-card-body .creator-pic-wrap{
         margin-right: 20px;
         width: 90px;
     }
-        .creator_location_pic {
+        .creator-location-pic {
             width: 40px;
             height: 40px;
             bottom: 0;
             right: -10px;
         }
-    .creator_card_body {
+    .creator-card-body {
         margin-top: 15px;
     }
-        .creator_name a {
+        .creator-name a {
             text-align: center;
             font-size: 25px;
             font-weight: 600;
             transition: color 0.2s;
         }
-        .creator_job{
+        .creator-job{
             font-size: 16px;
         }
-    .creator_card_footer {
+    .creator-card-footer {
         border-top: 1px solid #dddddd;
         margin: 0px auto;
         padding: 10px;

@@ -1246,12 +1246,12 @@ body {
                     width: 100%;
                 }
 .infoCard.creator{}
-    .infoCard.creator .creators_card {
+    .infoCard.creator ..creator-card {
         width: 100%;
         float: none;
         box-shadow: none;
     }
-    .infoCard.creator .creators_card .creator_pic_wrap {
+    .infoCard.creator ..creator-card .creator-pic-wrap {
         margin: 0px auto;
         display: block;
     }
@@ -1384,7 +1384,7 @@ body {
     /*empty*/
 }
 
-.creators_card{
+.creators-card{
     position: relative;
     background: #fff;
     padding-top: 5px;
@@ -1392,21 +1392,21 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box; 
 }
-    .creator_menu{
+    .creator-menu{
         position: absolute;
         right: 7px;
         top: 7px;
         cursor: pointer;
     }
-        .creator_menu .creator_menu_icon{
+        .creator-menu .creator-menu-icon{
             font-size: 20px;
             color: #aaaaaa;
             transition: color 0.2s;
         }
-            .creator_menu.selected .creator_menu_icon{
+            .creator-menu.selected .creator-menu-icon{
                 color: #48cfad;
             }
-        .creator_menu_list{
+        .creator-menu-list{
             width: 150px;
             top: 10px;
             left: -140px;
@@ -1417,17 +1417,17 @@ body {
             background: rgba(255,255,255,0.9);
             display: none;  
         }
-        .creator_menu_list ul{
+        .creator-menu-list ul{
             line-height: 35px;
         }
-            .creator_menu_list ul li{
+            .creator-menu-list ul li{
                 text-align: center;
                 font-size: 14px;
             }
-            .creator_menu_list ul li:hover{
+            .creator-menu-list ul li:hover{
                 background: rgba(200,200,200,0.5);
             }
-                .creator_menu_list ul li i{
+                .creator-menu-list ul li i{
                     display: inline-block;
                     color: #444444;
                     float: left;
@@ -1435,53 +1435,53 @@ body {
                     margin-left: 7px;
                     font-size: 17px;
                 }
-                .creator_menu_list ul li a{
+                .creator-menu-list ul li a{
                     color: #444444;
                 }
-    .creator_card_header {
+    .creator-card-header {
         height: 22px;
         text-align: left;
         padding-left: 10px;
     }
-        .creator_card_header .card_label {
+        .creator-card-header .card-label {
             color: #444444;
             font-size: 17px;
             font-weight: 600;
         }
-            .creator_card_header .card_label .this_month {
+            .creator-card-header .card-label .this-month {
                 color: #48cfad;
                 font-size: 21px;
                 font-weight: 600;
             }
-    .creator_card_body {
+    .creator-card-body {
 
     }
-        .creator_card_body .creator_pic_wrap{
+        .creator-card-body .creator-pic-wrap{
             text-align: left;
             position: relative;
             display: inline-block;
             margin-right: 20px;
         }
-            .creator_card_body .creator_pic_wrap .creator_pic {
+            .creator-card-body .creator-pic-wrap .creator-pic {
                 overflow: hidden;
                 border-radius: 50%;
                 position: relative;
                 display: inline-block;
                 line-height: 0px;
             }
-                .creator_card_body .creator_pic_wrap .creator_pic img {
+                .creator-card-body .creator-pic-wrap .creator-pic img {
                     width: 100%;
                 }
-            .creator_card_body .creator_pic_wrap .creator_location_pic {
+            .creator-card-body .creator-pic-wrap .creator-location-pic {
                 position : absolute;
                 overflow: hidden;
                 border-radius: 50%;
                 box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
             }
-                .creator_card_body .creator_pic_wrap .creator_location_pic img {
+                .creator-card-body .creator-pic-wrap .creator-location-pic img {
                     width: 100%;
                 }
-        .creator_card_body .creator_info_wrap{
+        .creator-card-body .creator-info-wrap{
             max-width: 230px;
             position: relative;
             display: inline-block;
@@ -1489,7 +1489,7 @@ body {
             margin-top: 5px;
             text-align: left;
         }
-            .creator_card_body .creator_info_wrap .creator_name {
+            .creator-card-body .creator-info-wrap .creator-name {
                 width: 100%;
                 font-weight: 600;
                 transition: color 0.2s;
@@ -1497,19 +1497,19 @@ body {
                 white-space: nowrap;
                 overflow: hidden;
             }
-                .creator_card_body .creator_info_wrap .creator_name a {
+                .creator-card-body .creator-info-wrap .creator-name a {
                     width: 100%;
                     color: #444444;
                 }
-                .creator_card_body .creator_info_wrap .creator_name:hover a {
+                .creator-card-body .creator-info-wrap .creator-name:hover a {
                     text-decoration: underline;
                     color: #48cfad;
                 }
-            .creator_card_body .creator_info_wrap .creator_job {
+            .creator-card-body .creator-info-wrap .creator-job {
                 color: #444444;
                 margin-top: 2px;
             }
-            .creator_card_body .creator_info_wrap .creator_location {
+            .creator-card-body .creator-info-wrap .creator-location {
                 color: #888888;
                 font-size: 14px;
                 margin-top: 2px;
@@ -1518,47 +1518,47 @@ body {
                 white-space: nowrap;
                 overflow: hidden;
             }
-                .creator_card_body .creator_info_wrap .creator_location i {
+                .creator-card-body .creator-info-wrap .creator-location i {
                     color: #888888;
                     margin-right: 10px;
                 }
-            .creator_card_body .creator_info_wrap .contents_count {
+            .creator-card-body .creator-info-wrap .contents-count {
                 display: inline-block;
                 color: #aaaaaa;
                 float: left;
                 font-size: 13px;
             }
-                .creator_card_body .creator_info_wrap .contents_count .contents_num {
+                .creator-card-body .creator-info-wrap .contents-count .contents-num {
                     display: inline-block;
                     color: #48cfad;
                     font-size: 17px !important;
                 }
-    .creator_card_medal {
+    .creator-card-medal {
         height: 25px;
     }
-        .creator_card_medal ul {
+        .creator-card-medal ul {
 
         }
-            .creator_card_medal ul li {
+            .creator-card-medal ul li {
 
             }
-                .creator_card_medal ul li img {
+                .creator-card-medal ul li img {
                     
                 }
-    .creator_card_footer {
+    .creator-card-footer {
         position: relative;
         text-align: center;       
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .creator_card_footer ul {
+        .creator-card-footer ul {
             width: 100%;
             box-sizing: border-box;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
         }
-            .creator_card_footer ul .usercontent {
+            .creator-card-footer ul .usercontent {
                 display: inline-block;
                 width: 30%;
                 margin: 0px 1%;
@@ -1566,11 +1566,11 @@ body {
                 cursor: pointer;
                 transition: opacity 0.4s;
             }
-                .creator_card_footer ul .usercontent img {
+                .creator-card-footer ul .usercontent img {
                     width: 100%;
                     margin-bottom: -3px;
                 }
-            .creator_card_footer ul .usercontent:hover {
+            .creator-card-footer ul .usercontent:hover {
                 opacity: 0.5;
             }
 /*creator card end*/

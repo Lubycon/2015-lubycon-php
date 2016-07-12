@@ -1,8 +1,9 @@
 var CommentCard = function(data){
-	this.picture = data.profile;
+	this.profile = data.profile;
+	this.usercode = data.usercode;
 	this.username = data.username;
 	this.content = data.content;
-	this.time = data.time;
+	this.date = data.date;
 }
 
 CommentCard.prototype.render = function(){
@@ -23,7 +24,7 @@ CommentCard.prototype.render = function(){
 		}),
 		counter = $("<span/>", { 
 			"class" : "comment-time-counter",
-			"html" : this.time 
+			"html" : this.date 
 		}),
 		content = $("<p/>",{ 
 			"class" : "comment-contents",
@@ -38,12 +39,15 @@ CommentCard.prototype.render = function(){
 	return body;
 }
 
-CommentCard.prototype.getUser = function(){
+CommentCard.prototype.getUserName = function(){
 	return this.username;
+}
+CommentCard.prototype.getUserCode = function(){
+	return this.usercode;
 }
 CommentCard.prototype.getContent = function(){
 	return this.content;
 }
-CommentCard.prototype.getTime = function(){
-	return this.time;
+CommentCard.prototype.getDate = function(){
+	return this.date;
 }
