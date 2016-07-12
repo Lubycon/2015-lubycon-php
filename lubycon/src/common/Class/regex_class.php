@@ -12,7 +12,6 @@ class regex_validate
     {
         if( preg_match($this->_email_vali, $value) )
         {
-            echo 'email / done<br/>';
             return true;
         }else
         {
@@ -42,7 +41,6 @@ class regex_validate
             die( 'password / you can not null word<br/>');
         }else
         {
-            echo 'password / done</br>';
             return true;
         };
 
@@ -55,7 +53,6 @@ class regex_validate
             die('sametext / not same values<br/>');
         }else
         {
-            echo 'sametext / done<br/>';
             return true;
         };
     }
@@ -79,7 +76,6 @@ class regex_validate
             die( 'nickname / you can not use space<br/>');
         }else
         {
-            echo 'nickname / done<br/>';
             return true;
         };
     }
