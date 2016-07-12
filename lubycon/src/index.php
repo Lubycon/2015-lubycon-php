@@ -39,7 +39,8 @@
                     $activity = false;
 
                 if($activity === false)
-                    echo '<script>document.location.href="?dir=service/view/waiting_for_resisting"</script>';
+                    $BODY_URL = "service/view/waiting_for_resisting.php";
+                //echo '<script>document.location.href="?dir=service/view/waiting_for_resisting"</script>';
 
             }else{
                 $session->DestroySession();
