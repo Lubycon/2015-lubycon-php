@@ -60,7 +60,7 @@ else
     die('wrong category');
 };
 
-include_once('./contents_view_model.php');
+include_once('../../model/contents/model.php');
 
 // contetnts data
 $json_control->json_decode('job',"../../../../data/job.json");

@@ -5,7 +5,7 @@ $(document).ready(function(){
 		console.time("DATA LOADED");
 		$.ajax({
             type: "POST",
-            url: "./pages/controller/contents/contents_view_controller.php",
+            url: "./pages/controller/contents/view_controller.php",
             data: 'cate=' + CATE_PARAM + '&conno=' + CONNUM_PARAM,
             cache: false,
             success: function (data){

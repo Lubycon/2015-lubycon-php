@@ -1,6 +1,9 @@
+<script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script> <!-- account file js -->
 <script type="text/javascript" src="./component/view/comment_card/comment.tmpl.js"></script>
 <script type="text/javascript" src="./component/view/creator_card/creator_card.tmpl.js"></script>
 <script type="text/javascript" src="./pages/controller/contents/viewer_controller.js"></script>
+
+<link href="./pages/view/contents/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
 
 <section class="container">
     <section class="nav_guide" id="contents_info_wrap">
@@ -26,12 +29,14 @@
     <section class="con_wrap">
         <div id="contents_main" class="con_main">
             <?php
-                if($cate_name == 'threed'){
+           		/* how to call 3d contents?
+                if($_GET['cate'] == 'threed'){
                     include "./pages/view/contents/webGL.php";
                 }
                 else{
                     echo htmlspecialchars_decode($contents_html);
                 };
+                */
             ?>
             <div class="infoCard-horizontal">
                 <div class="infoCard content_info x2 left">
