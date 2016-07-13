@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	callController({
-		url: "./pages/controller/contents/contents_view_controller.php",
+		url: "./pages/controller/contents/view_controller.php",
 		data: 'cate=' + CATE_PARAM + '&conno=' + CONNUM_PARAM,
 		callback: initViewer
 	});
-	
+
 	function initViewer(data){
 		console.log(data);
 		var content = data.contents,
