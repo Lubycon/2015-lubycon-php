@@ -58,7 +58,8 @@
         }else{
             $LoginState = false;    
         }
-    }  
+    }
+    echo "<script>console.log('$BODY_URL');</script>";  
 ?>
 
 <!DOCTYPE html>
@@ -367,6 +368,7 @@
     </div>
     <!--INCLUDE BODY-->
 <?php
+
     if($BODY_URL) {
         include_once "./".$BODY_URL;
     }else{
@@ -374,6 +376,7 @@
     }
 
     include_once "./component/view/index/index_footer.php";
+
 ?>
 
 </div>
