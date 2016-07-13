@@ -1,4 +1,5 @@
 var CreatorCard = function(data){
+	this.bestCreator = data.bestCreator;
 	this.code = data.code;
 	this.profile = data.profile;
 	this.name = data.name;
@@ -14,19 +15,24 @@ var CreatorCard = function(data){
 
 	this.userDir = data.userDir;
 
-	this.userContents = this.userContents ? [
-		{ id : data.contents[0].id, img : data.userDir + '/thumbnail/thumbnail.jpg' },
-		{ id : data.contents[1].id, img : data.userDirr + '/thumbnail/thumbnail.jpg' },
-		{ id : data.contents[2].id, img : data.userDir + '/thumbnail/thumbnail.jpg' }
+	this.contents = data.contents ? [
+		{ id : data.contents[0], img : data.userDir + '/thumbnail/thumbnail.jpg' },
+		{ id : data.contents[1], img : data.userDir + '/thumbnail/thumbnail.jpg' },
+		{ id : data.contents[2], img : data.userDir + '/thumbnail/thumbnail.jpg' }
 	] : null;
 }
 CreatorCard.prototype.render = function(){
+	var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 	var card = $("<div/>",{
-			"class" : "creators-card",
+			"class" : "creator-card",
 			"data-index" : this.code
 		}),
-		header = $("<div/>", { "class" : "creators-card-header" }),
-			label = $("<span/>",{ "class" : "card-label" })
+		header = $("<div/>", { "class" : "creator-card-header" }),
+			label = $("<span/>",{ 
+				"class" : "card-label",
+				"html" : this.bestCreator ? "Creator of <span class='this-month'>"+ month[new Date().getMonth()+1] +"</span>" : ""
+			})
 			.appendTo(header),
 		body = $("<div/>", { "class" : "creator-card-body" }),
 			picWrap = $("<div/>", { "class" : "creator-pic-wrap" }),
@@ -46,37 +52,78 @@ CreatorCard.prototype.render = function(){
 					.appendTo(infoWrap),
 				location = $("<p/>", {
 					"class" : "creator-location hidden-mb-b",
-					"html" : "<i class='fa fa-map-marker'>"+ this.city+", "+ this.country +"</i>"
+					"html" : "<i class='fa fa-map-marker'></i>" + this.city+ ", " + this.country
 				})
 				.appendTo(infoWrap),
 				counter = $("<article/>", { 
 					"class" : "contents-count hidden-mb-b",
-					"html" : "<p class='contents-num'>" + this.contentsLength + "</p> Contents"
+					"html" : "<p class='contents-num'>" + this.contentsLength.setUnit(1) + "</p> Contents"
 				})
 				.appendTo(infoWrap),
 
 		// MEDAL SYSTEM IS TESTING
-		medal = $("<div/>",{ "class" : "creator-card-medal" }),
+		medaler = $("<div/>",{ "class" : "creator-card-medal" }),
 			medals = $("<ul/>").appendTo(medal),
-				medal = $("<li/>").appendTo(medals),
+				medal = $("<li/>").appendTo(medal),
 
 		footer = $("<div/>",{ "class" : "creator-card-footer" }),
-			contentsWrap = $("<ul>"),
+			contentsWrap = $("<ul>").appendTo(footer),
 			content = $("<li/>",{ "class" : "usercontent"}),
-				anchor = $("<a/>", { "class" : "contents-link" });
+				anchor = $("<a/>", { "class" : "contents-link" }),
+				img = $("<img/>");
 
-		$.each(this.userContents,function(){
-			console.log($(this));
-			//CONTENTS BIND. 2016-07-13 EVAN
-		});
+		if(this.contents){
+			$.each(this.contents,function(i,v){
+				var i = img.clone().attr("src",v.img),
+					a = anchor.clone().attr("href","?dir=pages/controller/contents/contents_view&cate=artwork&conno=" + v.id);
+				var box = content.clone();
+				a.append(i);
+				box.append(a);
+				box.appendTo(contentsWrap);
+			});
+		}
 
 	body.append(picWrap);
 	body.append(infoWrap);
 
 	card.append(header);
 	card.append(body);
-	card.append(medal);
-	if(this.userContents) card.append(footer);
+	card.append(medaler);
+	if(this.contents) card.append(footer);
 
 	return card;
+}
+CreatorCard.prototype.setMenu = function(){
+	/*var cards = $(document).find(".creators_card");
+	var menuParams = "";
+	cards.each(function(){
+		menuParams = [
+			{
+				name : "View Dashboard",
+				icon : "fa-tachometer",
+				uri : "../personal_page/personal_page.php?cate=dashboard&usernum="
+			},
+			{
+				name : "View Contents",
+				icon : "fa-eye",
+				uri : "../personal_page/personal_page.php?cate=my_contents&usernum="
+			},
+			{
+				name : "View Insight",
+				icon : "fa-bar-chart",
+				uri : "../personal_page/personal_page.php?cate=insight&usernum="
+			},
+			{
+				name : "View Forum",
+				icon : "fa-table",
+				uri : "../personal_page/personal_page.php?cate=my_forums&usernum="
+			}
+		];
+		var code = $(this).data("index");
+		$.each(menuParams,function(i,v){ 
+			v.uri += code;
+		});
+		
+		CardMenu.call($(this),menuParams,"");
+	});*/
 }
