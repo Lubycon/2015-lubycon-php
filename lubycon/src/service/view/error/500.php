@@ -13,19 +13,19 @@
 
     <title>Lubycon</title>
 	
-	<link rel="shortcut icon" href="../../ch/img/logo/lubycon.ico" />  <!-- favicon -->
+	<link rel="shortcut icon" href="../../../../asset/img/logo/lubycon.ico" />  <!-- favicon -->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Source Sans Pro:200,400' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="../../css/layout/animate.css" />
-	<link rel="stylesheet" href="../../css/messagePage.css" />
+	<link rel="stylesheet" href="../../../../plugin/lib/animate.css" />
+	<link rel="stylesheet" href="../messagePage.css" />
 
-	<script type="text/javascript" src="../../js/core/jquery-1.12.2.min.js"></script> <!-- jquery library -->
-	<script type="text/javascript" src="../../js/core/core.js"></script>
-	<script type="text/javascript" src="../../js/messagePage.js"></script>
+	<script type="text/javascript" src="../../../../plugin/lib/jquery-1.12.2.min.js"></script> <!-- jquery library -->
+	<script type="text/javascript" src="../../../common/common.js"></script>
+	<script type="text/javascript" src="../messagePage.js"></script>
 </head>
 <body>
-	<figure class="image-background"><img src="../../ch/img/404_page_image.svg" /></div>
 	<section class="message message-wrapper bounceInDown animated">
+		<i class="message-icon fa fa-code black-color"></i>
 		<div class="message-box">
 			<article class="main-message">500 Server Error</article>
 			<article class="sub-message">Server is not response</article>
