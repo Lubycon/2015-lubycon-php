@@ -1,5 +1,5 @@
 var CreatorCard = function(data){
-	this.bestCreator = data.bestCreator;
+	this.bestCreator = data.bestCreator || false;
 	this.code = data.code;
 	this.profile = data.profile;
 	this.name = data.name;
@@ -11,14 +11,12 @@ var CreatorCard = function(data){
 	this.country = data.country;
 	this.city = data.city;
 
-	this.contentsLength = data.contentsCount || 0;
-
-	this.userDir = data.userDir;
+	this.contentsLength = parseInt(data.contentsCount) || 0;
 
 	this.contents = data.contents ? [
-		{ id : data.contents[0], img : data.userDir + '/thumbnail/thumbnail.jpg' },
-		{ id : data.contents[1], img : data.userDir + '/thumbnail/thumbnail.jpg' },
-		{ id : data.contents[2], img : data.userDir + '/thumbnail/thumbnail.jpg' }
+		{ id : data.contents[0].id, img : data.contents[0].img },
+		{ id : data.contents[1].id, img : data.contents[1].img },
+		{ id : data.contents[2].id, img : data.contents[2].img }
 	] : null;
 }
 CreatorCard.prototype.render = function(){
@@ -75,13 +73,38 @@ CreatorCard.prototype.render = function(){
 		if(this.contents){
 			$.each(this.contents,function(i,v){
 				var i = img.clone().attr("src",v.img),
-					a = anchor.clone().attr("href","?dir=pages/controller/contents/contents_view&cate=artwork&conno=" + v.id);
+					a = anchor.clone().attr("href","?dir=pages/view/contents/viewer&cate=artwork&conno=" + v.id);
 				var box = content.clone();
 				a.append(i);
 				box.append(a);
 				box.appendTo(contentsWrap);
 			});
 		}
+
+		var menuParams = [
+			{
+				name : "View Dashboard",
+				icon : "fa-tachometer",
+				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+			},
+			{
+				name : "View Contents",
+				icon : "fa-eye",
+				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+			},
+			{
+				name : "View Insight",
+				icon : "fa-bar-chart",
+				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+			},
+			{
+				name : "View Forum",
+				icon : "fa-table",
+				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+			}
+		];
+		
+		CardMenu.call(body,menuParams,"");
 
 	body.append(picWrap);
 	body.append(infoWrap);
@@ -91,39 +114,23 @@ CreatorCard.prototype.render = function(){
 	card.append(medaler);
 	if(this.contents) card.append(footer);
 
+	this._$DOM = card;
+	console.log(this);
+
 	return card;
 }
-CreatorCard.prototype.setMenu = function(){
-	/*var cards = $(document).find(".creators_card");
-	var menuParams = "";
-	cards.each(function(){
-		menuParams = [
-			{
-				name : "View Dashboard",
-				icon : "fa-tachometer",
-				uri : "../personal_page/personal_page.php?cate=dashboard&usernum="
-			},
-			{
-				name : "View Contents",
-				icon : "fa-eye",
-				uri : "../personal_page/personal_page.php?cate=my_contents&usernum="
-			},
-			{
-				name : "View Insight",
-				icon : "fa-bar-chart",
-				uri : "../personal_page/personal_page.php?cate=insight&usernum="
-			},
-			{
-				name : "View Forum",
-				icon : "fa-table",
-				uri : "../personal_page/personal_page.php?cate=my_forums&usernum="
-			}
-		];
-		var code = $(this).data("index");
-		$.each(menuParams,function(i,v){ 
-			v.uri += code;
-		});
-		
-		CardMenu.call($(this),menuParams,"");
-	});*/
+CreatorCard.prototype.getDOM = function(){
+	return this._$DOM;
+}
+CreatorCard.prototype.getCode = function(){
+	return this.code;
+}
+CreatorCard.prototype.getName = function(){
+	return this.name;
+}
+CreatorCard.prototype.getJob = function(){
+	return this.name;
+}
+CreatorCard.prototype.isBestCreator = function(){
+	return this.bestCreator;
 }

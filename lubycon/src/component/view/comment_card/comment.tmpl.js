@@ -36,6 +36,7 @@ CommentCard.prototype.render = function(){
 	timeWrap.append(counter).appendTo(body);
 	content.appendTo(body);
 
+	this._$DOM = body;
 	return body;
 }
 
@@ -50,4 +51,7 @@ CommentCard.prototype.getContent = function(){
 }
 CommentCard.prototype.getDate = function(){
 	return this.date;
+}
+CommentCard.prototype.getDOM = function(){
+	return this._$DOM;
 }
