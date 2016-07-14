@@ -63,12 +63,11 @@
 
    	/* creators data */
     $creators_data = array();
-    $i = 0;
     while( $creator_row = mysqli_fetch_array($db->result) )
     {
     	$job_origin_select = $job_decode[$creator_row['jobCode']]['name'];
     	$country_origin_select = $country_decode[$creator_row['countryCode']]['name'];
-    	$creators_data[$i] = array(
+    	$creators_data[] = array(
     			'usercode' => $creator_row['userCode'],
 		        'user_img_url' => "../../../../Lubycon_Contents/user/".$creator_row['userCode']."/profile.jpg",
 		        'user_location_img' => "../asset/img/flag_icons/".$creator_row['countryCode'].'.png',
@@ -88,8 +87,6 @@
     					'user_content2_num' => $creator_row['boardCode']
     					)
 		    	);
-    	
-    	$i++;
     }
    	/* creators data */
     
