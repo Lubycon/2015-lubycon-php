@@ -1,7 +1,7 @@
 <?php
-require_once '../database/database_class.php';
-require_once '../commonFunc.php';
-include_once '../class/MailerClass.php';
+require_once '../../../common/Class/database_class.php';
+require_once '../../../common/common.php';
+include_once '../../../common/Class/MailerClass.php';
 
 $db = new Database();
 
@@ -21,7 +21,7 @@ if(mailer($from, $to, $subject, $password, 'password'))
 {
 	$db->query = "UPDATE userbasic SET pass = '".$encrypt."' WHERE (email='".$to."')";
 	if($db->askQuery() !== false){
-		header('location:success_find_password.php');
+		header('location:../../../service/view/success_find_password.php');
 	}else{
 		echo "db 전송 실패";
 	}

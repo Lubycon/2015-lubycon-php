@@ -22,11 +22,14 @@
 		$session->WriteSession('lubycon',$result);
 
 		if($result['validation'] === 'active')
+			// 인증 회원 페이지 구현
 			//echo "index페이지로 이동";
 			header('location:../../../index.php');
 		else if($result['validation'] == 'inactive')
+			// 비인증 회원 페이지 구현
 			//echo "waiting_for_resisting 으로 페이지 이동";
-			echo '<script>document.location.href="./service/view/waiting_for_resisting.php"</script>';
+			//echo '<script>document.location.href="../../../index.php"</script>';
+			header('location:../../../index.php');
 		else
 			die("result['validation'] wrong value");
 
@@ -35,6 +38,7 @@
 		header('location:index.php');
 */
 	}else{
+		// 로그인실패시 반응 구현
 		header('location:./index.php?=dir/');
 	}
 
