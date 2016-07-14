@@ -58,7 +58,8 @@
         }else{
             $LoginState = false;    
         }
-    }  
+    }
+    echo "<script>console.log('$BODY_URL');</script>";  
 ?>
 
 <!DOCTYPE html>
@@ -98,6 +99,7 @@
     <script type="text/javascript" src="../plugin/JS/resizeObject.js"></script>
     <script type="text/javascript" src="../plugin/JS/sticky.js"></script>
     <script type="text/javascript" src="../plugin/JS/checkBox.js"></script>
+    <script type="text/javascript" src="./common/Module/prototype_.js"></script>
     <script type="text/javascript" src="./common/common.js"></script>
     <script type="text/javascript" src="./component/view/index/ui.js"></script>
     <script type="text/javascript" src="./component/view/index/mobile.js"></script>
@@ -367,6 +369,7 @@
     </div>
     <!--INCLUDE BODY-->
 <?php
+
     if($BODY_URL) {
         include_once "./".$BODY_URL;
     }else{
@@ -374,6 +377,7 @@
     }
 
     include_once "./component/view/index/index_footer.php";
+
 ?>
 
 </div>

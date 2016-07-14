@@ -1246,12 +1246,12 @@ body {
                     width: 100%;
                 }
 .infoCard.creator{}
-    .infoCard.creator ..creator-card {
+    .infoCard.creator .creator-card {
         width: 100%;
         float: none;
         box-shadow: none;
     }
-    .infoCard.creator ..creator-card .creator-pic-wrap {
+    .infoCard.creator .creator-card .creator-pic-wrap {
         margin: 0px auto;
         display: block;
     }
@@ -1384,7 +1384,7 @@ body {
     /*empty*/
 }
 
-.creators-card{
+.creator-card{
     position: relative;
     background: #fff;
     padding-top: 5px;
@@ -1452,6 +1452,7 @@ body {
                 color: #48cfad;
                 font-size: 21px;
                 font-weight: 600;
+                margin-left: 4px;
             }
     .creator-card-body {
 
