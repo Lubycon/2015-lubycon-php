@@ -1,12 +1,25 @@
 
 $(document).ready(function(){
-    $.getJSON("./component/view/chart/data/insightData.json",function(data){
-        success : initDashboard(data);
-    }).fail(function(d, textStatus, error){ 
-        console.log("getJSON failed, status: " + textStatus + ", error: "+error) 
-    });
+    /*callController({
+        url: "./pages/controller/personal_page/x.php",
+        data: 'cate=' + true + '&conno=' + CONNUM_PARAM,
+        callback: init
+    });*/
+    init();
+    function init(data){
+        initDashboard(data);
+        $.getJSON("./component/view/chart/data/insightData.json",function(data){
+            success : initChart(data);
+        }).fail(function(d, textStatus, error){ 
+            console.log("getJSON failed, status: " + textStatus + ", error: "+error) 
+        });
+    }
 
     function initDashboard(data){
+        console.log(data || false);
+    }
+    
+    function initChart(data){
         var likeTimelineData = data.timeline.like,
             viewTimelineData = data.timeline.view,
             uploadTimelineData = data.timeline.upload,
