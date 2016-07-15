@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>LUBYCON WORK MUSIC</title>
+		<script src="./jquery-1.12.2.min.js" type="text/javascript"></script>
+		<script src="./data.json" type="text/javascript"></script>
+		<script src="./index.js" type="text/javascript"></script>
+	</head>
+  	<body>
+  		<style>
+  			body{
+  				margin: 0;
+  				background: #222222;
+  				color: #eeeeee;
+  			}
+  			.wrapper {
+  				position: relative;
+  				width: 90%;
+  				margin: 20px auto;
+  			}
+  			.layout {
+  				width: 50%;
+  				float: left;
+  				vertical-align: middle;
+  			}
+  				.title {
+  					font-size: 30px;
+  					font-weight: bold;
+  					margin-bottom: 20px;
+  				}
+  				.title.player {
+  					color: #eeeeee;
+  				}
+
+  				#player {
+  					background: #222222;
+  				}
+  				#music-list {
+
+  				}
+  					#music-list li {
+  						list-style: none;
+  						width: 200px;
+  						height: 20px;
+  						margin: 6px 0px;
+  						padding: 10px;
+  						background: #000000;
+  						cursor: pointer;
+  						transition: all 0.2s;
+  					}
+  						#music-list li:hover {
+  							opacity: 0.7;
+  						}
+  		</style>
+  		<div class="wrapper">
+  			<div class="layout" id="left">
+  				<div class="title player">
+	  				<p></p>
+	  			</div>
+	  			<div id="player"></div>
+  			</div>
+  			<div class="layout" id="right">
+  				<div id="music-list">
+	  				<ul></ul>
+	  			</div>
+  			</div>  			
+  		</div>
+  	</body>
+</html>
