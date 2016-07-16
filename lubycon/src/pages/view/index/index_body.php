@@ -3,6 +3,7 @@
 <link href="./pages/view/index/index.css" rel="stylesheet" type="text/css" />  <!-- index file css -->
 <link href="../plugin/JS/lubyImageSlider.css" rel="stylesheet" type="text/css" />
 <script src="../plugin/JS/jquery.lubyImageSlider.js" type="text/javascript" ></script>
+<script src="./pages/controller/index/index_body_renderer.js"></script>
 <div id="index_figure_wrap" class="main_figure_wrap hidden-mb-b">
     <figure>
         <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
