@@ -26,19 +26,27 @@
                         </span>
                         <h5 id="user-intro"><p></p></h5>
                         <span id="user-setting">
-                            <a href="#">
-                                <i class="fa fa-gear fa-1x"></i>
-                            </a>
-                        </span><!--user menu-->
+                            <!--user menu-->
+                        </span>
                     </div> 
                 </div>
                 <div id="subnav" class="hidden-mb-b">
                     <ul>
-                        <li id="dashboard" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$usernumber?>">Dashboard</a></li>
-                        <li id="my_contents" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=my_contents&usernum=<?=$usernumber?>&page=1">Contents</a></li>
-                        <li id="my_forums" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=my_forums&usernum=<?=$usernumber?>">Forums</a></li>
-                        <li id="insight" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=insight&usernum=<?=$usernumber?>">Insight</a></li>
-                        <li id="bookmark" class="subnav_li"><a href="?dir=pages/view/personal_page/personal_page&cate=bookmark&usernum=<?=$usernumber?>&page=1">Bookmark</a></li>           
+                        <li class="subnav_li" data-value="dashboard">
+                            <a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$usernumber?>">Dashboard</a>
+                        </li>
+                        <li class="subnav_li" data-value="my_contents">
+                            <a href="?dir=pages/view/personal_page/personal_page&cate=my_contents&usernum=<?=$usernumber?>&page=1">Contents</a>
+                        </li>
+                        <li class="subnav_li" data-value="my_forums">
+                            <a href="?dir=pages/view/personal_page/personal_page&cate=my_forums&usernum=<?=$usernumber?>">Forums</a>
+                        </li>
+                        <li class="subnav_li" data-value="insight">
+                            <a href="?dir=pages/view/personal_page/personal_page&cate=insight&usernum=<?=$usernumber?>">Insight</a>
+                        </li>
+                        <li class="subnav_li" data-value="bookmark">
+                            <a href="?dir=pages/view/personal_page/personal_page&cate=bookmark&usernum=<?=$usernumber?>&page=1">Bookmark</a>
+                        </li>           
                     </ul>
                 </div>
             </aside>
@@ -46,11 +54,9 @@
             <?php
                 $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark'];
 
-                if( in_array($_GET['cate'] , $allow_array) )
-                {
+                if( in_array($_GET['cate'] , $allow_array) ){
                     include_once('./pages/view/personal_page/'.$_GET['cate'].'.php');
-                }else
-                {
+                }else {
                     include_once('.service/view/error/404.php');
                 }
             ?>

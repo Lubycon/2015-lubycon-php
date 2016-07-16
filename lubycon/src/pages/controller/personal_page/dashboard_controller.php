@@ -23,7 +23,6 @@ $country_decode = $json_control->json_decode_code;
 $usernumber = $_POST['usernum'];
 
 include '../../model/personal_page/dashboard_model.php';
-$page_title = 'dashboard';
 
 $user_data = array(
 		'utc' => $country_decode[$userdata_row["countryCode"]]["utc"],
@@ -70,7 +69,6 @@ $insight_data = array(
 		'last7daysDownload' => 0
 );
 $total_array = array(
-		'pageTitle' => $page_title,
 		'userData' => $user_data,
 		'userLanguage' => $user_language,
 		'userHistory' => $user_history,

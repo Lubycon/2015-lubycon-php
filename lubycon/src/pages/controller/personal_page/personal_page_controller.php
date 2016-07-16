@@ -23,8 +23,7 @@ $country_decode = $json_control->json_decode_code;
 
 
 $usernumber = $_POST['usernum'];
-$page_title = 'personal_page';
-
+$page_title = $_POST['cate'];
 
 include '../../model/personal_page/personal_page_model.php';
 

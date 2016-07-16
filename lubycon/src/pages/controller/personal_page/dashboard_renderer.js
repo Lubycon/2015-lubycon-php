@@ -1,21 +1,22 @@
 
 $(document).ready(function(){
-    callController({
+    Controller({
         url: "./pages/controller/personal_page/dashboard_controller.php",
         callback: init
     });
 
-    function init(data){
+    function init(data,session){
         initDashboard(data);
         $.getJSON("./component/view/chart/data/insightData.json",function(data){
             success : initChart(data);
         }).fail(function(d, textStatus, error){ 
-            console.log("getJSON failed, status: " + textStatus + ", error: "+error) 
+            console.log("insight data loading is failed, status: " + textStatus + ", error: "+error) 
         });
     }
 
     function initDashboard(data){
-        console.log(data || false);
+        console.log(data.insightData);
+        console.log(data.publicOption)
     }
     
     function initChart(data){
@@ -61,7 +62,6 @@ $(document).ready(function(){
         dataArray.splice(0,dataArray.length-7);
         initLineChart(target,theme,dataArray);
     }
-
     function initLineChart(target,theme,data){
         var chart = AmCharts.makeChart(target, {
             "type": "serial",
@@ -169,7 +169,4 @@ $(document).ready(function(){
         };
     }
 })
-
-
-/*----------------------------chart in dashboard page end--------------------------*/
 
