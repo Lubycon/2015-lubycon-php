@@ -74,16 +74,21 @@ function Controller(param){
         async: true,
         success: function(data){
             var session = $.parseJSON(data);
-            $.ajax({
-                type: "POST",
-                url: param.url,
-                data: param.data,
-                cache: false,
-                success: function (data){
-                    console.timeEnd("DATA LOADED");
-                    param.callback($.parseJSON(data),session);
-                }
-            })
+            if(param.url){
+                $.ajax({
+                    type: "POST",
+                    url: param.url,
+                    data: param.data,
+                    cache: false,
+                    success: function (data){
+                        console.timeEnd("DATA LOADED");
+                        param.callback($.parseJSON(data),session);
+                    }
+                })
+            }
+            else {
+                param.callback(session);
+            }
         }
     });
 }
