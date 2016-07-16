@@ -11,6 +11,7 @@ var MID_CATE_PARAM = getUrlParameter('mid_cate'); // GLOBAL
 var CONNUM_PARAM = getUrlParameter('conno'); // GLOBAL
 var BNO_PARAM = getUrlParameter('bno'); //GLOBAL
 var PAGE_PARAM = getUrlParameter('page'); //GLOBAL
+var USER_PARAM = getUrlParameter('usernum'); //GLOBAL
 
 var TOUCHMOVING = false;
 $(document).ready(function(){
@@ -64,18 +65,32 @@ function setUrlParameter(sParam,value){
     return 0;
 }
 
-function callController(param){
+function Controller(param){
     console.time("DATA LOADED");
     $.ajax({
         type: "POST",
-        url: param.url,
-        data: param.data,
+        url: "./common/Module/get_session.php",
         cache: false,
-        success: function (data){
-            console.timeEnd("DATA LOADED");
-            param.callback($.parseJSON(data));
+        async: true,
+        success: function(data){
+            var session = $.parseJSON(data);
+            if(param.url){
+                $.ajax({
+                    type: "POST",
+                    url: param.url,
+                    data: param.data,
+                    cache: false,
+                    success: function (data){
+                        console.timeEnd("DATA LOADED");
+                        param.callback($.parseJSON(data),session);
+                    }
+                })
+            }
+            else {
+                param.callback(session);
+            }
         }
-    })
+    });
 }
 
 //This function will be canceled the click event when users touch in mobile devices

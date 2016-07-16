@@ -1,65 +1,6 @@
-<?php
-
-    require_once './common/Class/database_class.php';
-    require_once './common/Class/regex_class.php';
-    require_once './common/Class/json_class.php';
-    
-    $json_control = new json_control;
-    $db = new Database();
-
-    $usernumber = $_GET['usernum'];
-  
-    if( $usernumber == $Loginuser_code ) //need more security
-    {
-        
-        $db->query = 
-                    "SELECT `languageLevel`,`languageName` 
-                     FROM `userlanguage` 
-                     WHERE `userCode` = $usernumber
-                    ";
-
-        $db->askQuery();
-
-        while( $row = mysqli_fetch_array($db->result) )
-        {
-            $lang_level[] = $row['languageLevel'];
-            $lang_name[] = $row['languageName'];
-        }
-
-        $db->query = 
-                    "SELECT `historyContents`,`historyDateYear`,`historyDateMonth`,`historyCategory` 
-                     FROM `userhistory` 
-                     WHERE `userCode` = $usernumber
-                    ";
-
-        $db->askQuery();
-        $history_row = $db->result;
-        
-        $db->query = 
-                    "SELECT * 
-                     FROM `userinfo` 
-                     WHERE `userCode` = $Loginuser_code
-                    ";
-        
-        // viewcount up    
-        $db->askQuery(); 
-        $row = mysqli_fetch_array($db->result);
-    }
-
-    else
-    {
-        include('./service/view/error/404.php');
-        die();
-    }
-    
-?>
-
 <link href="./pages/view/account_setting/account_setting.css" rel="stylesheet" type="text/css" />
-<!-- ------------------------------------------ -->
 <link href="../plugin/JS/cropper.css" rel="stylesheet" type="text/css" />
-<!-- account_setting page css -->
 <script type="text/javascript" src="./pages/view/account_setting/account_setting.js"></script>
-<!-- ------------------------------------------ -->
 <script type="text/javascript" src="../plugin/JS/cropper.js"></script>
 <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../plugin/JS/jquery.mousewheel.min.js"></script>

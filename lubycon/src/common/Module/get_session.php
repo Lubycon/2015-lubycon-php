@@ -51,13 +51,12 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 		// login menu
 		
 		$session_data = array(
-				'LoginState' => $LoginState,
-				'Loginuser_name' => $Loginuser_name,
-				'Loginuser_id' => $Loginuser_id,
-				'Loginuser_code' => $Loginuser_code,
-				'Loginuser_country' => $Loginuser_country,
-				'Loginuser_job' => $Loginuser_job,
-				'Loginuser_city' => $Loginuser_city
+			'LoginState' => $LoginState,
+			'username' => $Loginuser_name,
+			'usercode' => $Loginuser_code,
+			'country' => $Loginuser_country,
+			'job' => $Loginuser_job,
+			'city' => $Loginuser_city
 		);
 		
 		$data_json = json_encode($session_data);

@@ -222,6 +222,7 @@
             color: #444444;
             font-size: 20px;
             transition: color 0.2s;
+            line-height: 40px;
         }
             .cropper-bt:hover i {
                 color: #48cfad;
