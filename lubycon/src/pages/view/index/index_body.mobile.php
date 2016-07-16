@@ -85,7 +85,7 @@
     </ul>
 </aside>
 <section class="mb-wrapper-main visible-mb">    
-    <section class="mb-section">
+    <!--<section class="mb-section">
         <div class="mb-main-img-wrapper selected" data-value="artwork">
             <ul>
                 <li class="mb-main-img">
@@ -272,7 +272,7 @@
                 <a href="?dir=pages/controller/contents/contents_page&cate=threed&page=1">VIEW MORE 3D MODEL</a>
             </div>
         </div>
-    </section>
+    </section>-->
     <div id="mb-main-tab">
         <div class="mb-main-tab-wrapper">
             <div class="mb-main-tab-bt btn radioType selected" data-target="artwork">

@@ -363,22 +363,13 @@ $(document).ready(function(){
         }
     }
 
-    function initMainSlider(){
-        $("#slider1").lubyImageSlider();
-        $("#slider2").lubyImageSlider();
-        $("#slider3").lubyImageSlider();
-
-        $("#slider1").show();
-        $("#slider2").hide();
-        $("#slider3").hide();
-    }
-
     function mainSliderRadioAction(){
-        $('.la_bt').on("click", toggle.group);
-        $(".slide-radio").on("change",slideChecker);
+        var button = $("#slide_lnb").find(".btn");
+
+        button.on("click", toggle.group).on("click", slideChecker);
 
         function slideChecker(){
-            var $this = $("." + $(this).attr("class") + ":checked"),
+            var $this = $(this),
             data = $this.data("value"),
             $sliders = $("#slide_section .lubyImageSlider");
             $target = $("#slider" + data);
