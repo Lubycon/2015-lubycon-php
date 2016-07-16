@@ -4,7 +4,7 @@ var CreatorCard = function(data){
 	this.profile = data.profile;
 	this.name = data.name;
 	this.job = data.job;
-	this.personalPage = "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + data.usercode,
+	this.personalPage = "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + data.code,
 
 	this.countryCode = data.countryCode;
 	this.countryImg = "../asset/img/flag_icons/" + data.countryCode + ".png";
