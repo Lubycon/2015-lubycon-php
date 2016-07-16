@@ -28,13 +28,25 @@ $user_data = array(
 		'utc' => $country_decode[$userdata_row["countryCode"]]["utc"],
 		'job' => $job_decode[$userdata_row['jobCode']]['name'],
 		'position' => $userdata_row['company'],
-		'website' => $userdata_row['web']
+		'website' => $userdata_row['web'],
+		'location' => array(
+			'country' => $country_json[$userdata_row['countryCode']]['name'],
+			'city' => $userdata_row['city'],
+		)
 );
 
 $user_language = array();
 while ($row = mysqli_fetch_array($language_result)) {
 	$name = $row['languageName'];
-	$user_language[] = $language_name;
+	$level = $row['languageLevel'];
+
+	array_push(
+		$user_language, 
+		array( 
+			'name' => $name, 
+			'level' => $level
+		) 
+	);
 }
 
 $user_history = array();
@@ -63,10 +75,10 @@ $insight_data = array(
 		'totalView' => 0,
 		'totalUpload' => 0,
 		'totalDownload' => 0,
-		'last7daysLike' => 0,
-		'last7daysView' => 0,
-		'last7daysUpload' => 0,
-		'last7daysDownload' => 0
+		'like7days' => 0,
+		'view7days' => 0,
+		'upload7days' => 0,
+		'download7days' => 0
 );
 $total_array = array(
 		'userData' => $user_data,
