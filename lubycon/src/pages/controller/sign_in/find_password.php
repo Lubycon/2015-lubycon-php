@@ -21,7 +21,7 @@ if(mailer($from, $to, $subject, $password, 'password'))
 {
 	$db->query = "UPDATE userbasic SET pass = '".$encrypt."' WHERE (email='".$to."')";
 	if($db->askQuery() !== false){
-		header('location:../../../service/view/success_find_password.php');
+		header('location:../../../index.php?dir=service/view/success_find_password');
 	}else{
 		echo "db 전송 실패";
 	}

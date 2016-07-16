@@ -15,7 +15,7 @@
             <button type="submit" id="login_lubycon" class="animate_width"><i class="fa fa-unlock-alt"></i></button><!--submit bt-->
         </form><!--end login_input form-->
         <p id="create_acc">Create An Account</p> 
-        <a href="./pages/view/sign_in/find_password.php" target="_self"><p id="forgot_pass">Forgot your password?</p></a>          
+        <a href="./index.php?dir=pages/view/sign_in/find_password" target="_self"><p id="forgot_pass">Forgot your password?</p></a>          
     </div>  <!-- end login_box div -->
 </div>
  
