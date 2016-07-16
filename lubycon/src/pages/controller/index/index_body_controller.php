@@ -2,7 +2,8 @@
 
 	$contents_data = array(array(),array(),array());
 	$forum_data = array();
-	$limit = $_POST['isMobile'] ? 5 : 30;
+	$limit = $_POST['isMobile'] == 'true' ? 5 : 30;
+
 
 	include '../../model/index/index_body_model.php';
 
