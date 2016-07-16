@@ -31,7 +31,7 @@ include '../../model/personal_page/personal_page_model.php';
 /*target user data*/
 
 $user_data = array(
-	'page_title' => $page_title,
+	'pageTitle' => $page_title,
 	'location' => 'personal_page',
 	'name' =>	$userdata_row['nick'],
 	'profile' => "../../../../Lubycon_Contents/user/$usernumber/profile.jpg",
@@ -41,7 +41,7 @@ $user_data = array(
 );
 
 $total_array = array(
-		'user_data' => $user_data
+		'userData' => $user_data
 );
 
 $data_json = json_encode($total_array);

@@ -67,18 +67,18 @@ if( $Loginuser_code === $usernumber )
 			'web' => $userdata_row["webPublic"]
 	);
 	$total_array = array(
-		'page_title' => $page_title,
-		'user_data' => $user_data,
-		'user_language' => $user_language,
-		'user_history' => $user_history,
-		'public_option' => $public_option
+		'pageTitle' => $page_title,
+		'userData' => $user_data,
+		'userLanguage' => $user_language,
+		'userHistory' => $user_history,
+		'publicOption' => $public_option
 	);
 
 }else
 {
 	$total_array = array(
-		'page_title' => $page_title,
-		'error_code' => 0001, // session and post user number not same
+		'pageTitle' => $page_title,
+		'errorCode' => 0001, // session and post user number not same
 	);
 }
 

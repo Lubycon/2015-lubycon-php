@@ -34,7 +34,7 @@ $user_data = array(
 
 $user_language = array();
 while ($row = mysqli_fetch_array($language_result)) {
-	$language_name = $row['languageName'];
+	$name = $row['languageName'];
 	$user_language[] = $language_name;
 }
 
@@ -60,22 +60,22 @@ $public_option = array(
 		'web' => $userdata_row["webPublic"]
 );
 $insight_data = array(
-		'total_like' => 0,
-		'total_view' => 0,
-		'total_upload' => 0,
-		'total_download' => 0,
-		'last_7days_like' => 0,
-		'last_7days_view' => 0,
-		'last_7days_upload' => 0,
-		'last_7days_download' => 0
+		'totalLike' => 0,
+		'totalView' => 0,
+		'totalUpload' => 0,
+		'totalDownload' => 0,
+		'last7daysLike' => 0,
+		'last7daysView' => 0,
+		'last7daysUpload' => 0,
+		'last7daysDownload' => 0
 );
 $total_array = array(
-		'page_title' => $page_title,
-		'user_data' => $user_data,
-		'user_language' => $user_language,
-		'user_history' => $user_history,
-		'public_option' => $public_option,
-		'insight_data' => $insight_data
+		'pageTitle' => $page_title,
+		'userData' => $user_data,
+		'userLanguage' => $user_language,
+		'userHistory' => $user_history,
+		'publicOption' => $public_option,
+		'insightData' => $insight_data
 );
 
 $data_json = json_encode($total_array);
