@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	callController({
+	Controller({
 	    url: "./pages/controller/creators/controller.php",
 	    callback: init
 	});

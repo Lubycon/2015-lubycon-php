@@ -1,11 +1,11 @@
 $(document).ready(function(){
-	callController({
+	Controller({
 		url: "./pages/controller/contents/view_controller.php",
 		data: 'cate=' + CATE_PARAM + '&conno=' + CONNUM_PARAM,
-		callback: initViewer
+		callback: init
 	});
 
-	function initViewer(data){
+	function init(data){
 		console.log(data);
 		var content = data.contents,
 			creator = data.creator,

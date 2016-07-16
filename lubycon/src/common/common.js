@@ -65,7 +65,7 @@ function setUrlParameter(sParam,value){
     return 0;
 }
 
-function callController(param){
+function Controller(param){
     console.time("DATA LOADED");
     $.ajax({
         type: "POST",

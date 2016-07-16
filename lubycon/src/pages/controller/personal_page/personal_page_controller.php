@@ -23,15 +23,16 @@ $country_decode = $json_control->json_decode_code;
 
 
 $usernumber = $_POST['usernum'];
+$page_title = 'personal_page';
 
 
 include '../../model/personal_page/personal_page_model.php';
 
 /*target user data*/
 
+
 $user_data = array(
 	'code' => $_POST['usernum'],
-	'location' => 'personal_page',
 	'name' =>	$userdata_row['nick'],
 	'profile' => "../../../../Lubycon_Contents/user/$usernumber/profile.jpg",
 	'country' => $country_decode[$userdata_row['countryCode']]['name'],
@@ -40,7 +41,8 @@ $user_data = array(
 );
 
 $total_array = array(
-		'user_data' => $user_data
+	'pageTitle' => $page_title,
+	'userData' => $user_data
 );
 
 $data_json = json_encode($total_array);

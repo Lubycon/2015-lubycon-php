@@ -1,13 +1,17 @@
 $(document).ready(function(){
-	callController({
+	Controller({
         url: "./pages/controller/personal_page/personal_page_controller.php",
         data: "usernum=" + USER_PARAM,
         callback: init
     });
+    Controller({
+    	url: "./"
+    })
 
     function init(data){
-    	data = data.user_data;
-    	console.log(data.location);
+    	console.log(data);
+    	var userdata = data.userData;
+    	console.log(userdata);
 
     	var wrapper = $("#user_information"),
     			profile = wrapper.find("#user_pic > img"),
@@ -18,10 +22,14 @@ $(document).ready(function(){
 			accountSetting = wrapper.find("#user-setting > a");
 
 		console.log(data);
-		profile.attr("src",data.profile);
-		name.text(data.name);
-		location.text(data.city + ", " + data.country);
-		introduce.text(data.intro);
-		accountSetting.attr("src","?dir=pages/");
+		profile.attr("src",userdata.profile);
+		name.text(userdata.name);
+		location.text(userdata.city + ", " + userdata.country);
+		introduce.text(userdata.intro);
+		accountSetting.attr("href","?dir=service/view/resist_password");
+
+		function settingButton(){
+
+		}
     }
 })

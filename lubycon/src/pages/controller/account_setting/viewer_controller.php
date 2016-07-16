@@ -25,7 +25,7 @@ $usernumber = $_POST['usernum'];
 if( $Loginuser_code === $usernumber )
 {
 	include '../../model/account_setting/model.php';
-
+	$page_title = 'account_setting';
 	$user_data = array(
 			'email' => $userdata_row['email'],
 			'nickname' => $userdata_row['nick'],
@@ -67,16 +67,18 @@ if( $Loginuser_code === $usernumber )
 			'web' => $userdata_row["webPublic"]
 	);
 	$total_array = array(
-			'user_data' => $user_data,
-			'user_language' => $user_language,
-			'user_history' => $user_history,
-			'public_option' => $public_option
+		'pageTitle' => $page_title,
+		'userData' => $user_data,
+		'userLanguage' => $user_language,
+		'userHistory' => $user_history,
+		'publicOption' => $public_option
 	);
 
 }else
 {
 	$total_array = array(
-			'error_code' => 0001, // session and post user number not same
+		'pageTitle' => $page_title,
+		'errorCode' => 0001, // session and post user number not same
 	);
 }
 
