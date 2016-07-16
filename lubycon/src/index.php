@@ -37,6 +37,8 @@
                     $activity = false;
                 else
                     $activity = false;
+                //$State = $_SESSION['lubycon_LoginState'];
+                //echo "<script>console.log('$State');</script>";
 
                 if($activity === false)
                     $BODY_URL = "service/view/waiting_for_resisting.php";
