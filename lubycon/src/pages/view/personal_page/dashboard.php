@@ -78,11 +78,7 @@
             </div>
             <div class="dash_body">
                 <ul class="history_wrap">
-                    <!--<li>
-                        <div class='history_date'>$historyYear $historyMonth</div>
-                        <div class='history_kind $historyCategory'><i class='fa fa-circle'></i><span></span></div>
-                        <div class='history_content'>'$historyContents</div>
-                    </li>-->
+                    <!--HISTORY-->
                 </ul>
                 <aside id="history_desc" class="hidden-mb-ib">
                     <p class="history_desc_list" id="work_desc">

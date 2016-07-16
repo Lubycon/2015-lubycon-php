@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	Controller({
         url: "./pages/controller/index/index_body_controller.php",
         data: "isMobile=" + isMobile(),
@@ -7,9 +8,9 @@ $(document).ready(function(){
 
     function init(data){
     	console.log("INDEX BODY");
-    	console.log(data);
 
-    	initMainSlider(data.contentData);
+    	if(isMobile()) initMainCard(data.contentData);
+        else initMainSlider(data.contentData);
 
     	function initMainSlider(data){
     		var wrapper = $(".main-slider-wrapper");
@@ -30,7 +31,7 @@ $(document).ready(function(){
 	    			li = $("<li/>"),
 	    			anchor = $("<a/>"),
 	    			img = $("<img/>"),
-	    			link = "?dir=pages/view/contents/viewer&cate=" + category + "connum=";
+	    			url = "?dir=pages/view/contents/viewer&cate=" + category + "&conno=";
 
     			var group1 = addList(data.splice(0,10)),
     				group2 = addList(data.splice(0,10)),
@@ -44,7 +45,7 @@ $(document).ready(function(){
     				var u = ul.clone();
     				for(var i = 0; i < data.length; i++){
     					var l = li.clone(),
-    						a = anchor.clone().attr("href", link + data[i].boardCode).appendTo(l),
+    						a = anchor.clone().attr("href", url + data[i].boardCode).appendTo(l),
     						p = img.clone().attr("src", data[i].thumbnail).appendTo(a);
 						l.appendTo(u);
     				}
@@ -53,5 +54,64 @@ $(document).ready(function(){
     			return slider.lubyImageSlider();
 			}
     	}
+
+        function initMainCard(data){
+            console.log(data);
+
+            var wrapper = $(".mb-section"),
+                viewmore = $("<div/>",{ "class" : "viewmore-bt" }),
+                url = "?dir=pages/controller/contents/contents_page&cate="
+                anchor = $("<a/>");
+            var button = viewmore.append(anchor);
+
+            var artwork = MainContents(data[0],0).show(),
+                vector = MainContents(data[1],1).hide(),
+                threed = MainContents(data[2],2).hide();
+
+            var artworkButton = button.clone(true).children("a").attr("href", url + "artwork&page=1"),
+                vectorButton = button.clone(true).children("a").attr("href", url + "vector&page=1"),
+                threedButton = button.clone(true).children("a").attr("href", url + "threed&page=1");
+
+            artwork.append(artworkButton).appendTo(wrapper);
+            vector.append(vectorButton).appendTo(wrapper);
+            threed.append(threedButton).appendTo(wrapper);
+
+            function MainContents(data,cate){
+                var category = cate === 0 ? "artwork" : cate === 1 ? "vector" : "threed";
+                console.log(data,cate);
+                var card = $("<div/>",{ "class" : "mb-main-img-wrapper", "data-value" : category }),
+                    ul = $("<ul/>"),
+                    li = $("<li/>",{ "class" : "mb-main-img" }),
+                    anchor = $("<a/>"),
+                        img = $("<img/>"),
+                    layer = $("<div/>",{ "class" : "layer" }),
+                        descript = $("<div/>",{ "class" : "content-descript" }),
+                            contentName = $("<p/>",{ "class" : "content-name"}),
+                            creatorName = $("<p/>",{ "class" : "creator-name"}),
+                                span = $("<span/>"),
+                    url = "?dir=pages/view/contents/viewer&cate=" + category + "&conno=";
+
+                for(var i = 0; i < data.length; i++){
+                    var l = li.clone(),
+                        a = anchor.clone().attr("href",url + data[i].boardCode),
+                        p = img.clone().attr("src",data[i].thumbnail),
+                        lay = layer.clone(),
+                        d = descript.clone(),
+                        conName = contentName.clone().text(data[i].name),
+                        creName = creatorName.clone().text(data[i].creator);
+                    a.append(p);
+                        d.append(conName);
+                        d.append(creName);
+                        d.appendTo(lay);
+                    a.append(lay);
+                    a.appendTo(l);
+                    l.appendTo(ul);
+                }
+
+                ul.appendTo(card);
+
+                return card;
+            }
+        }
     }
 })

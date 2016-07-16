@@ -30,7 +30,7 @@ $user_data = array(
 		'position' => $userdata_row['company'],
 		'website' => $userdata_row['web'],
 		'location' => array(
-			'country' => $country_json[$userdata_row['countryCode']]['name'],
+			'country' => $country_decode[$userdata_row['countryCode']]['name'],
 			'city' => $userdata_row['city'],
 		)
 );

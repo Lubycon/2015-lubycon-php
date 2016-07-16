@@ -2,7 +2,7 @@
 
 	$contents_data = array(array(),array(),array());
 	$forum_data = array();
-	$limit = $_POST['isMobile'] == 'true' ? 5 : 30;
+	$limit = $_POST['isMobile'] == 'true' ? 10 : 30;
 
 
 	include '../../model/index/index_body_model.php';
@@ -11,7 +11,9 @@
 		array_push(
 			$contents_data[$contents_data_row['topCategoryCode']], 
 			array( 
-				'boardCode' => $contents_data_row['boardCode'] , 
+				'name' => $contents_data_row['contentTitle'],
+				'creator' => $contents_data_row['userCode'],
+				'boardCode' => $contents_data_row['boardCode'], 
 				'thumbnail' => $contents_data_row['userDirectory']."/thumbnail/thumbnail.jpg"
 			) 
 		);
