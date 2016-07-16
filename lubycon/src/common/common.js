@@ -11,6 +11,7 @@ var MID_CATE_PARAM = getUrlParameter('mid_cate'); // GLOBAL
 var CONNUM_PARAM = getUrlParameter('conno'); // GLOBAL
 var BNO_PARAM = getUrlParameter('bno'); //GLOBAL
 var PAGE_PARAM = getUrlParameter('page'); //GLOBAL
+var USER_PARAM = getUrlParameter('usernum'); //GLOBAL
 
 var TOUCHMOVING = false;
 $(document).ready(function(){

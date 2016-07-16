@@ -30,12 +30,13 @@ include '../../model/personal_page/personal_page_model.php';
 /*target user data*/
 
 $user_data = array(
+	'code' => $_POST['usernum'],
 	'location' => 'personal_page',
 	'name' =>	$userdata_row['nick'],
 	'profile' => "../../../../Lubycon_Contents/user/$usernumber/profile.jpg",
 	'country' => $country_decode[$userdata_row['countryCode']]['name'],
 	'city' => $userdata_row['city'],
-	'discrition' => $userdata_row['userDescription']
+	'intro' => $userdata_row['userDescription']
 );
 
 $total_array = array(
