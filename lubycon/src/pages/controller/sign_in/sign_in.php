@@ -21,17 +21,27 @@
 		
 		$session->WriteSession('lubycon',$result);
 
-		if($result['validation'] === 'active')
-			// 인증 회원 페이지 구현
+		if($result['validation'] === 'active'){
+			// 인증 회원 페이지 구
 			//echo "index페이지로 이동";
+			$login['LoginState'] = true;
+			$session->WriteSession('lubycon',$login);
 			header('location:../../../index.php');
-		else if($result['validation'] == 'inactive')
+		}
+		else if($result['validation'] == 'inactive'){
 			// 비인증 회원 페이지 구현
 			//echo "waiting_for_resisting 으로 페이지 이동";
 			//echo '<script>document.location.href="../../../index.php"</script>';
+			$login['LoginState'] = true;
+			$session->WriteSession('lubycon',$login);
 			header('location:../../../index.php');
-		else
+		}
+		else{
+			$session->WriteSession('lubycon',$login);
 			die("result['validation'] wrong value");
+		}
+
+		
 
 /*
 		$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city'],'normal');

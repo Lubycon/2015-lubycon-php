@@ -124,7 +124,7 @@ class infinite_scroll extends json_control
             $this->query = "
             SELECT SQL_CALC_FOUND_ROWS 
             a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
-            if(isset($query_user_code))
+            if($query_user_code != '')
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
             " FROM 
@@ -141,7 +141,7 @@ class infinite_scroll extends json_control
                 LEFT JOIN lubyconboard.`threedmidcategory`
                 USING (`boardCode`)
             ) AS a ";
-            if(isset($query_user_code))
+            if($query_user_code != '')
             {
             $this->query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b 
             ON a.`boardCode` = b.`boardCode`
@@ -160,7 +160,7 @@ class infinite_scroll extends json_control
             $this->query = "
             select SQL_CALC_FOUND_ROWS
             a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
-            if(isset($query_user_code))
+            if($query_user_code != '')
             {$this->query .= " ,b.`bookmarkActionUserCode` ";}
             $this->query .= 
             " from 
@@ -170,7 +170,7 @@ class infinite_scroll extends json_control
                 USING (`boardCode`)
                 ) as a
             ";
-            if(isset($query_user_code))
+            if( $query_user_code != '' )
             {
                 $this->query .= 
                 "LEFT JOIN lubyconboard.`contentsbookmark` b
