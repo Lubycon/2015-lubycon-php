@@ -22,8 +22,9 @@
 		$session->WriteSession('lubycon',$result);
 
 		if($result['validation'] === 'active')
-			// 인증 회원 페이지 구현
+			// 인증 회원 페이지 구
 			//echo "index페이지로 이동";
+			$login['LoginState'] = true;
 			header('location:../../../index.php');
 		else if($result['validation'] == 'inactive')
 			// 비인증 회원 페이지 구현
