@@ -78,38 +78,4 @@ $total_array = array(
 
 $data_json = json_encode($total_array);
 echo $data_json;
-
-
-
-//target user data
-/*
-$userjob = $job_json_Code[$userdata_row["jobCode"]]['name'];
-$usercountry = $country_json_Code[$userdata_row["countryCode"]]['name'];
-$utc = $country_json_Code[$userdata_row["countryCode"]]["utc"];
-echo "<script>var UTC = $utc</script>"; //for watch
-
-$user_position = $userdata_row["company"];
-$usercity = $userdata_row["city"];
-$language1 = $lang_name[0]; //not yet
-$language2 = $lang_name[1]; //not yet
-
-$total_like = 0;
-$total_view = 0;
-$total_up = 0;
-$total_down = 0;
-
-$username = $userdata_row["nick"];
-$userWebsite = $userdata_row["web"];
-$userEmail = $userdata_row["email"];
-
-//target user data
-
-//login user data
-$usernumber = $Loginuser_code;
-
-$localcountry = $Loginuser_country;
-$localcity = $Loginuser_city;
-//login user data
-*/
-
 ?>
