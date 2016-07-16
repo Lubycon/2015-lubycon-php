@@ -111,6 +111,25 @@
     <![endif]-->
 </head>
 <body id="bodyer">
+<script>
+    $(document).ready(function(){
+        Controller({
+            callback: init
+        });
+        function init(session){
+            if(session.LoginState){
+                $(".signin_class").remove();
+                $(".after_signin_class").show();
+            }
+            var searchFilter = $("body").find(".searchFilter");
+            searchFilter.lubySelector({
+                width: 130,
+                theme: "transparent",
+                icon: ""
+            });
+        }
+    })
+</script>
 <div id="wrapper"> 
     <div id="loading_icon"><i class="fa fa-spinner fa-spin"></i></div>
     <div class="dark_overlay" data-value="dark_overlay"></div>
@@ -266,23 +285,6 @@
                 <option data-value="Community">Community</option>
             </select>
         </div>
-        <script>
-            Controller({
-                callback: init
-            });
-            function init(session){
-                if(session.LoginState){
-                    $(".signin_class").remove();
-                    $(".after_signin_class").show();
-                }
-                var searchFilter = $("body").find(".searchFilter");
-                searchFilter.lubySelector({
-                    width: 130,
-                    theme: "transparent",
-                    icon: ""
-                });
-            }
-        </script>
         <!-- end select_box -->
     </div>
     <!--INCLUDE BODY-->
