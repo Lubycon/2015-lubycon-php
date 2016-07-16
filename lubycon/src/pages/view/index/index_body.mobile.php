@@ -84,7 +84,7 @@
         </li>
     </ul>
 </aside>
-<section class="mb-wrapper-main visible-mb">
+<section class="mb-wrapper-main visible-mb">    
     <section class="mb-section">
         <div class="mb-main-img-wrapper selected" data-value="artwork">
             <ul>
@@ -145,7 +145,7 @@
                 </li>
             </ul>
             <div class="viewmore_bt">
-                <a href="./php/contents/contents_page.php?cate=artwork&mid_cate=1&page=1">VIEW MORE ARTWORK</a>
+                <a href="?dir=pages/controller/contents/contents_page&cate=artwork&page=1">VIEW MORE ARTWORK</a>
             </div>
         </div>
         <div class="mb-main-img-wrapper" data-value="vector">
@@ -207,7 +207,7 @@
                 </li>
             </ul>
             <div class="viewmore_bt">
-                <a href="./php/contents/contents_page.php?cate=vector&mid_cate=1&page=1">VIEW MORE VECTOR</a>
+                <a href="?dir=pages/controller/contents/contents_page&cate=vector&page=1">VIEW MORE VECTOR</a>
             </div>
         </div>
         <div class="mb-main-img-wrapper" data-value="3d">
@@ -269,7 +269,7 @@
                 </li>
             </ul>
             <div class="viewmore_bt">
-                <a href="./php/contents/contents_page.php?cate=threed&mid_cate=1&page=1">VIEW MORE 3D MODEL</a>
+                <a href="?dir=pages/controller/contents/contents_page&cate=threed&page=1">VIEW MORE 3D MODEL</a>
             </div>
         </div>
     </section>
