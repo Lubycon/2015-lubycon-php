@@ -2,6 +2,7 @@
 $(document).ready(function(){
     Controller({
         url: "./pages/controller/personal_page/dashboard_controller.php",
+        data: "usernum=" + USER_PARAM,
         callback: init
     });
 
@@ -11,6 +12,7 @@ $(document).ready(function(){
     }
 
     function initDashboard(data){
+        console.log(data);
         //console.log(data.insightData);
         data = { //DUMMY
             insightData:{

@@ -78,17 +78,20 @@ $category0 = $cate_name == "threed" ? "3D" : $cate_name;
 $category1 = $mid_cate_decode[$row['midCategoryCode0']]['name'];
 $category2 = isset($mid_cate_decode[$row['midCategoryCode1']]['name']) ? $mid_cate_decode[$row['midCategoryCode1']]['name'] : '';
 $category3 = isset($mid_cate_decode[$row['midCategoryCode2']]['name']) ? $mid_cate_decode[$row['midCategoryCode2']]['name'] : '';
+
+
+$like_check = false;
+$bookmark_check = false;
 if($LoginState)
 {
-	$like_check = false;
-
 	if( $row['likeActionUserCode'] != null )
+	{
 		$like_check=true;
-
-		$bookmark_check = false;
-
-		if( $row['bookmarkActionUserCode'] != null  )
-			$bookmark_check=true;
+	}
+	if( $row['bookmarkActionUserCode'] != null  )
+	{
+		$bookmark_check=true;
+	}
 }
 $json_control->json_search($cc_code_decode,'url','ccCode',$row['ccCode']);
 

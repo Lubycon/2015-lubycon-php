@@ -21,7 +21,7 @@
             animationSpeed : 500, //ms
             autoPlay : true,
             autoPlayInterval : 3000, //ms
-            sliderWidth : "100%",
+            sliderWidth : "1000px",
             sliderHeight : "auto",
             gridWidth : 5
         },
