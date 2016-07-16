@@ -23,6 +23,7 @@ $country_decode = $json_control->json_decode_code;
 $usernumber = $_POST['usernum'];
 
 include '../../model/personal_page/dashboard_model.php';
+$page_title = 'dashboard';
 
 $user_data = array(
 		'utc' => $country_decode[$userdata_row["countryCode"]]["utc"],
@@ -33,7 +34,7 @@ $user_data = array(
 
 $user_language = array();
 while ($row = mysqli_fetch_array($language_result)) {
-	$language_name = $row['languageName'];
+	$name = $row['languageName'];
 	$user_language[] = $language_name;
 }
 
@@ -59,57 +60,24 @@ $public_option = array(
 		'web' => $userdata_row["webPublic"]
 );
 $insight_data = array(
-		'total_like' => 0,
-		'total_view' => 0,
-		'total_upload' => 0,
-		'total_download' => 0,
-		'last_7days_like' => 0,
-		'last_7days_view' => 0,
-		'last_7days_upload' => 0,
-		'last_7days_download' => 0
+		'totalLike' => 0,
+		'totalView' => 0,
+		'totalUpload' => 0,
+		'totalDownload' => 0,
+		'last7daysLike' => 0,
+		'last7daysView' => 0,
+		'last7daysUpload' => 0,
+		'last7daysDownload' => 0
 );
 $total_array = array(
-		'user_data' => $user_data,
-		'user_language' => $user_language,
-		'user_history' => $user_history,
-		'public_option' => $public_option,
-		'insight_data' => $insight_data
+		'pageTitle' => $page_title,
+		'userData' => $user_data,
+		'userLanguage' => $user_language,
+		'userHistory' => $user_history,
+		'publicOption' => $public_option,
+		'insightData' => $insight_data
 );
 
 $data_json = json_encode($total_array);
 echo $data_json;
-
-
-
-//target user data
-/*
-$userjob = $job_json_Code[$userdata_row["jobCode"]]['name'];
-$usercountry = $country_json_Code[$userdata_row["countryCode"]]['name'];
-$utc = $country_json_Code[$userdata_row["countryCode"]]["utc"];
-echo "<script>var UTC = $utc</script>"; //for watch
-
-$user_position = $userdata_row["company"];
-$usercity = $userdata_row["city"];
-$language1 = $lang_name[0]; //not yet
-$language2 = $lang_name[1]; //not yet
-
-$total_like = 0;
-$total_view = 0;
-$total_up = 0;
-$total_down = 0;
-
-$username = $userdata_row["nick"];
-$userWebsite = $userdata_row["web"];
-$userEmail = $userdata_row["email"];
-
-//target user data
-
-//login user data
-$usernumber = $Loginuser_code;
-
-$localcountry = $Loginuser_country;
-$localcity = $Loginuser_city;
-//login user data
-*/
-
 ?>

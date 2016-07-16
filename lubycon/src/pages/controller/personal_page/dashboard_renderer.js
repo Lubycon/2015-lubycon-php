@@ -1,11 +1,10 @@
 
 $(document).ready(function(){
-    /*callController({
-        url: "./pages/controller/personal_page/x.php",
-        data: 'cate=' + true + '&conno=' + CONNUM_PARAM,
+    callController({
+        url: "./pages/controller/personal_page/dashboard_controller.php",
         callback: init
-    });*/
-    init();
+    });
+
     function init(data){
         initDashboard(data);
         $.getJSON("./component/view/chart/data/insightData.json",function(data){
