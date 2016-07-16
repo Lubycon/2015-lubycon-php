@@ -23,6 +23,7 @@ $country_decode = $json_control->json_decode_code;
 
 
 $usernumber = $_POST['usernum'];
+$page_title = 'dashboard';
 
 
 include '../../model/personal_page/personal_page_model.php';
@@ -30,6 +31,7 @@ include '../../model/personal_page/personal_page_model.php';
 /*target user data*/
 
 $user_data = array(
+	'page_title' => $page_title,
 	'location' => 'personal_page',
 	'name' =>	$userdata_row['nick'],
 	'profile' => "../../../../Lubycon_Contents/user/$usernumber/profile.jpg",
