@@ -52,7 +52,7 @@
     #slide_section #slide_lnb input {
         display: none;
     }
-    .la_bt {
+    #slide_lnb .btn {
         width: 190px;
         height: 40px;
         line-height: 37px;
@@ -68,26 +68,26 @@
         cursor: pointer;
         transition: border-color 0.1s, color 0.1s;
     }
-    .la_bt:hover {
+    #slide_lnb .btn:hover {
         border-color : #aaaaaa;
         color: #aaaaaa;
     }
-        .la_bt:first-child{
+        #slide_lnb .btn:first-child{
             border-right: none;
             border-top-left-radius: 20px;
             border-bottom-left-radius: 20px;
         }
-        .la_bt:nth-child(2){
+        #slide_lnb .btn:nth-child(2){
             border-right: none;
             border-left: none;
         }
-        .la_bt:last-child{
+        #slide_lnb .btn:last-child{
             border-left: none;
             border-top-right-radius: 20px;
             border-bottom-right-radius: 20px;
         }
 
-    .la_bt.selected {
+    #slide_lnb .btn.selected {
         border-color: #48cfad;
         color: #48cfad;
         font-weight: 400;
