@@ -3,13 +3,6 @@ require_once '../../../common/Class/database_class.php';
 $db = new Database();
 require_once "../../../common/Class/session_class.php";
 $session = new Session();
-
-if($session->SessionExist()){
-	$db->query = "SELECT * FROM `userbasic` LEFT JOIN `userinfo` on `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = '$Loginuser_code'";
-	$db->askQuery();
-	$myrow = mysqli_fetch_assoc($db->result);
-}
-
 $db->query = 
 "
 		SELECT  `userbasic`.`userCode` , `nick` , `jobCode` , `boardCode` , `city` , `countryCode` , `userDirectory`
