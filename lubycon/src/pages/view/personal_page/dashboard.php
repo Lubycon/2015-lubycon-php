@@ -41,32 +41,32 @@
                 <i class="fa fa-angle-down toggle_info selected"></i>
             </div>
             <div class="dash_body">
-                <div class="dash_body_sector" id="userjob">
+                <div class="dash_body_sector">
                     <p class="dash_body_title">Job</p>
                     <div class="dash_body_content">
                         <p class="content_text"></p>
-                        <p class="content_text"></p>
+                        <p class="content_text" data-value="job"></p>
                     </div>
                 </div>
-                <div class="dash_body_sector" id="user_position">
+                <div class="dash_body_sector">
                     <p class="dash_body_title">Position</p>
                     <div class="dash_body_content">
                         <p class="content_text"></p>
-                        <p class="content_text"></p> 
+                        <p class="content_text" data-value="position"></p> 
                     </div>
                 </div>
-                <div class="dash_body_sector" id="user_location">
+                <div class="dash_body_sector" >
                     <p class="dash_body_title">Location</p>
                     <div class="dash_body_content">
-                        <p class="content_text"></p>
-                        <p class="content_text"></p>
+                        <p class="content_text" data-value="city"></p>
+                        <p class="content_text" data-value="country"></p>
                     </div>
                 </div>
-                <div class="dash_body_sector" id="user_language">
+                <div class="dash_body_sector" data-value="language">
                     <p class="dash_body_title">Language</p>
                     <div class="dash_body_content">
-                        <p class="content_text"></p>
-                        <p class="content_text"></p>
+                        <p class="content_text" data-value="language1"></p>
+                        <p class="content_text" data-value="language2"></p>
                     </div>
                 </div>
             </div>
@@ -159,15 +159,9 @@
                 <i class="fa fa-angle-down toggle_info selected"></i>
             </div>
             <div class="dash_body">
-                <div class="dash_body_sector x2" id="useremail">
-                    <div class="x2_inner">
-                        <p class="dash_body_title">E-mail</p>
-                        <p class="dash_body_content"></p>
-                    </div>
-                    <div class="x2_inner">
-                        <p class="dash_body_title">Website</p>
-                        <a href="#" class="dash_body_content"></a>
-                    </div> 
+                <div class="dash_body_sector x2" id="user-website">
+                    <p class="dash_body_title">Website</p>
+                    <a href="#" class="dash_body_content"></a>
                 </div>
                 <div class="dash_body_sector" id="usertime">
                     <p class="dash_body_title">User`s time</p>
