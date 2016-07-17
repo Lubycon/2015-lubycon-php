@@ -5,7 +5,7 @@ var InfiniteScrollDetector = function(data){
     this.cardType = data.cardType;
     this.page = data.page;
     this.topCate = data.topCate || null;
-    sort: data.sort;
+    this.sort= data.sort;
     this.filter = {
         midCate: data.filter.midCate,
         license: data.filter.license,
