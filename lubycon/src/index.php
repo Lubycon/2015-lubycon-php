@@ -5,12 +5,10 @@
     require_once "./common/Module/url_controller.php";
     require_once "./common/Class/json_class.php";
     require_once "./common/Class/session_class.php";
-    
-    // declare php property
+
     $json_control = new json_control;
     $session = new Session();
     $inactive_user = false;
-
 
     $json_control->json_decode('job',"../data/job.json");
     $job_json_Code = $json_control->json_decode_code;
@@ -39,12 +37,9 @@
                     $activity = false;
                 else
                     $activity = false;
-                //$State = $_SESSION['lubycon_LoginState'];
-                //echo "<script>console.log('$State');</script>";
 
                 if($activity === false)
                     $inactive_user = true;
-                //echo '<script>document.location.href="?dir=service/view/waiting_for_resisting"</script>';
 
             }else{
                 $session->DestroySession();

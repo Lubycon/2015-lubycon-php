@@ -4,34 +4,83 @@
 
 	$session = new Session();
     $user_email = $_POST['login_id'];
+    $sessionArray;
 
 	$db = new Database('localhost', 'lubycon', 'hmdwdgdhkr2015', 'lubyconuser');
+	
 	$db->query = "
-        SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.userCode, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`jobCode`, `userinfo`.`city` 
+        SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`jobCode`, `userinfo`.`city` 
         FROM `lubyconuser`.`userbasic` 
         LEFT JOIN `lubyconuser`.`userinfo` 
         ON `userbasic`.`userCode` = `userinfo`.`userCode` 
         WHERE `userbasic`.`email`='$user_email'
     ";
 
-	$db->askQuery();
-	$result = mysqli_fetch_array($db->result);
+    if(!$db->askQuery()){
 
-	if(password_verify($_POST['login_pass'],$result['pass'])){
+		$sessionArray['serverError'] = (string)500;
+		echo "query error <br />";
+	
+	}
+	else{
+
+		$result = mysqli_fetch_array($db->result);	
+
+		if(password_verify($_POST['login_pass'],$result['pass'])){
 		
+			foreach($result as $key=>$value){
+				//echo (string)$key ." is " . (string)$value . "<br />";
+				switch((string)$key){
+					case "userCode": $sessionArray[$key] = $value; break;
+					case "nick" : $sessionArray[$key] = $value; break;
+					case "countryCode" : $sessionArray[$key] = $value; break;
+					case "city" : $sessionArray[$key] = $value; break;
+					case "name" : $sessionArray['country'] = $value; break;
+					case "validation" : $sessionArray[$key] = ($value === "active") ? true : false; break;
+					default : break;
+				}
+			}
+
+			$db->query = "
+				SELECT `country`.`name`
+				FROM `lubyconuser`.`country`
+				WHERE `country`.`countryCode` = '".$sessionArray['countryCode']."'
+				";
+
+			if(!$db->askQuery()){
+				
+				$sessionArray['serverError'] = (string)500;
+				echo "country query error";
+			}
+			else{
+
+				$result = mysqli_fetch_array($db->result);
+				foreach($result as $key=>$value){
+					switch((string)$key){
+						case "name" : $sessionArray['country'] = (string)$value; break;
+						default : break;
+					}
+				}
+					
+			}
+
+			foreach($sessionArray as $key => $value)
+				echo $key ." is ". $value . "<br />";
+
+			//foreach($sessionArray as $key=>$value)
+			//		echo "Key : ". $key . " => ". $value . " <br /> ";
+		}
+	}
+
+/*
 		$session->WriteSession('lubycon',$result);
 
 		if($result['validation'] === 'active'){
-			// 인증 회원 페이지 구
-			//echo "index페이지로 이동";
 			$login['LoginState'] = true;
 			$session->WriteSession('lubycon',$login);
 			header('location:../../../index.php');
 		}
 		else if($result['validation'] == 'inactive'){
-			// 비인증 회원 페이지 구현
-			//echo "waiting_for_resisting 으로 페이지 이동";
-			//echo '<script>document.location.href="../../../index.php"</script>';
 			$login['LoginState'] = true;
 			$session->WriteSession('lubycon',$login);
 			header('location:../../../index.php');
@@ -40,16 +89,10 @@
 			$session->WriteSession('lubycon',$login);
 			die("result['validation'] wrong value");
 		}
-
-		
-
-/*
-		$session->WriteSession('lubycon',$result['email'], $result['nick'] , $result['userCode'],$result['countryCode'],$result['jobCode'],$result['city'],'normal');
-		header('location:index.php');
-*/
-	}else{
-		// 로그인실패시 반응 구현
+	}
+	else{
 		header('location:./index.php?=dir/');
 	}
+*/
 
 ?>

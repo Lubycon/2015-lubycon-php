@@ -35,7 +35,6 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 
 						if($activity === false)
 							$BODY_URL = "service/view/waiting_for_resisting.php";
-							//echo '<script>document.location.href="?dir=service/view/waiting_for_resisting"</script>';
 
 		}else{
 			$session->DestroySession();
