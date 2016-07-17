@@ -83,8 +83,7 @@ function Controller(param){
                     data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
-                        //console.log($.parseJSON(data));
-                        console.log(data);
+                        console.log($.parseJSON(data));
                         console.timeEnd("DATA LOADED");
                         param.callback($.parseJSON(data),session);
                     },

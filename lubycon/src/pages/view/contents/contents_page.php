@@ -1,6 +1,7 @@
 
 <script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script>
 <script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
+<script type="text/javascript" src="./component/view/contents_card/contents_card.tmpl.js"></script>
 <script type="text/javascript" src="./pages/controller/contents/contents_page_renderer.js"></script>
 <link href="./pages/view/contents/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 

@@ -52,13 +52,14 @@ $(document).ready(function(){
     }
 
     function addCard(data){
-        var wrapper = $("#contents_box").find(".contents_wrap"),
+        console.log(data);
+        var cardWrapper = $("#contents_box").find(".contents_wrap"),
 			list = $("<li/>");
 
-		/*for(var i = 0; i < data.creators.length; i++){
-			var card = new ContentsCard(data.creators[i]).render();
+		for(var i = 0; i < data.content.length; i++){
+			var card = new ContentsCard(data.content[i]).render();
 			list.clone(true).append(card).appendTo(cardWrapper);
-		}*/
+		}
 
         console.log("VIEW : GET DATA------------------");
 		console.log(data);

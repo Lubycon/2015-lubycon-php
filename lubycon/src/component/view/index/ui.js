@@ -360,20 +360,20 @@ $(document).ready(function(){
     function contentCardHoverAction(){
         $(document).on({
             mouseenter: function() {
-                $(this).children('.contents_overlay').stop().fadeIn(300);
-                $(this).find(".contents_title").css({
+                $(this).children('.contents-overlay').stop().fadeIn(300);
+                $(this).find(".contents-title").css({
                     "text-decoration":"underline",
                     "color":"#48cfad"
                 });
             },
             mouseleave: function() {
-                $(this).children('.contents_overlay').stop().fadeOut(300);
-                $(this).find(".contents_title").css({
+                $(this).children('.contents-overlay').stop().fadeOut(300);
+                $(this).find(".contents-title").css({
                     "text-decoration":"none",
                     "color":"#444444"
                 });
             }
-        }, '.contents_card');
+        }, '.contents-card');
     }
     function contentsNameStickyAction(){
         var $this = $(document).find("#contents_info_wrap");
