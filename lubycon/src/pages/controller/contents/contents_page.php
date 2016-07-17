@@ -1,24 +1,8 @@
-<?php
-    require_once "./common/Class/database_class.php";
-    require_once "./common/Class/json_class.php";
-    require_once "./common/Class/infinite_scroll_class.php";
 
-    $db = new Database();
-    $json_control = new json_control;
-
-    // json control 
-    $current_url = $_GET["cate"];
-    $json_control->json_decode($current_url.'_category',"../data/middle_category.json");
-    $middle_cate_decode = $json_control->json_decode_code;
-    
-?>
-<script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll.js"></script>
 <script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script>
-<script type="text/javascript" src="./plugin/JS/jquery.lubySlider.js"></script>
-
+<script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
 <link href="./pages/view/contents/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 <link href="./plugin/JS/lubySlider.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
-
 
 <div class="main_figure_wrap hidden-mb-b">
     <figure>
@@ -39,7 +23,7 @@
                 <li class="nav_menu" id="vector">
                     <a href="?dir=pages/controller/contents/contents_page&cate=vector&page=1">Vector</a>
                 </li>
-                <li class="nav_menu" id="threed"> 
+                <li class="nav_menu" id="threed">
                     <a href="?dir=pages/controller/contents/contents_page&cate=threed&page=1">3D</a>
                 </li>
             </ul>
@@ -63,10 +47,14 @@
                 <option>No Distribution</option>
             </select>
             <select class="categoryFilter" data-param="mid_cate">
-            <?php
-                $json_control->json_spread_option($middle_cate_decode);
-                echo $json_control->json_spread_wrap;
-            ?>
+                <!--TEST VALUE, IT WILL BE CHANGED TO JSON -->
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+                <option>E</option>
+                <option>F</option>
+                <option>G</option>
             </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">

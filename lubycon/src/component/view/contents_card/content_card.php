@@ -15,7 +15,7 @@
         $commentCount = $randCount1 < 1000 ? $randCount1 : (string)(round((double)($randCount1/1000),1))."K";
         $likeCount = $randCount2 < 1000 ? $randCount2 : (string)(round((double)($randCount2/1000),1))."K";
 
-        
+
         if(isset($_SESSION['lubycon_userCode'])) // login check
         {
             if($_SESSION['lubycon_userCode'] == $row['bookmarkActionUserCode']) //bookmark check
@@ -48,9 +48,9 @@
         </div>
         <!-- end contents desc -->
         <div class="contents_overlay load_view">
-                <?php 
-                    echo "<a class='contents_link' href='?dir=pages/view/contents/viewer&cate=".$cate."&conno=".$board_code."'>";
-                ?>
+            <?php
+                echo "<a class='contents_link' href='?dir=pages/view/contents/viewer&cate=".$cate."&conno=".$board_code."'>";
+            ?>
                 <i class="fa fa-search-plus"></i>
                 <ul>
                     <li>

@@ -1,5 +1,6 @@
 console.log("INFINITE SCROLL DETECTOR IS READY");
 var InfiniteScrollDetector = function(data){
+    console.log("INFINITE SCROLL : LOAD PAGE DATA-----------");
     console.log(data);
     this.cardType = data.cardType;
     this.page = data.page;
@@ -50,6 +51,7 @@ InfiniteScrollDetector.prototype.getData = function(){
 InfiniteScrollDetector.prototype.next = function(callback){
     this.nowPage = getUrlParameter("page") || 1;
     this.targetPage = this.nowPage + 1;
+    console.log("INFINITE SCROLL : DETECT DATA--------PAGE="+this.nowPage+" => "+this.targetPage);
     console.log(this.getData());
     Controller({
         url: "./pages/controller/creators/controller.php",
@@ -60,6 +62,8 @@ InfiniteScrollDetector.prototype.next = function(callback){
 InfiniteScrollDetector.prototype.prev = function(callback){
     this.nowPage = getUrlParameter("page") || 1;
     this.targetPage = this.nowPage - 1;
+    console.log("INFINITE SCROLL : DETECT DATA--------PAGE="+this.nowPage+" => "+this.targetPage);
+    console.log(this.getData());
     Controller({
         url: "./pages/controller/creators/controller.php",
         data: this.getData(),
@@ -77,7 +81,7 @@ InfiniteScrollDetector.prototype.start = function(callback){
         }
         else if($(document).scrollTop() === 0){
             console.log("UP");
-            _this.prev(callback);
+            //_this.prev(callback);
             return false;
         }
     }

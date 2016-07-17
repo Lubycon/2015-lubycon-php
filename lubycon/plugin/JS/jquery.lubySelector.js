@@ -151,7 +151,7 @@
                     $list.each(function(){
                         var optionTitle = $(this).attr("data-value").substring(0,1),
                         preTitle = $(this).prev().attr("data-value") === null ? "" :
-                        $(this).prev().attr("data-value").substring(0,1);
+                        $(this).prev().attr("data-value");
                         if(optionTitle !== preTitle){
                             $(this).before($optGroup).prev(".optGroup").text(optionTitle);
                         }
