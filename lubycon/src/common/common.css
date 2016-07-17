@@ -68,11 +68,11 @@ a {
 /*IE*/
 body{
     -ms-overflow-style: none;
-    /*scrollbar-face-color: #fff; 
+    /*scrollbar-face-color: #fff;
     scrollbar-highlight-color: #fff;
-    scrollbar-shadow-color: #fff; 
+    scrollbar-shadow-color: #fff;
     scrollbar-3dlight-color: #fff;
-    scrollbar-arrow-color: #fff; 
+    scrollbar-arrow-color: #fff;
     scrollbar-track-color: #fff;
     scrollbar-darkshadow-color: #fff;*/
 }
@@ -317,7 +317,7 @@ body {
     top: 7px;
     cursor: pointer;
     z-index : 2;
-}  
+}
     .card_menu .card_menu_icon{
         font-size: 20px;
         color: #aaaaaa;
@@ -339,7 +339,7 @@ body {
         z-index: 1;
         border: 1px solid #aaaaaa;
         background: rgba(255,255,255,0.9);
-        display: none;  
+        display: none;
     }
     .card_menu_list ul{
         line-height: 35px;
@@ -694,7 +694,7 @@ body {
     color: #fff;
     margin-left: 30px;
     float: left;
-    line-height: 50px;
+    margin-top: 19px;
     font-size: 14px;
 }
 
@@ -818,7 +818,7 @@ body {
         font-size: 17px;
     }
         #sub_search_bar .search-btn .fa-search {
-            
+
         }
 /*---------search bar----------*/
 
@@ -842,7 +842,7 @@ body {
         line-height: 100px;
         text-align: center;top: 50px;
         position: fixed;
-        
+
         box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.5);
     }
         .main_figure_wrap#index_figure_wrap figure {
@@ -1003,7 +1003,7 @@ body {
         vertical-align: top;
         padding-right: 310px;
     }
- 
+
     .con_aside{
         display: inline-block;
         top:0;
@@ -1013,7 +1013,7 @@ body {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        z-index: 3;    
+        z-index: 3;
     }
 
 .contents_card{
@@ -1375,7 +1375,7 @@ body {
         text-align: left;
         margin-bottom: 20px;
     }
-        
+
 /*creators card start*/
 #creator_card_wrap{
     max-width: 1330px;
@@ -1391,7 +1391,7 @@ body {
     padding-top: 5px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box; 
+    -moz-box-sizing: border-box;
 }
     .creator-menu{
         position: absolute;
@@ -1416,7 +1416,7 @@ body {
             z-index: 1;
             border: 1px solid #aaaaaa;
             background: rgba(255,255,255,0.9);
-            display: none;  
+            display: none;
         }
         .creator-menu-list ul{
             line-height: 35px;
@@ -1545,11 +1545,11 @@ body {
 
             }
                 .creator-card-medal ul li img {
-                    
+
                 }
     .creator-card-footer {
         position: relative;
-        text-align: center;       
+        text-align: center;
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -1586,7 +1586,7 @@ body {
 .table_wrap {
     /*empty*/
 }
-    .table_head {    
+    .table_head {
         height: 50px;
         background: #383838;
         color: #fff;
@@ -1632,9 +1632,9 @@ body {
                 margin: 0px auto;
                 padding: 10px 20px;
                 text-align: left;
-            }  
+            }
                 .table_list_inner span {
-                    
+
                 }
 .table_blank {
     top: 3px;
@@ -1678,7 +1678,7 @@ body {
 }
 .table_info a:hover{
     opacity: 0.6;
-} 
+}
 
 .table_subject {
     display: inline-block;
@@ -1763,13 +1763,13 @@ body {
     position: absolute;
 
     padding: 0px 10px;
-    
+
     background: rgba(0,0,0,0.9);
     border: 1px solid #000000;
     border-radius: 3px;
     box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.5);
-    
-    z-index: 30001;  
+
+    z-index: 30001;
     cursor:default;
 }
     .tooltip.tip-wraper {
@@ -1815,7 +1815,7 @@ body {
 .note-editor.note-frame {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
 }/*edit window*/
 
 .note-editor .btn {
@@ -1864,7 +1864,7 @@ body {
     color: #ffffff;
     float: none !important;
     height: 30px;
-    margin: 0px !important;   
+    margin: 0px !important;
 }
     .btn-group-vertical > .btn, .btn-group > .btn:hover {
         background: #444444;
@@ -1889,7 +1889,7 @@ body {
         width: 30px !important;
     }
 .dropdown-toggle .caret{
-    
+
 }
 .note-popover .popover-content .note-color .dropdown-toggle, .panel-heading.note-toolbar .note-color .dropdown-toggle {
     padding-left: 10px !important;
@@ -1982,7 +1982,7 @@ body {
             margin-right: 3px;
         }
     #about_lubycon{
-        
+
     }
         #about_lubycon span{
             padding: 0px 15px;

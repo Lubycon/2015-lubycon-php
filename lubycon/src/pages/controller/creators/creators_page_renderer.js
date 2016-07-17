@@ -39,6 +39,7 @@ $(document).ready(function(){
 			var card = new CreatorCard(data.creators[i]).render();
 			list.clone(true).append(card).appendTo(cardWrapper);
 		}
+		console.log("VIEW : GET DATA------------------");
 		console.log(data);
 	}
 });

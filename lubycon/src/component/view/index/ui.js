@@ -55,7 +55,7 @@ $(document).ready(function(){
             $(this).children("ul").stop().fadeIn(300);
         },function(){
             $(this).children("ul").stop().fadeOut(300);
-        })
+        });
     }
     function initSubNavInContentPage(){
         $('.lnb_nav ul').children('#' + CATE_PARAM).addClass('selected');
@@ -93,7 +93,7 @@ $(document).ready(function(){
                 case "KOR" : console.log("Korean"); break;
                 case "RUS" : console.log("Russian"); break;
                 case "SPA" : console.log("Spanish"); break;
-                default : return false; break;
+                default : return false;
             }
         }
     }
@@ -122,7 +122,7 @@ $(document).ready(function(){
             darkOverlay.stop().fadeIn(100);
             modal.css("display","block")
                  .attr("class","editor_popup modal fadeInDown animated");
-        })
+        });
     }
     function initSearchBar(){
         // #WORK PROGRESS              //
@@ -153,13 +153,13 @@ $(document).ready(function(){
             }
         }
         function errorCheck(){
-            errorCheck = false;
+            var check = false;
             var value = $(this).val();
             var errorCode = value.inputErrorCheck();
 
             if(!value.isNullString()){
                 switch(errorCode){
-                    case 0 : errorCheck = true; break;
+                    case 0 : check = true; break;
                     case 1 : console.log("This is special character"); break;
                     case 2 : console.log("This is abuse word"); break;
                 }
@@ -186,7 +186,7 @@ $(document).ready(function(){
                 value = $this.val();
 
                 if(value.isSpecialChar()) $this.val(value.slice(0,-1));
-            })
+            });
         }
     }
     function initLubySelectors(){
@@ -195,7 +195,7 @@ $(document).ready(function(){
                 searchFilter = navGuide.find(".searchFilter");
                 preferFilter = navGuide.find(".preferFilter"),
                 copyrightFilter = navGuide.find(".copyrightFilter"),
-                languageFilter = navGuide.find(".languageFilter")
+                languageFilter = navGuide.find(".languageFilter"),
                 locationFilter = navGuide.find(".locationFilter"),
                 jobFilter = navGuide.find(".jobFilter"),
                 userFilter = navGuide.find(".userFilter"),
@@ -309,27 +309,6 @@ $(document).ready(function(){
             });
         });
     }
-    function initGoTopBt(){
-        $(window).on("load resize", function(){
-            var host = hostURL = location.host,
-            page = document.location.href == ("http://"+host+"/Lubycon_Website/lubycon/src/index.php");
-            if($("#gotop_bt").length !== 0 && page){
-                var goTopBt = $(document).find("#gotop_bt");
-                $(document).on("touchmove scroll", function (event){
-                    if($(document).scrollTop() > 500) goTopBt.stop().show();
-                    else goTopBt.stop().hide();
-                });
-
-                $("#gotop_bt").on("click touchend", function(event){
-                    eventHandler(event,$(this));
-                    $('html, body').animate({scrollTop : 0},500);
-                });
-            }
-            else{
-                return false;
-            }
-        });
-    }
     function initModalCloseAction(){
         var $modal = $(document).find(".modal"),
         $darkOverlay = $(document).find(".dark_overlay");
@@ -403,7 +382,7 @@ $(document).ready(function(){
             var scrollTop = $(document).scrollTop();
             if(scrollTop >= 50) $this.fadeOut(400);
             else $this.stop().fadeIn(400);
-        })
+        });
     }
     function initMainBoardTableSize(){
         $(window).on("load resize",function(){
@@ -423,7 +402,7 @@ $(document).ready(function(){
                 resWidth = (wholeList.width() - list_padding - userimg.width() - number.outerWidth(true) - count.width() - 100).toString() + "px";
             }
             subject.css({ "max-width" : resWidth });
-        })
+        });
     }
     function myInfoAction(){
         var $button = $("#myinfo_setting"),
@@ -441,4 +420,4 @@ $(document).ready(function(){
             }
         }
     }
-})
+});
