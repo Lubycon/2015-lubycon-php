@@ -21,9 +21,17 @@ $country_json = $json_control->json_decode('country',"../../../../data/country.j
 $country_decode = $json_control->json_decode_code;
 /*data render setting*/
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+	$postData = json_decode(file_get_contents("php://input"));
+}else
+{
+	die('it is not post data error code 0000');
+}
 
-$usernumber = $_POST['usernum'];
-$page_title = $_POST['cate'];
+$usernumber = $postData->usernum;
+$page_title = $postData->cate;
+
 
 include '../../model/personal_page/personal_page_model.php';
 

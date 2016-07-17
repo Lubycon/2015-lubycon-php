@@ -2,7 +2,18 @@
 
 	$contents_data = array(array(),array(),array());
 	$forum_data = array();
-	$limit = $_POST['isMobile'] == 'true' ? 10 : 30;
+
+
+	if ($_SERVER['REQUEST_METHOD'] == 'POST')
+	{
+	  $postData = json_decode(file_get_contents("php://input"));
+	}else
+	{
+	    die('it is not post data error code 0000');
+	}
+
+
+	$limit = $postData->isMobile == 'true' ? 10 : 30;
 
 
 	include '../../model/index/index_body_model.php';
