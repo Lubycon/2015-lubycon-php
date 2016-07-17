@@ -183,8 +183,9 @@ class infinite_scroll extends json_control
     {
         foreach( $this->filter as $key => $value )
         {
-            if( $value !== null )
+            if( $value !== null && $value !== 'all' )
             {
+                echo $key.'     ';
                 $addQuery = $this->{$key."Query"};
                 $this->where_query .= " $addQuery and ";
             }
@@ -219,7 +220,7 @@ class infinite_scroll extends json_control
             case 'content' :
                 while( $row = mysqli_fetch_assoc($result) )
                 {
-                    $bookmark_check = $row['bookmarkActionUserCode'] != null ? 'true' : 'false';
+                    $bookmark_check = isset($row['bookmarkActionUserCode']) ? 'true' : 'false';
                     $this->bind_data[] = array(
                         'code' => $row['boardCode'],
                         'title' => $row['contentTitle'],
