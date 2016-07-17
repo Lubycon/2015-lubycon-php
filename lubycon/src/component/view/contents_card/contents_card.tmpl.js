@@ -43,16 +43,13 @@ ContentsCard.prototype.render = function(){
                 "data-kind" : "contents"
             }).appendTo(contentDesc),
 
-
-
-        // 2016-07-17 19:13 YOU NEED APPENDING TO CARD
         overlay = $("<div/>",{ "class" : "contents-overlay load_view"}),
             anchor2 = $("<a/>",{
                 "class" : "contents-link",
                 "href" : "?dir=pages/view/contents/viewer&cate=" + this.category + "&conno=" + this.code
-            }),
-            icon = $("<i/>",{ "class" : "fa fa-search-plus" }),
-            ul = $("<ul/>"),
+            }).appendTo(overlay),
+            icon = $("<i/>",{ "class" : "fa fa-search-plus" }).appendTo(anchor2),
+            ul = $("<ul/>").appendTo(anchor2),
             li = $("<li/>"),
         view = li.clone().html("<i class='fa fa-eye'></i><span>" + this.count.view + "</span>").appendTo(ul),
         comment = li.clone().html("<i class='fa fa-comment-o'></i><span>" + this.count.comment + "</span>").appendTo(ul),
@@ -65,10 +62,6 @@ ContentsCard.prototype.render = function(){
     this._$DOM = card;
     return card;
 };
-
-
-
-
 
 /*function CardMenu(params){
     var $this = $(this); // CARD //

@@ -5,7 +5,7 @@
     require_once "./common/Module/url_controller.php";
     require_once "./common/Class/json_class.php";
     require_once "./common/Class/session_class.php";
-    
+
     // declare php property
     $json_control = new json_control;
     $session = new Session();
@@ -21,7 +21,7 @@
         $LoginState = false;
     }else{
         if($session->SessionExist()){
-            
+
             $Loginuser_name = NULL;
             $Loginuser_id = NULL;
             $Loginuser_code = NULL;
@@ -32,7 +32,7 @@
             if(isset($_SESSION['lubycon_validation']))
             {
                 $activity = NULL;
-                
+
                 if($_SESSION['lubycon_validation'] === "active")
                     $activity = true;
                 else if($_SESSION['lubycon_validation'] === "inactive")
@@ -48,10 +48,10 @@
 
             }else{
                 $session->DestroySession();
-            } 
+            }
 
             $LoginState = true;
-            
+
             $Loginuser_name = (isset($_SESSION['lubycon_nick']) === true) ? $_SESSION['lubycon_nick'] : NULL;
             $Loginuser_id = (isset($_SESSION['lubycon_id']) === true) ? $_SESSION['lubycon_id'] : NULL;
             $Loginuser_code = (isset($_SESSION['lubycon_userCode']) === true) ? $_SESSION['lubycon_userCode'] : NULL;
@@ -60,10 +60,10 @@
             $Loginuser_city = (isset($_SESSION['lubycon_city']) === true) ? $_SESSION['lubycon_city'] : NULL;
             // login menu
         }else{
-            $LoginState = false;    
+            $LoginState = false;
         }
     }
-    echo "<script>console.log('$BODY_URL');</script>";  
+    echo "<script>console.log('$BODY_URL');</script>";
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +107,7 @@
     <script type="text/javascript" src="./common/common.js"></script>
     <script type="text/javascript" src="./component/view/index/ui.js"></script>
     <script type="text/javascript" src="./component/view/index/mobile.js"></script>
-    
+
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
     <meta name="theme-color" content="#222222" />
     <!--[if lt IE 9]>
@@ -136,9 +136,9 @@
                 icon: ""
             });
         }
-    })
+    });
 </script>
-<div id="wrapper"> 
+<div id="wrapper">
     <div id="loading_icon"><i class="fa fa-spinner fa-spin"></i></div>
     <div class="dark_overlay" data-value="dark_overlay"></div>
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
@@ -180,18 +180,18 @@
         <nav id="main_gnb" class="hidden-mb-b">
             <ul id="gnb">
                 <li class="bigsub">
-                    <a href="?dir=pages/controller/contents/contents_page&cate=all&page=1" class="bigsub_link">
+                    <a href="?dir=pages/view/contents/contents_page&cate=all&page=1" class="bigsub_link">
                         Contents
                     </a>
                     <ul class="sub_menu">
                         <li>
-                            <a href="?dir=pages/controller/contents/contents_page&cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
+                            <a href="?dir=pages/view/contents/contents_page&cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
-                            <a href="?dir=pages/controller/contents/contents_page&cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
+                            <a href="?dir=pages/view/contents/contents_page&cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
-                            <a href="?dir=pages/controller/contents/contents_page&cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
+                            <a href="?dir=pages/view/contents/contents_page&cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
                         </li>
                     </ul>	<!--end Contents menu-->
                 </li>
@@ -228,7 +228,7 @@
                     <figure id="accountImg"><img src="../../../../../Lubycon_Contents/user/<?=$Loginuser_code?>/profile.jpg" alt="profile_img" /></figure>
                     <span id="user_id"><?=$Loginuser_name?></span>
                     <i class="fa fa-angle-down"></i>
-                </div>  
+                </div>
             <ul>
                 <i class="fa fa-caret-up"></i>
                 <div class="userMenuGroup">
@@ -295,7 +295,7 @@
         </div>
         <!-- end select_box -->
     </div>
-    <?php 
+    <?php
         include_once "./component/view/mobile/menu.php";
     ?>
     <!--INCLUDE BODY-->
@@ -305,7 +305,7 @@
             include_once "./".$BODY_URL;
         }else{
             include_once "./pages/view/index/index_body.php";
-        }    
+        }
     }
     else{ // 비인증 회원일 경우
         if($BODY_URL === "service/view/success_account.php")
@@ -313,8 +313,8 @@
         else
             include_once "./service/view/waiting_for_resisting.php";
     }
-    
-    
+
+
 
     include_once "./component/view/index/index_footer.php";
 
@@ -322,4 +322,3 @@
 
 </div>
 </body>
-

@@ -81,7 +81,7 @@ function Controller(param){
                     data: param.data,
                     cache: false,
                     success: function (data){
-                        console.log(data);
+                        console.log($.parseJSON(data));
                         console.timeEnd("DATA LOADED");
                         param.callback($.parseJSON(data),session);
                     }
