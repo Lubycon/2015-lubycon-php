@@ -185,7 +185,6 @@ class infinite_scroll extends json_control
         {
             if( $value !== null && $value !== 'all' )
             {
-                echo $key.'     ';
                 $addQuery = $this->{$key."Query"};
                 $this->where_query .= " $addQuery and ";
             }
