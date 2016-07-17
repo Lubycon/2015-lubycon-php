@@ -1,10 +1,10 @@
 <?php
-	include_once '../class/session_class.php';
+	include_once '../../../common/Class/session_class.php';
 
 	$session = new Session();
 
 	$session->DestroySession();
 
-	echo '<script>document.location.href="../../index.php"</script>';
+	header('location:../../../index.php');
 
 ?>
