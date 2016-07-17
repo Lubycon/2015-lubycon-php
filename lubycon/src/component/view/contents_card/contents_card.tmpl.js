@@ -2,9 +2,9 @@ var ContentsCard = function(data){
     this.code = data.code;
     this.title = data.title;
     this.category = data.category;
-    this.image = data.image;
+    this.image = data.thumbnail;
     this.license = data.license;
-    this.bookmark = data.bookmark;
+    this.bookmark = data.bookmark === "true";
     this.dir = data.dir;
 
     this.user = {
@@ -16,16 +16,16 @@ var ContentsCard = function(data){
     this.count = {
         view: data.contentCount.view,
         comment: data.contentCount.comment,
-        like: data.contentsCount.like
+        like: data.contentCount.like
     };
 };
 
 ContentsCard.prototype.render = function(){
     var card = $("<div/>",{ "class" : "contents-card", "data-value" : "", "data-index" : "" }),
         thumbWrapper = $("<div/>",{ "class" : "contents-pic" }),
-            img = $("<img/>",{ "src" : this.img, "class" : "load-view" }).appendTo(thumbWrapper),
+            img = $("<img/>",{ "src" : this.image, "class" : "load-view" }).appendTo(thumbWrapper),
         contentDesc = $("<div/>",{ "class" : "contents-desc"}),
-            contentSub = $("<div/>",{ "class" : "contents-sub" }).appendTo(contentsDesc),
+            contentSub = $("<div/>",{ "class" : "contents-sub" }).appendTo(contentDesc),
                 anchor = $("<a/>",{
                     "class" : "contents-link",
                     "href" : "?dir=pages/view/contents/viewer&cate=" + this.category + "&conno=" + this.code
@@ -35,7 +35,7 @@ ContentsCard.prototype.render = function(){
             creatorDesc = $("<span/>",{ "class" : "creator-desc" }).appendTo(contentDesc),
                 userAnchor = $("<a/>",{ "href" : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + this.user.code }).appendTo(creatorDesc),
                     userImg = $("<img/>",{ "src" : this.user.profile }).appendTo(userAnchor),
-                    by = $("<span/>", { "class" : "by" }).appendTo(userAnchor),
+                    by = $("<span/>", { "class" : "by", "html" : "by" }).appendTo(userAnchor),
                     username = $("<span/>", { "class" : "name", "html" : this.user.name }).appendTo(userAnchor),
             bookmarkButton = $("<i/>",{
                 "class" : "userAction-bt alertKey fa fa-star thumbs_page" + (this.bookmark ? "selected" : ""),
@@ -43,16 +43,13 @@ ContentsCard.prototype.render = function(){
                 "data-kind" : "contents"
             }).appendTo(contentDesc),
 
-
-
-        // 2016-07-17 19:13 YOU NEED APPENDING TO CARD
         overlay = $("<div/>",{ "class" : "contents-overlay load_view"}),
             anchor2 = $("<a/>",{
                 "class" : "contents-link",
                 "href" : "?dir=pages/view/contents/viewer&cate=" + this.category + "&conno=" + this.code
-            }),
-            icon = $("<i/>",{ "class" : "fa fa-search-plus" }),
-            ul = $("<ul/>"),
+            }).appendTo(overlay),
+            icon = $("<i/>",{ "class" : "fa fa-search-plus" }).appendTo(anchor2),
+            ul = $("<ul/>").appendTo(anchor2),
             li = $("<li/>"),
         view = li.clone().html("<i class='fa fa-eye'></i><span>" + this.count.view + "</span>").appendTo(ul),
         comment = li.clone().html("<i class='fa fa-comment-o'></i><span>" + this.count.comment + "</span>").appendTo(ul),
@@ -65,10 +62,6 @@ ContentsCard.prototype.render = function(){
     this._$DOM = card;
     return card;
 };
-
-
-
-
 
 /*function CardMenu(params){
     var $this = $(this); // CARD //

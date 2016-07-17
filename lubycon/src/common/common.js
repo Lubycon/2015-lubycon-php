@@ -66,7 +66,6 @@ function setUrlParameter(sParam,value){
 }
 
 function Controller(param){
-    console.time("DATA LOADED");
     $.ajax({
         type: "POST",
         url: "./common/Module/get_session.php",
@@ -75,19 +74,26 @@ function Controller(param){
         success: function(data){
             var session = $.parseJSON(data);
             if(param.url){
+                console.log(param.data);
+                console.log(param.url);
+                console.log(JSON.stringify(param.data));
                 $.ajax({
                     type: "POST",
                     url: param.url,
-                    data: param.data,
+                    data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
-                        console.log(data);
+                        console.log($.parseJSON(data));
                         console.timeEnd("DATA LOADED");
                         param.callback($.parseJSON(data),session);
+                    },
+                    error: function(request,status,error){
+                        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                     }
                 });
             }
             else {
+                console.log("SESSION SUCCESS");
                 param.callback(session);
             }
         }

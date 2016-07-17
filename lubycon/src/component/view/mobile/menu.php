@@ -14,22 +14,22 @@
                     <i class="fa fa-gear fa-1x"></i>
                 </a>
             </span>
-        </div> 
+        </div>
     </header>
     <ul class="mb-menu-group">
         <p class="mb-menu-title">CONTENTS</p>
         <li class="mb-menu-list">
-            <a href="?dir=pages/controller/contents/contents_page&cate=artwork&page=1">
+            <a href="?dir=pages/view/contents/contents_page&cate=artwork&page=1">
                 <i class="fa fa-picture-o fa-1x"></i>Artwork
             </a>
         </li>
         <li class="mb-menu-list">
-            <a href="?dir=pages/controller/contents/contents_page&cate=vector&page=1">
+            <a href="?dir=pages/view/contents/contents_page&cate=vector&page=1">
                 <i class="fa fa-object-group fa-1x"></i>Vector
             </a>
         </li>
         <li class="mb-menu-list">
-            <a href="?dir=pages/controller/contents/contents_page&cate=threed&page=1">
+            <a href="?dir=pages/view/contents/contents_page&cate=threed&page=1">
                 <i class="fa fa-cube fa-1x"></i>3D Model
             </a>
         </li>
