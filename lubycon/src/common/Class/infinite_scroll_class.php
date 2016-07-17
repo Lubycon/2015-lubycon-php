@@ -1,6 +1,45 @@
 <?php
 class infinite_scroll extends json_control
 {
+    // from ajax post
+    private $cardType;
+    private $page;
+    private $topCate;
+    private $filter;
+    private $sort;
+    private $searchFilter;
+    private $searchValue;
+    private $nowPage;
+    private $targetPage;
+
+    // page limit option
+    private $pageStartPoint;
+    private $page_boundary;
+
+    // content and forum allow top category list
+    private $allow_array_list;
+    private $allow_array_content = ['all','artwork','vector','threed'];
+    private $allow_array_community = ['all','forum','tutorial','qaa'];
+
+
+
+    private $searchFilterQuery;
+    private $midCateQuery;
+    private $licenseQuery;
+    private $jobQuery;
+    private $continentQuery;
+    private $myBookmarkQuery;
+    private $myContentQuery;
+
+
+    public $select_query;
+    public $from_query;
+    public $where_query;
+    public $order_query;
+    public $limit_query;
+
+    public $bind_data=array();
+    /*
     private $page_kinds;
     private $top_category;
     private $top_cate_decode;
@@ -25,62 +64,125 @@ class infinite_scroll extends json_control
     public $query_foundRow = "SELECT FOUND_ROWS()";
     
     public $all_page_count; //all page count
-
-	public function __construct($kinds,$top_category)
+    */
+	public function __construct($postData)
     {
-		// default arg is page kind (content or community etc..)
-		$this->page_kinds = $kinds;
-		$this->top_category = $top_category;
-        $this->page_boundary = $this->page_limit;
+		// default arg is page kind
+		$this->cardType = $postData->cardType;
+        $this->page = $postData->page;
+        $this->topCate = $postData->topCate;
+        $this->filter = $postData->filter;
+        $this->sort = $postData->sort;
+        $this->searchValue = $postData->searchValue;
+        $this->nowPage = $postData->nowPage;
+        $this->targetPage = $postData->targetPage;
 
-        if($this->page_kinds == 'content') //set allow array form page kinds
+        //optcion to call each
+        $this->page_boundary = 30;
+        $this->pageStartPoint = $this->nowPage * $this->page_boundary;
+
+        //query set
+        $this->searchFilterQuery = $this->searchValue !== null ? $this->filter->searchFilter." like '%".$this->searchValue."%'" : $this->filter->searchFilter = null ;
+        $this->midCateQuery = $this->filter->midCate !== 'all' ? $this->filter->midCate.' IN (a.`midCategoryCode0`,a.`midCategoryCode1`,a.`midCategoryCode2`)' : null;
+        $this->licenseQuery = $this->filter->license !== 'all' ? 'a.`ccLicense` = '.($this->filter->license) : null;
+        $this->jobQuery = $this->filter->license !== 'all' ? 'a.`jobCode` = '.($this->filter->job) : null; 
+        $this->continentQuery = $this->filter->license !== 'all' ? 'a.`continent` = '.($this->filter->continent) : null;
+        $this->myBookmarkQuery;
+        $this->myContentQuery;
+
+
+         //set allow array form page kinds
+        if($this->cardType == 'content')
         {
             $this->allow_array_list = $this->allow_array_content;
-        }else if($this->page_kinds == 'community')
+            $this->validateCategory();
+        }
+        else if($this->cardType == 'community')
         {
             $this->allow_array_list = $this->allow_array_community;
+            $this->validateCategory();
         }
 
-        $this->json_decode('top_category',"../../../../data/top_category.json"); //extended code
-        $this->top_cate_decode = $this->json_decode_code; //top category decode
+        // extend class
+        $this->json_decode('top_category',"../../../../data/top_category.json");
+        $this->top_cate_decode = $this->json_decode_code;
 	}
 
-    public function validate_category() //check top category form allow array
+    private function validateCategory() //check top category form allow array
     {
-        if( in_array($this->top_category , $this->allow_array_list) )
+        if( !in_array($this->topCate , $this->allow_array_list) )
         {
-        }else
-        {
-            include_once('../../../service/view/error/404.php');
-            die('dose not allow category name');
+            echo 'Unknown top category name errorCode:0001';
+            die();
         }
     }
 
-    public function set_option($filter,$sort,$page_number,$ajax_boolean,$ajax_page) //set query from user needs
+    public function initQuery($Loginuser_code) //set default query option
     {
-        // 0.call page number (param.1) 1. page boundary (class setting)
-        // 2.top_category ($this->top_category) 3.middle cateroy (param.2 later)
-        // 4.sort (param.3.array)
-        // 5.search engine (later)
+        switch($this->cardType)
+        {
+            case 'content' :
+                $this->select_query = 
+                    "
+                    SELECT SQL_CALC_FOUND_ROWS 
+                    a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,
+                    a.`viewCount`,a.`likeCount` , a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus` , c.`nick` 
+                    ";
+                if($this->topCate === 'all')
+                {
+                    $this->from_query = 
+                    "
+                    FROM 
+                    ( 
+                        SELECT * FROM lubyconboard.`artwork`
+                        LEFT JOIN lubyconboard.`artworkmidcategory`
+                        USING (`boardCode`)
+            
+                        UNION SELECT * FROM lubyconboard.`vector` 
+                        LEFT JOIN lubyconboard.`vectormidcategory`
+                        USING (`boardCode`)
+            
+                        UNION SELECT * FROM lubyconboard.`threed` 
+                        LEFT JOIN lubyconboard.`threedmidcategory`
+                        USING (`boardCode`)
+                    ) AS a 
+                    LEFT JOIN lubyconuser.`userbasic` AS c 
+                    ON a.`userCode` = c.`userCode` 
+                    ";
+                }
 
-        $this->filter = $filter;
-        $this->sort = $sort;
+                $this->where_query = " WHERE a.`contentStatus` = 'normal' AND";
 
-        $null_count = 0;
+                if($Loginuser_code != null)
+                {
+                    $this->select_query .= " ,b.`bookmarkActionUserCode` ";
+                    $this->from_query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b ON a.`boardCode` = b.`boardCode` AND a.`topCategoryCode` = b.`topCategoryCode` AND b.`bookmarkActionUserCode` = $Loginuser_code ";
+                }
+
+            break;
+            case 'community' : break;
+            case 'creator' : break;
+            case 'comment' : break;
+            default : die( 'initQuery switcher error' ); break;
+        }
+        $this->limit_query = " limit $this->pageStartPoint , $this->page_boundary";
+    }
+
+    public function setOption() //set query from user needs
+    {
         foreach( $this->filter as $key => $value )
         {
-            if( $this->filter[$key]['value'] != null )
+            if( $value !== null )
             {
-                print_r($this->filter[$key]['value']);
-                $this->where_query .= $this->filter[$key]['query']." and ";
-            }else
-            {
-                $null_count++;
+                echo $key;
+                $addQuery = $this->{$key."Query"};
+                $this->where_query .= " $addQuery and ";
             }
         }
         $this->where_query = substr($this->where_query, 0, -4);//delete last and string
 
-        switch($sort)
+
+        switch($this->sort)
         {
             case 0 : $this->order_query = " ORDER BY a.`viewCount` DESC "; break;
             case 1 : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
@@ -90,33 +192,53 @@ class infinite_scroll extends json_control
             default : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
         }
 
-        $this->now_page = $page_number;
-        if($ajax_boolean) //ajax
-        {
-            if( $this->now_page >= 0 )
-            {
-                $this->target_page = $ajax_page;
-                $this->call_page = ($page_number - 1) * $this->page_limit;
-                $this->page_boundary = $this->page_limit; //call 1page (prev or next page)
-            }
-        }
-        /*else if(!$ajax_boolean) //not ajax (page refresh)
-        {
-            $this->target_page = $this->now_page;
-            if( $this->now_page > 1 )
-            {
-                $this->start_page = $this->now_page - 1;
-                $this->call_page = ( $this->now_page - 2 ) * $this->page_limit;
-                $this->page_boundary = $this->page_limit * 3; //call 3page (prev,now,next page)
-            }else if($this->now_page == 1)
-            {
-                $this->start_page = 1;
-                $this->call_page = 0; //page 1
-                $this->page_boundary = $this->page_limit * 2; //call 2page (now,next page)
-            }
-        }*/
+
+        /*
+        echo $this->select_query;
+        echo $this->from_query;
+        echo $this->where_query;
+        echo $this->order_query;
+        echo $this->limit_query;
+        */
     }
 
+    public function bindResult($result)
+    {
+        switch($this->cardType)
+        {
+            case 'content' :
+                while( $row = mysqli_fetch_assoc($result) )
+                {
+                    $bookmark_check = $row['bookmarkActionUserCode'] != null ? 'true' : 'false';
+                    $this->bind_data[] = array(
+                        'code' => $row['boardCode'],
+                        'title' => $row['contentTitle'],
+                        'category' => $row['topCategoryCode'],
+                        'thumbnail' => $row['userDirectory'].'/thumbnail/thumbnail.jpg',
+                        'license' => $row['ccLicense'],
+                        'bookmark' => $bookmark_check,
+                        'userData' => array(
+                            'code' => $row['userCode'],
+                            'name' => $row['nick'],
+                            'profile' => "../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg",
+                        ),
+                        'contentCount' => array(
+                            'view' => $row['viewCount'],
+                            'commnet' => $row['commentCount'],
+                            'like' => $row['likeCount'],
+                        )
+                    );
+                }
+            break;
+            case 'community' : break;
+            case 'creator' : break;
+            case 'comment' : break;
+            default : die( 'initQuery switcher error' ); break;
+        }
+    }
+
+
+    /* need change logic to model
     public function set_query($query_user_code)
     {
         if( $this->top_category == 'all' )
@@ -188,12 +310,12 @@ class infinite_scroll extends json_control
         //echo $this->query;
     }
 
-    public function count_page($db_result)
+    /*
+    public function count_page($db_result) // count all page function
     {
         $foundRow_result = mysqli_fetch_array($db_result); //row count
         $this->all_page_count = ceil($foundRow_result[0] / 30); //all page count
     }
-
 
     public function spread_contents($contents_result,$one_depth,$ajax_boolean)
     {
@@ -210,7 +332,7 @@ class infinite_scroll extends json_control
                 $top_category = $country_decode[$row['topCategoryCode']]['name'];
                 include('../../../component/view/contents_card/content_card.php');
 
-                /*page load*/
+                //page load
                 if($i == $this->page_limit && !$ajax_boolean)
                 {
                     echo "<div class='scroll_checker page_bottom_$this->start_page'></div>";
@@ -220,14 +342,14 @@ class infinite_scroll extends json_control
                 {
                     $i++;
                 }
-                /*page load*/
+                //page load
             }   
-            /*ajax*/
+            //ajax
             if($ajax_boolean)
             {
                 echo "<div class='scroll_checker page_bottom_$this->target_page'></div>";
             }
-            /*ajax*/
+            //ajax
 
             if($this->all_page_count == $this->target_page){
                 echo '<div class="finish_contents" data-value="content"></div>';
@@ -256,8 +378,9 @@ class infinite_scroll extends json_control
             }
         }else
         {
-            echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
+            echo "<script>scroll_from_param('private $now_page');</script>"; //find pre click contents
         }
     }
+    */
 }
 ?>

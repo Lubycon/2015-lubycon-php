@@ -1,16 +1,12 @@
 <?php
-    require_once "./common/Class/database_class.php";
     require_once "./common/Class/json_class.php";
-    require_once "./common/Class/infinite_scroll_class.php";
 
-    $db = new Database();
     $json_control = new json_control;
 
     // json control 
     $current_url = $_GET["cate"];
     $json_control->json_decode($current_url.'_category',"../data/middle_category.json");
     $middle_cate_decode = $json_control->json_decode_code;
-    
 ?>
 <script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll.js"></script>
 <script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script>

@@ -52,7 +52,7 @@ InfiniteScrollDetector.prototype.next = function(callback){
     this.targetPage = this.nowPage + 1;
     console.log(this.getData());
     Controller({
-        url: "./pages/controller/creators/controller.php",
+        url: "./service/controller/infinite_scroll/controller.php",
         data: this.getData(),
 	    callback: callback
     });
@@ -61,7 +61,7 @@ InfiniteScrollDetector.prototype.prev = function(callback){
     this.nowPage = getUrlParameter("page") || 1;
     this.targetPage = this.nowPage - 1;
     Controller({
-        url: "./pages/controller/creators/controller.php",
+        url: "./service/controller/infinite_scroll/controller.php",
         data: this.getData(),
 	    callback: callback
     });
