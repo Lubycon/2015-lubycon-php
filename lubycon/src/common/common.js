@@ -72,18 +72,24 @@ function Controller(param){
         cache: false,
         async: true,
         success: function(data){
-            console.log(param);
             var session = $.parseJSON(data);
             if(param.url){
+                console.log(param.data);
+                console.log(param.url);
+                console.log(JSON.stringify(param.data));
                 $.ajax({
                     type: "POST",
                     url: param.url,
+                    dataType: "json",
                     data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
                         console.log($.parseJSON(data));
                         console.timeEnd("DATA LOADED");
                         param.callback($.parseJSON(data),session);
+                    },
+                    error: function(request,status,error){
+                        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                     }
                 });
             }

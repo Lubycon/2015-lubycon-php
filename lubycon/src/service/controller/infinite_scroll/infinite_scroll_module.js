@@ -55,7 +55,7 @@ InfiniteScrollDetector.prototype.next = function(callback){
     console.log(this.getData());
     Controller({
         url: "./service/controller/infinite_scroll/controller.php",
-        data: JSON.stringify(this.getData()),
+        data: this.getData(),
 	    callback: callback
     });
 };
@@ -66,7 +66,7 @@ InfiniteScrollDetector.prototype.prev = function(callback){
     console.log(this.getData());
     Controller({
         url: "./service/controller/infinite_scroll/controller.php",
-        data: JSON.stringify(this.getData()),
+        data: this.getData(),
 	    callback: callback
     });
 };

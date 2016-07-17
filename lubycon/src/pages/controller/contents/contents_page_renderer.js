@@ -18,7 +18,8 @@ $(document).ready(function(){
     			search: $(".searchFilter").lubySelector("getValueByIndex")
     		},
     		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
-    		nowPage: getUrlParameter("page")
+    		nowPage: getUrlParameter("page"),
+            targetPage: getUrlParameter("page")
         },
 	    callback: init
 	});
