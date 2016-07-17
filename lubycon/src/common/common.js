@@ -80,11 +80,11 @@ function Controller(param){
                 $.ajax({
                     type: "POST",
                     url: param.url,
-                    dataType: "json",
                     data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
-                        console.log($.parseJSON(data));
+                        //console.log($.parseJSON(data));
+                        console.log(data);
                         console.timeEnd("DATA LOADED");
                         param.callback($.parseJSON(data),session);
                     },
