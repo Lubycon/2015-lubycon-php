@@ -1,7 +1,10 @@
 $(document).ready(function(){
 	Controller({
         url: "./pages/controller/personal_page/personal_page_controller.php",
-        data: "cate=" + CATE_PARAM + "&usernum=" + USER_PARAM,
+        data: {
+			cate: CATE_PARAM,
+			usernum: USER_PARAM
+		},
         callback: init
     });
 
@@ -38,9 +41,9 @@ $(document).ready(function(){
 
 		function setSubnav(){
 			var subnav = $(".subnav_li");
-				
+
 			subnav.each(function(){
-				
+
 				var v = $(this).data("value"),
 					anchor = $(this).find("a");
 					link = "?dir=pages/view/personal_page/personal_page&cate=" + v + "&usernum=" + userdata.code;

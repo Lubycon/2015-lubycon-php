@@ -1016,7 +1016,7 @@ body {
         z-index: 3;
     }
 
-.contents_card{
+.contents-card{
     position: relative;
     background: #ffffff;
     overflow: hidden;
@@ -1025,7 +1025,7 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
-    .contents_overlay{
+    .contents-overlay{
         position: absolute;
         z-index: 1;
         background: rgba(0,0,0,0.4);
@@ -1033,13 +1033,13 @@ body {
         display: none;
         cursor: pointer;
     }
-        .contents_overlay a{
+        .contents-overlay a{
             position: absolute;
             width: 100%;
             z-index:2;
             text-align: center;
         }
-        .contents_overlay .fa-search-plus{
+        .contents-overlay .fa-search-plus{
             color:#ffffff;
             display: inline-block;
             margin: 0px auto;
@@ -1049,10 +1049,10 @@ body {
             border-radius: 50%;
             font-size: 25px;
         }
-        .contents_overlay ul{
+        .contents-overlay ul{
             margin-top:57px;
         }
-        .contents_overlay li {
+        .contents-overlay li {
             float:left;
             color:#fff;
             font-size: 16px;
@@ -1060,38 +1060,38 @@ body {
             margin-right:10px;
             margin-left:10px;
         }
-            .contents_view_count {
+            .contents-view-count {
                 font-weight: 200;
             }
-            .contents_comments {
+            .contents-comments {
                 font-weight: 200;
             }
-            .contents_like {
+            .contents-like {
                 font-weight: 200;
             }
-            .contents_overlay li i{
+            .contents-overlay li i{
                 margin-right:5px;
                 -webkit-text-stroke:1px rgba(0,0,0,0.2);
             }
-        .contents_overlay .contents_like_li{
+        .contents-overlay .contents-like-li{
             float:right;
         }
-        .contents_overlay .contents_like_li i{
+        .contents-overlay .contents-like-li i{
             color:#48cfad;
         }
-    .contents_pic{
+    .contents-pic{
         height:215px;
     }
-    .contents_desc{
+    .contents-desc{
         height:75px;
         padding:5px 10px;
     }
-        .contents_sub{
+        .contents-sub{
             width:100%;
             height: 37px;
             margin-bottom: 13px;
         }
-        .contents_desc .contents_title{
+        .contents-desc .contents-title{
             display: block;
             width: 100%;
             cursor: pointer;
@@ -1105,34 +1105,35 @@ body {
             height:26px;
             line-height:26px;
         }
-        .contents_desc h5 {
+        .contents-desc h5 {
             color:#888888;
             font-size:13px;
             line-height:15px;
             font-weight:400;
         }
-        .creator_desc {
+        .creator-desc {
             display: block;
             width: 100%;
             transition: opacity 0.4s
         }
-            .creator_desc:hover {
+            .creator-desc:hover {
                 opacity: 0.7;
             }
-            .creator_desc img{
+            .creator-desc img{
                 width: 35px;
                 height: 35px;
                 margin-top: 3px;
             }
-            .creator_desc .by{
+            .creator-desc .by{
                 color:#888888;
                 margin-right: 1px;
+                margin-left: 5px;
             }
-            .creator_desc .name{
+            .creator-desc .name{
                 color:#444444;
                 font-size: 16px;
             }
-        .contents_desc .bookmark_bt{
+        .contents-desc .bookmark-bt{
             position: absolute;
             bottom: 5px;
             right: 5px;
@@ -1187,18 +1188,18 @@ body {
             -moz-box-sizing: border-box;
             transition: opacity 0.2s;
         }
-            .contents_card .userAction-bt {
+            .contents-card .userAction-bt {
                 position: absolute;
                 right: 5px;
                 bottom: 5px;
                 color: #cccccc;
                 font-size: 28px;
             }
-                .contents_card .userAction-bt[data-value='bookmark'].selected {
+                .contents-card .userAction-bt[data-value='bookmark'].selected {
                     background: transparent;
                     color: #ffbe54;
                 }
-                .contents_card .userAction-bt[data-value='like'].selected {
+                .contents-card .userAction-bt[data-value='like'].selected {
                     background: transparent;
                     color: #48cfad;
                 }

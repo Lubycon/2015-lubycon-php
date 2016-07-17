@@ -24,12 +24,12 @@
         top: 5px;
     }
     #footer {
-        
+
     }
     #gotop_bt{
         position: fixed;
         bottom: 20px;
-        right: 10px; 
+        right: 10px;
     }
     #main_search_bar{
         display: none;
@@ -93,7 +93,7 @@
                 overflow: hidden;
             }
                 .mb-wrapper-main .mb-main-img a {
-    
+
                 }
                     .mb-wrapper-main .mb-main-img .layer {
                         position: absolute;
@@ -132,7 +132,7 @@
                                     font-weight: 200;
                                     color: #ffffff;
                                 }
-                        
+
                     .mb-wrapper-main .mb-main-img a img {
                         width: 100%;
                         vertical-align: middle;
@@ -291,7 +291,7 @@
                     #mb-user-setting i{
                         color: #ffffff;
                     }
-        .main_header h1#main-logo{ 
+        .main_header h1#main-logo{
             width: 100px;
             top: 16px;
             left: 50%;
@@ -358,7 +358,7 @@
         display: none;
     }
     #contents_box {
-        
+
     }
     #contents_box > ul {
         margin-top: 0px;
@@ -371,47 +371,47 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
     }
-        .contents_card {
+        .contents-card {
             width: 100%;
             height: 120px;
         }
-            .contents_overlay {
+            .contents-overlay {
                 width: 100%;
                 height: 120px;
                 visibility: hidden;
             }
-            .contents_pic {
+            .contents-pic {
                 display: inline-block;
                 height: 100%;
             }
-                .contents_pic img{
+                .contents-pic img{
                     height: 100%;
                 }
-            .contents_desc {
+            .contents-desc {
                 display: inline-block;
                 vertical-align: top;
                 width: 44%;
             }
-                .contents_title {
+                .contents-title {
                     float: none;
                     display: block;
                 }
-                .contents_desc h5 {
+                .contents-desc h5 {
                     display: block;
                     float: none;
                 }
-                .contents_desc .bookmark_bt {
+                .contents-desc .bookmark-bt {
                     font-size: 30px;
                 }
-            .creator_desc {
+            .creator-desc {
                 margin-top: 50px;
             }
-                .creator_desc .by {
+                .creator-desc .by {
                     margin-left: 0px;
                     font-size: 12px;
                     font-weight: 400;
                 }
-                .creator_desc .name{
+                .creator-desc .name{
                     font-size: 14px;
                 }
 
@@ -450,11 +450,11 @@
     #contents_info_wrap {
         background: #383838;
     }
-   
+
     #contents_subject {
         display: block;
     }
-        #contents_title {
+        #contents-title {
             display: block;
             text-align: left;
             font-size: 25px;
@@ -481,7 +481,7 @@
         margin-bottom: 10px;
         margin-top: 5px;
     }
-        #contents_aside .creator_info #user_img { 
+        #contents_aside .creator_info #user_img {
             width: 35px;
             height: 35px;
             margin-left: 5px;
@@ -505,20 +505,20 @@
                 margin-left: 5px;
             }
         #contents_score{
-            
+
         }
             #contents_score ul {
-                
+
             }
         #contents_main{
-            
+
         }
     #user_view_aside{
         height: 100px;
         margin-top: 51px;
     }
     #user_view_main{
-        
+
     }
     .con_aside #myinfo_main{
         margin-top: 0px;
@@ -590,14 +590,14 @@
             font-size: 16px;
         }
         .table_writer {
-            font-size: 13px;  
+            font-size: 13px;
         }
         .mobile_i{
             margin-right: 5px;
             color: #444444;
         }
     .table_counts{
-        
+
     }
         .table_counts .table_like{
             font-size: 16px;
@@ -737,7 +737,7 @@
                 width: 100% !important;
                 margin: 5px auto;
             }
-        
+
         .setting_card > input {
 
         }
@@ -811,7 +811,7 @@
             position: relative;
         }
     #after_signin{
-        
+
     }
         #after_signin figure{
             width: 33px;
@@ -828,7 +828,7 @@
         margin-top: 0px;
     }
     .con_wrap{
-        
+
     }
     .con_main {
         margin-top: 0px;
@@ -847,44 +847,44 @@
     #contents_box > ul > li {
         margin: 0px;
     }
-        .contents_card {
+        .contents-card {
             width: 250px;
             height: 320px;
             margin: 22px 10px;
             box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.3);
         }
-            .contents_overlay {
+            .contents-overlay {
                 width: 250px;
                 height: 215px;
             }
-            .contents_pic {
+            .contents-pic {
                 display: block;
             }
-                .contents_pic img{
+                .contents-pic img{
                     width: 250px;
                     height: 215px;
                 }
-            .contents_desc{
+            .contents-desc{
                 display: block;
             }
-                .contents_title {
+                .contents-title {
                     float: left;
                     width: 190px;
                 }
-                .contents_desc h5 {
+                .contents-desc h5 {
                     display: block;
                     float: left;
                 }
-                .contents_desc #bookmark_bt{
+                .contents-desc #bookmark_bt{
                     font-size: 25px;
                 }
-            .creator_desc {
+            .creator-desc {
                 margin-top: 5px;
             }
-                .creator_desc .by {
+                .creator-desc .by {
                     font-size: 13px;
                 }
-                .creator_desc .name{
+                .creator-desc .name{
                     font-size: 14px;
                 }
     .creator_card_in{
@@ -932,7 +932,7 @@
     #contents_subject {
         display: inline-block;
     }
-        #contents_title {
+        #contents-title {
             font-size: 27px;
             font-weight: 400;
             display: inline-block;
@@ -978,10 +978,10 @@
             text-align: left;
         }
         #contents_score {
-            
+
         }
             #contents_score ul {
-                
+
             }
         .infoCard.comment .comment-write-wrap .comment-input {
             width: 90%;

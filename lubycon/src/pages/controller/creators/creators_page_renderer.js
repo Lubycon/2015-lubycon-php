@@ -11,7 +11,7 @@ $(document).ready(function(){
 		filter: {
 			midCate: null,
 			license: null,
-			continent: $(".locationFilter").lubySelector("getValueByIndex") == 0 ?
+			continent: $(".locationFilter").lubySelector("getValueByIndex") === 0 ?
 				"all" :
 				$(".locationFilter").lubySelector("getValueByindex"),
 			job: $(".jobFilter").lubySelector("getValueByIndex") === 0 ?
