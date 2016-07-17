@@ -67,10 +67,10 @@ require_once "../../../service/model/infinite_scroll/model.php";
 $infinite_scroll->bindResult($contents_result);
 
 
-print_r($infinite_scroll->bind_data);
+//print_r($infinite_scroll->bind_data);
 
 $total_array = [
-    //'content' => $infinite_scroll->bind_data;
+    'content' => $infinite_scroll->bind_data
 ];
 
 $data_json = json_encode($total_array);
