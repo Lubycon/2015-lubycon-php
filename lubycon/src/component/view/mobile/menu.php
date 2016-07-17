@@ -61,7 +61,7 @@
         </li>
         <li class="mb-menu-list" data-value="my_contents">
             <a href="#">
-                <i class="fa fa-line-chart fa-1x"></i>My Contents
+                <i class="fa fa-folder-open fa-1x"></i>My Contents
             </a>
         </li>
     </ul>
