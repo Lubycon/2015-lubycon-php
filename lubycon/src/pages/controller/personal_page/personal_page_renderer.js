@@ -51,8 +51,8 @@ $(document).ready(function(){
 				anchor.attr("href",link);
 
 				if(v === pageTitle) $(this).addClass("selected");
-			})
+			});
 
 		}
     }
-})
+});

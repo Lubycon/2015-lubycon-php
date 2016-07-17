@@ -24,26 +24,27 @@ $(document).ready(function(){
 	    callback: init
 	});
 
-	/*var detector = new InfiniteScrollDetector({
+	var detector = new InfiniteScrollDetector({
 		cardType: "content",
-		page: "content",
+        page: "content",
         topCate: getUrlParameter("cate"),
-		filter: {
-			midCate: $(".categoryFilter").lubySelector("getValueByIndex") === 0 ?
+        sort: $(".preferFilter").lubySelector("getValueByIndex"),
+        filter: {
+            midCate: $(".categoryFilter").lubySelector("getValueByIndex") === 0 ?
                 "all" :
                 $(".categoryFilter").lubySelector("getValueByIndex"),
-			sort: $(".preferFilter").lubySelector("getValueByIndex"),
-			license: $(".copyrightFilter").lubySelector("getValueByIndex") === 0 ?
+            license: $(".copyrightFilter").lubySelector("getValueByIndex") === 0 ?
                 "all" :
                 $(".copyrightFilter").lubySelector("getValueByIndex"),
-			continent: null,
-			job: null,
-			search: $(".searchFilter").lubySelector("getValueByIndex")
-		},
-		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
-		nowpage: getUrlParameter("page")
+            continent: null,
+            job: null,
+            search: $(".searchFilter").lubySelector("getValueByIndex")
+        },
+        searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
+        nowPage: getUrlParameter("page"),
+        targetPage: getUrlParameter("page")
 	});
-	detector.start(addCard);*/
+	detector.start(addCard);
 
     function init(data){
         console.log(data);

@@ -124,11 +124,13 @@
             if(session.LoginState){
                 $(".signin_class").remove();
                 $(".after_signin_class").show();
+                $("#accountImg").find("img").attr("src","../../../../Lubycon_Contents/user/" + session.usernum + ".jpg");
             }
             else {
                 $(".signin_class").show();
                 $(".after_signin_class").remove();
             }
+
             var searchFilter = $("body").find(".searchFilter");
             searchFilter.lubySelector({
                 width: 130,
@@ -225,7 +227,7 @@
         </div><!-- before sign in -->
         <div id="after_signin" class="hidden-mb-b after_signin_class">   <!-- after sign in -->
                 <div id="display_user">
-                    <figure id="accountImg"><img src="../../../../../Lubycon_Contents/user/<?=$Loginuser_code?>/profile.jpg" alt="profile_img" /></figure>
+                    <figure id="accountImg"><img src="#" alt="profile_img" /></figure>
                     <span id="user_id"><?=$Loginuser_name?></span>
                     <i class="fa fa-angle-down"></i>
                 </div>
