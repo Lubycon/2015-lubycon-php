@@ -7,74 +7,18 @@ $(document).ready(function(){
     });
 
     function init(data,session){
-        console.log("DUMMY DATA");
         initDashboard(data);
     }
 
     function initDashboard(data){
         console.log(data);
         //console.log(data.insightData);
-        data = { //DUMMY
-            insightData:{
-                totalLike: 22,
-                totalView: 1242,
-                totalUpload: 2051,
-                totalDownload: 3
-            },
-            userData: {
-                utc: 9,
-                job: "Frontend Engineer",
-                position: "Lubycon",
-                website: "www.lubycon.com",
-                location: {
-                    city: "Seoul",
-                    country: "South Korea"
-                }
-            },
-            userLanguage: [
-                {
-                    name: "Korean",
-                    level: "Native"
-                },
-                {
-                    name: "English",
-                    lavel: "Begginer"
-                }
-            ],
-            userHistory: [
-                {
-                    year: 2001,
-                    month: 3,
-                    category: "work_experience",
-                    content: "This is test1"
-                },
-                {
-                    year: 2001,
-                    month: 12,
-                    category: "education",
-                    content: "This is test2"
-                },
-                {
-                    year: 2002,
-                    month: 1,
-                    category: "awards",
-                    content: "This is test3"
-                }
-            ],
-            publicOption: {
-                email: false,
-                mobile: false,
-                fax: false,
-                web: false
-            }
-        }
-
         var job = $(".content_text[data-value='job']").text(data.userData.job),
             position = $(".content_text[data-value='position']").text(data.userData.position),
             city = $(".content_text[data-value='city']").text(data.userData.location.city || ""),
             country = $(".content_text[data-value='country']").text(data.userData.location.country),
-            language1 = $(".content_text[data-value='language1']").text(data.userLanguage[0].name || ""),
-            language2 = $(".content_text[data-value='language2']").text(data.userLanguage[1].name || ""),
+            language1 = $(".content_text[data-value='language1']"),
+            language2 = $(".content_text[data-value='language2']"),
 
             historyWrap = $(".history_wrap"),
 
@@ -84,15 +28,26 @@ $(document).ready(function(){
             totalDownload = $("#total_download").find(".dash_body_content").text(data.insightData.totalDownload),
 
             website = $("#user-website");
+
+        var languageMap = data.userLanguage.map(function(v,i){
+            return v.level === "Advanced" || v.level === "Fluent" ? v.name : null;
+        }).clean();
+        
+        language1.text(languageMap[0]);
+        language2.text(languageMap[1]);
             
 
-        initHistory(data.userHistory);
+        initHistory(data.userHistory.reverse());
       
         $.getJSON("./component/view/chart/data/insightData.json",function(data){
             success : initChart(data);
         }).fail(function(d, textStatus, error){ 
             console.log("insight data loading is failed, status: " + textStatus + ", error: "+error) 
         });
+
+        $(".history_kind span").first().remove();
+        $(".toggle_info").on("click touchend",infoToggle);
+        initClocks();
 
         if(data.publicOption.website){
             website.find("a").attr({
@@ -112,7 +67,7 @@ $(document).ready(function(){
                     line = $("<span/>").appendTo(kind),
                 content = $("<div/>",{ "class" : "history_content" });
             for(var i = 0; i < data.length; i++){
-                var d = date.clone().text(data[i].year + " " + data[i].month),
+                var d = date.clone().text(data[i].year + " " + data[i].month.substring(0,3)),
                     k = kind.clone().addClass(data[i].category),
                     c = content.clone().text(data[i].content);
 
@@ -122,22 +77,6 @@ $(document).ready(function(){
                     .append(c)
                     .appendTo(historyWrap);
             }
-        }
-        function initChart(data){
-            var likeTimelineData = data.timeline.like,
-                viewTimelineData = data.timeline.view,
-                uploadTimelineData = data.timeline.upload,
-                downloadTimelineData = data.timeline.download;
-
-            $(".history_kind span").first().remove();
-            $(".toggle_info").on("click touchend",infoToggle);
-
-            chartLoader("chartdiv1","likeChart",likeTimelineData);
-            chartLoader("chartdiv2","viewChart",viewTimelineData);
-            chartLoader("chartdiv3","upChart",uploadTimelineData);
-            chartLoader("chartdiv4","downChart",downloadTimelineData);
-
-            initClocks();
         }
 
         function infoToggle(event){
@@ -155,6 +94,19 @@ $(document).ready(function(){
                 });
             }
         }
+
+        function initChart(data){
+            var likeTimelineData = data.timeline.like,
+                viewTimelineData = data.timeline.view,
+                uploadTimelineData = data.timeline.upload,
+                downloadTimelineData = data.timeline.download;
+
+            chartLoader("chartdiv1","likeChart",likeTimelineData);
+            chartLoader("chartdiv2","viewChart",viewTimelineData);
+            chartLoader("chartdiv3","upChart",uploadTimelineData);
+            chartLoader("chartdiv4","downChart",downloadTimelineData);
+        }
+
         function chartLoader(target,theme,data){
             var dataArray = [];
             $.each(data, function(i,v){
@@ -166,6 +118,7 @@ $(document).ready(function(){
             dataArray.splice(0,dataArray.length-7);
             initLineChart(target,theme,dataArray);
         }
+
         function initLineChart(target,theme,data){
             var chart = AmCharts.makeChart(target, {
                 "type": "serial",

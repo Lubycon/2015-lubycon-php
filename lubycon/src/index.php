@@ -125,6 +125,10 @@
                 $(".signin_class").remove();
                 $(".after_signin_class").show();
             }
+            else {
+                $(".signin_class").show();
+                $(".after_signin_class").remove();
+            }
             var searchFilter = $("body").find(".searchFilter");
             searchFilter.lubySelector({
                 width: 130,
@@ -291,6 +295,9 @@
         </div>
         <!-- end select_box -->
     </div>
+    <?php 
+        include_once "./component/view/mobile/menu.php";
+    ?>
     <!--INCLUDE BODY-->
 <?php
     if(!$inactive_user){

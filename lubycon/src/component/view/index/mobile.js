@@ -93,7 +93,7 @@ $(window).on("load resize",function(event){
             buttons = $this.find(".mb-main-tab-bt");
             buttons.first().addClass("selected");
 
-        buttons.on("click",dbClickAction).on("click",toggle.group).on("click",toggleAction);
+        buttons.on("click",dbClickAction).on("click",toggleAction).on("click",toggle.group);
 
         function toggleAction(){
             var selected = $(this).hasClass("selected"),
@@ -104,15 +104,14 @@ $(window).on("load resize",function(event){
                 allButtons = $(document).find(".mb-main-tab-bt > span"),
                 thisButton = $(this).find("span");
 
-            panels.removeClass("selected");
-            target.addClass("selected");
+            if(!selected){
+                panels.hide();
+                target.stop().fadeIn(500);
+            }
         }
 
         function dbClickAction(){
-            if($(this).hasClass("selected")){
-                var data = $(this).data("target") !== "3d" ? $(this).data("target") : "threed";
-                location.href = "./php/contents/contents_page.php?cate=" + data + "&page=1";
-            }
+            if($(this).hasClass("selected")) $('html, body').animate({scrollTop : 0},500);
             else return false;
         }
     }

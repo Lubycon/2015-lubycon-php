@@ -15,8 +15,8 @@ var USER_PARAM = getUrlParameter('usernum'); //GLOBAL
 
 var TOUCHMOVING = false;
 $(document).ready(function(){
-    $(document).on("touchmove",function(){ TOUCHMOVING = true; console.log(TOUCHMOVING); });
-    $(document).on("touchend touchstart",function(){ TOUCHMOVING = false; console.log(TOUCHMOVING); });
+    $(document).on("touchmove",function(){ TOUCHMOVING = true; });
+    $(document).on("touchend touchstart",function(){ TOUCHMOVING = false; });
 });
 
 function isMobile(){

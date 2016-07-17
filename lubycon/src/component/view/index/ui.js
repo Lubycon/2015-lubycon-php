@@ -312,8 +312,8 @@ $(document).ready(function(){
     function initGoTopBt(){
         $(window).on("load resize", function(){
             var host = hostURL = location.host,
-            page = document.location.href == ("http://"+host+"/Lubycon_Website/0.current_lubycon/index.php");
-            if($("#gotop_bt").length != 0 && page){
+            page = document.location.href == ("http://"+host+"/Lubycon_Website/lubycon/src/index.php");
+            if($("#gotop_bt").length !== 0 && page){
                 var goTopBt = $(document).find("#gotop_bt");
                 $(document).on("touchmove scroll", function (event){
                     if($(document).scrollTop() > 500) goTopBt.stop().show();
