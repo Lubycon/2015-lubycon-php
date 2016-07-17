@@ -124,7 +124,8 @@
             if(session.LoginState){
                 $(".signin_class").remove();
                 $(".after_signin_class").show();
-                $("#accountImg").find("img").attr("src","../../../../Lubycon_Contents/user/" + session.usernum + ".jpg");
+                console.log(session);
+                $("#accountImg").find("img").attr("src","../../../../Lubycon_Contents/user/" + session.usercode + "/profile.jpg");
             }
             else {
                 $(".signin_class").show();
