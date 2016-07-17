@@ -85,7 +85,7 @@ function Controller(param){
                         console.timeEnd("DATA LOADED");
                         param.callback($.parseJSON(data),session);
                     }
-                })
+                });
             }
             else {
                 param.callback(session);
@@ -102,7 +102,7 @@ function eventHandler(event, selector) {
     if (event.type === 'touchend'){
         selector.off('click');
     }
-};
+}
 
 function InputExpander(selector) {
     this.start = function () {
@@ -110,13 +110,13 @@ function InputExpander(selector) {
         object.keydown(function(event) {
             this.style.height = 0;
             var newHeight = this.scrollHeight + 5;
-            
+
             if( this.scrollHeight >= this.clientHeight ){
                 newHeight += 5;
                 this.style.height= newHeight + 'px';
             }
         });
-    }
+    };
 }
 
 var toggle = {
@@ -129,11 +129,11 @@ var toggle = {
         ////////////////////////////
         // IT WILL BE FIXED LATER //
         ////////////////////////////
-        
+
         if($this.hasClass("selected")){
             if(!radioType) $this.removeClass("selected");
             else return false;
-        } 
+        }
         else {
             $btns.removeClass("selected");
             $this.addClass("selected");
@@ -145,7 +145,7 @@ var toggle = {
         if($this.hasClass("selected")) $this.removeClass("selected");
         else $this.addClass("selected");
     }
-}
+};
 
 function CardMenu(params){
     var $this = $(this); // CARD //
@@ -192,7 +192,7 @@ function CardMenu(params){
 /*********************   contents after load and find, with move scroll    ************************************/
 function scroll_from_cookie(contents_number) {
     var contents_offsetTop = $('.' + contents_number).offset().top;
-    
+
     var window_center = ($(window).height() / 2) - ($("." + contents_number).height() / 2);
     console.log(contents_offsetTop);
 
@@ -225,15 +225,3 @@ function deleteCookie(cookieName) {
     document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/";
 }
 /*********************   contents after load and find, with move scroll    ************************************/
-
-
-
-
-
-
-
-
-
-
-
-

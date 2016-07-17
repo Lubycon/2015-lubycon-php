@@ -47,7 +47,7 @@ $(document).ready(function(){
 
 		profile.attr("src", creator.profile);
 		creatorName.attr("href","?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + creator.code);
-		creatorName.text(creator.name);;
+		creatorName.text(creator.name);
 		creatorJob.text(creator.job);
 		creatorLocation.text(creator.city + ", " + creator.country);
 
@@ -71,7 +71,7 @@ $(document).ready(function(){
 
 
 		if(dataSet.by || dataSet.nc || dataSet.nd || dataSet.share) addList("cc",1,true);
-		$.each(dataSet,function(k,v){ 
+		$.each(dataSet,function(k,v){
 			addList(k,v,true);
 		});
 

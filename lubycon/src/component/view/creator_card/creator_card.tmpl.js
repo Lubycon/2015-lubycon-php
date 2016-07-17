@@ -18,7 +18,7 @@ var CreatorCard = function(data){
 		{ id : data.contents[1].id, img : data.contents[1].img },
 		{ id : data.contents[2].id, img : data.contents[2].img }
 	] : null;
-}
+};
 CreatorCard.prototype.render = function(){
 	var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -27,7 +27,7 @@ CreatorCard.prototype.render = function(){
 			"data-index" : this.code
 		}),
 		header = $("<div/>", { "class" : "creator-card-header" }),
-			label = $("<span/>",{ 
+			label = $("<span/>",{
 				"class" : "card-label",
 				"html" : this.bestCreator ? "Creator of <span class='this-month'>"+ month[new Date().getMonth()+1] +"</span>" : ""
 			})
@@ -41,7 +41,7 @@ CreatorCard.prototype.render = function(){
 					.append($("<img/>",{ "src" : this.countryImg }))
 					.appendTo(picWrap) : null,
 			infoWrap = $("<div/>", { "class" : "creator-info-wrap" }),
-				name = $("<p/>",{ 
+				name = $("<p/>",{
 					"class" : "creator-name",
 					"html" : "<a href=" + this.personalPage + ">" + this.name + "</a>"
 				})
@@ -53,7 +53,7 @@ CreatorCard.prototype.render = function(){
 					"html" : "<i class='fa fa-map-marker'></i>" + this.city+ ", " + this.country
 				})
 				.appendTo(infoWrap),
-				counter = $("<article/>", { 
+				counter = $("<article/>", {
 					"class" : "contents-count hidden-mb-b",
 					"html" : "<p class='contents-num'>" + this.contentsLength.setUnit(1) + "</p> Contents"
 				})
@@ -72,10 +72,10 @@ CreatorCard.prototype.render = function(){
 
 		if(this.contents){
 			$.each(this.contents,function(i,v){
-				var i = img.clone().attr("src",v.img),
+				var p = img.clone().attr("src",v.img),
 					a = anchor.clone().attr("href","?dir=pages/view/contents/viewer&cate=artwork&conno=" + v.id);
 				var box = content.clone();
-				a.append(i);
+				a.append(p);
 				box.append(a);
 				box.appendTo(contentsWrap);
 			});
@@ -103,7 +103,7 @@ CreatorCard.prototype.render = function(){
 				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
 			}
 		];
-		
+
 		CardMenu.call(body,menuParams,"");
 
 	body.append(picWrap);
@@ -115,22 +115,21 @@ CreatorCard.prototype.render = function(){
 	if(this.contents) card.append(footer);
 
 	this._$DOM = card;
-	console.log(this);
 
 	return card;
-}
+};
 CreatorCard.prototype.getDOM = function(){
 	return this._$DOM;
-}
+};
 CreatorCard.prototype.getCode = function(){
 	return this.code;
-}
+};
 CreatorCard.prototype.getName = function(){
 	return this.name;
-}
+};
 CreatorCard.prototype.getJob = function(){
 	return this.name;
-}
+};
 CreatorCard.prototype.isBestCreator = function(){
 	return this.bestCreator;
-}
+};

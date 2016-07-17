@@ -49,7 +49,7 @@ $(document).ready(function(){
     animateGL();
     loadUserData();
     //skymapJSON, lightJSON, modelJSON
-	
+
     function initCamera(event){
         if(event.which == 32){
             camera.position.x = -2;
@@ -77,7 +77,7 @@ $(document).ready(function(){
         else load2DMap();
 
         loadCustomLights();
-  
+
         function load3DMap(){
             var skyGeometry = new THREE.SphereGeometry(500, 60, 40);
             var skyMaterial = new THREE.MeshBasicMaterial({
@@ -110,7 +110,7 @@ $(document).ready(function(){
         console.log(lightJSON);
         for(var i = 0, l = lightJSON.length; i < l; i++){
             var newLight = unpackLight(lightJSON[i],i);
-            console.log(newLight)
+            console.log(newLight);
             scene.add(newLight);
         }
     }
@@ -122,15 +122,15 @@ $(document).ready(function(){
         console.log(light.color);
 
         switch(type){
-            case "DirectionalLight" : 
+            case "DirectionalLight" :
                 newLight = new THREE.DirectionalLight(light.color,light.intensity);
                 newLight.target.position.set(
                     light.target.x,
                     light.target.y,
                     light.target.z
-                );   
+                );
             break;
-            case "SpotLight" : 
+            case "SpotLight" :
                 newLight = new THREE.SpotLight(light.color,light.intensity);
                 newLight.angel = light.angle;
                 newLight.penumbra = light.penumbra;
@@ -140,13 +140,14 @@ $(document).ready(function(){
                     light.target.z
                 );
             break;
-            case "HemisphereLight" : 
+            case "HemisphereLight" :
                 newLight = new THREE.HemisphereLight(light.skyColor,light.groundColor,light.intensity);
             break;
-            case "PointLight" : 
+            case "PointLight" :
                 newLight = new THREE.PointLight(light.color,light.intensity,light.radius);
             break;
-            default : return false; break;
+            default : return false;
+			break;
         }
 
         newLight.position.set(
@@ -167,7 +168,7 @@ $(document).ready(function(){
         var loader = new THREE.ObjectLoader().parse(modelJSON);
         loader.remove(loader.children[1]);
         scene.add(loader);
-        
+
         $(document).find("#web-gl-ui").text(JSON.stringify(loader.children[0].userData));
     }
 
@@ -189,7 +190,7 @@ $(document).ready(function(){
             faceCounter = panel.find(".ui-list[data-value='face']").children(".counter");
 
             var modelInfo = scene.getObjectByName("mainObject").children[0].userData;
-            
+
             console.log(modelInfo);
             vertexCounter.text(modelInfo.vertices);
             faceCounter.text(modelInfo.triFaces + modelInfo.quadFaces);
@@ -213,7 +214,7 @@ $(document).ready(function(){
                 if(type === "top") $this.css("top",$this.height()*-1+"px");
                 else if(type === "bottom") $this.css("bottom",$this.height()*-1+"px");
                 else return false;
-            })
+            });
         }
     }
 
@@ -237,5 +238,3 @@ $(document).ready(function(){
     	renderer.setSize(windowWidth, windowHeight);
     }
 });
-
-

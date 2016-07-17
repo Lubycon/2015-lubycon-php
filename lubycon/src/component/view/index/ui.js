@@ -142,21 +142,21 @@ $(document).ready(function(){
         submitBt.on("click",queryStart);
 
         var errorCheck = false;
-        
+
         function queryStart(){ //SUBMIT
             alert("SUBMIT");
             submitBt.off("click",queryStart);
         }
         function enterPressed(event){
             if(event.which === 13 && errorCheck) {
-                submitBt.trigger("click"); 
+                submitBt.trigger("click");
             }
         }
         function errorCheck(){
             errorCheck = false;
             var value = $(this).val();
             var errorCode = value.inputErrorCheck();
-            
+
             if(!value.isNullString()){
                 switch(errorCode){
                     case 0 : errorCheck = true; break;
@@ -189,7 +189,7 @@ $(document).ready(function(){
             })
         }
     }
-    function initLubySelectors(){    
+    function initLubySelectors(){
         if($(".nav_guide").length !== 0){
             var navGuide = $(".nav_guide"),
                 searchFilter = navGuide.find(".searchFilter");
@@ -266,8 +266,8 @@ $(document).ready(function(){
             selectors.each(function(){
                 var data = $(this).data("param"),
                     value = getUrlParameter(data);
-                if(value !== undefined) $(this).lubySelector("setValue",value);
-                else $(this).lubySelector("setValue",0);
+                if(value !== undefined) $(this).lubySelector("setValueByIndex",value);
+                else $(this).lubySelector("setValueByIndex",0);
             });
         }
         function changeLocation(){
@@ -291,7 +291,7 @@ $(document).ready(function(){
                 });
             }
         });
-        
+
         $(document).on("click",".userAction-bt[data-value='like']",function(){
             if($(this).hasClass("selected")){
                 $(this).lubyAlert({
@@ -319,7 +319,7 @@ $(document).ready(function(){
                     if($(document).scrollTop() > 500) goTopBt.stop().show();
                     else goTopBt.stop().hide();
                 });
-                
+
                 $("#gotop_bt").on("click touchend", function(event){
                     eventHandler(event,$(this));
                     $('html, body').animate({scrollTop : 0},500);
@@ -411,7 +411,7 @@ $(document).ready(function(){
                 wholeList = $(".table_list"),
                 list = $(".table_list_inner"),
                 userimg = $(".table_user_img"),
-                number = $(".table_number_wrap"),            
+                number = $(".table_number_wrap"),
                 count = $(".table_counts"),
                 subject = $(".table_subject");
                 var list_padding = list.innerWidth() - list.width();
@@ -423,7 +423,7 @@ $(document).ready(function(){
                 resWidth = (wholeList.width() - list_padding - userimg.width() - number.outerWidth(true) - count.width() - 100).toString() + "px";
             }
             subject.css({ "max-width" : resWidth });
-        }) 
+        })
     }
     function myInfoAction(){
         var $button = $("#myinfo_setting"),

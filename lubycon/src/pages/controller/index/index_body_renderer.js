@@ -18,7 +18,7 @@ $(document).ready(function(){
 			var artwork = MainSlider(data[0],0).show(),
 				vector = MainSlider(data[1],1).hide(),
 				threed = MainSlider(data[2],2).hide();
-			
+
 			wrapper.append(artwork);
 			wrapper.append(vector);
 			wrapper.append(threed);
@@ -40,7 +40,7 @@ $(document).ready(function(){
 				slider.append(group1);
 				slider.append(group2);
 				slider.append(group3);
-    			
+
     			function addList(data){
     				var u = ul.clone();
     				for(var i = 0; i < data.length; i++){
@@ -60,7 +60,7 @@ $(document).ready(function(){
 
             var wrapper = $(".mb-section"),
                 viewmore = $("<div/>",{ "class" : "viewmore-bt" }),
-                url = "?dir=pages/controller/contents/contents_page&cate="
+                url = "?dir=pages/controller/contents/contents_page&cate=";
                 anchor = $("<a/>");
             var button = viewmore.append(anchor);
 
@@ -114,4 +114,4 @@ $(document).ready(function(){
             }
         }
     }
-})
+});

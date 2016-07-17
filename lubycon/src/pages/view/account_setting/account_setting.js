@@ -22,7 +22,8 @@
             var $this = $(this);
             $this.addClass("error");
         }
-    }
+    };
+
 
     function initAccountSetting(){
         var optControlBt = $(".optControl"),
@@ -39,7 +40,7 @@
         window.onbeforeunload = function(){
             console.log(unloadChecker);
             if(unloadChecker) return "a";
-        }
+        };
 
         function valueCheck(){
             value = $(this).val();
@@ -47,7 +48,7 @@
             else inputAction.true.call($(this));
         }
     }
-    
+
     function initLubySelectors(){
         $("#lang_minus_id").hide();
         $(".privacyFilter").lubySelector({
@@ -55,7 +56,7 @@
             theme: "white",
             icon: "fa fa-lock",
             float: "none"
-        })
+        });
         $(".jobFilter").lubySelector({
             width: 300,
             theme: "white",
@@ -80,24 +81,24 @@
             theme: "white"
         });
     }
-    
+
     function LanguageContainer(){
         var index = $(document).find(".langWrap").length;
         var body = $("<div/>",{ "class" : "langWrap clone-wrapper" }),
-        input = $("<input/>",{ 
-            "type" : "text", 
+        input = $("<input/>",{
+            "type" : "text",
             "class" : "language_text",
             "name" : "language[]"
         }).appendTo(body),
-        optionWrapper = $("<div/>",{ 
+        optionWrapper = $("<div/>",{
             "class" : "lang_option"
         }).appendTo(body),
-        selector = $("<select>",{ 
-            "class" : "langFilter", 
-            "name" : "lang_ability[]" 
+        selector = $("<select>",{
+            "class" : "langFilter",
+            "name" : "lang_ability[]"
         }).appendTo(optionWrapper),
         option = $("<option>",{ "class" : "lang_level" });
-        
+
         $.each(["Beginner","Advanced","Fluent"],function(i,value){
             console.log(value);
             option.clone().text(value).appendTo(selector);
@@ -147,13 +148,13 @@
         }
 
         target = wrapper.find(".clone-wrapper");
-        optionButtonControl(target,limit) 
+        optionButtonControl(target,limit);
     }
 
     function optionButtonControl(element,limit){
         var addBt = element.parent().siblings(".optControl[data-value='add']"),
         removeBt = element.parent().siblings(".optControl[data-value='remove']");
-        
+
         if(element.length <= limit && element.length === 1){
             removeBt.hide();
         }
@@ -185,7 +186,7 @@
                 } else{
                     return 1; //bigger than first month
                 }
-            if (first.year < second.year) 
+            if (first.year < second.year)
                 return -1; // bigger than second year
             else {
                 return 1; // bigger than first year
@@ -237,7 +238,7 @@
                         cancelButton: false,
                         fontSize: 14,
                         icon: "fa-inbox",
-                        text: "This file exceeds the recommended size.</br>The file currently sits at " + 
+                        text: "This file exceeds the recommended size.</br>The file currently sits at " +
                         calcSize[0] + calcSize[1] + ".<br/>Please make sure your file size is under 10MB.",
                         autoDestroy: false
                     });
@@ -273,7 +274,10 @@
                     $(".cropper-container").remove();
                 }
             });
-        })
+        });
+        $.ajax(function(){
+
+        });
 
         function showImage(file) {
             var $loading_icon = $(document).find("#loading_icon").show();
@@ -302,7 +306,7 @@
                     $("#cropper-wrapper").show();
                     $("#cropper_img").cropper("replace", e.target.result);
                     $loading_icon.hide();
-                }
+                };
             }
         }
     }
@@ -314,7 +318,7 @@
             text: "Are you sure?<br/><p style='font-size: 14px; font-weight: 200;'>Your contents and information is will be removed</p>",
             autoDestroy: false,
             okAction: deleteAccount
-        })
+        });
 
         function deleteAccount(){
             alert("DELETE ACCOUNT");

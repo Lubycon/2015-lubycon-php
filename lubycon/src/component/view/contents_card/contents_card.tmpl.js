@@ -1,4 +1,44 @@
-function CardMenu(params){
+var ContentsCard = function(data){
+    this.code = data.code;
+    this.title = data.title;
+    this.category = data.category;
+    this.image = data.image;
+    this.license = data.license;
+    this.bookmakr = data.bookmark;
+    this.dir = data.dir;
+
+    this.user = {
+        code: data.userData.code,
+        name: data.userData.name,
+        profile: data.userData.profile
+    };
+
+    this.count = {
+        view: data.contentCount.view,
+        comment: data.contentCount.comment,
+        like: data.contentsCount.like
+    };
+};
+
+ContentsCard.prototype.render = function(){
+    var card = $("<div/>",{ "class" : "contents-card", "data-value" : "", "data-index" : "" }),
+        thumbWrapper = $("<div/>",{ "class" : "contents-pic" }),
+            img = $("<img/>",{ "src" : this.img, "class" : "load-view" }).appendTo(thumbWrapper),
+        contentDesc = $("<div/>",{ "class" : "contents-desc"}),
+            contentSub = $("<div/>",{ "class" : "contents-sub" }),
+                anchor = $("<a/>",{
+                    "class" : "contents-link",
+                    "href" : "?dir=pages/view/contents/viewer&cate=" + this.category + "&conno=" + this.code
+                }),
+                    title = $("<h4/>",{ "class" : "contents-title load-view", "html" : this.title });
+
+};
+
+
+
+
+
+/*function CardMenu(params){
     var $this = $(this); // CARD //
     var body = $("<div/>",{ "class" : "card_menu" }),
     icon = $("<i/>",{ "class" : "card_menu_icon" + " fa fa-bars" }).appendTo(body),
@@ -38,4 +78,4 @@ function CardMenu(params){
             listWrap.off("hideAnywhere");
         }
     }
-}
+}*/

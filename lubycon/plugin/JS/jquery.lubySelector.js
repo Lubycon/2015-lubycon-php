@@ -11,7 +11,7 @@
 
 (function($){
 	$.fn.lubySelector = function(option){
-        var defaults = { 
+        var defaults = {
             id: "",
             customClass: "",
             width: 150,
@@ -60,7 +60,7 @@
                         $arrow = $("<i/>",{"class": "ls_arrow fa fa-caret-down"}).insertBefore($this),
                         $optionWrap = $("<span/>",{"class": "ls_optionWrap"}).insertBefore($this).css({"max-height":d.maxHeight}).hide(),
 
-                        $searchBar = d.searchBar ? 
+                        $searchBar = d.searchBar ?
                         $("<span/>", {"class":"ls_search"}).appendTo($optionWrap) : "",
                         $inSearchBar = d.searchBar ?
                         $("<input/>",{"class":"ls_input","type":"text"}).appendTo($searchBar).on("keyup",pac.searchEvent) && $("<i/>",{"class":"fa fa-search"}).appendTo($searchBar) : "";
@@ -74,7 +74,7 @@
                         pac.optionGroup($this);
                         pac.changeTheme($wrapper);
                     }
-                })
+                });
             },
             dataUpdate: function(option,d,selector,list) {
                 var $this = selector,//options in selectbox
@@ -88,11 +88,10 @@
                 optionTitle = $this.text().toLowerCase(),
                 selected = $this.is(":selected") ? "selected" : "",
                 disabled = $this.is(":disabled") ? " disabled " : "",
-                
-                icon = $this.data("icon") ? $this.data("icon") : d.icon,
-                selected = $this.is(":selected") ? "selected" : "";
-                
-                $this.is("option") ? 
+
+                icon = $this.data("icon") ? $this.data("icon") : d.icon;
+
+                $this.is("option") ?
                 ($("<span/>", {
                     "class": "ls_option " + disabled + selected,
                     title: optionTitle,
@@ -127,20 +126,20 @@
             boxFocus: function() {
                 var $this = $(this),
                 $searchBar = $this.find(".ls_input");
-                $this.hasClass("disabled") ? pac.boxBlur($this) : 
-                (pac.boxBlur($(".lubySelector.focused").not($this)), 
-                    $this.addClass("focused"), $searchBar.addClass("focused"), 
+                $this.hasClass("disabled") ? pac.boxBlur($this) :
+                (pac.boxBlur($(".lubySelector.focused").not($this)),
+                    $this.addClass("focused"), $searchBar.addClass("focused"),
                     $("html").on("click.boxBlur", function () {
                         pac.boxBlur($this);
                     })
                 );
             },
             boxBlur: function(selector) {
-                if ($("body").find(selector).length!=0) { 
+                if ($("body").find(selector).length!==0) {
                     var $this = selector,
-                    $searchBar = $this.find(".ls_search"),        
+                    $searchBar = $this.find(".ls_search"),
                     $optionWrap = $this.find(".ls_optionWrap");
-                    $this.hasClass("focused") ? 
+                    $this.hasClass("focused") ?
                     ($this.removeClass("open focused"),$searchBar.removeClass("focused"))&&($optionWrap.fadeOut(300)) : "";
                 }
             },
@@ -151,16 +150,16 @@
                     $optGroup = "<span class='optGroup'></span>";
                     $list.each(function(){
                         var optionTitle = $(this).attr("data-value").substring(0,1),
-                        preTitle = $(this).prev().attr("data-value") == null ? "" :
+                        preTitle = $(this).prev().attr("data-value") === null ? "" :
                         $(this).prev().attr("data-value").substring(0,1);
                         if(optionTitle !== preTitle){
                             $(this).before($optGroup).prev(".optGroup").text(optionTitle);
-                        } 
+                        }
                         else{ return false; }
-                    })
+                    });
                 }
-                else{ return false; };
-                
+                else{ return false; }
+
             },
             optionClick: function(selector) {
                 var $this = $(this),
@@ -173,11 +172,11 @@
 
                 selector.stopPropagation();
                 !$this.hasClass("selected")?
-                    $this.addClass("selected").siblings().removeClass("selected") 
-                    && $label.text(selectedValue) 
-                    && $selectbox.val(selectedValue).trigger("change")
-                    && $wrap.removeClass("open")
-                    && $optionWrap.fadeOut(300) :
+                    $this.addClass("selected").siblings().removeClass("selected") &&
+					$label.text(selectedValue) &&
+					$selectbox.val(selectedValue).trigger("change") &&
+					$wrap.removeClass("open") &&
+					$optionWrap.fadeOut(300) :
                     "";
             },
             changeOption: function() {
@@ -194,7 +193,7 @@
                 $options = $this.parent().siblings(".ls_option"),
                 $optgroups = $this.parent().siblings(".optGroup"),
                 $filter = $this.parent().siblings(".ls_option[title*='"+$textValue+"']"),
-                $test = $textValue!="" ? ($options.hide() && $filter.show() && $optgroups.hide()) : ($options.show() && $optgroups.show());    
+                $test = $textValue!=="" ? ($options.hide() && $filter.show() && $optgroups.hide()) : ($options.show() && $optgroups.show());
             },
             changeTheme: function(selector){
                 var $this = selector,
@@ -206,13 +205,13 @@
                 $input = $searchBar.find(".ls_input"),
                 $searchIcon = $searchBar.find("i");
                 switch($this.attr("theme")){
-                    case "black" : return; break;
+                    case "black" : return false;
                     case "white" : $this.addClass("white"); break;
                     case "ghost" : $this.addClass("ghost"); break;
                     case "transparent" : $this.addClass("transparent"); break;
                     case "rect" :
                         $this.addClass("rect");
-                        $this.css({ 
+                        $this.css({
                             "min-height" : $this.parent().height(),
                             "line-height" : $this.parent().height() + "px"
                         });
@@ -220,9 +219,9 @@
                         $arrow.css({ "line-height" : $this.parent().height() - 7 + "px", "right" : "20px" });
 
                     break;
-                    default: return; break;
+                    default: return false;
                 }
-                
+
             }
         },
         method = {
@@ -230,13 +229,13 @@
                 return this.each(function(){
                     var $this = $(this);
                     $this.remove();
-                })
+                });
             },
             disable: function(){
                 return this.each(function(){
                     var $this = $(this);
                     $this.addClass("disabled").off("click").off("focusin").off("change");
-                })
+                });
             },
             enable: function(){
                 return this.each(function(){
@@ -245,9 +244,28 @@
                     .on("click", pac.boxClick).on("focusin", pac.boxFocus)
                     .on("click", ".ls_option", pac.optionClick)
                     .on("change","select",pac.changeOption);
-                })
+                });
             },
-            setValue: function(index){
+			getValue: function(){
+				return $(this).val();
+			},
+			getValueByIndex: function(){
+				var v = $(this).find("option:selected").index();
+				return v === -1 ? null : v;
+			},
+			setValue: function (value){
+                return this.each(function () {
+                    var $this = $(this),
+                        wrapper = $this.parents('.lubySelector');
+                    var options = wrapper.find(".ls_option");
+                    options.removeClass("selected");
+                    options.each(function(){ if(value === $(this).text()) $(this).addClass("selected"); });
+
+                    $this.val(value);
+                    wrapper.find('.ls_label').text(value);
+                });
+            },
+            setValueByIndex: function(index){
                 return this.each(function(){
                     var $this = $(this),
                         wrapper = $this.parents('.lubySelector');
@@ -259,25 +277,13 @@
                     $this.val(target.text());
 
                     wrapper.find('.ls_label').text(target.text());
-                })
-            },
-            setValueByString: function (value){
-                return this.each(function () {
-                    var $this = $(this),
-                        wrapper = $this.parents('.lubySelector');
-                    var options = wrapper.find(".ls_option");
-                    options.removeClass("selected");
-                    options.each(function(){ if(value === $(this).text()) $(this).addClass("selected") });
-
-                    $this.val(value);
-                    wrapper.find('.ls_label').text(value);
-                })
+                });
             }
-        }
-        return method[option] ? 
-        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
-        "object" != typeof option && option ? 
-            ($.error('No such method "' + option + '" for the lubySelector instance'), void 0) : 
+        };
+        return method[option] ?
+        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) :
+        "object" != typeof option && option ?
+            ($.error('No such method "' + option + '" for the lubySelector instance'), void 0) :
             pac.init.apply(this, arguments);
     };
 })(jQuery);
