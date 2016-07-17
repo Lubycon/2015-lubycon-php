@@ -36,12 +36,12 @@ InfiniteScrollDetector.prototype.getData = function(){
         topCate: this.topCate,
         filter: {
             midCate: this.filter.midCate,
-            sort: this.filter.sort,
             license: this.filter.license,
             continent: this.filter.continent,
             job: this.filter.job,
             search: this.filter.search
         },
+        sort: this.filter.sort,
         searchValue: this.searchValue,
         nowPage: this.nowPage,
         targetPage: this.targetPage
@@ -53,7 +53,7 @@ InfiniteScrollDetector.prototype.next = function(callback){
     console.log(this.getData());
     Controller({
         url: "./service/controller/infinite_scroll/controller.php",
-        data: this.getData(),
+        data: JSON.stringify(this.getData()),
 	    callback: callback
     });
 };
@@ -62,7 +62,7 @@ InfiniteScrollDetector.prototype.prev = function(callback){
     this.targetPage = this.nowPage - 1;
     Controller({
         url: "./service/controller/infinite_scroll/controller.php",
-        data: this.getData(),
+        data: JSON.stringify(this.getData()),
 	    callback: callback
     });
 };

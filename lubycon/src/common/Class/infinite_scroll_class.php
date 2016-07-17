@@ -82,7 +82,7 @@ class infinite_scroll extends json_control
         $this->pageStartPoint = $this->nowPage * $this->page_boundary;
 
         //query set
-        $this->searchFilterQuery = $this->searchValue !== null ? $this->filter->searchFilter." like '%".$this->searchValue."%'" : $this->filter->searchFilter = null ;
+        $this->searchFilterQuery = $this->searchValue !== null ? $this->filter->search." like '%".$this->searchValue."%'" : $this->filter->search = null ;
         $this->midCateQuery = $this->filter->midCate !== 'all' ? $this->filter->midCate.' IN (a.`midCategoryCode0`,a.`midCategoryCode1`,a.`midCategoryCode2`)' : null;
         $this->licenseQuery = $this->filter->license !== 'all' ? 'a.`ccLicense` = '.($this->filter->license) : null;
         $this->jobQuery = $this->filter->license !== 'all' ? 'a.`jobCode` = '.($this->filter->job) : null; 
@@ -161,7 +161,18 @@ class infinite_scroll extends json_control
 
             break;
             case 'community' : break;
-            case 'creator' : break;
+            case 'creator' : 
+                $this->select_query =
+                "SELECT  `userbasic`.`userCode` , `nick` , `jobCode` , `boardCode` , `city` , `countryCode` , `userDirectory`";
+                $this->from_query=
+                "
+                FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` 
+                INNER join lubyconuser.`userinfo` 
+                ON `artwork`.`userCode` = `userbasic`.`userCode` 
+                and `userbasic`.`userCode` = `userinfo`.`userCode` 
+                ";
+                $this->order_query=" ORDER BY `boardCode` DESC ";
+            break;
             case 'comment' : break;
             default : die( 'initQuery switcher error' ); break;
         }
@@ -174,7 +185,6 @@ class infinite_scroll extends json_control
         {
             if( $value !== null )
             {
-                echo $key;
                 $addQuery = $this->{$key."Query"};
                 $this->where_query .= " $addQuery and ";
             }

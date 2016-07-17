@@ -10,7 +10,7 @@
     .$infinite_scroll->limit_query;
     $db->askQuery();
 
-	//echo $db->query;
+	echo $db->query;
 
     $contents_result = $db->result; //contents data
     
