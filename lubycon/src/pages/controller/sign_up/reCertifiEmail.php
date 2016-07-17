@@ -1,9 +1,9 @@
 <?php
 
-include_once '../class/session_class.php';
-include_once '../class/MailerClass.php';
-include_once '../class/database_class.php';
-include_once '../commonFunc.php';
+include_once '../../../common/Class/session_class.php';
+include_once '../../../common/Class/MailerClass.php';
+include_once '../../../common/Class/database_class.php';
+include_once '../../../common/common.php';
 
 $session = new Session();
 $db = new Database();
@@ -26,9 +26,9 @@ if(isset($_SESSION['lubycon_email']))
 		$db->query = "UPDATE userbasic SET validationToken = '".$token."' WHERE (email = '".$_SESSION['lubycon_email']."')";
 
 		if($db->askQuery() !== false){
-			$db->query = "UPDATE userbasic SET validationToken = NULL";
+			//$db->query = "UPDATE userbasic SET validationToken = NULL";
 			if($db->askQuery() !== false)
-				echo '<script>document.location.href="./success_account.php"</script>';
+				header('location:../../../index.php?dir=service/view/success_account');
 		}else{
 			echo ("쿼리 전송 실패");
 		}

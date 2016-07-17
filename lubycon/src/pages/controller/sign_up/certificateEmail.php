@@ -1,9 +1,10 @@
 <?php
-require_once '../database/database_class.php';
-include_once '../class/session_class.php';
+require_once '../../../common/Class/database_class.php';
+include_once '../../../common/Class/session_class.php';
 
 $session = new Session();
 $db = new Database();
+
 $db->query = "SELECT validation FROM userbasic WHERE (validationToken = '".$_POST['certificationCode']."')";
 
 if($db->askQuery() != false){
@@ -21,7 +22,7 @@ if($db->askQuery() != false){
 			if($db->askQuery() != false)
 			{
 				$_SESSION['lubycon_validation'] = 'active';
-				header('location:success_account.php');
+				header('location:../../../index.php?dir=service/view/success_account');
 			}
 		
 		}else{

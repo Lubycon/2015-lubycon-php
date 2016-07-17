@@ -9,6 +9,8 @@
     // declare php property
     $json_control = new json_control;
     $session = new Session();
+    $inactive_user = false;
+
 
     $json_control->json_decode('job',"../data/job.json");
     $job_json_Code = $json_control->json_decode_code;
@@ -41,7 +43,7 @@
                 //echo "<script>console.log('$State');</script>";
 
                 if($activity === false)
-                    $BODY_URL = "service/view/waiting_for_resisting.php";
+                    $inactive_user = true;
                 //echo '<script>document.location.href="?dir=service/view/waiting_for_resisting"</script>';
 
             }else{
@@ -291,12 +293,21 @@
     </div>
     <!--INCLUDE BODY-->
 <?php
-
-    if($BODY_URL) {
-        include_once "./".$BODY_URL;
-    }else{
-        include_once "./pages/view/index/index_body.php";
+    if(!$inactive_user){
+        if($BODY_URL) {
+            include_once "./".$BODY_URL;
+        }else{
+            include_once "./pages/view/index/index_body.php";
+        }    
     }
+    else{ // 비인증 회원일 경우
+        if($BODY_URL === "service/view/success_account.php")
+            include_once "./".$BODY_URL;
+        else
+            include_once "./service/view/waiting_for_resisting.php";
+    }
+    
+    
 
     include_once "./component/view/index/index_footer.php";
 
