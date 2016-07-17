@@ -236,7 +236,7 @@
                         <i class="fa fa-tachometer fa-1x"></i>Dashboard
                     </a></li>
                     <li><a href="?dir=pages/view/personal_page/personal_page&cate=my_contents&usernum=<?=$Loginuser_code?>&page=1">
-                        <i class="fa fa-picture-o fa-1x"></i>My Contents
+                        <i class="fa fa-folder-open fa-1x"></i>My Contents
                     </a></li>
                     <li><a href="?dir=pages/view/personal_page/personal_page&cate=my_forums&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-comments-o fa-1x"></i>My Forums
