@@ -78,7 +78,7 @@ function Controller(param){
                 $.ajax({
                     type: "POST",
                     url: param.url,
-                    data: param.data,
+                    data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
                         console.log($.parseJSON(data));
@@ -88,6 +88,7 @@ function Controller(param){
                 });
             }
             else {
+                console.log("SESSION SUCCESS");
                 param.callback(session);
             }
         }
