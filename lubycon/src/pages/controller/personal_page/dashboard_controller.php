@@ -20,7 +20,16 @@ $country_json = $json_control->json_decode('country',"../../../../data/country.j
 $country_decode = $json_control->json_decode_code;
 /*data render setting*/
 
-$usernumber = $_POST['usernum'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+	$postData = json_decode(file_get_contents("php://input"));
+}else
+{
+	die('it is not post data error code 0000');
+}
+
+$usernumber = $postData->usernum;
+
 
 include '../../model/personal_page/dashboard_model.php';
 

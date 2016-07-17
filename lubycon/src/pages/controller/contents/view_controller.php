@@ -15,8 +15,18 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 }
 if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
 
-$number = $_POST['conno']; //contenst number form url
-$cate = $_POST['cate']; 
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+	$postData = json_decode(file_get_contents("php://input"));
+}else
+{
+	die('it is not post data error code 0000');
+}
+
+$number = $postData->conno;
+$cate = $postData->cate;
+
 
 /* cookie is later..
 $url_parse = parse_url($_SERVER['HTTP_REFERER']);
