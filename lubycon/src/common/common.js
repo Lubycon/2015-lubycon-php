@@ -66,13 +66,13 @@ function setUrlParameter(sParam,value){
 }
 
 function Controller(param){
-    console.time("DATA LOADED");
     $.ajax({
         type: "POST",
         url: "./common/Module/get_session.php",
         cache: false,
         async: true,
         success: function(data){
+            console.log(param);
             var session = $.parseJSON(data);
             if(param.url){
                 $.ajax({

@@ -1,6 +1,6 @@
 $(document).ready(function(){
     Controller({
-	    url: "./pages/controller/infinite_scroll/controller.php",
+	    url: "./service/controller/infinite_scroll/controller.php",
         data: {
             cardType: "content",
     		page: "content",
@@ -23,7 +23,7 @@ $(document).ready(function(){
 	    callback: init
 	});
 
-	var detector = new InfiniteScrollDetector({
+	/*var detector = new InfiniteScrollDetector({
 		cardType: "content",
 		page: "content",
         topCate: getUrlParameter("cate"),
@@ -42,12 +42,10 @@ $(document).ready(function(){
 		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
 		nowpage: getUrlParameter("page")
 	});
-	detector.start(addCard);
-
-
+	detector.start(addCard);*/
 
     function init(data){
-
+        console.log(data);
 
         addCard(data);
     }
