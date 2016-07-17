@@ -7,12 +7,16 @@ $(document).ready(function(){
 	var detector = new InfiniteScrollDetector({
 		cardType: "creator",
 		page: "creator",
+		sort: $(".userFilter").lubySelector("getValueByIndex"),
 		filter: {
 			midCate: null,
-			sort: $(".userFilter").lubySelector("getValueByIndex"),
 			license: null,
-			continent: $(".locationFilter").lubySelector("getValueByIndex"),
-			job: $(".jobFilter").lubySelector("getValueByIndex"),
+			continent: $(".locationFilter").lubySelector("getValueByIndex") == 0 ?
+				"all" :
+				$(".locationFilter").lubySelector("getValueByindex"),
+			job: $(".jobFilter").lubySelector("getValueByIndex") === 0 ?
+				"all" :
+				$(".jobFilter").lubySelector("getValueByIndex"),
 			search: $(".searchFilter").lubySelector("getValueByIndex")
 		},
 		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),

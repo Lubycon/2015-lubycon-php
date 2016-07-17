@@ -5,20 +5,20 @@ $(document).ready(function(){
             cardType: "content",
     		page: "content",
             topCate: getUrlParameter("cate"),
+            sort: $(".preferFilter").lubySelector("getValueByIndex"),
     		filter: {
     			midCate: $(".categoryFilter").lubySelector("getValueByIndex") === 0 ?
                     "all" :
                     $(".categoryFilter").lubySelector("getValueByIndex"),
-    			sort: $(".preferFilter").lubySelector("getValueByIndex"),
     			license: $(".copyrightFilter").lubySelector("getValueByIndex") === 0 ?
                     "all" :
-                    $(".copyrightFilter").lubySelecotr("getValueByIndex"),
+                    $(".copyrightFilter").lubySelector("getValueByIndex"),
     			continent: null,
     			job: null,
     			search: $(".searchFilter").lubySelector("getValueByIndex")
     		},
     		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
-    		nowpage: getUrlParameter("page")
+    		nowPage: getUrlParameter("page")
         },
 	    callback: init
 	});
@@ -34,7 +34,7 @@ $(document).ready(function(){
 			sort: $(".preferFilter").lubySelector("getValueByIndex"),
 			license: $(".copyrightFilter").lubySelector("getValueByIndex") === 0 ?
                 "all" :
-                $(".copyrightFilter").lubySelecotr("getValueByIndex"),
+                $(".copyrightFilter").lubySelector("getValueByIndex"),
 			continent: null,
 			job: null,
 			search: $(".searchFilter").lubySelector("getValueByIndex")

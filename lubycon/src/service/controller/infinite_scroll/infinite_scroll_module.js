@@ -5,9 +5,9 @@ var InfiniteScrollDetector = function(data){
     this.cardType = data.cardType;
     this.page = data.page;
     this.topCate = data.topCate || null;
+    sort: data.sort;
     this.filter = {
         midCate: data.filter.midCate,
-        sort: data.filter.sort,
         license: data.filter.license,
         continent: data.filter.continent,
         job: data.filter.job,
@@ -23,7 +23,7 @@ InfiniteScrollDetector.prototype.setDate = function(p,v){
         case "page" : this.page = v; break;
         case "topCate" : this.topCate = v; break;
         case "midCate" : this.midCate = v; break;
-        case "filter.sort" : this.filter.sort = v; break;
+        case "sort" : this.sort = v; break;
         case "filter.license" : this.filter.license = v; break;
         case "filter.continent" : this.fliter.continent = v; break;
         case "serach.filter" : this.search.filter = v; break;
@@ -42,7 +42,7 @@ InfiniteScrollDetector.prototype.getData = function(){
             job: this.filter.job,
             search: this.filter.search
         },
-        sort: this.filter.sort,
+        sort: this.sort,
         searchValue: this.searchValue,
         nowPage: this.nowPage,
         targetPage: this.targetPage
