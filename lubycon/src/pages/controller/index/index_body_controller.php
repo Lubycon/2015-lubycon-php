@@ -12,7 +12,7 @@
 			$contents_data[$contents_data_row['topCategoryCode']], 
 			array( 
 				'name' => $contents_data_row['contentTitle'],
-				'creator' => $contents_data_row['userCode'],
+				'creator' => $contents_data_row['nick'],
 				'boardCode' => $contents_data_row['boardCode'], 
 				'thumbnail' => $contents_data_row['userDirectory']."/thumbnail/thumbnail.jpg"
 			) 

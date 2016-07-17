@@ -4,11 +4,17 @@ require_once '../../../common/Class/database_class.php';
 $db = new Database();
 $db->changeDb('lubyconboard');
 $db->query = "
-(SELECT * FROM lubyconboard.`artwork` ORDER BY `viewCount` DESC LIMIT $limit )
-UNION 
-( SELECT * FROM lubyconboard.`vector` ORDER BY `viewCount` DESC LIMIT $limit )
-UNION
-( SELECT * FROM lubyconboard.`threed` ORDER BY `viewCount` DESC LIMIT $limit )
+SELECT a.`boardCode`, a.`topCategoryCode` ,a.`contentTitle`,  a.`userDirectory` , b.`nick`
+FROM 
+( 
+    (SELECT * FROM lubyconboard.`artwork` ORDER BY `viewCount` DESC LIMIT $limit )
+    UNION 
+    (SELECT * FROM lubyconboard.`vector` ORDER BY `viewCount` DESC LIMIT $limit )
+    UNION 
+    (SELECT * FROM lubyconboard.`threed` ORDER BY `viewCount` DESC LIMIT $limit )
+) AS a 
+LEFT JOIN lubyconuser.`userbasic` AS b 
+ON a.`userCode` = b.`userCode`
 ";
 $db->askQuery();
 $contents_data_row = $db->result;
