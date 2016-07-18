@@ -1,7 +1,10 @@
 $(document).ready(function(){
 	Controller({
 		url: "./pages/controller/contents/view_controller.php",
-		data: 'cate=' + CATE_PARAM + '&conno=' + CONNUM_PARAM,
+		data: {
+			cate: CATE_PARAM,
+			conno: CONNUM_PARAM
+		},
 		callback: init
 	});
 

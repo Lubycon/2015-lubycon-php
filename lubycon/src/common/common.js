@@ -75,25 +75,25 @@ function Controller(param){
             var session = $.parseJSON(data);
             if(param.url){
                 console.log(param.data);
-                console.log(param.url);
-                console.log(JSON.stringify(param.data));
                 $.ajax({
                     type: "POST",
                     url: param.url,
                     data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
-                        console.log($.parseJSON(data));
                         console.timeEnd("DATA LOADED");
                         param.callback($.parseJSON(data),session);
                     },
                     error: function(request,status,error){
+                        console.log("------------CONTROLLER AJAX ERROR--------------");
                         console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                        console.log("-----------------------------------------------");
                     }
                 });
             }
             else {
-                console.log("SESSION SUCCESS");
+                console.log("SESSION LOAD SUCCESS");
+                console.log(session);
                 param.callback(session);
             }
         }

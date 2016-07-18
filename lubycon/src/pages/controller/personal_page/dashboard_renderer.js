@@ -45,7 +45,7 @@ $(document).ready(function(){
         $.getJSON("./component/view/chart/data/insightData.json",function(data){
             success : initChart(data);
         }).fail(function(d, textStatus, error){
-            console.log("insight data loading is failed, status: " + textStatus + ", error: "+error)
+            console.log("insight data loading is failed, status: " + textStatus + ", error: "+error);
         });
 
         $(".history_kind span").first().remove();
@@ -116,7 +116,7 @@ $(document).ready(function(){
                 dataArray.push({
                     date: v["date"],
                     value: v["value"]
-                })
+                });
             });
             dataArray.splice(0,dataArray.length-7);
             initLineChart(target,theme,dataArray);
@@ -177,6 +177,7 @@ $(document).ready(function(){
             setInterval(syncTime(userClock,localClock),1000);
             blinkColon();
 
+            syncTime(userClock,localClock);
             function syncTime(user,local){
                 var time = initTime(),
                 colon = "<span class='colon'>:</span>";
@@ -189,8 +190,7 @@ $(document).ready(function(){
 
                 local.find(".clock").html(localTime);
                 local.find(".ampm").text(time.local.ampm);
-            }(userClock,localClock);
-
+            }
 
             function initTime(){
                 var UTC = data.userData.utc;
@@ -217,7 +217,7 @@ $(document).ready(function(){
                 var colon_count = 0;
                 var blink_time = setInterval(function(){
                     var colon = $(".colon");
-                    if(colon_count == 0){
+                    if(colon_count === 0){
                         colon.css("visibility","hidden");
                         colon_count = 1;
                         //console.log(colon_count);
@@ -231,4 +231,4 @@ $(document).ready(function(){
             }
         }
     }
-})
+});

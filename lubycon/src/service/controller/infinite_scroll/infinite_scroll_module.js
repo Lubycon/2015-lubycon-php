@@ -58,6 +58,7 @@ InfiniteScrollDetector.prototype.next = function(callback){
         data: this.getData(),
 	    callback: callback
     });
+    setUrlParameter("page", this.targetPage);
 };
 InfiniteScrollDetector.prototype.prev = function(callback){
     this.nowPage = parseInt(getUrlParameter("page")) || 1;
@@ -69,6 +70,7 @@ InfiniteScrollDetector.prototype.prev = function(callback){
         data: this.getData(),
 	    callback: callback
     });
+    setUrlParameter("page", this.targetPage);
 };
 InfiniteScrollDetector.prototype.start = function(callback){
     var _this = this;
@@ -81,7 +83,7 @@ InfiniteScrollDetector.prototype.start = function(callback){
         }
         else if($(document).scrollTop() === 0){
             console.log("UP");
-            //_this.prev(callback);
+            _this.prev(callback);
             return false;
         }
     }

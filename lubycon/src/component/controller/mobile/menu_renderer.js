@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	if(!isMobile()) return false;
 	Controller({
 		callback: init
 	});
@@ -27,6 +28,6 @@ $(document).ready(function(){
 		}
 		else {
 			console.log("LOGOUT");
-		}	
+		}
 	}
 })
