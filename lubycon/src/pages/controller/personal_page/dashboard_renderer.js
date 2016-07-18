@@ -3,7 +3,6 @@ $(document).ready(function(){
     Controller({
         url: "./pages/controller/personal_page/dashboard_controller.php",
         data: {
-            cate: CATE_PARAM,
             usernum: USER_PARAM
         },
         callback: init

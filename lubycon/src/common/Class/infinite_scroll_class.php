@@ -82,7 +82,7 @@ class infinite_scroll extends json_control
 
         //optcion to call each
         $this->page_boundary = 30;
-        $this->pageStartPoint = ($this->nowPage-1) * $this->page_boundary;
+        $this->pageStartPoint = ($this->targetPage-1) * $this->page_boundary;
 
         //query set
         $this->searchFilterQuery = $this->searchValue !== null ? $this->filter->search." like '%".$this->searchValue."%'" : $this->filter->search = null ;

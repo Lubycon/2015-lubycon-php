@@ -39,7 +39,7 @@ include '../../model/personal_page/personal_page_model.php';
 
 
 $user_data = array(
-	'code' => $_POST['usernum'],
+	'code' => $usernumber,
 	'name' =>	$userdata_row['nick'],
 	'profile' => "../../../../Lubycon_Contents/user/$usernumber/profile.jpg",
 	'country' => $country_decode[$userdata_row['countryCode']]['name'],
