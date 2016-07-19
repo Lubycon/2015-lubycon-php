@@ -1,4 +1,149 @@
-﻿$(function (){ //account setting script
+$(document).ready(function(){
+    Controller({
+        url: "./pages/controller/account_setting/viewer_controller.php",
+        data: {
+            usernum: USER_PARAM
+        },
+        callback: init
+    });
+
+    function init(data){
+        var vm = data;
+        var publicOption = vm.publicOption,
+            userData = vm.userData,
+            history = vm.userHistory,
+            language = vm.userLanguage;
+
+        //DOM ELEMENTS....
+        var emailWrap = $(".userinfo").find("input[data-value='email']"),
+            emailOption = $(".userinfo").find("select[name='email_public']"),
+            nameWrap = $(".userinfo").find("input[data-value='name']");
+        emailWrap.val(userData.email);
+        emailOption.val(publicOption.email);
+        nameWrap.val(userData.name);
+
+        var profile = $("#croped").find("img");
+        if(vm.userData.profile) profile.attr("src",userData.profile);
+
+        var company = $("input[name='company']"),
+            city = $("input[name='location_text']");
+        company.val(userData.position);
+        city.val(userData.city);
+
+        var descript = $("#basic_desc");
+        descript.val(userData.description);
+
+        var contact = $("#contact_info_section"),
+            mobile = contact.find("input[data-value='mobile']"),
+            mobileOption = contact.find("select[data-value='mobile']"),
+            fax = contact.find("input[data-value='fax']"),
+            faxOption = contact.find("select[data-value='fax']"),
+            website = contact.find("input[data-value='web']"),
+            webOption = contact.find("select[data-value='web']");
+        mobile.val(userData.mobile);
+        mobileOption.val(publicOption.mobile);
+        fax.val(userData.fax);
+        faxOption.val(publicOption.fax);
+        website.val(userData.website);
+        webOption.val(publicOption.website);
+
+        //JOB, COUNTRY, LANGUAGE, HISTORY BINDING...
+        initJSONdata();
+        initLanguage(language);
+        initHistory(history);
+
+        /*$(document).find("select").lubySelector({
+            width: 100,
+            theme: "white",
+            icon: "fa fa-lock",
+            float: "none"
+        });*/
+    }
+    function initJSONdata(){
+        loadJobList(bindJob);
+        loadCountryList(bindCountry);
+
+        function bindJob(data,status){
+            var d = data.job;
+            if(status !== "success") console.log("LOAD JOB ERROR");
+            var selector = $(".jobFilter");
+            for(var i = 0; i < d.length; i++){
+                var o = $("<option/>",{ "html" : d[i].name, "data-value" : d[i].jobCode });
+                o.appendTo(selector);
+            }
+            selector.lubySelector({
+                theme: "white",
+                icon: "fa fa-suitcase",
+                float: "none"
+            });
+        }
+        function bindCountry(data,status){
+            var d = data.country;
+            console.log(d);
+            if(status !== "success") console.log("LOAD COUNTRY ERROR");
+            var selector = $(".locationFilter");
+            for(var i = 0; i < d.length; i++){
+                var o = $("<option/>",{ "html" : d[i].name, "data-value" : d[i].jobCode });
+                o.appendTo(selector);
+            }
+            selector.lubySelector({
+                width: 300,
+                theme: "white",
+                icon: "fa fa-globe",
+                float: "none",
+                searchBar: true
+            });
+        }
+    }
+    function initLanguage(data){
+        var wrapper = $(".language-wrapper"),
+            component = wrapper.find(".language");
+        for(var i = 0; i < data.length; i++){
+            var c = component.clone();
+            c.find(".language_text").val(data[i].name);
+            c.find(".langFilter").val(data[i].level);
+            c.appendTo(wrapper);
+        }
+        component.first().remove();
+
+        wrapper.find("select").lubySelector({
+            theme: 'white',
+            float: 'none'
+        });
+    }
+    function initHistory(data){
+        console.log(data);
+        var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+        var wrapper = $(".history-wrapper"),
+            component = wrapper.find(".history"),
+            yearWrap = component.find(".accountFilter[data-value='year']");
+        var today = new Date().getFullYear();
+        for(var i = today; i >= today-50; i--){
+            var o = $("<option/>",{ "html" : i, "value" : i });
+            o.appendTo(yearWrap);
+        }
+
+        for(var i = 0; i < data.length; i++){
+            var c = component.clone();
+            c.find(".accountFilter[data-value='year']").val(data[i].year);
+            c.find(".accountFilter[data-value='month']").val(data[i].month);
+            c.find(".accountFilter[data-value='kind']").val(data[i].category);
+            c.find(".history_text").val(data[i].contents);
+            c.appendTo(wrapper);
+        }
+        wrapper.find(".history").first().remove();
+
+        wrapper.find("select").lubySelector({
+            theme: 'white',
+            float: 'none',
+            icon: ""
+        });
+    }
+
+});
+
+/*$(function (){ //account setting script
     $(document).ready(function(){
         initAccountSetting();
         initLubySelectors();
@@ -336,4 +481,4 @@
         if(errorCheck) alert("SUCCESS");
         else alert("PLEASE MAKE SURE YOUR VALUES");
     }
-});
+});*/

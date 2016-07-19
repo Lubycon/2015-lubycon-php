@@ -101,6 +101,18 @@ function Controller(param){
     });
 }
 
+function loadJobList(callback){
+    $.getJSON('../data/job.json', function(json, textStatus) {
+        callback(json,textStatus);
+    });
+}
+
+function loadCountryList(callback){
+    $.getJSON('../data/country.json', function(json, textStatus) {
+            callback(json,textStatus);
+    });
+}
+
 //This function will be canceled the click event when users touch in mobile devices
 //So if you want use any function in mobile, This eventHandler must be called to your function//
 function eventHandler(event, selector) {

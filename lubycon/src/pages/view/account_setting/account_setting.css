@@ -133,7 +133,7 @@
             color: #48cfad;
             border: 1px solid #48cfad
         }
-    .langWrap{
+    .language{
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -277,7 +277,10 @@
         font-size:23px;
         color:#48cfad;
     }
-.clone-wrapper {
+.language-wrapper {
+    margin: 10px 0px;
+}
+.history-wrapper {
     margin: 10px 0px;
 }
 
