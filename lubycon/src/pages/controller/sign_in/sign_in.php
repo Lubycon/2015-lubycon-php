@@ -17,19 +17,20 @@
     ";
 
     if(!$db->askQuery()){
-
-		$sessionArray['serverError'] = (string)500;
-		echo "query error <br />";
-	
+    	// can not send query to database
+		
+		//$sessionArray['serverError'] = (string)500;
+		
+		echo 1000;
 	}
 	else{
-
+		// success send query to database
 		$result = mysqli_fetch_array($db->result);	
 
 		if(password_verify($_POST['login_pass'],$result['pass'])){
-		
+		// login is success
 			foreach($result as $key=>$value){
-				//echo (string)$key ." is " . (string)$value . "<br />";
+
 				switch((string)$key){
 					case "userCode": $sessionArray[$key] = $value; break;
 					case "nick" : $sessionArray[$key] = $value; break;
@@ -48,12 +49,13 @@
 				";
 
 			if(!$db->askQuery()){
+			//can not send query to database
+				//$sessionArray['serverError'] = (string)500;
 				
-				$sessionArray['serverError'] = (string)500;
-				echo "country query error";
+				echo 1000;
 			}
 			else{
-
+			// success send query to database
 				$result = mysqli_fetch_array($db->result);
 				foreach($result as $key=>$value){
 					switch((string)$key){
@@ -61,38 +63,17 @@
 						default : break;
 					}
 				}
-					
+
+				$session->WriteSession('lubycon', $sessionArray);	
+				
+				//$_SESSION['serverError'] = (string)0000
+				
+				echo 0000;	
 			}
-
-			foreach($sessionArray as $key => $value)
-				echo $key ." is ". $value . "<br />";
-
-			//foreach($sessionArray as $key=>$value)
-			//		echo "Key : ". $key . " => ". $value . " <br /> ";
-		}
-	}
-
-/*
-		$session->WriteSession('lubycon',$result);
-
-		if($result['validation'] === 'active'){
-			$login['LoginState'] = true;
-			$session->WriteSession('lubycon',$login);
-			header('location:../../../index.php');
-		}
-		else if($result['validation'] == 'inactive'){
-			$login['LoginState'] = true;
-			$session->WriteSession('lubycon',$login);
-			header('location:../../../index.php');
 		}
 		else{
-			$session->WriteSession('lubycon',$login);
-			die("result['validation'] wrong value");
+			// login is fail
+			echo 0100;
 		}
 	}
-	else{
-		header('location:./index.php?=dir/');
-	}
-*/
-
 ?>
