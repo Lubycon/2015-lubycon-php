@@ -1,9 +1,28 @@
 $(document).ready(function(){
 	$("#loading_icon").show();
 	Controller({
-	    url: "./pages/controller/creators/controller.php",
+	    url: "./service/controller/infinite_scroll/controller.php",
+        data: {
+            cardType: "creator",
+    		page: "creator",
+            topCate: null,
+            sort: 5, //5 is userCode it is templary
+    		filter: {
+    			midCate: null,
+    			license: null,
+    			continent: null,
+    			job: null,
+    			search: $(".searchFilter").lubySelector("getValueByIndex")
+    		},
+    		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
+    		nowPage: getUrlParameter("page"),
+            targetPage: getUrlParameter("page")
+        },
 	    callback: init
 	});
+
+
+
 	loadJobList(initJob);
 
 	var detector = new InfiniteScrollDetector({
@@ -30,7 +49,7 @@ $(document).ready(function(){
 		var cardWrapper = $("#creator_card_wrap"),
 			list = $("<li/>",{ "class" : "creator_card_in" });
 
-		data.bestCreator.bestCreator = true;
+		data.bestCreator.bestCreator = false;
 		var bestCreator = new CreatorCard(data.bestCreator).render();
 		list.clone(true).append(bestCreator).appendTo(cardWrapper);
 

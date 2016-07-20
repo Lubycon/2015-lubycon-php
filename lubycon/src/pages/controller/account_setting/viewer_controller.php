@@ -44,14 +44,14 @@ if( $Loginuser_code === $usernumber )
 			'profile' => '../../../../Lubycon_Contents/user/'.$userdata_row['userCode'].'/profile.jpg',
 			'name' => $userdata_row['nick'],
 			'position' => $userdata_row['company'],
-			'job' => {
+			'job' => array(
 				'name' => $job_decode[$userdata_row['jobCode']]['name'],
 				'code' => $userdata_row['jobCode']
-			}
-			'country' => {
+			),
+			'country' => array(
 				'name' => $country_decode[$userdata_row['countryCode']]['name'],
 				'code' => $userdata_row['countryCode']
-			}
+			),
 			'city' => $userdata_row['city'],
 			'description' => $userdata_row['userDescription'],
 			'mobile' => $userdata_row['telNumber'],
