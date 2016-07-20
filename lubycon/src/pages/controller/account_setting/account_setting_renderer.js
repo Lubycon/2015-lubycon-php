@@ -104,9 +104,16 @@ $(document).ready(function(){
             });
             vm.userHistory = userHistory;
 
-            console.log(vm);
+            Controller({
+                url: "./pages/controller/account_setting/upload_controller.php",
+                data: {
+                    usernum: USER_PARAM
+                },
+                callback: result
+            });
         }
     }
+
     function initJSONdata(){
         loadJobList(bindJob);
         loadCountryList(bindCountry);
@@ -292,6 +299,10 @@ $(document).ready(function(){
 
         if(value === 'add' && target.length < limit) component.appendTo(wrapper);
         else if(value === 'remove' && target.length > 1) target.last().remove();
+    }
+
+    function result(response){
+        console.log(response);
     }
 });
 
