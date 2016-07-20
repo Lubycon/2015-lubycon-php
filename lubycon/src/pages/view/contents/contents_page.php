@@ -47,13 +47,6 @@
             </select>
             <select class="categoryFilter" data-param="mid_cate">
                 <!--TEST VALUE, IT WILL BE CHANGED TO JSON -->
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-                <option>E</option>
-                <option>F</option>
-                <option>G</option>
             </select>
             <div id="sub_search_bar" class="search-bar">
                 <div class="select-box">

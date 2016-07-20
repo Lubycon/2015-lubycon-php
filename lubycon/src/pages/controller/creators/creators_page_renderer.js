@@ -1,8 +1,10 @@
 $(document).ready(function(){
+	$("#loading_icon").show();
 	Controller({
 	    url: "./pages/controller/creators/controller.php",
 	    callback: init
 	});
+	loadJobList(initJob);
 
 	var detector = new InfiniteScrollDetector({
 		cardType: "creator",
@@ -22,9 +24,9 @@ $(document).ready(function(){
 		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
 		nowpage: getUrlParameter("page")
 	});
-	detector.start(addCard);
 
 	function init(data){
+		$("#loading_icon").hide();
 		var cardWrapper = $("#creator_card_wrap"),
 			list = $("<li/>",{ "class" : "creator_card_in" });
 
@@ -33,6 +35,7 @@ $(document).ready(function(){
 		list.clone(true).append(bestCreator).appendTo(cardWrapper);
 
 		addCard(data);
+		detector.start(addCard);
 	}
 
 	function addCard(data){
@@ -45,5 +48,24 @@ $(document).ready(function(){
 		}
 		console.log("VIEW : GET DATA------------------");
 		console.log(data);
+	}
+	function initJob(data){
+		console.log(data);
+		for(var i = 0; i < data.length; i++){
+			var o = $("<option/>", { "html" : data[i].name });
+			o.appendTo($(".jobFilter"));
+		}
+		$(".jobFilter").lubySelector({
+			id: "jobFilter",
+			width: 200,
+			icon: "fa fa-suitcase",
+			theme: "rect",
+			changeEvent: change
+		});
+
+		function change(){
+			var v = $(this).lubySelector("getValueByIndex");
+            setUrlParameter("job", v);
+		}
 	}
 });

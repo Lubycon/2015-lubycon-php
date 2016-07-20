@@ -26,10 +26,6 @@
             </select>
             <select class="jobFilter" data-param="job">
 				<!-- THIS IS TEST VALUES, IT WILL BE CHANGED JSON -->
-                <option>Student</option>
-				<option>Developer</option>
-				<option>Designer</option>
-				<option>Sex master</option>
             </select>
             <select class="userFilter" data-param="filter">
                 <option>New</option>

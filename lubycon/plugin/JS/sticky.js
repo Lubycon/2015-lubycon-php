@@ -2,6 +2,7 @@
 //      sticky start
 /////////////////////////////////////////////////////////
 $(window).on("load",function(){
+    console.log(1);
     if(!isMobile()){
         var $mainHeader = $(".main_header"),
         $figure = $(".main_figure_wrap"),
@@ -68,7 +69,7 @@ function navGuideSticky(start,scrollTop,nav,object,aside,objectY){
                 "top": 0,
                 "margin-top": 0
             })
-        } 
+        }
     }
 }
 /////////////////////////////////////////////////////////

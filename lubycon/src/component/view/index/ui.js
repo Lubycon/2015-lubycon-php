@@ -2,12 +2,11 @@
 // For UI init
 
 $(document).ready(function(){
+    $("body").show(); //TESTING...
     initUIComponents();
 
     function initUIComponents(){
         /////////// COMMON //////////////
-
-        pageReadyAction();
 
         mainNavigationAction();
         initSubNavInContentPage();
@@ -42,14 +41,6 @@ $(document).ready(function(){
 
     }
 
-    function pageReadyAction(){
-        /////////////////////////////////////////////////////////
-        //  PAGE WILL BE SHOW AFTER LOADED ALL HTML,CSS and JS //
-        /////////////////////////////////////////////////////////
-        $(document).ready(function(){
-            $("body").show();
-        });
-    }
     function mainNavigationAction(){
         $(".bigsub").hover(function(){
             $(this).children("ul").stop().fadeIn(300);
@@ -197,9 +188,7 @@ $(document).ready(function(){
                 copyrightFilter = navGuide.find(".copyrightFilter"),
                 languageFilter = navGuide.find(".languageFilter"),
                 locationFilter = navGuide.find(".locationFilter"),
-                jobFilter = navGuide.find(".jobFilter"),
-                userFilter = navGuide.find(".userFilter"),
-                categoryFilter = navGuide.find(".categoryFilter");
+                userFilter = navGuide.find(".userFilter");
 
             init();
             dataBinding();
@@ -236,27 +225,11 @@ $(document).ready(function(){
                 theme: "rect",
                 changeEvent: changeLocation
             });
-            jobFilter.lubySelector({
-                id: "jobFilter",
-                width: 200,
-                icon: "fa fa-suitcase",
-                theme: "rect",
-                changeEvent: changeLocation
-            });
             userFilter.lubySelector({
                 id: "userFilter",
                 width: 200,
                 icon: "fa fa-user",
                 customClass: "hidden-mb-ib",
-                theme: "rect",
-                changeEvent: changeLocation
-            });
-            categoryFilter.lubySelector({
-                id:"categoryFilter",
-                width: 230,
-                icon: "fa fa-bars",
-                searchBar: true,
-                optGroup: true,
                 theme: "rect",
                 changeEvent: changeLocation
             });
