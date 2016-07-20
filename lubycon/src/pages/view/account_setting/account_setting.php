@@ -138,7 +138,6 @@
                     <select class="privacyFilter web_public" data-value="web">
                         <option value="Public">Public</option>
                         <option value="Private">Private</option>
-                            <?php $json_control->json_find_option_original('.web_public',$row['webPublic']);?>
                     </select>
                 </div>
                 <!-- end select box -->

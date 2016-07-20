@@ -238,7 +238,7 @@
                         /*5*/formData.append("setting",objectToJSON(settingObject)); //add setting value
 
                         $.ajax({
-                            url: '../../../ajax/upload_ajax.php',
+                            url: '../controller/editor/upload_controller.php',
                             processData: false,
                             contentType: false,
                             data: formData,

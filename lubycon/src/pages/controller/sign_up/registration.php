@@ -4,11 +4,17 @@
     require_once '../../../common/Class/regex_class.php';
     require_once '../../../common/Class/MailerClass.php';
     require_once '../../../common/Class/session_class.php';
+    require_once '../../../common/Class/json_class.php';
     require_once '../../../common/common.php';
     
     $regex_vali = new regex_validate;
 	$db = new Database();
 	$session = new Session();
+	$json_control = new json_control();
+	$country_json = $json_control->json_decode('country',"../../../../data/country.json");
+	$country_decode = $json_control->json_decode_code;
+	$json_control->json_search($country_decode,'countryCode','name',$_POST['country_code']);
+	$country_code = $json_control->search_key;
 	
 	// password encryption -> using bycrypt
 	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -52,6 +58,13 @@
 
 			$db->askQuery();
 
+			$db->query = "
+			INSERT INTO `lubyconuser`.`userinfo` 
+			(`countryCode`,  `profileImg`, `emailPublic`, `mobilePublic`, `faxPublic`, `webPublic`) VALUES 
+			('$country_code','../asset/img/no_img/no_img_user.jpg','public', 'public', 'public', 'public');";
+			$db->askQuery();
+
+
 			if(!$db->result)
 			{
 				echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.2";
@@ -73,8 +86,7 @@
 
     				$result = mysqli_fetch_array($db->result);
 					$session->WriteSession('lubycon',$result);
-					echo $_SESSION['lubycon_validation'];
-					echo '<script>document.location.href="../../../index.php"</script>';
+					echo "<script>docuemnt.location.href='../../../index.php'</script>";
     			}
 			}
 		}
