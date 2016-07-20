@@ -12,10 +12,8 @@
             {
                 $activity = NULL;
                 
-                if($_SESSION['lubycon_validation'] === "active")
+                if($_SESSION['lubycon_validation'])
                     $activity = true;
-                else if($_SESSION['lubycon_validation'] === "inactive")
-                    $activity = false;
                 else
                     $activity = false;
 

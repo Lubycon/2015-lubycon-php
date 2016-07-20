@@ -62,11 +62,11 @@
     }
     //$sessionCheck = $activity;
     //echo "<script>console.log('$sessionCheck');</script>";
-    $sessionCheck = $_SESSION['lubycon_validation'];
-    if($_SESSION['lubycon_validation'])
+    $sessionCheck = isset($_SESSION['lubycon_validation']) ? $_SESSION['lubycon_validation'] : 'false';
+    if( isset($_SESSION['lubycon_validation']) )
         echo "<script>console.log('session validation have exist : $sessionCheck');</script>";
     else
-        echo "<script>console.log('session validation doesn't exist');</script>";
+        echo "<script>console.log('session validation does not exist');</script>";
     /*
     if($sessionCheck){
         echo "<script>console.log('session is true');</script>";
