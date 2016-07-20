@@ -103,13 +103,19 @@ function Controller(param){
 
 function loadJobList(callback){
     $.getJSON('../data/job.json', function(json, textStatus) {
-        callback(json,textStatus);
+        callback(json.job,textStatus);
     });
 }
 
 function loadCountryList(callback){
     $.getJSON('../data/country.json', function(json, textStatus) {
             callback(json,textStatus);
+    });
+}
+
+function loadCategoryList(callback,category){
+    $.getJSON('../data/middle_category.json', function(json, testStatus){
+        callback(json[category]);
     });
 }
 

@@ -60,7 +60,7 @@
             $LoginState = false;
         }
     }
-    //$sessionCheck = $activity; 
+    //$sessionCheck = $activity;
     //echo "<script>console.log('$sessionCheck');</script>";
     $sessionCheck = isset($_SESSION['lubycon_validation']) ? $_SESSION['lubycon_validation'] : 'false';
     if( isset($_SESSION['lubycon_validation']) )
@@ -74,7 +74,7 @@
         echo "<script>console.log('session is false');</script>";
     }
     */
-    
+
 ?>
 
 <!DOCTYPE html>
