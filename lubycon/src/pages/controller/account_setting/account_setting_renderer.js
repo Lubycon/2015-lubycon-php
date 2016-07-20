@@ -104,9 +104,23 @@ $(document).ready(function(){
             });
             vm.userHistory = userHistory;
 
+            console.log("SUBMIT DATA");
             console.log(vm);
+
+            Controller({
+                url: "./pages/controller/account_setting/upload_controller.php",
+                data: {
+                    result: vm,
+                    usernum: USER_PARAM
+                },
+                callback: result
+            });
         }
     }
+    function result(response){
+        console.log(response);
+    }
+
     function initJSONdata(){
         loadJobList(bindJob);
         loadCountryList(bindCountry);
