@@ -15,6 +15,8 @@
     $json_control->json_decode('country',"../data/country.json");
     $country_json_Code = $json_control->json_decode_code;
 
+    $sessionCheck;
+
     if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
         $LoginState = false;
     }else{
@@ -31,9 +33,9 @@
             {
                 $activity = NULL;
 
-                if($_SESSION['lubycon_validation'] === "active")
+                if($_SESSION['lubycon_validation'] === true)
                     $activity = true;
-                else if($_SESSION['lubycon_validation'] === "inactive")
+                else if($_SESSION['lubycon_validation'] === false)
                     $activity = false;
                 else
                     $activity = false;
@@ -58,7 +60,21 @@
             $LoginState = false;
         }
     }
-    echo "<script>console.log('$BODY_URL');</script>";
+    //$sessionCheck = $activity; 
+    //echo "<script>console.log('$sessionCheck');</script>";
+    $sessionCheck = $_SESSION['lubycon_validation'];
+    if($_SESSION['lubycon_validation'])
+        echo "<script>console.log('session validation have exist : $sessionCheck');</script>";
+    else
+        echo "<script>console.log('session validation doesn't exist');</script>";
+    /*
+    if($sessionCheck){
+        echo "<script>console.log('session is true');</script>";
+    }else{
+        echo "<script>console.log('session is false');</script>";
+    }
+    */
+    
 ?>
 
 <!DOCTYPE html>

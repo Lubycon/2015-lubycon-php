@@ -3,6 +3,71 @@
 # COMMON FUNCTION
 
 #---------------------------------------------------------------------------------
+#	RSA Part(encrypt)
+#---------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------
+#	Generate public/private Key
+#---------------------------------------------------------------------------------
+function rsa_generate_keys($password, $bits = 2048, $digest_algorithm = 'sha256'){
+
+	$res = openssl_pkey_new(array('digest_alg'=>$digest_algorithm,
+								  'private_key_bits'=>$bits,
+								  'private_key_type'=>OPENSSL_KEYTYPE_RSA,));
+
+	openssl_pkey_export($res, $private_key, $password);
+
+	$public_key = openssl_pkey_get_details($res);
+	$public_key = $public_key['key'];
+
+	return array('private_key' => $private_key,
+				 'public_key' => $public_key,);
+}
+
+
+#---------------------------------------------------------------------------------
+#	encript plaintext using RSA public key
+#---------------------------------------------------------------------------------
+function rsa_encrypt($plaintext, $public_key){
+
+	$plaintext = gzcompress($plaintext);
+
+	$publbicKey_decoded = @openssl_pkey_get_public($public_key);
+	if($publicKey_decoded === false) return false;
+
+	$ciphertext = false;
+	$status = @openssl_public_encrypt($plaintext, $ciphertext, $pubkey_decoded);
+	if($status || $ciphertext === false) return false;
+
+	return base64_encode($ciphertext);
+}
+
+#---------------------------------------------------------------------------------
+#	decoding key using RSA private Key
+#		when decoding key it's need password
+#---------------------------------------------------------------------------------
+function rsa_decrypt($ciphertext, $private_key, $password){
+
+	$ciphertext = @base64_decode($ciphertext, true);
+	
+	if($ciphertext === false) return false;
+
+	$privateKey_decoded = @openssl_pkey_get_private($private_key, $password);
+	
+	if($privateKey_decoded === false) return false;
+
+	$plaintext = false;
+	$status = @openssl_private_decrypt($ciphertext, $plaintext, $privateKey_decoded);
+	@openssl_pkey_free($privateKey_decoded);
+	if(!$status || $plaintext === false) return false;
+
+	$plaintext = @gzuncompress($plaintext);
+	if($plaintext === false) return false;
+
+	return $plaintext;
+}
+
+#---------------------------------------------------------------------------------
 #	Catch URL for index header
 #---------------------------------------------------------------------------------
 
