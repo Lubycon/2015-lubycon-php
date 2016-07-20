@@ -8,7 +8,6 @@
     line-height: 34px;
     color: #fff;
     font-size: 18px;
-    font-weight: 200;
     background: #555555;
     text-align: center;
     margin: 7px 5px;
@@ -52,7 +51,6 @@
 .lubySelector .ls_label {
     display: inline-block;
     width: 100%;
-    font-weight: 200;
     font-size: 14px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -84,7 +82,6 @@
         height: 100%;
         background: transparent;
         font-size: 14px;
-        font-weight: 200;
         color: #ffffff;
         margin: 0;
         padding: 7px;
@@ -134,14 +131,12 @@
         height: 30px;
         line-height: 30px;
         font-size: 14px;
-        font-weight: 200;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden
     }
         .ls_option a {
             color: #999999;
-            font-weight: 200;
         }
         .ls_option .tooltip img {
             width: 400px;

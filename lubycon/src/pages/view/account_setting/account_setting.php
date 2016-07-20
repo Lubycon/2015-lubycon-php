@@ -67,10 +67,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="optControl" data-value="add">
+                <div class="optControl" data-value="add" data-target="language">
                     <i class="fa fa-plus"></i>
                 </div>
-                <div class="optControl" data-value="remove">
+                <div class="optControl" data-value="remove" data-target="language">
                     <i class="fa fa-minus"></i>
                 </div>
                 <label id="basic_desc_label">Description</label>
@@ -104,10 +104,10 @@
                     <input class='history_text' type='text' value=''/>
                 </div>
             </div>
-            <div class="optControl" data-value="add">
+            <div class="optControl" data-value="add" data-target="history">
                 <i class="fa fa-plus"></i>
             </div>
-            <div class="optControl" data-value="remove">
+            <div class="optControl" data-value="remove" data-target="history">
                 <i class="fa fa-minus"></i>
             </div>
         </section>

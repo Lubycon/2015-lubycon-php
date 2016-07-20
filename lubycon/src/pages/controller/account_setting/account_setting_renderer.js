@@ -7,8 +7,11 @@ $(document).ready(function(){
         callback: init
     });
 
+    var vm;
+
     function init(data){
-        var vm = data;
+        vm = data;
+        console.log(vm);
         var publicOption = vm.publicOption,
             userData = vm.userData,
             history = vm.userHistory,
@@ -51,26 +54,72 @@ $(document).ready(function(){
         initJSONdata();
         initLanguage(language);
         initHistory(history);
+        initCropper();
 
-        /*$(document).find("select").lubySelector({
+        $(".privacyFilter").lubySelector({
             width: 100,
-            theme: "white",
-            icon: "fa fa-lock",
-            float: "none"
-        });*/
+            theme: 'white',
+            icon: 'fa fa-lock',
+            float: 'none'
+        });
+        $(".optControl").on("click",componentControl);
+        $("#submit_bt").on("click",submit);
+
+        function submit(){
+            publicOption.email = emailOption.val();
+            publicOption.fax = faxOption.val();
+            publicOption.mobile = mobileOption.val();
+            publicOption.website = webOption.val();
+
+            userData.city = city.val();
+            userData.name = nameWrap.val();
+            userData.company = company.val();
+            userData.description = descript.val();
+            userData.mobile = mobile.val();
+            userData.fax = fax.val();
+            userData.website = website.val();
+            userData.profile = profile.attr("src");
+            userData.location = $(".locationFilter").lubySelector("getValue");
+            userData.job = $(".jobFilter").lubySelector("getValue");
+
+            userLanguage = [];
+            $(".language").each(function(){
+                var d = {
+                    name: $(this).find(".language_text").val(),
+                    level: $(this).find(".langFilter").lubySelector("getValue")
+                };
+                userLanguage.push(d);
+            });
+            vm.userLanguage = userLanguage;
+
+            userHistory = [];
+            $(".history").each(function(){
+                var d = {
+                    category: $(this).find(".accountFilter[data-value='kind']").lubySelector("getValue"),
+                    contents: $(this).find(".history_text").val(),
+                    month: $(this).find(".accountFilter[data-value='month']").lubySelector("getValue"),
+                    year: $(this).find(".accountFilter[data-value='year']").lubySelector("getValue")
+                };
+                userHistory.push(d);
+            });
+            vm.userHistory = userHistory;
+
+            console.log(vm);
+        }
     }
     function initJSONdata(){
         loadJobList(bindJob);
         loadCountryList(bindCountry);
 
         function bindJob(data,status){
-            var d = data.job;
+            var d = data;
             if(status !== "success") console.log("LOAD JOB ERROR");
             var selector = $(".jobFilter");
             for(var i = 0; i < d.length; i++){
                 var o = $("<option/>",{ "html" : d[i].name, "data-value" : d[i].jobCode });
                 o.appendTo(selector);
             }
+            selector.val(vm.userData.job);
             selector.lubySelector({
                 theme: "white",
                 icon: "fa fa-suitcase",
@@ -86,6 +135,7 @@ $(document).ready(function(){
                 var o = $("<option/>",{ "html" : d[i].name, "data-value" : d[i].jobCode });
                 o.appendTo(selector);
             }
+            selector.val(vm.userData.location);
             selector.lubySelector({
                 width: 300,
                 theme: "white",
@@ -141,6 +191,108 @@ $(document).ready(function(){
         });
     }
 
+    function initCropper(){
+        $("#profile-upload-bt").click(function () {
+            $("#profile_uploader").trigger("click");
+        });
+
+        $(document).on("change","#profile_uploader",function (event) {
+            var object = event.target.files;
+
+            $.each(object,function(i,file){
+                var calcSize = file.calcUnit();
+                if(file.checkSize(10485760)){
+                    if(file.checkExt(["jpg","jpeg","png","gif","bmp"])){
+                        cropReady(file);
+                    }
+                    else {
+                        $(".alertKey").lubyAlert({
+                            type: "message",
+                            cancelButton: false,
+                            fontSize: 14,
+                            icon: "fa-inbox",
+                            text: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
+                            autoDestroy: false
+                        });
+                    }
+                }
+                else {
+                    $(".alertKey").lubyAlert({
+                        type: "message",
+                        cancelButton: false,
+                        fontSize: 14,
+                        icon: "fa-inbox",
+                        text: "This file exceeds the recommended size.</br>The file currently sits at " +
+                        calcSize[0] + calcSize[1] + ".<br/>Please make sure your file size is under 10MB.",
+                        autoDestroy: false
+                    });
+                }
+            });
+
+            $(this).val(null);
+        });
+
+        $(document).on("click", "#crop-bt", function () {
+            var isNotExist = $("#cropper_img").attr("src") === undefined;
+            if(isNotExist) return false;
+
+            var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 }),
+                base64 = $object.toDataURL("image/jpeg");
+
+            $("#croped img").attr('src',base64);
+            $("#croped").next("i").hide();
+            $("#cropper-preview").hide();
+            $("#cropper-wrapper").hide();
+            $(".cropper-container").remove();
+        });
+
+        function cropReady(file) {
+            var $loading_icon = $(document).find("#loading_icon").show();
+            if (file) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    $('#cropper_img').attr('src', e.target.result);
+
+                    $(".cropper-container").remove();
+                    $("#cropper_img").cropper({
+                        minCanvasWidth: 150,
+                        minCanvasHeight: 150,
+                        minContainerWidth: 200,
+                        minContainerHeight: 200,
+                        aspectRatio: 1 / 1,
+                        autoCropArea: 0.6,
+                        viewMode: 3,
+                        responsive: true,
+                        moveable: true,
+                        preview: "#cropper-preview",
+                        dragMode: "crop"
+                    }).show();
+                    $("#cropper-preview").show().css("display","inline-block");
+                    if($("#croped").width() !== 0) $("#cropper-window-wrapper > i").show().css("display","inline-block");
+                    $("#cropper-wrapper").show();
+                    $("#cropper_img").cropper("replace", e.target.result);
+                    $loading_icon.hide();
+                };
+            }
+        }
+    }
+    function componentControl(){
+        var $this = $(this);
+        var limit = $this.data('target') === 'history' ? 25 : 4;
+        var value = $this.data("value"),
+            target = $("." + $this.data("target")),
+            wrapper = target.parent(),
+            component = target.first().clone(true),
+            ls = component.find("select"),
+            input = component.find("input[type='text']");
+
+        if(ls) ls.lubySelector("setValueByIndex",0);
+        if(input) input.val(null);
+
+        if(value === 'add' && target.length < limit) component.appendTo(wrapper);
+        else if(value === 'remove' && target.length > 1) target.last().remove();
+    }
 });
 
 /*$(function (){ //account setting script
@@ -350,110 +502,6 @@ $(document).ready(function(){
             });
             inputText.val(aftersort[index].text);
         });
-    }
-
-    function initProfileCropper(){
-        $("#profile-upload-bt").click(function () {
-            $("#profile_uploader").trigger("click");
-        });
-
-        $(document).on("change","#profile_uploader",function (event) {
-            var object = event.target.files;
-
-            $.each(object,function(i,file){
-                var calcSize = file.calcUnit();
-                if(file.checkSize(10485760)){
-                    if(file.checkExt(["jpg","jpeg","png","gif","bmp"])){
-                        showImage(file);
-                    }
-                    else {
-                        $(".alertKey").lubyAlert({
-                            type: "message",
-                            cancelButton: false,
-                            fontSize: 14,
-                            icon: "fa-inbox",
-                            text: "This file does not have the right extension.<br/>Please make sure it has the right extension.",
-                            autoDestroy: false
-                        });
-                    }
-                }
-                else {
-                    $(".alertKey").lubyAlert({
-                        type: "message",
-                        cancelButton: false,
-                        fontSize: 14,
-                        icon: "fa-inbox",
-                        text: "This file exceeds the recommended size.</br>The file currently sits at " +
-                        calcSize[0] + calcSize[1] + ".<br/>Please make sure your file size is under 10MB.",
-                        autoDestroy: false
-                    });
-                }
-            });
-
-            $(this).val(null);
-        });
-
-        $(document).on("click", "#crop-bt", function () {
-            var isNotExist = $("#cropper_img").attr("src") === undefined;
-            if(isNotExist) return false;
-
-            var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 });
-
-            dataURL = $object.toDataURL("image/jpeg");
-            var dataArray = [];
-            dataArray = dataURL;
-
-            $.ajax({
-                type: "POST",
-                url: "../ajax/profile_upload_ajax.php", //path
-                data:{
-                    'profile': dataArray
-                },
-                cache: false,
-                success: function (data) {
-                    $("#croped").empty();
-                    $("#croped").append($object);
-                    $("#croped").next("i").hide();
-                    $("#cropper-preview").hide();
-                    $("#cropper-wrapper").hide();
-                    $(".cropper-container").remove();
-                }
-            });
-        });
-        $.ajax(function(){
-
-        });
-
-        function showImage(file) {
-            var $loading_icon = $(document).find("#loading_icon").show();
-            if (file) {
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function (e) {
-                    $('#cropper_img').attr('src', e.target.result);
-
-                    $(".cropper-container").remove();
-                    $("#cropper_img").cropper({
-                        minCanvasWidth: 150,
-                        minCanvasHeight: 150,
-                        minContainerWidth: 200,
-                        minContainerHeight: 200,
-                        aspectRatio: 1 / 1,
-                        autoCropArea: 0.6,
-                        viewMode: 3,
-                        responsive: true,
-                        moveable: true,
-                        preview: "#cropper-preview",
-                        dragMode: "crop"
-                    }).show();
-                    $("#cropper-preview").show().css("display","inline-block");
-                    if($("#croped").width() !== 0) $("#cropper-window-wrapper > i").show().css("display","inline-block");
-                    $("#cropper-wrapper").show();
-                    $("#cropper_img").cropper("replace", e.target.result);
-                    $loading_icon.hide();
-                };
-            }
-        }
     }
 
     function deleteAccountEvent(){

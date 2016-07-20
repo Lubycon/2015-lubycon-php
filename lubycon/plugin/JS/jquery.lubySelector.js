@@ -275,6 +275,7 @@
                     options.removeClass("selected");
                     target.addClass("selected");
                     $this.val(target.text());
+					console.log($this.val(),target.text());
 
                     wrapper.find('.ls_label').text(target.text());
                 });

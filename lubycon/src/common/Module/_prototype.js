@@ -3,7 +3,7 @@
 //////////////////////////
 File.prototype.checkSize = function(size){
     return this.size < size;
-}
+};
 
 File.prototype.calcUnit = function(){
     //////////////////////////////
@@ -27,17 +27,17 @@ File.prototype.calcUnit = function(){
         }
     }
     return [size.toFixed(2),unit,this.size];
-}
+};
 
 
 File.prototype.checkExt = function(array){ //this method will be check to file name only
     var reg = new RegExp(".*\.(" + array.join("|") + ")","i");
     return reg.test(this.name);
-}
+};
 File.prototype.isExistInArray = function(array){
-    var names = array.map(function(v){ return v.name });
+    var names = array.map(function(v){ return v.name; });
     return names.indexOf(this.name);
-}
+};
 
 Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
@@ -65,11 +65,11 @@ Number.prototype.setUnit = function(digits) {
         }
     }
     return n.toFixed(digits).replace(rx, "$1");
-}
+};
 
 Number.prototype.setComma = function(){
     return this.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+};
 
 Date.prototype.get12HourTime = function(iso8601){ //iso8601 = boolean
     var result = {
@@ -112,13 +112,13 @@ Date.prototype.get12HourTime = function(iso8601){ //iso8601 = boolean
     result.second = s;
 
     return result;
-}
+};
 
 String.prototype.isEmail = function(){
     //if It is email => true Or false
     var reg = /^[0-9a-zA-Z]([\-.\w]*[0-9a-zA-Z\-_+])*@([0-9a-zA-Z][\-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9}$/;
     return reg.test(this);
-}
+};
 String.prototype.isPassword = function(){
     // <Error Code>
     //
@@ -145,11 +145,11 @@ String.prototype.isPassword = function(){
     else if(repeat3Word) return 5;
     else if(nullString) return 6;
     else return 0;
-}
+};
 String.prototype.isNullString = function(){
     //Null => true Or false
     return this.valueOf() === "" || this.valueOf() === null || this.valueOf() === undefined || this.valueOf() === " ";
-}
+};
 String.prototype.isAbuseWord = function(){
     //if It is abuse word => true Or false
     var abuseWords = [
@@ -157,7 +157,7 @@ String.prototype.isAbuseWord = function(){
         "cunt", "dick", "fucker", "null"
     ];
     return abuseWords.indexOf(this.valueOf()) !== -1;
-}
+};
 String.prototype.isRepeatWord = function(limit){
     //limit = int
     var ch = '';
@@ -173,24 +173,24 @@ String.prototype.isRepeatWord = function(limit){
             ch = this.charAt(i);
             cnt = 1;
         }
-    };
+    }
 
     return false;
-}
+};
 String.prototype.isSpecialChar = function(){
     //if Is is specialChar => true Or false
     var reg = /[`;\\\/~\#$%<>^&\|*\(\)<>\-=\+\’\"\']/gi;
 
     return reg.test(this);
-}
+};
 String.prototype.isAlphabetNumber = function(){
     var reg = /^[A-Za-z0-9+]*$/;
     return reg.test(this);
-}
+};
 String.prototype.isNumber = function(){
     var reg = /^[0-9]*$/;
     return reg.test(this);
-}
+};
 
 String.prototype.inputErrorCheck = function(){
     // 1. isSpecialChar()
@@ -199,22 +199,22 @@ String.prototype.inputErrorCheck = function(){
     if(this.isSpecialChar()) return 1;
     else if(this.isAbuseWord() || this.match(/ null /gi)) return 2;
     else return 0;
-}
+};
 
 String.prototype.getByteLength = function(b,i,c){
     for(b = i = 0; c = this.charCodeAt(i++); b += c >> 11 ? 3 :c >> 7 ? 2 : 1);
     return b;
-}
+};
 
 String.prototype.disableCamelCase = function(text){ //camelCase -> Camel Case
     var result = this.replace( /([A-Z])/g, " $1" ),
-    result = result.charAt(0).toUpperCase() + result.slice(1);
+        result = result.charAt(0).toUpperCase() + result.slice(1);
     return result;
-}
+};
 
 String.prototype.toDOMelement = function(){
     return $($("<p/>").html(this).text());
-}
+};
 
 //////////////////////
 // jQuery Prototype //
@@ -236,7 +236,7 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
         d.left !== null ? tooltipBody.css("left",d.left) : "";
         d.right !== null ? tooltipBody.css("right",d.right) : "";
 
-        if(d.left == null && d.right == null) alert("Tooltip Error(ui.js) : Please insert value about X coordinate(left or right)");
+        if(d.left === null && d.right === null) alert("Tooltip Error(ui.js) : Please insert value about X coordinate(left or right)");
 
         $this.on("mouseenter",showTooltip).on("mouseleave",hideTooltip);
 
@@ -253,7 +253,7 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
         }
     });
     return this;
-}
+};
 
 $.fn.hideAnywhere = function(){
     this.each(function(){
@@ -274,10 +274,4 @@ $.fn.hideAnywhere = function(){
         }
     });
     return this;
-};
-
-$.fn.databind = function(event,model){
-    vm.on(event,function(){
-        model = $(this).val();
-    });
 };
