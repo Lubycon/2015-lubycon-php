@@ -41,7 +41,7 @@ File.prototype.isExistInArray = function(array){
 
 Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
-        if (this[i] == deleteValue) {         
+        if (this[i] == deleteValue) {
             this.splice(i, 1);
             i--;
         }
@@ -141,7 +141,7 @@ String.prototype.isPassword = function(){
     if(emptyWord) return 1;
     else if(lengthTest) return 2;
     else if(notUseAlphabet) return 3;
-    else if(useSpecialChar) return 4;  
+    else if(useSpecialChar) return 4;
     else if(repeat3Word) return 5;
     else if(nullString) return 6;
     else return 0;
@@ -231,7 +231,7 @@ $.fn.tooltip = function(option){ //parent obejct must has "data-tip" attribute!!
         var tooltipBody = $("<div/>",{"class" : "tooltip tip-body"}),
         tooltipWrap = $("<div/>",{"class" : "tooltip tip-wrapper"}).appendTo(tooltipBody),
         tooltipContent = $("<p/>",{"class" : "tooltip tip-content", "html" : data}).appendTo(tooltipWrap);
-        
+
         tooltipBody.css("top",d.top);
         d.left !== null ? tooltipBody.css("left",d.left) : "";
         d.right !== null ? tooltipBody.css("right",d.right) : "";
@@ -274,4 +274,10 @@ $.fn.hideAnywhere = function(){
         }
     });
     return this;
+};
+
+$.fn.databind = function(event,model){
+    vm.on(event,function(){
+        model = $(this).val();
+    });
 };
