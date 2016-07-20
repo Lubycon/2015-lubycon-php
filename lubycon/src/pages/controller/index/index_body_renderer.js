@@ -2,7 +2,9 @@ $(document).ready(function(){
 
 	Controller({
         url: "./pages/controller/index/index_body_controller.php",
-        data: "isMobile=" + isMobile(),
+        data: {
+			"isMobile" : isMobile()
+		},
         callback: init
     });
 

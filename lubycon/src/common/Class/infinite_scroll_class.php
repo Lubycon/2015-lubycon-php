@@ -39,6 +39,9 @@ class infinite_scroll extends json_control
     public $limit_query;
 
     public $bind_data=array();
+
+    public $ccDecode;
+
     /*
     private $page_kinds;
     private $top_category;
@@ -79,7 +82,7 @@ class infinite_scroll extends json_control
 
         //optcion to call each
         $this->page_boundary = 30;
-        $this->pageStartPoint = $this->nowPage * $this->page_boundary;
+        $this->pageStartPoint = ($this->targetPage-1) * $this->page_boundary;
 
         //query set
         $this->searchFilterQuery = $this->searchValue !== null ? $this->filter->search." like '%".$this->searchValue."%'" : $this->filter->search = null ;
@@ -103,9 +106,9 @@ class infinite_scroll extends json_control
             $this->validateCategory();
         }
 
-        // extend class
-        $this->json_decode('top_category',"../../../../data/top_category.json");
-        $this->top_cate_decode = $this->json_decode_code;
+
+        $this->json_decode('ccCode',"../../../../data/ccCode.json");
+        $this->ccDecode = $this->json_decode_code;
 	}
 
     private function validateCategory() //check top category form allow array
@@ -148,6 +151,19 @@ class infinite_scroll extends json_control
                     ) AS a 
                     LEFT JOIN lubyconuser.`userbasic` AS c 
                     ON a.`userCode` = c.`userCode` 
+                    ";
+                }else
+                {
+                    $this->from_query =
+                    "
+                        from 
+                        (
+                        SELECT * FROM lubyconboard.`$this->topCate`                 
+                        LEFT JOIN lubyconboard.`$this->topCate"."midcategory`
+                        USING (`boardCode`)
+                        ) as a
+                        left join lubyconuser.`userbasic` c
+                        ON a.`userCode` = c.`userCode`
                     ";
                 }
 
@@ -220,12 +236,15 @@ class infinite_scroll extends json_control
                 while( $row = mysqli_fetch_assoc($result) )
                 {
                     $bookmark_check = isset($row['bookmarkActionUserCode']) ? 'true' : 'false';
+                    $this->json_search($this->ccDecode,'name','ccLicense',$row['ccLicense']);
+                    $license_check = $this->search_key;
+
                     $this->bind_data[] = array(
                         'code' => $row['boardCode'],
                         'title' => $row['contentTitle'],
                         'category' => $row['topCategoryCode'],
                         'thumbnail' => $row['userDirectory'].'/thumbnail/thumbnail.jpg',
-                        'license' => $row['ccLicense'],
+                        'license' => $license_check,
                         'bookmark' => $bookmark_check,
                         'userData' => array(
                             'code' => $row['userCode'],
@@ -234,7 +253,7 @@ class infinite_scroll extends json_control
                         ),
                         'contentCount' => array(
                             'view' => $row['viewCount'],
-                            'commnet' => $row['commentCount'],
+                            'comment' => $row['commentCount'],
                             'like' => $row['likeCount'],
                         )
                     );

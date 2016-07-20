@@ -2,7 +2,9 @@
 $(document).ready(function(){
     Controller({
         url: "./pages/controller/personal_page/dashboard_controller.php",
-        data: "usernum=" + USER_PARAM,
+        data: {
+            usernum: USER_PARAM
+        },
         callback: init
     });
 
@@ -32,17 +34,17 @@ $(document).ready(function(){
         var languageMap = data.userLanguage.map(function(v,i){
             return v.level === "Advanced" || v.level === "Fluent" ? v.name : null;
         }).clean();
-        
+
         language1.text(languageMap[0]);
         language2.text(languageMap[1]);
-            
+
 
         initHistory(data.userHistory.reverse());
-      
+
         $.getJSON("./component/view/chart/data/insightData.json",function(data){
             success : initChart(data);
-        }).fail(function(d, textStatus, error){ 
-            console.log("insight data loading is failed, status: " + textStatus + ", error: "+error) 
+        }).fail(function(d, textStatus, error){
+            console.log("insight data loading is failed, status: " + textStatus + ", error: "+error);
         });
 
         $(".history_kind span").first().remove();
@@ -58,7 +60,7 @@ $(document).ready(function(){
         else {
             website.find("a").html("<i class='fa fa-lock'></i> Private");
         }
-        
+
         function initHistory(data){
             var li = $("<li/>"),
                 date = $("<div/>",{ "class" : "history_date" }),
@@ -113,7 +115,7 @@ $(document).ready(function(){
                 dataArray.push({
                     date: v["date"],
                     value: v["value"]
-                })
+                });
             });
             dataArray.splice(0,dataArray.length-7);
             initLineChart(target,theme,dataArray);
@@ -174,6 +176,7 @@ $(document).ready(function(){
             setInterval(syncTime(userClock,localClock),1000);
             blinkColon();
 
+            syncTime(userClock,localClock);
             function syncTime(user,local){
                 var time = initTime(),
                 colon = "<span class='colon'>:</span>";
@@ -186,9 +189,8 @@ $(document).ready(function(){
 
                 local.find(".clock").html(localTime);
                 local.find(".ampm").text(time.local.ampm);
-            }(userClock,localClock);
-            
-            
+            }
+
             function initTime(){
                 var UTC = data.userData.utc;
 
@@ -214,7 +216,7 @@ $(document).ready(function(){
                 var colon_count = 0;
                 var blink_time = setInterval(function(){
                     var colon = $(".colon");
-                    if(colon_count == 0){
+                    if(colon_count === 0){
                         colon.css("visibility","hidden");
                         colon_count = 1;
                         //console.log(colon_count);
@@ -228,5 +230,4 @@ $(document).ready(function(){
             }
         }
     }
-})
-
+});

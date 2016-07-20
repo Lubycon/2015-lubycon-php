@@ -15,8 +15,33 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 }
 if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
 
-$number = $_POST['conno']; //contenst number form url
-$cate = $_POST['cate']; 
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+	$postData = json_decode(file_get_contents("php://input"));
+}else
+{
+	die('it is not post data error code 0000');
+}
+
+$number = $postData->conno;
+$cate = $postData->cate;
+
+$json_control->json_decode('job',"../../../../data/job.json");
+$job_decode = $json_control->json_decode_code;
+$json_control->json_decode('country',"../../../../data/country.json");
+$country_decode = $json_control->json_decode_code;
+$json_control->json_decode("top_category","../../../../data/top_category.json");
+$top_cate_decode = $json_control->json_decode_code;
+$cate_name = $top_cate_decode[$cate]['name'];
+$json_control->json_decode("$cate_name"."_category","../../../../data/middle_category.json");
+$mid_cate_decode = $json_control->json_decode_code;
+$json_control->json_decode("ccCode","../../../../data/ccCode.json");
+$cc_code_decode = $json_control->json_decode_code;
+
+
+
+
 
 /* cookie is later..
 $url_parse = parse_url($_SERVER['HTTP_REFERER']);
@@ -32,7 +57,7 @@ if( isset($url_parse['query']) )
 */
 
 $allow_array = ['all','artwork','vector','threed'];
-if( in_array($cate , $allow_array) )
+if( in_array($cate_name , $allow_array) )
 {
     //check category
     switch($cate)
@@ -63,14 +88,6 @@ else
 include_once('../../model/contents/model.php');
 
 // contetnts data
-$json_control->json_decode('job',"../../../../data/job.json");
-$job_decode = $json_control->json_decode_code;
-$json_control->json_decode('country',"../../../../data/country.json");
-$country_decode = $json_control->json_decode_code;
-$json_control->json_decode("$cate_name"."_category","../../../../data/middle_category.json");
-$mid_cate_decode = $json_control->json_decode_code;
-$json_control->json_decode("ccCode","../../../../data/ccCode.json");
-$cc_code_decode = $json_control->json_decode_code;
 $my_job_origin_select = $job_decode[$row["jobCode"]]['name'];
 $my_country_origin_select = $country_decode[$row["countryCode"]]['name'];
 

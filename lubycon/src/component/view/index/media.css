@@ -715,7 +715,7 @@
         .public_option .lubySelector {
             width: 100% !important;
         }
-        .langWrap{
+        .language-wrapper{
             background: #dddddd;
             text-align: center;
             padding: 10px;
@@ -724,16 +724,16 @@
             .lang_option{
                 display: block;
             }
-        .clone-wrapper {
+        .language {
             background: #dddddd;
             padding: 10px;
             margin: 10px 0px;
         }
-            .clone-wrapper .lubySelector {
+            .language .lubySelector {
                 width: 100% !important;
                 margin: 5px auto;
             }
-            .clone-wrapper .history_text {
+            .language .history_text {
                 width: 100% !important;
                 margin: 5px auto;
             }

@@ -20,15 +20,27 @@ $country_json = $json_control->json_decode('country',"../../../../data/country.j
 $country_decode = $json_control->json_decode_code;
 /*data render setting*/
 
-$usernumber = $_POST['usernum'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+	$postData = json_decode(file_get_contents("php://input"));
+}else
+{
+	die('it is not post data error code 0000');
+}
+
+
+$usernumber = $postData->usernum;
 
 if( $Loginuser_code === $usernumber )
 {
 	include '../../model/account_setting/model.php';
 	$page_title = 'account_setting';
 	$user_data = array(
+			'code' => $userdata_row['userCode'],
 			'email' => $userdata_row['email'],
-			'nickname' => $userdata_row['nick'],
+			'profile' => '../../../../Lubycon_Contents/user/'.$userdata_row['userCode'].'/profile.jpg',
+			'name' => $userdata_row['nick'],
 			'job' => $job_decode[$userdata_row['jobCode']]['name'],
 			'position' => $userdata_row['company'],
 			'location' => $country_decode[$userdata_row['countryCode']]['name'],
@@ -42,7 +54,11 @@ if( $Loginuser_code === $usernumber )
 	$user_language = array();
 	while ($row = mysqli_fetch_array($language_result)) {
 		$language_name = $row['languageName'];
-		$user_language[] = $language_name;
+		$language_level = $row['languageLevel'];
+		$user_language[] = array(
+			'name' => $language_name,
+			'level' => $language_level
+		);
 	}
 
 	$user_history = array();
@@ -64,7 +80,7 @@ if( $Loginuser_code === $usernumber )
 			'email' => $userdata_row["emailPublic"],
 			'mobile' => $userdata_row["mobilePublic"],
 			'fax' => $userdata_row["faxPublic"],
-			'web' => $userdata_row["webPublic"]
+			'website' => $userdata_row["webPublic"]
 	);
 	$total_array = array(
 		'pageTitle' => $page_title,

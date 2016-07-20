@@ -39,7 +39,7 @@ class json_control
         //$this->search_key = array_search($search_word, $this->json_decode_code['name']);
         foreach ($decode_code as $key => $value) 
         {
-            if ($value["$search_key"] === $search_word) 
+            if ($value["$search_key"] == $search_word) 
             {
                 $this->search_key = $value["$return_value"];
             }

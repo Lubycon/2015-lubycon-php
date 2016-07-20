@@ -1,9 +1,8 @@
 
 <script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script>
 <script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
-<script type="text/javascript" src="./component/view/contents_card/contents_card.tmpl.js"></script>
-<script type="text/javascript" src="./pages/controller/contents/contents_page_renderer.js"></script>
 <link href="./pages/view/contents/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
+<link href="./plugin/JS/lubySlider.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 
 <div class="main_figure_wrap hidden-mb-b">
     <figure>
@@ -30,6 +29,8 @@
             </ul>
         </nav>  <!-- end lnb nav -->
     </section>  <!-- end section -->
+
+
     <section class="nav_guide">
         <div class="nav-wrapper">
             <select class="preferFilter" data-param="filter">
@@ -71,9 +72,9 @@
         </div><!--subnav_box end-->
     </section>
     <section id="contents_box" class="con_wrap">
-        <input type="range" class="sliderKey" value="1" width="6" min='1' max="">
+
+    <input type="range" class="sliderKey" value="1" width="6" min='1' max="">
         <ul class="contents_wrap">
-            <!--CONTENTS CARD-->
         </ul>
     </section>  <!-- end contents box -->
 </section>  <!-- end contents section -->
