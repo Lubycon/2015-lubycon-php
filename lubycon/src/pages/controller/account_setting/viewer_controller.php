@@ -43,9 +43,15 @@ if( $Loginuser_code === $usernumber )
 			'email' => $userdata_row['email'],
 			'profile' => '../../../../Lubycon_Contents/user/'.$userdata_row['userCode'].'/profile.jpg',
 			'name' => $userdata_row['nick'],
-			'job' => $job_decode[$userdata_row['jobCode']]['name'],
 			'position' => $userdata_row['company'],
-			'location' => $country_decode[$userdata_row['countryCode']]['name'],
+			'job' => {
+				'name' => $job_decode[$userdata_row['jobCode']]['name'],
+				'code' => $userdata_row['jobCode']
+			}
+			'country' => {
+				'name' => $country_decode[$userdata_row['countryCode']]['name'],
+				'code' => $userdata_row['countryCode']
+			}
 			'city' => $userdata_row['city'],
 			'description' => $userdata_row['userDescription'],
 			'mobile' => $userdata_row['telNumber'],
