@@ -8,7 +8,9 @@ $(document).ready(function(){
         callback: init
     });
 
-    function init(data,session){
+    function init(response){
+		var data = response.result,
+			session = response.session;
     	var pageTitle = data.pageTitle,
     		userdata = data.userData;
 

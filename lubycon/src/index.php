@@ -177,13 +177,13 @@
                             <a href="?dir=pages/view/creators/creators&page=1"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
                         </li>
                         <li><!--forum-->
-                            <a href="?dir=pages/view/community/community_page&cate=forum&page=1"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=0&page=1"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
                         </li>
                         <li><!--tutorial-->
-                            <a href="?dir=pages/view/community/community_page&cate=tutorial&page=1"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=1&page=1"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
                         </li>
                         <li><!--Q&A-->
-                            <a href="?dir=pages/view/community/community_page&cate=qna&page=1"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=2&page=1"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>
@@ -206,19 +206,19 @@
             <ul>
                 <i class="fa fa-caret-up"></i>
                 <div class="userMenuGroup">
-                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$Loginuser_code?>">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=0&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-tachometer fa-1x"></i>Dashboard
                     </a></li>
-                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=my_contents&usernum=<?=$Loginuser_code?>&page=1">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=1&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-folder-open fa-1x"></i>My Contents
                     </a></li>
-                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=my_forums&usernum=<?=$Loginuser_code?>&page=1">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=2&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-comments-o fa-1x"></i>My Forums
                     </a></li>
-                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=insight&usernum=<?=$Loginuser_code?>">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=3&usernum=<?=$Loginuser_code?>">
                         <i class="fa fa-line-chart fa-1x"></i>Insight
                     </a></li>
-                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=bookmark&usernum=<?=$Loginuser_code?>&page=1">
+                    <li><a href="?dir=pages/view/personal_page/personal_page&cate=4&usernum=<?=$Loginuser_code?>&page=1">
                         <i class="fa fa-star fa-1x"></i>Bookmarks
                     </a></li>
                 </div>

@@ -18,7 +18,7 @@ function Request(param){
                         console.timeEnd("DATA LOADED");
                         param.callback({
                             result: $.parseJSON(data),
-                            access: session,
+                            session: session,
                             status: "0000"
                         });
                     },

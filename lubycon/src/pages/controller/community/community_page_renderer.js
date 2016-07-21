@@ -3,8 +3,8 @@ $(document).ready(function(){
     Request({
 	    url: "./service/controller/infinite_scroll/controller.php",
         data: {
-            cardType: "content",
-    		page: "content",
+            cardType: "community",
+    		page: "community",
             topCate: getUrlParameter("cate"),
             sort: $(".preferFilter").lubySelector("getValueByIndex"),
     		filter: {

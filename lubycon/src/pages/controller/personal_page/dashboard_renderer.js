@@ -12,7 +12,9 @@ $(document).ready(function(){
         initDashboard(data);
     }
 
-    function initDashboard(data){
+    function initDashboard(response){
+        var data = response.result,
+            session = response.session;
         console.log(data);
         //console.log(data.insightData);
         var job = $(".content_text[data-value='job']").text(data.userData.job),
