@@ -51,6 +51,9 @@ $(document).ready(function(){
         website.val(userData.website);
         webOption.val(publicOption.website);
 
+        $("#history_setting_section").find(".fa-refresh").on("click",sortHistory);
+        $("#delete_account_bt").on("click",deleteAccountEvent);
+
         //JOB, COUNTRY, LANGUAGE, HISTORY BINDING...
         initJSONdata();
         initLanguage(language);
@@ -294,7 +297,7 @@ $(document).ready(function(){
     }
     function componentControl(){
         var $this = $(this);
-        var limit = $this.data('target') === 'history' ? 25 : 4;
+        var limit = $this.data('target') === 'history' ? 20 : 4;
         var value = $this.data("value"),
             target = $("." + $this.data("target")),
             wrapper = target.parent(),
@@ -307,6 +310,63 @@ $(document).ready(function(){
 
         if(value === 'add' && target.length < limit) component.appendTo(wrapper);
         else if(value === 'remove' && target.length > 1) target.last().remove();
+    }
+
+    function sortHistory(event){ //고장남
+        console.log("sortHistory");
+        eventHandler(event, $(this));
+        var histories = [];
+        $('.history').each(function (index) {
+            histories.push({
+                'index':  index,
+                'year': $(this).find('.accountFilter[data-value="year"]').val(),
+                'month': $(this).find('.accountFilter[data-value="month"]').val(),
+                'kind': $(this).find('.accountFilter[data-value="kind"]').val(),
+                'text': $(this).find('.history_text').val()
+            });
+            console.log(histories[index]);
+        });
+        aftersort = histories.sort(CompareForSort);
+        function CompareForSort(first, second) {
+            if (first.year == second.year) // sort by year
+                if (first.month < second.month) { // if same value year, sort by month
+                    return -1; //bigger than second month
+                } else{
+                    return 1; //bigger than first month
+                }
+            if (first.year < second.year)
+                return -1; // bigger than second year
+            else {
+                return 1; // bigger than first year
+            }
+        }
+        $('.history').each(function (index) {
+            var selectors = $(this).find(".accountFilter");
+            var inputText = $(this).find(".history_text");
+            var i = index;
+            selectors.each(function(index){
+                var $this = $(this),
+                data = $this.data("value");
+
+                $this.val(aftersort[i][data]);
+                $this.siblings(".ls_Label").text(aftersort[i][data]);
+            });
+            inputText.val(aftersort[index].text);
+        });
+    }
+
+    function deleteAccountEvent(){
+        $(this).lubyAlert({
+            type: "message",
+            icon: "fa-trash-o",
+            text: "Are you sure?<br/><p style='font-size: 14px; font-weight: 200;'>Your contents and information is will be removed</p>",
+            autoDestroy: false,
+            okAction: deleteAccount
+        });
+
+        function deleteAccount(){
+            alert("DELETE ACCOUNT");
+        }
     }
 });
 
@@ -474,63 +534,6 @@ $(document).ready(function(){
 
         if(element.length >= limit) addBt.hide();
         else addBt.show();
-    }
-
-    function sortHistory(event){
-        console.log("sortHistory");
-        eventHandler(event, $(this));
-        var history_array = [];
-        $('.historyWrap').each(function (index) {
-            history_array.push({
-                'index':  index,
-                'year': $(this).find('.accountFilter[data-value="year"]').val(),
-                'month': $(this).find('.accountFilter[data-value="month"]').val(),
-                'kind': $(this).find('.accountFilter[data-value="kind"]').val(),
-                'text': $(this).find('.history_text').val()
-            });
-            console.log(history_array[index]);
-        });
-        aftersort = history_array.sort(CompareForSort);
-        function CompareForSort(first, second) {
-            if (first.year == second.year) // sort by year
-                if (first.month < second.month) { // if same value year, sort by month
-                    return -1; //bigger than second month
-                } else{
-                    return 1; //bigger than first month
-                }
-            if (first.year < second.year)
-                return -1; // bigger than second year
-            else {
-                return 1; // bigger than first year
-            }
-        }
-        $('.historyWrap').each(function (index) {
-            var selectors = $(this).find(".accountFilter");
-            var inputText = $(this).find(".history_text");
-            var i = index;
-            selectors.each(function(index){
-                var $this = $(this),
-                data = $this.data("value");
-
-                $this.val(aftersort[i][data]);
-                $this.siblings(".ls_Label").text(aftersort[i][data]);
-            });
-            inputText.val(aftersort[index].text);
-        });
-    }
-
-    function deleteAccountEvent(){
-        $(this).lubyAlert({
-            type: "message",
-            icon: "fa-trash-o",
-            text: "Are you sure?<br/><p style='font-size: 14px; font-weight: 200;'>Your contents and information is will be removed</p>",
-            autoDestroy: false,
-            okAction: deleteAccount
-        });
-
-        function deleteAccount(){
-            alert("DELETE ACCOUNT");
-        }
     }
 
     function finalSubmit(){
