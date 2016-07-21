@@ -33,8 +33,8 @@ $json_control->json_decode('country',"../../../../data/country.json");
 $country_decode = $json_control->json_decode_code;
 $json_control->json_decode("top_category","../../../../data/top_category.json");
 $top_cate_decode = $json_control->json_decode_code;
-$cate_name = $top_cate_decode[$cate]['name'];
-$json_control->json_decode("$cate_name"."_category","../../../../data/middle_category.json");
+//$cate_name = $top_cate_decode[$cate]['name'];
+$json_control->json_decode($cate,"../../../../data/middle_category.json");
 $mid_cate_decode = $json_control->json_decode_code;
 $json_control->json_decode("ccCode","../../../../data/ccCode.json");
 $cc_code_decode = $json_control->json_decode_code;
@@ -57,7 +57,7 @@ if( isset($url_parse['query']) )
 */
 
 $allow_array = ['all','artwork','vector','threed'];
-if( in_array($cate_name , $allow_array) )
+if( in_array($cate , $allow_array) )
 {
     //check category
     switch($cate)

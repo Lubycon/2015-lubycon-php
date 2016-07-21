@@ -214,16 +214,16 @@
                     Community
                     <ul class="sub_menu">
                         <li>
-                            <a href="?dir=pages/view/creators/creators"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
+                            <a href="?dir=pages/view/creators/creators&page=1"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
                         </li>
                         <li><!--forum-->
-                            <a href="?dir=pages/view/community/community_page&cate=forum"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=forum&page=1"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
                         </li>
                         <li><!--tutorial-->
-                            <a href="?dir=pages/view/community/community_page&cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=tutorial&page=1"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
                         </li>
                         <li><!--Q&A-->
-                            <a href="?dir=pages/view/community/community_page&cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=qna&page=1"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>

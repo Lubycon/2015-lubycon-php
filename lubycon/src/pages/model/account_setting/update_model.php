@@ -25,7 +25,7 @@ $db->askQuery(); // viewcount up
 $db->query = 
 "
 DELETE `lubyconuser`.`userhistory` , `lubyconuser`.`userlanguage`
-FROM `lubyconuser`.`userhistory` INNER JOIN `lubyconuser`.`userlanguage`
+FROM `lubyconuser`.`userhistory` LEFT JOIN `lubyconuser`.`userlanguage`
 WHERE `lubyconuser`.`userhistory`.userCode = `lubyconuser`.`userlanguage`.userCode 
 AND `lubyconuser`.`userhistory`.userCode = $usercode
 ";
