@@ -69,10 +69,19 @@ class infinite_scroll extends json_control
     */
 	public function __construct($postData)
     {
+        $this->json_decode('top_category',"../../../../data/top_category.json");
+        $this->topCateDecode = $this->json_decode_code;
+        $this->json_decode('ccCode',"../../../../data/ccCode.json");
+        $this->ccDecode = $this->json_decode_code;
+        $this->json_decode('job',"../../../../data/job.json");
+        $this->jobDecode = $this->json_decode_code;
+        $this->json_decode('country',"../../../../data/country.json");
+        $this->countryDecode = $this->json_decode_code;
 		// default arg is page kind
 		$this->cardType = $postData->cardType;
         $this->page = $postData->page;
-        $this->topCate = $postData->topCate;
+        $this->topCateCode = $postData->topCate;
+        $this->topCateName = $this->topCateDecode[$this->topCateCode]['name'];
         $this->filter = $postData->filter;
         $this->sort = $postData->sort;
         $this->searchValue = $postData->searchValue;
@@ -106,17 +115,11 @@ class infinite_scroll extends json_control
         }
 
 
-        $this->json_decode('ccCode',"../../../../data/ccCode.json");
-        $this->ccDecode = $this->json_decode_code;
-        $this->json_decode('job',"../../../../data/job.json");
-        $this->jobDecode = $this->json_decode_code;
-        $this->json_decode('country',"../../../../data/country.json");
-        $this->countryDecode = $this->json_decode_code;
 	}
 
     private function validateCategory() //check top category form allow array
     {
-        if( !in_array($this->topCate , $this->allow_array_list) )
+        if( !in_array($this->topCateName , $this->allow_array_list) )
         {
             echo 'Unknown top category name errorCode:0001';
             die();
@@ -134,7 +137,7 @@ class infinite_scroll extends json_control
                     a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,
                     a.`viewCount`,a.`likeCount` , a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus` , c.`nick` 
                     ";
-                if($this->topCate === 'all')
+                if($this->topCateName === 'all')
                 {
                     $this->from_query = 
                     "
@@ -161,8 +164,8 @@ class infinite_scroll extends json_control
                     "
                         from 
                         (
-                        SELECT * FROM lubyconboard.`$this->topCate`                 
-                        LEFT JOIN lubyconboard.`$this->topCate"."midcategory`
+                        SELECT * FROM lubyconboard.`$this->topCateName`                 
+                        LEFT JOIN lubyconboard.`$this->topCateName"."midcategory`
                         USING (`boardCode`)
                         ) as a
                         left join lubyconuser.`userbasic` c
