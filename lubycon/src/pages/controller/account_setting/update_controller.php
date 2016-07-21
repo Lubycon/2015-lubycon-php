@@ -38,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     die('it is not post data error code 0000');
 }
+print_r($postData);
 
 $userCode = $postData->userData->code;
 $job = $postData->userData->job;
-$json_control->json_search($job_json,'jobCode','name',$job);
+$json_control->json_search($job_json,'name','code',$job);
 $job_code = $json_control->search_key;
 
 $company = $postData->userData->position;
@@ -63,6 +64,10 @@ $website_public = $postData->publicOption->web;
 
 $history = $postData->userHistory;
 $language = $postData->userLanguage;
+
+
+echo $history[0];
+
 // 여기서 모델로 넘어가는거, 쿼리 분할 질의 짜야함.
 
 $history_query = 
@@ -70,16 +75,16 @@ $history_query =
 INSERT INTO `lubyconuser`.`userhistory` 
 (`userCode`, `historyContents`, `historyDateYear`, `historyDateMonth`, `historyCategory`) VALUES
 ";
-for($i=0 ; $i < count($history); $i++)
+for($i=0 ; $i < count((array)$history); $i++)
 {
-    $history_query .= "($usercode, '$history[$i]->contents', '$history[$i]->year', '$history[$i]->month', '$history[$i]->category,";
+    $history_query .= "($userCode, '$history->$i->contents', '$history[$i]->year', '$history[$i]->month', '$history[$i]->category,";
 }
 $history_query = substr($history_query, 0, -1);
 
 $language_query = 
 "INSERT INTO `lubyconuser`.`UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES 
 ";
-for($i=0 ; $i < count($language); $i++)
+for($i=0 ; $i < count((array)$language); $i++)
 {
     $language_query .= "($usercode,'$language[$i]->level','$language[$i]->name'),";
 }

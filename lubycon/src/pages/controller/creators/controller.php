@@ -72,7 +72,6 @@
                 )
 			)
     	);
-
     }
    	/* creators data */
     
