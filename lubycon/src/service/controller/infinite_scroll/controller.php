@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     die('it is not post data error code 0000');
 }
 
+//print_r($postData);
+
 
 // require class set value 
 require_once "../../../common/Class/json_class.php";
@@ -63,14 +65,15 @@ $infinite_scroll->setOption();
 //////////////////////////////////////////////////////////////////////////////////////////////////
 require_once "../../../service/model/infinite_scroll/model.php";
 
-
-$infinite_scroll->bindResult($contents_result);
+//print_r($contents_result);
+$infinite_scroll->bindResult($result);
 
 
 //print_r($infinite_scroll->bind_data);
 
 $total_array = [
-    'content' => $infinite_scroll->bind_data
+    'content' => $infinite_scroll->bind_data,
+    'bestCreator' => $infinite_scroll->bestCreator
 ];
 
 $data_json = json_encode($total_array);
