@@ -37,7 +37,6 @@ class infinite_scroll extends json_control
     public $limit_query;
 
     public $bind_data=array();
-    public $bestCreator=array();
 
     public $ccDecode;
 
@@ -268,6 +267,37 @@ class infinite_scroll extends json_control
             break;
             case 'community' : break;
             case 'creator' : 
+                while( $row = mysqli_fetch_assoc($query_result['bestCreator']) )
+                {
+                    $job_origin_select = $this->jobDecode[$row['jobCode']]['name'];
+                    $country_origin_select = $this->countryDecode[$row['countryCode']]['name'];
+                    $this->bind_data[] = array(
+                        'code' => $row['userCode'],
+                        'profile' => "../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg",
+                        'name' => $row['nick'],
+                        'job' => $job_origin_select,
+                        'countryCode' => $row['countryCode'],
+                        'country' => $country_origin_select,
+                        'city' => $row['city'],
+                        'randCount' => rand(200,1500),
+                        'contentsCount' => '0',
+                        'contents' => array(
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            ),
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            ),
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            )
+                        ),
+                        'bestCreator' => true
+                    );
+                }
                 while( $row = mysqli_fetch_assoc($query_result['contents']) )
                 {
                     $job_origin_select = $this->jobDecode[$row['jobCode']]['name'];
@@ -295,37 +325,8 @@ class infinite_scroll extends json_control
                                 'id' => $row['boardCode'],
                                 'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
                             )
-                        )
-                    );
-                }
-                while( $row = mysqli_fetch_assoc($query_result['bestCreator']) )
-                {
-                    $job_origin_select = $this->jobDecode[$row['jobCode']]['name'];
-                    $country_origin_select = $this->countryDecode[$row['countryCode']]['name'];
-                    $this->bestCreator[] = array(
-                        'code' => $row['userCode'],
-                        'profile' => "../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg",
-                        'name' => $row['nick'],
-                        'job' => $job_origin_select,
-                        'countryCode' => $row['countryCode'],
-                        'country' => $country_origin_select,
-                        'city' => $row['city'],
-                        'randCount' => rand(200,1500),
-                        'contentsCount' => '0',
-                        'contents' => array(
-                            array(
-                                'id' => $row['boardCode'],
-                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
-                            ),
-                            array(
-                                'id' => $row['boardCode'],
-                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
-                            ),
-                            array(
-                                'id' => $row['boardCode'],
-                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
-                            )
-                        )
+                        ),
+                        'bestCreator' => false
                     );
                 }
             break;

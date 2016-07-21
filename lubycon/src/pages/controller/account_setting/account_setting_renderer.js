@@ -109,7 +109,7 @@ $(document).ready(function(){
             console.log(vm);
 
             Request({
-                url: "./pages/controller/account_setting/upload_controller.php",
+                url: "./pages/controller/account_setting/update_controller.php",
                 data: {
                     result: vm,
                     usernum: USER_PARAM

@@ -14,13 +14,27 @@ function Request(param){
                     data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
-                        //console.log(data);
                         console.timeEnd("DATA LOADED");
-                        param.callback({
-                            result: $.parseJSON(data),
-                            session: session,
-                            status: "0000"
-                        });
+
+                        var response = false;
+                        try {
+                            response = jQuery.parseJSON(data);
+                        } catch (error) {
+                            console.log(data); //php error
+                        }
+                        if(response && typeof response =='object') {
+                            param.callback({
+                                result: $.parseJSON(data),
+                                session: session,
+                                status: "0000"
+                            });
+                        } else {
+                            if(response === false || response == null) {
+                                //the response was a string "false", parseJSON will convert it to boolean false
+                            }  else {
+                                //the response was something else
+                            }
+                        }
                     },
                     error: function(request,status,error){
                         console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

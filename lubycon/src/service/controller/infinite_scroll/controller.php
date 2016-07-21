@@ -72,8 +72,7 @@ $infinite_scroll->bindResult($result);
 //print_r($infinite_scroll->bind_data);
 
 $total_array = [
-    'content' => $infinite_scroll->bind_data,
-    'bestCreator' => $infinite_scroll->bestCreator
+    'content' => $infinite_scroll->bind_data
 ];
 
 $data_json = json_encode($total_array);
