@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	if(!isMobile()) return false;
-	Controller({
+	Request({
 		callback: init
 	});
 

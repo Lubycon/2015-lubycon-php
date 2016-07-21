@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	Controller({
+	Request({
         url: "./pages/controller/index/index_body_controller.php",
         data: {
 			"isMobile" : isMobile()
@@ -8,7 +8,8 @@ $(document).ready(function(){
         callback: init
     });
 
-    function init(data){
+    function init(response){
+		var data = response.result;
     	console.log("INDEX BODY");
 
     	if(isMobile()) initMainCard(data.contentData);

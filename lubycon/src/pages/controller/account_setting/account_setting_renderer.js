@@ -108,7 +108,7 @@ $(document).ready(function(){
             console.log("SUBMIT DATA");
             console.log(vm);
 
-            Controller({
+            Request({
                 url: "./pages/controller/account_setting/upload_controller.php",
                 data: {
                     result: vm,
