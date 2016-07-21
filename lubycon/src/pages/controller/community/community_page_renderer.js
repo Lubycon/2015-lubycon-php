@@ -25,7 +25,7 @@ $(document).ready(function(){
 	    callback: init
 	});
     function init(response){
-        var data = response.data;
+        var data = response.result;
         console.log(response);
     }
 });

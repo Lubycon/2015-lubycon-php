@@ -1,7 +1,7 @@
 <section id="main_board">
     <?php
         $conn = mysqli_connect("localhost", "lubycon", "hmdwdgdhkr2015", "lubyconboard");
-        
+
         switch($_GET['cate']){
             case 'forum' : $contents_cate = 1; $cate_name = 'forum'; break;
             case 'tutorial' : $contents_cate = 2; $cate_name = 'tutorial'; break;
@@ -25,14 +25,14 @@
                     }
                 ?>
             </div>
-            <div class="table_head_wrap">                              
+            <div class="table_head_wrap">
                 <span class="table_date hidden-mb-ib">Date</span>
                 <span class="table_view hidden-mb-ib"><i class="fa fa-eye"></i></span> <!-- eye icon -->
                 <span class="table_like hidden-mb-ib"><i class="fa fa-heart"></i></span>    <!-- heart icon -->
             </div>
         </div>
         <div class="table_body">
-            
+
             <ul class="table_list_wrap">
             <?php
 
