@@ -81,7 +81,7 @@ class infinite_scroll extends json_control
 		$this->cardType = $postData->cardType;
         $this->page = $postData->page;
         $this->topCateCode = $postData->topCate;
-        $this->topCateName = $this->topCateDecode[$this->topCateCode]['name'];
+        $this->topCateName = isset($postData->topCate) ? $this->topCateDecode[$this->topCateCode]['name'] : null;
         $this->filter = $postData->filter;
         $this->sort = $postData->sort;
         $this->searchValue = $postData->searchValue;
