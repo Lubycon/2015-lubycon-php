@@ -9,25 +9,27 @@ SET
 `jobCode` = $job_code, 
 `company` = '$company',
 `userDescription` = '$user_description',
-`countryCode` = '$location_code',
-`city` = '$location_text',
-`telNumber` = '$mobile_number',
-`fax` = '$fax_number',
-`web` = '$website_url',
+`countryCode` = '$location',
+`city` = '$city',
 `emailPublic` = '$email_public',
+`telNumber` = '$mobile_number',
 `mobilePublic` = '$mobile_public',
+`fax` = '$fax_number',
 `faxPublic` = '$fax_public',
+`web` = '$website_url',
 `webPublic` = '$website_public'
-WHERE `userCode` = $usercode
+WHERE `userCode` = $userCode
 ";
 
-$db->askQuery(); // viewcount up
+$db->askQuery(); 
+
 $db->query = 
 "
 DELETE `lubyconuser`.`userhistory` , `lubyconuser`.`userlanguage`
 FROM `lubyconuser`.`userhistory` LEFT JOIN `lubyconuser`.`userlanguage`
+USING (`userCode`)
 WHERE `lubyconuser`.`userhistory`.userCode = `lubyconuser`.`userlanguage`.userCode 
-AND `lubyconuser`.`userhistory`.userCode = $usercode
+AND `lubyconuser`.`userhistory`.userCode = $userCode
 ";
 $db->askQuery(); //delete original data
 
@@ -36,7 +38,4 @@ $db->askQuery(); // insert user history
 
 $db->query = $language_query;
 $db->askQuery(); // insert user history
-
-
-
 ?>

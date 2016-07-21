@@ -5,24 +5,24 @@ $json_control->json_decode('job',"../../../../data/job.json");
 $job_json = $json_control->json_decode_code;
 $json_control->json_decode('country', "../../../../data/country.json");
 $country_json = $json_control->json_decode_code;
-    
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////            session              /////////////////////////////////////
 ////////////////////////////            session              /////////////////////////////////////
 ////////////////////////////            session              /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
-    require_once "../../../common/Class/session_class.php";
-    $session = new Session();
-    if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
+require_once "../../../common/Class/session_class.php";
+$session = new Session();
+if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
     $LoginState = false;
-    }else{
+}else{
     if($session->SessionExist()){
-    $LoginState = true;
-    $Loginuser_code= $_SESSION['lubycon_userCode'];
+        $LoginState = true;
+        $Loginuser_code= $_SESSION['lubycon_userCode'];
     }else{
-    $LoginState = false;
+        $LoginState = false;
     }
-    }
+}
     if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
 //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////            session              /////////////////////////////////////
@@ -32,61 +32,59 @@ $country_json = $json_control->json_decode_code;
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  $postData = json_decode(file_get_contents("php://input"));
-}else
-{
+    {
+      $postData = json_decode(file_get_contents("php://input"));
+  }else
+  {
     die('it is not post data error code 0000');
 }
-print_r($postData);
+//print_r($postData);
 
-$userCode = $postData->userData->code;
-$job = $postData->userData->job;
-$json_control->json_search($job_json,'name','code',$job);
+$userCode = $postData->result->userData->code;
+$job = $postData->result->userData->job;
+$json_control->json_search($job_json,'code','name',$job);
 $job_code = $json_control->search_key;
 
-$company = $postData->userData->position;
+$company = $postData->result->userData->position;
 
-$location = $postData->userData->location;
-$json_control->json_search($country_json,'countryCode','name',$location);
-$location_code = $json_control->search_key;
-$city = $postData->userData->city;
+$location = $postData->result->userData->country->code;
+$city = $postData->result->userData->city;
 
-$user_description = isset($postData->description) ? $postData->userData->description : null;
+$user_description = $postData->result->userData->description;
 
-$email_public = $postData->publicOption->email;
-$mobile_number = $postData->userData->mobile;
-$mobile_public = $postData->publicOption->mobile;
-$fax_number = $postData->userData->fax;
-$fax_public = $postData->publicOption->fax;
-$website_url = $postData->userData->webSite;
-$website_public = $postData->publicOption->web;
+$email_public = $postData->result->publicOption->email;
+$mobile_number = $postData->result->userData->mobile;
+$mobile_public = $postData->result->publicOption->mobile;
+$fax_number = $postData->result->userData->fax;
+$fax_public = $postData->result->publicOption->fax;
+$website_url = $postData->result->userData->website;
+$website_public = $postData->result->publicOption->website;
 
-$history = $postData->userHistory;
-$language = $postData->userLanguage;
+$history = $postData->result->userHistory;
+$language = $postData->result->userLanguage;
 
-
-echo $history[0];
-
-// 여기서 모델로 넘어가는거, 쿼리 분할 질의 짜야함.
-
-$history_query = 
-"
+$history_query = "
 INSERT INTO `lubyconuser`.`userhistory` 
 (`userCode`, `historyContents`, `historyDateYear`, `historyDateMonth`, `historyCategory`) VALUES
 ";
-for($i=0 ; $i < count((array)$history); $i++)
+foreach( $history as $key => $value )
 {
-    $history_query .= "($userCode, '$history->$i->contents', '$history[$i]->year', '$history[$i]->month', '$history[$i]->category,";
+    //key is index value is array
+    //print_r($value->category);
+    $history_query .= "($userCode, '$value->contents', '$value->year', '$value->month', '$value->category'),";
 }
 $history_query = substr($history_query, 0, -1);
 
-$language_query = 
-"INSERT INTO `lubyconuser`.`UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES 
+$language_query = "
+INSERT INTO `lubyconuser`.`UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES 
 ";
-for($i=0 ; $i < count((array)$language); $i++)
+foreach( $language as $key => $value )
 {
-    $language_query .= "($usercode,'$language[$i]->level','$language[$i]->name'),";
+    //key is index value is array
+    //print_r($value->category);
+    $language_query .= "($userCode,'$value->level','$value->name'),";
 }
 $language_query = substr($language_query, 0, -1);
+
+require_once '../../model/account_setting/update_model.php';
 ?>
