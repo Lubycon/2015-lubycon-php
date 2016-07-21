@@ -184,7 +184,7 @@
                         </li>
                         <li><!--Q&A-->
                             <a href="?dir=pages/view/community/community_page&cate=qna&page=1"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
-                        </li>>
+                        </li>
                     </ul>	<!--end Community menu-->
                 </li>
             </ul> <!-- end gnb ul -->
