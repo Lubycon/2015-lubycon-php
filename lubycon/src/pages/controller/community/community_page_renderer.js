@@ -8,12 +8,8 @@ $(document).ready(function(){
             topCate: getUrlParameter("cate"),
             sort: $(".preferFilter").lubySelector("getValueByIndex"),
     		filter: {
-    			midCate: $(".categoryFilter").lubySelector("getValueByIndex") === 0 ?
-                    "all" :
-                    $(".categoryFilter").lubySelector("getValueByIndex"),
-    			license: $(".copyrightFilter").lubySelector("getValueByIndex") === 0 ?
-                    "all" :
-                    $(".copyrightFilter").lubySelector("getValueByIndex"),
+    			midCate: null,
+    			license: null,
     			continent: null,
     			job: null,
     			search: $(".searchFilter").lubySelector("getValueByIndex")

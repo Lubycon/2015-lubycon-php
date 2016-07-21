@@ -16,16 +16,16 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="all">
-                    <a href="?dir=pages/view/contents/contents_page&cate=all&page=1">All</a>
+                    <a href="?dir=pages/view/contents/contents_page&cate=0&page=1">All</a>
                 </li>
                 <li class="nav_menu" id="artwork">
-                    <a href="?dir=pages/view/contents/contents_page&cate=artwork&page=1">Artwork</a>
+                    <a href="?dir=pages/view/contents/contents_page&cate=1&page=1">Artwork</a>
                 </li>
                 <li class="nav_menu" id="vector">
-                    <a href="?dir=pages/view/contents/contents_page&cate=vector&page=1">Vector</a>
+                    <a href="?dir=pages/view/contents/contents_page&cate=2&page=1">Vector</a>
                 </li>
                 <li class="nav_menu" id="threed">
-                    <a href="?dir=pages/view/contents/contents_page&cate=threed&page=1">3D</a>
+                    <a href="?dir=pages/view/contents/contents_page&cate=3&page=1">3D</a>
                 </li>
             </ul>
         </nav>  <!-- end lnb nav -->
