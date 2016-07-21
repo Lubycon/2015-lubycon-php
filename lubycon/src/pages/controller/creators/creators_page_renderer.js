@@ -21,8 +21,6 @@ $(document).ready(function(){
 	    callback: init
 	});
 
-
-
 	loadJobList(initJob);
 
 	var detector = new InfiniteScrollDetector({
@@ -44,13 +42,14 @@ $(document).ready(function(){
 		nowpage: getUrlParameter("page")
 	});
 
-	function init(data){
+	function init(response){
+		var data = response.result;
+		console.log(data);
 		$("#loading_icon").hide();
 		var cardWrapper = $("#creator_card_wrap"),
 			list = $("<li/>",{ "class" : "creator_card_in" });
 
-		data.bestCreator.bestCreator = false;
-		var bestCreator = new CreatorCard(data.bestCreator).render();
+		var bestCreator = new CreatorCard(data.bestCreator[0]).render();
 		list.clone(true).append(bestCreator).appendTo(cardWrapper);
 
 		addCard(data);
@@ -61,8 +60,8 @@ $(document).ready(function(){
 		var cardWrapper = $("#creator_card_wrap"),
 			list = $("<li/>",{ "class" : "creator_card_in" });
 
-		for(var i = 0; i < data.creators.length; i++){
-			var card = new CreatorCard(data.creators[i]).render();
+		for(var i = 0; i < data.content.length; i++){
+			var card = new CreatorCard(data.content[i]).render();
 			list.clone(true).append(card).appendTo(cardWrapper);
 		}
 		console.log("VIEW : GET DATA------------------");

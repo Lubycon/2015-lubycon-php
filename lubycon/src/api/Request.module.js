@@ -14,7 +14,7 @@ function Request(param){
                     data: JSON.stringify(param.data),
                     cache: false,
                     success: function (data){
-                        console.log(data);
+                        //console.log(data);
                         console.timeEnd("DATA LOADED");
                         param.callback({
                             result: $.parseJSON(data),

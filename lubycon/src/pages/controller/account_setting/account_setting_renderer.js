@@ -10,7 +10,8 @@ $(document).ready(function(){
     var vm;
 
     function init(response){
-        vm = response.data;
+        console.log(response);
+        vm = response.result;
         console.log(vm);
         var publicOption = vm.publicOption,
             userData = vm.userData,

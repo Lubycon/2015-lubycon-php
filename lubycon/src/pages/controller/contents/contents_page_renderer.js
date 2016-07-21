@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 
     function init(response){
-        var data = response.data;
+        var data = response.result;
         $("#loading_icon").hide();
         console.log(data);
 
