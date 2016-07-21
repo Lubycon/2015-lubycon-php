@@ -1,10 +1,3 @@
-<?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    include_once('../layout/index_header.php');
-?>
-
-<script type="text/javascript" src="<?=$one_depth?>/js/module/community_infinite_scroll.js"></script> <!-- scroll js -->
 
 <div class="main_figure_wrap hidden-mb-b">
     <figure>
@@ -35,7 +28,7 @@
         <!-- end lnb nav -->
     </section>
     <section class="nav_guide">
-        <div class="nav-wrapper"> 
+        <div class="nav-wrapper">
             <select class="preferFilter" data-param="filter">
                 <option>Featured</option>
                 <option>Recent</option>

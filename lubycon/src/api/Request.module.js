@@ -64,6 +64,6 @@ function loadCategoryList(callback,category){
         default: v = "all"; break;
     }
     $.getJSON('../data/middle_category.json', function(json, testStatus){
-        callback(json[category]);
+        callback(json[v]);
     });
 }

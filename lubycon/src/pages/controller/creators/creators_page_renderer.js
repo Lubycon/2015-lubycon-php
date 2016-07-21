@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$("#loading_icon").show();
-	Controller({
+	Request({
 	    url: "./service/controller/infinite_scroll/controller.php",
         data: {
             cardType: "creator",

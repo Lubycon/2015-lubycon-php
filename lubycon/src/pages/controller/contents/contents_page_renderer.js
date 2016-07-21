@@ -73,6 +73,7 @@ $(document).ready(function(){
     }
 
     function initCategory(data){
+        console.log(data);
         for(var i = 0; i < data.length; i++){
             var o = $("<option/>",{ "html" : data[i].name, "value" : data[i].name, "data-value" : data[i].code });
             o.appendTo($(".categoryFilter"));
