@@ -62,6 +62,15 @@ ContentsCard.prototype.render = function(){
     this._$DOM = card;
     return card;
 };
+ContentsCard.prototype.getDOM = function(){
+	return this._$DOM;
+};
+ContentsCard.prototype.getCode = function(){
+	return this.code;
+};
+ContentsCard.prototype.getCreator = function(){
+	return this.user;
+};
 
 /*function CardMenu(params){
     var $this = $(this); // CARD //
