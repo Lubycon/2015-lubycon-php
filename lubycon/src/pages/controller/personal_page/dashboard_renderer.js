@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    Controller({
+    Request({
         url: "./pages/controller/personal_page/dashboard_controller.php",
         data: {
             usernum: USER_PARAM

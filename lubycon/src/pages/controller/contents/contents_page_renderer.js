@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("#loading_icon").show();
-    Controller({
+    Request({
 	    url: "./service/controller/infinite_scroll/controller.php",
         data: {
             cardType: "content",
@@ -49,7 +49,8 @@ $(document).ready(function(){
 	});
 
 
-    function init(data){
+    function init(response){
+        var data = response.data;
         $("#loading_icon").hide();
         console.log(data);
 

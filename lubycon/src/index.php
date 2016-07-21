@@ -74,11 +74,10 @@
         echo "<script>console.log('session is false');</script>";
     }
     */
-
 ?>
 
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
@@ -90,6 +89,8 @@
     <meta name="robots" content="index" />
     <meta name="copyright" content="copyrights 2015 LUBYCON" />
     <meta name="keywords" content="design, font ,vector, 3d design, community, designers, engineer, 3d printer, illustration, lubycon" />
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
+    <meta name="theme-color" content="#222222" />
 
     <title>Lubycon</title>
 
@@ -106,52 +107,11 @@
     <link href="../plugin/JS/checkBox.css" rel="stylesheet" type="text/css" />
     <link href="../plugin/lib/animate.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="../plugin/lib/jquery-1.12.2.min.js"></script>
-    <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="../plugin/JS/jquery.lubySelector.js"></script>
-    <script type="text/javascript" src="../plugin/JS/jquery.lubyAlert.js"></script>
-    <script type="text/javascript" src="../plugin/JS/jquery.lubySlider.js"></script>
-    <script type="text/javascript" src="../plugin/JS/resizeObject.js"></script>
-    <script type="text/javascript" src="../plugin/JS/sticky.js"></script>
-    <script type="text/javascript" src="../plugin/JS/checkBox.js"></script>
-    <script type="text/javascript" src="./common/Module/_prototype.js"></script>
-    <script type="text/javascript" src="./common/common.js"></script>
-    <script type="text/javascript" src="./component/view/index/ui.js"></script>
-    <script type="text/javascript" src="./component/view/index/mobile.js"></script>
-
-    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
-    <meta name="theme-color" content="#222222" />
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
 <body id="bodyer">
-<script>
-    $(document).ready(function(){
-        Controller({
-            callback: init
-        });
-        function init(session){
-            if(session.LoginState){
-                $(".signin_class").remove();
-                $(".after_signin_class").show();
-                console.log(session);
-                $("#accountImg").find("img").attr("src","../../../../Lubycon_Contents/user/" + session.usercode + "/profile.jpg");
-            }
-            else {
-                $(".signin_class").show();
-                $(".after_signin_class").remove();
-            }
-
-            var searchFilter = $("body").find(".searchFilter");
-            searchFilter.lubySelector({
-                width: 130,
-                theme: "transparent",
-                icon: ""
-            });
-        }
-    });
-</script>
 <div id="wrapper">
     <div id="loading_icon"><i class="fa fa-spinner fa-spin"></i></div>
     <div class="dark_overlay" data-value="dark_overlay"></div>
@@ -161,19 +121,19 @@
         <p>Which content will you upload?</p>
         <ul>
             <li>
-                <a href="?dir=pages/view/editor/2d/2d&cate=artwork">
+                <a href="?dir=pages/view/editor/2d/2d&cate=1">
                 <i class="fa fa-picture-o"></i>
                 <p>Artwork</p>
                 </a>
             </li>
             <li>
-                <a href="?dir=pages/view/editor/2d/2d&cate=vector">
+                <a href="?dir=pages/view/editor/2d/2d&cate=2">
                 <i class="fa fa-object-group"></i>
                 <p>Vector</p>
                 </a>
             </li>
             <li>
-                <a href="?dir=pages/view/editor/3d/3d&cate=threed">
+                <a href="?dir=pages/view/editor/3d/3d&cate=3">
                 <i class="fa fa-cube"></i>
                 <p>3D Model</p>
                 </a>
@@ -194,18 +154,18 @@
         <nav id="main_gnb" class="hidden-mb-b">
             <ul id="gnb">
                 <li class="bigsub">
-                    <a href="?dir=pages/view/contents/contents_page&cate=all&page=1" class="bigsub_link">
+                    <a href="?dir=pages/view/contents/contents_page&cate=0&page=1" class="bigsub_link">
                         Contents
                     </a>
                     <ul class="sub_menu">
                         <li>
-                            <a href="?dir=pages/view/contents/contents_page&cate=artwork&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
+                            <a href="?dir=pages/view/contents/contents_page&cate=1&page=1"><i class="fa fa-picture-o fa-1x"></i><p>Artwork</p></a>
                         </li>
                         <li>
-                            <a href="?dir=pages/view/contents/contents_page&cate=vector&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
+                            <a href="?dir=pages/view/contents/contents_page&cate=2&page=1"><i class="fa fa-object-group fa-1x"></i><p>Vector</p></a>
                         </li>
                         <li>
-                            <a href="?dir=pages/view/contents/contents_page&cate=threed&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
+                            <a href="?dir=pages/view/contents/contents_page&cate=3&page=1"><i class="fa fa-cube fa-1x"></i><p>3D Model</p></a>
                         </li>
                     </ul>	<!--end Contents menu-->
                 </li>
@@ -217,13 +177,13 @@
                             <a href="?dir=pages/view/creators/creators"><i class="fa fa-pencil fa-1x"></i><p>Creators</p></a>
                         </li>
                         <li><!--forum-->
-                            <a href="?dir=pages/view/community/community_page&cate=forum"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=0"><i class="fa fa-comments-o fa-1x"></i><p>Forum</p></a>
                         </li>
                         <li><!--tutorial-->
-                            <a href="?dir=pages/view/community/community_page&cate=tutorial"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=1"><i class="fa fa-book fa-1x"></i><p>Tutorial</p></a>
                         </li>
                         <li><!--Q&A-->
-                            <a href="?dir=pages/view/community/community_page&cate=qna"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
+                            <a href="?dir=pages/view/community/community_page&cate=2"><i class="fa fa-question fa-1x"></i><p>Q&amp;A</p></a>
                         </li>
                     </ul>	<!--end Community menu-->
                 </li>
@@ -309,6 +269,23 @@
         </div>
         <!-- end select_box -->
     </div>
+    <script type="text/javascript" src="../plugin/lib/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubySelector.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubyAlert.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubySlider.js"></script>
+    <script type="text/javascript" src="../plugin/JS/resizeObject.js"></script>
+    <script type="text/javascript" src="../plugin/JS/sticky.js"></script>
+    <script type="text/javascript" src="../plugin/JS/checkBox.js"></script>
+
+    <script type="text/javascript" src="./common/Module/_prototype.js"></script>
+    <script type="text/javascript" src="./api/Authentication.module.js"></script>
+    <script type="text/javascript" src="./api/Request.module.js"></script>
+    <script type="text/javascript" src="./common/common.js"></script>
+
+    <script type="text/javascript" src="./component/view/index/ui.js"></script>
+    <script type="text/javascript" src="./component/view/index/mobile.js"></script>
+
     <?php
         include_once "./component/view/mobile/menu.php";
     ?>

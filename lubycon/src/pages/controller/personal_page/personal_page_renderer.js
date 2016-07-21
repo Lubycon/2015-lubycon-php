@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	Controller({
+	Request({
         url: "./pages/controller/personal_page/personal_page_controller.php",
         data: {
 			cate: CATE_PARAM,

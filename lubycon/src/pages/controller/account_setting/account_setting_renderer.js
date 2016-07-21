@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    Controller({
+    Request({
         url: "./pages/controller/account_setting/viewer_controller.php",
         data: {
             usernum: USER_PARAM
@@ -9,8 +9,8 @@ $(document).ready(function(){
 
     var vm;
 
-    function init(data){
-        vm = data;
+    function init(response){
+        vm = response.data;
         console.log(vm);
         var publicOption = vm.publicOption,
             userData = vm.userData,

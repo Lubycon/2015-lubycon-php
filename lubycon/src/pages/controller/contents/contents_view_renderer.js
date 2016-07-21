@@ -9,7 +9,7 @@ $(document).ready(function(){
 	});
 
 	function init(data){
-		$("body").show();
+
 		console.log(data);
 		var content = data.contents,
 			creator = data.creator,
