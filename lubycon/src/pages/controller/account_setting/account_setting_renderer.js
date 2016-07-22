@@ -83,7 +83,10 @@ $(document).ready(function(){
             userData.fax = fax.val();
             userData.website = website.val();
             userData.profile = profile.attr("src");
-            userData.location = $(".locationFilter").lubySelector("getValue");
+            userData.country = {
+                code: $(".locationFilter").lubySelector("getValueByIndex"),
+                name: $(".locationFilter").lubySelector("getValue")
+            };
             userData.job = $(".jobFilter").lubySelector("getValue");
 
             userLanguage = [];
@@ -122,6 +125,7 @@ $(document).ready(function(){
         }
     }
     function result(response){
+        console.log("RESPONSE");
         console.log(response);
     }
 
@@ -146,14 +150,13 @@ $(document).ready(function(){
         }
         function bindCountry(data,status){
             var d = data.country;
-            console.log(d);
             if(status !== "success") console.log("LOAD COUNTRY ERROR");
             var selector = $(".locationFilter");
             for(var i = 0; i < d.length; i++){
                 var o = $("<option/>",{ "html" : d[i].name, "data-value" : d[i].jobCode });
                 o.appendTo(selector);
             }
-            selector.val(vm.userData.location);
+            selector.val(vm.userData.country.name);
             selector.lubySelector({
                 width: 300,
                 theme: "white",
