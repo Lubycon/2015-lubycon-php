@@ -11,6 +11,7 @@ SET
 `userDescription` = '$user_description',
 `countryCode` = '$location',
 `city` = '$city',
+`profile` = '$profile_path',
 `emailPublic` = '$email_public',
 `telNumber` = '$mobile_number',
 `mobilePublic` = '$mobile_public',

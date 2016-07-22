@@ -50,6 +50,26 @@ $company = $postData->result->userData->position;
 $location = $postData->result->userData->country->code;
 $city = $postData->result->userData->city;
 
+$profile = $postData->result->userData->profile;
+$check_profile = explode(':',$profile);
+$profile_upload = false;
+if( $check_profile[0] === 'data' )
+{
+    $profile_upload = true;
+    $profile_path = "../../../../Lubycon_Contents/user/$userCode/profile.jpg";
+    $profile_array = array(
+        'profile' => $profile
+    );
+    require_once '../../../common/Class/upload_class.php';
+    $uploader = new upload($_FILES,$profile_array,'profile');
+    $uploader->fill_array_data(); // fill array data for validate things // preview image able , thumb image able
+    $uploader->validate_extension_and_size();
+    $uploader->file_upload_control();
+
+}else
+{
+    $profile_path = $profile;
+}
 $user_description = $postData->result->userData->description;
 
 $email_public = $postData->result->publicOption->email;
