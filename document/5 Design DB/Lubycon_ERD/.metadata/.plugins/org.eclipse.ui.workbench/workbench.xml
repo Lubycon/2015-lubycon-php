@@ -204,6 +204,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.ui.systemExternalEditor" name="2-0.LubyconUser.sql" tooltip="C:\Bitnami\wampstack-5.5.30-0\apache2\htdocs\Lubycon_Website\document\5 Design DB\Lubycon_ERD\sql파일\2-0.LubyconUser.sql">
+<persistable uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/sql파일/2-0.LubyconUser.sql"/>
+</file>
 <file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="Lubycon.exerd" tooltip="C:\Bitnami\wampstack-5.5.30-0\apache2\htdocs\Lubycon_Website\document\5 Design DB\Lubycon_ERD\Lubycon.exerd">
 <persistable uri="file:/C:/Bitnami/wampstack-5.5.30-0/apache2/htdocs/Lubycon_Website/document/5%20Design%20DB/Lubycon_ERD/Lubycon.exerd"/>
 </file>
