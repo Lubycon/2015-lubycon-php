@@ -19,17 +19,17 @@
     <ul class="mb-menu-group">
         <p class="mb-menu-title">CONTENTS</p>
         <li class="mb-menu-list">
-            <a href="?dir=pages/view/contents/contents_page&cate=artwork&page=1">
+            <a href="?dir=pages/view/contents/contents_page&cate=1&page=1">
                 <i class="fa fa-picture-o fa-1x"></i>Artwork
             </a>
         </li>
         <li class="mb-menu-list">
-            <a href="?dir=pages/view/contents/contents_page&cate=vector&page=1">
+            <a href="?dir=pages/view/contents/contents_page&cate=2&page=1">
                 <i class="fa fa-object-group fa-1x"></i>Vector
             </a>
         </li>
         <li class="mb-menu-list">
-            <a href="?dir=pages/view/contents/contents_page&cate=threed&page=1">
+            <a href="?dir=pages/view/contents/contents_page&cate=3&page=1">
                 <i class="fa fa-cube fa-1x"></i>3D Model
             </a>
         </li>
@@ -42,7 +42,7 @@
             </a>
         </li>
         <li class="mb-menu-list">
-            <a href="?dir=pages/view/community/community_page&cate=forum">
+            <a href="?dir=pages/view/community/community_page&cate=0">
                <i class="fa fa-comments-o fa-1x"></i>Forum
            </a>
         </li>

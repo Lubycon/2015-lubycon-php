@@ -1,5 +1,6 @@
 $(document).ready(function(){
-    Controller({
+    $("#loading_icon").show();
+    Request({
 	    url: "./service/controller/infinite_scroll/controller.php",
         data: {
             cardType: "content",
@@ -24,6 +25,8 @@ $(document).ready(function(){
 	    callback: init
 	});
 
+    loadCategoryList(initCategory, CATE_PARAM);
+
 	var detector = new InfiniteScrollDetector({
 		cardType: "content",
         page: "content",
@@ -44,12 +47,15 @@ $(document).ready(function(){
         nowPage: getUrlParameter("page"),
         targetPage: getUrlParameter("page")
 	});
-	detector.start(addCard);
 
-    function init(data){
+
+    function init(response){
+        var data = response.result;
+        $("#loading_icon").hide();
         console.log(data);
 
         addCard(data);
+        detector.start(addCard);
     }
 
     function addCard(data){
@@ -64,5 +70,26 @@ $(document).ready(function(){
 
         console.log("VIEW : GET DATA------------------");
 		console.log(data);
+    }
+
+    function initCategory(data){
+        console.log(data);
+        for(var i = 0; i < data.length; i++){
+            var o = $("<option/>",{ "html" : data[i].name, "value" : data[i].name, "data-value" : data[i].code });
+            o.appendTo($(".categoryFilter"));
+        }
+        $(".categoryFilter").lubySelector({
+            id:"categoryFilter",
+            width: 230,
+            icon: "fa fa-bars",
+            searchBar: true,
+            optGroup: true,
+            theme: "rect",
+            changeEvent: change
+        });
+        function change(){
+            var v = $(this).lubySelector("getValueByIndex");
+            setUrlParameter("mid_cate", v);
+        }
     }
 });

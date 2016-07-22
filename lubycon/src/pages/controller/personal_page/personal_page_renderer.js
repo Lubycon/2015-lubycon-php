@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	Controller({
+	Request({
         url: "./pages/controller/personal_page/personal_page_controller.php",
         data: {
 			cate: CATE_PARAM,
@@ -8,7 +8,9 @@ $(document).ready(function(){
         callback: init
     });
 
-    function init(data,session){
+    function init(response){
+		var data = response.result,
+			session = response.session;
     	var pageTitle = data.pageTitle,
     		userdata = data.userData;
 

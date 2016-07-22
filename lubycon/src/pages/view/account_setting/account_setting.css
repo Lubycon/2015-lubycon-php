@@ -100,7 +100,8 @@
         line-height: 13px;
     }
     .optControl{
-        width: 100%;
+        display: inline-block;
+        width: 50px;
         text-align: center;
         margin-top: 5px;
         cursor: pointer;
@@ -280,9 +281,15 @@
 .language-wrapper {
     margin: 10px 0px;
 }
+    .language {
+        margin: 10px 0px;
+    }
 .history-wrapper {
     margin: 10px 0px;
 }
+    .history {
+        margin: 10px 0px;
+    }
 
 .refresh {
     color: #444444;

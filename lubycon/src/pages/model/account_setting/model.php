@@ -3,7 +3,7 @@ require_once '../../../common/Class/database_class.php';
 $db = new Database();
 
 
-$db->query = "SELECT * FROM `userbasic` INNER JOIN `userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = $usernumber ";
+$db->query = "SELECT * FROM `userbasic` LEFT JOIN `userinfo` ON `userbasic`.`userCode` = `userinfo`.`userCode` WHERE `userbasic`.`userCode` = $usernumber ";
 $db->askQuery();
 $userdata_row = mysqli_fetch_assoc($db->result);
 $db->query = "SELECT `languageLevel`,`languageName` FROM `userlanguage` WHERE `userCode` = $usernumber";

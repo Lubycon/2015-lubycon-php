@@ -28,36 +28,37 @@
                         <span id="user-setting">
                             <!--user menu-->
                         </span>
-                    </div> 
+                    </div>
                 </div>
                 <div id="subnav" class="hidden-mb-b">
                     <ul>
                         <li class="subnav_li" data-value="dashboard">
-                            <a href="?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=<?=$usernumber?>">Dashboard</a>
+                            <a href="#">Dashboard</a>
                         </li>
                         <li class="subnav_li" data-value="my_contents">
-                            <a href="?dir=pages/view/personal_page/personal_page&cate=my_contents&usernum=<?=$usernumber?>&page=1">Contents</a>
+                            <a href="#">Contents</a>
                         </li>
                         <li class="subnav_li" data-value="my_forums">
-                            <a href="?dir=pages/view/personal_page/personal_page&cate=my_forums&usernum=<?=$usernumber?>">Forums</a>
+                            <a href="#">Forums</a>
                         </li>
                         <li class="subnav_li" data-value="insight">
-                            <a href="?dir=pages/view/personal_page/personal_page&cate=insight&usernum=<?=$usernumber?>">Insight</a>
+                            <a href="#">Insight</a>
                         </li>
                         <li class="subnav_li" data-value="bookmark">
-                            <a href="?dir=pages/view/personal_page/personal_page&cate=bookmark&usernum=<?=$usernumber?>&page=1">Bookmark</a>
-                        </li>           
+                            <a href="#">Bookmark</a>
+                        </li>
                     </ul>
                 </div>
             </aside>
             <section id="contents_box" class="personal con_main">
             <?php
                 $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark'];
+                echo $allow_array[$_GET['cate']];
 
                 if( in_array($_GET['cate'] , $allow_array) ){
-                    include_once('./pages/view/personal_page/'.$_GET['cate'].'.php');
+                    include_once('./pages/view/personal_page/'.$allow_array[$_GET['cate']].'.php');
                 }else {
-                    include_once('.service/view/error/404.php');
+                    include_once('./service/view/error/404.php');
                 }
             ?>
             </section><!--end con_main-->

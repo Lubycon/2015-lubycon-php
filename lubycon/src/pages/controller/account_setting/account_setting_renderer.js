@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    Controller({
+    Request({
         url: "./pages/controller/account_setting/viewer_controller.php",
         data: {
             usernum: USER_PARAM
@@ -7,8 +7,12 @@ $(document).ready(function(){
         callback: init
     });
 
-    function init(data){
-        var vm = data;
+    var vm;
+
+    function init(response){
+        console.log(response);
+        vm = response.result;
+        console.log(vm);
         var publicOption = vm.publicOption,
             userData = vm.userData,
             history = vm.userHistory,
@@ -47,30 +51,97 @@ $(document).ready(function(){
         website.val(userData.website);
         webOption.val(publicOption.website);
 
+        $("#history_setting_section").find(".fa-refresh").on("click",sortHistory);
+        $("#delete_account_bt").on("click",deleteAccountEvent);
+
         //JOB, COUNTRY, LANGUAGE, HISTORY BINDING...
         initJSONdata();
         initLanguage(language);
         initHistory(history);
+        initCropper();
 
-        /*$(document).find("select").lubySelector({
+        $(".privacyFilter").lubySelector({
             width: 100,
-            theme: "white",
-            icon: "fa fa-lock",
-            float: "none"
-        });*/
+            theme: 'white',
+            icon: 'fa fa-lock',
+            float: 'none'
+        });
+        $(".optControl").on("click",componentControl);
+        $("#submit_bt").on("click",submit);
+
+        function submit(){
+            publicOption.email = emailOption.val();
+            publicOption.fax = faxOption.val();
+            publicOption.mobile = mobileOption.val();
+            publicOption.website = webOption.val();
+
+            userData.city = city.val();
+            userData.name = nameWrap.val();
+            userData.company = company.val();
+            userData.description = descript.val();
+            userData.mobile = mobile.val();
+            userData.fax = fax.val();
+            userData.website = website.val();
+            userData.profile = profile.attr("src");
+            userData.country = {
+                code: $(".locationFilter").lubySelector("getValueByIndex"),
+                name: $(".locationFilter").lubySelector("getValue")
+            };
+            userData.job = $(".jobFilter").lubySelector("getValue");
+
+            userLanguage = [];
+            $(".language").each(function(){
+                var d = {
+                    name: $(this).find(".language_text").val(),
+                    level: $(this).find(".langFilter").lubySelector("getValue")
+                };
+                userLanguage.push(d);
+            });
+            vm.userLanguage = userLanguage;
+
+            userHistory = [];
+            $(".history").each(function(){
+                var d = {
+                    category: $(this).find(".accountFilter[data-value='kind']").lubySelector("getValue"),
+                    contents: $(this).find(".history_text").val(),
+                    month: $(this).find(".accountFilter[data-value='month']").lubySelector("getValue"),
+                    year: $(this).find(".accountFilter[data-value='year']").lubySelector("getValue")
+                };
+                userHistory.push(d);
+            });
+            vm.userHistory = userHistory;
+
+            console.log("SUBMIT DATA");
+            console.log(vm);
+
+            Request({
+                url: "./pages/controller/account_setting/update_controller.php",
+                data: {
+                    result: vm,
+                    usernum: USER_PARAM
+                },
+                callback: result
+            });
+        }
     }
+    function result(response){
+        console.log("RESPONSE");
+        console.log(response);
+    }
+
     function initJSONdata(){
         loadJobList(bindJob);
         loadCountryList(bindCountry);
 
         function bindJob(data,status){
-            var d = data.job;
+            var d = data;
             if(status !== "success") console.log("LOAD JOB ERROR");
             var selector = $(".jobFilter");
             for(var i = 0; i < d.length; i++){
                 var o = $("<option/>",{ "html" : d[i].name, "data-value" : d[i].jobCode });
                 o.appendTo(selector);
             }
+            selector.val(vm.userData.job);
             selector.lubySelector({
                 theme: "white",
                 icon: "fa fa-suitcase",
@@ -79,13 +150,13 @@ $(document).ready(function(){
         }
         function bindCountry(data,status){
             var d = data.country;
-            console.log(d);
             if(status !== "success") console.log("LOAD COUNTRY ERROR");
             var selector = $(".locationFilter");
             for(var i = 0; i < d.length; i++){
                 var o = $("<option/>",{ "html" : d[i].name, "data-value" : d[i].jobCode });
                 o.appendTo(selector);
             }
+            selector.val(vm.userData.country.name);
             selector.lubySelector({
                 width: 300,
                 theme: "white",
@@ -141,218 +212,7 @@ $(document).ready(function(){
         });
     }
 
-});
-
-/*$(function (){ //account setting script
-    $(document).ready(function(){
-        initAccountSetting();
-        initLubySelectors();
-        initProfileCropper();
-        optionButtonControl($(".langWrap"),4);
-        optionButtonControl($(".historyWrap"),20);
-        $("#delete_account_bt").on("click",deleteAccountEvent);
-        $("#submit_bt").on("click",finalSubmit);
-    });
-
-    var unloadChecker = true;
-    var inputAction = {
-        blank: function(){
-            var $this = $(this);
-        },
-        true: function(){
-            var $this = $(this);
-            $this.removeClass("error");
-        },
-        false: function(){
-            var $this = $(this);
-            $this.addClass("error");
-        }
-    };
-
-
-    function initAccountSetting(){
-        var optControlBt = $(".optControl"),
-            historySortBt = $(".fa.fa-refresh.refresh"),
-            inputs = $("#account_setting_form").find("input[type='text']").add("textarea");
-            inputs.on("keyup",valueCheck);
-
-        optControlBt.each(function(){
-            $(this).width($(this).prev().width());
-        });
-
-        optControlBt.on("click",optionController);
-        historySortBt.on("click",sortHistory);
-        window.onbeforeunload = function(){
-            console.log(unloadChecker);
-            if(unloadChecker) return "a";
-        };
-
-        function valueCheck(){
-            value = $(this).val();
-            if(value.isSpecialChar()) inputAction.false.call($(this));
-            else inputAction.true.call($(this));
-        }
-    }
-
-    function initLubySelectors(){
-        $("#lang_minus_id").hide();
-        $(".privacyFilter").lubySelector({
-            width: 120,
-            theme: "white",
-            icon: "fa fa-lock",
-            float: "none"
-        });
-        $(".jobFilter").lubySelector({
-            width: 300,
-            theme: "white",
-            "float": "none",
-            "icon": "fa fa-suitcase"
-        });
-        $(".locationFilter").lubySelector({
-            width: 300,
-            theme: "white",
-            "float": "none",
-            searchBar: true,
-            "icon": "fa fa-globe"
-        });
-        $(".langFilter0").lubySelector({
-            width: 150,
-            theme: "white",
-            "float":"none"
-        });
-        $(".accountFilter").lubySelector({
-            maxHeight:200,
-            float: "none",
-            theme: "white"
-        });
-    }
-
-    function LanguageContainer(){
-        var index = $(document).find(".langWrap").length;
-        var body = $("<div/>",{ "class" : "langWrap clone-wrapper" }),
-        input = $("<input/>",{
-            "type" : "text",
-            "class" : "language_text",
-            "name" : "language[]"
-        }).appendTo(body),
-        optionWrapper = $("<div/>",{
-            "class" : "lang_option"
-        }).appendTo(body),
-        selector = $("<select>",{
-            "class" : "langFilter",
-            "name" : "lang_ability[]"
-        }).appendTo(optionWrapper),
-        option = $("<option>",{ "class" : "lang_level" });
-
-        $.each(["Beginner","Advanced","Fluent"],function(i,value){
-            console.log(value);
-            option.clone().text(value).appendTo(selector);
-        });
-
-        return body;
-    }
-
-    function HistoryContainer(){
-        var original = $(document).find(".historyWrap").first(),
-        clone = original.clone(true);
-        var index = original.length;
-        clone.find(".history_text").val("");
-        clone.find(".lubySelector").lubySelector("setValue",0);
-
-        return clone;
-    }
-
-    function optionController(event){
-        eventHandler(event, $(this));
-        var $this = $(this),
-        type = $this.data("value"),
-        wrapper = $this.siblings(".clone-list"),
-        target = wrapper.find(".clone-wrapper"),
-        limit, object;
-
-        if(target.hasClass("langWrap")){
-            limit = 4;
-            object = new LanguageContainer();
-        }
-        else if(target.hasClass("historyWrap")){
-            limit = 20;
-            object = new HistoryContainer();
-        }
-
-        if(type === "add"){
-            var lubySelector = object.find(".lubySelector");
-            object.appendTo(wrapper);
-            if(lubySelector.length === 0) object.find("select").lubySelector({"theme" : "white"});
-        }
-        else if(type === "remove"){
-            target.last().remove();
-        }
-        else {
-            console.log("optionController ERROR : account_setting:245");
-            return false;
-        }
-
-        target = wrapper.find(".clone-wrapper");
-        optionButtonControl(target,limit);
-    }
-
-    function optionButtonControl(element,limit){
-        var addBt = element.parent().siblings(".optControl[data-value='add']"),
-        removeBt = element.parent().siblings(".optControl[data-value='remove']");
-
-        if(element.length <= limit && element.length === 1){
-            removeBt.hide();
-        }
-        else removeBt.show();
-
-        if(element.length >= limit) addBt.hide();
-        else addBt.show();
-    }
-
-    function sortHistory(event){
-        console.log("sortHistory");
-        eventHandler(event, $(this));
-        var history_array = [];
-        $('.historyWrap').each(function (index) {
-            history_array.push({
-                'index':  index,
-                'year': $(this).find('.accountFilter[data-value="year"]').val(),
-                'month': $(this).find('.accountFilter[data-value="month"]').val(),
-                'kind': $(this).find('.accountFilter[data-value="kind"]').val(),
-                'text': $(this).find('.history_text').val()
-            });
-            console.log(history_array[index]);
-        });
-        aftersort = history_array.sort(CompareForSort);
-        function CompareForSort(first, second) {
-            if (first.year == second.year) // sort by year
-                if (first.month < second.month) { // if same value year, sort by month
-                    return -1; //bigger than second month
-                } else{
-                    return 1; //bigger than first month
-                }
-            if (first.year < second.year)
-                return -1; // bigger than second year
-            else {
-                return 1; // bigger than first year
-            }
-        }
-        $('.historyWrap').each(function (index) {
-            var selectors = $(this).find(".accountFilter");
-            var inputText = $(this).find(".history_text");
-            var i = index;
-            selectors.each(function(index){
-                var $this = $(this),
-                data = $this.data("value");
-
-                $this.val(aftersort[i][data]);
-                $this.siblings(".ls_Label").text(aftersort[i][data]);
-            });
-            inputText.val(aftersort[index].text);
-        });
-    }
-
-    function initProfileCropper(){
+    function initCropper(){
         $("#profile-upload-bt").click(function () {
             $("#profile_uploader").trigger("click");
         });
@@ -364,7 +224,7 @@ $(document).ready(function(){
                 var calcSize = file.calcUnit();
                 if(file.checkSize(10485760)){
                     if(file.checkExt(["jpg","jpeg","png","gif","bmp"])){
-                        showImage(file);
+                        cropReady(file);
                     }
                     else {
                         $(".alertKey").lubyAlert({
@@ -397,34 +257,17 @@ $(document).ready(function(){
             var isNotExist = $("#cropper_img").attr("src") === undefined;
             if(isNotExist) return false;
 
-            var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 });
+            var $object = $("#cropper_img").cropper("getCroppedCanvas", { width: 100, height: 100 }),
+                base64 = $object.toDataURL("image/jpeg");
 
-            dataURL = $object.toDataURL("image/jpeg");
-            var dataArray = [];
-            dataArray = dataURL;
-
-            $.ajax({
-                type: "POST",
-                url: "../ajax/profile_upload_ajax.php", //path
-                data:{
-                    'profile': dataArray
-                },
-                cache: false,
-                success: function (data) {
-                    $("#croped").empty();
-                    $("#croped").append($object);
-                    $("#croped").next("i").hide();
-                    $("#cropper-preview").hide();
-                    $("#cropper-wrapper").hide();
-                    $(".cropper-container").remove();
-                }
-            });
-        });
-        $.ajax(function(){
-
+            $("#croped img").attr('src',base64);
+            $("#croped").next("i").hide();
+            $("#cropper-preview").hide();
+            $("#cropper-wrapper").hide();
+            $(".cropper-container").remove();
         });
 
-        function showImage(file) {
+        function cropReady(file) {
             var $loading_icon = $(document).find("#loading_icon").show();
             if (file) {
                 var reader = new FileReader();
@@ -455,6 +298,47 @@ $(document).ready(function(){
             }
         }
     }
+    function componentControl(){
+        var $this = $(this);
+        var limit = $this.data('target') === 'history' ? 20 : 4;
+        var value = $this.data("value"),
+            target = $("." + $this.data("target")),
+            wrapper = target.parent(),
+            component = target.first().clone(true),
+            ls = component.find("select"),
+            input = component.find("input[type='text']");
+
+        if(ls) ls.lubySelector("setValueByIndex",0);
+        if(input) input.val(null);
+
+        if(value === 'add' && target.length < limit) component.appendTo(wrapper);
+        else if(value === 'remove' && target.length > 1) target.last().remove();
+    }
+
+    function sortHistory(event){
+        eventHandler(event, $(this));
+        var wrapper = $(".history-wrapper"),
+            histories = [];
+        $('.history').each(function (i) {
+            histories.push({
+                id: i,
+                element: $(this),
+                year: parseInt($(this).find(".accountFilter[data-value='year']").lubySelector("getValue")),
+                month: ($(this).find(".accountFilter[data-value='month']").lubySelector("getValueByIndex")) + 1
+            });
+        });
+        histories.sort(function(a,b){
+            var d1 = parseInt(a.year.toString() + a.month.toString()),
+                d2 = parseInt(b.year.toString() + b.month.toString());
+            if(d1 < d2) return -1;
+            else if(d1 > d2) return 1;
+            else return 0;
+        });
+        wrapper.empty();
+        $.each(histories,function(i,v){
+            wrapper.append(v.element);
+        });
+    }
 
     function deleteAccountEvent(){
         $(this).lubyAlert({
@@ -469,16 +353,4 @@ $(document).ready(function(){
             alert("DELETE ACCOUNT");
         }
     }
-
-    function finalSubmit(){
-        var errorCheck = true;
-        unloadChecker = false;
-        inputs = $("#account_setting_form").find("input[type='text']").add("textarea");
-        inputs.each(function(){
-            if($(this).hasClass("error")) errorCheck = false;
-        });
-
-        if(errorCheck) alert("SUCCESS");
-        else alert("PLEASE MAKE SURE YOUR VALUES");
-    }
-});*/
+});

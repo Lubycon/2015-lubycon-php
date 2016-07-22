@@ -21,8 +21,6 @@ class infinite_scroll extends json_control
     private $allow_array_content = ['all','artwork','vector','threed'];
     private $allow_array_community = ['all','forum','tutorial','qaa'];
 
-
-
     private $searchFilterQuery;
     private $midCateQuery;
     private $licenseQuery;
@@ -70,10 +68,19 @@ class infinite_scroll extends json_control
     */
 	public function __construct($postData)
     {
+        $this->json_decode('top_category',"../../../../data/top_category.json");
+        $this->topCateDecode = $this->json_decode_code;
+        $this->json_decode('ccCode',"../../../../data/ccCode.json");
+        $this->ccDecode = $this->json_decode_code;
+        $this->json_decode('job',"../../../../data/job.json");
+        $this->jobDecode = $this->json_decode_code;
+        $this->json_decode('country',"../../../../data/country.json");
+        $this->countryDecode = $this->json_decode_code;
 		// default arg is page kind
 		$this->cardType = $postData->cardType;
         $this->page = $postData->page;
-        $this->topCate = $postData->topCate;
+        $this->topCateCode = $postData->topCate;
+        $this->topCateName = isset($postData->topCate) ? $this->topCateDecode[$this->topCateCode]['name'] : null;
         $this->filter = $postData->filter;
         $this->sort = $postData->sort;
         $this->searchValue = $postData->searchValue;
@@ -107,13 +114,11 @@ class infinite_scroll extends json_control
         }
 
 
-        $this->json_decode('ccCode',"../../../../data/ccCode.json");
-        $this->ccDecode = $this->json_decode_code;
 	}
 
     private function validateCategory() //check top category form allow array
     {
-        if( !in_array($this->topCate , $this->allow_array_list) )
+        if( !in_array($this->topCateName , $this->allow_array_list) )
         {
             echo 'Unknown top category name errorCode:0001';
             die();
@@ -131,7 +136,7 @@ class infinite_scroll extends json_control
                     a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,
                     a.`viewCount`,a.`likeCount` , a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus` , c.`nick` 
                     ";
-                if($this->topCate === 'all')
+                if($this->topCateName === 'all')
                 {
                     $this->from_query = 
                     "
@@ -158,8 +163,8 @@ class infinite_scroll extends json_control
                     "
                         from 
                         (
-                        SELECT * FROM lubyconboard.`$this->topCate`                 
-                        LEFT JOIN lubyconboard.`$this->topCate"."midcategory`
+                        SELECT * FROM lubyconboard.`$this->topCateName`                 
+                        LEFT JOIN lubyconboard.`$this->topCateName"."midcategory`
                         USING (`boardCode`)
                         ) as a
                         left join lubyconuser.`userbasic` c
@@ -187,7 +192,7 @@ class infinite_scroll extends json_control
                 ON `artwork`.`userCode` = `userbasic`.`userCode` 
                 and `userbasic`.`userCode` = `userinfo`.`userCode` 
                 ";
-                $this->order_query=" ORDER BY `boardCode` DESC ";
+                //$this->order_query=" ORDER BY `boardCode` DESC ";
             break;
             case 'comment' : break;
             default : die( 'initQuery switcher error' ); break;
@@ -215,6 +220,7 @@ class infinite_scroll extends json_control
             case 2 : $this->order_query = " ORDER BY a.`likeCount` DESC "; break;
             case 3 : $this->order_query = " ORDER BY a.`downloadCount` DESC "; break;
             case 4 : $this->order_query = " ORDER BY a.`commentCount` DESC "; break;
+            case 5 : $this->order_query = " ORDER BY `userCode` DESC "; break;
             default : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
         }
 
@@ -228,12 +234,12 @@ class infinite_scroll extends json_control
         */
     }
 
-    public function bindResult($result)
+    public function bindResult($query_result)
     {
         switch($this->cardType)
         {
             case 'content' :
-                while( $row = mysqli_fetch_assoc($result) )
+                while( $row = mysqli_fetch_assoc($query_result['contents']) )
                 {
                     $bookmark_check = isset($row['bookmarkActionUserCode']) ? 'true' : 'false';
                     $this->json_search($this->ccDecode,'name','ccLicense',$row['ccLicense']);
@@ -260,7 +266,70 @@ class infinite_scroll extends json_control
                 }
             break;
             case 'community' : break;
-            case 'creator' : break;
+            case 'creator' : 
+                while( $row = mysqli_fetch_assoc($query_result['bestCreator']) )
+                {
+                    $job_origin_select = $this->jobDecode[$row['jobCode']]['name'];
+                    $country_origin_select = $this->countryDecode[$row['countryCode']]['name'];
+                    $this->bind_data[] = array(
+                        'code' => $row['userCode'],
+                        'profile' => "../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg",
+                        'name' => $row['nick'],
+                        'job' => $job_origin_select,
+                        'countryCode' => $row['countryCode'],
+                        'country' => $country_origin_select,
+                        'city' => $row['city'],
+                        'randCount' => rand(200,1500),
+                        'contentsCount' => '0',
+                        'contents' => array(
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            ),
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            ),
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            )
+                        ),
+                        'bestCreator' => true
+                    );
+                }
+                while( $row = mysqli_fetch_assoc($query_result['contents']) )
+                {
+                    $job_origin_select = $this->jobDecode[$row['jobCode']]['name'];
+                    $country_origin_select = $this->countryDecode[$row['countryCode']]['name'];
+                    $this->bind_data[] = array(
+                        'code' => $row['userCode'],
+                        'profile' => "../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg",
+                        'name' => $row['nick'],
+                        'job' => $job_origin_select,
+                        'countryCode' => $row['countryCode'],
+                        'country' => $country_origin_select,
+                        'city' => $row['city'],
+                        'randCount' => rand(200,1500),
+                        'contentsCount' => '0',
+                        'contents' => array(
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            ),
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            ),
+                            array(
+                                'id' => $row['boardCode'],
+                                'img' => $row['userDirectory'].'/thumbnail/thumbnail.jpg'
+                            )
+                        ),
+                        'bestCreator' => false
+                    );
+                }
+            break;
             case 'comment' : break;
             default : die( 'initQuery switcher error' ); break;
         }

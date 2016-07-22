@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	Controller({
+	Request({
 		url: "./pages/controller/contents/view_controller.php",
 		data: {
 			cate: CATE_PARAM,
@@ -9,6 +9,7 @@ $(document).ready(function(){
 	});
 
 	function init(data){
+
 		console.log(data);
 		var content = data.contents,
 			creator = data.creator,

@@ -67,10 +67,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="optControl" data-value="add">
+                <div class="optControl" data-value="add" data-target="language">
                     <i class="fa fa-plus"></i>
                 </div>
-                <div class="optControl" data-value="remove">
+                <div class="optControl" data-value="remove" data-target="language">
                     <i class="fa fa-minus"></i>
                 </div>
                 <label id="basic_desc_label">Description</label>
@@ -104,10 +104,10 @@
                     <input class='history_text' type='text' value=''/>
                 </div>
             </div>
-            <div class="optControl" data-value="add">
+            <div class="optControl" data-value="add" data-target="history">
                 <i class="fa fa-plus"></i>
             </div>
-            <div class="optControl" data-value="remove">
+            <div class="optControl" data-value="remove" data-target="history">
                 <i class="fa fa-minus"></i>
             </div>
         </section>
@@ -138,7 +138,6 @@
                     <select class="privacyFilter web_public" data-value="web">
                         <option value="Public">Public</option>
                         <option value="Private">Private</option>
-                            <?php $json_control->json_find_option_original('.web_public',$row['webPublic']);?>
                     </select>
                 </div>
                 <!-- end select box -->

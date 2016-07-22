@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 $number = $postData->conno;
-$cate = $postData->cate;
+$cate = (int)$postData->cate;
 
 $json_control->json_decode('job',"../../../../data/job.json");
 $job_decode = $json_control->json_decode_code;
@@ -34,7 +34,7 @@ $country_decode = $json_control->json_decode_code;
 $json_control->json_decode("top_category","../../../../data/top_category.json");
 $top_cate_decode = $json_control->json_decode_code;
 $cate_name = $top_cate_decode[$cate]['name'];
-$json_control->json_decode("$cate_name"."_category","../../../../data/middle_category.json");
+$json_control->json_decode($cate_name,"../../../../data/middle_category.json");
 $mid_cate_decode = $json_control->json_decode_code;
 $json_control->json_decode("ccCode","../../../../data/ccCode.json");
 $cc_code_decode = $json_control->json_decode_code;
@@ -60,7 +60,7 @@ $allow_array = ['all','artwork','vector','threed'];
 if( in_array($cate_name , $allow_array) )
 {
     //check category
-    switch($cate)
+    switch($cate_name)
     { 
         case 'artwork' : 
             $contents_cate = 1; 

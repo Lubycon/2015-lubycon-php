@@ -1584,21 +1584,21 @@ body {
     z-index: 2;
 }
 
-.table_wrap {
+.table-wrap {
     /*empty*/
 }
-    .table_head {
+    .table-head {
         height: 50px;
         background: #383838;
         color: #fff;
         text-align: center;
         cursor: default !important;
     }
-        .table_head_wrap {
+        .table-head-wrap {
             margin: 0px auto;
             padding: 0px 20px;
         }
-            .board_name {
+            .board-name {
                 position: absolute;
                 top: 11px;
                 left: 30px;
@@ -1606,43 +1606,43 @@ body {
                 font-size: 19px;
                 font-weight: 200;
             }
-            .table_head_wrap span {
+            .table-head-wrap span {
                 line-height: 50px;
                 color: #fff;
                 font-size: 17px;
                 font-weight: 200;
             }
-    .table_list_wrap{
+    .table-list-wrap{
 
     }
-    .table_body {
+    .table-body {
         width: 100%;
         text-align: center;
     }
-        .table_list{
+        .table-list{
             width: 100%;
             position: relative;
             border-bottom: 1px solid #dddddd;
             background: #ffffff;
         }
-            .table_list:hover{
+            .table-list:hover{
                 background: #fcfcfc;
             }
-            .table_list_inner{
+            .table-list-inner{
                 position: relative;
                 margin: 0px auto;
                 padding: 10px 20px;
                 text-align: left;
             }
-                .table_list_inner span {
+                .table-list-inner span {
 
                 }
-.table_blank {
+.table-blank {
     top: 3px;
     left: 11px;
     text-align: center;
 }
-    .table_blank .fa-circle {
+    .table-blank .fa-circle {
         font-size: 10px;
     }
         #forum_circle{
@@ -1654,34 +1654,34 @@ body {
         #qna_circle{
             color: #d19cd9;
         }
-.table_number_wrap{
+.table-number-wrap{
     display: inline-block;
     min-width: 20px;
     vertical-align: top;
     margin-right: 13px;
 }
-.table_number {
+.table-number {
     font-size: 14px;
     text-align: left;
     color: #666666;
 }
-.table_user_img {
+.table-user-img {
         display: inline-block;
         border-radius: 50%;
         overflow: hidden;
     }
-        .table_user_img img {
+        .table-user-img img {
             width: 100%;
         }
-.table_info {
+.table-info {
     position: relative;
     margin-left: 20px;
 }
-.table_info a:hover{
+.table-info a:hover{
     opacity: 0.6;
 }
 
-.table_subject {
+.table-subject {
     display: inline-block;
     position: relative;
     cursor:pointer;
@@ -1697,12 +1697,12 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
-    .table_contents{
+    .table-contents{
         position: absolute;
         top: 5px;
         right: -20px;
     }
-.table_writer {
+.table-writer {
     display: block;
     bottom: 3px;
     color: #444444;
@@ -1713,46 +1713,46 @@ body {
     text-align: left;
     margin-top: 5px;
 }
-    .table_writer:hover{
+    .table-writer:hover{
             text-decoration: underline;
         }
 
-.table_like {
+.table-like {
     line-height: 55px;
     font-size: 18px;
     text-align: center;
     color: #488ccb;
 }
-    .table_list .table_like {
+    .table-list .table-like {
         display: inline-block;
     }
 
-    .table_like .fa-heart {
+    .table-like .fa-heart {
         font-size: 16px;
         color: #48cfad;
     }
 
-.table_view {
+.table-view {
     line-height: 55px;
     font-size: 18px;
     text-align: center;
     color: #488ccb;
 }
-    .table_list .table_view {
+    .table-list .table-view {
         display: inline-block;
     }
 
-    .table_view .fa-eye {
+    .table-view .fa-eye {
         font-size: 19px;
     }
 
-.table_date {
+.table-date {
     width: 100px;
     line-height: 55px;
     float: right;
     color: #545454;
 }
-    .table_list .table_date {
+    .table-list .table-date {
         display: inline-block;
     }
 /* main board */

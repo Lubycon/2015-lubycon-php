@@ -60,7 +60,7 @@ class upload
 
     // save path
 
-    public $Lubycon_Contents_folder = "../../../../Lubycon_Contents/";
+    public $Lubycon_Contents_folder = "../../../../../../Lubycon_Contents/";
     public $upload_path;
     public $last_path;
 
@@ -161,7 +161,6 @@ class upload
         {
             $this->upload_path = $this->Lubycon_Contents_folder.'user/'.$this->user_code.'/'; //set upload path
         }
-        echo 
         is_dir($this->upload_path) ? chmod($this->upload_path,0777) : mkdir($this->upload_path,0777); //make user folder
     }
     public function fill_array_data()

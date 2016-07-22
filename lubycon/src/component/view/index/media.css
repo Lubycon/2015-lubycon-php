@@ -579,47 +579,47 @@
         max-width: 800px;
         margin: 0px auto;
     }
-    .table_info{
+    .table-info{
         display: inline-block;
     }
-        .table_list .table_user_img{
+        .table-list .table-user-img{
             width: 40px;
             height: 40px;
         }
-        .table_list .table_subject{
+        .table-list .table-subject{
             font-size: 16px;
         }
-        .table_writer {
+        .table-writer {
             font-size: 13px;
         }
         .mobile_i{
             margin-right: 5px;
             color: #444444;
         }
-    .table_counts{
+    .table-counts{
 
     }
-        .table_counts .table_like{
+        .table-counts .table-like{
             font-size: 16px;
             line-height: 30px;
         }
-            .table_like .mobile_i{
+            .table-like .mobile_i{
                 display: inline-block;
                 color: #48cfad !important;
                 font-size: 14px;
 
             }
-        .table_counts .table_view{
+        .table-counts .table-view{
             font-size: 16px;
             line-height: 30px;
             margin-left: 2px;
             margin-right: 10px;
         }
-            .table_view .mobile_i{
+            .table-view .mobile_i{
                 display: inline-block;
                 font-size: 14px;
             }
-        .table_counts .table_date{
+        .table-counts .table-date{
             color: #888888;
             font-size: 16px;
             line-height: 30px;
@@ -1045,32 +1045,32 @@
         max-width: 1700px;
         margin: 50px auto;
     }
-    .table_info{
+    .table-info{
         display: inline-block;
     }
-        .table_list .table_user_img{
+        .table-list .table-user-img{
             width: 55px;
             height: 55px;
         }
-        .table_list .table_subject{
+        .table-list .table-subject{
             font-size: 18px;
         }
-        .table_writer {
+        .table-writer {
             font-size: 15px;
         }
-    .table_counts{
+    .table-counts{
         display: inline-block;
         float: right;
     }
-        .table_like{
+        .table-like{
             float: right;
             min-width: 60px;
         }
-        .table_view{
+        .table-view{
             float: right;
             min-width: 60px;
         }
-        .table_date{
+        .table-date{
             text-align: center;
         }
     .write_bt{

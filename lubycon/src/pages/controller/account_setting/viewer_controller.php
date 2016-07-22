@@ -30,20 +30,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 
+
 $usernumber = $postData->usernum;
 
 if( $Loginuser_code === $usernumber )
 {
-	include '../../model/account_setting/model.php';
+	require_once '../../model/account_setting/model.php';
+
 	$page_title = 'account_setting';
 	$user_data = array(
 			'code' => $userdata_row['userCode'],
 			'email' => $userdata_row['email'],
 			'profile' => '../../../../Lubycon_Contents/user/'.$userdata_row['userCode'].'/profile.jpg',
 			'name' => $userdata_row['nick'],
-			'job' => $job_decode[$userdata_row['jobCode']]['name'],
 			'position' => $userdata_row['company'],
-			'location' => $country_decode[$userdata_row['countryCode']]['name'],
+			'job' => array(
+				'name' => $job_decode[$userdata_row['jobCode']]['name'],
+				'code' => $userdata_row['jobCode']
+			),
+			'country' => array(
+				'name' => $country_decode[$userdata_row['countryCode']]['name'],
+				'code' => $userdata_row['countryCode']
+			),
 			'city' => $userdata_row['city'],
 			'description' => $userdata_row['userDescription'],
 			'mobile' => $userdata_row['telNumber'],
