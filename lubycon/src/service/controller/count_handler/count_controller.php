@@ -23,8 +23,6 @@ require_once '../../../common/Class/session_class.php';
     }
     require_once "../../../common/class/json_class.php";
     $json_control = new json_control;
-    $json_control->json_decode('top_category',"../../../../data/top_category.json");
-    $top_cate_json = $json_control->json_decode_code;
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -42,6 +40,10 @@ if($LoginState)
     $ajax_countkind = $postData->countKind == 0 ? 'bookmark' : 'like'; //bookmark or like
     $content_kind = $postData->contentKind == 0 ? 'contents' : 'comment';
     $ajax_countkind_name = $ajax_countkind.'Count'; //colume name
+
+    $json_control->json_decode($content_kind.'_top_category',"../../../../data/top_category.json");
+    $top_cate_json = $json_control->json_decode_code;
+
     $ajax_board_kind = $postData->boardKind;
     $ajax_nummber = $postData->conno; // contents boradCode
     $ajax_cate_code = $postData->cate; //0 1 2 

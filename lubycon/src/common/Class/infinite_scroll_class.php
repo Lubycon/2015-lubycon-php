@@ -211,14 +211,14 @@ class infinite_scroll extends json_control
             break;
             case 'creator' : 
                 $this->select_query =
-                "SELECT  `userbasic`.`userCode` , `nick` , `jobCode` , `boardCode` , `city` , `countryCode` , `userDirectory`";
+                "SELECT  ub.`userCode` , ub.`nick` , ui.`jobCode` , a.`boardCode` , ui.`city` , ui.`countryCode` , a.`userDirectory`";
                 $this->from_query=
                 "
                 FROM lubyconboard.`artwork` as a
                 INNER join lubyconuser.`userbasic` as ub
+                USING (`userCode`)
                 INNER join lubyconuser.`userinfo` as ui
-                ON a.`userCode` = ub.`userCode` 
-                and ub.`userCode` = ui.`userCode` 
+                USING (`userCode`)
                 ";
                 $this->sort = 5 ; //temp
             break;
@@ -384,151 +384,5 @@ class infinite_scroll extends json_control
             default : die( 'initQuery switcher error' ); break;
         }
     }
-
-
-    /* need change logic to model
-    public function set_query($query_user_code)
-    {
-        if( $this->top_category == 'all' )
-        {
-            $this->query = "
-            SELECT SQL_CALC_FOUND_ROWS 
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
-            if($query_user_code != '')
-            {$this->query .= " ,b.`bookmarkActionUserCode` ";}
-            $this->query .= 
-            " FROM 
-            ( 
-                SELECT * FROM lubyconboard.`artwork`
-                LEFT JOIN lubyconboard.`artworkmidcategory`
-                USING (`boardCode`)
-    
-                UNION SELECT * FROM lubyconboard.`vector` 
-                LEFT JOIN lubyconboard.`vectormidcategory`
-                USING (`boardCode`)
-    
-                UNION SELECT * FROM lubyconboard.`threed` 
-                LEFT JOIN lubyconboard.`threedmidcategory`
-                USING (`boardCode`)
-            ) AS a ";
-            if($query_user_code != '')
-            {
-            $this->query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b 
-            ON a.`boardCode` = b.`boardCode`
-            AND a.`topCategoryCode` = b.`topCategoryCode`
-            AND b.`bookmarkActionUserCode` = $query_user_code ";
-            }
-            $this->query .= "LEFT JOIN lubyconuser.`userbasic` AS c 
-            ON a.`userCode` = c.`userCode` 
-
-            $this->where_query
-            $this->order_query
-            limit $this->call_page,$this->page_boundary";
-        
-        }else
-        {
-            $this->query = "
-            select SQL_CALC_FOUND_ROWS
-            a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,a.`viewCount`,a.`likeCount`, c.`nick`, a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus`";
-            if($query_user_code != '')
-            {$this->query .= " ,b.`bookmarkActionUserCode` ";}
-            $this->query .= 
-            " from 
-                (
-                SELECT * FROM lubyconboard.`$this->top_category`                 
-                LEFT JOIN lubyconboard.`$this->top_category"."midcategory`
-                USING (`boardCode`)
-                ) as a
-            ";
-            if( $query_user_code != '' )
-            {
-                $this->query .= 
-                "LEFT JOIN lubyconboard.`contentsbookmark` b
-                ON a.`boardCode` = b.`boardCode`
-                AND a.`topCategoryCode` = b.`topCategoryCode`
-                AND b.`bookmarkActionUserCode` = $query_user_code";
-            }
-            $this->query .= " left join lubyconuser.`userbasic` c
-            ON a.`userCode` = c.`userCode`
-            
-            $this->where_query
-            $this->order_query
-            limit $this->call_page,$this->page_boundary";
-        }
-        //echo $this->query;
-    }
-
-    /*
-    public function count_page($db_result) // count all page function
-    {
-        $foundRow_result = mysqli_fetch_array($db_result); //row count
-        $this->all_page_count = ceil($foundRow_result[0] / 30); //all page count
-    }
-
-    public function spread_contents($contents_result,$one_depth,$ajax_boolean)
-    {
-        if($contents_result->num_rows != 0)
-        {
-            //echo "<div class='scroll_checker page_top_$page_param'></div>";
-            $i = 1;
-            while( $row = mysqli_fetch_array($contents_result) )
-            {
-                $this->json_decode('top_category',"../../../../data/top_category.json");
-                $country_decode = $this->json_decode_code;
-                $this->json_decode('ccCode',"../../../../data/ccCode.json");
-                $ccCode_decode = $this->json_decode_code;
-                $top_category = $country_decode[$row['topCategoryCode']]['name'];
-                include('../../../component/view/contents_card/content_card.php');
-
-                //page load
-                if($i == $this->page_limit && !$ajax_boolean)
-                {
-                    echo "<div class='scroll_checker page_bottom_$this->start_page'></div>";
-                    $i = 1;
-                    $this->start_page++;
-                }else
-                {
-                    $i++;
-                }
-                //page load
-            }   
-            //ajax
-            if($ajax_boolean)
-            {
-                echo "<div class='scroll_checker page_bottom_$this->target_page'></div>";
-            }
-            //ajax
-
-            if($this->all_page_count == $this->target_page){
-                echo '<div class="finish_contents" data-value="content"></div>';
-            }
-
-        }else{
-            include_once("../../../service/view/nullMessage.php");
-        }
-    }
-
-    public function check_cookie()
-    {
-        if( isset($_COOKIE['contents_history']))
-        {
-            //print_r( $_COOKIE['contents_history']);
-            $cookie_string = $_COOKIE['contents_history'];
-            parse_str ($cookie_string , $cookie_parse );
-            $cookie_contents_number = $cookie_parse['concate'].'_'.$cookie_parse['conno'];
-
-            if( $this->top_category == $cookie_parse['cate'] && $this->now_page == $cookie_parse['page'])
-            {
-                echo "<script>scroll_from_cookie('$cookie_contents_number');console.log(1)</script>"; //find pre click contents
-            }else
-            {
-                echo "<script>scroll_from_param('$this->now_page');</script>"; //find pre click contents
-            }
-        }else
-        {
-            echo "<script>scroll_from_param('private $now_page');</script>"; //find pre click contents
-        }
-    }
-    */
 }
 ?>
