@@ -11,16 +11,19 @@
 	$db = new Database();
 	$session = new Session();
 	$json_control = new json_control();
+
+
+
+	print_r($_POST);
+
+	$country_post = $_POST['country_code'];
+
 	$country_json = $json_control->json_decode('country',"../../../../data/country.json");
 	$country_decode = $json_control->json_decode_code;
-	
-	$json_control->json_search($country_decode,'countryCode','name',$_POST['country_code']);
+	$json_control->json_search($country_decode,'countryCode','name',$country_post);
 	$country_code = $json_control->search_key;
-
-	$json_control->json_search($country_decode,'continentCode','name',$_POST['country_code']);
+	$json_control->json_search($country_decode,'continentCode','name',$country_post);
 	$continent_code = $json_control->search_key;
-	
-
 	
 	// password encryption -> using bycrypt
 	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -81,7 +84,7 @@
 			else
 			{
 				$db->query = "
-      			SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.userCode, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`jobCode`, `userinfo`.`city` 
+      			SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.userCode, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`continentCode` ,`userinfo`.`jobCode`, `userinfo`.`city` 
         		FROM `lubyconuser`.`userbasic` 
         		LEFT JOIN `lubyconuser`.`userinfo` 
         		ON `userbasic`.`userCode` = `userinfo`.`userCode` 
@@ -92,7 +95,8 @@
 
     				$result = mysqli_fetch_array($db->result);
 					$session->WriteSession('lubycon',$result);
-					echo "<script>docuemnt.location.href='../../../index.php'</script>";
+					print_r($result);
+					echo "<script>document.location.href='../../../index.php'</script>";
     			}
 			}
 		}

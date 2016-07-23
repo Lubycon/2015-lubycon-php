@@ -72,10 +72,11 @@ $(document).ready(function(){
     function like_count_up(countkind, stat_check, conno, catename, contentkind) {
         $.ajax({
             type: "POST",
-            url: "../ajax/increase_like_ajax.php",
+            url: "./service/controller/count_handler/count_controller.php",
             data: 'countkind=' + countkind + '&conno=' + conno + '&cate=' + catename + '&stat_check=' + stat_check + '&contentkind=' + contentkind,// data send
             cache: false,
             success: function (data) {
+                    console.log(data);
                 var loginStat = data.loginStat;
                 loginStat = 1;
                 if(loginStat){
