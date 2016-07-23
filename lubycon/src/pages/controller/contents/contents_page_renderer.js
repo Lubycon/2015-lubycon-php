@@ -1,23 +1,24 @@
 $(document).ready(function(){
     $("#loading_icon").show();
-    loadCategoryList(initCategory, CATE_PARAM);
-    Request({
-	    url: "./service/controller/infinite_scroll/controller.php",
-        data: new GET_CONTENTS("content",0),
-	    callback: init
-	});
-    console.log(new GET_CONTENTS("content",0));
-
-
+    $.when(
+        loadCategoryList(initCategory, CATE_PARAM)
+    ).then(function(){
+        console.log(1);
+        Request({
+    	    url: "./service/controller/infinite_scroll/controller.php",
+            data: new GET_CONTENTS("content",0),
+    	    callback: init
+    	});
+    });
 
     function init(response){
-        var detector = new InfiniteScrollDetector(new GET_CONTENTS("content",0));
+        //var detector = new InfiniteScrollDetector(new GET_CONTENTS("content",0));
         var data = response.result;
         $("#loading_icon").hide();
         console.log(data);
 
         addCard(data);
-        detector.start(addCard);
+        //detector.start(addCard);
         $("#loading_icon").hide();
     }
 

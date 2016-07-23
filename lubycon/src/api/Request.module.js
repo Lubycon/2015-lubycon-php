@@ -47,6 +47,7 @@ var Request = function(param){
 };
 
 var GET_CONTENTS = function(type,target){
+    console.log("GET_CONTENTS");
     return {
         url: getUrlParameter("dir"),
         type: type,
@@ -77,7 +78,7 @@ var loadCountryList = function(callback){
     });
 };
 
-function loadCategoryList(callback,category){
+var  loadCategoryList = function(callback,category){
     var v;
     switch(category){
         case 1 : v = "artwork"; break;
