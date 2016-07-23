@@ -1,46 +1,13 @@
 $(document).ready(function(){
 	$("#loading_icon").show();
+	loadJobList(initJob);
 	Request({
 	    url: "./service/controller/infinite_scroll/controller.php",
-        data: {
-            cardType: "creator",
-    		page: "creator",
-            topCate: null,
-            sort: 5, //5 is userCode it is templary
-    		filter: {
-    			midCate: null,
-    			license: null,
-    			continent: null,
-    			job: null,
-    			search: $(".searchFilter").lubySelector("getValueByIndex")
-    		},
-    		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
-    		nowPage: getUrlParameter("page"),
-            targetPage: getUrlParameter("page")
-        },
+        data: new GET_CONTENTS("creator",0),
 	    callback: init
 	});
-
-	loadJobList(initJob);
-
-	var detector = new InfiniteScrollDetector({
-		cardType: "creator",
-		page: "creator",
-		sort: $(".sortFilter").lubySelector("getValueByIndex"),
-		filter: {
-			midCate: null,
-			license: null,
-			continent: $(".locationFilter").lubySelector("getValueByIndex") === 0 ?
-				"all" :
-				$(".locationFilter").lubySelector("getValueByindex"),
-			job: $(".jobFilter").lubySelector("getValueByIndex") === 0 ?
-				"all" :
-				$(".jobFilter").lubySelector("getValueByIndex"),
-			search: $(".searchFilter").lubySelector("getValueByIndex")
-		},
-		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
-		nowpage: getUrlParameter("page")
-	});
+	
+	var detector = new InfiniteScrollDetector(new GET_CONTENTS("creator",0));
 
 	function init(response){
 		var data = response.result;
