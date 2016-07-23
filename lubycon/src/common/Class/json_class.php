@@ -35,6 +35,7 @@ class json_control
     }
     public function json_search($decode_code,$return_value,$search_key,$search_word)
     {
+        //print_R($decode_code);
         //$this->search_key = array_search($search_word, $this->json_decode_code['name']);
         foreach ($decode_code as $key => $value) 
         {

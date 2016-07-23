@@ -9,7 +9,7 @@
 	$db = new Database('localhost', 'lubycon', 'hmdwdgdhkr2015', 'lubyconuser');
 	
 	$db->query = "
-        SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`jobCode`, `userinfo`.`city` 
+        SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`jobCode`, `userinfo`.`city` , `userinfo`.`profileImg`
         FROM `lubyconuser`.`userbasic` 
         LEFT JOIN `lubyconuser`.`userinfo` 
         ON `userbasic`.`userCode` = `userinfo`.`userCode` 
@@ -37,6 +37,7 @@
 					case "countryCode" : $sessionArray[$key] = $value; break;
 					case "city" : $sessionArray[$key] = $value; break;
 					case "name" : $sessionArray['country'] = $value; break;
+					case "profileImg" : $sessionArray['profile'] = $value; break;
 					case "validation" : $sessionArray[$key] = ($value === "active") ? true : false; break;
 					default : break;
 				}

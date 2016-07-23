@@ -13,8 +13,14 @@
 	$json_control = new json_control();
 	$country_json = $json_control->json_decode('country',"../../../../data/country.json");
 	$country_decode = $json_control->json_decode_code;
+	
 	$json_control->json_search($country_decode,'countryCode','name',$_POST['country_code']);
 	$country_code = $json_control->search_key;
+
+	$json_control->json_search($country_decode,'continentCode','name',$_POST['country_code']);
+	$continent_code = $json_control->search_key;
+	
+
 	
 	// password encryption -> using bycrypt
 	$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -54,14 +60,14 @@
 
 		if(mailer($from, $to, $subject, $password, 'mail', $token))
 		{
-			$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken,validation)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H:i:s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$certifimail->token."', 'inactive')";
+			$db->query = "insert into userbasic(email,nick,pass,date,termCheck, policyCheck, subscription, validationToken,validation)values('".$_POST['email']."', '".$_POST['nick']."', '".$hash."', '".date('Y-m-d H-i-s')."', '".'true'."', '".'true'."', '".$newsletter."', '".$certifimail->token."', 'inactive')";
 
 			$db->askQuery();
 
 			$db->query = "
 			INSERT INTO `lubyconuser`.`userinfo` 
-			(`countryCode`,  `profileImg`, `emailPublic`, `mobilePublic`, `faxPublic`, `webPublic`) VALUES 
-			('$country_code','../asset/img/no_img/no_img_user.jpg','public', 'public', 'public', 'public');";
+			(`countryCode`, `continentCode` , `profileImg`, `emailPublic`, `mobilePublic`, `faxPublic`, `webPublic`) VALUES 
+			('$country_code',$continent_code,'../asset/img/no_img/no_img_user.jpg','public', 'public', 'public', 'public');";
 			$db->askQuery();
 
 

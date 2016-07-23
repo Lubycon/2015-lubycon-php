@@ -9,7 +9,43 @@
 #---------------------------------------------------------------------------------
 #	Generate public/private Key
 #---------------------------------------------------------------------------------
-function rsa_generate_keys($password, $bits = 2048, $digest_algorithm = 'sha256'){
+
+# $bit : bits내 크기만큼의 RSA 키 쌍을 생성한다.
+# 		 2016.07.22일 기준 Google Developers에 따르면 1,024비트의 작은 키는 무차별 암호 
+#		 대입 공격 (brute-force guessing attack)에 대응하는데 충분하지 않으며, 4,096비트의 
+#		 큰 키는 대응이 과합니다. 시간이 지나면서 컴퓨터 처리 비용이 적어질수록(컴퓨터 성능이 좋아질수록)
+#		 키 크기는 증가합니다 (현재는 2,048비트가 가장 이상적입니다.)
+#
+#		 출처 : https://developers.google.com/web/fundamentals/security/encrypt-in-transit/generating-keys-and-csr?hl=ko
+#
+#
+# 'digest_algorithm' : Message Digest를 의미하며, 이는 메세지를 해시(Hash)하는 것을 의미한다.
+#					  임의의 길이를 가진 메세지를 해당함수에 넣으면 "일정한 길이를 가진 데이터를 얻는다."
+#					  이 데이터를 비교해 데이터의 위/변조를 검사할 수 있다.
+#					  MD5(Message Digest algorithm 5)는 128비트 메세지 해시 알고리즘이며, 2006년
+#					  충돌을 일으키는 알고리즘이 개발되어, 인증서 비교 용도에는 사용하지 않기를 권장한다.
+#					  
+#					  SHA-512/256은 2012년 3월에 업데이트 된,  SHA-512의 축소버젼이며, SHA-256은
+#					  32비트 프로세서에서, SHA-512는 64비트 프로세서에더 더 빠르게 작동한다
+#
+#				출처 : http://www.solanara.net/solanara/digestsolaris 
+#
+# $password : passpharse이며, 설정하지 않아도 상관 없으나, Private Key가 유출되었을 때, 의도치 않은 사용자가
+#			: 의도하지 못한 행동을 하지 못하도록 하는 보안장치이므로, 설정해주길 권고한다.
+#
+# 출처 : https://dobest.io/ssh-without-password/
+#
+# openssl_pkey_new : 'digest_alg'은 digest_algorithm을 의미한다
+#					 'private_key_bits'는 RSA 키 쌍의 크기를 의미한다.
+#					 'private_key_type'은 비공개키의 타입을 결정한다.
+#
+# openssl_pkey_export : $res는 키값을 의미한다.
+#						$private_key는 해당 키값을 저장해둘 변수를 의미합니다.
+#						$password는 passpharse입니다.
+#
+# openssl_pkey_get_details : 키의 상세값(bits, key, type)을 반환합니다.
+
+function rsa_generate_keys($password, $bits = 2048, $digest_algorithm = 'sha512'){
 
 	$res = openssl_pkey_new(array('digest_alg'=>$digest_algorithm,
 								  'private_key_bits'=>$bits,
@@ -17,9 +53,12 @@ function rsa_generate_keys($password, $bits = 2048, $digest_algorithm = 'sha256'
 
 	openssl_pkey_export($res, $private_key, $password);
 
+
+	// key에 관한 상세값들을 $public_key에 담고, 그 중에 필요한 정보인 PUBLIC KEY값만 다시 넣어준다
 	$public_key = openssl_pkey_get_details($res);
 	$public_key = $public_key['key'];
 
+	// PUBLIC KEY와 PRIVATE KEY만 반환해준
 	return array('private_key' => $private_key,
 				 'public_key' => $public_key,);
 }
@@ -30,14 +69,12 @@ function rsa_generate_keys($password, $bits = 2048, $digest_algorithm = 'sha256'
 #---------------------------------------------------------------------------------
 function rsa_encrypt($plaintext, $public_key){
 
-	$plaintext = gzcompress($plaintext);
-
-	$publbicKey_decoded = @openssl_pkey_get_public($public_key);
+	$publicKey_decoded = @openssl_pkey_get_public($public_key);
 	if($publicKey_decoded === false) return false;
 
 	$ciphertext = false;
-	$status = @openssl_public_encrypt($plaintext, $ciphertext, $pubkey_decoded);
-	if($status || $ciphertext === false) return false;
+	$status = @openssl_public_encrypt($plaintext, $ciphertext, $publicKey_decoded);
+	if(!$status || $ciphertext === false) return false;
 
 	return base64_encode($ciphertext);
 }
@@ -61,7 +98,6 @@ function rsa_decrypt($ciphertext, $private_key, $password){
 	@openssl_pkey_free($privateKey_decoded);
 	if(!$status || $plaintext === false) return false;
 
-	$plaintext = @gzuncompress($plaintext);
 	if($plaintext === false) return false;
 
 	return $plaintext;

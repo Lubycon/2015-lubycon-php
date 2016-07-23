@@ -28,6 +28,7 @@
             $Loginuser_job = NULL;
             $Loginuser_city = NULL;
             $Loginuser_country = NULL;
+            $Loginuser_profile = NULL;
 
             if(isset($_SESSION['lubycon_validation']))
             {
@@ -55,6 +56,7 @@
             $Loginuser_country = (isset( $_SESSION['lubycon_countryCode']) === true) ? $country_json_Code[$_SESSION['lubycon_countryCode']]['name'] : NULL;
             $Loginuser_job = (isset($_SESSION['lubycon_jobCode']) === true) ? $job_json_Code[$_SESSION['lubycon_jobCode']]['name'] : NULL;
             $Loginuser_city = (isset($_SESSION['lubycon_city']) === true) ? $_SESSION['lubycon_city'] : NULL;
+            $Loginuser_profile = (isset($_SESSION['lubycon_profile']) === true) ? $_SESSION['lubycon_profile'] : NULL;
             // login menu
         }else{
             $LoginState = false;

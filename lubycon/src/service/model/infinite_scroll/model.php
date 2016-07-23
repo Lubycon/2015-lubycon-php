@@ -17,12 +17,29 @@
     {
         $db->query =
         "
-        SELECT  `userbasic`.`userCode` , `nick` , `jobCode` , `boardCode` , `city` , `countryCode` , `userDirectory`
-        FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` 
-        INNER join lubyconuser.`userinfo` 
-        ON `artwork`.`userCode` = `userbasic`.`userCode` 
-        and `userbasic`.`userCode` = `userinfo`.`userCode` 
-        ORDER BY `nick` DESC  limit 1
+        SELECT  ub.`userCode` , ub.`nick` , ui.`jobCode` , a.`boardCode` , ui.`city` , ui.`countryCode` , a.`userDirectory`, a.`topCategoryCode`, com.`comDate` ,com.`comIntroduce`, com.`comInterviewUrl`
+        FROM 
+        ( 
+            SELECT * FROM lubyconboard.`artwork`
+            LEFT JOIN lubyconboard.`artworkmidcategory`
+            USING (`boardCode`)
+                    
+            UNION SELECT * FROM lubyconboard.`vector` 
+            LEFT JOIN lubyconboard.`vectormidcategory`
+            USING (`boardCode`)
+                    
+            UNION SELECT * FROM lubyconboard.`threed` 
+            LEFT JOIN lubyconboard.`threedmidcategory`
+            USING (`boardCode`)
+        ) AS a 
+        LEFT join lubyconuser.`userbasic` as ub
+        USING (`userCode`)
+        LEFT join lubyconuser.`userinfo`  as ui
+        USING (`userCode`)
+        LEFT JOIN lubyconuser.`creatorofthemonth` as com
+        USING (`userCode`)
+
+        WHERE date(com.`comDate`) >= date_format(now(), '%Y-%m-01') and date(com.`comDate`) <= last_day(now())
         ";
         $db->askQuery();
         $best_creator_result = $db->result;
