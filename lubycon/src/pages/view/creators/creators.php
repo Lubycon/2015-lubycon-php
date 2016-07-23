@@ -1,6 +1,5 @@
 
 <link href="./pages/view/creators/creators.css" rel="stylesheet" type="text/css" />
-<script src="./component/view/creator_card/creator_card.tmpl.js" type="text/javascript"></script>
 <script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
 <script type="text/javascript" src="./pages/controller/creators/creators_page_renderer.js"></script>
 

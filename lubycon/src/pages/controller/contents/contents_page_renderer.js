@@ -64,8 +64,9 @@ $(document).ready(function(){
 			list = $("<li/>");
 
 		for(var i = 0; i < data.content.length; i++){
-			var card = new ContentsCard(data.content[i]).render();
-			list.clone(true).append(card).appendTo(cardWrapper);
+			var card = new ContentsCard(data.content[i]);
+            var cardDOM = card.render();
+			list.clone(true).append(cardDOM).appendTo(cardWrapper);
 		}
 
         console.log("VIEW : GET DATA------------------");

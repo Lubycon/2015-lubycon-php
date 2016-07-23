@@ -49,10 +49,6 @@ $(document).ready(function(){
 		var cardWrapper = $("#creator_card_wrap"),
 			list = $("<li/>",{ "class" : "creator_card_in" });
 
-		data.bestCreator[0].bestCreator = true;
-		var bestCreator = new CreatorCard(data.bestCreator[0]).render();
-		list.clone(true).append(bestCreator).appendTo(cardWrapper);
-
 		addCard(data);
 		detector.start(addCard);
 	}

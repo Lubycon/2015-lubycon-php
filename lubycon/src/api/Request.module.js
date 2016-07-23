@@ -15,14 +15,14 @@ var Request = function(param){
                     cache: false,
                     success: function (data){
                         console.timeEnd("DATA LOADED");
-
+                        //console.log(data);
                         var response = false;
                         try {
                             response = jQuery.parseJSON(data);
                         } catch (error) {
                             console.log(data); //php error
                         }
-                        if(response && typeof response =='object') {
+                        if(response && typeof response ==='object') {
                             param.callback({
                                 result: $.parseJSON(data),
                                 session: session,

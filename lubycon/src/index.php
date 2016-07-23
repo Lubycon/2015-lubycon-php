@@ -59,7 +59,7 @@
         }else{
             $LoginState = false;
         }
-    
+
     //$sessionCheck = $activity;
     //echo "<script>console.log('$sessionCheck');</script>";
     $sessionCheck = isset($_SESSION['lubycon_validation']) ? $_SESSION['lubycon_validation'] : 'false';
@@ -78,7 +78,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html ng-app="App">
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -106,6 +106,30 @@
     <link href="../plugin/JS/lubySlider.css" rel="stylesheet" type="text/css" />
     <link href="../plugin/JS/checkBox.css" rel="stylesheet" type="text/css" />
     <link href="../plugin/lib/animate.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../plugin/lib/jquery-1.12.2.min.js"></script>
+    <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../plugin/lib/angular.min.js"></script>
+
+    <script type="text/javascript" src="../plugin/JS/jquery.lubySelector.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubyAlert.js"></script>
+    <script type="text/javascript" src="../plugin/JS/jquery.lubySlider.js"></script>
+    <script type="text/javascript" src="../plugin/JS/resizeObject.js"></script>
+    <script type="text/javascript" src="../plugin/JS/sticky.js"></script>
+    <script type="text/javascript" src="../plugin/JS/checkBox.js"></script>
+
+    <script type="text/javascript" src="./common/Module/_prototype.js"></script>
+    <script type="text/javascript" src="./api/Authentication.module.js"></script>
+    <script type="text/javascript" src="./api/Request.module.js"></script>
+    <script type="text/javascript" src="./common/common.js"></script>
+
+    <script type="text/javascript" src="./component/view/index/ui.js"></script>
+    <script type="text/javascript" src="./component/view/index/mobile.js"></script>
+
+    <script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
+    <script type="text/javascript" src="./component/view/contents_card/contents_card.tmpl.js"></script>
+    <script type="text/javascript" src="./component/view/creator_card/creator_card.tmpl.js"></script>
+    <script type="text/javascript" scc="./component/view/mainboard/mainboard.tmpl.js"></script>
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -269,22 +293,6 @@
         </div>
         <!-- end select_box -->
     </div>
-    <script type="text/javascript" src="../plugin/lib/jquery-1.12.2.min.js"></script>
-    <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="../plugin/JS/jquery.lubySelector.js"></script>
-    <script type="text/javascript" src="../plugin/JS/jquery.lubyAlert.js"></script>
-    <script type="text/javascript" src="../plugin/JS/jquery.lubySlider.js"></script>
-    <script type="text/javascript" src="../plugin/JS/resizeObject.js"></script>
-    <script type="text/javascript" src="../plugin/JS/sticky.js"></script>
-    <script type="text/javascript" src="../plugin/JS/checkBox.js"></script>
-
-    <script type="text/javascript" src="./common/Module/_prototype.js"></script>
-    <script type="text/javascript" src="./api/Authentication.module.js"></script>
-    <script type="text/javascript" src="./api/Request.module.js"></script>
-    <script type="text/javascript" src="./common/common.js"></script>
-
-    <script type="text/javascript" src="./component/view/index/ui.js"></script>
-    <script type="text/javascript" src="./component/view/index/mobile.js"></script>
 
     <?php
         include_once "./component/view/mobile/menu.php";

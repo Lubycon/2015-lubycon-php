@@ -21,6 +21,7 @@ var ContentsCard = function(data){
 };
 
 ContentsCard.prototype.render = function(){
+    var _this = this;
     var card = $("<div/>",{ "class" : "contents-card", "data-value" : "", "data-index" : "" }),
         thumbWrapper = $("<div/>",{ "class" : "contents-pic" }),
             img = $("<img/>",{ "src" : this.image, "class" : "load-view" }).appendTo(thumbWrapper),
@@ -38,10 +39,10 @@ ContentsCard.prototype.render = function(){
                     by = $("<span/>", { "class" : "by", "html" : "by" }).appendTo(userAnchor),
                     username = $("<span/>", { "class" : "name", "html" : this.user.name }).appendTo(userAnchor),
             bookmarkButton = $("<i/>",{
-                "class" : "userAction-bt alertKey fa fa-star thumbs_page" + (this.bookmark ? "selected" : ""),
+                "class" : "userAction-bt alertKey fa fa-star" + (this.bookmark ? "selected" : ""),
                 "data-value" : "bookmark",
                 "data-kind" : "contents"
-            }).appendTo(contentDesc),
+            }).on("click",bookmarkController).appendTo(contentDesc),
 
         overlay = $("<div/>",{ "class" : "contents-overlay load_view"}),
             anchor2 = $("<a/>",{
@@ -54,6 +55,25 @@ ContentsCard.prototype.render = function(){
         view = li.clone().html("<i class='fa fa-eye'></i><span>" + this.count.view + "</span>").appendTo(ul),
         comment = li.clone().html("<i class='fa fa-comment-o'></i><span>" + this.count.comment + "</span>").appendTo(ul),
         like = li.clone().html("<i class='fa fa-heart'></i><span>" + this.count.like + "</span>").appendTo(ul);
+
+    function bookmarkController(){
+        if(!$(this).hasClass("selected")) _this.bookmark = true;
+        else _this.bookmark = false;
+        Request({
+            url: "./service/controller/count_handler/count_controller.php",
+            data: {
+                countKind: 0,
+                contentKind: 0,
+                conno: _this.code,
+                cate: _this.category
+            },
+            callback: success
+        });
+        function success(response){
+            console.log("BOOKMARK IS ------------------");
+            console.log(response);
+        }
+    }
 
     card.append(thumbWrapper);
     card.append(contentDesc);
