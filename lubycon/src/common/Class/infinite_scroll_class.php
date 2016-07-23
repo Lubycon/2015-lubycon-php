@@ -105,11 +105,11 @@ class infinite_scroll extends json_control
         $this->pageStartPoint = ($this->targetPage-1) * $this->page_boundary;
 
         //query set
-        $this->searchFilterQuery = $this->searchValue !== null ? $this->filter->search." like '%".$this->searchValue."%'" : $this->filter->search = null ;
-        $this->midCateQuery = $this->filter->midCate !== 'all' ? $this->filter->midCate.' IN (a.`midCategoryCode0`,a.`midCategoryCode1`,a.`midCategoryCode2`)' : null;
-        $this->licenseQuery = $this->filter->license !== 'all' ? 'a.`ccLicense` = '.($this->filter->license) : null;
-        $this->jobQuery = $this->filter->license !== 'all' ? 'a.`jobCode` = '.($this->filter->job) : null; 
-        $this->continentQuery = $this->filter->license !== 'all' ? 'a.`continent` = '.($this->filter->continent) : null;
+        $this->searchQuery = $this->searchValue !== null ? $this->filter->search." like '%".$this->searchValue."%'" : $this->filter->search = null ;
+        $this->midCateQuery = $this->filter->midCate > 0 ? $this->filter->midCate.' IN (a.`midCategoryCode0`,a.`midCategoryCode1`,a.`midCategoryCode2`)' : null;
+        $this->licenseQuery = $this->filter->license > 0 ? 'a.`ccLicense` = '.($this->filter->license) : null;
+        $this->jobQuery = $this->filter->license > 0 ? 'a.`jobCode` = '.($this->filter->job) : null; 
+        $this->continentQuery = $this->filter->license > 0 ? 'a.`continent` = '.($this->filter->continent) : null;
         $this->bookmarkQuery = isset($this->filter->bookmark) ? 'b.`bookmarkActionUserCode` = '.$this->loginuser_code : null;
         $this->targetUserQuery = isset($this->filter->targetUser) ? 'c.`userCode` = '.$this->filter->targetUser : null;
 
@@ -215,8 +215,11 @@ class infinite_scroll extends json_control
     {
         foreach( $this->filter as $key => $value )
         {
-            if( $value !== null && $value !== 'all' )
+            if( $this->{$key."Query"} !== null )
             {
+
+                echo $value."is worng";
+
                 $addQuery = $this->{$key."Query"};
                 $this->where_query .= " $addQuery and ";
             }

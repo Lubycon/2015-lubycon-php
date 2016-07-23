@@ -10,10 +10,10 @@
     .$infinite_scroll->limit_query;
     $db->askQuery();
     $contents_result = $db->result;
-
+    //echo $db->query;
 
     $best_creator_result = array();
-    if( $postData->cardType == 'creator' ) //need change logic form creator of the month
+    if( $postData->type == 'creator' ) //need change logic form creator of the month
     {
         $db->query =
         "
