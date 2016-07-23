@@ -17,9 +17,9 @@ var Request = function(param){
                     success: function (res){
                         console.timeEnd("DATA LOADED");
                         console.log(res);
-                        if(typeof res === "object"){
+                        if(typeof $.parseJSON(res) === "object"){
                             param.callback({
-                                result: $.parseJSON(data),
+                                result: $.parseJSON(res),
                                 session: session,
                                 status: "0000"
                             });
@@ -48,21 +48,20 @@ var Request = function(param){
 
 var GET_CONTENTS = function(type,target){
     return {
-        data: {
-            type: type,
-            topCate: getUrlParameter("cate"),
-            sort: $(".preferFilter").lubySelector("getValueByIndex"),
-    		filter: {
-    			midCate: $(".categoryFilter").lubySelector("getValueByIndex"),
-    			license: $(".copyrightFilter").lubySelector("getValueByIndex"),
-    			continent: $(".locationFilter").lubySelector("getValueByIndex"),
-    			job: $(".jobFilter").lubySelector("getValueByIndex"),
-    			search: $(".searchFilter").lubySelector("getValueByIndex")
-    		},
-    		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
-    		nowPage: getUrlParameter("page"),
-            targetPage: getUrlParameter("page") + target
-        },
+        url: getUrlParameter("dir"),
+        type: type,
+        topCate: getUrlParameter("cate"),
+        sort: $(".preferFilter").lubySelector("getValueByIndex"),
+		filter: {
+			midCate: $(".categoryFilter").lubySelector("getValueByIndex"),
+			license: $(".copyrightFilter").lubySelector("getValueByIndex"),
+			continent: $(".locationFilter").lubySelector("getValueByIndex"),
+			job: $(".jobFilter").lubySelector("getValueByIndex"),
+			search: $(".searchFilter").lubySelector("getValueByIndex")
+		},
+		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
+		nowPage: getUrlParameter("page"),
+        targetPage: getUrlParameter("page")*1 + target
     };
 };
 
