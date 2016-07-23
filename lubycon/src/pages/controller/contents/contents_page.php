@@ -1,6 +1,5 @@
 
-<script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script>
-<script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
+
 <link href="./pages/view/contents/contents_page.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 <link href="./plugin/JS/lubySlider.css" rel="stylesheet" type="text/css" />  <!-- contents page css -->
 

@@ -8,8 +8,8 @@ $(document).ready(function(){
 		callback: init
 	});
 
-	function init(data){
-
+	function init(response){
+		var data = response.result;
 		console.log(data);
 		var content = data.contents,
 			creator = data.creator,

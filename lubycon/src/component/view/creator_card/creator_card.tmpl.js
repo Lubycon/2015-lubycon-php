@@ -1,5 +1,5 @@
 var CreatorCard = function(data){
-	this.bestCreator = data.bestCreator;
+	console.log(data.bestCreator);
 	this.code = data.code;
 	this.profile = data.profile;
 	this.name = data.name;

@@ -102,3 +102,39 @@ function loadCategoryList(callback,category){
         callback(json[v]);
     });
 }
+
+//Client -> Server
+/*var ClientToServerJSON = {
+    url: "pages/view/company/about_us",
+    cardType: enum, //contents, creator, community, comment
+    page: enum,
+    topCate: int,
+    sort: 1,
+    filter: {
+        midCate: 1,
+        license: 1,
+        continent: 1,
+        job: 1,
+        search: 1
+    },
+    searchValue: 1,
+    nowPage: 1,
+    targetPage: 1
+};
+
+//Server -> Client
+var ServerToClientJSON = {
+    header: {
+        session:{
+            $LoginState: boolean,
+
+        },
+        responseCode:{
+            code: "string",
+            message: "서버 코드에 관련된 설명"
+        }
+    },
+    result:{
+        //DATA
+    }
+};*/
