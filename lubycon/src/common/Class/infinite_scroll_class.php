@@ -92,7 +92,7 @@ class infinite_scroll extends json_control
 
         $this->url = $postData->url;
 		$this->cardType = $postData->type;
-        $this->topCateCode = $postData->topCate;
+        $this->topCateCode = isset($postData->topCate) ? $postData->topCate : null;
         $this->topCateName = isset($postData->topCate) ? $this->topCateDecode[$this->topCateCode]['name'] : null;
         $this->filter = $postData->filter;
         $this->sort = $postData->sort;
@@ -203,7 +203,7 @@ class infinite_scroll extends json_control
                 ON `artwork`.`userCode` = `userbasic`.`userCode` 
                 and `userbasic`.`userCode` = `userinfo`.`userCode` 
                 ";
-                //$this->order_query=" ORDER BY `boardCode` DESC ";
+                $this->sort = 5 ; //temp
             break;
             case 'comment' : break;
             default : die( 'initQuery switcher error' ); break;
@@ -234,7 +234,7 @@ class infinite_scroll extends json_control
             case 2 : $this->order_query = " ORDER BY a.`likeCount` DESC "; break;
             case 3 : $this->order_query = " ORDER BY a.`downloadCount` DESC "; break;
             case 4 : $this->order_query = " ORDER BY a.`commentCount` DESC "; break;
-            case 5 : $this->order_query = " ORDER BY `userCode` DESC "; break;
+            case 5 : $this->order_query = " ORDER BY `userCode` DESC "; break;//temp
             default : $this->order_query = " ORDER BY a.`contentDate` DESC "; break;
         }
 
