@@ -34,10 +34,10 @@ class Session{
 		if(isset($_SESSION) === true){
 			foreach($_SESSION as $name=>$val){
 				if(strpos($name,$this->seperator) !== false){
-					if(strpos($name,'session_id') == false){
-						if(isset($val) === true){
-						$count = $count + 1;
-						}	
+					
+					if(isset($val) === true){
+					$count = $count + 1;	
+					
 					}
 				}
 			}

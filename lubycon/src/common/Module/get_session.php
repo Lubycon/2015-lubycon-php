@@ -5,11 +5,12 @@ require_once "../Class/session_class.php";
 
 
 $json_control = new json_control;
-    $json_control->json_decode('job',"../../../data/job.json");
-    $job_json_Code = $json_control->json_decode_code;
-    $json_control->json_decode('country',"../../../data/country.json");
-    $country_json_Code = $json_control->json_decode_code;
 $session = new Session();
+
+$json_control->json_decode('job',"../../../data/job.json");
+$job_json_Code = $json_control->json_decode_code;
+$json_control->json_decode('country',"../../../data/country.json");
+$country_json_Code = $json_control->json_decode_code;
 
 	if($session->SessionExist()){
 
