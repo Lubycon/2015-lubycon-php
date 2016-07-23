@@ -6,10 +6,10 @@
 #	RSA Part(encrypt)
 #---------------------------------------------------------------------------------
 
-#---------------------------------------------------------------------------------
-#	Generate public/private Key
-#---------------------------------------------------------------------------------
-
+#
+# 출처 : https://gist.github.com/kijin/8573062
+#	  : http://d2.naver.com/helloworld/318732
+#
 # $bit : bits내 크기만큼의 RSA 키 쌍을 생성한다.
 # 		 2016.07.22일 기준 Google Developers에 따르면 1,024비트의 작은 키는 무차별 암호 
 #		 대입 공격 (brute-force guessing attack)에 대응하는데 충분하지 않으며, 4,096비트의 
@@ -44,8 +44,12 @@
 #						$password는 passpharse입니다.
 #
 # openssl_pkey_get_details : 키의 상세값(bits, key, type)을 반환합니다.
+#
+#---------------------------------------------------------------------------------
+#	Generate public/private Key
+#---------------------------------------------------------------------------------
 
-function rsa_generate_keys($password, $bits = 2048, $digest_algorithm = 'sha512'){
+function rsa_generate_keys($password , $bits = 2048, $digest_algorithm = 'sha512'){
 
 	$res = openssl_pkey_new(array('digest_alg'=>$digest_algorithm,
 								  'private_key_bits'=>$bits,
@@ -67,6 +71,7 @@ function rsa_generate_keys($password, $bits = 2048, $digest_algorithm = 'sha512'
 #---------------------------------------------------------------------------------
 #	encript plaintext using RSA public key
 #---------------------------------------------------------------------------------
+
 function rsa_encrypt($plaintext, $public_key){
 
 	$publicKey_decoded = @openssl_pkey_get_public($public_key);
@@ -83,6 +88,7 @@ function rsa_encrypt($plaintext, $public_key){
 #	decoding key using RSA private Key
 #		when decoding key it's need password
 #---------------------------------------------------------------------------------
+
 function rsa_decrypt($ciphertext, $private_key, $password){
 
 	$ciphertext = @base64_decode($ciphertext, true);
