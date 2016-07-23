@@ -17,9 +17,7 @@
 
     $sessionCheck;
 
-    if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
-        $LoginState = false;
-    }else{
+
         if($session->SessionExist()){
 
             $Loginuser_name = NULL;
@@ -61,7 +59,7 @@
         }else{
             $LoginState = false;
         }
-    }
+    
     //$sessionCheck = $activity;
     //echo "<script>console.log('$sessionCheck');</script>";
     $sessionCheck = isset($_SESSION['lubycon_validation']) ? $_SESSION['lubycon_validation'] : 'false';

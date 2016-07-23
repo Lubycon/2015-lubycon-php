@@ -59,21 +59,36 @@ var Request = function(param){
 
 var CUSTOM_GET = function(card,page){
     return {
-        //NEED DATA DEFINE
+        data: {
+            cardType: "community",
+    		page: "community",
+            topCate: getUrlParameter("cate"),
+            sort: $(".preferFilter").lubySelector("getValueByIndex"),
+    		filter: {
+    			midCate: null,
+    			license: null,
+    			continent: null,
+    			job: null,
+    			search: $(".searchFilter").lubySelector("getValueByIndex")
+    		},
+    		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
+    		nowPage: getUrlParameter("page"),
+            targetPage: getUrlParameter("page")
+        },
     };
 };
 
-function loadJobList(callback){
+var loadJobList = function(callback){
     $.getJSON('../data/job.json', function(json, textStatus) {
         callback(json.job,textStatus);
     });
-}
+};
 
-function loadCountryList(callback){
+var loadCountryList = function(callback){
     $.getJSON('../data/country.json', function(json, textStatus) {
             callback(json,textStatus);
     });
-}
+};
 
 function loadCategoryList(callback,category){
     var v;

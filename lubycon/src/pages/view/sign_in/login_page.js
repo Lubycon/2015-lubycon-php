@@ -1,6 +1,15 @@
 
 $(document).ready(function(){
-    $("#bodyer").fadeIn(500);
+
+    Request({
+	    url: "./service/controller/encrypt/RSA.php",
+	    callback: init
+	});
+
+    function init(response){
+        console.log(response);
+    }
+    /*$("#bodyer").fadeIn(500);
 
     detectLoginFail();
     detectEnterKey();
@@ -98,5 +107,5 @@ $(document).ready(function(){
             }
             $('#pass_icon').css('color','#b1b1b1');
         });
-    }
+    }*/
 });
