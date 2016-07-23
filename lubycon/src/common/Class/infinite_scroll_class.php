@@ -79,8 +79,13 @@ class infinite_scroll extends json_control
     */
 	public function __construct($postData,$Loginuser_code)
     {
-        $this->json_decode('top_category',"../../../../data/top_category.json");
-        $this->topCateDecode = $this->json_decode_code;
+        $this->cardType = $postData->type;
+        $isset_topCate = isset($postData->topCate);
+        if($isset_topCate)
+        {
+            $this->json_decode($this->cardType."_top_category","../../../../data/top_category.json");
+            $this->topCateDecode = $this->json_decode_code;
+        }
         $this->json_decode('ccCode',"../../../../data/ccCode.json");
         $this->ccDecode = $this->json_decode_code;
         $this->json_decode('job',"../../../../data/job.json");
@@ -91,9 +96,8 @@ class infinite_scroll extends json_control
         $this->Loginuser_code = $Loginuser_code;
 
         $this->url = $postData->url;
-		$this->cardType = $postData->type;
-        $this->topCateCode = isset($postData->topCate) ? $postData->topCate : null;
-        $this->topCateName = isset($postData->topCate) ? $this->topCateDecode[$this->topCateCode]['name'] : null;
+        $this->topCateCode = $isset_topCate ? $postData->topCate : null;
+        $this->topCateName = $isset_topCate ? $this->topCateDecode[$this->topCateCode]['name'] : null;
         $this->filter = $postData->filter;
         $this->sort = $postData->sort;
         $this->searchValue = $postData->searchValue;
@@ -108,7 +112,7 @@ class infinite_scroll extends json_control
         $this->searchQuery = $this->searchValue !== null ? $this->filter->search." like '%".$this->searchValue."%'" : $this->filter->search = null ;
         $this->midCateQuery = $this->filter->midCate > 0 ? $this->filter->midCate.' IN (a.`midCategoryCode0`,a.`midCategoryCode1`,a.`midCategoryCode2`)' : null;
         $this->licenseQuery = $this->filter->license > 0 ? 'a.`ccLicense` = '.($this->filter->license) : null;
-        $this->jobQuery = $this->filter->license > 0 ? 'a.`jobCode` = '.($this->filter->job) : null; 
+        $this->jobQuery = $this->filter->license > 0 ? 'ui.`jobCode` = '.($this->filter->job) : null; 
         $this->continentQuery = $this->filter->license > 0 ? 'a.`continent` = '.($this->filter->continent) : null;
         $this->bookmarkQuery = isset($this->filter->bookmark) ? 'b.`bookmarkActionUserCode` = '.$this->loginuser_code : null;
         $this->targetUserQuery = isset($this->filter->targetUser) ? 'c.`userCode` = '.$this->filter->targetUser : null;
@@ -145,7 +149,7 @@ class infinite_scroll extends json_control
                     "
                     SELECT SQL_CALC_FOUND_ROWS 
                     a.`boardCode`,a.`userCode`,a.`topCategoryCode`,a.`contentTitle`,a.`userDirectory`,a.`ccLicense`,a.`downloadCount`,a.`commentCount`,
-                    a.`viewCount`,a.`likeCount` , a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus` , c.`nick` 
+                    a.`viewCount`,a.`likeCount` , a.`midCategoryCode0`, a.`midCategoryCode1`, a.`midCategoryCode2` ,a.`contentStatus` , ub.`nick` 
                     ";
                 if($this->topCateName === 'all')
                 {
@@ -165,8 +169,8 @@ class infinite_scroll extends json_control
                         LEFT JOIN lubyconboard.`threedmidcategory`
                         USING (`boardCode`)
                     ) AS a 
-                    LEFT JOIN lubyconuser.`userbasic` AS c 
-                    ON a.`userCode` = c.`userCode` 
+                    LEFT JOIN lubyconuser.`userbasic` AS as ub
+                    ON a.`userCode` = ub.`userCode` 
                     ";
                 }else
                 {
@@ -178,8 +182,8 @@ class infinite_scroll extends json_control
                         LEFT JOIN lubyconboard.`$this->topCateName"."midcategory`
                         USING (`boardCode`)
                         ) as a
-                        left join lubyconuser.`userbasic` c
-                        ON a.`userCode` = c.`userCode`
+                        left join lubyconuser.`userbasic` as ub
+                        ON a.`userCode` = ub.`userCode`
                     ";
                 }
 
@@ -192,16 +196,29 @@ class infinite_scroll extends json_control
                 }
 
             break;
-            case 'community' : break;
+            case 'community' : 
+                $this->select_query = "SELECT * ";
+                $this->from_query = 
+                "
+                FROM lubyconboard.`$this->topCateName` as a 
+                LEFT join lubyconuser.`userbasic` as ub
+                USING (`userCode`)
+                LEFT join lubyconuser.`userinfo` as ui
+                USING (`userCode`)
+                ";
+                $this->where_query = " WHERE a.`contentStatus` = 'normal' AND";
+
+            break;
             case 'creator' : 
                 $this->select_query =
                 "SELECT  `userbasic`.`userCode` , `nick` , `jobCode` , `boardCode` , `city` , `countryCode` , `userDirectory`";
                 $this->from_query=
                 "
-                FROM lubyconboard.`artwork` INNER join lubyconuser.`userbasic` 
-                INNER join lubyconuser.`userinfo` 
-                ON `artwork`.`userCode` = `userbasic`.`userCode` 
-                and `userbasic`.`userCode` = `userinfo`.`userCode` 
+                FROM lubyconboard.`artwork` as a
+                INNER join lubyconuser.`userbasic` as ub
+                INNER join lubyconuser.`userinfo` as ui
+                ON a.`userCode` = ub.`userCode` 
+                and ub.`userCode` = ui.`userCode` 
                 ";
                 $this->sort = 5 ; //temp
             break;
@@ -279,7 +296,26 @@ class infinite_scroll extends json_control
                     );
                 }
             break;
-            case 'community' : break;
+            case 'community' : 
+                while( $row = mysqli_fetch_assoc($query_result['contents']) )
+                {
+                    $this->bind_data[] = array(
+                        'content' => array(
+                            'code' => $row['boardCode'],
+                            'title' => $row['contentTitle'],
+                            'comment' => $row['commentCount'],
+                            'like' => $row['likeCount'],
+                            'view' => $row['viewCount'],
+                            'date' => $row['contentDate']
+                        ),
+                        'user' => array(
+                            'code' => $row['userCode'],
+                            'name' => $row['nick'],
+                            'profile' => $row['profileImg']
+                        )
+                    );
+                }
+            break;
             case 'creator' : 
                 while( $row = mysqli_fetch_assoc($query_result['bestCreator']) )
                 {

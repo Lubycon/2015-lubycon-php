@@ -4,9 +4,56 @@ CREATE DATABASE IF NOT EXISTS LubyconBoard;
 USE LubyconBoard;
 
 -- forum
+DROP TABLE IF EXISTS `forum`;
+CREATE TABLE IF NOT EXISTS `forum`
+(
+	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`contentTitle` VARCHAR(255) NOT NULL,
+	`contentDate` DATETIME NOT NULL,
+	`contentDescription` TEXT,
+	`contents` TEXT NOT NULL,
+	`userDirectory` TEXT NOT NULL,
+	`viewCount` INT UNSIGNED DEFAULT '0',
+	`likeCount` INT UNSIGNED DEFAULT '0',
+	`commentCount` INT UNSIGNED DEFAULT '0',
+	`contentStatus` ENUM('normal','delete') DEFAULT 'normal',
+
+	PRIMARY KEY(`boardCode`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
+-- community like
+DROP TABLE IF EXISTS `communityLike`;
+CREATE TABLE IF NOT EXISTS `communityLike`
+( 
+	`likeID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`likeActionUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`likeBoardKind` ENUM('contents','comment') NOT NULL , 
+	`likeDate` DATETIME NOT NULL , 
 
+	PRIMARY KEY (`likeID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- community like
+DROP TABLE IF EXISTS `communityComment`;
+CREATE TABLE IF NOT EXISTS `communityComment`
+( 
+	`commentID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`commentActionUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`commentDate` DATETIME NOT NULL , 
+	`commentContents` TEXT NOT NULL , 
+	`commentLikeCount` INT UNSIGNED NOT NULL , 
+	`commentStatus` ENUM('normal','delete') DEFAULT 'normal',
+
+	PRIMARY KEY (`commentID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 

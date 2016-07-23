@@ -11,6 +11,7 @@
     $db->askQuery();
     $contents_result = $db->result;
     //echo $db->query;
+    echo $db->database->error; 
 
     $best_creator_result = array();
     if( $postData->type == 'creator' ) //need change logic form creator of the month
@@ -43,6 +44,7 @@
         ";
         $db->askQuery();
         $best_creator_result = $db->result;
+        echo $db->database->error; 
     }
 
     $result = [
