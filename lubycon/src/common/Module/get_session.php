@@ -10,9 +10,7 @@ $json_control = new json_control;
     $json_control->json_decode('country',"../../../data/country.json");
     $country_json_Code = $json_control->json_decode_code;
 $session = new Session();
-if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
-	$LoginState = false;
-}else{
+
 	if($session->SessionExist()){
 
 		$Loginuser_name = NULL;
@@ -48,6 +46,7 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 		$Loginuser_job = (isset($_SESSION['lubycon_jobCode']) === true) ? $job_json_Code[$_SESSION['lubycon_jobCode']]['name'] : NULL;
 		$Loginuser_city = (isset($_SESSION['lubycon_city']) === true) ? $_SESSION['lubycon_city'] : NULL;
 		// login menu
+		$public_key = (isset($_SESSION['lubycon_public_key']) === true) ? $_SESSION['lubycon_public_key'] : NULL;
 		
 		$session_data = array(
 			'LoginState' => $LoginState,
@@ -55,7 +54,8 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 			'usercode' => $Loginuser_code,
 			'country' => $Loginuser_country,
 			'job' => $Loginuser_job,
-			'city' => $Loginuser_city
+			'city' => $Loginuser_city,
+			'public_key' => $public_key
 		);
 		
 		$data_json = json_encode($session_data);
@@ -65,7 +65,7 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 		$data_json = json_encode($LoginState);
 		echo $data_json;
 	}
-}
+
 
 
 ?>
