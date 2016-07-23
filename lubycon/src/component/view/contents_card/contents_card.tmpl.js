@@ -64,8 +64,9 @@ ContentsCard.prototype.render = function(){
             data: {
                 countKind: 0,
                 contentKind: 0,
+                boardKind: 0,
                 conno: _this.code,
-                cate: _this.category
+                cate: _this.category,
             },
             callback: success
         });
