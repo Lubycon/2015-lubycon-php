@@ -141,30 +141,7 @@
     <div class="dark_overlay" data-value="dark_overlay"></div>
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
     <div class="alertKey hidden"></div>
-    <div class="editor_popup modal fadeInDown animated"> <!-- popup start -->
-        <p>Which content will you upload?</p>
-        <ul>
-            <li>
-                <a href="?dir=pages/view/editor/2d/2d&cate=artwork">
-                <i class="fa fa-picture-o"></i>
-                <p>Artwork</p>
-                </a>
-            </li>
-            <li>
-                <a href="?dir=pages/view/editor/2d/2d&cate=vector">
-                <i class="fa fa-object-group"></i>
-                <p>Vector</p>
-                </a>
-            </li>
-            <li>
-                <a href="?dir=pages/view/editor/3d/3d&cate=threed">
-                <i class="fa fa-cube"></i>
-                <p>3D Model</p>
-                </a>
-            </li>
-        </ul>
-        <button class="modal-closebt" data-value="modal-closebt"></button>
-    </div><!-- popup end -->
+
     <header class="main_header">
         <div id="mb-menu" class="visible-mb"><i class="fa fa-bars"></i></div>
         <h1 id="main-logo">
@@ -293,7 +270,7 @@
         </div>
         <!-- end select_box -->
     </div>
-
+<div ng-view class="app-wrapper"></div>
     <?php
         include_once "./component/view/mobile/menu.php";
     ?>

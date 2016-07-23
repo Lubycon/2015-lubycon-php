@@ -11,7 +11,7 @@
         <h2>CONTENTS</h2>
     </figure>	<!-- end main_figure -->
 </div>
-<section class="container">
+<section class="container" ng-controller="ContentsPageController">
     <section class="navsel hidden-mb-b">
         <nav class="lnb_nav">
             <ul>
