@@ -12,7 +12,49 @@ CREATE TABLE IF NOT EXISTS `forum`
 	`topCategoryCode` INT UNSIGNED NOT NULL,
 	`contentTitle` VARCHAR(255) NOT NULL,
 	`contentDate` DATETIME NOT NULL,
-	`contentDescription` TEXT,
+	`contents` TEXT NOT NULL,
+	`userDirectory` TEXT NOT NULL,
+	`viewCount` INT UNSIGNED DEFAULT '0',
+	`likeCount` INT UNSIGNED DEFAULT '0',
+	`commentCount` INT UNSIGNED DEFAULT '0',
+	`contentStatus` ENUM('normal','delete') DEFAULT 'normal',
+
+	PRIMARY KEY(`boardCode`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+
+-- tutorial
+
+DROP TABLE IF EXISTS `tutorial`;
+CREATE TABLE IF NOT EXISTS `tutorial`
+(
+	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`contentTitle` VARCHAR(255) NOT NULL,
+	`contentDate` DATETIME NOT NULL,
+	`contents` TEXT NOT NULL,
+	`userDirectory` TEXT NOT NULL,
+	`viewCount` INT UNSIGNED DEFAULT '0',
+	`likeCount` INT UNSIGNED DEFAULT '0',
+	`commentCount` INT UNSIGNED DEFAULT '0',
+	`contentStatus` ENUM('normal','delete') DEFAULT 'normal',
+
+	PRIMARY KEY(`boardCode`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- qaa
+
+DROP TABLE IF EXISTS `qaa`;
+CREATE TABLE IF NOT EXISTS `qaa`
+(
+	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`contentTitle` VARCHAR(255) NOT NULL,
+	`contentDate` DATETIME NOT NULL,
 	`contents` TEXT NOT NULL,
 	`userDirectory` TEXT NOT NULL,
 	`viewCount` INT UNSIGNED DEFAULT '0',

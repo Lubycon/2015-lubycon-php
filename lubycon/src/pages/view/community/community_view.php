@@ -1,10 +1,3 @@
-<?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    include_once('../layout/index_header.php');
-?>
-
-<script type="text/javascript" src="<?=$one_depth?>/js/call_comments.js"></script> <!-- account file js -->
 <link href="<?=$one_depth?>/css/community_view.css" rel="stylesheet" type="text/css" />  <!-- community_view css -->
 <link href="<?=$one_depth?>/css/community.css" rel="stylesheet" type="text/css" />  <!-- community css -->
 <script type="text/javascript" src="<?=$one_depth?>/js/community.js"></script>
@@ -119,23 +112,9 @@
                     </div>
                 </div>
                 <div class="comment-list">
-                    <?php
-                        for($i=1; $i<=10; $i++){
-                            include($two_depth."/layout/comment.php");
-                        };
-                    ?>
                 </div><!--end comment_list-->
                 <div class="viewmore_bt" data-value="comment"><i class="fa fa-angle-down"></i></div>
             </article>
-
-            <?php
-                include("../layout/main_board.php");
-            ?><!--end main_board section -->
         </div><!--end con_main-->
     </section>  <!-- end post_box -->
 </section>  <!-- end contents section -->
-
-
-<?php
-    include_once($two_depth.'/layout/index_footer.php');
-?>

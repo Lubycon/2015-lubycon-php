@@ -63,19 +63,19 @@ if( in_array($cate_name , $allow_array) )
     switch($cate_name)
     { 
         case 'artwork' : 
-            $contents_cate = 1; 
+            $contents_cate = 0; 
             $cate_name = 'artwork'; 
             break;
         case 'vector' : 
-            $contents_cate = 2; 
+            $contents_cate = 1; 
             $cate_name = 'vector'; 
             break;
         case 'threed' : 
-            $contents_cate = 3; 
+            $contents_cate = 2; 
             $cate_name = 'threed'; 
             break;
         default : 
-            $contents_cate = 1; 
+            die ('category code error 102'); 
             break;
     }
 }
