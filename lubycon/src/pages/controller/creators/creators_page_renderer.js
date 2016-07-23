@@ -26,7 +26,7 @@ $(document).ready(function(){
 	var detector = new InfiniteScrollDetector({
 		cardType: "creator",
 		page: "creator",
-		sort: $(".userFilter").lubySelector("getValueByIndex"),
+		sort: $(".sortFilter").lubySelector("getValueByIndex"),
 		filter: {
 			midCate: null,
 			license: null,

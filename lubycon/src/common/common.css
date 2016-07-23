@@ -1612,6 +1612,12 @@ body {
                 font-size: 17px;
                 font-weight: 200;
             }
+                .table-head-wrap span > i {
+                    margin-top: 16px;
+                }
+                .table-head-wrap span > .fa-heart {
+                    color: #48cfad;
+                }
     .table-list-wrap{
 
     }
@@ -1645,13 +1651,13 @@ body {
     .table-blank .fa-circle {
         font-size: 10px;
     }
-        #forum_circle{
+        .table-blank[data-type='0'] .fa-circle { /*FORUM*/
             color: #48cfad;
         }
-        #tutorial_circle{
+        .table-blank[data-type='1'] .fa-circle { /*TUTORIAL*/
             color: #ffbe54;
         }
-        #qna_circle{
+        .table-blank[data-type='2'] .fa-circle { /*Q&A*/
             color: #d19cd9;
         }
 .table-number-wrap{
@@ -1714,37 +1720,15 @@ body {
     margin-top: 5px;
 }
     .table-writer:hover{
-            text-decoration: underline;
-        }
+        text-decoration: underline;
+    }
 
-.table-like {
+.table-counter {
     line-height: 55px;
     font-size: 18px;
     text-align: center;
     color: #488ccb;
 }
-    .table-list .table-like {
-        display: inline-block;
-    }
-
-    .table-like .fa-heart {
-        font-size: 16px;
-        color: #48cfad;
-    }
-
-.table-view {
-    line-height: 55px;
-    font-size: 18px;
-    text-align: center;
-    color: #488ccb;
-}
-    .table-list .table-view {
-        display: inline-block;
-    }
-
-    .table-view .fa-eye {
-        font-size: 19px;
-    }
 
 .table-date {
     width: 100px;

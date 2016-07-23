@@ -1,4 +1,4 @@
-function Request(param){
+var Request = function(param){
     $.ajax({
         type: "POST",
         url: "./common/Module/get_session.php",
@@ -55,7 +55,13 @@ function Request(param){
             }
         }
     });
-}
+};
+
+var CUSTOM_GET = function(card,page){
+    return {
+        //NEED DATA DEFINE
+    };
+};
 
 function loadJobList(callback){
     $.getJSON('../data/job.json', function(json, textStatus) {
