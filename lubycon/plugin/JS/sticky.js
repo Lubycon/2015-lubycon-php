@@ -2,7 +2,6 @@
 //      sticky start
 /////////////////////////////////////////////////////////
 $(window).on("load",function(){
-    console.log(1);
     if(!isMobile()){
         var $mainHeader = $(".main_header"),
         $figure = $(".main_figure_wrap"),

@@ -2,7 +2,7 @@ console.log("INFINITE SCROLL DETECTOR IS READY");
 var InfiniteScrollDetector = function(data){
     console.log("INFINITE SCROLL : LOAD PAGE DATA-----------");
     console.log(data);
-    this.cardType = data.cardType;
+    this.cardType = data.type;
     this.page = data.page;
     this.topCate = data.topCate || null;
     this.sort= data.sort;
@@ -16,19 +16,6 @@ var InfiniteScrollDetector = function(data){
     this.searchValue = data.searchValue;
     this.nowPage = data.nowpage;
     this.targetPage = null;
-};
-InfiniteScrollDetector.prototype.setDate = function(p,v){
-    switch(p){
-        case "cardType" : this.cardType = v; break;
-        case "page" : this.page = v; break;
-        case "topCate" : this.topCate = v; break;
-        case "midCate" : this.midCate = v; break;
-        case "sort" : this.sort = v; break;
-        case "filter.license" : this.filter.license = v; break;
-        case "filter.continent" : this.fliter.continent = v; break;
-        case "serach.filter" : this.search.filter = v; break;
-        case "serach.value" : this.search.value = v; break;
-    }
 };
 InfiniteScrollDetector.prototype.getData = function(){
     return {

@@ -14,27 +14,15 @@ var Request = function(param){
                     url: param.url,
                     data: JSON.stringify(param.data),
                     cache: false,
-                    success: function (data){
+                    success: function (res){
                         console.timeEnd("DATA LOADED");
-                        //console.log(data);
-                        var response = false;
-                        try {
-                            response = jQuery.parseJSON(data);
-                        } catch (error) {
-                            console.log(data); //php error
-                        }
-                        if(response && typeof response ==='object') {
+                        console.log(res);
+                        if(typeof res === "object"){
                             param.callback({
                                 result: $.parseJSON(data),
                                 session: session,
                                 status: "0000"
                             });
-                        } else {
-                            if(response === false || response === null) {
-                                //the response was a string "false", parseJSON will convert it to boolean false
-                            }  else {
-                                //the response was something else
-                            }
                         }
                     },
                     error: function(request,status,error){
@@ -61,7 +49,7 @@ var Request = function(param){
 var GET_CONTENTS = function(type,target){
     return {
         data: {
-            cardType: type,
+            type: type,
             topCate: getUrlParameter("cate"),
             sort: $(".preferFilter").lubySelector("getValueByIndex"),
     		filter: {
