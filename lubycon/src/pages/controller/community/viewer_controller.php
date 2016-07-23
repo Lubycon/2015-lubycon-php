@@ -60,7 +60,6 @@ if( $cateCode < 3)
 }
 else
 {
-    include_once('../../404.php');
 	die ('category code error 1001'); 
 };
 
