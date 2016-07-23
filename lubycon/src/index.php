@@ -129,7 +129,7 @@
     <script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
     <script type="text/javascript" src="./component/view/contents_card/contents_card.tmpl.js"></script>
     <script type="text/javascript" src="./component/view/creator_card/creator_card.tmpl.js"></script>
-    <script type="text/javascript" scc="./component/view/mainboard/mainboard.tmpl.js"></script>
+    <script type="text/javascript" src="./component/view/mainboard/mainboard.tmpl.js"></script>
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -145,19 +145,19 @@
         <p>Which content will you upload?</p>
         <ul>
             <li>
-                <a href="?dir=pages/view/editor/2d/2d&cate=1">
+                <a href="?dir=pages/view/editor/2d/2d&cate=artwork">
                 <i class="fa fa-picture-o"></i>
                 <p>Artwork</p>
                 </a>
             </li>
             <li>
-                <a href="?dir=pages/view/editor/2d/2d&cate=2">
+                <a href="?dir=pages/view/editor/2d/2d&cate=vector">
                 <i class="fa fa-object-group"></i>
                 <p>Vector</p>
                 </a>
             </li>
             <li>
-                <a href="?dir=pages/view/editor/3d/3d&cate=3">
+                <a href="?dir=pages/view/editor/3d/3d&cate=threed">
                 <i class="fa fa-cube"></i>
                 <p>3D Model</p>
                 </a>
@@ -259,7 +259,7 @@
                 </div>
             </ul>
         </div><!-- end after sign in -->
-        <button id="addcontent_bt" class="btn hidden-mb-b" data-tip="add content"><i class="fa fa-plus"></i>Add Contents</button>
+        <button id="addcontent_bt" class="btn after_signin_class hidden-mb-b" data-tip="add content"><i class="fa fa-plus"></i>Add Contents</button>
         <!-- langage -->
         <div id="lang_select_bt" class="hidden-mb-b" style="display: none;"><!--end content button-->
             <ul>

@@ -53,10 +53,10 @@
             <section id="contents_box" class="personal con_main">
             <?php
                 $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark'];
-                echo $allow_array[$_GET['cate']];
+                $pageName = $allow_array[$_GET['cate']];
 
-                if( in_array($_GET['cate'] , $allow_array) ){
-                    include_once('./pages/view/personal_page/'.$allow_array[$_GET['cate']].'.php');
+                if( in_array($pageName , $allow_array) ){
+                    include_once("./pages/view/personal_page/$pageName.php");
                 }else {
                     include_once('./service/view/error/404.php');
                 }

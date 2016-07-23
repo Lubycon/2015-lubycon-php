@@ -1,3 +1,4 @@
+
 var Request = function(param){
     $.ajax({
         type: "POST",
@@ -29,7 +30,7 @@ var Request = function(param){
                                 status: "0000"
                             });
                         } else {
-                            if(response === false || response == null) {
+                            if(response === false || response === null) {
                                 //the response was a string "false", parseJSON will convert it to boolean false
                             }  else {
                                 //the response was something else
@@ -57,23 +58,22 @@ var Request = function(param){
     });
 };
 
-var CUSTOM_GET = function(card,page){
+var GET_CONTENTS = function(type,target){
     return {
         data: {
-            cardType: "community",
-    		page: "community",
+            cardType: type,
             topCate: getUrlParameter("cate"),
             sort: $(".preferFilter").lubySelector("getValueByIndex"),
     		filter: {
-    			midCate: null,
-    			license: null,
-    			continent: null,
-    			job: null,
+    			midCate: $(".categoryFilter").lubySelector("getValueByIndex"),
+    			license: $(".copyrightFilter").lubySelector("getValueByIndex"),
+    			continent: $(".locationFilter").lubySelector("getValueByIndex"),
+    			job: $(".jobFilter").lubySelector("getValueByIndex"),
     			search: $(".searchFilter").lubySelector("getValueByIndex")
     		},
     		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
     		nowPage: getUrlParameter("page"),
-            targetPage: getUrlParameter("page")
+            targetPage: getUrlParameter("page") + target
         },
     };
 };
@@ -102,39 +102,3 @@ function loadCategoryList(callback,category){
         callback(json[v]);
     });
 }
-
-//Client -> Server
-/*var ClientToServerJSON = {
-    url: "pages/view/company/about_us",
-    cardType: enum, //contents, creator, community, comment
-    page: enum,
-    topCate: int,
-    sort: 1,
-    filter: {
-        midCate: 1,
-        license: 1,
-        continent: 1,
-        job: 1,
-        search: 1
-    },
-    searchValue: 1,
-    nowPage: 1,
-    targetPage: 1
-};
-
-//Server -> Client
-var ServerToClientJSON = {
-    header: {
-        session:{
-            $LoginState: boolean,
-
-        },
-        responseCode:{
-            code: "string",
-            message: "서버 코드에 관련된 설명"
-        }
-    },
-    result:{
-        //DATA
-    }
-};*/

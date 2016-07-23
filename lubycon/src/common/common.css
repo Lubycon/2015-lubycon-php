@@ -562,7 +562,6 @@ body {
     font-size: 14px;
     font-weight: 200;
     opacity: 1;
-    display:none;
 }
     #addcontent_bt.btn:hover {
         border: 2px solid #87ead1;
