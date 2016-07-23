@@ -27,7 +27,7 @@
             <select class="jobFilter" data-param="job">
 				<!-- THIS IS TEST VALUES, IT WILL BE CHANGED JSON -->
             </select>
-            <select class="userFilter" data-param="filter">
+            <select class="sortFilter" data-param="filter">
                 <option>New</option>
                 <option>Most Like</option>
                 <option>Most Download</option>

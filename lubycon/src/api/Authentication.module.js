@@ -13,12 +13,5 @@ $(document).ready(function(){
             $(".signin_class").show();
             $(".after_signin_class").remove();
         }
-
-        var searchFilter = $("body").find(".searchFilter");
-        searchFilter.lubySelector({
-            width: 130,
-            theme: "transparent",
-            icon: ""
-        });
     }
 });

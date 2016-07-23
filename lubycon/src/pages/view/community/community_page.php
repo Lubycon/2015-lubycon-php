@@ -1,7 +1,7 @@
 
 <link href="./pages/view/community/community.css" rel="stylesheet" type="text/css" />
-<script type="./component/view/mainboard/mainboard.tmpl.js"></script>
-<script type="./pages/controller/community/community_page_renderer.js"></script>
+<script type="text/javascript" src="./component/view/mainboard/mainboard.tmpl.js"></script>
+<script type="text/javascript" src="./pages/controller/community/community_page_renderer.js"></script>
 <div class="main_figure_wrap hidden-mb-b">
     <figure>
         <div class="dark_overlay_small"></div>

@@ -574,7 +574,7 @@
             height: 1580px;
         }
 
-    #main_board{
+    .table-wrap{
         width: 100%;
         max-width: 800px;
         margin: 0px auto;
@@ -1040,7 +1040,7 @@
             height: 680px;
         }
 
-    #main_board{
+    .table-wrap{
         width: 90%;
         max-width: 1700px;
         margin: 50px auto;
@@ -1054,6 +1054,7 @@
         }
         .table-list .table-subject{
             font-size: 18px;
+            margin-right: 5px;
         }
         .table-writer {
             font-size: 15px;

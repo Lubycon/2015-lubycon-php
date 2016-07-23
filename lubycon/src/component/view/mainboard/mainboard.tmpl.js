@@ -1,6 +1,7 @@
-var Mainboard = function(){
+var Mainboard = function(category){
     this.data = [];
     this.lastData = [];
+    this.category = category;
 };
 
 Mainboard.prototype.add = function(data){
@@ -9,57 +10,68 @@ Mainboard.prototype.add = function(data){
         this.data.push(data[i]);
         this.lastData.push(data[i]);
     }
+    console.log(this.data);
+    console.log(this.lastData);
 };
 
 Mainboard.prototype.renderList = function(){
+    var cate = this.category;
     var d = this.lastData;
     var target = this.getDOM().find(".table-list-wrap");
 
-    var body = $("<li/>",{ "class" : "table-list" }),
-        inner = $("<div/>",{ "class" : "table-list-inner" }),
-            numberWrap = $("<span/>",{ "class" : "table-number-wrap hidden-mb-ib" }).appendTo(inner),
-                blank = $("<span/>",{
-                    "class" : "table-blank",
-                    "html" : "<i class='fa fa-circle'>"
-                }).appendTo(numberWrap),
-                number = $("<span/>",{
-                    "class" : "table-number",
-                    "html" : ""
-                }).appendTo(numberWrap),
-            profile = $("<span/>",{ "class" : "table-user-img" }).appendTo(inner),
-                img = $("<img/>",{ "src" : "" }).appendTo(profile),
-            info = $("<span/>",{ "class" : "table-info" }).appendTo(inner),
-                anchor = $("<a/>",{
-                    "href" : "?dir=pages/view/community/community_view&cate=" + "" + "&bno="
-                }).appendTo(info),
-                    subject = $("<span/>",{
-                        "class" : "table-subject",
-                        "html" : ""
-                    }).appendTo(anchor),
-                    comment = $("<span/>",{
-                        "class" : "table-comments",
-                        "html" : "[" + "" +"]"
-                    }).appendTo(anchor),
-                creator = $("<span/>",{
-                    "class" : "table-writer",
-                    "html" : ""
-                }).appendTo(info),
-            counter =  $("<div/>",{ "class" : "table-counts" }).appendTo(inner),
-                date = $("<span/>",{
-                    "class" : "table-date",
-                    "html" : ""
-                }).appendTo(counter),
-                view = $("<span/>",{
-                    "class" : "table-view",
-                    "html" : "<i class='fa fa-eye mobile_i visible-mb'></i>" + ""
-                }).appendTo(counter),
-                like = $("<span/>",{
-                    "class" : "table-view",
-                    "html" : "<i class='fa fa-heart mobile_i visible-mb'></i>" + ""
-                }).appendTo(counter);
+    for(var i = 0; i < d.length; i++){
+        addList(d[i]);
+    }
 
-    body.append(inner);
-    body.appendTo(target);
+    function addList(d){
+        var date = d.content.date.split(" ")[0];
+        var body = $("<li/>",{ "class" : "table-list", "data-index" : d.content.code}),
+            inner = $("<div/>",{ "class" : "table-list-inner" }),
+                numberWrap = $("<span/>",{ "class" : "table-number-wrap hidden-mb-ib" }).appendTo(inner),
+                    blank = $("<span/>",{
+                        "class" : "table-blank",
+                        "data-type" : cate,
+                        "html" : "<i class='fa fa-circle'>"
+                    }).appendTo(numberWrap),
+                    number = $("<span/>",{
+                        "class" : "table-number",
+                        "html" : d.content.code
+                    }).appendTo(numberWrap),
+                profile = $("<span/>",{ "class" : "table-user-img" }).appendTo(inner),
+                    img = $("<img/>",{ "src" : d.user.profile }).appendTo(profile),
+                info = $("<span/>",{ "class" : "table-info" }).appendTo(inner),
+                    anchor = $("<a/>",{
+                        "href" : "?dir=pages/view/community/community_view&cate=" + cate + "&bno=" + d.content.code
+                    }).appendTo(info),
+                        subject = $("<span/>",{
+                            "class" : "table-subject",
+                            "html" : d.content.title
+                        }).appendTo(anchor),
+                        comment = $("<span/>",{
+                            "class" : "table-comments",
+                            "html" : "[" + d.content.comment +"]"
+                        }).appendTo(anchor),
+                    creator = $("<span/>",{
+                        "class" : "table-writer",
+                        "html" : d.user.name
+                    }).appendTo(info),
+                counter =  $("<div/>",{ "class" : "table-counts" }).appendTo(inner),
+                    date = $("<span/>",{
+                        "class" : "table-date",
+                        "html" : date
+                    }).appendTo(counter),
+                    view = $("<span/>",{
+                        "class" : "table-view table-counter",
+                        "html" : "<i class='fa fa-eye mobile_i visible-mb'></i>" + d.content.view
+                    }).appendTo(counter),
+                    like = $("<span/>",{
+                        "class" : "table-view table-counter",
+                        "html" : "<i class='fa fa-heart mobile_i visible-mb'></i>" + d.content.like
+                    }).appendTo(counter);
+
+        body.append(inner);
+        body.appendTo(target);
+    }
 };
 
 Mainboard.prototype.getDOM = function(){
@@ -80,7 +92,7 @@ Mainboard.prototype.render = function(){
         view = $("<span/>",{
             "class" : "table-view hidden-mb-ib",
             "html" : "<i class='fa fa-eye'></i>"
-        }).appendto(headerWrap),
+        }).appendTo(headerWrap),
         like = $("<span/>",{
             "class" : "table-like hidden-mb-ib",
             "html" : "<i class='fa fa-heart'>"

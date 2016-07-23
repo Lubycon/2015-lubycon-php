@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `UserInfo`
 (
 	`userCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`countryCode` INT UNSIGNED NOT NULL,
+	`continentCode` INT UNSIGNED NOT NULL,
 	`jobCode` INT UNSIGNED,
 	`logCode` INT UNSIGNED,
 	`profileImg` TEXT,
@@ -118,5 +119,20 @@ CREATE TABLE IF NOT EXISTS `Log`
 	PRIMARY KEY(`logCode`)
 	
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- Log --
+DROP TABLE IF EXISTS `creatorOfTheMonth`;
+CREATE TABLE IF NOT EXISTS `creatorOfTheMonth`
+(
+	`comId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`userCode` INT UNSIGNED NOT NULL,
+	`comDate` DATE NOT NULL,
+	`comIntroduce` varChar(255) NOT NULL,
+	`comInterviewUrl` TEXT NOT NULL,
+	
+	PRIMARY KEY(`comId`)
+	
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 
 SHOW WARNINGS;
