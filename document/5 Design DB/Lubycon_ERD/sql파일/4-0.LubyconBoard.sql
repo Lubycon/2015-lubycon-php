@@ -1,8 +1,45 @@
-
 DROP DATABASE IF EXISTS LubyconBoard;
 CREATE DATABASE IF NOT EXISTS LubyconBoard;
 
 USE LubyconBoard;
+
+-- forum
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
