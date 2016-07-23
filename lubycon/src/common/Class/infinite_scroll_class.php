@@ -2,6 +2,8 @@
 class infinite_scroll extends json_control
 {
     // from ajax post
+    private $Loginuser_code = null;
+
     private $cardType;
     private $page;
     private $topCate;
@@ -41,32 +43,41 @@ class infinite_scroll extends json_control
     public $ccDecode;
 
     /*
-    private $page_kinds;
-    private $top_category;
-    private $top_cate_decode;
-    private $middle_category;
-    private $now_page;
-    private $target_page;
-    private $call_page;
-    private $start_page;
-    private $page_boundary;
-    private $page_limit = 30;
+    //Client -> Server
+    {
+        url: "페이지 URL",
+        type: enum, (contents, creator, community, comment)
+        topCate: int,
+        sort: 1,
+        filter: {
+            midCate: 1,
+            license: 1,
+            continent: 1,
+            job: 1,
+            search: 1,
+            targetUser: 1,
+            bookmark: true
+        },
+        searchValue: 1,
+        nowPage: 1,
+        targetPage: 1
+    };
 
-    private $allow_array_list;
-    private $allow_array_content = ['all','artwork','vector','threed'];
-    private $allow_array_community = ['all','forum','tutorial','qaa'];
-
-    private $filter; // array
-    private $sort; // array
-
-    public $where_query = " WHERE a.`contentStatus` = 'normal' AND "; // for query
-    public $order_query = ' ORDER BY a.`contentDate` DESC '; // for query
-    public $query;
-    public $query_foundRow = "SELECT FOUND_ROWS()";
-    
-    public $all_page_count; //all page count
+    //Server -> Client
+    {
+        header: {
+            responseCode:{
+                code: "string",
+                devMsg: "서버에서 에러난 메세지 그대로 보내주셈",
+                message: "서버 코드에 관련된 설명"
+            }
+        },
+        result:{
+            //DATA
+        }
+    };
     */
-	public function __construct($postData)
+	public function __construct($postData,$Loginuser_code)
     {
         $this->json_decode('top_category',"../../../../data/top_category.json");
         $this->topCateDecode = $this->json_decode_code;
@@ -77,8 +88,10 @@ class infinite_scroll extends json_control
         $this->json_decode('country',"../../../../data/country.json");
         $this->countryDecode = $this->json_decode_code;
 		// default arg is page kind
-		$this->cardType = $postData->cardType;
-        $this->page = $postData->page;
+        $this->Loginuser_code = $Loginuser_code;
+
+        $this->url = $postData->url;
+		$this->cardType = $postData->type;
         $this->topCateCode = $postData->topCate;
         $this->topCateName = isset($postData->topCate) ? $this->topCateDecode[$this->topCateCode]['name'] : null;
         $this->filter = $postData->filter;
@@ -97,8 +110,8 @@ class infinite_scroll extends json_control
         $this->licenseQuery = $this->filter->license !== 'all' ? 'a.`ccLicense` = '.($this->filter->license) : null;
         $this->jobQuery = $this->filter->license !== 'all' ? 'a.`jobCode` = '.($this->filter->job) : null; 
         $this->continentQuery = $this->filter->license !== 'all' ? 'a.`continent` = '.($this->filter->continent) : null;
-        $this->myBookmarkQuery;
-        $this->myContentQuery;
+        $this->bookmarkQuery = isset($this->filter->bookmark) ? 'b.`bookmarkActionUserCode` = '.$this->loginuser_code : null;
+        $this->targetUserQuery = isset($this->filter->targetUser) ? 'c.`userCode` = '.$this->filter->targetUser : null;
 
 
          //set allow array form page kinds
@@ -112,8 +125,6 @@ class infinite_scroll extends json_control
             $this->allow_array_list = $this->allow_array_community;
             $this->validateCategory();
         }
-
-
 	}
 
     private function validateCategory() //check top category form allow array
@@ -125,7 +136,7 @@ class infinite_scroll extends json_control
         }
     }
 
-    public function initQuery($Loginuser_code) //set default query option
+    public function initQuery() //set default query option
     {
         switch($this->cardType)
         {
@@ -174,10 +185,10 @@ class infinite_scroll extends json_control
 
                 $this->where_query = " WHERE a.`contentStatus` = 'normal' AND";
 
-                if($Loginuser_code != null)
+                if($this->Loginuser_code != null)
                 {
                     $this->select_query .= " ,b.`bookmarkActionUserCode` ";
-                    $this->from_query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b ON a.`boardCode` = b.`boardCode` AND a.`topCategoryCode` = b.`topCategoryCode` AND b.`bookmarkActionUserCode` = $Loginuser_code ";
+                    $this->from_query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b ON a.`boardCode` = b.`boardCode` AND a.`topCategoryCode` = b.`topCategoryCode` AND b.`bookmarkActionUserCode` = $this->Loginuser_code ";
                 }
 
             break;

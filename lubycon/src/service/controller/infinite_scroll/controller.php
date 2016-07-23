@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 // require class set value 
 require_once "../../../common/Class/json_class.php";
 require_once "../../../common/Class/infinite_scroll_class.php";
-$infinite_scroll = new infinite_scroll($postData);
-$infinite_scroll->initQuery($Loginuser_code);
+$infinite_scroll = new infinite_scroll($postData,$Loginuser_code);
+$infinite_scroll->initQuery();
 $infinite_scroll->setOption();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

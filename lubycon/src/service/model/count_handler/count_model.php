@@ -6,11 +6,13 @@ $db->query =
 select * from `lubyconboard`.`contents$ajax_countkind`
 WHERE `contents$ajax_countkind`.`".$ajax_countkind."ActionUserCode` = '$ajax_usercode'
 and `contents$ajax_countkind`.`boardCode` = '$ajax_nummber'
-and `contents$ajax_countkind`.`topCategoryCode` = '$ajax_cate_name'
+and `contents$ajax_countkind`.`topCategoryCode` = '$ajax_cate_code'
 and `contents$ajax_countkind`.`".$ajax_countkind."BoardKind` = '$content_kind'
 ";
 $db->askQuery();
 $select_result =  $db->result;
+
+echo $db->query;
 
 if( $select_result->num_rows == 0 )
 {
@@ -20,7 +22,7 @@ if( $select_result->num_rows == 0 )
 	"
 	INSERT INTO `lubyconboard`.`contents$ajax_countkind`
 	( `".$ajax_countkind."ActionUserCode`, `boardCode`, `topCategoryCode`, `".$ajax_countkind."BoardKind`, `".$ajax_countkind."Date`) VALUES
-	( '$ajax_usercode', '$ajax_nummber', '$ajax_cate_name', '$content_kind', '$active_date');
+	( '$ajax_usercode', '$ajax_nummber', '$ajax_cate_code', '$content_kind', '$active_date');
 	";
 }else if ($select_result->num_rows <= 1 )
 {
@@ -31,7 +33,7 @@ if( $select_result->num_rows == 0 )
 	`lubyconboard`.`contents".$ajax_countkind."`
 	WHERE `contents".$ajax_countkind."`.`".$ajax_countkind."ActionUserCode` = '$ajax_usercode'
 	and `contents".$ajax_countkind."`.`boardCode` = '$ajax_nummber'
-	and `contents".$ajax_countkind."`.`topCategoryCode` = '$ajax_cate_name'
+	and `contents".$ajax_countkind."`.`topCategoryCode` = '$ajax_cate_code'
 	and `contents".$ajax_countkind."`.`".$ajax_countkind."BoardKind` = '$content_kind'
 	";
 }else
@@ -39,8 +41,12 @@ if( $select_result->num_rows == 0 )
 	die('select query is wrong');
 }
 $db->askQuery();
+
+echo $db->query;
 $db->query = "UPDATE `lubyconboard`.`$ajax_cate_name` SET `$ajax_countkind_name` = `$ajax_countkind_name` $stat_check WHERE `$ajax_cate_name`.`boardCode` = $ajax_nummber";
 $db->askQuery(); 
+
+echo $db->query;
 
 
 ?>
