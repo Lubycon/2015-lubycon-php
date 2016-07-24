@@ -28,10 +28,11 @@ $number = $postData->bno;
 $cate = (int)$postData->cate;
 */
 
+$boardCode = $_POST['code'];
 $topCateCode = $_POST['topCate'];
 if( $topCateCode < 3 )
 {
-	$json_control->json_decode('community_top_category',"../../../../data/top_category.json");
+	$json_control->json_decode('contents_top_category',"../../../../data/top_category.json");
 	$topCate_decode = $json_control->json_decode_code;
 
 	$topCateName = $topCate_decode[$topCateCode]['name'];
@@ -40,12 +41,37 @@ if( $topCateCode < 3 )
 	die ('category code error 1001'); 
 }
 
-$userCode = $_SESSION['lubycon_userCode'];
-$contentTitle = $_POST['title'];
-$contentDate = date("YmdHis");
-$contents = htmlspecialchars($_POST['contents']);
-$userDir = "../../../../../../Lubycon_Contents/community/$topCateName/$contentDate"."_$userCode";
+$title = $_POST['title'];
+$date = date("YmdHis");
+$desc = $_POST['desc'];
+$thumbnail = $_POST['thumbnail'];
+$downloadAble = $_POST['downloadAble'];
+$midCate = $_POST['midCate'];
+$tag = $_POST['tag'];
+$tagQuery;
+$cc = $_POST['cc'];
 
 
-include_once('../../model/community/write_model.php');
+
+$cc_code = ((int)$post->cc->by.(int)$postData->cc->nc.(int)$postData->cc->nd.(int)$postData->cc->sa);
+if( !$postData->cc->ccused ) // cc licence 
+{
+	$cc_license = 'No-Distribution';
+	$cc_code = '0';
+}else if($postData->cc->nd || $postData->cc->sa) // cc licence 
+{
+	$cc_license = 'No-Distribution';
+}else if($postData->cc->nc)
+{
+	$cc_license = 'No-Commercial';
+}else if($postData->cc->by)
+{
+	$cc_license = 'Free';
+}
+foreach($tag as $key => $value) // for tag query
+{
+	$tagQuery .= " tag$key = $value ";
+}
+
+include_once('../../model/contents/update_model.php');
 ?>

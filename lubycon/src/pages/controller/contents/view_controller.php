@@ -85,7 +85,7 @@ else
     die('wrong category');
 };
 
-include_once('../../model/contents/model.php');
+include_once('../../model/contents/viewer_model.php');
 
 // contetnts data
 $my_job_origin_select = $job_decode[$row["jobCode"]]['name'];
