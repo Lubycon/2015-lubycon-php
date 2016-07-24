@@ -1,52 +1,54 @@
 <?php
 # this class is session handling class
 class Session{
-	protected $session_id;
+	protected $id;
 	protected $seperator;
+	protected $error;
 
-	public function __construct($seperator = "lubycon", $session_name = "lubycon"){
+	public function __construct($seperator = "lubycon", $session_name = "lubycon",$max_lifeTime = 1440, $lifeTime = 0){
 		session_name($session_name);
 
 		if(!isset($_SESSION)){
 			$this->$session_name = $session_name;
-			$this-> InitSession();
+			$this-> InitSession($max_lifeTime, $lifeTime);
 		}
-		$this->session_id = session_id();
+		$this->id = session_id();
 		$this->seperator = $seperator;
+
+		if($this->error)
+			die("didn't start Session");
 	}
 
-	public function InitSession(){
-		session_start();
+	public function InitSession($max_lifeTime, $lifeTime){
+		$this->error = session_start();
 		# set php.ini
 		# set session expire time maximum 1440(if do not anything)
 		# set session lifetime 0(if exit browser delete session)
-		ini_set("session.gc_maxlifetime", 1440);
-		ini_set("session.cookie_lifetime", 0);
+		ini_set("session.gc_maxlifetime", $max_lifeTime);
+		ini_set("session.cookie_lifetime", $lifeTime);
 	}
 
 	public function SessionId(){
-		$this->session_id = session_id();
-		return isset($this->session_id);
+		$this->id = session_id();
+		return isset($this->id);
 	}
 
 	public function SessionExist(){
 		$count = 0;
-		if(isset($_SESSION) === true){
+		
+		if(isset($_SESSION)){
 			foreach($_SESSION as $name=>$val){
 				if(strpos($name,$this->seperator) !== false){
 					if(strpos($name,'session_id') == false){
-						if(isset($val) === true){
-						$count = $count + 1;
-						}	
+						
+						if(isset($val) === true)
+							$count = $count + 1;
+							
 					}
 				}
 			}
 		}
-		if($count > 0){
-			return true;
-		}else{
-			return false;
-		}
+		return ($count > 0) ? true : false;
 	}
 
 	public function WriteSession($seperator="lubycon",$array){
@@ -99,7 +101,7 @@ class Session{
 	}
 
 	public function FreeResource(){
-		$this->session_id = null;
+		$this->id = null;
 		$this->user_id = null;
 		$this->user_nick = null;
 		$this->user_code = null;
