@@ -34,7 +34,7 @@ $json_control->json_decode('community_top_category',"../../../../data/top_catego
 $topCate_decode = $json_control->json_decode_code;
 
 
-$userCode = $postData->result->userCode;
+$userCode = $_SESSION['lubycon_userCode'];
 $boardCode = $postData->result->boardCode;
 $topCateCode = $postData->result->cate;
 $topCateName = $topCate_decode[$topCateCode]['name'];

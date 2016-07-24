@@ -36,22 +36,23 @@
 			) 
 		);
     }
-    /*
     while($forum_data_row = mysqli_fetch_assoc($forum_result)){
-		array_push(
-			$contents_data[$forum_data_row['topCategoryCode']], 
-			array( 
-				'boardCode' => $forum_data_row['boardCode'], 
+		$forum_data = array( 
+			'userData' => array(
 				'name' => $forum_data_row['nick'], 
-				'title' => $forum_data_row['title'], 
-				'viewCount' => $forum_data_row['viewCount'], 
-				'likeCount' => $forum_data_row['likeCount'], 
-				'commentCount' => $forum_data_row['commentCount'], 
-				'contents' => $forum_data_row['contents'], 
-			) 
+			),
+			'contentData' => array(
+				'boardCode' => $forum_data_row['boardCode'], 
+				'title' => $forum_data_row['contentTitle'],  
+				'contents' => $forum_data_row['contents'],
+				'count' => array(
+					'view' => $forum_data_row['viewCount'], 
+					'like' => $forum_data_row['likeCount'], 
+					'comment' => $forum_data_row['commentCount']
+				)
+			)
 		);
     }
-	*/
     while($bestCreator_row = mysqli_fetch_assoc($bestCreator_result)){
 		$bestCreator_data = array(
 			'userData' => array(

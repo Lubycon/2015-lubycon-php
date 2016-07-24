@@ -12,7 +12,7 @@ and `contents$ajax_countkind`.`".$ajax_countkind."BoardKind` = '$content_kind'
 $db->askQuery();
 $select_result =  $db->result;
 
-echo $db->query;
+//echo $db->query;
 
 if( $select_result->num_rows == 0 )
 {
@@ -42,11 +42,11 @@ if( $select_result->num_rows == 0 )
 }
 $db->askQuery();
 
-echo $db->query;
+//echo $db->query;
 $db->query = "UPDATE `lubyconboard`.`$ajax_cate_name` SET `$ajax_countkind_name` = `$ajax_countkind_name` $stat_check WHERE `$ajax_cate_name`.`boardCode` = $ajax_nummber";
 $db->askQuery(); 
 
-echo $db->query;
+//echo $db->query;
 
 
 ?>
