@@ -1,11 +1,14 @@
 $(document).ready(function(){
 	$("#loading_icon").show();
-	loadJobList(initJob);
-	Request({
-	    url: "./service/controller/infinite_scroll/controller.php",
-        data: new GET_CONTENTS("creator",0),
-	    callback: init
-	});
+	$.when(
+        loadJobList(initJob)
+    ).then(function(){
+        Request({
+		    url: "./service/controller/infinite_scroll/controller.php",
+	        data: new GET_CONTENTS("creator",0),
+		    callback: init
+		});
+    });
 
 	var detector = new InfiniteScrollDetector(new GET_CONTENTS("creator",0));
 

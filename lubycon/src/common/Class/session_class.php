@@ -1,17 +1,22 @@
 <?php
 # this class is session handling class
 class Session{
+	
 	protected $id;
 	protected $seperator;
 	protected $error;
 
 	public function __construct($seperator = "lubycon", $session_name = "lubycon",$max_lifeTime = 1440, $lifeTime = 0){
+		
 		session_name($session_name);
 
-		if(!isset($_SESSION)){
-			$this->$session_name = $session_name;
+		$this->error = array();
+		$this->error['error'] = 0000;
+		$this->error['contents']='';
+
+		if(!isset($_SESSION))
 			$this-> InitSession($max_lifeTime, $lifeTime);
-		}
+		
 		$this->id = session_id();
 		$this->seperator = $seperator;
 
@@ -20,12 +25,27 @@ class Session{
 	}
 
 	public function InitSession($max_lifeTime, $lifeTime){
-		$this->error = session_start();
+		if(!session_start()){
+			$this->error['error']++;
+			$this->error['contetns'] .= "/ Didn't started Session ";
+		}
+		
 		# set php.ini
 		# set session expire time maximum 1440(if do not anything)
 		# set session lifetime 0(if exit browser delete session)
-		ini_set("session.gc_maxlifetime", $max_lifeTime);
-		ini_set("session.cookie_lifetime", $lifeTime);
+		if(!ini_set("session.gc_maxlifetime", $max_lifeTime)){
+			$this->error['error']++;
+			$this->error['contents'] .= "/ Didn't set Session maxlifeTime ";
+		}
+
+		if(!ini_set("session.cookie_lifetime", $lifeTime)){
+			$this->error['error']++;
+			$this->error['contents'] .= "/ Didn't set Session lifeTime";
+		}
+	}
+
+	public function isError(){
+		return (count($this->error['error']) > 0) ? true : false;
 	}
 
 	public function SessionId(){
@@ -60,19 +80,6 @@ class Session{
 			if($key !== "pass")
 				$_SESSION[$seperator.'_'.$key] = $value;
 		}
-		
-		/*
-		$temp_sessionId = $seperator.'_session_id';
-		$temp_id = $seperator.'_id';
-		$temp_nick = $seperator.'_nick';
-		$temp_code = $seperator.'_code';
-		$temp_validation = $seperator.'_validation';
-
-		$_SESSION[$temp_sessionId] = $this->session_id = session_id();
-		$_SESSION[$temp_id] = $this->user_id = $id;
-		$_SESSION[$temp_nick] = $this->user_nick = $nick;
-		$_SESSION[$temp_code] = $this->user_code = $code;
-		*/
 	}
 
 	public function DestroySession(){

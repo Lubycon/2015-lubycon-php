@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-
+    $("#bodyer").fadeIn(500);
     Request({
 	    url: "./service/controller/encrypt/RSA.php",
 	    callback: init
@@ -8,15 +8,13 @@ $(document).ready(function(){
 
     function init(response){
         console.log(response);
+        detectLoginFail();
+        detectEnterKey();
+        loginInputAction();
+
+        $("#create_acc").on("click",callCreateAccountWindow);
+
     }
-    /*$("#bodyer").fadeIn(500);
-
-    detectLoginFail();
-    detectEnterKey();
-    loginInputAction();
-
-    $("#create_acc").on("click",callCreateAccountWindow);
-
     function detectLoginFail(){
         if(getUrlParameter("login") === "0") {
             $(".alertKey.hidden").lubyAlert({
@@ -107,5 +105,5 @@ $(document).ready(function(){
             }
             $('#pass_icon').css('color','#b1b1b1');
         });
-    }*/
+    }
 });
