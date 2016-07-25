@@ -1,6 +1,6 @@
 
 var Request = function(param){
-    $.ajax({
+    return $.ajax({
         type: "POST",
         url: "./common/Module/get_session.php",
         cache: false,
@@ -39,7 +39,6 @@ var Request = function(param){
             }
             else {
                 console.log("SESSION LOAD SUCCESS");
-                console.log(session);
                 param.callback(session);
             }
         }
@@ -67,13 +66,13 @@ var GET_CONTENTS = function(type,target){
 };
 
 var loadJobList = function(callback){
-    $.getJSON('../data/job.json', function(json, textStatus) {
+    return $.getJSON('../data/job.json', function(json, textStatus) {
         callback(json.job,textStatus);
     });
 };
 
 var loadCountryList = function(callback){
-    $.getJSON('../data/country.json', function(json, textStatus) {
+    return $.getJSON('../data/country.json', function(json, textStatus) {
             callback(json,textStatus);
     });
 };
@@ -86,7 +85,7 @@ var  loadCategoryList = function(callback,category){
         case 3 : v = "threed"; break;
         default: v = "all"; break;
     }
-    $.getJSON('../data/middle_category.json', function(json, testStatus){
+    return $.getJSON('../data/middle_category.json', function(json, testStatus){
         callback(json[v]);
     });
 }
