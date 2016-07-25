@@ -11,11 +11,10 @@
             <div id="login_input">
                     <input type="text" id="login_id" name="login_id" value="E-mail"/><i id="email_icon" class="fa fa-user"></i>
                     <input type="password" id="login_pass" name="login_pass" value="Password" /><i id="pass_icon" class="fa fa-key"></i>
-            </div> <!-- end login_input div --> 
+            </div> <!-- end login_input div -->
             <button type="submit" id="login_lubycon" class="animate_width"><i class="fa fa-unlock-alt"></i></button><!--submit bt-->
         </form><!--end login_input form-->
-        <p id="create_acc">Create An Account</p> 
-        <a href="./index.php?dir=pages/view/sign_in/find_password" target="_self"><p id="forgot_pass">Forgot your password?</p></a>          
+        <p id="create_acc">Create An Account</p>
+        <a href="./index.php?dir=pages/view/sign_in/find_password" target="_self"><p id="forgot_pass">Forgot your password?</p></a>
     </div>  <!-- end login_box div -->
 </div>
- 
