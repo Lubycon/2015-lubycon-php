@@ -31,11 +31,11 @@
     $userjob = $Loginuser_job;
     $user_img_url = "../../../../../../../Lubycon_Contents/user/$usercode/profile.jpg";
     $allow_array = ['all','artwork','vector','threed'];
-    if( in_array($cate , $allow_array) )
+    if( $cate < 2 )
     {
         switch($cate){ //check category
-        case 'artwork' : $contents_cate = 1; $cate_name = 'artwork'; break;
-        case 'vector' : $contents_cate = 2; $cate_name = 'vector'; break;
+        case '0' : $contents_cate = 1; $cate_name = 'artwork'; break;
+        case '1' : $contents_cate = 2; $cate_name = 'vector'; break;
         default : die('top category error'); break;
         }
     }else
