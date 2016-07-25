@@ -6,7 +6,7 @@ $(document).ready(function(){
         console.log(1);
         Request({
     	    url: "./service/controller/infinite_scroll/controller.php",
-            data: new GET_CONTENTS("content",0),
+            data: new GET_CONTENTS("contents",0),
     	    callback: init
     	});
     });

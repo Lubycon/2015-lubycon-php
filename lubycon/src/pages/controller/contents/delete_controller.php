@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     die('it is not post data error code 0000');
 }
 
-$json_control->json_decode('community_top_category',"../../../../data/top_category.json");
+$json_control->json_decode('contents_top_category',"../../../../data/top_category.json");
 $topCate_decode = $json_control->json_decode_code;
 
 
@@ -41,7 +41,7 @@ $topCateName = $topCate_decode[$topCateCode]['name'];
 
 if( $_SESSION['lubycon_userCode'] === $userCode )
 {
-	require_once '../../model/community/delete_model.php';
+	require_once '../../model/contents/delete_model.php';
 }else
 {
 	die('error code : 300');

@@ -31,7 +31,7 @@ $json_control->json_decode('job',"../../../../data/job.json");
 $job_decode = $json_control->json_decode_code;
 $json_control->json_decode('country',"../../../../data/country.json");
 $country_decode = $json_control->json_decode_code;
-$json_control->json_decode("content_top_category","../../../../data/top_category.json");
+$json_control->json_decode("contents_top_category","../../../../data/top_category.json");
 $top_cate_decode = $json_control->json_decode_code;
 $cate_name = $top_cate_decode[$cate]['name'];
 $json_control->json_decode($cate_name,"../../../../data/middle_category.json");
@@ -85,7 +85,7 @@ else
     die('wrong category');
 };
 
-include_once('../../model/contents/model.php');
+include_once('../../model/contents/viewer_model.php');
 
 // contetnts data
 $my_job_origin_select = $job_decode[$row["jobCode"]]['name'];

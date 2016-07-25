@@ -44,8 +44,7 @@ $userCode = $_SESSION['lubycon_userCode'];
 $contentTitle = $_POST['title'];
 $contentDate = date("YmdHis");
 $contents = htmlspecialchars($_POST['contents']);
-$userDir = "../../../../../../Lubycon_Contents/community/$topCateName/$contentDate"."_$userCode";
+//$userDir = "../../../../../../Lubycon_Contents/community/$topCateName/$contentDate"."_$userCode";
 
-
-include_once('../../model/community/write_model.php');
+include_once('../../model/community/update_model.php');
 ?>

@@ -135,6 +135,8 @@ class infinite_scroll extends json_control
     {
         if( !in_array($this->topCateName , $this->allow_array_list) )
         {
+            echo $this->topCateName;
+            print_r($this->allow_array_list);
             echo 'Unknown top category name errorCode:0001';
             die();
         }
@@ -144,7 +146,7 @@ class infinite_scroll extends json_control
     {
         switch($this->cardType)
         {
-            case 'content' :
+            case 'contents' :
                 $this->select_query = 
                     "
                     SELECT SQL_CALC_FOUND_ROWS 
@@ -269,7 +271,7 @@ class infinite_scroll extends json_control
     {
         switch($this->cardType)
         {
-            case 'content' :
+            case 'contents' :
                 while( $row = mysqli_fetch_assoc($query_result['contents']) )
                 {
                     $bookmark_check = isset($row['bookmarkActionUserCode']) ? 'true' : 'false';

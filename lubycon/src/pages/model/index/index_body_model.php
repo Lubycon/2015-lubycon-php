@@ -54,7 +54,26 @@ FROM
 
 
 
-/*$db->query = "SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`forum` LEFT JOIN lubyconuser.`userbasic` ON `forum`.`userCode` = `userbasic`.`userCode` UNION SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`qaa` LEFT JOIN lubyconuser.`userbasic` ON `qaa`.`userCode` = `userbasic`.`userCode` UNION SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`tutorial` LEFT JOIN lubyconuser.`userbasic` ON `tutorial`.`userCode` = `userbasic`.`userCode` ORDER BY `viewCount` DESC LIMIT 5 ";
+$db->query = 
+"
+SELECT 
+a.`boardCode`,
+a.`contentTitle`,
+a.`viewCount`,
+a.`likeCount`,
+a.`commentCount`,
+a.`contents`,
+ub.`nick`
+FROM 
+( 
+	SELECT * FROM lubyconboard.`forum`
+	UNION SELECT * FROM lubyconboard.`tutorial`
+	UNION SELECT * FROM lubyconboard.`qaa`
+) AS a 
+LEFT JOIN lubyconuser.`userbasic` as ub
+USING (`userCode`)
+ORDER BY `viewCount` DESC LIMIT 5 
+";
 $db->askQuery();
-$forum_data_row = $db->result;*/
+$forum_result = $db->result;
 ?>
