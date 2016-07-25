@@ -443,7 +443,7 @@ body {
 
 /* popup end */
 
-.main_header {
+#main-header {
     width: 100%;
     background-color: #222;
     position: fixed;
@@ -452,10 +452,10 @@ body {
     border-bottom: 1px solid #111;
 }
 
-.main_header h1#main-logo /* main logo */ {
+#main-header h1#main-logo /* main logo */ {
     position: absolute;
 }
-    .main_header h1 img {
+    #main-header h1 img {
         width: 100%;
     }
 #main_gnb {

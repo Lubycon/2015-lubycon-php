@@ -8,7 +8,6 @@ $(document).ready(function(){
     function initUIComponents(){
         /////////// COMMON //////////////
 
-        mainNavigationAction();
         initSubNavInContentPage();
         initPageLanguageAction();
         initPersonalMenu();
@@ -38,13 +37,6 @@ $(document).ready(function(){
 
     }
 
-    function mainNavigationAction(){
-        $(".bigsub").hover(function(){
-            $(this).children("ul").stop().fadeIn(300);
-        },function(){
-            $(this).children("ul").stop().fadeOut(300);
-        });
-    }
     function initSubNavInContentPage(){
         $('.lnb_nav ul').children('#' + CATE_PARAM).addClass('selected');
         $('#subnav ul').children('#' + CATE_PARAM).addClass('selected');

@@ -169,7 +169,7 @@
                     margin-top: 13px;
                 }
 /*---------------------------------MOBILE WRAP WORK END-------------------------*/
-    .main_header {
+    #main-header {
         height: 50px;
     }
         #mb-menu {
@@ -291,7 +291,7 @@
                     #mb-user-setting i{
                         color: #ffffff;
                     }
-        .main_header h1#main-logo{
+        #main-header h1#main-logo{
             width: 100px;
             top: 16px;
             left: 50%;
@@ -778,10 +778,10 @@
     .hidden-mb-b{
         display: block;
     }
-    .main_header{
+    #main-header{
         height: 50px;
     }
-        .main_header h1#main-logo {
+        #main-header h1#main-logo {
             width: 160px;
             left: 3px;
             top: 9px;

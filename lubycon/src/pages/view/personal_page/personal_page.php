@@ -51,17 +51,23 @@
                 </div>
             </aside>
             <section id="contents_box" class="personal con_main">
-            <?php
-                $allow_array = ['dashboard','my_contents','my_forums','insight','bookmark'];
-                $pageName = $allow_array[$_GET['cate']];
 
-                if( in_array($pageName , $allow_array) ){
-                    include_once("./pages/view/personal_page/$pageName.php");
-                }else {
-                    include_once('./service/view/error/404.php');
-                }
-            ?>
             </section><!--end con_main-->
         </section><!--end con_wrap-->
     </section><!--end personal_view-->
 </section><!-- end contents section -->
+
+
+
+
+<!--personal.config.js-->
+<script type="text/javascript">
+$(function(){
+    var page = getUrlParameter("cate");
+    console.log(page);
+    var baseURL = "./pages/view/personal_page/";
+    $("#contents_box").load(baseURL + page + ".php",function(){
+        console.log(page + " is loaded");
+    });
+});
+</script>
