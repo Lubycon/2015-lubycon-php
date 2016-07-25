@@ -77,23 +77,7 @@ $(document).ready(function(){
             }
         }
     }
-    function initPersonalMenu(){
-        var menu = $("#after_signin"),
-            list = menu.find("ul");
-        menu.on("click",toggle.single).on("click",toggleAction);
-
-        function toggleAction(){
-            var $this = $(this);
-            if($this.hasClass("selected")){
-                list.stop().fadeIn(200);
-                list.hideAnywhere($this);
-            }
-            else {
-                list.stop().fadeOut(200);
-                list.off("hideAnywhere");
-            }
-        }
-    }
+    
     function editorSelectorAction(){
         var modal = $(".editor_popup.modal"),
             darkOverlay = $(".dark_overlay"),
