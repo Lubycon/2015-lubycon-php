@@ -10,7 +10,6 @@ $(document).ready(function(){
 
         initSubNavInContentPage();
         initPageLanguageAction();
-        initPersonalMenu();
         initLubySelectors();
         initLubyAlerts();
         initModalCloseAction();
@@ -77,7 +76,7 @@ $(document).ready(function(){
             }
         }
     }
-    
+
     function editorSelectorAction(){
         var modal = $(".editor_popup.modal"),
             darkOverlay = $(".dark_overlay"),
