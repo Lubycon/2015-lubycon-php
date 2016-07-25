@@ -1,82 +1,3 @@
-<?php
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
-	require_once "./common/common.php";
-    require_once "./common/Module/url_controller.php";
-    require_once "./common/Class/json_class.php";
-    require_once "./common/Class/session_class.php";
-
-    $json_control = new json_control;
-    $session = new Session();
-    $inactive_user = false;
-
-    $json_control->json_decode('job',"../data/job.json");
-    $job_json_Code = $json_control->json_decode_code;
-    $json_control->json_decode('country',"../data/country.json");
-    $country_json_Code = $json_control->json_decode_code;
-
-    $sessionCheck;
-
-
-        if($session->SessionExist()){
-
-            $Loginuser_name = NULL;
-            $Loginuser_id = NULL;
-            $Loginuser_code = NULL;
-            $Loginuser_job = NULL;
-            $Loginuser_city = NULL;
-            $Loginuser_country = NULL;
-            $Loginuser_profile = NULL;
-
-            if(isset($_SESSION['lubycon_validation']))
-            {
-                $activity = NULL;
-
-                if($_SESSION['lubycon_validation'] === true)
-                    $activity = true;
-                else if($_SESSION['lubycon_validation'] === false)
-                    $activity = false;
-                else
-                    $activity = false;
-
-                if($activity === false)
-                    $inactive_user = true;
-
-            }else{
-                $session->DestroySession();
-            }
-
-            $LoginState = true;
-
-            $Loginuser_name = (isset($_SESSION['lubycon_nick']) === true) ? $_SESSION['lubycon_nick'] : NULL;
-            $Loginuser_id = (isset($_SESSION['lubycon_id']) === true) ? $_SESSION['lubycon_id'] : NULL;
-            $Loginuser_code = (isset($_SESSION['lubycon_userCode']) === true) ? $_SESSION['lubycon_userCode'] : NULL;
-            $Loginuser_country = (isset( $_SESSION['lubycon_countryCode']) === true) ? $country_json_Code[$_SESSION['lubycon_countryCode']]['name'] : NULL;
-            $Loginuser_job = (isset($_SESSION['lubycon_jobCode']) === true) ? $job_json_Code[$_SESSION['lubycon_jobCode']]['name'] : NULL;
-            $Loginuser_city = (isset($_SESSION['lubycon_city']) === true) ? $_SESSION['lubycon_city'] : NULL;
-            $Loginuser_profile = (isset($_SESSION['lubycon_profile']) === true) ? $_SESSION['lubycon_profile'] : NULL;
-            // login menu
-        }else{
-            $LoginState = false;
-        }
-
-    //$sessionCheck = $activity;
-    //echo "<script>console.log('$sessionCheck');</script>";
-    $sessionCheck = isset($_SESSION['lubycon_validation']) ? $_SESSION['lubycon_validation'] : 'false';
-    if( isset($_SESSION['lubycon_validation']) )
-        echo "<script>console.log('session validation have exist : $sessionCheck');</script>";
-    else
-        echo "<script>console.log('session validation does not exist');</script>";
-    /*
-    if($sessionCheck){
-        echo "<script>console.log('session is true');</script>";
-    }else{
-        echo "<script>console.log('session is false');</script>";
-    }
-    */
-?>
-
-
 <!DOCTYPE html>
 <html ng-app="App">
 <head>
@@ -121,6 +42,7 @@
     <script type="text/javascript" src="./common/Module/_prototype.js"></script>
     <script type="text/javascript" src="./api/Authentication.module.js"></script>
     <script type="text/javascript" src="./api/Request.module.js"></script>
+    <script type="text/javascript" src="./config/router.config.js"></script>
     <script type="text/javascript" src="./common/common.js"></script>
 
     <script type="text/javascript" src="./component/view/index/ui.js"></script>
@@ -270,31 +192,6 @@
         </div>
         <!-- end select_box -->
     </div>
-<div ng-view class="app-wrapper"></div>
-    <?php
-        include_once "./component/view/mobile/menu.php";
-    ?>
-    <!--INCLUDE BODY-->
-<?php
-    if(!$inactive_user){
-        if($BODY_URL) {
-            include_once "./".$BODY_URL;
-        }else{
-            include_once "./pages/view/index/index_body.php";
-        }
-    }
-    else{ // 비인증 회원일 경우
-        if($BODY_URL === "service/view/success_account.php")
-            include_once "./".$BODY_URL;
-        else
-            include_once "./service/view/waiting_for_resisting.php";
-    }
-
-
-
-    include_once "./component/view/index/index_footer.php";
-
-?>
-
+    <div id="app-wrapper" ng-view class="app-wrapper"></div>
 </div>
 </body>

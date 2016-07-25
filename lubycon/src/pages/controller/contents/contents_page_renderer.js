@@ -1,15 +1,11 @@
 $(document).ready(function(){
     $("#loading_icon").show();
-    $.when(
-        loadCategoryList(initCategory, CATE_PARAM)
-    ).then(function(){
-        console.log(1);
-        Request({
-    	    url: "./service/controller/infinite_scroll/controller.php",
-            data: new GET_CONTENTS("contents",0),
-    	    callback: init
-    	});
-    });
+    loadCategoryList(initCategory);
+    Request({
+	    url: "./service/controller/infinite_scroll/controller.php",
+        data: new GET_CONTENTS("content",0),
+	    callback: init
+	});
 
     function init(response){
         //var detector = new InfiniteScrollDetector(new GET_CONTENTS("content",0));
