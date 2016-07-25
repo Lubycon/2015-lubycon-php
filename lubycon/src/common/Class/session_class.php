@@ -15,7 +15,7 @@ class Session{
 		$this->id = session_id();
 		$this->seperator = $seperator;
 
-		if($this->error)
+		if(!$this->error)
 			die("didn't start Session");
 	}
 
