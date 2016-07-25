@@ -21,8 +21,8 @@ if( $select_result->num_rows == 0 )
 	$db->query =
 	"
 	INSERT INTO `lubyconboard`.`contents$ajax_countkind`
-	( `".$ajax_countkind."GiveUserCode`, `boardCode`, `topCategoryCode`, `".$ajax_countkind."BoardKind`, `".$ajax_countkind."Date`) VALUES
-	( '$ajax_usercode', '$ajax_nummber', '$ajax_cate_code', '$content_kind', '$active_date');
+	( `".$ajax_countkind."GiveUserCode`, `".$ajax_countkind."TakeUserCode` , `boardCode`, `topCategoryCode`, `".$ajax_countkind."BoardKind`, `".$ajax_countkind."Date`) VALUES
+	( '$ajax_give_usercode','$ajax_take_usercode','$ajax_nummber', '$ajax_cate_code', '$content_kind', '$active_date');
 	";
 }else if ($select_result->num_rows <= 1 )
 {

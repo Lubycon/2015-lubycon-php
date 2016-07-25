@@ -48,7 +48,8 @@ if($LoginState)
     $ajax_nummber = $postData->conno; // contents boradCode
     $ajax_cate_code = $postData->cate; //0 1 2 
     $ajax_cate_name = $top_cate_json[$ajax_cate_code]['name'];
-    $ajax_usercode = $Loginuser_code; // userCode
+    $ajax_give_usercode = $Loginuser_code; // userCode
+    $ajax_take_usercode = $postData->usercode; // userCode
 
     $active_date = date("YmdHis");
 
