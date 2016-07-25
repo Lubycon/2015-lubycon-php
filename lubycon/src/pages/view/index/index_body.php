@@ -8,13 +8,23 @@
     <figure>
         <h2>Connect your <b>Creativity</b> with the <b>World</b></h2>
     </figure>
+    <div id="main_search_bar" class="search-bar">
+        <input type="text" class="search-bar-text" value="Enter the keyword" />
+        <button class="out search-btn">
+            <i class="fa fa-search"></i>
+        </button>
+        <div class="select-box">|
+            <select class="searchFilter" data-param="search">
+                <option data-value="All">All</option>
+                <option data-value="Contents">Contents</option>
+                <option data-value="Creatorr">Creator</option>
+                <option data-value="Community">Community</option>
+            </select>
+        </div>
+        <!-- end select_box -->
+    </div>
 </div>
 <!-- end main_figure -->
-
-<?php 
-    include_once "./pages/view/index/index_body.mobile.php";
-?>
-
 <!-- index page slider plugin -->
 <section id="slide_section" class="index_pre_body hidden-mb-b">
     <nav id="slide_lnb">
@@ -30,7 +40,7 @@
 <section class="index_pre_body hidden-mb-b">
     <div class="index_pre_wrap">
         <div class="index_pre_title">
-            <i class="fa fa-trophy"></i>   
+            <i class="fa fa-trophy"></i>
             <article><b>CREATOR</b> OF THE MONTH</article>
         </div>
         <div class="index_pre_inner">
@@ -55,7 +65,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
                 </p>
             </div>
-        </div>  
+        </div>
     </div>
 </section>
 <!--creator of the month end-->
@@ -63,19 +73,12 @@
 <section class="index_pre_body hidden-mb-b">
     <div class="index_pre_wrap">
         <div class="index_pre_title">
-            <i class="fa fa-volume-up"></i>   
+            <i class="fa fa-volume-up"></i>
             <article><b>HOT TOPICS</b> OF THE MONTH</article>
         </div>
         <div class="index_pre_inner">
             <ul class="forum_cards">
-                <?php
-                    $db->query = "SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`forum` LEFT JOIN lubyconuser.`userbasic` ON `forum`.`userCode` = `userbasic`.`userCode` UNION SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`qaa` LEFT JOIN lubyconuser.`userbasic` ON `qaa`.`userCode` = `userbasic`.`userCode` UNION SELECT boardCode,title,viewCount,likeCount,contents,nick FROM lubyconboard.`tutorial` LEFT JOIN lubyconuser.`userbasic` ON `tutorial`.`userCode` = `userbasic`.`userCode` ORDER BY `viewCount` DESC LIMIT 5 ";
-		            $db->askQuery();
-                    while( $row = mysqli_fetch_array($db->result) )
-                    {
-                        include("./pages/view/index/index_forum.php");
-                    }
-                ?>
+
             </ul>
         </div>
     </div>

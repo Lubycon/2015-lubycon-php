@@ -12,7 +12,6 @@ $password = "hmdwdgdhkr2015";
 
 $tmpPw = makeToken(20);
 $encrypt = password_hash($tmpPw, PASSWORD_DEFAULT);
-echo $encrypt;
 
 $FindPw = new MakeMail($tmpPw);
 $FindPw->FindPw();

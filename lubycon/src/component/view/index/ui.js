@@ -33,7 +33,6 @@ $(document).ready(function(){
             initGoTopBt();
         }
         else{
-            if($(".lubyImageSlider").length) initMainSlider();
             contentCardHoverAction();
             contentsNameStickyAction();
         }
