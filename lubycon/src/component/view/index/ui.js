@@ -21,8 +21,6 @@ $(document).ready(function(){
         initSearchBar();
         initCommentBox();
 
-        mainSliderRadioAction();
-
         initMainBoardTableSize();
 
         myInfoAction();
@@ -314,21 +312,7 @@ $(document).ready(function(){
         }
     }
 
-    function mainSliderRadioAction(){
-        var button = $("#slide_lnb").find(".btn");
 
-        button.on("click", toggle.group).on("click", slideChecker);
-
-        function slideChecker(){
-            var $this = $(this),
-            data = $this.data("value"),
-            $sliders = $("#slide_section .lubyImageSlider");
-            $target = $("#slider" + data);
-
-            $sliders.hide();
-            $target.stop().show();
-        }
-    }
     function contentCardHoverAction(){
         $(document).on({
             mouseenter: function() {
