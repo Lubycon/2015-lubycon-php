@@ -68,11 +68,27 @@ CREATE TABLE IF NOT EXISTS `qaa`
 
 
 -- community like
+DROP TABLE IF EXISTS `communityView`;
+CREATE TABLE IF NOT EXISTS `communityView`
+( 
+	`viewID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`giveUserCode` INT UNSIGNED NOT NULL , 
+	`takeUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`viewDate` DATETIME NOT NULL , 
+
+	PRIMARY KEY (`viewID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+
+-- community like
 DROP TABLE IF EXISTS `communityLike`;
 CREATE TABLE IF NOT EXISTS `communityLike`
 ( 
 	`likeID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
-	`likeActionUserCode` INT UNSIGNED NOT NULL , 
+	`giveUserCode` INT UNSIGNED NOT NULL , 
+	`takeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
 	`topCategoryCode` INT UNSIGNED NOT NULL , 
 	`likeBoardKind` ENUM('contents','comment') NOT NULL , 
@@ -86,7 +102,8 @@ DROP TABLE IF EXISTS `communityComment`;
 CREATE TABLE IF NOT EXISTS `communityComment`
 ( 
 	`commentID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
-	`commentActionUserCode` INT UNSIGNED NOT NULL , 
+	`giveUserCode` INT UNSIGNED NOT NULL , 
+	`takeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
 	`topCategoryCode` INT UNSIGNED NOT NULL , 
 	`commentDate` DATETIME NOT NULL , 
@@ -355,7 +372,19 @@ CREATE TABLE IF NOT EXISTS `threedTag`
 
 
 
+-- community like
+DROP TABLE IF EXISTS `contentsView`;
+CREATE TABLE IF NOT EXISTS `contentsView`
+( 
+	`viewID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`giveUserCode` INT UNSIGNED NOT NULL , 
+	`takeUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`viewDate` DATETIME NOT NULL , 
 
+	PRIMARY KEY (`viewID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 
 -- core list
@@ -364,7 +393,8 @@ DROP TABLE IF EXISTS `contentsBookmark`;
 CREATE TABLE IF NOT EXISTS `contentsBookmark`
 ( 
 	`bookmarkID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
-	`bookmarkActionUserCode` INT UNSIGNED NOT NULL , 
+	`giveUserCode` INT UNSIGNED NOT NULL , 
+	`takeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
 	`topCategoryCode` INT UNSIGNED NOT NULL , 
 	`bookmarkBoardKind` ENUM('contents') NOT NULL , 
@@ -378,7 +408,8 @@ DROP TABLE IF EXISTS `contentsLike`;
 CREATE TABLE IF NOT EXISTS `contentsLike`
 ( 
 	`likeID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
-	`likeActionUserCode` INT UNSIGNED NOT NULL , 
+	`giveUserCode` INT UNSIGNED NOT NULL , 
+	`takeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
 	`topCategoryCode` INT UNSIGNED NOT NULL , 
 	`likeBoardKind` ENUM('contents','comment') NOT NULL , 
@@ -392,7 +423,8 @@ DROP TABLE IF EXISTS `contentsComment`;
 CREATE TABLE IF NOT EXISTS `contentsComment`
 ( 
 	`commentID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
-	`commentActionUserCode` INT UNSIGNED NOT NULL , 
+	`giveUserCode` INT UNSIGNED NOT NULL , 
+	`takeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
 	`topCategoryCode` INT UNSIGNED NOT NULL , 
 	`commentDate` DATETIME NOT NULL , 
