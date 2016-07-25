@@ -114,7 +114,7 @@ class infinite_scroll extends json_control
         $this->licenseQuery = $this->filter->license > 0 ? 'a.`ccLicense` = '.($this->filter->license) : null;
         $this->jobQuery = $this->filter->license > 0 ? 'ui.`jobCode` = '.($this->filter->job) : null; 
         $this->continentQuery = $this->filter->license > 0 ? 'a.`continent` = '.($this->filter->continent) : null;
-        $this->bookmarkQuery = isset($this->filter->bookmark) ? 'b.`bookmarkActionUserCode` = '.$this->loginuser_code : null;
+        $this->bookmarkQuery = isset($this->filter->bookmark) ? 'b.`bookmarkGiveUserCode` = '.$this->loginuser_code : null;
         $this->targetUserQuery = isset($this->filter->targetUser) ? 'c.`userCode` = '.$this->filter->targetUser : null;
 
 
@@ -193,8 +193,8 @@ class infinite_scroll extends json_control
 
                 if($this->Loginuser_code != null)
                 {
-                    $this->select_query .= " ,b.`bookmarkActionUserCode` ";
-                    $this->from_query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b ON a.`boardCode` = b.`boardCode` AND a.`topCategoryCode` = b.`topCategoryCode` AND b.`bookmarkActionUserCode` = $this->Loginuser_code ";
+                    $this->select_query .= " ,b.`bookmarkGiveUserCode` ";
+                    $this->from_query .= "LEFT JOIN lubyconboard.`contentsbookmark` AS b ON a.`boardCode` = b.`boardCode` AND a.`topCategoryCode` = b.`topCategoryCode` AND b.`bookmarkGiveUserCode` = $this->Loginuser_code ";
                 }
 
             break;
@@ -274,7 +274,7 @@ class infinite_scroll extends json_control
             case 'contents' :
                 while( $row = mysqli_fetch_assoc($query_result['contents']) )
                 {
-                    $bookmark_check = isset($row['bookmarkActionUserCode']) ? 'true' : 'false';
+                    $bookmark_check = isset($row['bookmarkGiveUserCode']) ? 'true' : 'false';
                     $this->json_search($this->ccDecode,'name','ccLicense',$row['ccLicense']);
                     $license_check = $this->search_key;
 

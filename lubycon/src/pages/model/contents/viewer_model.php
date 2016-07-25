@@ -45,8 +45,8 @@ if($LoginState)
 {
     $db->query .= 
                 "LEFT JOIN lubyconboard.`contentsbookmark` ON a.`boardCode` = `contentsbookmark`.`boardCode`
-                    AND `contentsbookmark`.`bookmarkActionUserCode` = $Loginuser_code
-                LEFT JOIN lubyconboard.`contentslike` ON a.`boardCode` = `contentslike`.`boardCode` AND `contentslike`.`likeActionUserCode` = $Loginuser_code";
+                AND `contentsbookmark`.`bookmarkGiveUserCode` = $Loginuser_code
+                LEFT JOIN lubyconboard.`contentslike` ON a.`boardCode` = `contentslike`.`boardCode` AND `contentslike`.`likeGiveUserCode` = $Loginuser_code";
 }
 
 $db->query .=  " WHERE a.`boardCode` = $number";
@@ -67,7 +67,7 @@ if( !is_array($row) )
 $db->query = 
             "SELECT * 
              FROM lubyconboard.`contentscomment` as a
-             RIGHT JOIN lubyconuser.`userbasic` as b ON a.`commentActionUserCode` = b.`userCode`
+             RIGHT JOIN lubyconuser.`userbasic` as b ON a.`commentGiveUserCode` = b.`userCode`
              LEFT JOIN lubyconuser.`userinfo` as c ON b.`userCode` = c.`userCode`
              WHERE a.`boardCode` = '$number' AND a.`topCategoryCode` = '$cate' AND a.`commentStatus` = 'normal';
             ";

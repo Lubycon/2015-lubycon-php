@@ -177,21 +177,7 @@
         </div>
         <div id="mb-search" class="visible-mb"><i class="fa fa-search"></i></div>
     </header>
-    <div id="main_search_bar" class="search-bar">
-        <input type="text" class="search-bar-text" value="Enter the keyword" />
-        <button class="out search-btn">
-            <i class="fa fa-search"></i>
-        </button>
-        <div class="select-box">|
-            <select class="searchFilter" data-param="search">
-                <option data-value="All">All</option>
-                <option data-value="Contents">Contents</option>
-                <option data-value="Creatorr">Creator</option>
-                <option data-value="Community">Community</option>
-            </select>
-        </div>
-        <!-- end select_box -->
-    </div>
+    
     <div id="app-wrapper" ng-view class="app-wrapper"></div>
 </div>
 </body>

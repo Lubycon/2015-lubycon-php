@@ -101,11 +101,11 @@ $like_check = false;
 $bookmark_check = false;
 if($LoginState)
 {
-	if( $row['likeActionUserCode'] != null )
+	if( $row['likeGiveUserCode'] != null )
 	{
 		$like_check=true;
 	}
-	if( $row['bookmarkActionUserCode'] != null  )
+	if( $row['bookmarkGiveUserCode'] != null  )
 	{
 		$bookmark_check=true;
 	}
@@ -150,7 +150,7 @@ $write_user_data = array(
 
 // contetnts data
 $comment_data = array(
-	'usercode' => $comment_row['commentActionUserCode'],
+	'usercode' => $comment_row['commentGiveUserCode'],
 	'username' => $comment_row['nick'],
 	'profile' => $comment_row['profileImg'],
 	'date' => $comment_row['commentDate'],

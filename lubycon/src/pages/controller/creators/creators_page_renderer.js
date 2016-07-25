@@ -6,7 +6,7 @@ $(document).ready(function(){
         data: new GET_CONTENTS("creator",0),
 	    callback: init
 	});
-	
+
 	var detector = new InfiniteScrollDetector(new GET_CONTENTS("creator",0));
 
 	function init(response){
