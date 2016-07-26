@@ -14,7 +14,7 @@ $(document).ready(function(){
         window.onbeforeunload = function(){
             console.log(unloadChecker);
             if(unloadChecker) return "a";
-        }
+        };
 
         $("#community_submit").on("click",finalSubmit);
 
@@ -27,7 +27,7 @@ $(document).ready(function(){
                 // [groupName, [list of button]]
                 ['style',['style']],
                 ['fontsize', ['fontsize']],
-                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],              
+                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
                 ['color', ['color']],
                 ['para', ['paragraph']],
                 ['insert', ['picture', 'video', 'link', 'table', 'hr']]
@@ -73,6 +73,6 @@ $(document).ready(function(){
     }else{
         return false;
     }
-    
+
 });
 /*--------------------------------community editor end-------------------------------*/

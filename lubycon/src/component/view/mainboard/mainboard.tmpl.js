@@ -16,6 +16,7 @@ Mainboard.prototype.add = function(data){
 
 Mainboard.prototype.renderList = function(){
     var cate = this.category;
+    console.log(cate);
     var d = this.lastData;
     var target = this.getDOM().find(".table-list-wrap");
 

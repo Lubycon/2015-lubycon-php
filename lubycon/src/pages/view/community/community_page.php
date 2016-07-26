@@ -13,13 +13,13 @@
         <nav class="lnb_nav">
             <ul>
                 <li class="nav_menu" id="forum">
-                    <a href="../community/community_page.php?cate=forum">Forum</a>
+                    <a href="?dir=pages/view/community/community_page&cate=0&page=1">Forum</a>
                 </li>
                 <li class="nav_menu" id="tutorial">
-                    <a href="../community/community_page.php?cate=tutorial">Tutorial</a>
+                    <a href="?dir=pages/view/community/community_page&cate=1&page=1">Tutorial</a>
                 </li>
                 <li class="nav_menu" id="qaa">
-                    <a href="../community/community_page.php?cate=qaa">Q&amp;A</a>
+                    <a href="?dir=pages/view/community/community_page&cate=2&page=1">Q&amp;A</a>
                 </li>
             </ul>
         </nav>
@@ -52,7 +52,7 @@
     <section class="con_wrap">
         <!--MAINBOARD-->
     </section>
-    <a id="write_bt" class="write_bt" href="../community/community_editor.php?cate=">
+    <a id="write_bt" class="write_bt" href="?dir=pages/view/community/community_editor&cate=">
         <i class="fa fa-plus"></i>
     </a>
 </section>

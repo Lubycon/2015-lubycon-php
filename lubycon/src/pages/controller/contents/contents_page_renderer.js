@@ -5,24 +5,21 @@ $(document).ready(function(){
     ).then(function(){
         Request({
     	    url: "./service/controller/infinite_scroll/controller.php",
-            data: new GET_CONTENTS("content",0),
+            data: new GET_CONTENTS("contents",0),
     	    callback: init
     	});
     });
 
     function init(response){
-        //var detector = new InfiniteScrollDetector(new GET_CONTENTS("content",0));
-        var data = response.result;
+        var detector = new InfiniteScrollDetector(new GET_CONTENTS("contents",0));
         $("#loading_icon").hide();
-        console.log(data);
-
-        addCard(data);
-        //detector.start(addCard);
+        addCard(response);
         $("#loading_icon").hide();
+        detector.start(addCard);
     }
 
-    function addCard(data){
-        console.log(data);
+    function addCard(res){
+        var data = res.result;
         var cardWrapper = $("#contents_box").find(".contents_wrap"),
 			list = $("<li/>");
 

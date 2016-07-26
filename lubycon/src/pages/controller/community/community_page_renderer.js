@@ -9,12 +9,18 @@ $(document).ready(function(){
     function init(response){
         console.log(response);
         var data = response.result.content;
-        var category = response.category; //TESTING...
+        var category = CATE_PARAM;
         var mainboard = new Mainboard(category);
         var mainboardDOM = mainboard.render();
+
         mainboardDOM.appendTo($(".con_wrap"));
         mainboard.add(data);
         mainboard.renderList();
+
         $("#loading_icon").hide();
+        $("#write_bt").attr("href",function(){
+            console.log($(this));
+            return $(this).attr("href") + getUrlParameter("cate");
+        });
     }
 });

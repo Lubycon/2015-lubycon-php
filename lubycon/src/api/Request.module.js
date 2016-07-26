@@ -1,5 +1,6 @@
 
 var Request = function(param){
+    console.log(param);
     return $.ajax({
         type: "POST",
         url: "./common/Module/get_session.php",
@@ -47,6 +48,8 @@ var Request = function(param){
 
 var GET_CONTENTS = function(type,target){
     console.log("GET_CONTENTS");
+    console.log(type,target);
+    var page = getUrlParameter("page") < 1 ? 1 : getUrlParameter("page");
     return {
         url: getUrlParameter("dir"),
         type: type,
@@ -60,8 +63,8 @@ var GET_CONTENTS = function(type,target){
 			search: $(".searchFilter").lubySelector("getValueByIndex")
 		},
 		searchValue: $(".search-bar-text").val() === "Enter the keyword" ? null : $(".search-bar-text").val(),
-		nowPage: getUrlParameter("page"),
-        targetPage: getUrlParameter("page")*1 + target
+		nowPage: page,
+        targetPage: page*1 + target
     };
 };
 

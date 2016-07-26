@@ -2,8 +2,7 @@ console.log("INFINITE SCROLL DETECTOR IS READY");
 var InfiniteScrollDetector = function(data){
     console.log("INFINITE SCROLL : LOAD PAGE DATA-----------");
     console.log(data);
-    this.cardType = data.type;
-    this.page = data.page;
+    this.type = data.type;
     this.topCate = data.topCate || null;
     this.sort= data.sort;
     this.filter = {
@@ -19,7 +18,7 @@ var InfiniteScrollDetector = function(data){
 };
 InfiniteScrollDetector.prototype.getData = function(){
     return {
-        cardType: this.cardType,
+        type: this.type,
         page: this.page,
         topCate: this.topCate,
         filter: {
