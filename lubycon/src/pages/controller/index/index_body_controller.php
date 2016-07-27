@@ -73,8 +73,8 @@
 
     $total_array = array(
     	'contentData' => $contents_data,
-    	'forumData' => $forum_data,
-    	'bestCreator' => $bestCreator_data
+    	'bestCreator' => $bestCreator_data,
+    	'forumData' => $forum_data
     );
 
     $data_json = json_encode($total_array);

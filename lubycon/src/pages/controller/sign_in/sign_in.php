@@ -17,10 +17,10 @@
 	}
 
 
-    $user_email = $postData->email;
-    $user_pass = $postData->pass;
-    //$user_email = $_POST['login_id'];
-    //$user_pass = $_POST['login_pass'];
+    //$user_email = $postData->email;
+    //$user_pass = $postData->pass;
+    $user_email = $_POST['login_id'];
+    $user_pass = $_POST['login_pass'];
 
 	include_once('../../model/sign_in/sign_in_model.php');
 
