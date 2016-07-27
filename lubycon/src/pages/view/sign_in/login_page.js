@@ -1,11 +1,11 @@
 
 $(document).ready(function(){
     $("#bodyer").fadeIn(500);
-    Request({
+    /*Request({
 	    url: "./service/controller/encrypt/RSA.php",
 	    callback: init
-	});
-
+	});*/
+    init();
     function init(response){
         console.log(response);
         detectLoginFail();
@@ -13,8 +13,26 @@ $(document).ready(function(){
         loginInputAction();
 
         $("#create_acc").on("click",callCreateAccountWindow);
-
+        $("#login_lubycon").on("click",signin);
     }
+    function signin(){
+        var id = $("#login_id").val(),
+            pass = $("#login_pass").val();
+        console.log(id,pass);
+        Request({
+            url: "./pages/controller/sign_in/sign_in.php",
+            data: {
+                id: id,
+                password: pass
+            },
+            callback: action
+        });
+    }
+
+    function action(res){
+        console.log(res);
+    }
+
     function detectLoginFail(){
         if(getUrlParameter("login") === "0") {
             $(".alertKey.hidden").lubyAlert({

@@ -11,6 +11,8 @@ $(document).ready(function(){
             $("#display_user").find("#accountImg > img").attr("src","../../../../Lubycon_Contents/user/" + response.usercode + "/profile.jpg");
             $("#display_user").find("#user_id").text(response.username);
 
+            $("#sign_out").on("click",signout);
+
             initPersonalMenu();
             bindMyMenuAnchor();
         }
@@ -49,9 +51,21 @@ $(document).ready(function(){
                 var url = u.map(function(v){
                     return v === "usernum=" ? v + response.usercode : v;
                 }).join("&");
-                
+
                 $(this).attr("href",url);
             });
+        }
+
+        function signout(){
+            console.log("SIGN OUT");
+            Request({
+                url: "./pages/controller/sign_out/sign_out.php",
+                data: "aaa",
+                callback: action
+            });
+        }
+        function action(res){
+            console.log(res);
         }
     }
 });

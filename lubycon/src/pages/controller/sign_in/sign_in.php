@@ -7,25 +7,25 @@
     $sessionArray;
 
 	$db = new Database('localhost', 'lubycon', 'hmdwdgdhkr2015', 'lubyconuser');
-	
+
 	$db->query = "
         SELECT `userbasic`.`userCode`,`userbasic`.`email`, `userbasic`.pass, `userbasic`.nick, `userbasic`.validation , `userinfo`.`countryCode` , `userinfo`.`jobCode`, `userinfo`.`city` , `userinfo`.`profileImg`
-        FROM `lubyconuser`.`userbasic` 
-        LEFT JOIN `lubyconuser`.`userinfo` 
-        ON `userbasic`.`userCode` = `userinfo`.`userCode` 
+        FROM `lubyconuser`.`userbasic`
+        LEFT JOIN `lubyconuser`.`userinfo`
+        ON `userbasic`.`userCode` = `userinfo`.`userCode`
         WHERE `userbasic`.`email`='$user_email'
     ";
 
     if(!$db->askQuery()){
     	// can not send query to database
-		
+
 		//$sessionArray['serverError'] = (string)500;
-		
+
 		echo 1000;
 	}
 	else{
 		// success send query to database
-		$result = mysqli_fetch_array($db->result);	
+		$result = mysqli_fetch_array($db->result);
 
 		if(password_verify($_POST['login_pass'],$result['pass'])){
 		// login is success
@@ -52,7 +52,7 @@
 			if(!$db->askQuery()){
 			//can not send query to database
 				//$sessionArray['serverError'] = (string)500;
-				
+
 				echo 1000;
 			}
 			else{
@@ -65,11 +65,11 @@
 					}
 				}
 
-				$session->WriteSession('lubycon', $sessionArray);	
-				
+				$session->WriteSession('lubycon', $sessionArray);
+
 				//$_SESSION['serverError'] = (string)0000
-				
-				echo 0000;	
+
+				echo 0000;
 			}
 		}
 		else{
