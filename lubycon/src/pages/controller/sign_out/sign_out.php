@@ -1,6 +1,6 @@
 <?php
 
-	require_once './common/Class/session_class.php';
+	require_once '../../../common/Class/session_class.php';
 	$session = new Session();
 	$session->DestroySession();
 
