@@ -15,7 +15,7 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 }
 if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
 
-/*
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	$postData = json_decode(file_get_contents("php://input"));
@@ -24,13 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	die('it is not post data error code 0000');
 }
 
-$number = $postData->bno;
-$cate = (int)$postData->cate;
-*/
-
-$boardCode = $_POST['bno'];
-$cateCode = $_POST['cate'];
-
+$boardCode = $postData->bno;
+$cateCode = (int)$postData->cate;
 
 
 $json_control->json_decode('job',"../../../../data/job.json");
@@ -73,7 +68,7 @@ $like_check = false;
 $bookmark_check = false;
 if($LoginState)
 {
-	if( $row['likeActionUserCode'] != null )
+	if( $row['likeGiveUserCode'] != null )
 	{
 		$like_check=true;
 	}
@@ -95,7 +90,7 @@ $contents_data = array(
 $write_user_data = array(
 	'code' => $row['userCode'],
 	'name' => $row['nick'],
-	'job' => $my_job_origin_selet,
+	'job' => $my_job_origin_select,
 	'country' => $my_country_origin_select,
 	'city' => $row['city'],
 	'profile' => $row['profileImg']
@@ -103,7 +98,7 @@ $write_user_data = array(
 
 // contetnts data
 $comment_data = array(
-	'usercode' => $comment_row['commentActionUserCode'],
+	'usercode' => $comment_row['commentGiveUserCode'],
 	'username' => $comment_row['nick'],
 	'profile' => $comment_row['profileImg'],
 	'date' => $comment_row['commentDate'],

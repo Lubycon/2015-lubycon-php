@@ -119,7 +119,7 @@ class infinite_scroll extends json_control
 
 
          //set allow array form page kinds
-        if($this->cardType == 'content')
+        if($this->cardType == 'contents')
         {
             $this->allow_array_list = $this->allow_array_content;
             $this->validateCategory();

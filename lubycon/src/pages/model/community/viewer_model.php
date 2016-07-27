@@ -19,13 +19,12 @@ if($LoginState)
 	"
 	LEFT JOIN lubyconboard.`communitylike` as cl
 	ON a.`boardCode` = cl.`boardCode` 
-	AND cl.`likeActionUserCode` = $Loginuser_code
+	AND cl.`likeGiveUserCode` = $Loginuser_code
 	";
 }
 
 $db->query .=  " WHERE a.`boardCode` = $boardCode";
-$db->askQuery(); 
-echo $db->query;
+$db->askQuery();
 
 $row = mysqli_fetch_assoc($db->result);
 
@@ -34,7 +33,7 @@ $db->query =
 SELECT * 
 FROM lubyconboard.`communitycomment` as a
 RIGHT JOIN lubyconuser.`userbasic` as b 
-ON a.`commentActionUserCode` = b.`userCode`
+ON a.`commentGiveUserCode` = b.`userCode`
 LEFT JOIN lubyconuser.`userinfo` as c 
 USING (`userCode`)
 WHERE a.`boardCode` = '$boardCode' 
