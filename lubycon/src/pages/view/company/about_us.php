@@ -1,17 +1,13 @@
-<?php
-    $one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-    include_once('../layout/index_header.php');
-?>
+
 <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Source+Serif+Pro' rel='stylesheet' type='text/css'>
-<link href="<?=$one_depth?>/css/about_us.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/about_us.js"></script>
+<link href="./pages/view/company/about_us.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./pages/view/company/about_us.js"></script>
 
 <div class="aboutus-wrapper">
     <div class="aboutus-header">
         <div class="aboutus-section figure">
-            <img src="../../ch/img/about_us/4.jpg">
+            <img src="../asset/img/about_us/4.jpg">
             <div class="title-wrapper main">
                 <p class="section-title">HELLO WORLD</p>
                 <p class="section-sub-title">Connect your creativity with the World</p>
@@ -20,7 +16,7 @@
                     Do you want to show your awesome works to other creators?</br/>
                     We can help you.
                 </p>
-                <div class="viewmore_bt"><a href="<?=$two_depth?>/contents/contents_page.php?cate=all&page=1">SHOW CONTENTS</a></div>
+                <div class="viewmore_bt"><a href="?dir=pages/view/contents/contents_page&cate=0&page=1">SHOW CONTENTS</a></div>
             </div>
         </div>
     </div>
@@ -33,7 +29,7 @@
                 <ul>
                     <li class="focus-wrapper">
                         <figure class="focus-icon">
-                            <img src="../../ch/img/about_us/design.png">
+                            <img src="../asset/img/about_us/design.png">
                         </figure>
                         <div class="focus-article">
                             <p class="focus-title">DESIGN</p>
@@ -45,7 +41,7 @@
                     </li>
                     <li class="focus-wrapper">
                         <figure class="focus-icon">
-                            <img src="../../ch/img/about_us/share.png">
+                            <img src="../asset/img/about_us/share.png">
                         </figure>
                         <div class="focus-article">
                             <p class="focus-title">SHARE</p>
@@ -57,7 +53,7 @@
                     </li>
                     <li class="focus-wrapper">
                         <figure class="focus-icon">
-                            <img src="../../ch/img/about_us/community.png">
+                            <img src="../asset/img/about_us/community.png">
                         </figure>
                         <div class="focus-article">
                             <p class="focus-title">COMMUNITY</p>
@@ -81,7 +77,7 @@
                     The possibilities are endless. Countless styles exists and other creators can help you achieve your goals the way you imagined.
                     Through collaborations, you can join with other creators to make something extraordinary.
                 </p>
-                <div class="viewmore_bt"><a href="<?=$two_depth?>/creators_page/creators.php">FIND CREATORS</a></div>
+                <div class="viewmore_bt"><a href="?dir=pages/view/creators/creators&page=1">FIND CREATORS</a></div>
             </div>
         </div>
         <div class="aboutus-section">
@@ -101,10 +97,4 @@
             </div>
         </div>
     </div>
-
-    
 </div>
-
-<?php
-    include_once($two_depth.'/layout/index_footer.php');
-?>
