@@ -134,36 +134,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL FillCalendar('2016-01-01', '2020-12-31');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+CALL FillCalendar('2016-01-01', '2017-12-31');
 
 
 
