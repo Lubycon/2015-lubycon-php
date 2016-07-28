@@ -11,7 +11,7 @@
 
 (function($){
 	$.fn.lubyAlert = function(option){
-        var defaults = { 
+        var defaults = {
             width: 170,
             height: 170,
             type: "alert",// alert, prompt
@@ -41,12 +41,12 @@
             create: function (option) {
                 return d = $.extend({}, defaults, option), this.each(function () {
                     if (!$(this).hasClass("alertKey")) $.error("lubyAlert : There is no lubyAlert object");
-                    else {     
+                    else {
                         console.log("LUBYALERT IS READY");
                         var $this = $(this);
                         pac.render.call($this);
                     }
-                })
+                });
             },
             render: function(){
                 var container = new pac.init();
@@ -60,7 +60,7 @@
                         setTimeout(function(){
                             func.destroy.call(container);
                         },d.stopTime);
-                    }                    
+                    }
                 });
             },
             init: function() {
@@ -85,7 +85,7 @@
                     icon.css({ "color" : d.iconColor });
                     if(d.iconAnimation !== null) icon.addClass(d.iconAnimation + " animated");
                     text.css({ "color" : d.textColor, "font-size" : d.fontSize });
-                    
+
                 var iconWrapper = InnerWrapper.clone().addClass("icon-wrapper").append(icon),
                     textWrapper = InnerWrapper.clone().addClass("text-wrapper").append(text),
                     buttonWrapper = InnerWrapper.clone().addClass("button-wrapper");
@@ -138,19 +138,19 @@
                     if(action !== null) action.call($this);
                 }
             }
-        }
+        };
         start = {
             test: function () {
                 return this.each(function () {
                     console.log("tested");
-                })
+                });
             }
-        }
+        };
 
-        return start[option] ? 
-        start[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
-        "object" != typeof option && option ? 
-            ($.error('No such method "' + option + '" for the lubyAlert instance'), void 0) : 
+        return start[option] ?
+        start[option].apply(this, Array.prototype.slice.call(arguments, 1)) :
+        "object" != typeof option && option ?
+            ($.error('No such method "' + option + '" for the lubyAlert instance'), void 0) :
             pac.create.apply(this, arguments);
     };
 })(jQuery);

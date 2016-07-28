@@ -65,7 +65,10 @@ $(document).ready(function(){
             });
         }
         function action(res){
-            console.log(res);
+            if(res.result.code === "0000"){
+                alert("BYE!");
+                location.href = "./index.php";
+            }
         }
     }
 });

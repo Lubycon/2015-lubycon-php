@@ -16,6 +16,7 @@ $(document).ready(function(){
         $("#login_lubycon").on("click",signin);
     }
     function signin(){
+        $("#loading_icon").show();
         var id = $("#login_id").val(),
             pass = $("#login_pass").val();
         console.log(id,pass);
@@ -30,7 +31,22 @@ $(document).ready(function(){
     }
 
     function action(res){
-        console.log(res);
+        $("#loading_icon").hide();
+        if(res.result.code === "0000"){
+            alert("Hello Lubycon!");
+            location.href = "./index.php";
+        }
+        else {
+            console.log(res.result);
+            $(".alertKey").lubyAlert({
+                type: "message",
+                cancelButton: false,
+                fontSize: 14,
+                icon: "fa-inbox",
+                text: "Please make sure your Email or Password.",
+                autoDestroy: false
+            });
+        }
     }
 
     function detectLoginFail(){
