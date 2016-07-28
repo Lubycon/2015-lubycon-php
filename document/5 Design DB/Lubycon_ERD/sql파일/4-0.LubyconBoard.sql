@@ -114,8 +114,27 @@ CREATE TABLE IF NOT EXISTS `communityComment`
 	PRIMARY KEY (`commentID`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+-- date pibot table
+DROP PROCEDURE IF EXISTS FillCalendar;
+DROP TABLE IF EXISTS calendar;
 
+CREATE TABLE IF NOT EXISTS calendar(
+	calendar_date DATE NOT NULL PRIMARY KEY
+);
 
+DELIMITER $$
+CREATE PROCEDURE FillCalendar(start_date DATE, end_date DATE)
+BEGIN
+	DECLARE crt_date DATE;
+	SET crt_date = start_date;
+	WHILE crt_date <= end_date DO
+		INSERT IGNORE INTO calendar VALUES(crt_date);
+		SET crt_date = ADDDATE(crt_date, INTERVAL 1 DAY);
+	END WHILE;
+END$$
+DELIMITER ;
+
+CALL FillCalendar('2016-01-01', '2020-12-31');
 
 
 

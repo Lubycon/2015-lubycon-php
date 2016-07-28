@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 
+//$userCode = $postData->userCode;
 $userCode = $_POST['userCode'];
 
-//print_R($_SESSION);
 
 
 if( $userCode == $_SESSION['lubycon_userCode'] )
@@ -61,6 +61,54 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 		);
 	}
 
+	
+	$timelineLikeArray = array();
+	$timelineBookmarkArray = array();
+	$timelineViewArray = array();
+	$timelineCommentArray = array();
+	while ($row = mysqli_fetch_array($timelineLike)) 
+	{
+		array_push(
+			$timelineLikeArray,
+			array( 
+				'date' => $row['date'],
+				'value' => $row['ck'] == null ? 0 : $row['value']
+			) 
+		);
+	}
+	while ($row = mysqli_fetch_array($timelineBookmark)) 
+	{
+		array_push(
+			$timelineBookmarkArray,
+			array( 
+				'date' => $row['date'],
+				'value' => $row['ck'] == null ? 0 : $row['value']
+			) 
+		);
+	}
+	while ($row = mysqli_fetch_array($timelineView)) 
+	{
+		array_push(
+			$timelineViewArray,
+			array( 
+				'date' => $row['date'],
+				'value' => $row['ck'] == null ? 0 : $row['value']
+			) 
+		);
+	}
+	while ($row = mysqli_fetch_array($timelineComment)) 
+	{
+		array_push(
+			$timelineCommentArray,
+			array( 
+				'date' => $row['date'],
+				'value' => $row['ck'] == null ? 0 : $row['value']
+			) 
+		);
+	}
+
+
+
 	$contentsLikeRankArray = array();
 	$contentsViewRankArray = array();
 	$contentsCommentRankArray = array();
@@ -74,6 +122,8 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 			$contentsLikeRankArray,
 			array( 
 				'title' => $row['contentTitle'],
+				'topCate' => $row['topCategoryCode'],
+				'code' => $row['boardCode'],
 				'value' => $row['count(*)'],
 				'thumbnail' => $row['userDirectory']."/thumbanil/.thumbnail.jpg"
 			) 
@@ -85,6 +135,8 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 			$contentsViewRankArray,
 			array(
 				'title' => $row['contentTitle'],
+				'topCate' => $row['topCategoryCode'],
+				'code' => $row['boardCode'],
 				'value' => $row['count(*)'],
 				'thumbnail' => $row['userDirectory']."/thumbanil/.thumbnail.jpg"
 			) 
@@ -96,6 +148,8 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 			$contentsCommentRankArray,
 			array( 
 				'title' => $row['contentTitle'],
+				'topCate' => $row['topCategoryCode'],
+				'code' => $row['boardCode'],
 				'value' => $row['count(*)'],
 				'thumbnail' => $row['userDirectory']."/thumbanil/.thumbnail.jpg"
 			) 
@@ -107,6 +161,8 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 			$communityLikeRankArray,
 			array( 
 				'title' => $row['contentTitle'],
+				'topCate' => $row['topCategoryCode'],
+				'code' => $row['boardCode'],
 				'value' => $row['count(*)']
 			) 
 		);
@@ -117,6 +173,8 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 			$communityViewRankArray,
 			array( 
 				'title' => $row['contentTitle'],
+				'topCate' => $row['topCategoryCode'],
+				'code' => $row['boardCode'],
 				'value' => $row['count(*)']
 			) 
 		);
@@ -127,49 +185,12 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 			$communityCommentRankArray,
 			array( 
 				'title' => $row['contentTitle'],
+				'topCate' => $row['topCategoryCode'],
+				'code' => $row['boardCode'],
 				'value' => $row['count(*)']
 			) 
 		);
 	}
-	/*
-	$commentTake = $commentTakeResult;
-	$commentTakeFound = mysqli_fetch_assoc($commentTakeResultFound);
-	$commentTakeNumber = $commentTakeFound['FOUND_ROWS()'];
-
-	$viewTake = $viewTakeResult;
-	$viewTakeFound = mysqli_fetch_assoc($viewTakeResultFound);
-	$viewTakeNumber = $viewTakeFound['FOUND_ROWS()'];
-
-	$likeArray = array();
-	while( $row = mysqli_fetch_array($likeTakeResult) )
-	{
-		$likeArray[] = array(
-			'date' => $row['likeDate']
-		);
-	}
-	$bookmarkArray = array();
-	while( $row = mysqli_fetch_array($bookmarkTakeResult) )
-	{
-		$bookmarkArray[] = array(
-			'date' => $row['bookmarkDate']
-		);
-	}
-	$commentArray = array();
-	while( $row = mysqli_fetch_array($commentTakeResult) )
-	{
-		$commentArray[] = array(
-			'date' => $row['commentDate']
-		);
-	}
-	$viewArray = array();
-	while( $row = mysqli_fetch_array($viewTakeResult) )
-	{
-		$viewArray[] = array(
-			'date' => $row['viewDate']
-		);
-	}*/
-
-
 }else
 {
 	$total_array = array(
@@ -185,12 +206,10 @@ $total_array = array(
 	),
 	'worldmap' => $worldmap,
 	'timeLine' => array(
-		/*
-		'like' => $likeArray,
-		'bookmark' => $bookmarkArray,
-		'comment' => $bookmarkArray,
-		'view' => $bookmarkArray,
-		*/
+		'like' => $timelineLikeArray,
+		'bookmark' => $timelineBookmarkArray,
+		'comment' => $timelineCommentArray,
+		'view' => $timelineViewArray
 	),
 	'ranking' => array(
 		'contents' => array(

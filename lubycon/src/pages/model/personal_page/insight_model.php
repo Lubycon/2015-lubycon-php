@@ -44,15 +44,61 @@ LIMIT 5;
 $db->askQuery();
 $countryRank = $db->result;
 
-/*
-SELECT COUNT(*),DATE_FORMAT(base.`likeDate`, '%Y-%c-%e')
-FROM lubyconboard.`contentslike` as base
 
-WHERE (base.`likeDate` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now())
-GROUP BY DATE_FORMAT(base.`likeDate`, '%Y-%c-%e')
+/*   timeline    */
 
-ORDER BY base.`likeDate` DESC
-*/
+$db->query = 
+"
+SELECT DATE_FORMAT(cl.`likeDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
+FROM lubyconboard.`calendar` as cal 
+LEFT JOIN lubyconboard.`contentslike` as cl
+ON cal.`calendar_date` = DATE_FORMAT(cl.`likeDate`, '%Y-%c-%e')
+WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
+GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
+ORDER BY cal.`calendar_date` DESC
+";
+$db->askQuery();
+$timelineLike = $db->result;
+$db->query = 
+"
+SELECT DATE_FORMAT(cl.`bookmarkDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
+FROM lubyconboard.`calendar` as cal 
+LEFT JOIN lubyconboard.`contentsbookmark` as cl
+ON cal.`calendar_date` = DATE_FORMAT(cl.`bookmarkDate`, '%Y-%c-%e')
+WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
+GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
+ORDER BY cal.`calendar_date` DESC
+";
+$db->askQuery();
+$timelineBookmark = $db->result;
+$db->query = 
+"
+SELECT DATE_FORMAT(cl.`viewDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
+FROM lubyconboard.`calendar` as cal 
+LEFT JOIN lubyconboard.`contentsview` as cl
+ON cal.`calendar_date` = DATE_FORMAT(cl.`viewDate`, '%Y-%c-%e')
+WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
+GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
+ORDER BY cal.`calendar_date` DESC
+";
+$db->askQuery();
+$timelineView = $db->result;
+$db->query = 
+"
+SELECT DATE_FORMAT(cl.`commentDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
+FROM lubyconboard.`calendar` as cal 
+LEFT JOIN lubyconboard.`contentscomment` as cl
+ON cal.`calendar_date` = DATE_FORMAT(cl.`commentDate`, '%Y-%c-%e')
+WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
+GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
+ORDER BY cal.`calendar_date` DESC
+";
+$db->askQuery();
+$timelineComment = $db->result;
+
+
+/*   timeline    */
+
 
 
 
@@ -115,7 +161,7 @@ $contentsCommentRank = $db->result;
 /* community ranking */
 $db->query = 
 "
-SELECT count(*),base.`boardCode`,a.`contentTitle`
+SELECT count(*),base.`boardCode`,a.`contentTitle`,a.`topCategoryCode`
 FROM
 ( 
 	SELECT * FROM lubyconboard.`forum`
@@ -134,7 +180,7 @@ $communityLikeRank = $db->result;
 echo $db->database->error;
 $db->query = 
 "
-SELECT count(*),base.`boardCode`,a.`contentTitle`
+SELECT count(*),base.`boardCode`,a.`contentTitle`,a.`topCategoryCode`
 FROM
 ( 
 	SELECT * FROM lubyconboard.`forum`
@@ -151,7 +197,7 @@ LIMIT 5
 $db->askQuery();
 $communityViewRank = $db->result;$db->query = 
 "
-SELECT count(*),base.`boardCode`,a.`contentTitle`
+SELECT count(*),base.`boardCode`,a.`contentTitle`,a.`topCategoryCode`
 FROM
 ( 
 	SELECT * FROM lubyconboard.`forum`
