@@ -17,10 +17,8 @@
 	}
 
 
-    //$user_email = $postData->email;
-    //$user_pass = $postData->pass;
-    $user_email = $_POST['login_id'];
-    $user_pass = $_POST['login_pass'];
+    $user_email = $postData->id;
+    $user_pass = $postData->password;
 
 	include_once('../../model/sign_in/sign_in_model.php');
 
@@ -49,11 +47,20 @@
 			}
 			$session->WriteSession('lubycon', $sessionArray);
 			//$_SESSION['serverError'] = (string)0000
-			echo 0000;
+			$request = array(
+				"code" => "0000",
+				"message" => "login"
+			);
 		}else
 		{
-			// login is fail
-			echo 0100;
+			$request = array(
+				"code" => "0100",
+				"message" => "login failed"
+			);
 		}
+
+		$toJSON = json_encode($request);
+
+		echo $toJSON;
 	}
 ?>

@@ -1,4 +1,4 @@
-<?php  
+<?php
 
 	require_once '../../../common/common.php';
 	require_once '../../../common/Class/session_class.php';
@@ -8,5 +8,5 @@
 	$Keys = rsa_generate_keys('hmdwdgdhkr2015');
 
 	$session->WriteSession('lubycon',$Keys);
-
+	echo $session;
 ?>

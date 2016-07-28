@@ -32,19 +32,19 @@
                 </div>
                 <div id="subnav" class="hidden-mb-b">
                     <ul>
-                        <li class="subnav_li" data-value="dashboard">
+                        <li class="subnav_li" data-value="0">
                             <a href="#">Dashboard</a>
                         </li>
-                        <li class="subnav_li" data-value="my_contents">
+                        <li class="subnav_li" data-value="1">
                             <a href="#">Contents</a>
                         </li>
-                        <li class="subnav_li" data-value="my_forums">
+                        <li class="subnav_li" data-value="2">
                             <a href="#">Forums</a>
                         </li>
-                        <li class="subnav_li" data-value="insight">
+                        <li class="subnav_li" data-value="3">
                             <a href="#">Insight</a>
                         </li>
-                        <li class="subnav_li" data-value="bookmark">
+                        <li class="subnav_li" data-value="4">
                             <a href="#">Bookmark</a>
                         </li>
                     </ul>
@@ -56,18 +56,3 @@
         </section><!--end con_wrap-->
     </section><!--end personal_view-->
 </section><!-- end contents section -->
-
-
-
-
-<!--personal.config.js-->
-<script type="text/javascript">
-$(function(){
-    var page = getUrlParameter("cate");
-    console.log(page);
-    var baseURL = "./pages/view/personal_page/";
-    $("#contents_box").load(baseURL + page + ".php",function(){
-        console.log(page + " is loaded");
-    });
-});
-</script>
