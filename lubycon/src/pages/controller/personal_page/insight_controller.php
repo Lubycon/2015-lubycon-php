@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 
-//$userCode = $postData->userCode;
-$userCode = $_POST['userCode'];
+$userCode = $postData->userCode;
+//$userCode = $_POST['userCode'];
 
 
 
@@ -227,7 +227,7 @@ $total_array = array(
 
 
 $data_json = json_encode($total_array);
-print_r($total_array);
-//echo $data_json;
+//print_r($total_array);
+echo $data_json;
 
 ?>
