@@ -4,7 +4,7 @@ var CreatorCard = function(data){
 	this.profile = data.profile;
 	this.name = data.name;
 	this.job = data.job;
-	this.personalPage = "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + data.code,
+	this.personalPage = "?dir=pages/view/personal_page/personal_page&cate=0&usernum=" + data.code,
 
 	this.countryCode = data.countryCode;
 	this.countryImg = "../asset/img/flag_icons/" + data.countryCode + ".png";
@@ -85,22 +85,22 @@ CreatorCard.prototype.render = function(){
 			{
 				name : "View Dashboard",
 				icon : "fa-tachometer",
-				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+				uri : "?dir=pages/view/personal_page/personal_page&cate=0&usernum="+this.code
 			},
 			{
 				name : "View Contents",
 				icon : "fa-eye",
-				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+				uri : "?dir=pages/view/personal_page/personal_page&cate=1&usernum="+this.code
 			},
 			{
 				name : "View Insight",
 				icon : "fa-bar-chart",
-				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+				uri : "?dir=pages/view/personal_page/personal_page&cate=3&usernum="+this.code
 			},
 			{
 				name : "View Forum",
 				icon : "fa-table",
-				uri : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum="+this.code
+				uri : "?dir=pages/view/personal_page/personal_page&cate=2&usernum="+this.code
 			}
 		];
 

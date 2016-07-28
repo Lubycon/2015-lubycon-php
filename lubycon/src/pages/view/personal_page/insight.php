@@ -9,27 +9,27 @@
 <script src="./component/view/chart/serial.js" type="text/javascript"></script>
 <script src="./component/view/chart/light.js" type="text/javascript"></script>
 <script src="./component/view/chart/lubytheme.js" type="text/javascript"></script>
-<script src="./pages/view/personal_page/insight.js" type="text/javascript"></script>
+<script src="./pages/controller/personal_page/insight_renderer.js" type="text/javascript"></script>
 
 <!--graph script-->
 <div id="information_inbody">
     <ul id="dashboard_wrap">
         <li class="dash_section">
             <div class="dash_header">
-                <h4>GIVE & TAKE</h4>
+                <h4>GIVE &amp; TAKE</h4>
             </div>
             <div class="dash_body">
                 <div class="dash_body_sector">
                     <div class="x2_inner" data-value="got">
                         <p class="dash_body_title">Like : I Got</p>
                         <div class="dash_body_content">
-                            <p class="content_text"><?=$gotLike?></p>
+                            <p class="content_text"></p>
                         </div>
                     </div>
                     <div class="x2_inner" data-value="gave">
                         <p class="dash_body_title">Like : I Gave</p>
                         <div class="dash_body_content">
-                            <p class="content_text"><?=$gaveLike?></p>
+                            <p class="content_text"></p>
                         </div>
                     </div>
                 </div>
@@ -43,13 +43,13 @@
                     <div class="x2_inner" data-value="got">
                         <p class="dash_body_title">Bookmark : I Got</p>
                         <div class="dash_body_content">
-                            <p class="content_text"><?=$gotBookmark?></p>
+                            <p class="content_text"></p>
                         </div>
                     </div>
                     <div class="x2_inner" data-value="gave">
                         <p class="dash_body_title">Bookmark : I Gave</p>
                         <div class="dash_body_content">
-                            <p class="content_text"><?=$gaveBookmark?></p>
+                            <p class="content_text"></p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                 <div class="dash_body_sector x3">
                     <div class="dash_body_content">
                         <div class="chart-boxes" id="worldmap" style="width: 75%; height: 300px;"></div>
-                    </div>   
+                    </div>
                 </div>
                 <div class="dash_body_sector">
                     <ul class="dash_rank_list">
@@ -80,8 +80,8 @@
                         <li><span>5</span><p data-value="4"></p></li>
                     </ul>
                 </div>
-            </div>    
-        </li>  
+            </div>
+        </li>
         <li class="dash_section">
             <div class="dash_header">
                 <h4>TIMELINE</h4>
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-            </div>    
+            </div>
         </li>
         <li class="dash_section">
             <div class="dash_header">
@@ -150,7 +150,7 @@
                         <li><span>5</span><p data-value="4"></p></li>
                     </ul>
                 </div>
-            </div>    
+            </div>
         </li>
         <li class="dash_section">
             <div class="dash_header">
@@ -187,9 +187,8 @@
                         <li><span>5</span><p data-value="4"></p></li>
                     </ul>
                 </div>
-            </div>    
-        </li>     
+            </div>
+        </li>
     </ul>
 </div>
 <!-- end contents section -->
-

@@ -1,18 +1,23 @@
 $(document).ready(function(){
-    $.getJSON("./component/view/chart/data/insightData.json",function(data){
-        success : initInsight(data);
-    }).fail(function(d, textStatus, error){ 
-        console.log("getJSON failed, status: " + textStatus + ", error: "+error) 
+    Request({
+        url: "./pages/controller/personal_page/insight_controller.php",
+        data: {
+            userCode: getUrlParameter("usernum")
+        },
+        callback: init
     });
 
-    function initInsight(data){
-        var likeData = data.givetake.like,
-            bookmarkData = data.givetake.bookmark;
+    function init(response){
+        var data = response.result;
+        console.log(data);
+
+        var likeData = data.giveTake.like,
+            bookmarkData = data.giveTake.bookmark;
         var mapData = data.worldmap;
-        var likeTimelineData = data.timeline.like,
-            viewTimelineData = data.timeline.view,
-            uploadTimelineData = data.timeline.upload,
-            downloadTimelineData = data.timeline.download;
+        var likeTimelineData = data.timeLine.like,
+            viewTimelineData = data.timeLine.view,
+            uploadTimelineData = data.timeLine.upload,
+            downloadTimelineData = data.timeLine.download;
         var contentRankingData = data.ranking.content,
             forumRankingData = data.ranking.forum;
         //give & take
@@ -26,8 +31,6 @@ $(document).ready(function(){
         chartLoader("up-timeline","upChart",uploadTimelineData);
         chartLoader("down-timeline","downChart",downloadTimelineData);
 
-        initGL();
-
         setTimeout(integratedLicense,1000);
     }
 
@@ -36,7 +39,7 @@ $(document).ready(function(){
         charts.each(function(){
             var license = $(this).find("a");
             license.remove();
-        })
+        });
     }
 
     function chartLoader(target,theme,data){
@@ -45,7 +48,7 @@ $(document).ready(function(){
             dataArray.push({
                 date: v["date"],
                 value: v["value"]
-            })
+            });
         });
         initLineChart(target,theme,dataArray);
     }
@@ -66,7 +69,7 @@ $(document).ready(function(){
                 {
                     "title": "Got",
                     "value": data[0]
-                }, 
+                },
                 {
                     "title": "Gave",
                     "value": data[1]
@@ -92,9 +95,9 @@ $(document).ready(function(){
         var lists = $("#worldmap_body").find(".dash_rank_list").find("li p");
         lists.each(function(i){
             $(this).text(data[i].title);
-            $(this).attr("data-target",data[i].id);
-        })
-        
+            $(this).attr("data-target");
+        });
+
 
         var chart = AmCharts.makeChart(target,{
             "type": "map",
@@ -109,7 +112,7 @@ $(document).ready(function(){
                 "areas": data
             },
             "areas":{
-                
+
             },
             "areasSettings": {
                 "autoZoom": false,
@@ -217,10 +220,6 @@ $(document).ready(function(){
         chart.addListener("rendered", zoomChart);
         function zoomChart(){
             chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
-        };  
+        }
     }
-
-    function initGL(){
-
-    }   
 });
