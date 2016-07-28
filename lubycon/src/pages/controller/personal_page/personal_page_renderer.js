@@ -9,6 +9,9 @@ $(document).ready(function(){
     });
 
     function init(response){
+		var body = $("#contents_box");
+		body.load("./pages/view/personal_page/" + bindPage(CATE_PARAM) + ".php");
+
 		var data = response.result,
 			session = response.session;
     	var pageTitle = data.pageTitle,
@@ -45,16 +48,19 @@ $(document).ready(function(){
 			var subnav = $(".subnav_li");
 
 			subnav.each(function(){
-
 				var v = $(this).data("value"),
 					anchor = $(this).find("a");
 					link = "?dir=pages/view/personal_page/personal_page&cate=" + v + "&usernum=" + userdata.code;
 				if(v === "bookmark" || v === "my_contents") link += "&page=1";
 				anchor.attr("href",link);
 
-				if(v === pageTitle) $(this).addClass("selected");
+				if(v.toString() === CATE_PARAM) $(this).addClass("selected");
 			});
-
 		}
     }
+
+	function bindPage(param){
+		var pages = ["dashboard","my_contents","my_forums","insight","bookmark"];
+		return pages[parseInt(param)];
+	}
 });

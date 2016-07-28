@@ -1,14 +1,12 @@
 
 $(document).ready(function(){
     $("#bodyer").fadeIn(500);
-    /*Request({
+    Request({
 	    url: "./service/controller/encrypt/RSA.php",
 	    callback: init
-	});*/
-    init();
+	});
     function init(response){
         console.log(response);
-        detectLoginFail();
         detectEnterKey();
         loginInputAction();
 
@@ -16,24 +14,37 @@ $(document).ready(function(){
         $("#login_lubycon").on("click",signin);
     }
     function signin(){
-        $("#loading_icon").show();
+
         var id = $("#login_id").val(),
             pass = $("#login_pass").val();
-        console.log(id,pass);
-        Request({
-            url: "./pages/controller/sign_in/sign_in.php",
-            data: {
-                id: id,
-                password: pass
-            },
-            callback: action
-        });
+
+        if(id.isEmail() && pass.isPassword() === 0 || id === "admin"){ //admin is TEST CODE
+            $("#loading_icon").show();
+            Request({
+                url: "./pages/controller/sign_in/sign_in.php",
+                data: {
+                    id: id,
+                    password: pass
+                },
+                callback: action
+            });
+        }
+        else{
+            $(".alertKey").lubyAlert({
+                type: "message",
+                cancelButton: false,
+                fontSize: 14,
+                icon: "fa-key",
+                text: "Please make sure your Email or Password.",
+                autoDestroy: false
+            });
+        }
+
     }
 
     function action(res){
         $("#loading_icon").hide();
         if(res.result.code === "0000"){
-            alert("Hello Lubycon!");
             location.href = "./index.php";
         }
         else {
@@ -42,37 +53,19 @@ $(document).ready(function(){
                 type: "message",
                 cancelButton: false,
                 fontSize: 14,
-                icon: "fa-inbox",
+                icon: "fa-key",
                 text: "Please make sure your Email or Password.",
                 autoDestroy: false
             });
         }
     }
 
-    function detectLoginFail(){
-        if(getUrlParameter("login") === "0") {
-            $(".alertKey.hidden").lubyAlert({
-                autoDestroy: false,
-                type: "message",
-                icon: "fa-key",
-                text: "Please Make sure your E-mail or Password",
-                animation: "bounceInDown",
-                fontSize: 15,
-                cancelButton: false,
-                okAction: function(){ location.href = location.href.replace("?login=0",""); }
-            });
-            console.log(window.location);
-        }
-    }
-
     function detectEnterKey(){
         $("#login_input").on("keypress",function(event){
             if(event.which === 13) $("#login_lubycon").trigger("click");
-        })
+        });
     }
-    function goToIndex(){
-        location.href = "index.php";
-    };
+
     function callCreateAccountWindow(){
         $.ajax({
             type: "POST",

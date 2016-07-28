@@ -60,14 +60,17 @@ $(document).ready(function(){
             console.log("SIGN OUT");
             Request({
                 url: "./pages/controller/sign_out/sign_out.php",
-                data: "aaa",
                 callback: action
             });
         }
         function action(res){
+            console.log(res.result.code === "0000");
             if(res.result.code === "0000"){
                 alert("BYE!");
                 location.href = "./index.php";
+            }
+            else {
+                console.log(res.result);
             }
         }
     }
