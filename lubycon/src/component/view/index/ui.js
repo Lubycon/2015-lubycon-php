@@ -25,10 +25,7 @@ $(document).ready(function(){
 
         ///////////////////////////////////
         ///////// MOBILE / DESKTOP ////////
-        if(isMobile()){
-            initGoTopBt();
-        }
-        else{
+        if(!isMobile){
             contentCardHoverAction();
             contentsNameStickyAction();
         }

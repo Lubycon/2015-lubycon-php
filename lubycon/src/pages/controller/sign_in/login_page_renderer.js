@@ -5,18 +5,27 @@ $(document).ready(function(){
 	    url: "./service/controller/encrypt/RSA.php",
 	    callback: init
 	});
-    function init(response){
-        console.log(response);
+
+    function init(response,session){
+        console.log(response,session);
         detectEnterKey();
         loginInputAction();
 
-        $("#create_acc").on("click",callCreateAccountWindow);
-        $("#login_lubycon").on("click",signin);
-    }
-    function signin(){
+        var resKey = response.result.publicKey;
 
+        $("#create_acc").on("click",callCreateAccountWindow);
+        $("#login_lubycon").on("click",function(){
+            signin(resKey);
+        });
+    }
+    function signin(key){
+        console.log(key);
         var id = $("#login_id").val(),
             pass = $("#login_pass").val();
+        var rsa = new RSAKey();
+        rsa.setPublic(key,2048);
+
+        console.log(rsa.encrypt(pass));
 
         if(id.isEmail() && pass.isPassword() === 0 || id === "admin"){ //admin is TEST CODE
             $("#loading_icon").show();

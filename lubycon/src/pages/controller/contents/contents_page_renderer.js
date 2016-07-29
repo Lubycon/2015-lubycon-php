@@ -11,6 +11,7 @@ $(document).ready(function(){
     });
 
     function init(response){
+        console.log(response);
         var detector = new InfiniteScrollDetector(new GET_CONTENTS("contents",0));
         $("#loading_icon").hide();
         addCard(response);
