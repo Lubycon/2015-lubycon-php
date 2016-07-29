@@ -16,7 +16,6 @@
 		die('it is not post data error code 0000');
 	}
 
-
     $user_email = $postData->id;
     $user_pass = $postData->password;
 
@@ -46,7 +45,6 @@
 				}
 			}
 			$session->WriteSession('lubycon', $sessionArray);
-			//$_SESSION['serverError'] = (string)0000
 			$request = array(
 				"code" => "0000",
 				"message" => "login"

@@ -7,5 +7,21 @@
 
 	$Keys = rsa_generate_keys('hmdwdgdhkr2015');
 
-	$session->WriteSession('lubycon',$Keys);
+	if($Keys){
+		$session->WriteSession('lubycon',$Keys);
+		$result = array(
+			"code"=>"0000",
+			"message"=>"get Key"
+			);	
+	}else{
+		$result = array(
+			"code"=>"0400",
+			"message"=>"fail get Key"
+			);
+	}
+
+	$toJSON = json_encode($result);
+
+	echo $toJSON;
+	
 ?>
