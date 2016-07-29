@@ -83,7 +83,8 @@ class Session{
 	}
 
 	public function DestroySession(){
-		session_destroy();
+		if(isset($_SESSION))
+			session_destroy();
 
 		$temp_sessionId = $this->seperator.'_session_id';
 		$temp_id = $this->seperator.'_id';
