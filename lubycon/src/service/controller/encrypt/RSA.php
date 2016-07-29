@@ -8,5 +8,4 @@
 	$Keys = rsa_generate_keys('hmdwdgdhkr2015');
 
 	$session->WriteSession('lubycon',$Keys);
-	echo $session;
 ?>
