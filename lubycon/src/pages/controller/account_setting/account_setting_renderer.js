@@ -117,8 +117,7 @@ $(document).ready(function(){
             Request({
                 url: "./pages/controller/account_setting/update_controller.php",
                 data: {
-                    result: vm,
-                    usernum: USER_PARAM
+                    result: vm
                 },
                 callback: result
             });
@@ -346,11 +345,27 @@ $(document).ready(function(){
             icon: "fa-trash-o",
             text: "Are you sure?<br/><p style='font-size: 14px; font-weight: 200;'>Your contents and information is will be removed</p>",
             autoDestroy: false,
-            okAction: deleteAccount
+            okAction: function(){
+                Requset({
+                    url: "./pages/controller/account_setting/delete_controller.php",
+                    data: {
+                        userCode: USER_PARAM
+                    },
+                    callback: action
+                });
+            }
         });
-
-        function deleteAccount(){
-            alert("DELETE ACCOUNT");
-        }
+    }
+    function action(res){
+        $(".alertKey").lubyAlert({
+            type: "alert",
+            cancelButton: false,
+            fontSize: 14,
+            icon: "fa-inbox",
+            text: "Thank you for using Lubycon !",
+            autoDestroy: true
+        });
+        location.href = "./index.php";
+        consle.log(res);
     }
 });
