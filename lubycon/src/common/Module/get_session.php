@@ -35,7 +35,7 @@ $country_json_Code = $json_control->json_decode_code;
 						if($activity === false)
 							$BODY_URL = "service/view/waiting_for_resisting.php";
 
-		}else{
+		}else if(isset($_SESSION['lubycon_userCode'])){
 			$session->DestroySession();
 		}
 

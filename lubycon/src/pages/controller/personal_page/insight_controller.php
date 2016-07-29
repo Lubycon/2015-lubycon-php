@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 
-$userCode = $postData->userCode;
-//$userCode = $_POST['userCode'];
 
+$userCode = $postData->userCode;
+//$userCode = 181;
 
 
 if( $userCode == $_SESSION['lubycon_userCode'] )
@@ -60,49 +60,61 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 			) 
 		);
 	}
+	for($i=$countryRank->lengths; $i<5; $i++)
+	{
+		array_push(
+			$worldmap,
+			array( 
+				'id' => '-1',
+				'title' => 'No Country',
+				'color' => "#aaa", 
+				'mouseEnabled' => 'false'
+			) 
+		);
+	}
 
 	
-	$timelineLikeArray = array();
-	$timelineBookmarkArray = array();
-	$timelineViewArray = array();
-	$timelineCommentArray = array();
-	while ($row = mysqli_fetch_array($timelineLike)) 
+	$likeTimelineArray = array();
+	$viewTimelineArray = array();
+	$uploadTimelineArray = array();
+	$downloadTimelineArray = array();
+	while ($row = mysqli_fetch_array($likeTimeline)) 
 	{
 		array_push(
-			$timelineLikeArray,
+			$likeTimelineArray,
 			array( 
-				'date' => $row['date'],
-				'value' => $row['ck'] == null ? 0 : $row['value']
+				'date' => $row['calendar_date'],
+				'value' => $row['count'] == null ? 0 : $row['count']
 			) 
 		);
 	}
-	while ($row = mysqli_fetch_array($timelineBookmark)) 
+	while ($row = mysqli_fetch_array($viewTimeline)) 
 	{
 		array_push(
-			$timelineBookmarkArray,
+			$viewTimelineArray,
 			array( 
-				'date' => $row['date'],
-				'value' => $row['ck'] == null ? 0 : $row['value']
+				'date' => $row['calendar_date'],
+				'value' => $row['count'] == null ? 0 : $row['count']
 			) 
 		);
 	}
-	while ($row = mysqli_fetch_array($timelineView)) 
+	while ($row = mysqli_fetch_array($uploadTimeline)) 
 	{
 		array_push(
-			$timelineViewArray,
+			$uploadTimelineArray,
 			array( 
-				'date' => $row['date'],
-				'value' => $row['ck'] == null ? 0 : $row['value']
+				'date' => $row['calendar_date'],
+				'value' => $row['count'] == null ? 0 : $row['count']
 			) 
 		);
 	}
-	while ($row = mysqli_fetch_array($timelineComment)) 
+	while ($row = mysqli_fetch_array($downloadTimeline)) 
 	{
 		array_push(
-			$timelineCommentArray,
+			$downloadTimelineArray,
 			array( 
-				'date' => $row['date'],
-				'value' => $row['ck'] == null ? 0 : $row['value']
+				'date' => $row['calendar_date'],
+				'value' => $row['count'] == null ? 0 : $row['count']
 			) 
 		);
 	}
@@ -206,10 +218,10 @@ $total_array = array(
 	),
 	'worldmap' => $worldmap,
 	'timeLine' => array(
-		'like' => $timelineLikeArray,
-		'bookmark' => $timelineBookmarkArray,
-		'comment' => $timelineCommentArray,
-		'view' => $timelineViewArray
+		'like' => $likeTimelineArray,
+		'view' => $viewTimelineArray,
+		'upload' => $uploadTimelineArray,
+		'download' => $downloadTimelineArray
 	),
 	'ranking' => array(
 		'contents' => array(

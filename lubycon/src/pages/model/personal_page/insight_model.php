@@ -49,52 +49,74 @@ $countryRank = $db->result;
 
 $db->query = 
 "
-SELECT DATE_FORMAT(cl.`likeDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
-FROM lubyconboard.`calendar` as cal 
-LEFT JOIN lubyconboard.`contentslike` as cl
-ON cal.`calendar_date` = DATE_FORMAT(cl.`likeDate`, '%Y-%c-%e')
+SELECT * 
+FROM 
+(
+    SELECT COUNT(*) as count,DATE_FORMAT(cl.`likeDate`, '%Y-%c-%e') as checked
+    FROM lubyconboard.`contentslike` as cl
+    WHERE cl.`likeTakeUserCode` = $userCode
+    GROUP BY DATE_FORMAT(cl.`likeDate`, '%Y-%c-%e')
+) as cl
+RIGHT JOIN lubyconboard.`calendar` as cal
+ON cal.`calendar_date` = checked
 WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
-GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
-ORDER BY cal.`calendar_date` DESC
+ORDER BY `cal`.`calendar_date`  ASC
 ";
 $db->askQuery();
-$timelineLike = $db->result;
+$likeTimeline = $db->result;
 $db->query = 
 "
-SELECT DATE_FORMAT(cl.`bookmarkDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
-FROM lubyconboard.`calendar` as cal 
-LEFT JOIN lubyconboard.`contentsbookmark` as cl
-ON cal.`calendar_date` = DATE_FORMAT(cl.`bookmarkDate`, '%Y-%c-%e')
+SELECT * 
+FROM 
+(
+    SELECT COUNT(*) as count,DATE_FORMAT(cl.`viewDate`, '%Y-%c-%e') as checked
+    FROM lubyconboard.`contentsview` as cl
+    WHERE cl.`viewTakeUserCode` = $userCode
+    GROUP BY DATE_FORMAT(cl.`viewDate`, '%Y-%c-%e')
+) as cl
+RIGHT JOIN lubyconboard.`calendar` as cal
+ON cal.`calendar_date` = checked
 WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
-GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
-ORDER BY cal.`calendar_date` DESC
+ORDER BY `cal`.`calendar_date`  ASC
 ";
 $db->askQuery();
-$timelineBookmark = $db->result;
+$viewTimeline = $db->result;
+
+
 $db->query = 
 "
-SELECT DATE_FORMAT(cl.`viewDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
-FROM lubyconboard.`calendar` as cal 
-LEFT JOIN lubyconboard.`contentsview` as cl
-ON cal.`calendar_date` = DATE_FORMAT(cl.`viewDate`, '%Y-%c-%e')
+SELECT * 
+FROM 
+(
+    SELECT COUNT(*) as count,DATE_FORMAT(cl.`uploadDate`, '%Y-%c-%e') as checked
+    FROM lubyconboard.`contentsupload` as cl
+    WHERE cl.`uploadTakeUserCode` = $userCode
+    GROUP BY DATE_FORMAT(cl.`uploadDate`, '%Y-%c-%e')
+) as cl
+RIGHT JOIN lubyconboard.`calendar` as cal
+ON cal.`calendar_date` = checked
 WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
-GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
-ORDER BY cal.`calendar_date` DESC
+ORDER BY `cal`.`calendar_date`  ASC
 ";
 $db->askQuery();
-$timelineView = $db->result;
+$uploadTimeline = $db->result;
 $db->query = 
 "
-SELECT DATE_FORMAT(cl.`commentDate`, '%Y-%c-%e') as ck , COUNT(*) as value , cal.`calendar_date` as date
-FROM lubyconboard.`calendar` as cal 
-LEFT JOIN lubyconboard.`contentscomment` as cl
-ON cal.`calendar_date` = DATE_FORMAT(cl.`commentDate`, '%Y-%c-%e')
+SELECT * 
+FROM 
+(
+    SELECT COUNT(*) as count,DATE_FORMAT(cl.`downloadDate`, '%Y-%c-%e') as checked
+    FROM lubyconboard.`contentsdownload` as cl
+    WHERE cl.`downloadTakeUserCode` = $userCode
+    GROUP BY DATE_FORMAT(cl.`downloadDate`, '%Y-%c-%e')
+) as cl
+RIGHT JOIN lubyconboard.`calendar` as cal
+ON cal.`calendar_date` = checked
 WHERE cal.`calendar_date` BETWEEN DATE_ADD(NOW(), INTERVAL -3 MONTH) AND now()
-GROUP BY DATE_FORMAT(cal.`calendar_date`, '%Y-%c-%e')
-ORDER BY cal.`calendar_date` DESC
+ORDER BY `cal`.`calendar_date`  ASC
 ";
 $db->askQuery();
-$timelineComment = $db->result;
+$downloadTimeline = $db->result;
 
 
 /*   timeline    */

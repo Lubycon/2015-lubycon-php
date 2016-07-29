@@ -18,7 +18,14 @@ var Request = function(param){
                     success: function (res){
                         console.timeEnd("DATA LOADED");
                         console.log(res);
-                        if(typeof $.parseJSON(res) === "object"){
+
+                        var response = false;
+                        try {
+                            response = jQuery.parseJSON(data);
+                        } catch (error) {
+                            console.log(data); //php error
+                        }
+                        if(response && typeof response =='object') {
                             param.callback({
                                 result: $.parseJSON(res),
                                 session: session,

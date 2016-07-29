@@ -425,6 +425,34 @@ CREATE TABLE IF NOT EXISTS `contentsComment`
 	PRIMARY KEY (`commentID`)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
+-- community like
+DROP TABLE IF EXISTS `contentsUpload`;
+CREATE TABLE IF NOT EXISTS `contentsUpload`
+( 
+	`uploadID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`uploadGiveUserCode` INT UNSIGNED NOT NULL , 
+	`uploadTakeUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`uploadDate` DATETIME NOT NULL , 
+
+	PRIMARY KEY (`uploadID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+-- community like
+DROP TABLE IF EXISTS `contentsDownload`;
+CREATE TABLE IF NOT EXISTS `contentsDownload`
+( 
+	`downloadID` INT UNSIGNED NOT NULL AUTO_INCREMENT , 
+	`downloadGiveUserCode` INT UNSIGNED NOT NULL , 
+	`downloadTakeUserCode` INT UNSIGNED NOT NULL , 
+	`boardCode` INT UNSIGNED NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL , 
+	`downloadDate` DATETIME NOT NULL , 
+
+	PRIMARY KEY (`downloadID`)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
 
 
 
