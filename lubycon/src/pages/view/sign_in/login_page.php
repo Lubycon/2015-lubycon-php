@@ -1,5 +1,4 @@
 <link href="./pages/view/sign_in/login_page.css" rel="stylesheet" type="text/css" />
-<script src="./common/Module/rsa.js" type="text/javascript"></script>
 <script src="./pages/controller/sign_in/login_page_renderer.js" type="text/javascript"></script>
 <div id="loginWrap">
     <div id="login_box">

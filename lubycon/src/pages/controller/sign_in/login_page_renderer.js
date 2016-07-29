@@ -22,10 +22,12 @@ $(document).ready(function(){
         console.log(key);
         var id = $("#login_id").val(),
             pass = $("#login_pass").val();
-        var rsa = new RSAKey();
-        rsa.setPublic(key,2048);
 
-        console.log(rsa.encrypt(pass));
+         var $key = RSA.getPublicKey(key);
+         console.log($key);
+
+        console.log(pass,$key);
+        console.log(RSA.encrypt(pass, $key));
 
         if(id.isEmail() && pass.isPassword() === 0 || id === "admin"){ //admin is TEST CODE
             $("#loading_icon").show();

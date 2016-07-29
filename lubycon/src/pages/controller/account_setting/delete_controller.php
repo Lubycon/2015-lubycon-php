@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     die('it is not post data error code 0000');
 }
 
-$userCode = $postData->result->userData->code;
+$userCode = $postData->userCode;
 
 if( $_SESSION['lubycon_userCode'] === $userCode )
 {
