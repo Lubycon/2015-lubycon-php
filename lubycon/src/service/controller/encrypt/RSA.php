@@ -11,6 +11,7 @@
 		$session->WriteSession('lubycon',$Keys);
 		$result = array(
 			"code"=>"0000",
+			"publicKey"=>$Keys['public_key'],
 			"message"=>"get Key"
 			);	
 	}else{
