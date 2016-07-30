@@ -11,7 +11,7 @@
 
 (function($){
     $.fn.initEditor = function(option){
-        var defaults = { 
+        var defaults = {
             height: $(window).height(),
             minHeight: null,
             fileUpload: true,
@@ -104,23 +104,23 @@
                         pac.initModal.textureWindow().appendTo($this).hide();
                         pac.initModal.thumbnail().appendTo($this).hide();
                         pac.initModal.setting().appendTo($this).hide();
-                        
+
                         var captureBt = $("<div/>",{ "class" : "capture-btn" }).appendTo($canvas).on("click",canvasTool.capture),
                         captureIcon = $("<i/>",{ "class" : icons.camera }).appendTo(captureBt);
 
+                        console.log(1);
                         pac.initTools();//data binding
                         pac.initGL();
+                        console.log(2);
 
-                        $(window).on("load",function(){ 
-                            $(".modal.file-selector-modal").fadeIn(400);
-                            $loading_icon.hide(); 
-                        });
                         $(document).on("keydown",pac.initCamera);
                         window.onbeforeunload = function(){
                             if(unloadChecker) return "a";
-                        }
+                        };
+                        $(".modal.file-selector-modal").fadeIn(400);
+                        $loading_icon.hide();
                     }
-                })
+                });
             },
             initGL: function(){
                 'use strict';
@@ -195,16 +195,16 @@
                     var type = light.type,
                     newLight = null;
                     switch(type){
-                        case "DirectionalLight" : 
+                        case "DirectionalLight" :
                             newLight = new THREE.DirectionalLight(light.color,light.intensity);
 
                             newLight.target.position.set(
                                 light.target.x,
                                 light.target.y,
                                 light.target.z
-                            );   
+                            );
                         break;
-                        case "SpotLight" : 
+                        case "SpotLight" :
                             newLight = new THREE.SpotLight(light.color,light.intensity);
                             newLight.angel = light.angle;
                             newLight.penumbra = light.penumbra;
@@ -214,13 +214,13 @@
                                 light.target.z
                             );
                         break;
-                        case "HemisphereLight" : 
+                        case "HemisphereLight" :
                             newLight = new THREE.HemisphereLight(light.skyColor,light.groundColor,light.intensity);
                         break;
                         case "PointLight" :
                             newLight = new THREE.PointLight(light.color,light,intensity,light.radius);
                         break;
-                        default : return false; break;
+                        default : return false;
                     }
 
                     newLight.position.set(
@@ -253,12 +253,12 @@
                     camera.position.x = -2;
                     camera.position.y = 0.7;
                     camera.position.z = 2.5;
-                };
+                }
             },
             submit: function(){
                 var formData = new FormData();
                 var rootElement = $(".initEditor");
-           
+
                 /////////////////////////////////////////////////////////////////models
                 var model = objectToJSON(scene.getObjectByName("mainObject"),true),
                 newLights = scene.children.map(exportLights).clean(null);
@@ -269,11 +269,11 @@
                 categories = [], //data
                 tags = [], //data
                 cc = { "ccused": $(".license-selector").first().prop("checked"), "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
-                category = rootElement.find(".search-choice").each(function () { 
+                category = rootElement.find(".search-choice").each(function () {
                     var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
                     categories.push(index);
                 }),
-                tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()) }),
+                tag = rootElement.find(".hashtag-list").each(function () { tags.push($(this).text()); }),
                 descript = rootElement.find(".descript-input").text(),
                 ccbox = rootElement.find(".cc-checkbox").each(function () {
                     var data = $(this).data("value");
@@ -284,14 +284,14 @@
                 var checkList = {
                     name : !contentName.isNullString(),
                     categories : categories.length !== 0
-                }
+                };
 
                 var mapInfo = {
                     threed : skybox.material.visible,
                     skymap : skybox.index,
                     image : $("#bg-2d-selector").find("option:selected").data("value"),
                     color : $("#canvas-background").css("background-color")
-                }
+                };
 
                 var settingObject = {
                     name : contentName,
@@ -352,7 +352,7 @@
                     else return null;
                 }
                 function objectToJSON(obj,three){
-                    var result = three ? obj.toJSON() : obj; 
+                    var result = three ? obj.toJSON() : obj;
                     return JSON.stringify(result);
                 }
             },
@@ -365,7 +365,7 @@
                 //toolbar data bind end
                 $(window).on("load resize",function(){
                     $(".modal").each(function(){ ModalKit.align($(this)); });
-                })
+                });
             },
             initModal: {
                 fileSelector: function(){
@@ -382,7 +382,7 @@
                     totalFileSize = $("<span/>",{ "class" : "file-size-total", "html" : "0MB"}).appendTo(fileViewerTotal);
 
                     var uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find", "data-value" : "newOBJUpload" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap);
-                    fileSelectHelp = $("<i/>",{ 
+                    fileSelectHelp = $("<i/>",{
                         "class" : icons.help + " file-selector-help",
                         "data-tip" : "Your file size must be under 30MB. The file extension must be OBJ"
                     }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
@@ -403,7 +403,7 @@
                     var texture = new toolbar.materialFn.addTextureObject(icons.transparent,"None").removeClass("custom").attr("data-index","-1").addClass("selected default").appendTo(content);
 
                     var uploadBt = $("<li/>",{"class" : "upload-bt btn", "data-value" : "newTexUpload"}).on("click",upload.fileUpTrigger),
-                    uploadIcon = $("<i/>",{"class" : icons.plus}).appendTo(uploadBt)
+                    uploadIcon = $("<i/>",{"class" : icons.plus}).appendTo(uploadBt);
 
                     textureList.append(texture).append(uploadBt).appendTo(content);
 
@@ -419,12 +419,12 @@
                     $innerWrap = $("<div/>",{ "class" : "thumb-inner-wrapper" }).appendTo(content),
                     $preview = $("<div/>",{ "class" : "thumb-preview-wrapper" }).appendTo($innerWrap),
                     $editWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($innerWrap),
-                    $placeholder = $("<div/>", { 
+                    $placeholder = $("<div/>", {
                         "class" : "thumb-placeHolder",
                         "html" : "Please Capture in WebGL Viewer",
                         "data-value" : "thumbnail"
                     }).on("click",upload.imgUpTrigger).appendTo($editWrap),
-                    $img = $("<img/>", { 
+                    $img = $("<img/>", {
                         "class" : "thumb-origin-img",
                         "src" : "#"
                     }).appendTo($editWrap).hide(),
@@ -486,12 +486,12 @@
 
                         function insertOption(){
                             var categoryBox = $categorySelect;
-                            for(i in categories){ //categoryData is json
+                            for(var i = 0, l = categories.length; i < l; i++){ //categoryData is json
                                 var option = $option.clone().html(categories[i]).attr("data-index",i);
                                 option.appendTo(categoryBox);
                             }
                             categoryBox.chosen({  max_selected_options: 3 });
-                        };
+                        }
                     }
                     function initTag(){
                         var $hashtagName = $inputWrap.clone()
@@ -509,7 +509,7 @@
                         var $ccName = $inputWrap.clone(),
                         $ccLabel = $label.clone().html("Creative Commons"),
                         $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
-                        
+
                         $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper" }),
                         getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "http://creativecommons.org/licenses/by-nc-nd/4.0", "target" : "_blank" }),
                         $changebt = $("<p/>",{
@@ -541,17 +541,17 @@
                         var $this = $(this);
                         var value = $(this).val();
                         var errorCode = value.inputErrorCheck();
-                        
+
                         if(!value.isNullString()){
                             switch(errorCode){
-                                case 0 : 
-                                    $this.removeClass("error"); 
+                                case 0 :
+                                    $this.removeClass("error");
                                 break;
-                                case 1 : 
+                                case 1 :
                                     $this.addClass("error");
                                 break;
-                                case 2 : 
-                                    $this.addClass("error"); 
+                                case 2 :
+                                    $this.addClass("error");
                                 break;
                             }
                         }
@@ -602,7 +602,7 @@
                 switch(inKeyCode){
                    case keyCode.enter : $confirm.trigger("click"); break;
                    case keyCode.esc : $cancel.trigger("click"); break;
-                   default : return; break;
+                   default : return false;
                 }
             },
             setIndex: function(element){
@@ -663,7 +663,7 @@
                     case "newFileUpload" : inputFile.off("change").on("change",upload.fileUpload); break;
                     case "newTexUpload" : inputFile.off("change").on("change",upload.textureUpload); break;
                     default : $.error("This is not upload button"); break;
-                }  
+                }
             },
             objectUpload: function(event){
                 var $this = $(this),
@@ -751,11 +751,11 @@
                 return;
             },
             textureUpload: function(event){
-                var $inputFile = $(this), 
+                var $inputFile = $(this),
                 object = event.target.files,
                 target = $(document).find(".texture-list-wrapper").children(".upload-bt.btn"),
                 $loading_icon = $(document).find("#loading_icon").show();
-                    
+
                 $.each(object, function(i,file){
                     if(upload.imgCheck(file)){
                         var tgaCheck = /(^image)\/(targa)/i.test(object[0].type) && /.*\.(tga)/i.test(file.name);
@@ -764,7 +764,7 @@
 
                         if(tgaCheck) textureLoader = new THREE.TGALoader();
                         else textureLoader = new THREE.TextureLoader();
-           
+
                         reader.readAsDataURL(file);
                         reader.onload = function(event){
                             var newTexture = new toolbar.materialFn.addTextureObject(event.target.result,file.name);
@@ -791,16 +791,16 @@
                 selectMaterial = loadedMaterials[selectID],
                 materials = mesh.material.materials;
                 material = materials[targetID];
-                
+
                 switch(kind){
-                    case "diffuse" : 
+                    case "diffuse" :
                         idCheck(selectID,"map");
                         material.textureIndex = selectID;
                     break;
-                    case "specular" : 
+                    case "specular" :
                         idCheck(selectID,"specularMap");
                     break;
-                    case "normal" : 
+                    case "normal" :
                         idCheck(selectID,"normalMap");
                     break;
                     default: break;
@@ -831,21 +831,21 @@
                             var contents = event.target.result;
                             group = new THREE.Group();
                             object = new THREE.OBJLoader().parse(contents);
-                            
+
                             for(var i = 0, l = object.length; i < l; i++){
                                 var userData = object[i].userData;
                                 geometry = object[i].geometry;
                                     geometry.center();
 
                                 material = object[i].material;
-                                if(material.type == "MeshPhongMaterial"){
+                                if(material.type === "MeshPhongMaterial"){
                                     material.specular = new THREE.Color(0xffffff);
                                     material.shininess = 100;
                                     material.side = THREE.DoubleSide;
                                     material.transparent = true;
                                     material.needsUpdate = true;
                                 }
-                                else if(material.type = "MultiMaterial"){
+                                else if(material.type === "MultiMaterial"){
                                     var materials = material.materials;
                                     for(var j = 0, ml = materials.length; j < ml; j++){
                                         materials[j].specular = new THREE.Color(0xffffff);
@@ -862,8 +862,8 @@
                                     mesh.castShadow = true;
                                     mesh.receiveShadow = true;
                                     mesh.scale.set(1,1,1);
-                                    mesh.initMatrix = mesh.matrixWorld.clone();  
-                                    mesh.userData = userData; 
+                                    mesh.initMatrix = mesh.matrixWorld.clone();
+                                    mesh.userData = userData;
                                 group.add(mesh);
                                 group.name = "mainObject";
                             }
@@ -874,9 +874,7 @@
                         },false);
                         reader.readAsText(file);
                     break;
-                    default: 
-                        return false;
-                    break;
+                    default: return false;
                 }
             }
         },
@@ -904,10 +902,10 @@
                 var modelInfo = mesh.userData,
                 vertices = modelInfo.vertices;
 
-                var text = 
+                var text =
                     "Vertices : " + convertToKM(modelInfo.vertices) + "<br/>" +
                     "Faces : " + convertToKM(modelInfo.triFaces+modelInfo.quadFaces);
-                    
+
                 content.html(text).appendTo(wrapper);
 
                 function convertToKM(number){
@@ -928,7 +926,7 @@
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
                     finalThumbnail = dataURL;
                 }
-                else $.error("There is no Image");                
+                else $.error("There is no Image");
             },
             detectTag: function(event){
                 var $this = $(this),
@@ -939,15 +937,15 @@
                 value = $this.val().trim(),
                 endCommand = inKeyCode == keyCode.enter || inKeyCode == keyCode.space,
                 deleteCommand = inKeyCode == keyCode.delete,
-                wrapperExist = $this.prev("ul").length == 0,
+                wrapperExist = $this.prev("ul").length === 0,
                 errorCheck = !$this.hasClass("error");
                 if(endCommand && value !== "" && errorCheck){
                     if(wrapperExist) $tagWrap.prependTo($wrapper);
                     $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalFunc.deleteTag).appendTo(".hashtag-wrapper");
                     $this.val(null);
-                
+
                 }
-                else if(deleteCommand && value == ""){
+                else if(deleteCommand && value === ""){
                     $(".hashtag-list:last-child").remove();
                 }
             },
@@ -972,7 +970,7 @@
                 $learnMore = $("<a/>",{ "class" : "goto-cc", "href" : "#", "target" : "_blank"});
 
                 selected = $this.hasClass("selected"), //bool
-                notExist = $(document).find(".cc-setting-wrapper").length == 0; //bool
+                notExist = $(document).find(".cc-setting-wrapper").length === 0; //bool
 
                 if(selected){
                     if(notExist) {
@@ -984,14 +982,14 @@
                         addlist = function(){
                             for(var i = 0, l = ccData.length; i < l; i++){
                                 var disabled, checked;
-                                if(i == 0) continue;
+                                if(i === 0) continue;
                                 else if(i === 1) disabled = true, checked = true;
                                 else if(i === 2 || i === 3) disabled = false, checked = true;
                                 else if(i === 4) disabled = true, checked = false;
                                 $cclist.clone()
                                 .append($ccCheckBox.clone().attr({"data-value":ccData[i].id,"name":"cc-check"}).prop({"disabled" : disabled,"checked" : checked}))
                                 .append($ccCheckDesc.clone().html(ccData[i].descript))
-                                .appendTo($(".cc-checklist-wrapper"))
+                                .appendTo($(".cc-checklist-wrapper"));
                             }
                         }(),
                         withoutCC = $ccSection.clone().addClass("withoutCC").append($ccTitleWrap.clone()
@@ -1021,7 +1019,7 @@
                 else if(data == "withoutCC"){
                     $target.slideUp(400);
                     $(".cc-list-link").hide();
-                } 
+                }
             },
             displayCC: function(){
                 $this = $(this),
@@ -1051,7 +1049,7 @@
                     checkedData = link.join("-"),
                     ccUrl = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
                     $(".cc-list-link").attr("href", ccUrl);
-                });   
+                });
             }
         },
         headerTool = {
@@ -1072,7 +1070,7 @@
                     setTimeout(action,100);
                 }
                 else action();
-                
+
                 function action(){
                     dataURL = renderer.domElement.toDataURL("image/jpeg",1),
                     icon = $(this).find("i");
@@ -1080,7 +1078,7 @@
 
                     if(cropper.length) replaceCropper();
                     else newCropper();
-                    
+
                     setTimeout(function(){ icon.attr("class", icons.camera); },3000);
                     //if(backgroundType === "2d"){ renderer.setClearColor(0x222222,0); };
                     console.timeEnd("capture");
@@ -1119,7 +1117,7 @@
                         $(this).remove();
                     });
                 }
-            }  
+            }
         },
         toolbar = {
             disableTools: function(){
@@ -1127,18 +1125,18 @@
                 onLights = lightToolboxWrap.find(".toolbox-inner.btn.radioType"),
                 lightControls = scene.getObjectByName("lightControls"),
                 lastAttachedLight = lightControls !== undefined ? lightControls.object : null;
-                
+
                 onLights.each(function(){
                     var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
 
                     helper.visible = false;
-                    lightControls.visible = false; 
+                    lightControls.visible = false;
                 });
                 //lighttool init
                 var geometryToolboxWrap = $(document).find(".toolbox-wrap[data-value='geometryTool']"),
                 onRotateTool = geometryToolboxWrap.find(".checkbox-label.switch"),
                 switchOn = onRotateTool.hasClass("selected");
-            
+
                 if(switchOn) onRotateTool.trigger("click");
             },
             lightTool: function(){
@@ -1209,12 +1207,12 @@
                     assembleList("Color",true,true).appendTo(body);
 
                     switch(light){
-                        case "spot" : 
+                        case "spot" :
                             assembleList("Fall Off",false,true).appendTo(body);
                             assembleList("Angle",false,true).appendTo(body);
                             assembleList("Softness",false,true).appendTo(body);
                         break;
-                        case "point" : 
+                        case "point" :
                             assembleList("Fall Off",false,true).appendTo(body);
                         break;
                     }
@@ -1254,7 +1252,7 @@
                         newLight[0].name = name;
                         newLight[0].position.y = 1;
                         newLight[1].name = helperName;
-                        
+
                         scene.add(newLight[0],newLight[1]);
 
                         toolboxInner
@@ -1296,7 +1294,7 @@
                     onLights = toolboxWrap.find(".toolbox-inner.btn.radioType"),
                     lightControls = scene.getObjectByName("lightControls"),
                     lastAttachedLight = lightControls !== undefined ? lightControls.object : null;
-                    
+
                     onLights.each(function(){
                         var helper = scene.getObjectByName("newLightHelper" + $(this).data("value"));
                         if(selected){
@@ -1320,7 +1318,7 @@
                     switch(input){
                         case keyCode.w : _mode = "translate"; break;
                         case keyCode.e : _mode = "rotate"; break;
-                        default: return; break;
+                        default: return false;
                     }
                     lightControls.setMode(_mode);
                 },
@@ -1385,12 +1383,12 @@
                 createLight: function(kind){
                     var result = [];
                     switch(kind){
-                        case "directional" : 
+                        case "directional" :
                             result[0] = new THREE.DirectionalLight(0xffffff,0.5);
                             result[1] = new THREE.DirectionalLightHelper(result[0],1);
                             result[0].helper = result[1];
                         break;
-                        case "spot" : 
+                        case "spot" :
                             result[0] = new THREE.SpotLight(0xffffff,0.5);
                             result[0].angle = Math.PI/6;
                             result[0].decay = 1.5;
@@ -1398,7 +1396,7 @@
                             result[1] = new THREE.SpotLightHelper(result[0]);
                             result[0].helper = result[1];
                         break;
-                        case "point" : 
+                        case "point" :
                             result[0] = new THREE.PointLight(0xffffff,0.5,100);
                             result[0].decay = 1.5;
                             result[1] = new THREE.PointLightHelper(result[0],1);
@@ -1433,7 +1431,7 @@
                         else{
                             lightControls.detach();
                             lightControls.attach(light);
-                        }     
+                        }
                     }
                 },
                 lightColor: function(color){
@@ -1532,7 +1530,7 @@
                 },
                 initEuler: function(event){
                     event.stopPropagation();
-                    
+
                     var $this = $(this),
                     axis = $this.data("target"),
                     newEuler = new THREE.Euler().copy(group.rotation);
@@ -1540,7 +1538,7 @@
                         case "x" : newEuler.x = 0 ; break;
                         case "y" : newEuler.y = 0; break;
                         case "z" : newEuler.z = 0; break;
-                        default : return false; break;
+                        default : return false;
                     }
                     group.setRotationFromEuler(newEuler);
                 },
@@ -1548,7 +1546,7 @@
                     var $this = $(this),
                     checked = $this.prop("checked"),
                     objectControls,gridHelper,axisHelper;
-                    
+
                     if(checked){
                         objectControls = new THREE.TransformControls(camera,renderer.domElement);
                         gridHelper = new THREE.GridHelper(3,0.5);
@@ -1565,7 +1563,7 @@
                         objectControls.space = "local";
                         objectControls.update();
                     }
-                    else{ 
+                    else{
                         objectControls = scene.getObjectByName("objectControls");
                         gridHelper = scene.getObjectByName("gridHelper");
                         axisHelper = scene.getObjectByName("axisHelper");
@@ -1583,32 +1581,32 @@
                     data = $this.data("value");
 
                     switch(data){
-                        case "realistic" : 
+                        case "realistic" :
                             toolbar.geometryFn.materialViewControl(true);
                             toolbar.geometryFn.xrayViewControl(false);
                             toolbar.geometryFn.wireframeControl(false);
                         break;
-                        case "clean" : 
+                        case "clean" :
                             toolbar.geometryFn.materialViewControl(false);
                             toolbar.geometryFn.xrayViewControl(false);
-                            toolbar.geometryFn.wireframeControl(false); 
+                            toolbar.geometryFn.wireframeControl(false);
                         break;
-                        case "transparent" : 
+                        case "transparent" :
                             toolbar.geometryFn.materialViewControl(false);
                             toolbar.geometryFn.xrayViewControl(true);
                             toolbar.geometryFn.wireframeControl(false);
                         break;
-                        case "wireframe" : 
+                        case "wireframe" :
                             toolbar.geometryFn.materialViewControl(false);
                             toolbar.geometryFn.xrayViewControl(false);
                             toolbar.geometryFn.wireframeControl(true,false);
                         break;
-                        case "wireclean" : 
+                        case "wireclean" :
                             toolbar.geometryFn.materialViewControl(false);
                             toolbar.geometryFn.xrayViewControl(false);
                             toolbar.geometryFn.wireframeControl(true,true);
                         break;
-                        default: return false; break;
+                        default: return false;
                     }
                 },
                 materialViewControl: function(bool){
@@ -1651,7 +1649,7 @@
                         if(exist === undefined){
                             var wireframeHelper = new THREE.WireframeHelper(mesh,0x48cfad);
                             wireframeHelper.name = "wireframeHelper";
-                            scene.add(wireframeHelper);  
+                            scene.add(wireframeHelper);
                         }
                         if(!helper) mesh.material.visible = false;
                         else mesh.material.visible = true;
@@ -1667,14 +1665,14 @@
 
                 var $selectBox = $("<select/>",{ "id" : "material-selector" }).hide(),
                 $materialSelector = new UImodule.createMenu($selectBox,"Materials").attr({"id" : "materialSelect-tool","data-value" : "material-select"}).appendTo($this);
-                
+
                 var $materialDiffuse = new UImodule.createMenu(null,"Diffuse",false).attr({"id" : "materialDiffuse-tool","data-value" : "material-diffuse"}).appendTo($this);
                 var $materialSpecular = new UImodule.createMenu(null,"Specular",false).attr({"id" : "materialSpecular-tool","data-value" : "material-specular"}).appendTo($this);
                 var $materialNormal = new UImodule.createMenu(null,"Normal",false).attr({"id" : "materialNormal-tool","data-value" : "material-normal"}).appendTo($this);
 
                 var $controllerBody = $("<div/>",{ "class" : "toolbox-controller" }),
                 $tabBtWrap = $("<div/>",{ "class" : "toolbox-tab-bt-wrapper" }).appendTo($controllerBody),
-                $tabLeftBt = $("<div/>",{ 
+                $tabLeftBt = $("<div/>",{
                     "class" : "toolbox-tab btn",
                     "html" : "Texture",
                     "data-target" : "texture-window"
@@ -1683,7 +1681,7 @@
                 $tabLeftBt.on("click",firstMaterialCheck);
 
                 var $tabBody = $("<div/>",{ "class" : "material-control-inner" }).appendTo($controllerBody);
-                
+
                 $controllerBody.clone(true).attr("data-value","diffuse").appendTo($materialDiffuse);//diffuse
                 $controllerBody.clone(true).attr("data-value","specular").appendTo($materialSpecular);//specular
                 $controllerBody.clone(true).attr("data-value","normal").appendTo($materialNormal);
@@ -1697,9 +1695,9 @@
                     else $slider.hide();
                 }
                 function firstMaterialCheck(){
-                    var $this = $(this); 
+                    var $this = $(this);
                     trigger1 = $this.parent().siblings(".material-control-inner").find(".texture-viewer.material-viewer.tab-target"),
-                    trigger2 = $(".modal.texture-window").find(".texture-list.btn.default") 
+                    trigger2 = $(".modal.texture-window").find(".texture-list.btn.default");
                     material = $(".modal.texture-window").find(".texture-list.btn.custom");
                     if(material.length === 0){
                         trigger1.trigger("click");
@@ -1742,7 +1740,7 @@
                             move: toolbar.materialFn.materialColor,
                             change: toolbar.materialFn.materialColor
                         });
-                        $(".color-viewer.material-viewer.tab-target").attr("data-value","color-window")
+                        $(".color-viewer.material-viewer.tab-target").attr("data-value","color-window");
                         $(this).find(".sliderKey").slider({
                             dragEvent: toolbar.materialFn.sliderAction
                         });
@@ -1753,7 +1751,7 @@
                     selectedTexture = $textureWindow.find(".texture-list.btn.selected"),
                     index = $(document).find(".uploading").attr("data-index"),
                     targetTexture = $textureWindow.find(".texture-list.btn[data-index='" + index + "']");
-                    
+
                     selectedTexture.removeClass("selected");
                     targetTexture.addClass("selected");
                 },
@@ -1770,7 +1768,7 @@
                                 option.text(material.name);
                                 option.attr("data-value",i);
                                 option.appendTo("#material-selector");
-                                if(i == 0) option.prop("selected",true);
+                                if(i === 0) option.prop("selected",true);
                             }
                         }
                     }();
@@ -1822,7 +1820,7 @@
 
                     $diffuseTool.find(colorViewer).spectrum("set", diffuseColor); //diffuse color sync
                     $specularTool.find(colorViewer).spectrum("set", specularColor); //specular color sync
-                    
+
                     $diffuseTool.find(opacitySlider).val(parseInt(material.opacity*100)).trigger("change"); //opacity sync
                     //synchronize material controller end
 
@@ -1878,7 +1876,7 @@
                             case "specular" : $material.specular = new THREE.Color(color); break;
                             default : $.error("COLOR ERROR : WEBGL"); break;
                         }
-                    }   
+                    }
                 },
                 sliderAction: function(val,selector){
                     var $this = selector,
@@ -1935,7 +1933,7 @@
                         data = $(this).data("value");
 
                         switch(data){
-                            case "3d": 
+                            case "3d":
                                 addOption(preset3d,$this);
                                 $this.lubySelector({
                                     id : "bg-3dSelector",
@@ -1947,7 +1945,7 @@
                                 });
                                 $("#bg-3dSelector").find(".ls_option").tooltip({left: 270, appendTo: $this.parents(".toolbox-controller") });
                             break;
-                            case "2d": 
+                            case "2d":
                                 addOption(preset2d,$this);
                                 $this.lubySelector({
                                     id : "bg-2dSelector",
@@ -1959,7 +1957,7 @@
                                 });
                                 $("#bg-2dSelector").find(".ls_option").tooltip({left: 270, appendTo: $this.parents(".toolbox-controller") });
                             break;
-                            case "color": 
+                            case "color":
                                 $this.spectrum({
                                     replacerClassName: "color-viewer background-viewer",
                                     color: "#222222",
@@ -1975,7 +1973,7 @@
                                     change: toolbar.backgroundFn.backgroundColor
                                 });
                             break;
-                            default: return false; break;
+                            default: return false;
                         }
                     });
 
@@ -2014,7 +2012,7 @@
                     $loading_icon = $(document).find("#loading_icon").show(),
                     $background = $(document).find("#canvas-background"),
                     $img = $background.find("#canvas-background-logo");
-                    
+
                     $img.css("background-image","url(" + bgPreset2d[id].image + ")");
                     toolbar.backgroundFn.clearRendererMap();
                     $loading_icon.hide();
@@ -2025,7 +2023,7 @@
                     background.css("background-color",color.toHexString());
                     toolbar.backgroundFn.clearRendererMap();
                 },
-                clearRendererMap: function(){             
+                clearRendererMap: function(){
                     for(var i = 0, l = bgPreset3d[skybox.index].length; i < l; i++){
                         scene.remove(scene.getObjectByName("presetLight"+i));
                     }
@@ -2039,19 +2037,18 @@
             destroy: function () {
                 return this.each(function(){
                     console.log("tested");
-                })
+                });
             },
             getFileValue: function(){
                 return this.each(function(){
-                    
+
                 });
             }
-        }
-        return method[option] ? 
-        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
-        "object" != typeof option && option ? 
-            ($.error('No such method "' + option + '" for the Editor instance'), void 0) : 
+        };
+        return method[option] ?
+        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) :
+        "object" != typeof option && option ?
+            ($.error('No such method "' + option + '" for the Editor instance'), void 0) :
             pac.init.apply(this, arguments);
 };
 })(jQuery);
-

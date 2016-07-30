@@ -28,22 +28,10 @@
 <script type="text/javascript" src="./pages/controller/editor/TransformControls.js"></script>
 <script type="text/javascript" src="./pages/controller/editor/threex.domevents.js"></script>
 <script type="text/javascript" src="./pages/controller/editor/editorClasses.js"></script>
-<script type="text/javascript" src="./pages/view/editor/3d/3d.js"></script> 
+<script type="text/javascript" src="./pages/view/editor/3d/3d.js"></script>
 
 <!-- editor css -->
 <section id="editor-container" class="initEditor"></section>
-<?php
-//php variable setting
-    $contents_cate = $_GET["cate"];
-
-    $allow_array = ['threed'];
-
-    if( in_array($contents_cate , $allow_array) ){
-        echo 
-        '<script>
-	        $("#editor-container").initEditor();
-        </script>';
-    }else{
-        include_once('./service/view/error/404.php');
-    }
-?>
+<script>
+    $("#editor-container").initEditor();
+</script>

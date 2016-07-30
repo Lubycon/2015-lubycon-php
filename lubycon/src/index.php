@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="App">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -30,7 +30,6 @@
 
     <script type="text/javascript" src="../plugin/lib/jquery-1.12.2.min.js"></script>
     <script type="text/javascript" src="../plugin/lib/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="../plugin/lib/angular.min.js"></script>
 
     <script type="text/javascript" src="../plugin/JS/jquery.lubySelector.js"></script>
     <script type="text/javascript" src="../plugin/JS/jquery.lubyAlert.js"></script>
@@ -44,9 +43,6 @@
     <script type="text/javascript" src="./api/Request.module.js"></script>
     <script type="text/javascript" src="./config/router.config.js"></script>
     <script type="text/javascript" src="./common/common.js"></script>
-
-    <script type="text/javascript" src="./component/view/index/ui.js"></script>
-    <script type="text/javascript" src="./component/view/index/mobile.js"></script>
 
     <script type="text/javascript" src="./service/controller/infinite_scroll/infinite_scroll_module.js"></script>
     <script type="text/javascript" src="./component/view/contents_card/contents_card.tmpl.js"></script>
@@ -64,7 +60,7 @@
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
     <div class="alertKey hidden"></div>
     <header id="main-header"></header>
-    <div id="app-wrapper" ng-view class="app-wrapper"></div>
+    <div id="app-wrapper" class="app-wrapper"></div>
     <footer id="footer" class="footer"></footer>
 </div>
 </body>

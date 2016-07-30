@@ -12,13 +12,13 @@
     <section class="navsel hidden-mb-b">
         <nav class="lnb_nav">
             <ul>
-                <li class="nav_menu" id="forum">
+                <li class="nav_menu" data-value="0">
                     <a href="?dir=pages/view/community/community_page&cate=0&page=1">Forum</a>
                 </li>
-                <li class="nav_menu" id="tutorial">
+                <li class="nav_menu" data-value="1">
                     <a href="?dir=pages/view/community/community_page&cate=1&page=1">Tutorial</a>
                 </li>
-                <li class="nav_menu" id="qaa">
+                <li class="nav_menu" data-value="2">
                     <a href="?dir=pages/view/community/community_page&cate=2&page=1">Q&amp;A</a>
                 </li>
             </ul>

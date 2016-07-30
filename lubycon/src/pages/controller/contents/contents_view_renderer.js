@@ -64,6 +64,8 @@ $(document).ready(function(){
 		bindCC(content.cc);
 		bindComment(comment);
 		bindUserAction([content.bookmark,content.like]);
+
+
 	}
 
 	function bindCC(cc){

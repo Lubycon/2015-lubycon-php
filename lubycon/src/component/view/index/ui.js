@@ -14,8 +14,6 @@ $(document).ready(function(){
         initLubyAlerts();
         initModalCloseAction();
 
-        editorSelectorAction();
-
         initSearchBar();
         initCommentBox();
 
@@ -34,9 +32,15 @@ $(document).ready(function(){
     }
 
     function initSubNavInContentPage(){
-        $('.lnb_nav ul').children('#' + CATE_PARAM).addClass('selected');
-        $('#subnav ul').children('#' + CATE_PARAM).addClass('selected');
-        $(".selected").children("a").on("click",function(){ return false; });
+        var menu = $('.lnb_nav').find(".nav_menu");
+        menu.each(function(){
+            console.log($(this));
+            if($(this).data("value").toString() === CATE_PARAM){
+                $(this).addClass("selected");
+                $(this).off("click");
+            }
+
+        });
     }
     function initPageLanguageAction(){
         var button = $("#lang_select_bt"),
@@ -74,16 +78,6 @@ $(document).ready(function(){
         }
     }
 
-    function editorSelectorAction(){
-        var modal = $(".editor_popup.modal"),
-            darkOverlay = $(".dark_overlay"),
-            button = $("#addcontent_bt");
-        button.on("click",function(){
-            darkOverlay.stop().fadeIn(100);
-            modal.css("display","block")
-                 .attr("class","editor_popup modal fadeInDown animated");
-        });
-    }
     function initSearchBar(){
         // #WORK PROGRESS              //
         //-----------------------------//

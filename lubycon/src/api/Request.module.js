@@ -17,7 +17,7 @@ var Request = function(param){
                     cache: false,
                     success: function (res){
                         console.timeEnd("DATA LOADED");
-                        console.log(res);
+                        //console.log(res);
 
                         var response = false;
                         try {

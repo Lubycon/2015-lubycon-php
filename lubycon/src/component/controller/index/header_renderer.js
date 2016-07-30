@@ -12,6 +12,7 @@ $(document).ready(function(){
             $("#display_user").find("#user_id").text(response.username);
 
             $("#sign_out").on("click",signout);
+            $("#addcontent_bt").on("click",editorSelectorAction);
 
             initPersonalMenu();
             bindMyMenuAnchor();
@@ -25,6 +26,13 @@ $(document).ready(function(){
         },function(){
             $(this).children("ul").stop().fadeOut(300);
         });
+
+        function editorSelectorAction(){
+            var modal = $(document).find(".editor_popup"),
+                overlay = $(document).find(".dark_overlay[data-value='dark_overlay']");
+            modal.show();
+            overlay.show();
+        }
 
         function initPersonalMenu(){
             var menu = $("#after_signin"),

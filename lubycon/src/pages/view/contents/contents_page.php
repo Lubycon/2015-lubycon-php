@@ -15,16 +15,16 @@
     <section class="navsel hidden-mb-b">
         <nav class="lnb_nav">
             <ul>
-                <li class="nav_menu" id="all">
+                <li class="nav_menu" data-value="0">
                     <a href="?dir=pages/view/contents/contents_page&cate=0&page=1">All</a>
                 </li>
-                <li class="nav_menu" id="artwork">
+                <li class="nav_menu" data-value="1">
                     <a href="?dir=pages/view/contents/contents_page&cate=1&page=1">Artwork</a>
                 </li>
-                <li class="nav_menu" id="vector">
+                <li class="nav_menu" data-value="2">
                     <a href="?dir=pages/view/contents/contents_page&cate=2&page=1">Vector</a>
                 </li>
-                <li class="nav_menu" id="threed">
+                <li class="nav_menu" data-value="3">
                     <a href="?dir=pages/view/contents/contents_page&cate=3&page=1">3D</a>
                 </li>
             </ul>
@@ -64,7 +64,7 @@
         </div><!--subnav_box end-->
     </section>
     <section id="contents_box" class="con_wrap">
-        <input type="range" class="sliderKey" value="1" width="6" min='1' max="">
+        <!--<input type="range" class="sliderKey" value="1" width="6" min='1' max="">-->
         <ul class="contents_wrap">
             <!--CONTENTS CARD-->
         </ul>

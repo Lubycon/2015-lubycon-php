@@ -56,9 +56,10 @@ ContentsCard.prototype.render = function(){
         comment = li.clone().html("<i class='fa fa-comment-o'></i><span>" + this.count.comment + "</span>").appendTo(ul),
         like = li.clone().html("<i class='fa fa-heart'></i><span>" + this.count.like + "</span>").appendTo(ul);
 
-    card.hover(function(){
+    thumbWrapper.on("mouseenter",function(){
         overlay.stop().fadeIn(200);
-    },function(){
+    });
+    overlay.on("mouseleave",function(){
         overlay.stop().fadeOut(200);
     });
 

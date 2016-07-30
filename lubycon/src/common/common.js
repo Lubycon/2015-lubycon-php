@@ -1,11 +1,6 @@
 ﻿// TITLE : common.js
 // File for global functions or classes or variables
 
-var App = angular.module('App',[]);
-
-
-
-
 ///////////////////////////////////
 // GLOBAL FUNCTION AND VARIABLES //
 ///////////////////////////////////

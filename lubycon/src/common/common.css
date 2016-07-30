@@ -780,7 +780,7 @@ body {
 
 .search-bar .select-box .lubySelector{
     margin: 0;
-    margin-left: -10px;
+    margin-left: 0;
 }
 
 .search-bar-text {
@@ -1104,6 +1104,10 @@ body {
             height:26px;
             line-height:26px;
         }
+            .contents-desc .contents-title:hover {
+                color: #48cfad;
+                text-decoration: underline;
+            }
         .contents-desc h5 {
             color:#888888;
             font-size:13px;
