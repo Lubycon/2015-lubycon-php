@@ -23,12 +23,6 @@ $(document).ready(function(){
         var id = $("#login_id").val(),
             pass = $("#login_pass").val();
 
-         var $key = RSA.getPublicKey(key);
-         console.log($key);
-
-        console.log(pass,$key);
-        console.log(RSA.encrypt(pass, $key));
-
         if(id.isEmail() && pass.isPassword() === 0 || id === "admin"){ //admin is TEST CODE
             $("#loading_icon").show();
             Request({
