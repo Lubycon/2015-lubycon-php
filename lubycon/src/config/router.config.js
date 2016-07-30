@@ -41,11 +41,17 @@ $(function(){
     });
 
     // LOADING SCRIPTS.....
-    $.when(
-        $.cachedScript("./component/view/index/ui.js"),
-        $.cachedScript("./component/view/index/mobile.js"),
-        $.cachedScript("../plugin/JS/sticky.js")
-    ).then(function(){
-        d4.resolve();
+    var scripts = [
+        './component/view/index/ui.js',
+        './component/view/index/mobile.js',
+        '../plugin/JS/sticky.js'
+    ];
+
+    $.getMultiScripts(scripts)
+    .done(function() {
+         d4.resolve();
+    })
+    .fail(function(error) {
+         console.log("SCRIPT LOADING IS FAILED");
     });
 });

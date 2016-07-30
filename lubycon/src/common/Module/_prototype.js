@@ -276,7 +276,7 @@ $.fn.hideAnywhere = function(){
     return this;
 };
 
-jQuery.cachedScript = function(url, options){
+$.cachedScript = function(url, options){
     options = $.extend( options || {}, {
         dataType: "script",
         cache: true,
@@ -285,3 +285,15 @@ jQuery.cachedScript = function(url, options){
 
     return jQuery.ajax( options );
 };
+
+$.getMultiScripts = function(arr) {
+    var _arr = $.map(arr, function(scr) {
+        return $.cachedScript( scr );
+    });
+
+    _arr.push($.Deferred(function( deferred ){
+        $( deferred.resolve );
+    }));
+
+    return $.when.apply($, _arr);
+}

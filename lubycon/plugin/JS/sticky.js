@@ -1,7 +1,9 @@
 /////////////////////////////////////////////////////////
 //      sticky start
 /////////////////////////////////////////////////////////
-$(window).on("load",function(){
+console.log("STICKY IS LOADED");
+console.log(isMobile());
+$(window).load(function(){
     if(!isMobile()){
         var $mainHeader = $(".main_header"),
         $figure = $(".main_figure_wrap"),
@@ -16,6 +18,7 @@ $(window).on("load",function(){
         navselHeight = $navsel.length === 0 ? 0 : $navsel.height(),
         stickyStart = figureHeight + navselHeight;
 
+        console.log($mainHeader,$figure,$navsel,$conWrap);
         lubySticky(stickyStart);
     }
 });
