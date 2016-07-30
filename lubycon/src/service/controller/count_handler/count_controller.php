@@ -30,7 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $postData = json_decode(file_get_contents("php://input"));
 }else
 {
-    die('it is not post data error code 0000');
+    die(
+    $total_array = array(
+        'status' => array(
+            'code' => '1200',
+            'msg' => 'json post data is empty'
+        ),
+        'result' => (object)array()
+    )
+    );
 }
 
 
@@ -45,13 +53,31 @@ if($LoginState)
         case 3 : $countType = 'comment'; break;
         case 4 : $countType = 'upload'; break;
         case 5 : $countType = 'download'; break;
-        default : die('error code 1100'); break;
+        default : die(
+                    $total_array = array(
+                        'status' => array(
+                            'code' => '1100',
+                            'msg' => 'not allow contents type'
+                        ),
+                        'result' => (object)array()
+                    )
+                ); break;
     }
+    $countTypeName = $countType.'Count'; //colume name
 
     switch($postData->contentKind)
     {case 0 : $contentsKind = 'contents'; break;
         case 1 : $contentsKind = 'community'; break;
-        default : die('error code 1101'); break;
+        default : die(
+                    $total_array = array(
+                        'status' => array(
+                            'code' => '1101',
+                            'msg' => 'not allow contents kind'
+                        ),
+                        'result' => (object)array()
+                    )
+                );
+                 break;
     }
     $contentKindName = $contentsKind.'Count'; //colume name
 
@@ -67,8 +93,26 @@ if($LoginState)
 
     require_once '../../model/count_handler/count_model.php';
 
+    $total_array = array(
+        'status' => array(
+            'code' => '0000',
+            'msg' => 'done'
+        ),
+        'result' => (object)array()
+    );
 }else
 {
-    die('error code 0101');
+    $total_array = array(
+        'status' => array(
+            'code' => '0101',
+            'msg' => 'need login'
+        ),
+        'result' => (object)array()
+    );
 }
+
+
+$data_json = json_encode($total_array);
+echo $data_json;
+
 ?>

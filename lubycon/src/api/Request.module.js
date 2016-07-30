@@ -22,8 +22,7 @@ var Request = function(param){
                         var response = false;
                         try {
                             response = jQuery.parseJSON(res);
-                        } catch (error) {
-                            console.log("ERROR : " + response); //php error
+                        } catch (error) {                            console.log("ERROR : " + res); //php error
                         }
                         if(response && typeof response =='object') {
                             param.callback({
