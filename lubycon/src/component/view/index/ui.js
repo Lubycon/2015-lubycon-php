@@ -2,7 +2,6 @@
 // For UI init
 
 $(document).ready(function(){
-    $("body").show(); //TESTING...
     initUIComponents();
 
     function initUIComponents(){
@@ -151,7 +150,7 @@ $(document).ready(function(){
                 copyrightFilter = navGuide.find(".copyrightFilter"),
                 languageFilter = navGuide.find(".languageFilter"),
                 locationFilter = navGuide.find(".locationFilter"),
-                userFilter = navGuide.find(".userFilter");
+                sortFilter = navGuide.find(".sortFilter");
 
             init();
             dataBinding();
@@ -188,7 +187,7 @@ $(document).ready(function(){
                 theme: "rect",
                 changeEvent: changeLocation
             });
-            userFilter.lubySelector({
+            sortFilter.lubySelector({
                 id: "userFilter",
                 width: 200,
                 icon: "fa fa-user",

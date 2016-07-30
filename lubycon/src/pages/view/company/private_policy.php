@@ -1,18 +1,14 @@
-<?php 
-	$one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-	include_once('../layout/index_header.php');
-?>
-<link href="../../css/terms.css" rel="stylesheet" type="text/css" />
+
+<link href="./pages/view/company/document_page.css" rel="stylesheet" type="text/css" />
 
 <div class="doc_wrap con_wrap">
 	<nav class="doc_nav">
 		<ul>
 			<ul>
-			<a href="./terms_of_service.php">
+			<a href="?dir=pages/view/company/terms_of_service">
 				<li>Term of service</li>
 			</a>
-			<a href="./private_policy.php">
+			<a href="?dir=pages/view/company/private_policy">
 				<li class="selected">Private policy</li>
 			</a>
 		</ul>
@@ -71,7 +67,7 @@
 					We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure or destruction of your personal information, username, password, transaction information and data stored on our Site.
 				</p>
 				<p>
-					Sensitive and private data exchange between the Site and its Users happens over a SSL secured communication channel and is encrypted and protected with digital signatures. 
+					Sensitive and private data exchange between the Site and its Users happens over a SSL secured communication channel and is encrypted and protected with digital signatures.
 				</p>
 			</div>
 		</div>
@@ -120,7 +116,3 @@
 		</div>
 	</div>
 </div>
-
-<?php
-    include_once($two_depth.'/layout/index_footer.php');
-?>

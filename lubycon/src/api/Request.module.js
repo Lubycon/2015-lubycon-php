@@ -54,8 +54,6 @@ var Request = function(param){
 };
 
 var GET_CONTENTS = function(type,target){
-    console.log("GET_CONTENTS");
-    console.log(type,target);
     var page = getUrlParameter("page") < 1 ? 1 : getUrlParameter("page");
     return {
         url: getUrlParameter("dir"),

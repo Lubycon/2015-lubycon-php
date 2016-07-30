@@ -1,16 +1,12 @@
-<?php 
-	$one_depth = '../..'; //css js load
-    $two_depth = '..'; // php load
-	include_once('../layout/index_header.php');
-?>
-<link href="../../css/terms.css" rel="stylesheet" type="text/css" />	
+
+<link href="./pages/view/company/document_page.css" rel="stylesheet" type="text/css" />
 <div class="doc_wrap con_wrap">
 	<nav class="doc_nav">
 		<ul>
-			<a href="./terms_of_service.php">
+			<a href="?dir=pages/view/company/terms_of_service">
 				<li class="selected">Term of service</li>
 			</a>
-			<a href="./private_policy.php">
+			<a href="?dir=pages/view/company/private_policy">
 				<li>Private policy</li>
 			</a>
 		</ul>
@@ -308,7 +304,3 @@
 		</div>
 	</div>
 </div>
-
-<?php
-    include_once($two_depth.'/layout/index_footer.php');
-?>
