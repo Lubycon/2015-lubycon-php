@@ -37,26 +37,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 if($LoginState)
 {
-    $ajax_countkind = $postData->type == 0 ? 'bookmark' : 'like'; //bookmark or like
-    $content_kind = $postData->contentKind == 0 ? 'contents' : 'comment';
-    $ajax_countkind_name = $ajax_countkind.'Count'; //colume name
+    switch($postData->type)
+    {
+        case 0 : $countType = 'bookmark'; break;
+        case 1 : $countType = 'like'; break;
+        case 2 : $countType = 'view'; break;
+        case 3 : $countType = 'comment'; break;
+        case 4 : $countType = 'upload'; break;
+        case 5 : $countType = 'download'; break;
+        default : die('error code 1100'); break;
+    }
 
-    $json_control->json_decode($content_kind.'_top_category',"../../../../data/top_category.json");
-    $top_cate_json = $json_control->json_decode_code;
+    switch($postData->contentKind)
+    {case 0 : $contentsKind = 'contents'; break;
+        case 1 : $contentsKind = 'community'; break;
+        default : die('error code 1101'); break;
+    }
+    $contentKindName = $contentsKind.'Count'; //colume name
 
-    $ajax_board_kind = $postData->boardKind;
-    $ajax_number = $postData->conno; // contents boradCode
-    $ajax_cate_code = $postData->cate; //0 1 2
-    $ajax_cate_name = $top_cate_json[$ajax_cate_code]['name'];
-    $ajax_give_usercode = $Loginuser_code; // userCode
-    $ajax_take_usercode = $postData->usercode; // userCode
+    $json_control->json_decode($contentsKind.'_top_category',"../../../../data/top_category.json");
+    $topCateJson = $json_control->json_decode_code;
+    $number = $postData->conno; // contents boradCode
+    $topCate = $postData->topCate; // 0 1 2
+    $topCateName = $topCateJson[$topCate]['name'];
+    $giveUserCode = $Loginuser_code; // userCode
+    $takeUserCode = $postData->takeUser; // userCode
 
-    $active_date = date("YmdHis");
+    $activeDate = date("YmdHis");
 
     require_once '../../model/count_handler/count_model.php';
 
 }else
 {
-    die('501error');
+    die('error code 0101');
 }
 ?>

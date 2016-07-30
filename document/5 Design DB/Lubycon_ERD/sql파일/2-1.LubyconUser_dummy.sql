@@ -4,7 +4,7 @@ USE LubyconUser;
 delete from `userbasic`;
 INSERT INTO `userbasic` (`userCode`, `date`, `email`, `nick`, `pass`, `validation`, `subscription`, `termCheck`, `policyCheck`) VALUES
 (0, '2016-04-16 22:43:35', 'admin', 'Lubycon', '$2y$10$nc17yAiGfC3Pn4YYYwHnteOfQmo26uN3HYalgli5WwLB2Nt1RHr8y', 'active', 'false', 'true', 'true'),
-(1, '2016-04-16 22:43:35', 'qwer@naver.com', 'danielzepp', '$2y$10$nc17yAiGfC3Pn4YYYwHnteOfQmo26uN3HYalgli5WwLB2Nt1RHr8y', 'active', 'false', 'true', 'true'),
+(1, '2016-04-16 22:43:35', 'qwer@naver.com', 'danielzepp', '$2y$10$WBovKspkotcuCUsEltJDG.vgQ.h1XQydE7TuNj15m1oLIVlYIhG3O', 'active', 'false', 'true', 'true'),
 (2, '2016-04-16 22:56:08', 'qwerqwer@naver.com', 'Blanch Brightwell', '123123', 'active', 'false', 'true', 'true'),
 (3, '2016-04-16 22:56:08', 'qwerqwer@naver.com', 'Rae Bohl', '123123', 'active', 'false', 'true', 'true'),
 (4, '2016-04-16 22:56:08', 'qwerqwer@naver.com', 'Sunni Beaird', '123123', 'active', 'false', 'true', 'true'),

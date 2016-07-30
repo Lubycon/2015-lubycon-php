@@ -3,11 +3,11 @@ require_once '../../../common/Class/database_class.php';
 $db = new Database();
 $db->query =
 "
-select * from `lubyconboard`.`contents$ajax_countkind`
-WHERE `contents$ajax_countkind`.`".$ajax_countkind."GiveUserCode` = '$ajax_usercode'
-and `contents$ajax_countkind`.`boardCode` = '$ajax_number'
-and `contents$ajax_countkind`.`topCategoryCode` = '$ajax_cate_code'
-and `contents$ajax_countkind`.`".$ajax_countkind."BoardKind` = '$content_kind'
+select * from `lubyconboard`.`$contentsKind$countType`
+WHERE `$contentsKind$countType`.`".$countType."GiveUserCode` = '$giveUserCode'
+and `$contentsKind$countType`.`boardCode` = '$number'
+and `$contentsKind$countType`.`topCategoryCode` = '$topCate'
+and `$contentsKind$countType`.`".$countType."BoardKind` = '$contentsKind'
 ";
 $db->askQuery();
 $select_result =  $db->result;
@@ -17,24 +17,24 @@ $select_result =  $db->result;
 if( $select_result->num_rows == 0 )
 {
 	$stat_check = '+1';
-        //echo $ajax_countkind.$ajax_usercode.$ajax_nummber.$ajax_cate_name;
 	$db->query =
 	"
-	INSERT INTO `lubyconboard`.`contents$ajax_countkind`
-	( `".$ajax_countkind."GiveUserCode`, `".$ajax_countkind."TakeUserCode` , `boardCode`, `topCategoryCode`, `".$ajax_countkind."BoardKind`, `".$ajax_countkind."Date`) VALUES
-	( '$ajax_give_usercode','$ajax_take_usercode','$ajax_number', '$ajax_cate_code', '$content_kind', '$active_date');
+	INSERT INTO `lubyconboard`.`$contentsKind$countType`
+	( `".$countType."GiveUserCode`, `".$countType."TakeUserCode` , `boardCode`, `topCategoryCode`, `".$countType."Date`) VALUES
+	( '$giveUserCode','$takeUserCode','$number', '$topCate', '$activeDate');
 	";
+
 }else if ($select_result->num_rows <= 1 )
 {
 	$stat_check = '-1';
 	$db->query =
 	"
 	DELETE FROM
-	`lubyconboard`.`contents".$ajax_countkind."`
-	WHERE `contents".$ajax_countkind."`.`".$ajax_countkind."GiveUserCode` = '$ajax_usercode'
-	and `contents".$ajax_countkind."`.`boardCode` = '$ajax_nummber'
-	and `contents".$ajax_countkind."`.`topCategoryCode` = '$ajax_cate_code'
-	and `contents".$ajax_countkind."`.`".$ajax_countkind."BoardKind` = '$content_kind'
+	`lubyconboard`.`$contentsKind".$countType."`
+	WHERE `$contentsKind".$countType."`.`".$countType."GiveUserCode` = '$giveUserCode'
+	and `$contentsKind".$countType."`.`boardCode` = '$number'
+	and `$contentsKind".$countType."`.`topCategoryCode` = '$topCate'
+	and `$contentsKind".$countType."`.`".$countType."BoardKind` = '$contentsKind'
 	";
 }else
 {
@@ -43,7 +43,7 @@ if( $select_result->num_rows == 0 )
 $db->askQuery();
 
 //echo $db->query;
-$db->query = "UPDATE `lubyconboard`.`$ajax_cate_name` SET `$ajax_countkind_name` = `$ajax_countkind_name` $stat_check WHERE `$ajax_cate_name`.`boardCode` = $ajax_nummber";
+$db->query = "UPDATE `lubyconboard`.`$topCateName` SET `$countTypeName` = `$countTypeName` $stat_check WHERE `$topCateName`.`boardCode` = $number";
 $db->askQuery();
 
 //echo $db->query;
