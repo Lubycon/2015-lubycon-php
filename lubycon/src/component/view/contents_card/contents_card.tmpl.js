@@ -39,7 +39,7 @@ ContentsCard.prototype.render = function(){
                     by = $("<span/>", { "class" : "by", "html" : "by" }).appendTo(userAnchor),
                     username = $("<span/>", { "class" : "name", "html" : this.user.name }).appendTo(userAnchor),
             bookmarkButton = $("<i/>",{
-                "class" : "userAction-bt alertKey fa fa-star" + (this.bookmark ? "selected" : ""),
+                "class" : "userAction-bt alertKey fa fa-star" + (this.bookmark === "true" ? "selected" : ""),
                 "data-value" : "bookmark",
                 "data-kind" : "contents"
             }).on("click",bookmarkController).appendTo(contentDesc),
@@ -72,7 +72,7 @@ ContentsCard.prototype.render = function(){
                 type: 0,
                 contentKind: 0,
                 conno: _this.code,
-                cate: _this.category,
+                topCate: _this.category,
                 takeUser: _this.user.code
             },
             callback: success

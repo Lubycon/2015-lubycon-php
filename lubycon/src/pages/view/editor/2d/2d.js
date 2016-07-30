@@ -11,7 +11,7 @@
 
 (function($){
     $.fn.initEditor = function(option){
-        var defaults = { 
+        var defaults = {
             height: $(window).height(),
             minHeight: null,
             fileUpload: true,
@@ -129,7 +129,7 @@
                             "multiple" : "multiple"
                         }).insertAfter($header);
                         $(".btn").each(pac.toolbox);
-                        
+
                         //initModals
                         pac.initModal.file().appendTo($this).hide();
                         pac.initModal.fileSelector().appendTo($this).hide();
@@ -199,7 +199,7 @@
                 categories = [], //data
                 tags = [], //data
                 cc = { "ccused": $(".license-selector").first().prop("checked"), "by": true, "nc": true, "nd": true, "sa": false, "link": $(".cc-list-link").attr("href")}, //data
-                category = rootElement.find(".search-choice").each(function () { 
+                category = rootElement.find(".search-choice").each(function () {
                     var index = parseInt($(this).find(".search-choice-close").attr("data-option-array-index"));
                     categories.push(index);
                 }),
@@ -210,7 +210,7 @@
                     cc[data] = $(this).prop("checked");
                 }),
                 download = attachedFiles.length !== 0;
-                
+
                 var checkList = {
                     name : !contentName.isNullString() && !rootElement.find("input[name='content-name']").hasClass(".error"),
                     categories : categories.length !== 0
@@ -301,7 +301,7 @@
                     totalFileSize = $("<span/>",{ "class" : "file-size-total", "html" : "0MB"}).appendTo(fileViewerTotal);
 
                     var uploadBt = $("<div/>",{ "class" : "modal-bt modal-filebt", "html" : "Find" }).on("click",upload.fileUpTrigger).appendTo(fileInputWrap),
-                    fileSelectHelp = $("<i/>",{ 
+                    fileSelectHelp = $("<i/>",{
                         "class" : icons.help + " file-selector-help",
                         "data-tip" : "Your file size must be 30MB. The file extension must be ZIP,JPEG,PNG, or BMP"
                     }).tooltip({"top" : 30, "left" : -200}).appendTo(fileInputWrap);
@@ -315,11 +315,11 @@
                     content = modal.find(".modal-content"),
                     okbt = modal.find(".modal-okbt").text("Embed"),
                     input = $("<textarea/>",{ "class" : "embed-input" }).appendTo(content),
-                    helpText = $("<p/>",{ 
+                    helpText = $("<p/>",{
                         "class" : "embed-help",
                         "html" : "What can I embed?"
                     }).on("click",toggle.single).on("click",modalFunc.embedHelp).appendTo(content),
-                    errorText = $("<p/>",{ 
+                    errorText = $("<p/>",{
                         "class" : "embed-error",
                         "html" : "Please insert iframe tag only."
                     }).appendTo(content).hide();
@@ -336,12 +336,12 @@
                     $innerWrap = $("<div/>",{ "class" : "thumb-inner-wrapper" }).appendTo(content),
                     $preview = $("<div/>",{ "class" : "thumb-preview-wrapper" }).appendTo($innerWrap),
                     $editWrap = $("<div/>", { "class" : "thumb-editor-wrapper" }).appendTo($innerWrap),
-                    $placeholder = $("<div/>", { 
+                    $placeholder = $("<div/>", {
                         "class" : "thumb-placeHolder",
                         "html" : "Click and upload your thumbnail Image",
                         "data-value" : "thumbnail"
                     }).on("click",upload.imgUpTrigger).appendTo($editWrap),
-                    $img = $("<img/>", { 
+                    $img = $("<img/>", {
                         "class" : "thumb-origin-img",
                         "src" : "#"
                     }).appendTo($editWrap).hide(),
@@ -426,7 +426,7 @@
                         var $ccName = $inputWrap.clone(),
                         $ccLabel = $label.clone().html("Creative Commons"),
                         $ccInner = $inputInner.clone().addClass("cc-inner-wrapper"),
-                        
+
                         $ccIconWrap = $("<ul/>",{ "class" : "cc-list-wrapper" }),
                         getLink = $("<a/>",{ "class" : "cc-list-link", "href" : "http://creativecommons.org/licenses/by-nc-nd/4.0", "target" : "_blank" }),
                         $changebt = $("<p/>",{
@@ -458,17 +458,17 @@
                         var $this = $(this);
                         var value = $(this).val();
                         var errorCode = value.inputErrorCheck();
-                        
+
                         if(!value.isNullString()){
                             switch(errorCode){
-                                case 0 : 
-                                    $this.removeClass("error"); 
+                                case 0 :
+                                    $this.removeClass("error");
                                 break;
-                                case 1 : 
+                                case 1 :
                                     $this.addClass("error");
                                 break;
-                                case 2 : 
-                                    $this.addClass("error"); 
+                                case 2 :
+                                    $this.addClass("error");
                                 break;
                             }
                         }
@@ -680,24 +680,24 @@
                 dataValue = $this.data("value"),
                 $inputFile = dataValue === "newImgUpload" ? $(document).find(".content-imgUploader") : $(document).find(".imgUploader"),
                 $uploading = $(document).find(".uploading");
-                
+
                 switch(dataValue){
-                    case "replace" : 
+                    case "replace" :
                         $inputFile.off("change").on("change",upload.imgReplace);
                         if($uploading.length!=0) $uploading.removeClass(".uploading");
                         $this.addClass("uploading");
                     break;
                     case "thumbnail" : $inputFile.off("change").on("change",upload.thumbUpload); break;
                     case "thumb-replace" : $inputFile.off("change").on("change",upload.thumbReplace); break;
-                    case "grid" : 
+                    case "grid" :
                         $inputFile.off("change").on("change",upload.gridUpload);
                         if($uploading.length!=0) $uploading.removeClass(".uploading");
-                        $this.addClass("uploading"); 
+                        $this.addClass("uploading");
                     break;
-                    case "grid-replace" : 
+                    case "grid-replace" :
                         $inputFile.off("change").on("change",upload.gridReplace);
                         if($uploading.length!=0) $uploading.removeClass(".uploading");
-                        $this.addClass("uploading"); 
+                        $this.addClass("uploading");
                     break;
                     default :
                         $inputFile.off("change").on("change",upload.imgUpload);
@@ -718,7 +718,7 @@
                 $loading_icon = $(document).find("#loading_icon").show(),
 
                 $object = event.target.files;
-                
+
                 $.each($object, function(i,file){
                     if(upload.imgCheck(file)){
                         if($placeHolder.length != 0) $placeHolder.hide();
@@ -735,7 +735,7 @@
 
                             if(imgWidth >= 1400) $objectWrap.addClass("large");
                             upload.insertPosition($this,$objectWrap,img);
-                            $(".uploading").removeClass("uploading") // init target object  
+                            $(".uploading").removeClass("uploading") // init target object
                             $inputFile.val(null); // init input value
                             pac.objMenu($objectWrap);
                             $loading_icon.hide();
@@ -778,7 +778,7 @@
                                 zoomOnTouch: false,
                                 toggleDragModeOnDblclick: false,
                                 dragMode: "move"
-                            }); 
+                            });
                             $inputFile.val(null);
                             $this.attr("data-value","grid-replace").hide();
                             $(".uploading").removeClass("uploading");
@@ -814,7 +814,7 @@
                 $this.removeClass(".uploading");
                 pac.objMenu($mediaWrap);
                 $loading_icon.hide();
-            }, 
+            },
             thumbUpload: function(event){
                 var $this = $(".thumb-editor-wrapper"),
                 $inputFile = $(this),
@@ -996,7 +996,7 @@
                         return false;
                     }
                 }
-                else return false;     
+                else return false;
                 ///////////////
                 // EXCEPTION //
                 ///////////////
@@ -1034,7 +1034,7 @@
 
                 if(valTest) {
                     upload.embedUpload(value);
-                    $input.val(null); 
+                    $input.val(null);
                     $window.stop().fadeOut(200);
                     $darkOverlay.stop().fadeOut(200);
                 }
@@ -1056,7 +1056,7 @@
                     dataURL = $object.toDataURL("image/jpeg"); //export to jpeg
                     finalThumbnail = dataURL;
                 }
-                else $.error("There is no Image");                
+                else $.error("There is no Image");
             },
             detectTag: function(event){
                 var $this = $(this),
@@ -1149,7 +1149,7 @@
                 else if(data == "withoutCC"){
                     $target.slideUp(400);
                     $(".cc-list-link").hide();
-                } 
+                }
             },
             displayCC: function(){
                 $this = $(this),
@@ -1179,7 +1179,7 @@
                     checkedData = link.join("-"),
                     ccUrl = "http://creativecommons.org/licenses/" + checkedData + "/4.0";//send to DB
                     $(".cc-list-link").attr("href", ccUrl);
-                });   
+                });
             },
             embedHelp: function(){
                 var $this = $(this),
@@ -1242,7 +1242,7 @@
                 $header = $(document).find(".obj-header"),
                 $footer = $(document).find(".obj-footer"),
                 contents = $(document).find(".canvas-content").size();
-                
+
                 if(contents > 2) {
                     $target.children(".canvas-uploader-wrap").remove();
                     $wrapper.clone().appendTo($target);
@@ -1274,13 +1274,13 @@
                         $this.removeClass("fulllSizeOn").addClass("fullSizeOff");
                     }
                 }
-                else alert("This image can not be full size(less 1400px)");  
+                else alert("This image can not be full size(less 1400px)");
             }
         },
         toolbar = {
             textTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='textTool']");
-                
+
                 //font size start
                 var $sizeInput = $("<input/>",{
                     "type" : "range",
@@ -1292,7 +1292,7 @@
                 $fontSize = new UImodule.createMenu($sizeInput,"Font Size",false).attr({"id" : "fontSize-tool","data-value" : "font-size"}).appendTo($this);
                 $sizeInput.slider({
                     customID: "fontSize-slider",
-                    disabled: true, 
+                    disabled: true,
                     dragEvent: toolbar.textFn.fontSize
                 });
 
@@ -1352,7 +1352,7 @@
                     $fontSizeSlider = $("#fontSize-slider"),
                     $fontColorTool = $("#fontColor-tool"),
                     $fontDecoTool = $("#fontDeco-tool"),
-                    $fontAlignTool = $("#fontAlign-tool");                    
+                    $fontAlignTool = $("#fontAlign-tool");
 
                     if($(".focused").size() >= 1) $(".focused").removeClass("focused");
                     $this.addClass("focused");
@@ -1360,17 +1360,17 @@
                     var //data init
                     $changeSize = $fontSizeTool.find(".slider-text").val(fontSize).trigger("change"),
                     $changeColor = $("#fontColorKey").spectrum("set", fontColor),
-                    $boldbt = $this.find("b").length > 0 ? 
-                    	$fontDecoTool.find(".boldbt").addClass("selected") : 
+                    $boldbt = $this.find("b").length > 0 ?
+                    	$fontDecoTool.find(".boldbt").addClass("selected") :
                     	$fontDecoTool.find(".boldbt").removeClass("selected"),
-                    $italbt = $this.find("em").length > 0 ? 
-                    	$fontDecoTool.find(".italbt").addClass("selected") : 
+                    $italbt = $this.find("em").length > 0 ?
+                    	$fontDecoTool.find(".italbt").addClass("selected") :
                     	$fontDecoTool.find(".italbt").removeClass("selected"),
-                    $underbt = $this.find("u").length > 0 ? 
-                    	$fontDecoTool.find(".underbt").addClass("selected") : 
+                    $underbt = $this.find("u").length > 0 ?
+                    	$fontDecoTool.find(".underbt").addClass("selected") :
                     	$fontDecoTool.find(".underbt").removeClass("selected"),
-                    $strikebt = $this.find("strike").length > 0 ? 
-                    	$fontDecoTool.find(".strikebt").addClass("selected") : 
+                    $strikebt = $this.find("strike").length > 0 ?
+                    	$fontDecoTool.find(".strikebt").addClass("selected") :
                     	$fontDecoTool.find(".strikebt").removeClass("selected"),
                     $alignInit = $fontAlignTool.find(".btn").removeClass("selected"),
                     $fontAlign = $fontAlignTool.find(".btn[data-value='" + $textInput.css("text-align") + "']").addClass("selected");
@@ -1521,7 +1521,7 @@
                     direction = valueArray[0],
                     firstArea = parseInt(valueArray[1]),
                     secondArea = parseInt(valueArray[2]);
-                   
+
                     if(selected) {
                         var $gridObj = toolbar.gridFn.gridType(direction,firstArea,secondArea),
                         init = $(document).find(".grid-inner-wrapper").length != 0 ? $(".grid-inner-wrapper").remove() : "";
@@ -1530,7 +1530,7 @@
                     }
                     else if(!selected) {
                         $editWindow.find(".grid-inner-wrapper").remove();
-                    }  
+                    }
                 },
                 gridType: function(d,f,s){
                     var $gridWrapper = $("<div/>",{ "class" : "grid-inner-wrapper" }),
@@ -1547,13 +1547,13 @@
                         .append($devider.clone().addClass("horizental bottom"));
                         toolbar.gridFn.devideGrid($obj,d,f,s);
                     }
-                    else $.error("There is no grid element");   
+                    else $.error("There is no grid element");
 
                     return $gridWrapper;
                 },
                 devideGrid: function($obj,d,f,s){
                     $imgWrapper = $("<div/>",{ "class" : "grid-img-wrapper"}),
-                    $placeHolder = $("<div/>",{ 
+                    $placeHolder = $("<div/>",{
                         "class" : "grid-placeHolder",
                         "html" : "<i class='" + icons.plus + "'></i>",
                         "data-value" : "grid"
@@ -1566,18 +1566,18 @@
                         var $imgObj = $devider1.append($imgWrapper.clone().append($placeHolder.clone(true)));
                     }
                     else if(f == 2){
-                        var $imgObj = devider1Class ? 
+                        var $imgObj = devider1Class ?
                         $devider1.append($imgWrapper.clone().addClass("top").append($placeHolder.clone(true)))
                         .append($imgWrapper.clone().addClass("bottom").append($placeHolder.clone(true))) :
                         $devider1.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
                         .append($imgWrapper.clone().addClass("right").append($placeHolder.clone(true)));
                     }
-                    
+
                     if(s == 1){
                         var $imgObj = $devider2.append($imgWrapper.clone().append($placeHolder.clone(true)));
                     }
                     else if(s == 2){
-                        var $imgObj = devider2Class ? 
+                        var $imgObj = devider2Class ?
                         $devider2.append($imgWrapper.clone().addClass("top").append($placeHolder.clone(true)))
                         .append($imgWrapper.clone().addClass("bottom").append($placeHolder.clone(true))) :
                         $devider2.append($imgWrapper.clone().addClass("left").append($placeHolder.clone(true)))
@@ -1596,7 +1596,7 @@
             },
             marginTool: function(){
                 var $this = $(document).find(".toolbox-wrap[data-value='marginTool']");
-                
+
                 var $headerInput = $("<input/>",{
                     "type" : "range",
                     "class" : "sliderKey",
@@ -1627,7 +1627,7 @@
                 $deviderMargin = new UImodule.createMenu($deviderInput,"Contents Spacing",false).attr({"id" : "devider-tool","data-value" : "devider"}).appendTo($this);
                 $deviderInput.slider({
                     customID: "contentSpace-slider",
-                    disabled: true, 
+                    disabled: true,
                     dragEvent: toolbar.marginFn.deviderMargin
                 });
             },
@@ -1696,13 +1696,13 @@
 
                     for(var i = 0; i < $originObj.length; i++) originArray.push($originObj[i]);
                     originArray.shift();//deleted placeholder
-                    
+
                     for(var i = 0; i < sortedObj.length; i++){
                         var $obj = $(sortedObj[i]),
                         index = $obj.data("index"),
                         $target = $(".canvas-content[data-index='" + index + "']");
-                        sortedArray.push($target.clone(true)[0]); 
-                        
+                        sortedArray.push($target.clone(true)[0]);
+
                         sortedAttachedImage[i] = attachedImage[index];
                     }
 
@@ -1723,7 +1723,7 @@
                     }
 
                     attachedImage = sortedAttachedImage;
-                    
+
                     toolbar.sortFn.refresh();
                 }
             }
@@ -1731,14 +1731,14 @@
         method = {
             destroy: function () {
                 return this.each(function () {
-                    
+
                 })
             }
         }
-        return method[option] ? 
-        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) : 
-        "object" != typeof option && option ? 
-            ($.error('No such method "' + option + '" for the Editor instance'), void 0) : 
+        return method[option] ?
+        method[option].apply(this, Array.prototype.slice.call(arguments, 1)) :
+        "object" != typeof option && option ?
+            ($.error('No such method "' + option + '" for the Editor instance'), void 0) :
             pac.init.apply(this, arguments);
 };
 })(jQuery);
