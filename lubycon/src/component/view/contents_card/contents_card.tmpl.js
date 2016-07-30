@@ -56,17 +56,23 @@ ContentsCard.prototype.render = function(){
         comment = li.clone().html("<i class='fa fa-comment-o'></i><span>" + this.count.comment + "</span>").appendTo(ul),
         like = li.clone().html("<i class='fa fa-heart'></i><span>" + this.count.like + "</span>").appendTo(ul);
 
+    card.hover(function(){
+        overlay.stop().fadeIn(200);
+    },function(){
+        overlay.stop().fadeOut(200);
+    });
+
     function bookmarkController(){
         if(!$(this).hasClass("selected")) _this.bookmark = true;
         else _this.bookmark = false;
         Request({
             url: "./service/controller/count_handler/count_controller.php",
             data: {
-                countKind: 0,
+                type: 0,
                 contentKind: 0,
-                boardKind: 0,
                 conno: _this.code,
                 cate: _this.category,
+                takeUser: _this.user.code
             },
             callback: success
         });

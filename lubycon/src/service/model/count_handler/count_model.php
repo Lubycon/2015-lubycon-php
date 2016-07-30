@@ -1,11 +1,11 @@
 <?php
 require_once '../../../common/Class/database_class.php';
 $db = new Database();
-$db->query = 
+$db->query =
 "
 select * from `lubyconboard`.`contents$ajax_countkind`
 WHERE `contents$ajax_countkind`.`".$ajax_countkind."GiveUserCode` = '$ajax_usercode'
-and `contents$ajax_countkind`.`boardCode` = '$ajax_nummber'
+and `contents$ajax_countkind`.`boardCode` = '$ajax_number'
 and `contents$ajax_countkind`.`topCategoryCode` = '$ajax_cate_code'
 and `contents$ajax_countkind`.`".$ajax_countkind."BoardKind` = '$content_kind'
 ";
@@ -22,7 +22,7 @@ if( $select_result->num_rows == 0 )
 	"
 	INSERT INTO `lubyconboard`.`contents$ajax_countkind`
 	( `".$ajax_countkind."GiveUserCode`, `".$ajax_countkind."TakeUserCode` , `boardCode`, `topCategoryCode`, `".$ajax_countkind."BoardKind`, `".$ajax_countkind."Date`) VALUES
-	( '$ajax_give_usercode','$ajax_take_usercode','$ajax_nummber', '$ajax_cate_code', '$content_kind', '$active_date');
+	( '$ajax_give_usercode','$ajax_take_usercode','$ajax_number', '$ajax_cate_code', '$content_kind', '$active_date');
 	";
 }else if ($select_result->num_rows <= 1 )
 {
@@ -44,7 +44,7 @@ $db->askQuery();
 
 //echo $db->query;
 $db->query = "UPDATE `lubyconboard`.`$ajax_cate_name` SET `$ajax_countkind_name` = `$ajax_countkind_name` $stat_check WHERE `$ajax_cate_name`.`boardCode` = $ajax_nummber";
-$db->askQuery(); 
+$db->askQuery();
 
 //echo $db->query;
 
