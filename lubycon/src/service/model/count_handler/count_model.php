@@ -7,12 +7,10 @@ select * from `lubyconboard`.`$contentsKind$countType`
 WHERE `$contentsKind$countType`.`".$countType."GiveUserCode` = '$giveUserCode'
 and `$contentsKind$countType`.`boardCode` = '$number'
 and `$contentsKind$countType`.`topCategoryCode` = '$topCate'
-and `$contentsKind$countType`.`".$countType."BoardKind` = '$contentsKind'
 ";
 $db->askQuery();
 $select_result =  $db->result;
 
-//echo $db->query;
 
 if( $select_result->num_rows == 0 )
 {
@@ -30,11 +28,10 @@ if( $select_result->num_rows == 0 )
 	$db->query =
 	"
 	DELETE FROM
-	`lubyconboard`.`$contentsKind".$countType."`
-	WHERE `$contentsKind".$countType."`.`".$countType."GiveUserCode` = '$giveUserCode'
-	and `$contentsKind".$countType."`.`boardCode` = '$number'
-	and `$contentsKind".$countType."`.`topCategoryCode` = '$topCate'
-	and `$contentsKind".$countType."`.`".$countType."BoardKind` = '$contentsKind'
+	`lubyconboard`.`$contentsKind$countType`
+	WHERE `$contentsKind$countType`.`".$countType."GiveUserCode` = '$giveUserCode'
+	and `$contentsKind$countType`.`boardCode` = '$number'
+	and `$contentsKind$countType`.`topCategoryCode` = '$topCate'
 	";
 }else
 {
@@ -44,7 +41,18 @@ $db->askQuery();
 
 //echo $db->query;
 $db->query = "UPDATE `lubyconboard`.`$topCateName` SET `$countTypeName` = `$countTypeName` $stat_check WHERE `$topCateName`.`boardCode` = $number";
-$db->askQuery();
+
+//echo $db->query;
+if(!$db->askQuery())
+{
+	$total_array = array(
+        'status' => array(
+            'code' => '1000',
+            'msg' => 'query ask fail'
+        ),
+        'result' => (object)array()
+    );
+}
 
 //echo $db->query;
 
