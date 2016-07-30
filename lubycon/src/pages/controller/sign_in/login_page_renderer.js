@@ -1,25 +1,19 @@
 
 $(document).ready(function(){
     $("#bodyer").fadeIn(500);
-    Request({
-	    url: "./service/controller/encrypt/RSA.php",
-	    callback: init
-	});
+
+    init();
 
     function init(response,session){
-        console.log(response,session);
         detectEnterKey();
         loginInputAction();
 
-        var resKey = response.result.publicKey;
-
         $("#create_acc").on("click",callCreateAccountWindow);
         $("#login_lubycon").on("click",function(){
-            signin(resKey);
+            signin();
         });
     }
-    function signin(key){
-        console.log(key);
+    function signin(){
         var id = $("#login_id").val(),
             pass = $("#login_pass").val();
 
