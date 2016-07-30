@@ -91,7 +91,6 @@ CREATE TABLE IF NOT EXISTS `communityLike`
 	`likeTakeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
 	`topCategoryCode` INT UNSIGNED NOT NULL , 
-	`likeBoardKind` ENUM('contents','comment') NOT NULL , 
 	`likeDate` DATETIME NOT NULL , 
 
 	PRIMARY KEY (`likeID`)
@@ -387,7 +386,6 @@ CREATE TABLE IF NOT EXISTS `contentsBookmark`
 	`bookmarkTakeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
 	`topCategoryCode` INT UNSIGNED NOT NULL , 
-	`bookmarkBoardKind` ENUM('contents') NOT NULL , 
 	`bookmarkDate` DATETIME NOT NULL , 
 
 	PRIMARY KEY (`bookmarkID`)
@@ -401,8 +399,7 @@ CREATE TABLE IF NOT EXISTS `contentsLike`
 	`likeGiveUserCode` INT UNSIGNED NOT NULL , 
 	`likeTakeUserCode` INT UNSIGNED NOT NULL , 
 	`boardCode` INT UNSIGNED NOT NULL , 
-	`topCategoryCode` INT UNSIGNED NOT NULL , 
-	`likeBoardKind` ENUM('contents','comment') NOT NULL , 
+	`topCategoryCode` INT UNSIGNED NOT NULL ,  
 	`likeDate` DATETIME NOT NULL , 
 
 	PRIMARY KEY (`likeID`)
