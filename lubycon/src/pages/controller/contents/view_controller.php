@@ -147,17 +147,25 @@ $write_user_data = array(
 	'city' => $row['city'],
 	'profile' => "../../../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg"
 );
-
 // contetnts data
-$comment_data = array(
-	'usercode' => $comment_row['commentGiveUserCode'],
-	'username' => $comment_row['nick'],
-	'profile' => $comment_row['profileImg'],
-	'date' => $comment_row['commentDate'],
-	'content' => $comment_row['commentContents']
-);
+
+
 
 // comment data
+$comment_data = array();
+while($comment_row = mysqli_fetch_assoc($comment_result))
+{
+	array_push(
+		$comment_data, 
+		array( 
+			'usercode' => $comment_result['commentGiveUserCode'],
+			'username' => $comment_result['nick'],
+			'profile' => $comment_result['profileImg'],
+			'date' => $comment_result['commentDate'],
+			'content' => $comment_result['commentContents']
+		) 
+	);
+}
 // commnet data
 
 $total_array = [

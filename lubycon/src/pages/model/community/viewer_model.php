@@ -41,5 +41,5 @@ AND a.`topCategoryCode` = '$cateCode'
 AND a.`commentStatus` = 'normal'
 ";
 $db->askQuery();
-$comment_row = mysqli_fetch_assoc($db->result);
+$comment_result = $db->result;
 ?>

@@ -96,18 +96,21 @@ $write_user_data = array(
 	'profile' => $row['profileImg']
 );
 
-// contetnts data
-/*$comment_data = array( //REAL CODE....from Daniel
-	'usercode' => $comment_row['commentGiveUserCode'],
-	'username' => $comment_row['nick'],
-	'profile' => $comment_row['profileImg'],
-	'date' => $comment_row['commentDate'],
-	'content' => $comment_row['commentContents']
-);*/
-
-$comment_data = array(); // TESTING CODE....from Evan
-
 // comment data
+$comment_data = array();
+while($comment_row = mysqli_fetch_assoc($comment_result))
+{
+	array_push(
+		$comment_data, 
+		array( 
+			'usercode' => $comment_result['commentGiveUserCode'],
+			'username' => $comment_result['nick'],
+			'profile' => $comment_result['profileImg'],
+			'date' => $comment_result['commentDate'],
+			'content' => $comment_result['commentContents']
+		) 
+	);
+}
 // commnet data
 
 $total_array = [
@@ -117,9 +120,5 @@ $total_array = [
 ];
 
 $data_json = json_encode($total_array);
-//print_r($data_json);
-
 echo $data_json;
-
-
 ?>
