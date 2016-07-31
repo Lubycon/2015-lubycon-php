@@ -36,7 +36,7 @@ $(document).ready(function(){
 				tag = $("<li/>",{ "class" : "tagbox" }),
 			descript = $("#descript_content > p"),
 
-			commentProfile = $(".comment-write-wrap img");
+			commentProfile = $(".comment-write-wrap");
 
 		title.text(content.title);
 		category.text(content.category.clean("").join(" / "));
@@ -59,7 +59,15 @@ $(document).ready(function(){
 			tagWrapper.append( tag.clone(true).text(content.tag[i]) );
 		}
 		descript.text(content.descript);
-		commentProfile.attr("src", creator.profile);
+
+		if(response.session){
+			commentProfile.find("img")
+				.attr("src", "../../../../Lubycon_Contents/user/" + response.session.usercode + "/profile.jpg");
+		}
+		else{
+			commentProfile.remove();
+		}
+
 
 		bindCC(content.cc);
 		bindComment(comment);
@@ -93,9 +101,11 @@ $(document).ready(function(){
 	}
 
 	function bindComment(data){ //test
-		console.log(data);
-		var comment = new CommentCard(data);
-		console.log(comment.render());
+		for(var i = 0; i< data.length; i++){
+			console.log(data[i]);
+			var comment = new CommentCard(data[i]);
+			console.log(comment.render());
+		}
 	}
 
 	function bindUserAction(data){

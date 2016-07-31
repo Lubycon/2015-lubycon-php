@@ -42,7 +42,7 @@
             </div>
 
             <article class="infoCard comment">
-                <p class="infoCard-title"><span id="comment-counter">10</span> Comments</p>
+                <p class="infoCard-title"><span id="comment-counter"></span> Comments</p>
                 <div class="comment-write-wrap" class="comment-div">
                     <figure class="comment-pic" class="hidden-mb-ib">
                         <img src="" class="hidden-mb-ib">
