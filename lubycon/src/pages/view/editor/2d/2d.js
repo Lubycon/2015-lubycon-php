@@ -1059,6 +1059,8 @@
                 else $.error("There is no Image");
             },
             detectTag: function(event){
+                var lengthCheck = $(".hashtag-list").length < 20;
+
                 var $this = $(this),
                 $wrapper = $this.parent(".hashTag-input-wrap"),
                 $tagWrap = $("<ul/>",{ "class" : "hashtag-wrapper"}),
@@ -1069,7 +1071,7 @@
                 deleteCommand = inKeyCode == keyCode.delete,
                 wrapperExist = $this.prev("ul").length == 0,
                 errorCheck = !$this.hasClass("error");
-                if(endCommand && value !== "" && errorCheck){
+                if(endCommand && value !== "" && errorCheck && lengthCheck){
                     if(wrapperExist) $tagWrap.prependTo($wrapper);
                     $tag.html(value + "<i class='" + icons.times + "'></i>").on("click",modalFunc.deleteTag).appendTo(".hashtag-wrapper");
                     $this.val(null);

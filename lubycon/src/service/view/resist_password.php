@@ -13,6 +13,6 @@
     </div>
     <div class="message-box">
         <div class="btn cancel-bt">Not now</div>
-        <a class="btn submit-bt" href="?dir=pages/view/account_setting/account_setting&usernum=0">CHECK</a>
+        <a class="btn submit-bt" data-value="usercode" href="?dir=pages/view/account_setting/account_setting&usernum=">CHECK</a>
     </div>
 </section>

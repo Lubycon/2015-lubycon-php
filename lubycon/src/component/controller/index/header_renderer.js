@@ -7,8 +7,8 @@ $(document).ready(function(){
             $(document).find(".after_signin_class").show();
             $(document).find(".signin_class").remove();
 
-
-            $("#display_user").find("#accountImg > img").attr("src","../../../../Lubycon_Contents/user/" + response.usercode + "/profile.jpg");
+            $("#display_user").find("#accountImg > img")
+                .attr("src","../../../../Lubycon_Contents/user/" + response.usercode + "/profile.jpg");
             $("#display_user").find("#user_id").text(response.username);
 
             $("#sign_out").on("click",signout);

@@ -12,7 +12,14 @@ $(function(){
 	initFocus();
 	initChecker();
 
-	messageAlign.call($messageWrapper);
+	if(submitBt.data("value") === "usercode"){
+		var href = submitBt.attr("href");
+		submitBt.attr("href",href + USER_PARAM);
+	}
+
+	setTimeout(function(){
+		messageAlign.call($messageWrapper);
+	},0);
 
 	function initFocus(){
 		var $input = $(document).find(".input-message");
@@ -36,12 +43,13 @@ $(function(){
 	}
 
 	function detectEnter(event){
-		if(event.which === 13 && submitBt.length !== 0) submitBt.trigger("click"); 
+		if(event.which === 13 && submitBt.length !== 0) submitBt.trigger("click");
 	}
 
 	function messageAlign(){
 		var $this = $(this);
-		
+		console.log($this,$this.width(),$this.height());
+
 		var w = isMobile() ? 0 : $this.width(),
 			h = isMobile() ? $this.height()+100 : $this.height();
 
@@ -86,24 +94,19 @@ $(function(){
 			var value = $(this).val();
 			console.log($(this).data("value"));
 			switch($(this).data("value")){
-				case "code" : 
+				case "code" :
 					if(!value.isAlphabetNumber()) checker = false;
 				break;
-				case "email" : 
+				case "email" :
 					if(!value.isEmail()) checker = false;
 				break;
-				case "password" : 
+				case "password" :
 					if(value === null || value === undefined || value === "" || value === " ") checker = false;
 				break;
 			}
 		});
-		if(checker) { 
+		if(checker) {
 			if($(".message-form").length !== 0) $(".message-form").submit();
 		}
 	}
 });
-
-
-
-
-
