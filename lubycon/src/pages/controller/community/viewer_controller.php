@@ -38,24 +38,24 @@ if( $cateCode < 3)
 {
     //check category
     switch($cateCode)
-    { 
-        case 0: 
-            $cate_name = 'forum'; 
+    {
+        case 0:
+            $cate_name = 'forum';
             break;
-        case 1 : 
-            $cate_name = 'tutorial'; 
+        case 1 :
+            $cate_name = 'tutorial';
             break;
-        case 2 : 
-            $cate_name = 'qaa'; 
+        case 2 :
+            $cate_name = 'qaa';
             break;
-        default : 
-            die ('category code error 1001'); 
+        default :
+            die ('category code error 1001');
             break;
     }
 }
 else
 {
-	die ('category code error 1001'); 
+	die ('category code error 1001');
 };
 
 include_once('../../model/community/viewer_model.php');
@@ -75,7 +75,7 @@ if($LoginState)
 }
 
 $contents_data = array(
-	'title' => $row['contentTitle'], 
+	'title' => $row['contentTitle'],
 	'content' => $row['contents'],
 	'date' => $row['contentDate'],
 	'like' => $like_check,
@@ -97,13 +97,15 @@ $write_user_data = array(
 );
 
 // contetnts data
-$comment_data = array(
+/*$comment_data = array( //REAL CODE....from Daniel
 	'usercode' => $comment_row['commentGiveUserCode'],
 	'username' => $comment_row['nick'],
 	'profile' => $comment_row['profileImg'],
 	'date' => $comment_row['commentDate'],
 	'content' => $comment_row['commentContents']
-);
+);*/
+
+$comment_data = array(); // TESTING CODE....from Evan
 
 // comment data
 // commnet data
