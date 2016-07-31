@@ -98,14 +98,6 @@ if( $Loginuser_code === $usernumber )
 			'fax' => $userdata_row["faxPublic"],
 			'website' => $userdata_row["webPublic"]
 	);
-	$total_array = array(
-		'pageTitle' => $page_title,
-		'userData' => $user_data,
-		'userLanguage' => $user_language,
-		'userHistory' => $user_history,
-		'publicOption' => $public_option
-	);
-
 }else
 {
   $total_array = array(
@@ -118,6 +110,20 @@ if( $Loginuser_code === $usernumber )
   $data_json = json_encode($total_array);
   die($data_json);
 }
+
+$total_array = array(
+    'status' => array(
+      'code' => '0000',
+      'msg' => "infinite scroll success"
+      ),
+    'result' => (object)array(
+        'pageTitle' => $page_title,
+		'userData' => $user_data,
+		'userLanguage' => $user_language,
+		'userHistory' => $user_history,
+		'publicOption' => $public_option
+    )
+);
 $data_json = json_encode($total_array);
-echo $data_json;
+die($data_json);
 ?>

@@ -39,15 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $postData = json_decode(file_get_contents("php://input"));
 }else
 {
-    die(
-    $total_array = array(
-        'status' => array(
-            'code' => '1200',
-            'msg' => 'json post data is empty'
-        ),
-        'result' => (object)array()
-    )
-    );
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 //print_r($postData);
@@ -79,14 +79,23 @@ $infinite_scroll->bindResult($result);
 
 //print_r($infinite_scroll->bind_data);
 
-$total_array = [
-    'content' => $infinite_scroll->bind_data
-];
 
+
+
+$total_array = array(
+    'status' => array(
+      'code' => '0000',
+      'msg' => "infinite scroll success"
+      ),
+    'result' => (object)array(
+        'content' => $infinite_scroll->bind_data
+    )
+    );
 $data_json = json_encode($total_array);
-    //print_r($data_json);
+die($data_json);
 
-echo $data_json; 
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////           infinite_scroll_model             //////////////////////////////

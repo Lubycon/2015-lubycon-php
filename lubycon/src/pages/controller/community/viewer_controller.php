@@ -129,12 +129,18 @@ while($comment_row = mysqli_fetch_assoc($comment_result))
 }
 // commnet data
 
-$total_array = [
-	'contents' => $contents_data,
-	'creator' => $write_user_data,
-	'comment' => $comment_data
-];
 
+$total_array = array(
+    'status' => array(
+      'code' => '0000',
+      'msg' => "community contents call succsess"
+      ),
+    'result' => (object)array(
+        'contents' => $contents_data,
+		'creator' => $write_user_data,
+		'comment' => $comment_data
+    )
+);
 $data_json = json_encode($total_array);
-echo $data_json;
+die($data_json);
 ?>

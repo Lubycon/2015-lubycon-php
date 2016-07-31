@@ -30,15 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $postData = json_decode(file_get_contents("php://input"));
 }else
 {
-    die(
-    $total_array = array(
-        'status' => array(
-            'code' => '1200',
-            'msg' => 'json post data is empty'
-        ),
-        'result' => (object)array()
-    )
-    );
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 

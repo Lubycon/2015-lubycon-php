@@ -97,14 +97,23 @@ $insight_data = array(
 		'upload7days' => 0,
 		'download7days' => 0
 );
+
+
+
+
 $total_array = array(
+    'status' => array(
+      'code' => '0000',
+      'msg' => "community contents call succsess"
+      ),
+    'result' => (object)array(
 		'userData' => $user_data,
 		'userLanguage' => $user_language,
 		'userHistory' => $user_history,
 		'publicOption' => $public_option,
 		'insightData' => $insight_data
+    )
 );
-
 $data_json = json_encode($total_array);
-echo $data_json;
+die($data_json);
 ?>

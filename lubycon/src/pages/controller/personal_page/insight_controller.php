@@ -226,34 +226,36 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 
 
 $total_array = array(
-	'giveTake' => array(
-		"like" => [$likeGiveNumber,$likeTakeNumber],
-		"bookmark" => [$bookmarkGiveNumber,$bookmarkTakeNumber]
-	),
-	'worldmap' => $worldmap,
-	'timeLine' => array(
-		'like' => $likeTimelineArray,
-		'view' => $viewTimelineArray,
-		'upload' => $uploadTimelineArray,
-		'download' => $downloadTimelineArray
-	),
-	'ranking' => array(
-		'contents' => array(
-			'like' => $contentsLikeRankArray,
-			'view' => $contentsViewRankArray,
-			'comment' => $contentsCommentRankArray,
+    'status' => array(
+      'code' => '0000',
+      'msg' => "infinite scroll success"
+      ),
+    'result' => (object)array(
+		'giveTake' => array(
+			"like" => [$likeGiveNumber,$likeTakeNumber],
+			"bookmark" => [$bookmarkGiveNumber,$bookmarkTakeNumber]
 		),
-		'community' => Array(
-			'like' => $communityLikeRankArray,
-			'view' => $communityViewRankArray,
-			'comment' => $communityCommentRankArray,
+		'worldmap' => $worldmap,
+		'timeLine' => array(
+			'like' => $likeTimelineArray,
+			'view' => $viewTimelineArray,
+			'upload' => $uploadTimelineArray,
+			'download' => $downloadTimelineArray
 		),
-	)
+		'ranking' => array(
+			'contents' => array(
+				'like' => $contentsLikeRankArray,
+				'view' => $contentsViewRankArray,
+				'comment' => $contentsCommentRankArray,
+			),
+			'community' => Array(
+				'like' => $communityLikeRankArray,
+				'view' => $communityViewRankArray,
+				'comment' => $communityCommentRankArray,
+			),
+		)
+    )
 );
-
-
 $data_json = json_encode($total_array);
-//print_r($total_array);
-echo $data_json;
-
+die($data_json);
 ?>
