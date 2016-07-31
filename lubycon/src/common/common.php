@@ -54,8 +54,9 @@ function rsa_generate_keys($password , $bits = 2048, $digest_algorithm = 'sha512
 	$res = openssl_pkey_new(array('digest_alg'=>$digest_algorithm,
 								  'private_key_bits'=>$bits,
 								  'private_key_type'=>OPENSSL_KEYTYPE_RSA,));
-	if(!$res)
-		echo "<script>Console.log('res is false')</script>";
+	if(!$res){
+		return false;
+	}
 	openssl_pkey_export($res, $private_key, $password);
 
 
