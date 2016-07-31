@@ -21,7 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$postData = json_decode(file_get_contents("php://input"));
 }else
 {
-	die('it is not post data error code 0000');
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $number = $postData->conno;
@@ -75,16 +83,30 @@ if( in_array($cate_name , $allow_array) )
             $cate_name = 'threed'; 
             break;
         default : 
-            die ('category code error 1001'); 
+			  $total_array = array(
+			    'status' => array(
+			      'code' => '1001',
+			      'msg' => "not allow category code"
+			      ),
+			    'result' => (object)array()
+			  );
+			  $data_json = json_encode($total_array);
+			  die($data_json);
             break;
     }
 }
 else
 {
-    include_once('../../404.php');
-    die('wrong category');
-};
-
+  $total_array = array(
+    'status' => array(
+      'code' => '1001',
+      'msg' => "not allow category code"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
+}
 include_once('../../model/contents/viewer_model.php');
 
 // contetnts data

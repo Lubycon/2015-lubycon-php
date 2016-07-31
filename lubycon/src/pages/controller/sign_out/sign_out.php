@@ -7,10 +7,15 @@
 	$session = new Session();
 	$session->DestroySession();
 
-	$request = array(
-		"code" => "0000",
-		"message" => "sign_out"
-	);
-	$toJSON = json_encode($request);
-	echo $toJSON;
+
+	$total_array = array(
+		'status' => array(
+			'code' => '0000',
+			'msg' => "sign out succsess"
+			),
+		'result' => (object)array()
+		);
+	$data_json = json_encode($total_array);
+	die($data_json);
+
 ?>

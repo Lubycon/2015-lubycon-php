@@ -23,7 +23,7 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
         $LoginState = false;
     }
 }
-    if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
+if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
 //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////            session              /////////////////////////////////////
 ////////////////////////////            session              /////////////////////////////////////
@@ -32,11 +32,19 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
-    {
+{
       $postData = json_decode(file_get_contents("php://input"));
-  }else
-  {
-    die('it is not post data error code 0000');
+}else
+{
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 //print_r($postData);
 

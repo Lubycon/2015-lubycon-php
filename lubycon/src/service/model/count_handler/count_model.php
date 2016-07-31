@@ -35,7 +35,12 @@ if( $select_result->num_rows == 0 )
 	";
 }else
 {
-	die('select query is wrong');
+	$status = array(
+		'code' => '1000',
+		'msg' => 'query ask fail'
+		);
+	$result = null;
+	$res->fillArray($status,$result);
 }
 $db->askQuery();
 
@@ -45,13 +50,12 @@ $db->query = "UPDATE `lubyconboard`.`$topCateName` SET `$countTypeName` = `$coun
 //echo $db->query;
 if(!$db->askQuery())
 {
-	$total_array = array(
-        'status' => array(
-            'code' => '1000',
-            'msg' => 'query ask fail'
-        ),
-        'result' => (object)array()
-    );
+	$status = array(
+		'code' => '1000',
+		'msg' => 'query ask fail'
+		);
+	$result = null;
+	$res->fillArray($status,$result);
 }
 
 //echo $db->query;

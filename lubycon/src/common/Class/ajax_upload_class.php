@@ -1,5 +1,5 @@
 <?php
-
+// check where used this file (daniel, 160731) 
 class ajax_upload
 {
     public $_img;

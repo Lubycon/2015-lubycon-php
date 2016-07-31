@@ -26,7 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$postData = json_decode(file_get_contents("php://input"));
 }else
 {
-	die('it is not post data error code 0000');
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 
@@ -205,9 +213,15 @@ if( $userCode == $_SESSION['lubycon_userCode'] )
 	}
 }else
 {
-	$total_array = array(
-		'errorCode' => '0001', // session and post user number not same
-	);
+  $total_array = array(
+    'status' => array(
+      'code' => '300',
+      'msg' => "diffrent session user code and receive user code data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 

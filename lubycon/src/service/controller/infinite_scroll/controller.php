@@ -39,7 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $postData = json_decode(file_get_contents("php://input"));
 }else
 {
-    die('it is not post data error code 0000');
+    die(
+    $total_array = array(
+        'status' => array(
+            'code' => '1200',
+            'msg' => 'json post data is empty'
+        ),
+        'result' => (object)array()
+    )
+    );
 }
 
 //print_r($postData);

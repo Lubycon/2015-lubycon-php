@@ -23,11 +23,19 @@ if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is
 ////////////////////////////            session              /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
-    {
-      $postData = json_decode(file_get_contents("php://input"));
-  }else
-  {
-    die('it is not post data error code 0000');
+{
+  $postData = json_decode(file_get_contents("php://input"));
+}else
+{
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $userCode = $postData->userCode;
@@ -37,7 +45,15 @@ if( $_SESSION['lubycon_userCode'] === $userCode )
 	require_once '../../model/account_setting/delete_model.php';
 }else
 {
-	die('error code : 300');
+  $total_array = array(
+    'status' => array(
+      'code' => '300',
+      'msg' => "diffrent session user code and receive user code data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 
