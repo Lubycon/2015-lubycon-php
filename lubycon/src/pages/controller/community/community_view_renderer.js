@@ -47,6 +47,12 @@ $(document).ready(function(){
 		else {
 			commentWriter.remove();
 		}
+
+		bindUserAction(data.contents.like,data.creator.code);
+
+		if(data.creator.code !== response.session.usercode){
+			$("#post_edit_box").remove();
+		}
     }
 
 	function bindComment(data){
@@ -55,5 +61,30 @@ $(document).ready(function(){
 			var comment = new CommentCard(data[i]);
 			console.log(comment.render());
 		}
+	}
+
+	function bindUserAction(data,user){
+		var button = $(".userAction-bt[data-value='like']");
+
+		if(data) button.addClass("selected");
+
+		button.on("click",function(){
+			Request({
+	            url: "./service/controller/count_handler/count_controller.php",
+	            data: {
+	                type: 1,
+	                contentKind: 1,
+	                conno: BNO_PARAM,
+	                topCate: CATE_PARAM,
+	                takeUser: user
+	            },
+	            callback: success
+	        });
+	        function success(res){
+	            if(res.result.code === "200"){
+					console.log("SUCCESS CONNECTION");
+				}
+	        }
+		});
 	}
 });

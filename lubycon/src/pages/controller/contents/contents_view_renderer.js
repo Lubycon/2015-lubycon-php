@@ -68,12 +68,9 @@ $(document).ready(function(){
 			commentProfile.remove();
 		}
 
-
 		bindCC(content.cc);
 		bindComment(comment);
-		bindUserAction([content.bookmark,content.like]);
-
-
+		bindUserAction([content.bookmark,content.like],creator.code);
 	}
 
 	function bindCC(cc){
@@ -108,8 +105,31 @@ $(document).ready(function(){
 		}
 	}
 
-	function bindUserAction(data){
-		if(data[0]) $(".userAction-bt[data-value='bookmark']").addClass("selected");
-		if(data[1]) $(".userAction-bt[data-value='like']").addClass("selected");
+	function bindUserAction(data,user){
+		var buttons = $(".userAction-bt");
+		var bookmarkButton = $(".userAction-bt[data-value='bookmark']"),
+			likeButton = $(".userAciton-bt[data-value='like']");
+
+		if(data[0]) bookmarkButton.addClass("selected");
+		if(data[1]) likeButton.addClass("selected");
+
+		buttons.on("click",function(){
+			Request({
+	            url: "./service/controller/count_handler/count_controller.php",
+	            data: {
+	                type: $(this).data("value") === "bookmark" ? 0 : 1,
+	                contentKind: 0,
+	                conno: CONNUM_PARAM,
+	                topCate: CATE_PARAM,
+	                takeUser: user
+	            },
+	            callback: success
+	        });
+	        function success(res){
+	            if(res.result.code === "200"){
+					console.log("SUCCESS CONNECTION");
+				}
+	        }
+		});
 	}
 });

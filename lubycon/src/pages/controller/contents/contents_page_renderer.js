@@ -15,7 +15,6 @@ $(document).ready(function(){
         var detector = new InfiniteScrollDetector(new GET_CONTENTS("contents",0));
         $("#loading_icon").hide();
         addCard(response);
-        $("#loading_icon").hide();
         detector.start(addCard);
     }
 
