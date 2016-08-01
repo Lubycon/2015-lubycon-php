@@ -1,55 +1,53 @@
 
 var Request = function(param){
-    console.log(param);
-    return $.ajax({
-        type: "POST",
-        url: "./common/Module/get_session.php",
-        cache: false,
-        async: true,
-        success: function(data){
-            var session = $.parseJSON(data);
-            if(param.url){
-                console.log(param.data);
-                $.ajax({
-                    type: "POST",
-                    url: param.url,
-                    data: JSON.stringify(param.data),
-                    cache: false,
-                    success: function (res){
-                        console.timeEnd("DATA LOADED");
-                        //console.log(res);
 
-                        var response = false;
-                        try {
-                            response = jQuery.parseJSON(res);
-                        } catch (error) {                            console.log("ERROR : " + res); //php error
-                        }
-                        if(response && typeof response =='object') {
-                            param.callback({
-                                result: $.parseJSON(res),
-                                session: session,
-                                status: "0000"
-                            });
-                        }
-                    },
-                    error: function(request,status,error){
-                        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                        param.callback({
-                            request: request,
-                            message: request.responseText,
-                            status: status,
-                            error: error
-                        });
-                        $.error("AJAX ERROR");
-                    }
-                });
-            }
-            else {
-                console.log("SESSION LOAD SUCCESS");
-                param.callback(session);
-            }
-        }
+    var session;
+    var url = param.url;
+
+    var getSession = $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: './common/Module/get_session.php',
+        cache: false
     });
+
+    getSession
+    .success(function(res){
+        session = res;
+        console.log(session);
+        if(url) getData(); // NEXT DATA IS EXIST
+        else param.callback(session); // RETURN ONLY SESSION
+    })
+    .error(function(res){
+        errorLog(res);
+    });
+
+    function getData(){
+        console.log(param);
+        return $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(param.data),
+            url: param.url,
+            cache: false
+        })
+        .success(function(res){
+            res.session = session;
+            param.callback(res);
+        })
+        .error(function(res){
+            errorLog(res);
+        });
+    }
+
+    function errorLog(res){
+        return console.log("AJAX GET ERROR!!! ::::::::::\n",{
+            readyState: res.readyState,
+            responseText: res.responseText,
+            status: res.status,
+            msg : res.statusText
+        });
+    }
 };
 
 var GET_CONTENTS = function(type,target){
@@ -72,19 +70,19 @@ var GET_CONTENTS = function(type,target){
     };
 };
 
-var loadJobList = function(callback){
+var getJobs = function(callback){
     return $.getJSON('../data/job.json', function(json, textStatus) {
         callback(json.job,textStatus);
     });
 };
 
-var loadCountryList = function(callback){
+var getCountries = function(callback){
     return $.getJSON('../data/country.json', function(json, textStatus) {
             callback(json,textStatus);
     });
 };
 
-var  loadCategoryList = function(callback,category){
+var getCategories = function(callback,category){
     var v;
     switch(category){
         case 1 : v = "artwork"; break;

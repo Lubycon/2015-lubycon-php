@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $("#loading_icon").show();
     $.when(
-        loadCategoryList(initCategory)
+        getCategories(initCategory)
     ).then(function(){
         Request({
     	    url: "./service/controller/infinite_scroll/controller.php",
@@ -11,15 +11,20 @@ $(document).ready(function(){
     });
 
     function init(response){
-        console.log(response);
-        var detector = new InfiniteScrollDetector(new GET_CONTENTS("contents",0));
-        $("#loading_icon").hide();
-        addCard(response);
-        detector.start(addCard);
+        if(response.status.code === "0000"){
+            var data = response.result;
+            console.log(data);
+            var detector = new InfiniteScrollDetector(new GET_CONTENTS("contents",0));
+            $("#loading_icon").hide();
+            addCard(data);
+            detector.start(addCard);
+        }
+        else {
+            alert(response.status.msg);
+        }
     }
 
-    function addCard(res){
-        var data = res.result;
+    function addCard(data){
         var cardWrapper = $("#contents_box").find(".contents_wrap"),
 			list = $("<li/>");
 

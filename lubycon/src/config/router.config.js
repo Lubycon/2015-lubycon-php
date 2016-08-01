@@ -9,7 +9,7 @@ $(function(){
     var wrapper = $("#app-wrapper");
     var footer = $("#footer");
 
-    $.when(d1, d2,d3, d4).then(function(){
+    $.when(d1, d2, d3, d4).then(function(){
         console.log("UI LOADED");
         $("body").show();
     },function(){
