@@ -20,26 +20,18 @@ $country_json_Code = $json_control->json_decode_code;
 		$Loginuser_job = NULL;
 		$Loginuser_city = NULL;
 		$Loginuser_country = NULL;
+		$MemberActivity = NULL;
 
 		if(isset($_SESSION['lubycon_validation']))
 		{
-			$activity = NULL;
-
-			if($_SESSION['lubycon_validation'] === "active")
-				$activity = true;
-				else if($_SESSION['lubycon_validation'] === "inactive")
-					$activity = false;
-					else
-						$activity = false;
-
-						if($activity === false)
-							$BODY_URL = "service/view/waiting_for_resisting.php";
+			$activity = $_SESSION['lubycon_validation'];
 
 		}else if(isset($_SESSION['lubycon_userCode'])){
 			$session->DestroySession();
 		}
 
 		$LoginState = true;
+		$MemberActivity = $activity;
 		$Loginuser_name = (isset($_SESSION['lubycon_nick']) === true) ? $_SESSION['lubycon_nick'] : NULL;
 		$Loginuser_id = (isset($_SESSION['lubycon_id']) === true) ? $_SESSION['lubycon_id'] : NULL;
 		$Loginuser_code = (isset($_SESSION['lubycon_userCode']) === true) ? $_SESSION['lubycon_userCode'] : NULL;
@@ -51,6 +43,7 @@ $country_json_Code = $json_control->json_decode_code;
 		
 		$session_data = array(
 			'LoginState' => $LoginState,
+			'MemberActivity' => $MemberActivity,
 			'username' => $Loginuser_name,
 			'usercode' => $Loginuser_code,
 			'country' => $Loginuser_country,

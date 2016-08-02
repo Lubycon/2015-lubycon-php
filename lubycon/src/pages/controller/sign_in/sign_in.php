@@ -40,7 +40,7 @@
 					case "city" : $sessionArray[$key] = $value; break;
 					case "name" : $sessionArray['country'] = $country_decode[$value]['name']; break;
 					case "profileImg" : $sessionArray['profile'] = $value; break;
-					case "validation" : $sessionArray[$key] = ($value === "active") ? true : false; break;
+					case "validation" : $sessionArray[$key] = $value; break;
 					default : break;
 				}
 			}

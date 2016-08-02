@@ -7,6 +7,7 @@ var Request = function(param){
         cache: false,
         async: true,
         success: function(data){
+            console.log(data);
             var session = $.parseJSON(data);
             if(param.url){
                 console.log(param.data);
