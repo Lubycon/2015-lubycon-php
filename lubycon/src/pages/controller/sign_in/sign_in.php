@@ -13,7 +13,15 @@
 		$postData = json_decode(file_get_contents("php://input"));
 	}else
 	{
-		die('it is not post data error code 0000');
+	  $total_array = array(
+	    'status' => array(
+	      'code' => '1200',
+	      'msg' => "nothing receive post data"
+	      ),
+	    'result' => (object)array()
+	  );
+	  $data_json = json_encode($total_array);
+	  die($data_json);
 	}
 
     $user_email = $postData->id;
@@ -45,20 +53,27 @@
 				}
 			}
 			$session->WriteSession('lubycon', $sessionArray);
-			$request = array(
-				"code" => "0000",
-				"message" => "login"
+
+			$total_array = array(
+			  'status' => array(
+			    'code' => '0000',
+			    'msg' => "success login"
+			    ),
+			  'result' => (object)array()
 			);
+			$data_json = json_encode($total_array);
+			die($data_json);
+
 		}else
 		{
-			$request = array(
-				"code" => "0100",
-				"message" => "login failed"
-			);
+		  $total_array = array(
+		    'status' => array(
+		      'code' => '0100',
+		      'msg' => "login fail"
+		      ),
+		    'result' => (object)array()
+		  );
+		  $data_json = json_encode($total_array);
+		  die($data_json);
 		}
-
-		$toJSON = json_encode($request);
-
-		echo $toJSON;
-	}
 ?>

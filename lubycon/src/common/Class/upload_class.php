@@ -288,8 +288,15 @@ class upload
                 $filesize = $array[$key]['size']; // original file name
                 if ( $filesize > $limit_size )  // file array validate media extension
                 {
-                    echo 'file size bigger than limit size';
-                    die($filesize.' > '.$limit_size); //error meseage
+                    $total_array = array(
+                        'status' => array(
+                            'code' => '1300',
+                            'msg' => 'file size bigger than limit size'
+                        ),
+                        'result' => (object)array()
+                    );
+                    $data_json = json_encode($total_array);
+                    die($data_json);
                 }
             }
         }
@@ -306,15 +313,33 @@ class upload
                 $ext = substr(strrchr($filename, '.'), 1); // extraction file extension
                 if ( !in_array($ext, $white_list) )  // file array validate media extension
                 {
-                    echo 'file upload class validate_extension error';
-                    die($filename.' not allow extension // banded extension is '.$ext); //error meseage
+                    $total_array = array(
+                        'status' => array(
+                            'code' => '1301',
+                            'msg' => "$filename is not allow extension"
+                        ),
+                        'result' => (object)array()
+                    );
+                    $data_json = json_encode($total_array);
+                    die($data_json);
                 }
                 if( $white_list == $this->white_list_image && !count($image_file_info) > 0 ) //check normal image file form getimagesize
                 {
-                    echo 'file upload class validate_extension error';
-                    echo('it is not normal file!!!!!!!!'); //error meseage
+                    $total_array = array(
+                        'status' => array(
+                            'code' => '1302',
+                            'msg' => "it is not normal image file"
+                        ),
+                        'result' => (object)array()
+                    );
+                    $data_json = json_encode($total_array);
+                    die($data_json);
                 }
-                if( $white_list == $this->white_list_image){$this->img_array[$key]['ext'] = $ext;$this->merge_image_array[$key]['ext'] = $ext;} //add array ext cut from file
+                if( $white_list == $this->white_list_image)
+                {
+                    $this->img_array[$key]['ext'] = $ext;
+                    $this->merge_image_array[$key]['ext'] = $ext;
+                } //add array ext cut from file
             }
         }
     }
@@ -326,13 +351,27 @@ class upload
             $image_file_info = getimagesize($array[$key]['data']);
             if ( !in_array($ext_devide[0], $white_list) ) // file array validate media extension
             {
-                echo 'file upload class validate_extension error';
-                die('it is not allow extension // banded extension is '.$ext_devide[0]); //error meseage
+                $total_array = array(
+                        'status' => array(
+                            'code' => '1303',
+                            'msg' => "not image base64 extention"
+                        ),
+                        'result' => (object)array()
+                );
+                $data_json = json_encode($total_array);
+                die($data_json);
             }
             if( !count($image_file_info) > 0 ) //check normal image file form getimagesize
             {
-                echo 'file upload class validate_extension error';
-                die('it is not normal file'); //error meseage
+                $total_array = array(
+                        'status' => array(
+                            'code' => '1304',
+                            'msg' => "not image converted base64 extention"
+                        ),
+                        'result' => (object)array()
+                );
+                $data_json = json_encode($total_array);
+                die($data_json);
             }
 
             if( key($array) != '0' )
@@ -388,8 +427,15 @@ class upload
                         //echo 'upload succes';
                     }else
                     {
-                        echo 'last upload error attach file';
-                        die('loss the file, or file upload error try! again file name : '.$name);
+                        $total_array = array(
+                                'status' => array(
+                                    'code' => '1305',
+                                    'msg' => "loss the file, or file upload error try! again file name : $name"
+                                ),
+                                'result' => (object)array()
+                        );
+                        $data_json = json_encode($total_array);
+                        die($data_json);
                     }
                 }
             }else if($kind == 'preview')
@@ -405,8 +451,15 @@ class upload
                         //echo 'upload succes';
                     }else
                     {
-                        echo 'last upload error previewfiles';
-                        die('loss the file, or file upload error try! again file name : '.$name);
+                        $total_array = array(
+                                'status' => array(
+                                    'code' => '1305',
+                                    'msg' => "loss the file, or file upload error try! again file name : $name"
+                                ),
+                                'result' => (object)array()
+                        );
+                        $data_json = json_encode($total_array);
+                        die($data_json);
                     }
                 }
             }
@@ -434,7 +487,7 @@ class upload
                 if($kind=='profile')
                 {$filename = 'profile';}
                 $this->last_path = "$final_save_path"."$filename.jpg";
-                echo $this->last_path;
+                //echo $this->last_path;
                 imagejpeg($photo,$this->last_path,100); // <-- **Change is here**
             }
         }

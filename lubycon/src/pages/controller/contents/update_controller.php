@@ -21,7 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$postData = json_decode(file_get_contents("php://input"));
 }else
 {
-	die('it is not post data error code 0000');
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $number = $postData->bno;
@@ -38,7 +46,15 @@ if( $topCateCode < 3 )
 	$topCateName = $topCate_decode[$topCateCode]['name'];
 }else
 {
-	die ('category code error 1001'); 
+  $total_array = array(
+    'status' => array(
+      'code' => '1001',
+      'msg' => "not allow category code"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $title = $_POST['title'];

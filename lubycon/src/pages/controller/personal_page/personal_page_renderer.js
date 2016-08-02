@@ -9,6 +9,7 @@ $(document).ready(function(){
     });
 
     function init(response){
+		console.log(response);
 		var body = $("#contents_box");
 		body.load("./pages/view/personal_page/" + bindPage(CATE_PARAM) + ".php");
 

@@ -42,6 +42,7 @@ $(document).ready(function(){
     }
 
     function action(res){
+        console.log(res);
         $("#loading_icon").hide();
         if(res.result.code === "0000"){
             location.href = "./index.php";

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("#loading_icon").show();
 	$.when(
-        loadJobList(initJob)
+        getJobs(initJob)
     ).then(function(){
         Request({
 		    url: "./service/controller/infinite_scroll/controller.php",

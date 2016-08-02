@@ -12,9 +12,7 @@
 	$session = new Session();
 	$json_control = new json_control();
 
-
-
-	print_r($_POST);
+	//print_r($_POST);
 
 	$country_post = $_POST['country_code'];
 
@@ -76,10 +74,16 @@
 
 			if(!$db->result)
 			{
-				echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.2";
 				$db->disconnectDb();
-				sleep(5);
-				echo("<script>history.back();</script>");
+				$total_array = array(
+					'status' => array(
+						'code' => '1500',
+						'msg' => "create account fail",
+						),
+					'result' => (object)array()
+					);
+				$data_json = json_encode($total_array);
+				die($data_json);
 			}
 			else
 			{
@@ -102,16 +106,30 @@
 		}
 		else
 		{
-			echo "회원가입에 실패하였습니다. 5초 후에 이전 페이지로 이동합니다.1";
-			echo("<script>history.back();</script>");
+			$db->disconnectDb();
+			$total_array = array(
+				'status' => array(
+					'code' => '1500',
+					'msg' => "create account fail",
+					),
+				'result' => (object)array()
+				);
+			$data_json = json_encode($total_array);
+			die($data_json);
 		}
 	}
 	else
 	{
-		echo "유효하지 않은 데이터가 입력되었습니다";
-		echo "<br />";
-		echo "5초 후에 이전 페이지로 이동합니다.";
-		echo("<script>history.back();</script>");
+		$db->disconnectDb();
+		$total_array = array(
+			'status' => array(
+				'code' => '1503',
+				'msg' => "unable validation check",
+				),
+			'result' => (object)array()
+			);
+		$data_json = json_encode($total_array);
+		die($data_json);
 	}
 
 ?>

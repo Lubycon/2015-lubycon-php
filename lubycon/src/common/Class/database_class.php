@@ -14,7 +14,15 @@ class Database{
 		$this->database = new mysqli($host, $user, $pass, $database) or die("Database Connection error");
         // check connect databace
         if (!$this->database) {
-            die("Connection failed: " . mysqli_connect_error());
+        	$total_array = array(
+		        'status' => array(
+		            'code' => '1006',
+		            'msg' => 'database connect fail'
+		        ),
+		        'result' => (object)array()
+		    );
+		    $data_json = json_encode($total_array);
+            die($data_json);
         }
 		$this->database->query('SET NAMES UTF-8');
 		$result = null;
@@ -24,7 +32,15 @@ class Database{
 		if(isset($this->query)){
 			return $this->result = $this->database->query($this->query);
 		}else{
-			return false;
+			$total_array = array(
+		        'status' => array(
+		            'code' => '1005',
+		            'msg' => 'database query ask fail'
+		        ),
+		        'result' => (object)array()
+		    );
+		    $data_json = json_encode($total_array);
+			die($data_json);
 		}
 	}
 	public function disconnectDb(){
@@ -33,14 +49,33 @@ class Database{
 			$this->database = null;
 			$this->result = null;
 			$this->query = null;	
-		}else{echo "연결 해제 실패";}
+		}else
+		{
+			$total_array = array(
+		        'status' => array(
+		            'code' => '1002',
+		            'msg' => 'database disconnect fail'
+		        ),
+		        'result' => (object)array()
+		    );
+		    $data_json = json_encode($total_array);
+			die($data_json);
+		}
 	}
 
 	public function changeDb($db){
 		if($this->database->select_db($db)){
 			return true;
 		}else{
-			return false;
+			$total_array = array(
+		        'status' => array(
+		            'code' => '1003',
+		            'msg' => 'database change fail'
+		        ),
+		        'result' => (object)array()
+		    );
+		    $data_json = json_encode($total_array);
+			die($data_json);
 		}
 	}
 
@@ -48,7 +83,15 @@ class Database{
 		if(isset($this->query)){
             return $this->result = $this->database->multi_query($this->query);
 		}else{
-			return false;
+			$total_array = array(
+		        'status' => array(
+		            'code' => '1004',
+		            'msg' => 'database multi query ask fail'
+		        ),
+		        'result' => (object)array()
+		    );
+		    $data_json = json_encode($total_array);
+			die($data_json);
 		}
 	}
 }

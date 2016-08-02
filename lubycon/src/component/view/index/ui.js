@@ -144,6 +144,7 @@ $(document).ready(function(){
     }
     function initLubySelectors(){
         if($(".nav_guide").length !== 0){
+            console.log("NAV_GUIDE IS EXIST");
             var navGuide = $(".nav_guide"),
                 searchFilter = navGuide.find(".searchFilter");
                 preferFilter = navGuide.find(".preferFilter"),

@@ -26,7 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$postData = json_decode(file_get_contents("php://input"));
 }else
 {
-	die('it is not post data error code 0000');
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $usernumber = $postData->usernum;
@@ -47,14 +55,17 @@ $user_data = array(
 	'intro' => $userdata_row['userDescription']
 );
 
+
 $total_array = array(
-	'pageTitle' => $page_title,
-	'userData' => $user_data
+    'status' => array(
+      'code' => '0000',
+      'msg' => "infinite scroll success"
+      ),
+    'result' => (object)array(
+		'pageTitle' => $page_title,
+		'userData' => $user_data
+    )
 );
-
 $data_json = json_encode($total_array);
-echo $data_json;
-/*target user data*/
-
-
+die($data_json);
 ?>

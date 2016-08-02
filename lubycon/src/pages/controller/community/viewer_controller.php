@@ -21,7 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$postData = json_decode(file_get_contents("php://input"));
 }else
 {
-	die('it is not post data error code 0000');
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $boardCode = $postData->bno;
@@ -55,8 +63,16 @@ if( $cateCode < 3)
 }
 else
 {
-	die ('category code error 1001');
-};
+  $total_array = array(
+    'status' => array(
+      'code' => '1001',
+      'msg' => "not allow category code"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
+}
 
 include_once('../../model/community/viewer_model.php');
 
@@ -96,30 +112,35 @@ $write_user_data = array(
 	'profile' => $row['profileImg']
 );
 
-// contetnts data
-/*$comment_data = array( //REAL CODE....from Daniel
-	'usercode' => $comment_row['commentGiveUserCode'],
-	'username' => $comment_row['nick'],
-	'profile' => $comment_row['profileImg'],
-	'date' => $comment_row['commentDate'],
-	'content' => $comment_row['commentContents']
-);*/
-
-$comment_data = array(); // TESTING CODE....from Evan
-
 // comment data
+$comment_data = array();
+while($comment_row = mysqli_fetch_assoc($comment_result))
+{
+	array_push(
+		$comment_data, 
+		array( 
+			'usercode' => $comment_result['commentGiveUserCode'],
+			'username' => $comment_result['nick'],
+			'profile' => $comment_result['profileImg'],
+			'date' => $comment_result['commentDate'],
+			'content' => $comment_result['commentContents']
+		) 
+	);
+}
 // commnet data
 
-$total_array = [
-	'contents' => $contents_data,
-	'creator' => $write_user_data,
-	'comment' => $comment_data
-];
 
+$total_array = array(
+    'status' => array(
+      'code' => '0000',
+      'msg' => "community contents call succsess"
+      ),
+    'result' => (object)array(
+        'contents' => $contents_data,
+		'creator' => $write_user_data,
+		'comment' => $comment_data
+    )
+);
 $data_json = json_encode($total_array);
-//print_r($data_json);
-
-echo $data_json;
-
-
+die($data_json);
 ?>

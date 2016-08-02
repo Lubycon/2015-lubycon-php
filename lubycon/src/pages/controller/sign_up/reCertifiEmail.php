@@ -29,15 +29,42 @@ if(isset($_SESSION['lubycon_email']))
 			//$db->query = "UPDATE userbasic SET validationToken = NULL";
 			if($db->askQuery() !== false)
 				header('location:../../../index.php?dir=service/view/success_account');
-		}else{
-			echo ("쿼리 전송 실패");
+		}else
+		{
+			$total_array = array(
+				'status' => array(
+					'code' => '1000',
+					'msg' => "database query ask fail",
+					),
+				'result' => (object)array()
+				);
+			$data_json = json_encode($total_array);
+			die($data_json);
 		}
 	}
-	else{
-		echo ("메일 전송 실패");
+	else
+	{
+		$total_array = array(
+			'status' => array(
+				'code' => '1400',
+				'msg' => "mail send fail",
+				),
+			'result' => (object)array()
+			);
+		$data_json = json_encode($total_array);
+		die($data_json);
 	}
-}else{
-	echo "세션 이메일 값 없음";
+}else
+{
+	$total_array = array(
+		'status' => array(
+			'code' => '0201',
+			'msg' => "can't found email in session",
+			),
+		'result' => (object)array()
+		);
+	$data_json = json_encode($total_array);
+	die($data_json);
 }
  
 ?>

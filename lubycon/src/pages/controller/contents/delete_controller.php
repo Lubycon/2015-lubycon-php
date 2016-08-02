@@ -26,8 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
       $postData = json_decode(file_get_contents("php://input"));
   }else
-  {
-    die('it is not post data error code 0000');
+{
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $json_control->json_decode('contents_top_category',"../../../../data/top_category.json");
@@ -44,7 +52,15 @@ if( $_SESSION['lubycon_userCode'] === $userCode )
 	require_once '../../model/contents/delete_model.php';
 }else
 {
-	die('error code : 300');
+  $total_array = array(
+    'status' => array(
+      'code' => '300',
+      'msg' => "diffrent session user code and receive user code data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 

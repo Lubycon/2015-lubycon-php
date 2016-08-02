@@ -21,12 +21,30 @@ if(mailer($from, $to, $subject, $password, 'password'))
 	$db->query = "UPDATE userbasic SET pass = '".$encrypt."' WHERE (email='".$to."')";
 	if($db->askQuery() !== false){
 		header('location:../../../index.php?dir=service/view/success_find_password');
-	}else{
-		echo "db 전송 실패";
+	}else
+	{
+	  $total_array = array(
+	    'status' => array(
+	      'code' => '1000',
+	      'msg' => "database query ask fail"
+	      ),
+	    'result' => (object)array()
+	  );
+	  $data_json = json_encode($total_array);
+	  die($data_json);
 	}
 
-}else{
-	echo "메일 전송 실패하였습니다.";
+}else
+{
+	$total_array = array(
+		'status' => array(
+			'code' => '1400',
+			'msg' => "find pass mail send fail",
+			),
+		'result' => (object)array()
+		);
+	$data_json = json_encode($total_array);
+	die($data_json);
 }
 
 

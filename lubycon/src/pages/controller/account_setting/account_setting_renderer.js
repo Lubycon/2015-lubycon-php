@@ -129,8 +129,8 @@ $(document).ready(function(){
     }
 
     function initJSONdata(){
-        loadJobList(bindJob);
-        loadCountryList(bindCountry);
+        getJobs(bindJob);
+        getCountries(bindCountry);
 
         function bindJob(data,status){
             var d = data;

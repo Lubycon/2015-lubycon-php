@@ -21,7 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$postData = json_decode(file_get_contents("php://input"));
 }else
 {
-	die('it is not post data error code 0000');
+  $total_array = array(
+    'status' => array(
+      'code' => '1200',
+      'msg' => "nothing receive post data"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
 }
 
 $number = $postData->conno;
@@ -75,16 +83,30 @@ if( in_array($cate_name , $allow_array) )
             $cate_name = 'threed'; 
             break;
         default : 
-            die ('category code error 1001'); 
+			  $total_array = array(
+			    'status' => array(
+			      'code' => '1001',
+			      'msg' => "not allow category code"
+			      ),
+			    'result' => (object)array()
+			  );
+			  $data_json = json_encode($total_array);
+			  die($data_json);
             break;
     }
 }
 else
 {
-    include_once('../../404.php');
-    die('wrong category');
-};
-
+  $total_array = array(
+    'status' => array(
+      'code' => '1001',
+      'msg' => "not allow category code"
+      ),
+    'result' => (object)array()
+  );
+  $data_json = json_encode($total_array);
+  die($data_json);
+}
 include_once('../../model/contents/viewer_model.php');
 
 // contetnts data
@@ -147,29 +169,40 @@ $write_user_data = array(
 	'city' => $row['city'],
 	'profile' => "../../../../../../Lubycon_Contents/user/".$row['userCode']."/profile.jpg"
 );
-
 // contetnts data
-$comment_data = array(
-	'usercode' => $comment_row['commentGiveUserCode'],
-	'username' => $comment_row['nick'],
-	'profile' => $comment_row['profileImg'],
-	'date' => $comment_row['commentDate'],
-	'content' => $comment_row['commentContents']
-);
+
+
 
 // comment data
+$comment_data = array();
+while($comment_row = mysqli_fetch_assoc($comment_result))
+{
+	array_push(
+		$comment_data, 
+		array( 
+			'usercode' => $comment_result['commentGiveUserCode'],
+			'username' => $comment_result['nick'],
+			'profile' => $comment_result['profileImg'],
+			'date' => $comment_result['commentDate'],
+			'content' => $comment_result['commentContents']
+		) 
+	);
+}
 // commnet data
 
-$total_array = [
-	'contents' => $contents_data,
-	'creator' => $write_user_data,
-	'comment' => $comment_data
-];
 
+
+$total_array = array(
+    'status' => array(
+      'code' => '0000',
+      'msg' => "community contents call succsess"
+      ),
+    'result' => (object)array(
+		'contents' => $contents_data,
+		'creator' => $write_user_data,
+		'comment' => $comment_data
+    )
+);
 $data_json = json_encode($total_array);
-//print_r($data_json);
-
-echo $data_json;
-
-
+die($data_json);
 ?>
