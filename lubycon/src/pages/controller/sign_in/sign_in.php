@@ -76,4 +76,5 @@
 		  $data_json = json_encode($total_array);
 		  die($data_json);
 		}
+	}
 ?>
