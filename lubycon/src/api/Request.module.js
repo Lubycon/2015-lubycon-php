@@ -31,7 +31,9 @@ var Request = function(param){
             cache: false
         })
         .success(function(res){
+            console.log(res);
             res.session = session;
+            console.log(res);
             param.callback(res);
         })
         .error(function(res){

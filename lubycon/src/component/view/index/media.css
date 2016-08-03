@@ -1182,11 +1182,8 @@
         vertical-align: top;
         min-height: 310px;
     }
-        .infoCard-horizontal .infoCard.x2.left {
-            margin-right: 20px;
-        }
         .infoCard-horizontal .infoCard.x2.right {
-            margin-left: 20px;
+            border-left: 1px solid #aaaaaa;
         }
     /*-------------login------------*/
     #loginWrap{

@@ -9,8 +9,9 @@ $(document).ready(function(){
     });
 
     function init(response){
-		var data = response.result;
-    	console.log("INDEX BODY");
+		console.log(response);
+		var data = response;
+    	console.log("INDEX BODY",data);
 
     	if(isMobile()) initMainCard(data.contentData);
         else {

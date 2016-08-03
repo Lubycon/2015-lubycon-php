@@ -1153,6 +1153,7 @@ body {
     width: 100%;
     max-width: 1000px;
     margin: 30px auto;
+    background: #ffffff;
 }
 
 .infoCard {
@@ -1176,7 +1177,7 @@ body {
         display: inline-block;
     }
     .infoCard > .infoCard-content {
-        margin-top: 10px;
+        margin-top: 30px;
     }
 .infoCard.content_info{}
     .infoCard.content_info .infoCard-userAction{

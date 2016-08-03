@@ -72,13 +72,14 @@ $(document).ready(function(){
             });
         }
         function action(res){
-            console.log(res.result.code === "0000");
-            if(res.result.code === "0000"){
+            console.log("a : " +  res);
+            console.log(res.status.code === "0000");
+            if(res.status.code === "0000"){
                 alert("BYE!");
                 location.href = "./index.php";
             }
             else {
-                console.log(res.result);
+                console.log(res);
             }
         }
     }

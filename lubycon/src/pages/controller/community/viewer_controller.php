@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 require_once "../../../common/Class/json_class.php";
 $json_control = new json_control;
 require_once "../../../common/Class/session_class.php";
@@ -16,20 +19,19 @@ if(($session->GetSessionId() == null) && $session->GetSessionName() == null){
 if(!isset($Loginuser_code)){$Loginuser_code='';} // not login stat , valuable is ''
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$postData = json_decode(file_get_contents("php://input"));
-}else
-{
-  $total_array = array(
-    'status' => array(
-      'code' => '1200',
-      'msg' => "nothing receive post data"
-      ),
-    'result' => (object)array()
-  );
-  $data_json = json_encode($total_array);
-  die($data_json);
+}
+else{
+	$total_array = array(
+		'status' => array(
+			'code' => '1200',
+			'msg' => "nothing receive post data"
+		),
+		'result' => (object)array()
+	);
+	$data_json = json_encode($total_array);
+	die($data_json);
 }
 
 $boardCode = $postData->bno;
@@ -44,34 +46,34 @@ $country_decode = $json_control->json_decode_code;
 
 if( $cateCode < 3)
 {
-    //check category
-    switch($cateCode)
-    {
-        case 0:
-            $cate_name = 'forum';
-            break;
-        case 1 :
-            $cate_name = 'tutorial';
-            break;
-        case 2 :
-            $cate_name = 'qaa';
-            break;
-        default :
-            die ('category code error 1001');
-            break;
-    }
+	//check category
+	switch($cateCode)
+	{
+		case 0:
+		$cate_name = 'forum';
+		break;
+		case 1 :
+		$cate_name = 'tutorial';
+		break;
+		case 2 :
+		$cate_name = 'qaa';
+		break;
+		default :
+		die ('category code error 1001');
+		break;
+	}
 }
 else
 {
-  $total_array = array(
-    'status' => array(
-      'code' => '1001',
-      'msg' => "not allow category code"
-      ),
-    'result' => (object)array()
-  );
-  $data_json = json_encode($total_array);
-  die($data_json);
+	$total_array = array(
+		'status' => array(
+			'code' => '1001',
+			'msg' => "not allow category code"
+		),
+		'result' => (object)array()
+	);
+	$data_json = json_encode($total_array);
+	die($data_json);
 }
 
 include_once('../../model/community/viewer_model.php');
@@ -114,32 +116,31 @@ $write_user_data = array(
 
 // comment data
 $comment_data = array();
-while($comment_row = mysqli_fetch_assoc($comment_result))
-{
+while($comment_row = mysqli_fetch_assoc($comment_result)){
 	array_push(
-		$comment_data, 
-		array( 
+		$comment_data,
+		array(
 			'usercode' => $comment_result['commentGiveUserCode'],
 			'username' => $comment_result['nick'],
 			'profile' => $comment_result['profileImg'],
 			'date' => $comment_result['commentDate'],
 			'content' => $comment_result['commentContents']
-		) 
+		)
 	);
 }
 // commnet data
 
 
 $total_array = array(
-    'status' => array(
-      'code' => '0000',
-      'msg' => "community contents call succsess"
-      ),
-    'result' => (object)array(
-        'contents' => $contents_data,
+	'status' => array(
+		'code' => '0000',
+		'msg' => "community contents call succsess"
+	),
+	'result' => (object)array(
+		'contents' => $contents_data,
 		'creator' => $write_user_data,
 		'comment' => $comment_data
-    )
+	)
 );
 $data_json = json_encode($total_array);
 die($data_json);

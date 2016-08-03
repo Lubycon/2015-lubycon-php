@@ -17,7 +17,7 @@ $(document).ready(function(){
         var id = $("#login_id").val(),
             pass = $("#login_pass").val();
 
-        if(id.isEmail() && pass.isPassword() === 0 || id === "admin"){ //admin is TEST CODE
+        if((id.isEmail() && pass.isPassword() === 0) || (id === "admin")){ //admin is TEST CODE
             $("#loading_icon").show();
             Request({
                 url: "./pages/controller/sign_in/sign_in.php",
@@ -44,11 +44,11 @@ $(document).ready(function(){
     function action(res){
         console.log(res);
         $("#loading_icon").hide();
-        if(res.result.code === "0000"){
+        if(res.status.code === "0000"){
             location.href = "./index.php";
         }
         else {
-            console.log(res.result);
+            console.log(res);
             $(".alertKey").lubyAlert({
                 type: "message",
                 cancelButton: false,

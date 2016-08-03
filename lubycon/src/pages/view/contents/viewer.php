@@ -61,12 +61,12 @@
                 </div>
                 <div class="infoCard creator x2 right">
                     <p class="infoCard-title">Creator</p>
-                    
+
                     <!--CREATOR CARD-->
-                    
+
                 </div>
             </div>
-             
+
             <article class="infoCard comment">
                 <p class="infoCard-title"><span id="comment-counter"></span> Comments</p>
                 <div class="comment-write-wrap" class="comment-div">
@@ -104,14 +104,14 @@
                 <div id="tagbox_wrap" class="info-content">
                     <ul id="tagbox_wrap_inner">
                         <!--TAG-->
-                    </ul>                       
+                    </ul>
                 </div>
             </div>
             <div id="descript_wrap" class="info-wrap hidden-mb-b">
                 <p id="descript_title" class="info-title"><i class="fa fa-info-circle"></i>Description</p>
                 <div id="descript_content" class="info-content">
                     <p>
-                        <!--DESCRIPT-->       
+                        <!--DESCRIPT-->
                     </p>
                 </div>
             </div>
