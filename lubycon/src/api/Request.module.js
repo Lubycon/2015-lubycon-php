@@ -1,25 +1,5 @@
 
 var Request = function(param){
-    console.log(param);
-    return $.ajax({
-        type: "POST",
-        url: "./common/Module/get_session.php",
-        cache: false,
-        async: true,
-        success: function(data){
-            console.log(data);
-            var session = $.parseJSON(data);
-            if(param.url){
-                console.log(param.data);
-                $.ajax({
-                    type: "POST",
-                    url: param.url,
-                    data: JSON.stringify(param.data),
-                    cache: false,
-                    success: function (res){
-                        console.timeEnd("DATA LOADED");
-                        //console.log(res);
-
     var session;
     var url = param.url;
 
