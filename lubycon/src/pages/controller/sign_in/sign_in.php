@@ -1,6 +1,7 @@
 <?php
 	require_once '../../../common/Class/session_class.php';
 	require_once "../../../common/Class/json_class.php";
+	
 	$json_control = new json_control;
 	$json_control->json_decode('country',"../../../../data/country.json");
 	$country_decode = $json_control->json_decode_code;
@@ -42,6 +43,7 @@
 
 				switch((string)$key)
 				{
+					case "email" : $sessionArray[$key] = $value; break;
 					case "userCode": $sessionArray[$key] = $value; break;
 					case "nick" : $sessionArray[$key] = $value; break;
 					case "countryCode" : $sessionArray[$key] = $value; break;
