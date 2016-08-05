@@ -6,7 +6,6 @@ $(function(){
 	otherBt = $messageWrapper.find(".btn.other-bt");
 
 	cancelBt.on("click",gotoBack);
-	submitBt.on("click",submit);
 	otherBt.on("click",otherBtAction);
 
 	initFocus();

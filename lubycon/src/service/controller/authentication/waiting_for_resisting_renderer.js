@@ -13,7 +13,7 @@ $(function(){
 
     function submit(){
         var input = $(".input-message[name='certificationCode']"),
-            code = input.val();
+            code = input.val().trim();
         console.log(code);
 
         if(code.isAlphabetNumber() && code.length === 12){
@@ -31,7 +31,7 @@ $(function(){
     }
 
     function action(res){
-        if(res.status.code === "0000") location.href = "./index.php";
+        if(res.status.code === "0000") location.href = "?dir=service/view/success_account";
         else console.log("SERVER RETURN ERROR : " + res.status.code);
     }
 

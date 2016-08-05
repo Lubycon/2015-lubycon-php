@@ -20,7 +20,7 @@ $(document).ready(function(){
     }
 
     function userActivity(activity){
-        activity = 'inactive'; // TESTING...
+        //activity = 'inactive'; // TESTING...
         if(activity === 'inactive' && getUrlParameter('dir') !== 'service/view/waiting_for_resisting'){
             location.href = '?dir=service/view/waiting_for_resisting';
         }
