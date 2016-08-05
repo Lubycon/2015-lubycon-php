@@ -12,7 +12,6 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$postData = json_decode(file_get_contents("php://input"));
-		die($postData);
 	}else
 	{
 	  $total_array = array(
