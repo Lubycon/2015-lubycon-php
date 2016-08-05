@@ -17,7 +17,7 @@ $(function(){
 
         if(code.isAlphabetNumber() && code.length === 12){
             Request({
-                url: "./pages/controller/sign_up/certificationEmail.php",
+                url: "./pages/controller/sign_up/certificateEmail.php",
                 data: {
                     code: code
                 },
