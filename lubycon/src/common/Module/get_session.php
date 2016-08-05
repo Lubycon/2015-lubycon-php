@@ -21,6 +21,7 @@ $country_json_Code = $json_control->json_decode_code;
 		$Loginuser_city = NULL;
 		$Loginuser_country = NULL;
 		$MemberActivity = NULL;
+		$SignInDate = NULL;
 
 		if(isset($_SESSION['lubycon_validation']))
 		{
@@ -31,6 +32,7 @@ $country_json_Code = $json_control->json_decode_code;
 		}
 
 		$LoginState = true;
+		$SignInDate = (isset($_SESSION['lubycon_date']) === true) ? $_SESSION['lubycon_date'] : NULL;
 		$MemberActivity = $activity;
 		$Loginuser_name = (isset($_SESSION['lubycon_nick']) === true) ? $_SESSION['lubycon_nick'] : NULL;
 		$Loginuser_id = (isset($_SESSION['lubycon_id']) === true) ? $_SESSION['lubycon_id'] : NULL;
@@ -43,6 +45,7 @@ $country_json_Code = $json_control->json_decode_code;
 		
 		$session_data = array(
 			'LoginState' => $LoginState,
+			'SignInDate' => $SignInDate,
 			'MemberActivity' => $MemberActivity,
 			'username' => $Loginuser_name,
 			'usercode' => $Loginuser_code,

@@ -14,6 +14,7 @@ $(function(){
     function submit(){
         var input = $(".input-message[name='certificationCode']"),
             code = input.val();
+        console.log(code);
 
         if(code.isAlphabetNumber() && code.length === 12){
             Request({

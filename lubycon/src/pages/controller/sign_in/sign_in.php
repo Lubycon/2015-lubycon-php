@@ -12,6 +12,7 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$postData = json_decode(file_get_contents("php://input"));
+		die($postData);
 	}else
 	{
 	  $total_array = array(
@@ -51,6 +52,7 @@
 					case "name" : $sessionArray['country'] = $country_decode[$value]['name']; break;
 					case "profileImg" : $sessionArray['profile'] = $value; break;
 					case "validation" : $sessionArray[$key] = $value; break;
+					case "date" : $sessionArray[$key] = $value; break;
 					default : break;
 				}
 			}
@@ -58,13 +60,12 @@
 
 			$total_array = array(
 			  'status' => array(
-			    'code' => '0000',
+			    'code' => "0000",
 			    'msg' => "success login"
 			    ),
 			  'result' => (object)array()
 			);
 			$data_json = json_encode($total_array);
-			die($data_json);
 
 		}else
 		{
