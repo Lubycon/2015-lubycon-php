@@ -10,6 +10,7 @@ $(document).ready(function(){
 
     function init(response){
         console.log(response);
+				// result에 안담아줌
 		var data = response.result;
 
 		var title = $("#post_subject").find(".post_subject_name"),

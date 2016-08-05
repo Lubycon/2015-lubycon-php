@@ -34,7 +34,7 @@ $(function(){
             $checkIcon.addClass('fa fa-times');
             console.log("false input");
         }
-    }
+    };
 
     initAccountInputCheck(); //init
     function initAccountInputCheck(){
@@ -61,7 +61,7 @@ $(function(){
         emailCheck = false;
 
         if(value.isNullString()) inputAction.blankAction($this);
-            
+
         else if (!value.isEmail()){ //wrong email address to regex
             checkMessage.text('This E-mail is wrong').show();
             inputAction.falseAction($this);
@@ -110,32 +110,32 @@ $(function(){
         var checking = value.isPassword();
 
         switch(checking){
-            case 0 : 
+            case 0 :
                 passwordCheck = true;
                 checkMessage.text("").show();
                 inputAction.trueAction($this);
                 inputAction.blankAction($repeatPassword);
             break;
-            case 1 : 
+            case 1 :
                 inputAction.blankAction($this);
                 inputAction.blankAction($repeatPassword);
             break;
-            case 2 : 
+            case 2 :
                 checkMessage.text("You must write 10words at least").show();
                 inputAction.falseAction($this);
                 inputAction.blankAction($repeatPassword);
             break;
-            case 3 : 
+            case 3 :
                 checkMessage.text('You must write the Alpabet at least one').show();
                 inputAction.falseAction($this);
                 inputAction.blankAction($repeatPassword);
             break;
-            case 4 : 
+            case 4 :
                 checkMessage.text('You can not write special characters').show();
                 inputAction.falseAction($this);
                 inputAction.blankAction($repeatPassword);
             break;
-            case 5 : 
+            case 5 :
                 checkMessage.text('Repeat 3 words').show();
                 inputAction.falseAction($this);
                 inputAction.blankAction($repeatPassword);
@@ -158,12 +158,12 @@ $(function(){
 
         passwordCheck2 = false;
 
-        if(value.isNullString()) inputAction.blankAction($this); 
-        	
+        if(value.isNullString()) inputAction.blankAction($this);
+
         else if(value !== $password.val()) { //not same
             checkMessage.text("This is not same").show();
             inputAction.falseAction($this);
-        } 
+        }
         else if(value === $password.val()) { //complite
             checkMessage.text('').show();
             inputAction.trueAction($this);
@@ -183,15 +183,15 @@ $(function(){
         else if(value.isAbuseWord()){ //abuse names
             checkMessage.text(value + " is not good for your name").show();
             inputAction.falseAction($this);
-        } 
+        }
         else if(!value.isAlphabetNumber()){
             checkMessage.text('You can use only english and number').show();
             inputAction.falseAction($this);
-        } 
+        }
         else if(value.match("null")){
             checkMessage.text('You can not write "null"').show();
             inputAction.falseAction($this);
-        } 
+        }
         else { //complite, enter to AJAX Logic by SsaRu
             $.ajax({
                 type: "POST",
@@ -231,7 +231,7 @@ $(function(){
             submitBt.prop("disabled",false);
             submitBt.on("click",finalSubmit);
         }
-        else{ 
+        else{
             console.log("SUBMIT DISABLE");
             submitBt.prop("disabled",true);
             submitBt.off("click",finalSubmit);
