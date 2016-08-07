@@ -108,7 +108,8 @@ $(document).ready(function(){
 	function bindUserAction(data,user){
 		var buttons = $(".userAction-bt");
 		var bookmarkButton = $(".userAction-bt[data-value='bookmark']"),
-			likeButton = $(".userAciton-bt[data-value='like']");
+			likeButton = $(".userAction-bt[data-value='like']");
+		console.log(likeButton,data[1]);
 
 		if(data[0]) bookmarkButton.addClass("selected");
 		if(data[1]) likeButton.addClass("selected");
