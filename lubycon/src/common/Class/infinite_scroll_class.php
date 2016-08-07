@@ -95,7 +95,7 @@ class infinite_scroll extends json_control
 		// default arg is page kind
         $this->Loginuser_code = $Loginuser_code;
 
-        $this->url = $postData->url;
+        //$this->url = $postData->url;
         $this->topCateCode = $isset_topCate ? $postData->topCate : null;
         $this->topCateName = $isset_topCate ? $this->topCateDecode[$this->topCateCode]['name'] : null;
         $this->filter = $postData->filter;
@@ -171,7 +171,7 @@ class infinite_scroll extends json_control
                         LEFT JOIN lubyconboard.`threedmidcategory`
                         USING (`boardCode`)
                     ) AS a 
-                    LEFT JOIN lubyconuser.`userbasic` AS as ub
+                    LEFT JOIN lubyconuser.`userbasic` AS ub
                     ON a.`userCode` = ub.`userCode` 
                     ";
                 }else

@@ -12,8 +12,6 @@
 	$session = new Session();
 	$json_control = new json_control();
 
-	//print_r($_POST);
-
 	$country_post = $_POST['country_code'];
 
 	$country_json = $json_control->json_decode('country',"../../../../data/country.json");
@@ -99,7 +97,6 @@
 
     				$result = mysqli_fetch_array($db->result);
 					$session->WriteSession('lubycon',$result);
-					print_r($result);
 					echo "<script>document.location.href='../../../index.php'</script>";
     			}
 			}
