@@ -87,15 +87,78 @@ $public_option = array(
 		'fax' => $userdata_row["faxPublic"],
 		'web' => $userdata_row["webPublic"]
 );
+
+
+
+
+
+
+/* like bookmark give and take */
+$likeNumber = $likeResultFound['count'];
+$viewNumber = $viewResultFound['count'];
+$uploadNumber = $uploadResultFound['count'];
+$downloadNumber = $downloadResultFound['count'];
+/* like bookmark give and take */
+
+
+$likeTimelineArray = array();
+$viewTimelineArray = array();
+$uploadTimelineArray = array();
+$downloadTimelineArray = array();
+while ($row = mysqli_fetch_array($likeTimeline)) 
+{
+	array_push(
+		$likeTimelineArray,
+		array( 
+			'date' => $row['calendar_date'],
+			'value' => $row['count'] == null ? 0 : $row['count']
+			) 
+		);
+}
+while ($row = mysqli_fetch_array($viewTimeline)) 
+{
+	array_push(
+		$viewTimelineArray,
+		array( 
+			'date' => $row['calendar_date'],
+			'value' => $row['count'] == null ? 0 : $row['count']
+			) 
+		);
+}
+while ($row = mysqli_fetch_array($uploadTimeline)) 
+{
+	array_push(
+		$uploadTimelineArray,
+		array( 
+			'date' => $row['calendar_date'],
+			'value' => $row['count'] == null ? 0 : $row['count']
+			) 
+		);
+}
+while ($row = mysqli_fetch_array($downloadTimeline)) 
+{
+	array_push(
+		$downloadTimelineArray,
+		array( 
+			'date' => $row['calendar_date'],
+			'value' => $row['count'] == null ? 0 : $row['count']
+			) 
+		);
+}
+
 $insight_data = array(
-		'totalLike' => 0,
-		'totalView' => 0,
-		'totalUpload' => 0,
-		'totalDownload' => 0,
-		'like7days' => 0,
-		'view7days' => 0,
-		'upload7days' => 0,
-		'download7days' => 0
+	'total' => array(
+		'like' => $likeNumber,
+		'view' => $viewNumber,
+		'upload' => $uploadNumber,
+		'download' => $downloadNumber
+	),
+	'timeline' => array(
+		'like' => $likeTimelineArray,
+		'view' => $viewTimelineArray,
+		'upload' => $uploadTimelineArray,
+		'download' => $downloadTimelineArray
+	)
 );
 
 
