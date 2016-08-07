@@ -8,6 +8,11 @@ $(function(){
     var header = $("#main-header");
     var wrapper = $("#app-wrapper");
     var footer = $("#footer");
+    var scripts = [
+        './component/view/index/ui.js',
+        './component/view/index/mobile.js',
+        '../plugin/JS/sticky.js'
+    ];
 
     $.when(d1, d2, d3, d4).then(function(){
         console.log("UI LOADED");
@@ -26,6 +31,7 @@ $(function(){
         wrapper.load(href + ".php",function(){
             console.log("D2");
             d2.resolve();
+
         });
     }
     else {
@@ -38,20 +44,18 @@ $(function(){
     // LOADING FOOTER.....
     footer.load("./component/view/index/footer.html",function(){
         d3.resolve();
+
+        $.getMultiScripts(scripts)
+        .done(function() {
+             d4.resolve();
+        })
+        .fail(function(error) {
+             console.log("SCRIPT LOADING IS FAILED");
+        });
     });
 
     // LOADING SCRIPTS.....
-    var scripts = [
-        './component/view/index/ui.js',
-        './component/view/index/mobile.js',
-        '../plugin/JS/sticky.js'
-    ];
 
-    $.getMultiScripts(scripts)
-    .done(function() {
-         d4.resolve();
-    })
-    .fail(function(error) {
-         console.log("SCRIPT LOADING IS FAILED");
-    });
+
+
 });
