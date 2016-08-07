@@ -77,14 +77,17 @@
 			)
 		);
     }
-
-
-    $total_array = array(
+$total_array = array(
+    'status' => array(
+      'code' => '0000',
+      'msg' => "community contents call succsess"
+      ),
+    'result' => (object)array(
     	'contentData' => $contents_data,
     	'bestCreator' => $bestCreator_data,
     	'forumData' => $forum_data
-    );
-
-    $data_json = json_encode($total_array);
-    echo $data_json;
+    )
+);
+$data_json = json_encode($total_array);
+die($data_json);
 ?>
