@@ -391,7 +391,9 @@ INSERT INTO `UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES (1
 
 
 delete from `creatorOfTheMonth`;
-INSERT INTO `creatorOfTheMonth` (`comId`, `userCode`, `comDate`, `comIntroduce`, `comInterviewUrl`) VALUES (NULL, '71', '2016-07-01', 'Daniel Radcliffe is slowly, but surely getting folks to deviate their perspective of him as the boy wizard who saved Hogwarts. The 26-year-old actor played the role of a tech villain in Now You See Me 2', '#');
+INSERT INTO `creatorOfTheMonth` (`comId`, `userCode`, `comDate`, `comIntroduce`, `comInterviewUrl`) VALUES 
+(NULL, '71', '2016-07-01', 'Daniel Radcliffe is slowly, but surely getting folks to deviate their perspective of him as the boy wizard who saved Hogwarts. The 26-year-old actor played the role of a tech villain in Now You See Me 2', '#'),
+(NULL, '71', '2016-08-01', 'Daniel Radcliffe is slowly, but surely getting folks to deviate their perspective of him as the boy wizard who saved Hogwarts. The 26-year-old actor played the role of a tech villain in Now You See Me 2', '#');
 
 
 REVOKE ALL PRIVILEGES ON `lubyconuser`.* FROM 'lubycon'@'%'; GRANT ALL PRIVILEGES ON `lubyconuser`.* TO 'lubycon'@'%' WITH GRANT OPTION;
