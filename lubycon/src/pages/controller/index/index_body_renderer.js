@@ -10,7 +10,7 @@ $(document).ready(function(){
 
     function init(response){
 		console.log(response);
-		var data = response;
+		var data = response.result;
     	console.log("INDEX BODY",data);
 
     	if(isMobile()) initMainCard(data.contentData);
