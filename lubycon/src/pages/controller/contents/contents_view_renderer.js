@@ -126,9 +126,8 @@ $(document).ready(function(){
 	            callback: success
 	        });
 	        function success(res){
-	            if(res.result.code === "200"){
-					console.log("SUCCESS CONNECTION");
-				}
+	            if(res.status.code === "0000") console.log("SUCCESS ACTION");
+	            else if(res.status.code === "0101") location.href = "./index.php?dir=pages/view/sign_in/login_page";
 	        }
 		});
 	}
