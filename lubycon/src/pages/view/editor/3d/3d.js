@@ -316,14 +316,17 @@
                         /*6*/formData.append("setting", objectToJSON(settingObject, false)); //add setting value
                     console.log(formData);
 
+                        console.log(settingObject);
+
                         $.ajax({
-                            url: '../../../ajax/upload_ajax.php',
+                            url: './pages/controller/editor/upload_controller.php',
                             processData: false,
                             contentType: false,
                             data: formData,
                             type: 'POST',
                             success: function (result) {
-                                location.href = "../../../messages/successUploadContent.php";
+                                console.log(result);
+                                //location.href = "../../../messages/successUploadContent.php";
                             }
                         });
                     }

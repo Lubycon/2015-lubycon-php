@@ -103,7 +103,7 @@ class upload
             $this->post_thumb = $POST_data['thumbnail'];
 
             $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
-            if( !$this->post_setting->cc->ccused ) // cc licence 
+            if( !isset($this->post_setting->cc->ccused) ) // cc licence 
             {
                 $this->cc_license = 'No-Distribution';
                 $this->cc_code = '0';
