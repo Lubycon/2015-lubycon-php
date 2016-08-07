@@ -173,6 +173,9 @@ $write_user_data = array(
 
 
 
+
+
+
 // comment data
 $comment_data = array();
 while($comment_row = mysqli_fetch_assoc($comment_result))
@@ -191,18 +194,33 @@ while($comment_row = mysqli_fetch_assoc($comment_result))
 // commnet data
 
 
+// 3d data
+$threedData = (object)array();
+if( $cate_name == 'threed' )
+{
+	$threedData = array(
+		'lights' => file_get_contents($row['userDirectory']."json/lights.json"),
+		'map' => file_get_contents($row['userDirectory']."json/map.json"),
+		'model' => file_get_contents($row['userDirectory']."json/model.json")
+	);
+}
+// 3d data
 
 $total_array = array(
     'status' => array(
       'code' => '0000',
-      'msg' => "community contents call succsess"
+      'msg' => "contents contents call succsess"
       ),
     'result' => (object)array(
 		'contents' => $contents_data,
 		'creator' => $write_user_data,
-		'comment' => $comment_data
+		'comment' => $comment_data,
+		'threedData' => $threedData
     )
 );
+
+
+
 $data_json = json_encode($total_array);
 die($data_json);
 ?>
