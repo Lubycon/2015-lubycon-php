@@ -19,14 +19,14 @@
 <script type="text/javascript" src="../plugin/JS/chosen.jquery.js"></script>
 <script type="text/javascript" src="../plugin/JS/html2canvas.js"></script>
 
-<script type="text/javascript" src="./pages/controller/editor/three.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/three.js"></script>
 
-<script type="text/javascript" src="./pages/controller/editor/3dLoader.js"></script>
-<script type="text/javascript" src="./pages/controller/editor/TGALoader.js"></script>
-<script type="text/javascript" src="./pages/controller/editor/ShadowMaterial.js"></script>
-<script type="text/javascript" src="./pages/controller/editor/OrbitControls.js"></script>
-<script type="text/javascript" src="./pages/controller/editor/TransformControls.js"></script>
-<script type="text/javascript" src="./pages/controller/editor/threex.domevents.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/3dLoader.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/TGALoader.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/ShadowMaterial.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/OrbitControls.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/TransformControls.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/threex.domevents.js"></script>
 <script type="text/javascript" src="./pages/controller/editor/editorClasses.js"></script>
 <script type="text/javascript" src="./pages/view/editor/3d/3d.js"></script>
 

@@ -1,15 +1,21 @@
 $(document).ready(function(){
 	'use strict';
 
+	console.log('WEBGL VIEW IS LOADED');
 	var windowWidth = isMobile() ? window.innerWidth : window.innerWidth-310,
 	windowHeight = isMobile() ? window.innerHeight-200 : window.innerHeight-310;
+	console.log(windowWidth,windowHeight);
 
 	var bgPreset3d = backgroundPreset3d,
         bgPreset2d = backgroundPreset2d;
 
+	var body = $("#contents_main");
+	var canvas = $("<div/>",{"id":"web-gl"}).prependTo(body);
 	var gl = document.getElementById("web-gl");
+	console.log(gl);
 
 	var scene = new THREE.Scene();
+	console.log(scene);
 	var camera = new THREE.PerspectiveCamera(45, windowWidth/windowHeight, 0.1, 10000);
 		camera.position.x = -2;
 		camera.position.y = 1;
@@ -24,7 +30,7 @@ $(document).ready(function(){
 	var renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true, antialias: true });
 		renderer.setSize(windowWidth, windowHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setClearColor(0x222222, 1);
+        renderer.setClearColor(0x666666, 1);
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         renderer.gammaInput = true;
@@ -34,6 +40,7 @@ $(document).ready(function(){
 		alert("context is lost");
 		cancelAnimationFrame(animationID);
 	},false);
+	console.log(renderer);
 	gl.appendChild(renderer.domElement);
 
 	var controls = new THREE.OrbitControls(camera, renderer.domElement);

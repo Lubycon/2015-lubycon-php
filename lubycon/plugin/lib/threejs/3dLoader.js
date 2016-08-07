@@ -2,7 +2,6 @@
  * @author : mrdoob / http://mrdoob.com/
  * @redesign : Lubycon / http://www.lubycon.com
  */
-
 THREE.OBJLoader = function ( manager ) {
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 	this.materials = null;
@@ -149,7 +148,7 @@ THREE.OBJLoader.prototype = {
 					face.normal.set(a,b,c);
 				}
 			}
-			
+
 			if(isNaN(v4)) faces.push(face);
 			else faces.push(face,face2);
 
@@ -310,7 +309,7 @@ THREE.OBJLoader.prototype = {
 						materials.push(material);
 						materialIndex = materials.length - 1;
 						materialCount++;
-					} 
+					}
 				}
 				//console.log("Loaded material_" + materialIndex + " : " + line.substring(7).trim());
 			}
@@ -349,7 +348,7 @@ THREE.OBJLoader.prototype = {
 				object.material.materials.push(material);
 			}
 			material = new THREE.MeshFaceMaterial(object.material.materials);
-			
+
 			mesh.geometry = geometry;
 			mesh.material = material;
 			mesh.name = object.name;

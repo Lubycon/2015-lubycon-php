@@ -248,6 +248,9 @@
             overflow: hidden;
             vertical-align: middle;
         }
+            .cropper-window img {
+                vertical-align: middle;
+            }
         .fa-arrow-left{
             display: none;
             font-size: 22px;

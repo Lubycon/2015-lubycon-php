@@ -18,6 +18,8 @@ var ContentsCard = function(data){
         comment: data.contentCount.comment,
         like: data.contentCount.like
     };
+
+    console.log(this);
 };
 
 ContentsCard.prototype.render = function(){

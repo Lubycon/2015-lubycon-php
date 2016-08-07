@@ -1,6 +1,3 @@
-<script type="text/javascript" src="./component/view/comment_card/comment.tmpl.js"></script>
-<script type="text/javascript" src="./component/view/creator_card/creator_card.tmpl.js"></script>
-<script type="text/javascript" src="./pages/controller/contents/contents_view_renderer.js"></script>
 
 <link href="./pages/view/contents/contents_view.css" rel="stylesheet" type="text/css" /><!-- contents view css -->
 
@@ -27,16 +24,6 @@
     </section>
     <section class="con_wrap">
         <div id="contents_main" class="con_main">
-            <?php
-           		/* how to call 3d contents?
-                if($_GET['cate'] == 'threed'){
-                    include "./pages/view/contents/webGL.php";
-                }
-                else{
-                    echo htmlspecialchars_decode($contents_html);
-                };
-                */
-            ?>
             <div class="infoCard-horizontal">
                 <div class="infoCard content_info x2 left">
                     <p class="infoCard-title inline">Did you like this contents?</p>
@@ -117,3 +104,18 @@
         </div><!--con_aside-->
     </section><!--content_wrap-->
 </section>  <!--contents section-->
+
+<script type="text/javascript" src="../data/webGLmap_Preset/backgroundPreset2d.json"></script>
+<script type="text/javascript" src="../data/webGLmap_Preset/backgroundPreset3d.json"></script>
+
+<script type="text/javascript" src="../plugin/lib/threejs/three.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/3dLoader.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/TGALoader.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/ShadowMaterial.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/OrbitControls.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/TransformControls.js"></script>
+<script type="text/javascript" src="../plugin/lib/threejs/threex.domevents.js"></script>
+
+<script type="text/javascript" src="./component/view/comment_card/comment.tmpl.js"></script>
+<script type="text/javascript" src="./component/view/creator_card/creator_card.tmpl.js"></script>
+<script type="text/javascript" src="./pages/controller/contents/contents_view_renderer.js"></script>

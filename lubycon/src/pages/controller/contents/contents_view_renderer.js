@@ -45,7 +45,10 @@ $(document).ready(function(){
 		downCount.text(content.counter.download);
 		likeCount.text(content.counter.like);
 
-		body.prepend(content.content.toDOMelement());
+		if(CATE_PARAM !== "3") body.prepend(content.content.toDOMelement());
+		else if(CATE_PARAM === "3") $.getScript("./pages/view/contents/webGL.js", function(){
+			console.log("webgl is loaded");
+		});
 
 		creatorCardWrapper.append(creatorCard);
 

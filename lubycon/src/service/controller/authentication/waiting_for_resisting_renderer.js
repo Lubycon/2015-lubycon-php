@@ -13,7 +13,10 @@ $(function(){
             _day = _hour * 24;
 
         var oldDate = new Date(res.SignInDate.replace("-","/")),
-            today = new Date(),
+            utc = res.utc;
+            oldDate = new Date(Date.parse(oldDate) + (utc*1) * 1000 * 60 * 60);
+
+        var today = new Date(),
             limitDate = new Date(Date.parse(oldDate) + 7 * 1000 * 60 * 60 * 24);
 
         console.log(oldDate," - ",today," - ",limitDate);
@@ -40,8 +43,6 @@ $(function(){
             sec = Math.floor(distance % date[2] / date[3]);
 
         if(day + hours + min + sec < 0) rejectAction(usercode);
-
-        console.log(day,hours,min,sec);
 
         var dayBox = $(".day-box"),
             hourBox = $(".hour-box"),

@@ -124,9 +124,14 @@ $(document).ready(function(){
             });
         }
     }
-    function result(response){
-        console.log("RESPONSE");
-        console.log(response);
+    function result(res){
+        if(res.status.code === "0000"){
+            location.href = "?dir=service/view/successUploadAccount";
+        }
+        else {
+            console.log("UPLOAD ERROR :::::");
+            console.log(res);
+        }
     }
 
     function initJSONdata(){

@@ -283,6 +283,7 @@ $.cachedScript = function(url, options){
         url: url
     });
 
+    console.log($.ajax(options));
     return jQuery.ajax( options );
 };
 

@@ -314,6 +314,7 @@
                         /*4*/formData.append("lights",JSON.stringify(newLights));
                         /*5*/formData.append("thumbnail",finalThumbnail); //add thumbnail
                         /*6*/formData.append("setting", objectToJSON(settingObject, false)); //add setting value
+                    console.log(formData);
 
                         $.ajax({
                             url: '../../../ajax/upload_ajax.php',

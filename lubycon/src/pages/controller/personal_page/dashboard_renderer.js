@@ -8,11 +8,7 @@ $(document).ready(function(){
         callback: init
     });
 
-    function init(data,session){
-        initDashboard(data);
-    }
-
-    function initDashboard(response){
+    function init(response){
         var data = response.result,
             session = response.session;
         console.log(data);
@@ -26,10 +22,10 @@ $(document).ready(function(){
 
             historyWrap = $(".history_wrap"),
 
-            totalLike = $("#total_like").find(".dash_body_content").text(data.insightData.totalLike),
-            totalView = $("#total_view").find(".dash_body_content").text(data.insightData.totalView),
-            totalUpload = $("#total_upload").find(".dash_body_content").text(data.insightData.totalUpload),
-            totalDownload = $("#total_download").find(".dash_body_content").text(data.insightData.totalDownload),
+            totalLike = $("#total_like").find(".dash_body_content").text(data.insightData.total.like),
+            totalView = $("#total_view").find(".dash_body_content").text(data.insightData.total.view),
+            totalUpload = $("#total_upload").find(".dash_body_content").text(data.insightData.total.upload),
+            totalDownload = $("#total_download").find(".dash_body_content").text(data.insightData.total.download),
 
             website = $("#user-website");
 
@@ -43,11 +39,7 @@ $(document).ready(function(){
 
         initHistory(data.userHistory.reverse());
 
-        $.getJSON("./component/view/chart/data/insightData.json",function(data){
-            success : initChart(data);
-        }).fail(function(d, textStatus, error){
-            console.log("insight data loading is failed, status: " + textStatus + ", error: "+error);
-        });
+        initChart(data.insightData.timeline);
 
         $(".history_kind span").first().remove();
         $(".toggle_info").on("click touchend",infoToggle);
@@ -100,15 +92,16 @@ $(document).ready(function(){
         }
 
         function initChart(data){
-            var likeTimelineData = data.timeline.like,
-                viewTimelineData = data.timeline.view,
-                uploadTimelineData = data.timeline.upload,
-                downloadTimelineData = data.timeline.download;
-
-            chartLoader("chartdiv1","likeChart",likeTimelineData);
-            chartLoader("chartdiv2","viewChart",viewTimelineData);
-            chartLoader("chartdiv3","upChart",uploadTimelineData);
-            chartLoader("chartdiv4","downChart",downloadTimelineData);
+            console.log(data);
+            var likeData = data.like,
+                viewData = data.view,
+                uploadData = data.upload,
+                downloadData = data.download;
+            console.log(likeData,viewData,uploadData,downloadData);
+            chartLoader("chartdiv1","likeChart",likeData);
+            chartLoader("chartdiv2","viewChart",viewData);
+            chartLoader("chartdiv3","upChart",uploadData);
+            chartLoader("chartdiv4","downChart",downloadData);
         }
 
         function chartLoader(target,theme,data){
