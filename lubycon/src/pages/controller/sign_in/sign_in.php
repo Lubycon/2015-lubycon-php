@@ -48,13 +48,13 @@
 					case "nick" : $sessionArray[$key] = $value; break;
 					case "countryCode" : $sessionArray[$key] = $value; break;
 					case "city" : $sessionArray[$key] = $value; break;
-					case "name" : $sessionArray['country'] = $country_decode[$value]['name']; break;
 					case "profileImg" : $sessionArray['profile'] = $value; break;
 					case "validation" : $sessionArray[$key] = $value; break;
 					case "date" : $sessionArray[$key] = $value; break;
 					default : break;
 				}
 			}
+
 			$session->WriteSession('lubycon', $sessionArray);
 
 			$total_array = array(
