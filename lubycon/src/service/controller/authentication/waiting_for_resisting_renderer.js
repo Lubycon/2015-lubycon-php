@@ -39,7 +39,7 @@ $(function(){
             sec = Math.floor(distance % date[2] / date[3]);
 
         if(day + hours + min + sec < 0) rejectAction(usercode);
-        
+
         console.log(day,hours,min,sec);
 
         var dayBox = $(".day-box"),

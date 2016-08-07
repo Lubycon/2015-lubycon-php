@@ -34,7 +34,7 @@ ContentsCard.prototype.render = function(){
                     title = $("<h4/>",{ "class" : "contents-title load-view", "html" : this.title }).appendTo(anchor),
                     license = $("<h5/>",{ "html" : this.license }).appendTo(anchor),
             creatorDesc = $("<span/>",{ "class" : "creator-desc" }).appendTo(contentDesc),
-                userAnchor = $("<a/>",{ "href" : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + this.user.code }).appendTo(creatorDesc),
+                userAnchor = $("<a/>",{ "href" : "?dir=pages/view/personal_page/personal_page&cate=0&usernum=" + this.user.code }).appendTo(creatorDesc),
                     userImg = $("<img/>",{ "src" : this.user.profile }).appendTo(userAnchor),
                     by = $("<span/>", { "class" : "by", "html" : "by" }).appendTo(userAnchor),
                     username = $("<span/>", { "class" : "name", "html" : this.user.name }).appendTo(userAnchor),

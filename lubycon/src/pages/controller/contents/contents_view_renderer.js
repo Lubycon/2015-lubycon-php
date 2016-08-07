@@ -50,7 +50,7 @@ $(document).ready(function(){
 		creatorCardWrapper.append(creatorCard);
 
 		profile.attr("src", creator.profile);
-		creatorName.attr("href","?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + creator.code);
+		creatorName.attr("href","?dir=pages/view/personal_page/personal_page&cate=0d&usernum=" + creator.code);
 		creatorName.text(creator.name);
 		creatorJob.text(creator.job);
 		creatorLocation.text(creator.city + ", " + creator.country);
