@@ -54,8 +54,11 @@ Mainboard.prototype.renderList = function(){
                         }).appendTo(anchor),
                     creator = $("<span/>",{
                         "class" : "table-writer",
-                        "html" : d.user.name
                     }).appendTo(info),
+                    creatorAnchor = $("<a/>",{
+                        "href" : "?dir=pages/view/personal_page/personal_page&cate=0&usernum=" + d.user.code,
+                        "html" : d.user.name
+                    }).appendTo(creator),
                 counter =  $("<div/>",{ "class" : "table-counts" }).appendTo(inner),
                     date = $("<span/>",{
                         "class" : "table-date",

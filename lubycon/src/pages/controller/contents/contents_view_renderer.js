@@ -50,7 +50,7 @@ $(document).ready(function(){
 		creatorCardWrapper.append(creatorCard);
 
 		profile.attr("src", creator.profile);
-		creatorName.attr("href","?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + creator.code);
+		creatorName.attr("href","?dir=pages/view/personal_page/personal_page&cate=0d&usernum=" + creator.code);
 		creatorName.text(creator.name);
 		creatorJob.text(creator.job);
 		creatorLocation.text(creator.city + ", " + creator.country);
@@ -126,9 +126,8 @@ $(document).ready(function(){
 	            callback: success
 	        });
 	        function success(res){
-	            if(res.result.code === "200"){
-					console.log("SUCCESS CONNECTION");
-				}
+	            if(res.status.code === "0000") console.log("SUCCESS ACTION");
+	            else if(res.status.code === "0101") location.href = "./index.php?dir=pages/view/sign_in/login_page";
 	        }
 		});
 	}

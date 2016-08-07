@@ -7,9 +7,10 @@
 	</div>
 	<div class="message-box">
 		<article class="time-wrapper">
-			<span class="time-box day-box">0</span> Days
-			<span class="time-box hour-box">0</span> Hours
-			<span class="time-box minute-box">0</span> Minute
+			<span class="time-box day-box"></span> Days
+			<span class="time-box hour-box"></span> Hours
+			<span class="time-box minute-box"></span> Minute
+			<span class="time-box second-box"></span> Seconds
 		</article>
 	</div>
 	<div class="message-box">

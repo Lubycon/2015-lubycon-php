@@ -24,22 +24,22 @@ ContentsCard.prototype.render = function(){
     var _this = this;
     var card = $("<div/>",{ "class" : "contents-card", "data-value" : "", "data-index" : "" }),
         thumbWrapper = $("<div/>",{ "class" : "contents-pic" }),
-            img = $("<img/>",{ "src" : this.image, "class" : "load-view" }).appendTo(thumbWrapper),
+            img = $("<img/>",{ "src" : _this.image, "class" : "load-view" }).appendTo(thumbWrapper),
         contentDesc = $("<div/>",{ "class" : "contents-desc"}),
             contentSub = $("<div/>",{ "class" : "contents-sub" }).appendTo(contentDesc),
                 anchor = $("<a/>",{
                     "class" : "contents-link",
-                    "href" : "?dir=pages/view/contents/viewer&cate=" + this.category + "&conno=" + this.code
+                    "href" : "?dir=pages/view/contents/viewer&cate=" + _this.category + "&conno=" + _this.code
                 }).appendTo(contentSub),
-                    title = $("<h4/>",{ "class" : "contents-title load-view", "html" : this.title }).appendTo(anchor),
-                    license = $("<h5/>",{ "html" : this.license }).appendTo(anchor),
+                    title = $("<h4/>",{ "class" : "contents-title load-view", "html" : _this.title }).appendTo(anchor),
+                    license = $("<h5/>",{ "html" : _this.license }).appendTo(anchor),
             creatorDesc = $("<span/>",{ "class" : "creator-desc" }).appendTo(contentDesc),
-                userAnchor = $("<a/>",{ "href" : "?dir=pages/view/personal_page/personal_page&cate=dashboard&usernum=" + this.user.code }).appendTo(creatorDesc),
-                    userImg = $("<img/>",{ "src" : this.user.profile }).appendTo(userAnchor),
+                userAnchor = $("<a/>",{ "href" : "?dir=pages/view/personal_page/personal_page&cate=0&usernum=" + _this.user.code }).appendTo(creatorDesc),
+                    userImg = $("<img/>",{ "src" : _this.user.profile }).appendTo(userAnchor),
                     by = $("<span/>", { "class" : "by", "html" : "by" }).appendTo(userAnchor),
-                    username = $("<span/>", { "class" : "name", "html" : this.user.name }).appendTo(userAnchor),
+                    username = $("<span/>", { "class" : "name", "html" : _this.user.name }).appendTo(userAnchor),
             bookmarkButton = $("<i/>",{
-                "class" : "userAction-bt alertKey fa fa-star" + (this.bookmark === "true" ? "selected" : ""),
+                "class" : "userAction-bt alertKey fa fa-star" + (_this.bookmark ? " selected" : ""),
                 "data-value" : "bookmark",
                 "data-kind" : "contents"
             }).on("click",bookmarkController).appendTo(contentDesc),
@@ -47,14 +47,14 @@ ContentsCard.prototype.render = function(){
         overlay = $("<div/>",{ "class" : "contents-overlay load_view"}),
             anchor2 = $("<a/>",{
                 "class" : "contents-link",
-                "href" : "?dir=pages/view/contents/viewer&cate=" + this.category + "&conno=" + this.code
+                "href" : "?dir=pages/view/contents/viewer&cate=" + _this.category + "&conno=" + _this.code
             }).appendTo(overlay),
             icon = $("<i/>",{ "class" : "fa fa-search-plus" }).appendTo(anchor2),
             ul = $("<ul/>").appendTo(anchor2),
             li = $("<li/>"),
-        view = li.clone().html("<i class='fa fa-eye'></i><span>" + this.count.view + "</span>").appendTo(ul),
-        comment = li.clone().html("<i class='fa fa-comment-o'></i><span>" + this.count.comment + "</span>").appendTo(ul),
-        like = li.clone().html("<i class='fa fa-heart'></i><span>" + this.count.like + "</span>").appendTo(ul);
+        view = li.clone().html("<i class='fa fa-eye'></i><span>" + _this.count.view + "</span>").appendTo(ul),
+        comment = li.clone().html("<i class='fa fa-comment-o'></i><span>" + _this.count.comment + "</span>").appendTo(ul),
+        like = li.clone().html("<i class='fa fa-heart'></i><span>" + _this.count.like + "</span>").appendTo(ul);
 
     thumbWrapper.on("mouseenter",function(){
         overlay.stop().fadeIn(200);
@@ -77,9 +77,9 @@ ContentsCard.prototype.render = function(){
             },
             callback: success
         });
-        function success(response){
-            console.log("BOOKMARK IS ------------------");
-            console.log(response);
+        function success(res){
+            if(res.status.code === "0000") console.log("SUCCESS ACTION");
+            else if(res.status.code === "0101") location.href = "./index.php?dir=pages/view/sign_in/login_page";
         }
     }
 
