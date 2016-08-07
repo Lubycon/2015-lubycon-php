@@ -1,9 +1,16 @@
-$(document).ready(function(){
+function loadWebGLViewer(data){
 	'use strict';
 
 	console.log('WEBGL VIEW IS LOADED');
+
+	console.log(data.map,data.lights);
+	var skymapJSON = $.parseJSON(data.map),
+		lightJSON = $.parseJSON(data.lights),
+		modelJSON = $.parseJSON(data.model);
+
 	var windowWidth = isMobile() ? window.innerWidth : window.innerWidth-310,
-	windowHeight = isMobile() ? window.innerHeight-200 : window.innerHeight-310;
+	windowHeight = 500;
+	//windowHeight = isMobile() ? window.innerHeight-200 : window.innerHeight-310;
 	console.log(windowWidth,windowHeight);
 
 	var bgPreset3d = backgroundPreset3d,
@@ -244,4 +251,4 @@ $(document).ready(function(){
     	camera.updateProjectionMatrix();
     	renderer.setSize(windowWidth, windowHeight);
     }
-});
+};

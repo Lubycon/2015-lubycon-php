@@ -13,6 +13,11 @@
 <script type="text/javascript" src="../data/webGLmap_Preset/backgroundPreset3d.json"></script>
 <script type="text/javascript" src="../data/webGLmap_Preset/backgroundPreset2d.json"></script>
 
+
+
+<!-- editor css -->
+<section id="editor-container" class="initEditor"></section>
+
 <script type="text/javascript" src="../plugin/JS/modalClass.js"></script>
 <script type="text/javascript" src="../plugin/JS/spectrum.js"></script>
 <script type="text/javascript" src="../plugin/JS/cropper.min.js"></script>
@@ -29,9 +34,6 @@
 <script type="text/javascript" src="../plugin/lib/threejs/threex.domevents.js"></script>
 <script type="text/javascript" src="./pages/controller/editor/editorClasses.js"></script>
 <script type="text/javascript" src="./pages/view/editor/3d/3d.js"></script>
-
-<!-- editor css -->
-<section id="editor-container" class="initEditor"></section>
 <script>
     $("#editor-container").initEditor();
 </script>

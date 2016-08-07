@@ -48,6 +48,7 @@ $(document).ready(function(){
 		if(CATE_PARAM !== "3") body.prepend(content.content.toDOMelement());
 		else if(CATE_PARAM === "3") $.getScript("./pages/view/contents/webGL.js", function(){
 			console.log("webgl is loaded");
+			loadWebGLViewer(data.threedData);
 		});
 
 		creatorCardWrapper.append(creatorCard);

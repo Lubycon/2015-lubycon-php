@@ -108,10 +108,8 @@
                         var captureBt = $("<div/>",{ "class" : "capture-btn" }).appendTo($canvas).on("click",canvasTool.capture),
                         captureIcon = $("<i/>",{ "class" : icons.camera }).appendTo(captureBt);
 
-                        console.log(1);
                         pac.initTools();//data binding
                         pac.initGL();
-                        console.log(2);
 
                         $(document).on("keydown",pac.initCamera);
                         window.onbeforeunload = function(){
@@ -490,7 +488,7 @@
 
                         function insertOption(){
                             var categoryBox = $categorySelect;
-                            for(var i = 0, l = categories.length; i < l; i++){ //categoryData is json
+                            for(i in categories){ //categoryData is json
                                 var option = $option.clone().html(categories[i]).attr("data-index",i);
                                 option.appendTo(categoryBox);
                             }
