@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 require_once '../../../common/Class/json_class.php';
 $json_control = new json_control;
 $json_control->json_decode('job',"../../../../data/job.json");
@@ -92,7 +95,7 @@ $history = $postData->result->userHistory;
 $language = $postData->result->userLanguage;
 
 $history_query = "
-INSERT INTO `lubyconuser`.`userhistory` 
+INSERT INTO `lubyconuser`.`userhistory`
 (`userCode`, `historyContents`, `historyDateYear`, `historyDateMonth`, `historyCategory`) VALUES
 ";
 foreach( $history as $key => $value )
@@ -104,7 +107,7 @@ foreach( $history as $key => $value )
 $history_query = substr($history_query, 0, -1);
 
 $language_query = "
-INSERT INTO `lubyconuser`.`UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES 
+INSERT INTO `lubyconuser`.`UserLanguage` (`userCode`,`languageLevel`,`languageName`) VALUES
 ";
 foreach( $language as $key => $value )
 {

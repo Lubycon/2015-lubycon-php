@@ -64,11 +64,11 @@
                 }
         #user-setting {
             position: absolute;
-            
+
         }
             #user-setting i{
                 color: #ffffff;
-            }     
+            }
         #user-intro {
         	width: 100%;
         	padding: 10px 17px;
@@ -78,7 +78,7 @@
         	-webkit-box-sizing: border-box;
         	-moz-box-sizing: border-box;
         	text-align: left;
-        }   
+        }
         	#user-intro p {
         		color: #ffffff;
         		font-size: 16px;
@@ -183,7 +183,7 @@
 		-moz-box-sizing: border-box;
 	}
 	.x2 {
-		
+
 	}
 		.x2_inner {
 			height: 75px;
@@ -363,7 +363,7 @@
 }
 	.history_date {
 		text-align: right;
-		display: inline-block;		
+		display: inline-block;
 		font-weight: 200;
 		color: #aaaaaa;
 		padding: 10px 0px;
@@ -386,7 +386,7 @@
 			}
 			.history_kind.awards .fa-circle {
 				color: #ffbe54;
-			}	
+			}
 		.history_kind span {
 			height: 30px;
 			position: absolute;
@@ -394,7 +394,7 @@
 			left: 19px;
 			border-right: 3px solid;
 		}
-			.history_kind.work_Experience span {
+			.history_kind.work_experience span {
 				border-color: #48cfad;
 			}
 			.history_kind.education span {
@@ -481,7 +481,7 @@
 
 .chart-boxes a {
 	display: none !important;
-}	
+}
 
 .clock_wrap {
 	margin-top: 12px;
@@ -565,11 +565,3 @@
 			display: inline-block;
 			color: #444444;
 		}
-
-
-
-
-
-
-
-

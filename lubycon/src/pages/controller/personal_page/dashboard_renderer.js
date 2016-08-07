@@ -73,7 +73,7 @@ $(document).ready(function(){
             for(var i = 0; i < data.length; i++){
                 var d = date.clone().text(data[i].year + " " + data[i].month.substring(0,3)),
                     k = kind.clone().addClass(data[i].category),
-                    c = content.clone().text(data[i].content);
+                    c = content.clone().text(data[i].contents);
 
                 li.clone()
                     .append(d)

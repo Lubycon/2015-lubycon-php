@@ -97,7 +97,7 @@
                         <option value='December'>December</option>
                     </select>
                     <select class='accountFilter' data-value='kind'>
-                        <option value='work_expierence'>Work Experience</option>
+                        <option value='work_experience'>Work Experience</option>
                         <option value='education'>Education</option>
                         <option value='awards'>Awards</option>
                     </select>
