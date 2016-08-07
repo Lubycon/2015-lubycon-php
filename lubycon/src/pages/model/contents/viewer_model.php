@@ -59,11 +59,6 @@ $db->askQuery();
 
 $row = mysqli_fetch_assoc($db->result);
 
-if( !is_array($row) )
-{
-    include_once('../../../service/view/error/404.php');
-}
-
 $db->query = 
             "SELECT * 
              FROM lubyconboard.`contentscomment` as a
