@@ -1,4 +1,3 @@
-<script type="text/javascript" src="./service/controller/count_handler/thumbs_control.js"></script> <!-- account file js -->
 <script type="text/javascript" src="./component/view/comment_card/comment.tmpl.js"></script>
 <script type="text/javascript" src="./component/view/creator_card/creator_card.tmpl.js"></script>
 <script type="text/javascript" src="./pages/controller/contents/contents_view_renderer.js"></script>

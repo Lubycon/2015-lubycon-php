@@ -10,7 +10,7 @@ and `$contentsKind$countType`.`topCategoryCode` = '$topCate'
 ";
 $db->askQuery();
 $select_result =  $db->result;
-
+print_r($db->database->error);
 
 if( $select_result->num_rows == 0 )
 {
@@ -21,8 +21,7 @@ if( $select_result->num_rows == 0 )
 	( `".$countType."GiveUserCode`, `".$countType."TakeUserCode` , `boardCode`, `topCategoryCode`, `".$countType."Date`) VALUES
 	( '$giveUserCode','$takeUserCode','$number', '$topCate', '$activeDate');
 	";
-
-}else if ($select_result->num_rows <= 1 )
+}else if ($select_result->num_rows > 0 )
 {
 	$stat_check = '-1';
 	$db->query =
@@ -35,14 +34,18 @@ if( $select_result->num_rows == 0 )
 	";
 }else
 {
-	$status = array(
-		'code' => '1000',
-		'msg' => 'query ask fail'
+	$total_array = array(
+		'status' => array(
+			'code' => '1000',
+			'msg' => 'select query ask fail'
+			),
+		'result' => (object)array()
 		);
-	$result = null;
-	$res->fillArray($status,$result);
+	$data_json = json_encode($total_array);
+	die($data_json);
 }
 $db->askQuery();
+print_r($db->database->error);
 
 //echo $db->query;
 $db->query = "UPDATE `lubyconboard`.`$topCateName` SET `$countTypeName` = `$countTypeName` $stat_check WHERE `$topCateName`.`boardCode` = $number";
@@ -50,12 +53,16 @@ $db->query = "UPDATE `lubyconboard`.`$topCateName` SET `$countTypeName` = `$coun
 //echo $db->query;
 if(!$db->askQuery())
 {
-	$status = array(
-		'code' => '1000',
-		'msg' => 'query ask fail'
+	print_r($db->database->error);
+	$total_array = array(
+		'status' => array(
+			'code' => '1000',
+			'msg' => 'update query ask fail'
+			),
+		'result' => (object)array()
 		);
-	$result = null;
-	$res->fillArray($status,$result);
+	$data_json = json_encode($total_array);
+	die($data_json);
 }
 
 //echo $db->query;
