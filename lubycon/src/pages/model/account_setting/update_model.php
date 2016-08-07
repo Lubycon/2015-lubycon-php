@@ -22,7 +22,18 @@ SET
 WHERE `userCode` = $userCode
 ";
 
-$db->askQuery(); 
+if(!$db->askQuery())
+{
+	$total_array = array(
+		'status' => array(
+			'code' => '1000',
+			'msg' => "update query ask error"
+			),
+		'result' => (object)array()
+		);
+	$data_json = json_encode($total_array);
+	die($data_json);
+}
 
 $db->query = 
 "
@@ -32,11 +43,45 @@ USING (`userCode`)
 WHERE `lubyconuser`.`userhistory`.userCode = `lubyconuser`.`userlanguage`.userCode 
 AND `lubyconuser`.`userhistory`.userCode = $userCode
 ";
-$db->askQuery(); //delete original data
+
+if(!$db->askQuery())
+{
+	$total_array = array(
+		'status' => array(
+			'code' => '1000',
+			'msg' => "delete history, language query ask error"
+			),
+		'result' => (object)array()
+		);
+	$data_json = json_encode($total_array);
+	die($data_json);
+}
 
 $db->query = $history_query;
-$db->askQuery(); // insert user history
+if(!$db->askQuery())
+{
+	$total_array = array(
+		'status' => array(
+			'code' => '1000',
+			'msg' => "history insert query ask error"
+			),
+		'result' => (object)array()
+		);
+	$data_json = json_encode($total_array);
+	die($data_json);
+}
 
 $db->query = $language_query;
-$db->askQuery(); // insert user history
+if(!$db->askQuery())
+{
+	$total_array = array(
+		'status' => array(
+			'code' => '1000',
+			'msg' => "language insert query ask error"
+			),
+		'result' => (object)array()
+		);
+	$data_json = json_encode($total_array);
+	die($data_json);
+}
 ?>
