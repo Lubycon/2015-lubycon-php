@@ -118,4 +118,14 @@ foreach( $language as $key => $value )
 $language_query = substr($language_query, 0, -1);
 
 require_once '../../model/account_setting/update_model.php';
+
+$total_array = array(
+  'status' => array(
+    'code' => '0000',
+    'msg' => "done"
+    ),
+  'result' => (object)array()
+  );
+$data_json = json_encode($total_array);
+die($data_json);
 ?>
