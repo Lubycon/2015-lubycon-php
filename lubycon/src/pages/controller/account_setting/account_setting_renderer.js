@@ -77,7 +77,7 @@ $(document).ready(function(){
 
             userData.city = city.val();
             userData.name = nameWrap.val();
-            userData.company = company.val();
+            userData.position = company.val();
             userData.description = descript.val();
             userData.mobile = mobile.val();
             userData.fax = fax.val();
@@ -95,7 +95,7 @@ $(document).ready(function(){
                     name: $(this).find(".language_text").val(),
                     level: $(this).find(".langFilter").lubySelector("getValue")
                 };
-                userLanguage.push(d);
+                if(d.name !== "") userLanguage.push(d);
             });
             vm.userLanguage = userLanguage;
 
@@ -107,7 +107,8 @@ $(document).ready(function(){
                     month: $(this).find(".accountFilter[data-value='month']").lubySelector("getValue"),
                     year: $(this).find(".accountFilter[data-value='year']").lubySelector("getValue")
                 };
-                userHistory.push(d);
+
+                if(d.contents !== "") userHistory.push(d);
             });
             vm.userHistory = userHistory;
 
@@ -169,12 +170,12 @@ $(document).ready(function(){
         var wrapper = $(".language-wrapper"),
             component = wrapper.find(".language");
         for(var i = 0; i < data.length; i++){
-            var c = component.clone();
+            var c = component.clone(true);
             c.find(".language_text").val(data[i].name);
             c.find(".langFilter").val(data[i].level);
             c.appendTo(wrapper);
         }
-        component.first().remove();
+        if(data.length !== 0) component.first().remove();
 
         wrapper.find("select").lubySelector({
             theme: 'white',
@@ -195,14 +196,14 @@ $(document).ready(function(){
         }
 
         for(var i = 0; i < data.length; i++){
-            var c = component.clone();
+            var c = component.clone(true);
             c.find(".accountFilter[data-value='year']").val(data[i].year);
             c.find(".accountFilter[data-value='month']").val(data[i].month);
             c.find(".accountFilter[data-value='kind']").val(data[i].category);
             c.find(".history_text").val(data[i].contents);
             c.appendTo(wrapper);
         }
-        wrapper.find(".history").first().remove();
+        if(data.length !== 0) wrapper.find(".history").first().remove();
 
         wrapper.find("select").lubySelector({
             theme: 'white',
@@ -321,7 +322,7 @@ $(document).ready(function(){
         $('.history').each(function (i) {
             histories.push({
                 id: i,
-                element: $(this),
+                element: $(this).clone(true),
                 year: parseInt($(this).find(".accountFilter[data-value='year']").lubySelector("getValue")),
                 month: ($(this).find(".accountFilter[data-value='month']").lubySelector("getValueByIndex")) + 1
             });

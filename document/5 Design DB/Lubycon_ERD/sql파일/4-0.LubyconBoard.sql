@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `forum`
 (
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED DEFAULT '1',
 	`contentTitle` VARCHAR(255) NOT NULL,
 	`contentDate` DATETIME NOT NULL,
 	`contents` TEXT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `tutorial`
 (
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED DEFAULT '2',
 	`contentTitle` VARCHAR(255) NOT NULL,
 	`contentDate` DATETIME NOT NULL,
 	`contents` TEXT NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `qaa`
 (
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED DEFAULT '3',
 	`contentTitle` VARCHAR(255) NOT NULL,
 	`contentDate` DATETIME NOT NULL,
 	`contents` TEXT NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `artWork`
 (
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED DEFAULT '1',
 	`contentTitle` VARCHAR(255) NOT NULL,
 	`contentDate` DATETIME NOT NULL,
 	`contentDescription` TEXT,
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `vector`
 (
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED DEFAULT '2',
 	`contentTitle` VARCHAR(255) NOT NULL,
 	`contentDate` DATETIME NOT NULL,
 	`contentDescription` TEXT,
@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `threed`
 (
 	`boardCode` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`userCode` INT UNSIGNED NOT NULL,
-	`topCategoryCode` INT UNSIGNED NOT NULL,
+	`topCategoryCode` INT UNSIGNED DEFAULT '3',
 	`contentTitle` VARCHAR(255) NOT NULL,
 	`contentDate` DATETIME NOT NULL,
 	`contentDescription` TEXT,

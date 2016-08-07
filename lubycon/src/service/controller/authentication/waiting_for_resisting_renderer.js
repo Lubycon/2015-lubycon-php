@@ -5,6 +5,7 @@ $(function(){
 
     function init(res){
         var submitBt = $(".btn.submit-bt");
+        submitBt.on("click",submit);
 
         var _sec = 1000,
             _min = _sec * 60,

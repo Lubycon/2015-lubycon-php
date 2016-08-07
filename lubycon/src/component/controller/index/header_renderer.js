@@ -75,7 +75,7 @@ $(document).ready(function(){
             console.log("a : " +  res);
             console.log(res.status.code === "0000");
             if(res.status.code === "0000"){
-                alert("BYE!");
+                // alert("BYE!");
                 location.href = "./index.php";
             }
             else {
