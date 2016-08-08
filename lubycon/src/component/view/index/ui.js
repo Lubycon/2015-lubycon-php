@@ -3,6 +3,7 @@
 
 $(document).ready(function(){
     initUIComponents();
+    console.log("UI.js");
 
     function initUIComponents(){
         /////////// COMMON //////////////
@@ -160,6 +161,8 @@ $(document).ready(function(){
             return false;
         }
         function init(){
+
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!");
             searchFilter.lubySelector({
                 width: 100,
                 theme: "transparent",

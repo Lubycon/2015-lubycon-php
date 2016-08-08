@@ -13,7 +13,7 @@ var Request = function(param){
     getSession
     .success(function(res){
         session = res;
-        console.log(session);
+        //console.log(session);
         if(url) getData(); // NEXT DATA IS EXIST
         else param.callback(session); // RETURN ONLY SESSION
     })
@@ -22,7 +22,7 @@ var Request = function(param){
     });
 
     function getData(){
-        console.log(param);
+        //console.log(param);
         return $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -31,9 +31,9 @@ var Request = function(param){
             cache: false
         })
         .success(function(res){
-            console.log(res);
+            //console.log(res);
             res.session = session;
-            console.log(res);
+            //console.log(res);
             param.callback(res);
         })
         .error(function(res){

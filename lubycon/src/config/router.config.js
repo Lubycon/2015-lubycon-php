@@ -43,8 +43,8 @@ $(function(){
 
     // LOADING FOOTER.....
     footer.load("./component/view/index/footer.html",function(){
+        console.log("D3");
         d3.resolve();
-
         $.getMultiScripts(scripts)
         .done(function() {
              d4.resolve();
@@ -55,7 +55,4 @@ $(function(){
     });
 
     // LOADING SCRIPTS.....
-
-
-
 });

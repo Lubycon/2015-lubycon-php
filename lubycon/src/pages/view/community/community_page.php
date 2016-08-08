@@ -28,8 +28,8 @@
     <section class="nav_guide">
         <div class="nav-wrapper">
             <select class="preferFilter" data-param="filter">
+                <option selected="selected">Recent</option>
                 <option>Featured</option>
-                <option>Recent</option>
                 <option>Most Like</option>
                 <option>Most Download</option>
                 <option>Most Comment</option>
