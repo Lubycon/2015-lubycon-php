@@ -46,6 +46,9 @@ $query =
 $db->query = $query;
 $db->askQuery(); //insert contents data
 
+//echo $uploader->cc_license;
+//echo $db->database->error;
+
 $query = "SELECT `boardCode` FROM `lubyconboard`.`$uploader->top_category` WHERE `userCode` = '$Loginuser_code' ORDER BY `boardCode` DESC limit 0,1";
 $db->query = $query;
 $db->askQuery(); //insert contents data

@@ -38,7 +38,7 @@
                     <p class="infoCard-title">Creative Commons License</p>
                     <div class="infoCard-cc infoCard-content">
                         <p class="cc-descipt">If you want learn about this license, click below icons</p>
-                        <ul class="cc-list" data-value="<?=$cc_code?>">
+                        <ul class="cc-list" data-value="">
                             <a href="#" id="cc-link" target="_brank">
                                 <!--CC ICONS-->
                             </a>
