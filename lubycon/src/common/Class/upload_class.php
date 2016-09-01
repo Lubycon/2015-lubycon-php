@@ -105,17 +105,17 @@ class upload
             $this->cc_code = ((int)$this->post_setting->cc->by.(int)$this->post_setting->cc->nc.(int)$this->post_setting->cc->nd.(int)$this->post_setting->cc->sa);
             if( !isset($this->post_setting->cc->ccused) ) // cc licence 
             {
-                $this->cc_license = 'No-Distribution';
+                $this->cc_license = '2';
                 $this->cc_code = '0';
             }else if($this->post_setting->cc->nd || $this->post_setting->cc->sa) // cc licence 
             {
-                $this->cc_license = 'No-Distribution';
+                $this->cc_license = '2';
             }else if($this->post_setting->cc->nc)
             {
-                $this->cc_license = 'No-Commercial';
+                $this->cc_license = '1';
             }else if($this->post_setting->cc->by)
             {
-                $this->cc_license = 'Free';
+                $this->cc_license = '0';
             }
             foreach($this->mid_category as $key => $value) // for mid category query
             {

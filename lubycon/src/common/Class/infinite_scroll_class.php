@@ -248,8 +248,8 @@ class infinite_scroll extends json_control
 
         switch($this->sort)
         {
-            case 0 : $this->order_query = " ORDER BY a.`viewCount` DESC "; break;
-            case 1 : $this->order_query = " ORDER BY a.`boardCode` DESC "; break;
+            case 0 : $this->order_query = " ORDER BY a.`boardCode` DESC "; break;
+            case 1 : $this->order_query = " ORDER BY a.`viewCount` DESC "; break;
             case 2 : $this->order_query = " ORDER BY a.`likeCount` DESC "; break;
             case 3 : $this->order_query = " ORDER BY a.`downloadCount` DESC "; break;
             case 4 : $this->order_query = " ORDER BY a.`commentCount` DESC "; break;

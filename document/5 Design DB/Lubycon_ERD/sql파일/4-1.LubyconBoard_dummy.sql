@@ -788,7 +788,9 @@ INSERT INTO `threed` (`boardCode`, `userCode`, `topCategoryCode`, `contentTitle`
 (54, 61, 3, 'fringilla cursus purus. Nullam scelerisque', '2016-05-03 08:58:21', 'in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget', '3d contents', '../../../../lubycon_Contents/contents/threed/Stuart_Simpson20160414050808', 1110, 2, 0, 0, 0, 0, 0, 0, 'normal'),
 (55, 93, 3, 'urna. Vivamus molestie dapibus ligula.', '2015-02-21 08:38:30', 'metus. Vivamus euismod urna. Nullam lobortis quam a felis ullamcorper viverra. Maecenas iaculis aliquet', '3d contents', '../../../../lubycon_Contents/contents/threed/Suzanne_Judge20160414050808', 1110, 2, 0, 0, 0, 0, 0, 0, 'normal'),
 (56, 121, 3, 'ac arcu. Nunc mauris. Morbi', '2014-09-28 07:25:22', 'tincidunt, neque vitae semper egestas, urna justo faucibus lectus, a sollicitudin orci', '3d contents', '../../../../lubycon_Contents/contents/threed/Syed_Uddin20160414050808', 1101, 2, 0, 0, 0, 0, 0, 0, 'normal'),
-(57, 37, 3, 'Duis ac arcu. Nunc mauris.', '2014-11-06 20:46:21', 'amet metus. Aliquam erat volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla.', '3d contents', '../../../../lubycon_Contents/contents/threed/Terence_Bingham20160414050808', 0, 0, 0, 0, 0, 0, 0, 0, 'normal');
+(57, 37, 3, 'Duis ac arcu. Nunc mauris.', '2014-11-06 20:46:21', 'amet metus. Aliquam erat volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla.', '3d contents', '../../../../lubycon_Contents/contents/threed/Terence_Bingham20160414050808', 0, 0, 0, 0, 0, 0, 0, 0, 'normal'),
+(58, 0, 3, 'Rifle', '2016-08-12 21:44:22', '', '', '../../../../../../Lubycon_Contents/contents/threed/20160812214422_0/', 0, 0, 0, 0, 0, 0, 0, 0, 'normal'),
+(59, 0, 3, 'Lee Perry Smith', '2016-08-12 21:55:05', '', '', '../../../../../../Lubycon_Contents/contents/threed/20160812215505_0/', 0, 0, 0, 0, 0, 0, 0, 0, 'normal');
 
 INSERT INTO `threedmidcategory` (`boardCode`, `midCategoryCode0`, `midCategoryCode1`, `midCategoryCode2`, `midCategoryCode3`, `midCategoryCode4`) VALUES
 (0, 4, NULL, NULL, NULL, NULL),
