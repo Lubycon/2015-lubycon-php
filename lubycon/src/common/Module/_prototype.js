@@ -289,7 +289,7 @@ $.cachedScript = function(url, options){
 
 $.getMultiScripts = function(arr) {
     var _arr = $.map(arr, function(scr) {
-        return $.cachedScript( scr );
+        return $.getScript( scr );
     });
 
     _arr.push($.Deferred(function( deferred ){

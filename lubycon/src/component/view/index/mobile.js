@@ -1,10 +1,12 @@
-$(window).on("load resize",function(event){
+
+$(function(event){
+    console.log("MOBILE JS");
     if(isMobile()){
-        initMobileMenu.call($("#mb-menu-panel"));
+        initMobileMenu.call($(document).find("#mb-menu-panel"));
         initMobileSearchBox.call($("#mb-search"));
         if(event.type === "load" ) initMobileIndexTab.call($("#mb-main-tab"));
     }
-    
+
     function initMobileMenu(){
         var $menu = $(this),
             $body = $("body"),
@@ -12,6 +14,7 @@ $(window).on("load resize",function(event){
             $menuBt = $(document).find("#mb-menu"),
             $cancelLayer = $(document).find("#cancel_layer");
         var distance = $("#mb-menu-panel").outerWidth();
+        console.log($(this));
 
         $cancelLayer.css({
             "width": window.screen.width.toString(),
@@ -30,6 +33,7 @@ $(window).on("load resize",function(event){
         function showMobileMenu(event){
             eventHandler(event,$(this));
             if(!TOUCHMOVING){
+                console.log("CLICKED");
                 $cancelLayer.show();
                 $wrapper.css("left",distance + "px");
                 $menu.css("left", 0);
@@ -38,6 +42,7 @@ $(window).on("load resize",function(event){
                     "height" : window.screen.height.toString(),
                     "overflow" : "hidden"
                 });
+                console.log($menu);
             }
             else return false;
         }
@@ -116,6 +121,3 @@ $(window).on("load resize",function(event){
         }
     }
 });
-
-
-

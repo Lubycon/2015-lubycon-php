@@ -59,6 +59,7 @@
     <div id="cancel_layer"></div><!--for mobile, It's transparent-->
     <div class="alertKey hidden"></div>
     <header id="main-header"></header>
+    <aside id="mobile-menu"></aside>
     <div id="app-wrapper" class="app-wrapper"></div>
     <footer id="footer" class="footer"></footer>
 </div>

@@ -3,9 +3,11 @@ $(function(){
     var d1 = new $.Deferred(),
         d2 = new $.Deferred(),
         d3 = new $.Deferred(),
-        d4 = new $.Deferred();
+        d4 = new $.Deferred(),
+        d5 = new $.Deferred();
 
     var header = $("#main-header");
+    var mobileMenu = $("#mobile-menu");
     var wrapper = $("#app-wrapper");
     var footer = $("#footer");
     var scripts = [
@@ -14,7 +16,7 @@ $(function(){
         '../plugin/JS/sticky.js'
     ];
 
-    $.when(d1, d2, d3, d4).then(function(){
+    $.when(d1, d2, d3, d4, d5).then(function(){
         console.log("UI LOADED");
         $("body").show();
     },function(){
@@ -25,6 +27,11 @@ $(function(){
     header.load("./component/view/index/header.html",function(){
         d1.resolve();
     });
+
+    // LOADING MOBILE MENU.....
+    mobileMenu.load("./component/view/mobile/menu.html",function(){
+        d5.resolve();
+    })
 
     // LOADING BODY.....
     if(href) {
@@ -46,7 +53,8 @@ $(function(){
         console.log("D3");
         d3.resolve();
         $.getMultiScripts(scripts)
-        .done(function() {
+        .done(function(res) {
+            console.log("SCRIPTS ARE SUCCESSFULLY LOADED",res);
              d4.resolve();
         })
         .fail(function(error) {
