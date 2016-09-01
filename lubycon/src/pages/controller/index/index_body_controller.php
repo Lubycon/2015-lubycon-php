@@ -35,7 +35,7 @@
 
 	while($contents_row = mysqli_fetch_assoc($contents_result)){
 		array_push(
-			$contents_data[$contents_row['topCategoryCode']], 
+			$contents_data[$contents_row['topCategoryCode']-1], 
 			array( 
 				'name' => $contents_row['contentTitle'],
 				'creator' => $contents_row['nick'],
@@ -61,6 +61,7 @@
 			)
 		);
     }
+    /*
     while($bestCreator_row = mysqli_fetch_assoc($bestCreator_result)){
 		$bestCreator_data = array(
 			'userData' => array(
@@ -77,6 +78,7 @@
 			)
 		);
     }
+    */
 $total_array = array(
     'status' => array(
       'code' => '0000',
@@ -84,7 +86,7 @@ $total_array = array(
       ),
     'result' => (object)array(
     	'contentData' => $contents_data,
-    	'bestCreator' => $bestCreator_data,
+    	//'bestCreator' => $bestCreator_data,
     	'forumData' => $forum_data
     )
 );
