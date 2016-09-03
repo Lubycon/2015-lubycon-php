@@ -1,8 +1,5 @@
 
 <section class="mb-wrapper-main visible-mb">    
-    <section class="mb-section">
-        <!--CONTENTS-->
-    </section>
     <div id="mb-main-tab">
         <div class="mb-main-tab-wrapper">
             <div class="mb-main-tab-bt btn radioType selected" data-target="artwork">
@@ -16,4 +13,8 @@
             </div>
         </div>
     </div>
+     <section class="mb-section">
+        
+    </section>
 </section>
+<script src="./pages/controller/index/index_body_renderer.js"></script>

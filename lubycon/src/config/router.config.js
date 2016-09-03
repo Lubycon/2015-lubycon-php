@@ -42,10 +42,17 @@ $(function(){
         });
     }
     else {
-        wrapper.load("./pages/view/index/index_body.php",function(){
-            console.log("D2");
-            d2.resolve();
-        });
+        if(isMobile()){
+            wrapper.load('./pages/view/index/index_body.mobile.php',function(){
+                d2.resolve();
+            })
+        }
+        else {
+            wrapper.load("./pages/view/index/index_body.php",function(){
+                console.log("D2");
+                d2.resolve();
+            });
+        }  
     }
 
     // LOADING FOOTER.....

@@ -19,6 +19,7 @@
     #wrapper {
         position: absolute;
         width: 100%;
+        padding-top: 45px;
     }
     .container {
         top: 5px;
@@ -70,8 +71,8 @@
         }
 /*---------------------------------MOBILE WRAP WORK START-----------------------*/
 .mb-wrapper-main {
-    width: 100%;
-    margin: 50px 0px;
+    width: 100%;;
+    margin-bottom: 86px;
     position: relative;
 }
     .mb-wrapper-main .mb-section {
@@ -139,7 +140,8 @@
                     }
     #mb-main-tab {
         position: fixed;
-        bottom: 0;
+        z-index:11;
+        bottom: 35px;
         width: 100%;
         height: 60px;
         background: #ffffff;
@@ -329,9 +331,6 @@
                 display: inline-block;
                 top: 15px;
             }
-    .nav_guide {
-        margin-top: 45px;
-    }
         .nav-wrapper {
             text-align: center;
         }
@@ -638,6 +637,9 @@
     }
         .post_subject_name{
             display: block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
     #post_info{
