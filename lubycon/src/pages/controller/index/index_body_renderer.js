@@ -13,8 +13,10 @@ $(document).ready(function(){
         var data = response.result;
         console.log("INDEX BODY",data);
 
-        if(isMobile()) initMainCard(data.contentData);
-        else {
+        if(isMobile()){
+            initMainCard(data.contentData);
+            categoryRadioAction();
+        } else {
             initMainSlider(data.contentData);
             mainSliderRadioAction();
         }
@@ -134,6 +136,40 @@ $(document).ready(function(){
 
                 $sliders.hide();
                 $target.stop().show();
+            }
+        }
+
+        function categoryRadioAction()
+        {
+            var button = $('.mb-main-tab-bt');
+
+            button.on("click touchend",toggle.group).on("click", pageChecker);
+
+            function pageChecker(){
+
+                var $this = $(this),
+                $currentPage = $('.mb-main-img-wrapper:visible'),
+                data = $this.data('target');
+
+                if( data == $currentPage.data('value') ){
+                    goPageTop(500);
+                }else{
+                    console.log(data);
+                    pageSwitcher($this);
+                }
+            }
+            function goPageTop(speed){
+                $("html, body").animate({scrollTop:0},speed);
+            };
+            function pageSwitcher($this)
+            {
+                goPageTop(0);
+                var $page = $('.mb-main-img-wrapper'),
+                data = $this.data('target'),
+                $target = $('.mb-main-img-wrapper[data-value='+data+']');
+
+                $page.hide();
+                $target.fadeIn();
             }
         }
     }

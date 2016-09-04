@@ -53,11 +53,11 @@ CreatorCard.prototype.render = function(){
 					"html" : "<i class='fa fa-map-marker'></i>" + this.city+ ", " + this.country
 				})
 				.appendTo(infoWrap),
-				counter = $("<article/>", {
+				/*counter = $("<article/>", {
 					"class" : "contents-count hidden-mb-b",
 					"html" : "<p class='contents-num'>" + this.contentsLength.setUnit(1) + "</p> Contents"
 				})
-				.appendTo(infoWrap),
+				.appendTo(infoWrap),*/
 
 		// MEDAL SYSTEM IS TESTING
 		medaler = $("<div/>",{ "class" : "creator-card-medal" }),
@@ -104,7 +104,7 @@ CreatorCard.prototype.render = function(){
 			}
 		];
 
-		CardMenu.call(body,menuParams,"");
+		//CardMenu.call(body,menuParams,"");
 
 	body.append(picWrap);
 	body.append(infoWrap);
